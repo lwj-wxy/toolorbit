@@ -163,14 +163,6 @@ export const TOOLS: ToolItem[] = [
     path: '/tools/svg-to-png',
   },
   {
-    id: 'png-to-svg',
-    name: 'PNG 转 SVG',
-    description: '将 PNG 位图做成本地色块向量化 SVG，适合图标与 Logo 快速描摹。',
-    icon: 'Image',
-    categoryId: 'image',
-    path: '/tools/png-to-svg',
-  },
-  {
     id: 'timestamp-converter',
     name: '时间戳转换',
     description: 'Unix 时间戳与标准北京时间相互转换计算。',

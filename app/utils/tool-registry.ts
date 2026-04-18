@@ -21,7 +21,6 @@ const TOOL_COMPONENT_LOADERS: Record<string, () => Promise<{ default: Component 
   'image-to-base64': () => import('~/components/tools/image/ImageToBase64Tool.vue'),
   'image-cropper': () => import('~/components/tools/image/ImageCropperTool.vue'),
   'svg-to-png': () => import('~/components/tools/image/SvgToPngTool.vue'),
-  'png-to-svg': () => import('~/components/tools/image/PngToSvgTool.vue'),
   'timestamp-converter': () => import('~/components/tools/compute/TimestampConverterTool.vue'),
 }
 
