@@ -23,6 +23,7 @@ import ImageToBase64 from './pages/tools/ImageToBase64';
 import PdfToImage from './pages/tools/PdfToImage';
 import ImageToPdf from './pages/tools/ImageToPdf';
 import OfficeToPdf from './pages/tools/OfficeToPdf';
+import ImageCropper from './pages/tools/ImageCropper';
 
 export default function App() {
   return (
@@ -43,6 +44,7 @@ export default function App() {
           <Route path="/tools/image-compressor" element={<ImageCompressor />} />
           <Route path="/tools/image-converter" element={<ImageConverter />} />
           <Route path="/tools/image-to-base64" element={<ImageToBase64 />} />
+          <Route path="/tools/image-cropper" element={<ImageCropper />} />
           
           <Route path="/tools/pdf-to-image" element={<PdfToImage />} />
           <Route path="/tools/image-to-pdf" element={<ImageToPdf />} />

@@ -16,7 +16,8 @@ import {
   ImageMinus,
   RefreshCcw,
   FileCode2,
-  FileBadge2
+  FileBadge2,
+  Crop as CropIcon
 } from 'lucide-react';
 
 export type Category = '开发者工具' | '站长工具' | '文本排版' | '生成器' | '电商工具' | 'PDF工具' | '图片处理' | '计算转换';
@@ -144,22 +145,6 @@ export const TOOLS: ToolItem[] = [
     path: '/tools/image-compressor',
   },
   {
-    id: 'svg-to-png',
-    name: 'SVG 转 PNG',
-    description: '上传 SVG 或粘贴代码，在本地浏览器中快速导出高清 PNG 图片。',
-    icon: FileImage,
-    category: '图片处理',
-    path: '/tools/svg-to-png',
-  },
-  {
-    id: 'png-to-svg',
-    name: 'PNG 转 SVG',
-    description: '将 PNG 位图做成本地色块向量化 SVG，适合图标与 Logo 快速描摹。',
-    icon: ImageIcon,
-    category: '图片处理',
-    path: '/tools/png-to-svg',
-  },
-  {
     id: 'timestamp-converter',
     name: '时间戳转换',
     description: 'Unix 时间戳与标准北京时间相互转换计算。',
@@ -182,6 +167,14 @@ export const TOOLS: ToolItem[] = [
     icon: FileCode2,
     category: '图片处理',
     path: '/tools/image-to-base64',
+  },
+  {
+    id: 'image-cropper',
+    name: '图片裁剪选区',
+    description: '通过可视化选区自由裁剪您的图片，并精准提取缩略图。',
+    icon: CropIcon,
+    category: '图片处理',
+    path: '/tools/image-cropper',
   },
   {
     id: 'office-to-pdf',
