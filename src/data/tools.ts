@@ -14,7 +14,9 @@ import {
   Image as ImageIcon,
   Calculator,
   ImageMinus,
-  RefreshCcw
+  RefreshCcw,
+  FileCode2,
+  FileBadge2
 } from 'lucide-react';
 
 export type Category = '开发者工具' | '站长工具' | '文本排版' | '生成器' | '电商工具' | 'PDF工具' | '图片处理' | '计算转换';
@@ -172,5 +174,21 @@ export const TOOLS: ToolItem[] = [
     icon: RefreshCcw,
     category: '图片处理',
     path: '/tools/image-converter',
+  },
+  {
+    id: 'image-to-base64',
+    name: '图片转 Base64',
+    description: '将本地图片转换为 Base64 编码，可直接用于 HTML/CSS 减少 HTTP 请求。',
+    icon: FileCode2,
+    category: '图片处理',
+    path: '/tools/image-to-base64',
+  },
+  {
+    id: 'office-to-pdf',
+    name: '文档转 PDF',
+    description: '将 Word, PPT, Excel 转为高保真的 PDF 文档。',
+    icon: FileBadge2,
+    category: 'PDF工具',
+    path: '/tools/office-to-pdf',
   }
 ];

@@ -106,9 +106,10 @@ export default function Base64() {
               {mode === 'encode' ? '文本输入' : 'Base64 输入'}
             </label>
             <textarea
+              spellCheck={false}
               value={input}
               onChange={(e) => processText(e.target.value, mode)}
-              className="block w-full rounded-lg border-0 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 font-mono resize-none bg-white min-h-[200px]"
+              className="block w-full rounded-lg border-0 py-3 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6 font-mono resize-none bg-white min-h-[200px] break-all custom-scrollbar"
               placeholder={mode === 'encode' ? '输入要编码的文本...' : '提取 Base64 字符串来解码...'}
             />
           </div>
@@ -130,9 +131,10 @@ export default function Base64() {
             
             <div className="relative">
               <textarea
+                spellCheck={false}
                 readOnly
                 value={error ? '' : output}
-                className={`block w-full rounded-lg border-0 py-3 text-gray-900 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 font-mono resize-none bg-gray-50 min-h-[200px] ${
+                className={`block w-full rounded-lg border-0 py-3 px-4 text-gray-900 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6 font-mono resize-none bg-gray-50 min-h-[200px] break-all custom-scrollbar ${
                   error ? 'ring-red-300' : 'ring-gray-300'
                 }`}
                 placeholder="Result will appear here..."
