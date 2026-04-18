@@ -1,6 +1,7 @@
 import { 
   Code2, 
   Hash, 
+  Fingerprint,
   Link, 
   Type, 
   QrCode, 
@@ -62,6 +63,14 @@ export const TOOLS: ToolItem[] = [
     icon: Hash,
     category: '开发者工具',
     path: '/tools/hash-generator',
+  },
+  {
+    id: 'uuid-generator',
+    name: 'UUID 在线生成',
+    description: '快速批量生成 RFC 4122 风格 UUID，支持去除横线并一键复制结果。',
+    icon: Fingerprint,
+    category: '开发者工具',
+    path: '/tools/uuid-generator',
   },
   {
     id: 'text-analyzer',

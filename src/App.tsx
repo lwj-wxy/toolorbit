@@ -10,6 +10,7 @@ import JsonFormatter from './pages/tools/JsonFormatter';
 import Base64 from './pages/tools/Base64';
 import UrlEncoder from './pages/tools/UrlEncoder';
 import HashGenerator from './pages/tools/HashGenerator';
+import UuidGenerator from './pages/tools/UuidGenerator';
 import TextAnalyzer from './pages/tools/TextAnalyzer';
 import QrGenerator from './pages/tools/QrGenerator';
 import EtsyFeeCalculator from './pages/tools/EtsyFee';
@@ -36,6 +37,7 @@ export default function App() {
           <Route path="/tools/base64" element={<Base64 />} />
           <Route path="/tools/url-encoder" element={<UrlEncoder />} />
           <Route path="/tools/hash-generator" element={<HashGenerator />} />
+          <Route path="/tools/uuid-generator" element={<UuidGenerator />} />
           <Route path="/tools/text-analyzer" element={<TextAnalyzer />} />
           <Route path="/tools/qr-generator" element={<QrGenerator />} />
           <Route path="/tools/etsy-fee-calculator" element={<EtsyFeeCalculator />} />
