@@ -2,6 +2,9 @@ node_modules/
 build/
 dist/
 coverage/
+.nuxt/
+.output/
+.nitro/
 .DS_Store
 *.log
 .env*
