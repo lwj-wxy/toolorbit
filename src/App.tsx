@@ -19,6 +19,8 @@ import PlaceholderTool from './pages/tools/PlaceholderTool';
 import TimestampConverter from './pages/tools/TimestampConverter';
 import ImageCompressor from './pages/tools/ImageCompressor';
 import ImageConverter from './pages/tools/ImageConverter';
+import SvgToPng from './pages/tools/SvgToPng';
+import PngToSvg from './pages/tools/PngToSvg';
 
 export default function App() {
   return (
@@ -38,6 +40,8 @@ export default function App() {
           <Route path="/tools/timestamp-converter" element={<TimestampConverter />} />
           <Route path="/tools/image-compressor" element={<ImageCompressor />} />
           <Route path="/tools/image-converter" element={<ImageConverter />} />
+          <Route path="/tools/svg-to-png" element={<SvgToPng />} />
+          <Route path="/tools/png-to-svg" element={<PngToSvg />} />
           
           {/* Newly Added Tools (Placeholders) */}
           <Route path="/tools/pdf-merge" element={<PlaceholderTool title="PDF合并工具" />} />
