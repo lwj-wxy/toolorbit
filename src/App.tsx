@@ -23,6 +23,8 @@ import ImageToBase64 from './pages/tools/ImageToBase64';
 import PdfToImage from './pages/tools/PdfToImage';
 import ImageToPdf from './pages/tools/ImageToPdf';
 import OfficeToPdf from './pages/tools/OfficeToPdf';
+import SvgToPng from './pages/tools/SvgToPng';
+import PngToSvg from './pages/tools/PngToSvg';
 
 export default function App() {
   return (
@@ -43,6 +45,8 @@ export default function App() {
           <Route path="/tools/image-compressor" element={<ImageCompressor />} />
           <Route path="/tools/image-converter" element={<ImageConverter />} />
           <Route path="/tools/image-to-base64" element={<ImageToBase64 />} />
+          <Route path="/tools/svg-to-png" element={<SvgToPng />} />
+          <Route path="/tools/png-to-svg" element={<PngToSvg />} />
           
           <Route path="/tools/pdf-to-image" element={<PdfToImage />} />
           <Route path="/tools/image-to-pdf" element={<ImageToPdf />} />
