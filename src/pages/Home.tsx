@@ -9,6 +9,9 @@ const getCategoryStyles = (category: Category) => {
     case '文本排版': return { bg: 'bg-[#eff6ff]', icon: 'text-[#3b82f6]', tagBg: 'bg-[#dbeafe]', tagText: 'text-[#1e40af]', tag: 'TXT' };
     case '生成器': return { bg: 'bg-[#fff7ed]', icon: 'text-[#f97316]', tagBg: 'bg-[#fef9c3]', tagText: 'text-[#854d0e]', tag: 'GEN' };
     case '电商工具': return { bg: 'bg-[#f0fdf4]', icon: 'text-[#22c55e]', tagBg: 'bg-[#f1f5f9]', tagText: 'text-[#475569]', tag: 'ECOMMERCE' };
+    case 'PDF工具': return { bg: 'bg-[#fef2f2]', icon: 'text-[#ef4444]', tagBg: 'bg-[#fee2e2]', tagText: 'text-[#b91c1c]', tag: 'PDF' };
+    case '图片处理': return { bg: 'bg-[#ecfeff]', icon: 'text-[#0891b2]', tagBg: 'bg-[#cffafe]', tagText: 'text-[#155e75]', tag: 'IMAGE' };
+    case '计算转换': return { bg: 'bg-[#f5f3ff]', icon: 'text-[#7c3aed]', tagBg: 'bg-[#ede9fe]', tagText: 'text-[#5b21b6]', tag: 'CALC' };
     default: return { bg: 'bg-[#f0fdf4]', icon: 'text-[#22c55e]', tagBg: 'bg-[#f1f5f9]', tagText: 'text-[#475569]', tag: 'OTHER' };
   }
 };

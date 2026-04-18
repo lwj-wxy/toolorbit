@@ -144,6 +144,22 @@ export const TOOLS: ToolItem[] = [
     path: '/tools/image-compressor',
   },
   {
+    id: 'svg-to-png',
+    name: 'SVG 转 PNG',
+    description: '上传 SVG 或粘贴代码，在本地浏览器中快速导出高清 PNG 图片。',
+    icon: FileImage,
+    category: '图片处理',
+    path: '/tools/svg-to-png',
+  },
+  {
+    id: 'png-to-svg',
+    name: 'PNG 转 SVG',
+    description: '将 PNG 位图做成本地色块向量化 SVG，适合图标与 Logo 快速描摹。',
+    icon: ImageIcon,
+    category: '图片处理',
+    path: '/tools/png-to-svg',
+  },
+  {
     id: 'timestamp-converter',
     name: '时间戳转换',
     description: 'Unix 时间戳与标准北京时间相互转换计算。',
