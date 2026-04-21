@@ -7,6 +7,7 @@ export type ToolCategoryId =
   | 'pdf'
   | 'image'
   | 'compute'
+  | 'personality'
 
 export interface ToolCategory {
   id: ToolCategoryId
@@ -31,6 +32,7 @@ export const TOOL_CATEGORIES: ToolCategory[] = [
   { id: 'pdf', name: 'PDF 工具' },
   { id: 'image', name: '图片处理' },
   { id: 'compute', name: '计算转换' },
+  { id: 'personality', name: '性格测试' },
 ]
 
 export const TOOLS: ToolItem[] = [
@@ -233,6 +235,30 @@ export const TOOLS: ToolItem[] = [
     icon: 'Calculator',
     categoryId: 'compute',
     path: '/tools/base-converter',
+  },
+  {
+    id: 'mbti-style-test',
+    name: 'MBTI 风格测试',
+    description: '非官方 MBTI 风格四维人格测试。',
+    icon: 'Brain',
+    categoryId: 'personality',
+    path: '/tools/mbti-style-test',
+  },
+  {
+    id: 'anime-persona-test',
+    name: '二次元人格测试',
+    description: '娱乐向人格测试，适合分享。',
+    icon: 'Brain',
+    categoryId: 'personality',
+    path: '/tools/anime-persona-test',
+  },
+  {
+    id: 'big-five-test',
+    name: '大五人格测试',
+    description: 'OCEAN 五维度人格测评（轻量版）。',
+    icon: 'Brain',
+    categoryId: 'personality',
+    path: '/tools/big-five-test',
   },
 ]
 

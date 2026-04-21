@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import 'cropperjs/dist/cropper.css'
 import Cropper from 'cropperjs'
 import { CheckCircle2, Columns, Crop as CropIcon, Download, Image as ImageIcon, Maximize, MousePointer2, Settings2, Trash2, Upload } from 'lucide-vue-next'
 

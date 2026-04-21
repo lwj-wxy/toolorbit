@@ -40,6 +40,8 @@ function getCategoryStyles(categoryId: ToolCategoryId) {
       return { bg: 'bg-[#fff7ed]', icon: 'text-[#f97316]', tagBg: 'bg-[#fef9c3]', tagText: 'text-[#854d0e]', tag: 'GEN' }
     case 'commerce':
       return { bg: 'bg-[#f0fdf4]', icon: 'text-[#22c55e]', tagBg: 'bg-[#f1f5f9]', tagText: 'text-[#475569]', tag: 'ECOMMERCE' }
+    case 'personality':
+      return { bg: 'bg-[#fdf4ff]', icon: 'text-[#c026d3]', tagBg: 'bg-[#fae8ff]', tagText: 'text-[#86198f]', tag: 'PSY' }
     default:
       return { bg: 'bg-[#f0fdf4]', icon: 'text-[#22c55e]', tagBg: 'bg-[#f1f5f9]', tagText: 'text-[#475569]', tag: 'OTHER' }
   }

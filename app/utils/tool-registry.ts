@@ -26,6 +26,9 @@ const TOOL_COMPONENT_LOADERS: Record<string, () => Promise<{ default: Component 
   'svg-to-png': () => import('~/components/tools/image/SvgToPngTool.vue'),
   'timestamp-converter': () => import('~/components/tools/compute/TimestampConverterTool.vue'),
   'base-converter': () => import('~/components/tools/compute/BaseConverterTool.vue'),
+  'mbti-style-test': () => import('~/components/tools/personality/MbtiStyleTestTool.vue'),
+  'anime-persona-test': () => import('~/components/tools/personality/AnimePersonaTestTool.vue'),
+  'big-five-test': () => import('~/components/tools/personality/BigFiveTestTool.vue'),
 }
 
 export async function loadToolComponent(slug: string) {

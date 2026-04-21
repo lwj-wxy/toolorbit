@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {
   Binary,
+  Brain,
   Calculator,
   Code2,
   CreditCard,
@@ -36,6 +37,7 @@ const props = withDefaults(
 
 const iconMap = {
   Binary,
+  Brain,
   Calculator,
   Code2,
   CreditCard,
