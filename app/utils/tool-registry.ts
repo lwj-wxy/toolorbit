@@ -7,7 +7,11 @@ const TOOL_COMPONENT_LOADERS: Record<string, () => Promise<{ default: Component 
   'uuid-generator': () => import('~/components/tools/developer/UuidGeneratorTool.vue'),
   'url-encoder': () => import('~/components/tools/webmaster/UrlEncoderTool.vue'),
   'text-analyzer': () => import('~/components/tools/text/TextAnalyzerTool.vue'),
+  'text-cleaner': () => import('~/components/tools/text/TextCleanerTool.vue'),
   'qr-generator': () => import('~/components/tools/generator/QrGeneratorTool.vue'),
+  'qr-decoder': () => import('~/components/tools/generator/QrDecoderTool.vue'),
+  'barcode-generator': () => import('~/components/tools/generator/BarcodeGeneratorTool.vue'),
+  'unicode-converter': () => import('~/components/tools/developer/UnicodeConverterTool.vue'),
   'etsy-fee-calculator': () => import('~/components/tools/commerce/EtsyFeeTool.vue'),
   'stripe-fee-calculator': () => import('~/components/tools/commerce/StripeFeeTool.vue'),
   'listing-craft-ai': () => import('~/components/tools/commerce/ListingCraftTool.vue'),
@@ -15,13 +19,13 @@ const TOOL_COMPONENT_LOADERS: Record<string, () => Promise<{ default: Component 
   'pdf-split': () => import('~/components/tools/pdf/PdfSplitTool.vue'),
   'pdf-to-image': () => import('~/components/tools/pdf/PdfToImageTool.vue'),
   'image-to-pdf': () => import('~/components/tools/pdf/ImageToPdfTool.vue'),
-  'office-to-pdf': () => import('~/components/tools/pdf/OfficeToPdfTool.vue'),
   'image-compressor': () => import('~/components/tools/image/ImageCompressorTool.vue'),
   'image-converter': () => import('~/components/tools/image/ImageConverterTool.vue'),
   'image-to-base64': () => import('~/components/tools/image/ImageToBase64Tool.vue'),
   'image-cropper': () => import('~/components/tools/image/ImageCropperTool.vue'),
   'svg-to-png': () => import('~/components/tools/image/SvgToPngTool.vue'),
   'timestamp-converter': () => import('~/components/tools/compute/TimestampConverterTool.vue'),
+  'base-converter': () => import('~/components/tools/compute/BaseConverterTool.vue'),
 }
 
 export async function loadToolComponent(slug: string) {
