@@ -1,20 +1,69 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# 🛠️ All-in-One 在线工具箱 (Web ToolBox)
 
-# Run and deploy your AI Studio app
+本项目是一个基于 React + TypeScript + Vite 构建的纯前端现代化在线工具箱。它集合了开发者必备组件、文本排版、电商计算、媒体处理（PDF/图片）和数字单位换算等近 30 款高频实用工具。
 
-This contains everything you need to run your app locally.
+**💡 核心理念：**
+所有涉及敏感数据提取、转换与解析的过程（如 JSON 格式化、密钥 Hash 计算、图像私密处理、ZIP 压缩包解包提取等）均依靠前端浏览器的底层算力在**离线沙盒环境**中完成。您的数据绝不上传云端或经过外部服务器，最大程度保障隐私与数据资产安全。
 
-View your app in AI Studio: https://ai.studio/apps/7c9e1258-a238-43ee-8ac5-42f459a1bb54
+---
 
-## Run Locally
+## 🧰 内置工具集大纲
 
-**Prerequisites:**  Node.js
+### 👨‍💻 开发者工具 (Developer Tools)
+- **JSON 格式化**: 支持 2/4 空格缩进切换，具备严格的语法异常防呆红字报错，适用于 API 抓包调试格式化。
+- **Base64 编解码**: 支持极广的字符包含处理（如 UTF-8 宽带中文字符和 Emoji 的互转），杜绝原生解析乱码。
+- **ASCII 编码表**: 0-127 位底层 ASCII 和不可见控制字符全量速查（横向关联二、八、十、十六进制与 HTML 实体转换）。
+- **URL 编解码**: 转义并防污染特殊字符网关传递链接，一键反钓鱼、去混淆解码还原重定向地址。
+- **哈希生成器**: 本地计算并生成包含 MD5, SHA-1/256/512 等全覆盖位数的不可逆混合加密特征码信息。
+- **UUID 在线生成**: 并发生成高达百余条严格符合 RFC 4122 v4 标准规则的随机主键，解决压测阶段参数短缺。
+- **Unicode 转换**: 解破生僻字与老旧 Java/C# 架构系统底层的 `\uXXXX` 字符双向互转与沟通阻碍。
+- **chmod 权限计算器**: 预置 755/777/644 可视化挡位并提供多选掩码配置，一键推导 Linux 的 RWX 八进制读写配置。
 
+### 📝 文本排版大观 (Text formatting)
+- **文本分析器**: 海量文字快速字数统计与多段落高频词组占比分析。
+- **字符串清洗**: 一键执行多余空行、特殊制表符以及繁杂标点符号的批量洗净格式化处理。
+- **特殊符号大全**: 货币、特殊 Emoji 情绪和数学理工方程式微小标号免打开系统输入法翻页，即达式点选复制。
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+### 📦 格式聚合与条码生成 (Generators)
+- **二维码处理阵列**: 支持全量颜色渲染的一键专属二维码成码功能。另外配有逆向拖拽离线破译器，剥离二维码背后藏匿的网络地址。
+- **条形码生成**: 提供工业仓储及物流所需的 CODE128, EAN, UPC 国际商代码光栅级生成与高精度 PNG 输出下载。
+- **在线存档转换器**: 使用 JSZip 提供纯前端加载剥离 ZIP 压缩包内容；一栏式剔除、查阅选排内部项目后，重新极速打包成新档案集。无需下载第三方广告解压端。
+
+### 🧮 计算与数字推演 (Calculators & Converters)
+- **时间与时区推演**: 全球跨大洲时区对照转换（自动补齐当地夏令时系数），直出 Unix 时钟层级毫秒秒表代码。
+- **单位转换器**: 全自动化浮点演算，横跨长度、重量、温度等常数物理指标，避免查阅公式手工计算。
+- **进制转换**: 提供从初级的二进制往复至三十六进制的高算力数集穿插切换。
+- **人民币大写金额**: 突破对公记账痛点，全解构智能推导并填补万位十位 0 元空档期，规范输出带有“整/正”角的会计大写串。
+- **屏幕 PPI 计算器**: 提供 iPhone 或是各类 PC 台式显示器的 Retina （视网膜级）防颗粒渲染清晰屏鉴定基准。
+
+### 🛒 跨境与独立站运作 (E-commerce)
+- **Etsy / Stripe 费率计算器**: 立体化核算海内外电商交易流的上架折旧、税种、处理抽成并最终预估单品纯利润空间与盈亏防线。
+- **Listing Craft AI**: 无缝结合大语言推流模型，自动生成高本土化受众率、并且契合长尾词搜索体系的带 SEO 骨架商品详情页内容。
+
+### 🖼️ PDF与图层介质渲染 (Media Processing)
+- **PDF 组件**: 支持高强度的文档流合并与截断拆分，亦支持将纸质源 PDF 高清提取为一页一档的静态图层集。
+- **图像矩阵**: 无损级别的多图片本地格式转码机，并内置了大体积压制瘦身和网页开发者常备的直接式 Base64 DOM 直挂代码解析器。
+
+---
+
+## 🚀 启动与构建
+本项目彻底摒弃强依赖的微服务后端，基于现代化的 NPM 包管理工具一键热更调起：
+
+```bash
+# 进入工程目录并装载配套包依赖
+npm install
+
+# 唤醒 VITE 实时热加载开发服务器
+npm run dev
+
+# 编译投递到公域分发网络 (CDN) 的压缩产物
+npm run build
+```
+
+## 🛡️ 技术栈概览
+- **核心框架**: [React 18](https://reactjs.org/) (Hooks & 纯函数式渲染)
+- **极速构建**: [Vite](https://vitejs.dev/)
+- **类型系统**: TypeScript 静态检查增强
+- **视觉底层**: [Tailwind CSS](https://tailwindcss.com/) (实用至上，拒绝臃肿层叠)
+- **图形徽章**: [Lucide React](https://lucide.dev/)
+- **特殊处理链**: JSZip, Day.js, JsBarcode等等
