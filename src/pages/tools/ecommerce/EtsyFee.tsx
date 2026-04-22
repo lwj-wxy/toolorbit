@@ -126,6 +126,36 @@ export default function EtsyFeeCalculator() {
           </dl>
         </div>
       </div>
+
+      {/* Bottom SEO Instructions Panel */}
+      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-8 lg:p-12 mt-8">
+        <h2 className="text-xl font-bold text-slate-800 mb-6">在线 Etsy 利润计算器，精准预估跨境电商真实收益</h2>
+        
+        <p className="text-slate-600 mb-6 leading-relaxed">
+          作为一名在 Etsy 平台耕耘的跨境卖家，你是否常常对后台复杂的扣费账单感到头疼不已？Etsy 每次成单后都会扣除上架费、类目佣金甚至高昂的支付手续费。这款专为 Etsy 卖家打造的利润测算工具能够帮您理清复杂的账目明细，不再做“赔本赚吆喝”的亏本买卖。
+        </p>
+
+        <h3 className="font-bold text-slate-800 text-lg mb-4">掌握每一笔订单的隐形成本：</h3>
+        <ul className="space-y-4 text-slate-600">
+          <li className="flex gap-3">
+            <strong className="text-slate-800 shrink-0">1. 即时核算综合抽佣：</strong>
+            <span>只需输入您的商品标价、运费收入与产品出厂底价，系统便会自动依据平台标准（通常包含 $0.2 取消上架费、高额交易分成以及 3%+$0.25 的提现手续费规则）剥离出您的净利报表。</span>
+          </li>
+          <li className="flex gap-3">
+            <strong className="text-slate-800 shrink-0">2. 辅助产品定价策略修正：</strong>
+            <span>常常不知道包邮策略究竟亏了多少钱？用此计算器可以进行虚拟沙盘推演，借此判断究竟是降低产品裸价拉高运费单收划算，还是标高单价执行全球免邮更能带来净收益的提升。</span>
+          </li>
+          <li className="flex gap-3">
+            <strong className="text-slate-800 shrink-0">3. 无痕测算不留底单：</strong>
+            <span>我们深刻理解商业数据的机密性。您的任何进货底价与售价设定均在当前页面的浏览器沙箱内运算完毕即抛弃，服务器没有任何截桩或录入动作，防止商业底牌流失。</span>
+          </li>
+        </ul>
+        
+        <p className="text-slate-500 text-sm mt-8 pt-6 border-t border-slate-100">
+          请注意：该面板计算结果基于北美地区标准卖家架构搭建。如果您开通了站外广告（Offsite Ads）功能，则可能需要在此基准上额外预留部分浮动预算进行规避。
+        </p>
+      </div>
+
     </div>
   );
 }

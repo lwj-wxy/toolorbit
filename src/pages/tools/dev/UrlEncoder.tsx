@@ -114,6 +114,36 @@ export default function UrlEncoder() {
           </div>
         </div>
       </div>
+      
+      {/* Bottom SEO Instructions Panel */}
+      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-8 lg:p-12 mt-8">
+        <h2 className="text-xl font-bold text-slate-800 mb-6">URL 编码与解码工具：解决网址参数传输中的特殊字符污染</h2>
+        
+        <p className="text-slate-600 mb-6 leading-relaxed">
+          当我们在浏览器地址栏或者向后端 API 传输包含中文字母、空格、斜杠、以及形如 `&`、`?` 等本身属于网络协定语法的一部分的数据时，往往会导致路由解析错误或数据丢失。利用原生安全的 URL Encode 转义便可彻底化解参数传递阻碍。
+        </p>
+
+        <h3 className="font-bold text-slate-800 text-lg mb-4">掌握转义组件的应用核心场景：</h3>
+        <ul className="space-y-4 text-slate-600">
+          <li className="flex gap-3">
+            <strong className="text-slate-800 shrink-0">1. URL 查询字符串安全封包：</strong>
+            <span>在您需要发送 <code>https://example.com/search?q=你好 世界</code> 时，利用 Encode 选项将其转换为 <code>%E4%BD%A0%E5%A5%BD%20%E4%B8%96%E7%95%8C</code>。这能保护包含空格、汉字的数据安稳跨越网关的防火墙。</span>
+          </li>
+          <li className="flex gap-3">
+            <strong className="text-slate-800 shrink-0">2. 重定向嵌套链接清洗（Decode）：</strong>
+            <span>许多追踪平台的推广链接里经常套着长长一串带百分号的火星文（例如微信、淘宝的唤起链接）。只要把它们往解码框里一贴，就能让原网址真相大白，这对于安全审计和反钓鱼追踪极其具有实用价值。</span>
+          </li>
+          <li className="flex gap-3">
+            <strong className="text-slate-800 shrink-0">3. 百分百客户端离线处理机制：</strong>
+            <span>和本域中大部分底层测试组件相同，此面板利用 JavaScript 原生的 <code>encodeURIComponent</code> 和解析引擎运转。所有的字符替换仅挂载在你的浏览器内存中发生，绝对避免敏感参数数据在公网流窜。</span>
+          </li>
+        </ul>
+        
+        <p className="text-slate-500 text-sm mt-8 pt-6 border-t border-slate-100">
+          进阶指南：目前这套工具采用了相较于全局编码更加严格与实用的 `encodeURIComponent` 标准。它能转义 `?` 等具有功能性的保留字符，非常适合用于 URL 后方的 Query 参数转码组装处理工作。
+        </p>
+      </div>
+
     </div>
   );
 }

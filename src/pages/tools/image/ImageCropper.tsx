@@ -348,15 +348,44 @@ export default function ImageCropper() {
 
           </div>
           
-          <div className="bg-green-50 border border-green-100 rounded-xl p-4 flex items-start gap-3">
-            <CheckCircle2 className="w-5 h-5 text-green-600 shrink-0 mt-0.5" />
-            <p className="text-sm text-green-800 leading-relaxed font-medium">
-              纯本地内存中裁剪输出：不会将任何图像数据通过网络传输给服务器，速度极快且杜绝隐私泄露。
-            </p>
-          </div>
-
         </div>
       </div>
+      
+      {/* Bottom SEO Instructions Panel */}
+      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-8 lg:p-12 mt-2">
+        <h2 className="text-xl font-bold text-slate-800 mb-6">在线图片编辑与裁剪，自由构图极简呈现</h2>
+        
+        <p className="text-slate-600 mb-6 leading-relaxed">
+          在线图片裁剪工具致力于为您提供丝滑灵活的视觉剪裁体验。无需笨重的修图软件，您可以在这块干净的画布上，通过拖拉选取框将证件照片、头像、横幅或活动海报切分出最完美的构图比例。
+        </p>
+
+        <div className="bg-rose-50 border border-rose-100/50 rounded-xl p-5 mb-8">
+          <p className="text-rose-700 text-sm font-bold leading-relaxed">
+            严格的数据避风港：您的原始相片与最终剪裁结果，全程驻留在您眼前的这块屏幕及设备浏览器内执行重绘，绝对没有任何侵犯隐私的窃取或后台云端保存动作，保护家庭合影及私密资料的安全。
+          </p>
+        </div>
+
+        <h3 className="font-bold text-slate-800 text-lg mb-4">掌握在线精细化裁图的三大核心：</h3>
+        <ul className="space-y-4 text-slate-600">
+          <li className="flex gap-3">
+            <strong className="text-slate-800 shrink-0">1. 操作简单直观无门槛：</strong>
+            <span>去掉了多余让人眼花缭乱的调色、美颜功能包袱，它极其纯粹地聚焦在“比例裁切”这件事上。极简交互使得即使是对电脑不太熟悉的边缘用户，也能顺着本能拖动框选顺利完成修改。</span>
+          </li>
+          <li className="flex gap-3">
+            <strong className="text-slate-800 shrink-0">2. 尺寸可感且自由度高：</strong>
+            <span>不论是需要切出一个完美的正方形来用作微信及各类社交媒体头像，还是需要裁剪一张符合黄金分割比 (16:9) 的大宽屏横幅用作自媒体博客头图，工具本身都能以指到眼到的顺滑度来配合。</span>
+          </li>
+          <li className="flex gap-3">
+            <strong className="text-slate-800 shrink-0">3. 极速导出高画质成品：</strong>
+            <span>底层选用的图片渲染逻辑能够在裁剪的过程里维持原始文件的质感。完成选定后，一次点击便能把局部图像干净利落地剥离出来并触发浏览器的高速本地下载，不用等待。</span>
+          </li>
+        </ul>
+        
+        <p className="text-slate-500 text-sm mt-8 pt-6 border-t border-slate-100">
+          所谓好用的生产力部件，就在于你需要时它能光速加载，用完时挥一挥衣袖不留垃圾数据。它始终是您处理视觉内容的得力辅助助手。
+        </p>
+      </div>
+
     </div>
   );
 }

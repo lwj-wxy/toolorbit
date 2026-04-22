@@ -103,6 +103,42 @@ export default function ListingCraft() {
           </div>
         </div>
       </div>
+
+      {/* Bottom SEO Instructions Panel */}
+      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-8 lg:p-12 mt-8">
+        <h2 className="text-xl font-bold text-slate-800 mb-6">Listing Craft 核心 AI 文案生成平台，赋能跨境出海电商</h2>
+        
+        <p className="text-slate-600 mb-6 leading-relaxed">
+          面对浩如烟海的海外零售市场，一条出彩并带有高 SEO 转化基因的商品 Listing 往往比投入重金铺设广告更具有长尾变现能力。这不仅要求极高的英语水平与本土语境应用逻辑，还需要对底层算法关键词进行铺排。为了解决中小商家及内容创作者“编词穷”的困顿，本大语言模型驱动应用因此被构建出台。
+        </p>
+
+        <div className="bg-rose-50 border border-rose-100/50 rounded-xl p-5 mb-8">
+          <p className="text-rose-700 text-sm font-bold leading-relaxed">
+            硬核技术驱动：该功能并不局限于固定模板的僵硬替换。我们在服务器后端调用了业界先进的大型语言模型 AI，对您输入的简短词汇进行极具商业素养的文章扩写和解构分行渲染，从痛点捕捉到五点描述 (Bullet Points) 一气呵成。
+          </p>
+        </div>
+
+        <h3 className="font-bold text-slate-800 text-lg mb-4">这款电商文案生成工具如何帮助您实现销量突围？</h3>
+        <ul className="space-y-4 text-slate-600">
+          <li className="flex gap-3">
+            <strong className="text-slate-800 shrink-0">1. 对抗空白状态的灵感火花：</strong>
+            <span>只要你能在左侧文本框毫无章法地罗列出类似“红色、木材质、包邮、适合送礼”这样的原始大白话，强大的人工智能便有能力从不同维度构建筑梦，撰写出兼具紧迫感和格调的高转化商品描述。</span>
+          </li>
+          <li className="flex gap-3">
+            <strong className="text-slate-800 shrink-0">2. 符合本土思维及搜索偏好：</strong>
+            <span>告别了机械呆板的在线机翻，AI 会根据大量海外主流电子商务平台（如 Amazon, Shopify 等）爬取分析到的高光畅销句式作为底层骨架进行组装，帮助您自然而然地埋设买家高频搜索的核心大词。</span>
+          </li>
+          <li className="flex gap-3">
+            <strong className="text-slate-800 shrink-0">3. 内置 Markdown 与一键带走：</strong>
+            <span>系统右侧的结果生成框默认承载了 Markdown 语法的可视化解析，配合顶部的无缝快捷拷贝按钮，使得您能直接把优美排版好的副文本瞬间黏贴到后台表单中，直接发布上线。</span>
+          </li>
+        </ul>
+        
+        <p className="text-slate-500 text-sm mt-8 pt-6 border-t border-slate-100">
+          AI 生成不是最终的终点，而是极高起点的脚手架。对于真正追求卓越复购率爆品的运营专家来说，建议在它输出后的成果上略加润色属于自家品牌的专有温度。
+        </p>
+      </div>
+
     </div>
   );
 }

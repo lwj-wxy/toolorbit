@@ -103,6 +103,36 @@ export default function HashGenerator() {
           })}
         </div>
       </div>
+
+      {/* Bottom SEO Instructions Panel */}
+      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-8 lg:p-12 mt-8">
+        <h2 className="text-xl font-bold text-slate-800 mb-6">哈希数据安全转换器，一键生成校验摘要与指纹</h2>
+        
+        <p className="text-slate-600 mb-6 leading-relaxed">
+          哈希算法 (Hash Algorithms) 将任意长度的字符串“消化”生成定长且不规则的指纹特征，这在比对系统密码加密流、文件篡改预警以及建立检索锚点上具有无法撼动的一线地位。这块工具面板集齐了从旧一代至极高保密标准的全部换算公式。
+        </p>
+
+        <h3 className="font-bold text-slate-800 text-lg mb-4">掌握散列表在线引擎的加密矩阵：</h3>
+        <ul className="space-y-4 text-slate-600">
+          <li className="flex gap-3">
+            <strong className="text-slate-800 shrink-0">1. 多维协议阵列输出：</strong>
+            <span>不论是网盘资源里随处可见用作防伪的 MD5 摘要，还是更具备防碰撞能力的 SHA-1，甚至是足以支撑比特币或者防爆金库高门槛验证系统的 SHA-256 与 SHA-512，都在您按下键盘的须臾之间被打包算好。</span>
+          </li>
+          <li className="flex gap-3">
+            <strong className="text-slate-800 shrink-0">2. 不可逆行带来的数据稳固：</strong>
+            <span>在系统工程中我们要知晓，Hash 具有天然单向性（无法解密回溯出原文明文）并在理论上难以刻意碰撞。如果您发现左右文段仅仅相差一个字符空格最后出来的特征乱码天差地别，不必大惊小怪，这正是雪崩效应带来的安全墙效果！</span>
+          </li>
+          <li className="flex gap-3">
+            <strong className="text-slate-800 shrink-0">3. 云拦截环境的暗箱校验：</strong>
+            <span>这组算盘采用 JavaScript 自主的密码引擎接口，这使得整个加密提纯只会在您当下的屏幕前运行。将私人的账户助记词喂转给计算器也同样不带有任何云盘备份风险。</span>
+          </li>
+        </ul>
+        
+        <p className="text-slate-500 text-sm mt-8 pt-6 border-t border-slate-100">
+          防护建议：哈希并不等同于带有可逆性质的加密算法。所以对于简单的纯数字或小写账号，它们被破译的几率在彩虹表爆破库（Rainbow Table）里依然很大，生产环境仍然需要辅加不可控长盐值（Salt）增加破解复杂度。
+        </p>
+      </div>
+
     </div>
   );
 }

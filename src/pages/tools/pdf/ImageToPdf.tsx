@@ -68,6 +68,33 @@ export default function ImageToPdf() {
     });
   };
 
+  const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
+
+  const handleDragStart = (e: React.DragEvent, index: number) => {
+    setDraggedIndex(index);
+    e.dataTransfer.effectAllowed = 'move';
+    // Required for Firefox
+    e.dataTransfer.setData('text/plain', index.toString());
+  };
+
+  const handleDragOverItem = (e: React.DragEvent, index: number) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+  };
+
+  const handleDropItem = (e: React.DragEvent, dropIndex: number) => {
+    e.preventDefault();
+    if (draggedIndex === null || draggedIndex === dropIndex) return;
+
+    setImages(prev => {
+      const copy = [...prev];
+      const itemsToMove = copy.splice(draggedIndex, 1);
+      copy.splice(dropIndex, 0, itemsToMove[0]);
+      return copy;
+    });
+    setDraggedIndex(null);
+  };
+
   const generatePDF = async () => {
     if (images.length === 0) return;
     setIsGenerating(true);
@@ -172,14 +199,14 @@ export default function ImageToPdf() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
         
         {/* Left: Upload and List */}
-        <div className="lg:col-span-2 space-y-6">
-          <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6">
+        <div className="lg:col-span-8 flex flex-col">
+          <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6 flex-1 flex flex-col">
             
             <div 
-              className={`rounded-xl border-2 border-dashed transition-all p-8 text-center flex flex-col items-center justify-center cursor-pointer mb-6
+              className={`rounded-2xl border-2 border-dashed transition-all p-12 text-center flex flex-col items-center justify-center cursor-pointer mb-6 min-h-[300px]
                 ${isDragging ? 'border-[#2563eb] bg-blue-50/50' : 'border-[#cbd5e1] hover:border-[#94a3b8] hover:bg-slate-50'}`}
               onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
               onDragLeave={(e) => { e.preventDefault(); setIsDragging(false); }}
@@ -216,8 +243,18 @@ export default function ImageToPdf() {
 
                 <div className="space-y-3 max-h-[500px] overflow-y-auto pr-2 custom-scrollbar">
                   {images.map((img, index) => (
-                    <div key={img.id} className="flex items-center gap-4 bg-[#f8fafc] border border-[#e2e8f0] p-3 rounded-xl transition-all hover:border-blue-200 hover:shadow-sm group">
-                      <div className="cursor-move text-slate-400">
+                    <div 
+                      key={img.id} 
+                      draggable
+                      onDragStart={(e) => handleDragStart(e, index)}
+                      onDragOver={(e) => handleDragOverItem(e, index)}
+                      onDrop={(e) => handleDropItem(e, index)}
+                      onDragEnd={() => setDraggedIndex(null)}
+                      className={`flex items-center gap-4 bg-[#f8fafc] border p-3 rounded-xl transition-all group ${
+                        draggedIndex === index ? 'opacity-50 border-blue-500 bg-blue-50' : 'border-[#e2e8f0] hover:border-blue-200 hover:shadow-sm'
+                      }`}
+                    >
+                      <div className="cursor-move text-slate-400 hover:text-blue-500 transition-colors">
                         <GripVertical className="w-5 h-5" />
                       </div>
                       
@@ -264,11 +301,11 @@ export default function ImageToPdf() {
         </div>
 
         {/* Right: Settings and Actions */}
-        <div className="lg:col-span-1 space-y-6">
-          <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6">
+        <div className="lg:col-span-4 flex flex-col gap-6">
+          <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6 flex flex-col flex-1">
             <h3 className="font-bold text-[#1e293b] mb-4">输出设置</h3>
             
-            <div className="space-y-5">
+            <div className="space-y-5 flex-1">
               <div>
                 <label className="block text-sm font-bold text-[#64748b] mb-3">页面尺寸 (Page Size)</label>
                 <div className="space-y-3">
@@ -321,15 +358,44 @@ export default function ImageToPdf() {
             </div>
             
           </div>
-          
-          <div className="bg-green-50 border border-green-100 rounded-xl p-4 flex items-start gap-3">
-            <CheckCircle2 className="w-5 h-5 text-green-600 shrink-0 mt-0.5" />
-            <p className="text-sm text-green-800 leading-relaxed font-medium">
-              纯本地离线处理：您的图片不会被上传至任何服务器，保护您的个人文件与数据隐私。
-            </p>
-          </div>
         </div>
       </div>
+      
+      {/* Bottom SEO Instructions Panel */}
+      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-8 lg:p-12 mt-8">
+        <h2 className="text-xl font-bold text-slate-800 mb-6">图片转 PDF 工具，纯本地多图合并转换神器</h2>
+        
+        <p className="text-slate-600 mb-6 leading-relaxed">
+          图片转 PDF 转换器是一款专为高效办公与学习设计的实用小工具。无论您需要将多张分散的扫描件、相册照片、工作截图还是设计图纸原封不动地装订成一本电子画册以便阅览、归档或打印，本工具均能为您提供一站式完美胜任的解决方案。
+        </p>
+
+        <div className="bg-rose-50 border border-rose-100/50 rounded-xl p-5 mb-8">
+          <p className="text-rose-700 text-sm font-bold leading-relaxed">
+            本工具坚决捍卫您的隐私边界。所有的图片合并转码任务都在您的个人设备浏览器沙盒中本地计算完成，没有任何一张珍贵素材或涉密图片会被上传至云端服务器。即便您身处完全断网的环境下，该转换功能依旧运转如飞。
+          </p>
+        </div>
+
+        <h3 className="font-bold text-slate-800 text-lg mb-4">为什么强烈推荐这款前端图转 PDF 引擎？</h3>
+        <ul className="space-y-4 text-slate-600">
+          <li className="flex gap-3">
+            <strong className="text-slate-800 shrink-0">1. 批量无缝转换：</strong>
+            <span>支持一次性框选或拖入数十张 JPG、PNG 格式的图片。在客户端一瞬间完成读取，彻底告别单张排队慢吞吞上传的痛苦与焦躁。</span>
+          </li>
+          <li className="flex gap-3">
+            <strong className="text-slate-800 shrink-0">2. 所见即所得排版：</strong>
+            <span>我们为您提供了灵活明快的拖拽面板，您可以像玩拼图一样随意调整图片的排列顺序。无论是保持图源比例无留白，还是自动居中缩放置入规范的 A4 打印尺寸中，皆顺随心意。</span>
+          </li>
+          <li className="flex gap-3">
+            <strong className="text-slate-800 shrink-0">3. 零门槛免安装：</strong>
+            <span>摒弃传统体积庞大的桌面格式化处理软件，也无需忍受各类夹杂广告的在线转换全家桶。简单极客的网页形态赋予它强大的跨端可用性，打开即用、用完即走。</span>
+          </li>
+        </ul>
+        
+        <p className="text-slate-500 text-sm mt-8 pt-6 border-t border-slate-100">
+          灵活掌握此工具，能够大幅削减日常信息整理的繁琐步骤，尤其在投递简历附件、报销票据汇总等高频业务场景下，一份统一打包的 PDF 永远比零碎的图包显得更具专业素养。
+        </p>
+      </div>
+
     </div>
   );
 }

@@ -256,43 +256,39 @@ export default function ImageConverter() {
         )}
       </div>
 
-      {/* SEO & Descriptions */}
-      <div className="bg-[#f8fafc] rounded-2xl shadow-sm border border-[#e2e8f0] p-6 lg:p-8 mt-6">
-        <div className="prose max-w-none text-[14px] leading-loose text-[#475569]">
-          <p className="mb-4">
-            图片格式在线转换器是一款专业的实用辅助工具，旨在帮助用户快速将图像资产在不同的格式后缀间无缝互转。不论是为了优化网页加载速度使用的 WEBP，还是支持透明图层的 PNG，亦或是高压缩率的 JPEG，不同格式在压缩算法与使用场景上各有所长。借助此工具，您可以轻松突破文件应用局限，无论是用于排版打印、网页素材还是二次设计，都能游刃有余。
-          </p>
+      {/* Bottom SEO Instructions Panel */}
+      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-8 lg:p-12 mb-8 mt-8">
+        <h2 className="text-xl font-bold text-slate-800 mb-6">在线图片格式转换器，实现图像无缝互转</h2>
+        
+        <p className="text-slate-600 mb-6 leading-relaxed">
+          图片格式在线转换器是一款专业的实用辅助工具，旨在帮助用户快速将图像资产在不同的格式后缀间无缝互转。不论是为了优化网页加载速度使用的 WEBP，还是支持透明图层的 PNG，亦或是高压缩率的 JPEG，不同格式在压缩算法与使用场景上各有所长。借助此工具，您可以轻松突破文件应用局限。
+        </p>
 
-          <p className="text-red-500 font-bold mb-6 bg-red-50/50 p-4 rounded-xl border border-red-100/50">
-            本站坚持纯本地浏览器运算，所有图像数据均直接在您的设备内存中流转，坚决不上传任何私密图片到云端服务器。同时请注意：严禁使用本工具处理任何涉及侵权或违法违规的影像资产，用户需自行承担相应责任。
-          </p>
-
-          <p className="mb-4 text-[#1e293b] font-bold">
-            一款现代化的高水准图片格式转换工具通常具备以下核心优势：
-          </p>
-          
-          <ul className="space-y-4">
-            <li>
-              <strong className="text-[#0f172a]">1. 跨格式无损互切：</strong> 突破文件编码壁垒，让您上传的原始图稿一键输出为指定的新格式，深度全面兼容如 JPEG、PNG、WEBP 等主流图像标准。
-            </li>
-            <li>
-              <strong className="text-[#0f172a]">2. 图像流附加处理：</strong> 不仅仅是后缀的变化，高级转换器常常集成了衍生功能。例如在您转化格式的同时，顺手对大图片进行画布缩放、区域裁剪、白底填充或是画质质量压缩，带来一站式的视觉优化体验。
-            </li>
-            <li>
-              <strong className="text-[#0f172a]">3. 极简的交互美学：</strong> 采用直观友好的面板设计（如“即拖即转”），把复杂的底层重编码逻辑隐藏在点击操作之下。无需学习专业修图软件的门槛，也能飞速上手完成批处理。
-            </li>
-            <li>
-              <strong className="text-[#0f172a]">4. 灵活的云原生与纯前端架构：</strong> 告别传统老旧软件那繁琐的安装包。基于 Canvas 的纯前端处理引擎兼顾了“无需安装、随时点开就用”的网络便利性，同时也没有了网络上传统压缩工具极易出现的“上传慢、网络受限”的弊端。
-            </li>
-            <li>
-              <strong className="text-[#0f172a]">5. 卓越的全景兼容性：</strong> 只要设备具备现代化的浏览器，便能打破 Windows、macOS 甚至是移动端手机和平板的生态隔离。不论您的图片分辨率多高，皆能稳健解析并完美呈现。
-            </li>
-          </ul>
-          
-          <p className="mt-4">
-             简而言之，熟练利用图片格式化工具，不仅将极大节约您的数字内容管理时间，更是每一个对文件输出有着严格规范的创作者必备的高效利器。
+        <div className="bg-rose-50 border border-rose-100/50 rounded-xl p-5 mb-8">
+          <p className="text-rose-700 text-sm font-bold leading-relaxed">
+            本站坚持纯本地浏览器运算，所有图像数据均直接在您的设备内存中流转，坚决不上传任何私密图片到云端服务器。您在断网的环境下也能正常执行所有的格式转码。
           </p>
         </div>
+
+        <h3 className="font-bold text-slate-800 text-lg mb-4">一款现代化的图片格式转换工具的核心优势：</h3>
+        <ul className="space-y-4 text-slate-600">
+          <li className="flex gap-3">
+            <strong className="text-slate-800 shrink-0">1. 跨格式无损互切：</strong>
+            <span>突破文件编码壁垒，让您上传的原始图稿一键输出为指定的新格式，深度全面兼容如 JPEG、PNG、WEBP 等主流图像标准。</span>
+          </li>
+          <li className="flex gap-3">
+            <strong className="text-slate-800 shrink-0">2. 极简的交互美学：</strong>
+            <span>采用直观友好的面板设计（如“即拖即转”），把复杂的底层重编码逻辑隐藏在点击操作之下。无需学习专业修图软件的门槛，也能飞速上手完成批处理。</span>
+          </li>
+          <li className="flex gap-3">
+            <strong className="text-slate-800 shrink-0">3. 灵活的云原生与纯前端架构：</strong>
+            <span>告别传统老旧软件那繁琐的安装包。基于 Canvas 的纯前端处理引擎兼顾了“无需安装、随时点开就用”的网络便利性，也免去了上传慢、网络受限的弊端。</span>
+          </li>
+        </ul>
+        
+        <p className="text-slate-500 text-sm mt-8 pt-6 border-t border-slate-100">
+          简而言之，熟练利用图片格式化工具，不仅将极大节约您的数字内容管理时间，更是每一位内容创作者必备的高效利器。
+        </p>
       </div>
 
     </div>

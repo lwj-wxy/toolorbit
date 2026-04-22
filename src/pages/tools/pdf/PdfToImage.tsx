@@ -137,29 +137,31 @@ export default function PdfToImage() {
       </div>
 
       {!file ? (
-        <div 
-          className={`bg-white rounded-2xl border-2 border-dashed transition-all p-12 text-center flex flex-col items-center justify-center min-h-[400px] cursor-pointer shadow-sm
-            ${isDragging ? 'border-[#2563eb] bg-blue-50/50' : 'border-[#cbd5e1] hover:border-[#94a3b8] hover:bg-slate-50'}`}
-          onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
-          onDragLeave={(e) => { e.preventDefault(); setIsDragging(false); }}
-          onDrop={handleDrop}
-          onClick={() => fileInputRef.current?.click()}
-        >
-          <input 
-            type="file" 
-            ref={fileInputRef} 
-            onChange={handleFileChange} 
-            accept="application/pdf" 
-            className="hidden" 
-          />
-          <div className="w-20 h-20 bg-blue-50 text-[#2563eb] rounded-full flex items-center justify-center mb-6 shadow-sm">
-            <Upload className="w-10 h-10" />
-          </div>
-          <h3 className="text-xl font-bold text-[#1e293b] mb-2">点击选择 PDF 文件或拖拽至此</h3>
-          <p className="text-[#64748b] mb-6">纯本地离线解析，瞬间完成导出，高度保护隐私</p>
-          <button className="bg-[#2563eb] text-white px-8 py-3 rounded-full font-bold shadow-sm hover:bg-[#1d4ed8] transition-colors">
-            选择 PDF 文件...
-          </button>
+        <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-8 lg:p-16 flex flex-col items-center">
+            <div 
+              className={`w-full max-w-2xl border-2 border-dashed rounded-2xl transition-all p-12 text-center flex flex-col items-center justify-center min-h-[300px] cursor-pointer
+                ${isDragging ? 'border-[#2563eb] bg-blue-50/50' : 'border-[#cbd5e1] hover:border-[#94a3b8] hover:bg-slate-50'}`}
+              onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
+              onDragLeave={(e) => { e.preventDefault(); setIsDragging(false); }}
+              onDrop={handleDrop}
+              onClick={() => fileInputRef.current?.click()}
+            >
+              <input 
+                type="file" 
+                ref={fileInputRef} 
+                onChange={handleFileChange} 
+                accept="application/pdf" 
+                className="hidden" 
+              />
+              <div className="w-20 h-20 bg-white border border-slate-100 text-[#2563eb] rounded-full flex items-center justify-center mb-6 shadow-sm">
+                <Upload className="w-10 h-10" />
+              </div>
+              <h3 className="text-xl font-bold text-[#1e293b] mb-2">拖拽或点击选择 PDF 文件</h3>
+              <p className="text-[#64748b] mb-8">纯本地离线解析，瞬间完成导出，完全不上传您的数据</p>
+              <button className="bg-[#2563eb] text-white px-8 py-3 rounded-xl font-bold shadow-sm hover:bg-[#1d4ed8] transition-colors">
+                选择文件...
+              </button>
+            </div>
         </div>
       ) : (
         <div className="space-y-6">
@@ -239,14 +241,40 @@ export default function PdfToImage() {
         </div>
       )}
       
-      {!file && (
-        <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 flex items-start gap-3 mt-8">
-          <CheckCircle2 className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
-          <p className="text-sm text-blue-800 leading-relaxed font-medium">
-            我们使用先进的 JavaScript 引擎在您的浏览器本地直接分解 PDF，文件内容绝不上传，无论是账单、发票还是私密文档都可以安心转换。
+      {/* Bottom SEO Instructions Panel */}
+      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-8 lg:p-12 mt-8">
+        <h2 className="text-xl font-bold text-slate-800 mb-6">PDF 转图片工具，高清离线、安全便捷</h2>
+        
+        <p className="text-slate-600 mb-6 leading-relaxed">
+          PDF 转图片功能是一款简单强大、能将 PDF 文档每一页高清转换为独立图像文件的效率工具。无论您是需要将演示文稿导出为 JPG 组图便于在社交媒体分享，还是只为了更方便地将文档内容嵌入到不支持 PDF 的网页与系统中，本工具一键便可完成。
+        </p>
+
+        <div className="bg-rose-50 border border-rose-100/50 rounded-xl p-5 mb-8">
+          <p className="text-rose-700 text-sm font-bold leading-relaxed">
+            本工具承诺 100% 纯本地离线处理。您的所有文档、发票、私密截图与报表，完全在您的个人浏览器沙盒中被解析渲染，绝对保证数据不上传到任何云端服务器，从物理层面上杜绝隐私泄露。
           </p>
         </div>
-      )}
+
+        <h3 className="font-bold text-slate-800 text-lg mb-4">为什么推荐使用我们的纯前端转换方案？</h3>
+        <ul className="space-y-4 text-slate-600">
+          <li className="flex gap-3">
+            <strong className="text-slate-800 shrink-0">1. 即用即走，拒绝安装：</strong>
+            <span>在原生浏览器的支持下，这颗网页工具包几乎能够无缝替代市面上所有的庞大桌面软件。不占用系统运行空间，不用等冗长的安装读条，随时随地打开网页即可转换。</span>
+          </li>
+          <li className="flex gap-3">
+            <strong className="text-slate-800 shrink-0">2. 高清引擎原汁原味：</strong>
+            <span>内置了专业的图形渲染算法，它并不是简单地“截个图”，而是深入解析了 PDF 的源数据，保证提取出的静态图片依然保留原本高清的字形排版和色彩。</span>
+          </li>
+          <li className="flex gap-3">
+            <strong className="text-slate-800 shrink-0">3. 灵活导出与一键打包：</strong>
+            <span>除了单独预览下载某张特定的页面外，转换完毕后工具还会立刻在本地瞬间生成 ZIP 压缩包，方便您将数十甚至上百页生成的图片打包带走，大大提升文件梳理的效率。</span>
+          </li>
+        </ul>
+        
+        <p className="text-slate-500 text-sm mt-8 pt-6 border-t border-slate-100">
+          总之，依托尖端的本地网页技术解析各类 PDF 文件，您不仅将摆脱缓慢的云端上传等待，更会因彻底阻断了隐密风险而获得一份省心的操作体验。
+        </p>
+      </div>
 
     </div>
   );

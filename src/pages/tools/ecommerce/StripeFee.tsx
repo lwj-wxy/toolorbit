@@ -73,6 +73,36 @@ export default function StripeFeeCalculator() {
           </div>
         </div>
       </div>
+
+      {/* Bottom SEO Instructions Panel */}
+      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-8 lg:p-12 mt-8">
+        <h2 className="text-xl font-bold text-slate-800 mb-6">Stripe 手续费在线计算器，一键换算全球信用卡收单成本</h2>
+        
+        <p className="text-slate-600 mb-6 leading-relaxed">
+          无论您是在运营独立站的电商达人，或是通过邮件向海外客户发送数字账单的自由职业者，Stripe 作为国际顶尖的支付网关，都是极佳的收单途径。但其每笔“百分比 + 固定美分”的基础费率模型往往使得实际到账数额难以依靠心算立刻预估得出。
+        </p>
+
+        <h3 className="font-bold text-slate-800 text-lg mb-4">帮助独立站站长优化收款策略的核心亮点：</h3>
+        <ul className="space-y-4 text-slate-600">
+          <li className="flex gap-3">
+            <strong className="text-slate-800 shrink-0">1. 双向逆推反向结账金额：</strong>
+            <span>传统的计算只能告诉你“收100块只到账96块”，而本工具特有的反向算法能够直接精准告知您——如果我想实打实“拿到手100块正”，到底该在开票账单上填多少钱，让客户来承担这笔网关摩擦费。</span>
+          </li>
+          <li className="flex gap-3">
+            <strong className="text-slate-800 shrink-0">2. 基于通用标准的快速对账：</strong>
+            <span>内置了标准美国区的常用扣费比例（即 2.9% 加上 30 美分固定处理费），无论是日常对账还是月度销售利润审计，直接输入仪表盘的总流水数字便能快速拆解出资金损耗占比。</span>
+          </li>
+          <li className="flex gap-3">
+            <strong className="text-slate-800 shrink-0">3. 高安全度的纯前端组件体验：</strong>
+            <span>和所有金融属性的表单一样，避免留痕是对用户最大的保护。界面内的全部收支测算代码直接嵌入在网页之中，没有任何将您的营收额度外发到第三方服务器进行打点收集的恶意行为。</span>
+          </li>
+        </ul>
+        
+        <p className="text-slate-500 text-sm mt-8 pt-6 border-t border-slate-100">
+          声明补充：此工具面板目前不考虑非本地卡国际多币种附加费（Cross-border fee）的部分。如果您的消费者使用非美卡的境外发卡行或者涉及到货币转换，Stripe 官方账单有一定几率收取部分额外税费，请以最终控制台报表为准。
+        </p>
+      </div>
+
     </div>
   );
 }

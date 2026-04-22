@@ -148,6 +148,36 @@ export default function Base64() {
           </div>
         </div>
       </div>
+
+      {/* Bottom SEO Instructions Panel */}
+      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-8 lg:p-12 mt-8">
+        <h2 className="text-xl font-bold text-slate-800 mb-6">Base64 纯前端在线发报机，UTF-8 中文乱码的终结者</h2>
+        
+        <p className="text-slate-600 mb-6 leading-relaxed">
+          Base64 作为在网络请求（如邮件附件传输、Token 颁发或网页内置小图）中防止控制字符篡改的基础编码方式，深受开发人员青睐。但在使用浏览器默认的 <code>btoa</code> 与 <code>atob</code> 函数处理中文等多字节文案时往往会崩溃飘红。本面板特为此打上了无缝补丁。
+        </p>
+
+        <h3 className="font-bold text-slate-800 text-lg mb-4">解析这块高强解码版面的核心特性与原理：</h3>
+        <ul className="space-y-4 text-slate-600">
+          <li className="flex gap-3">
+            <strong className="text-slate-800 shrink-0">1. 原生跨平台中文字符支持：</strong>
+            <span>我们摒弃了纯碎原生仅支持 ASCII 的简陋 API。利用 URL 转义重组等算法，完美代理了将任何变身在 UTF-8 集中的罕见多音字或 Emoji 表情转换为 Base64，彻底告别 Failed to execute 异常。</span>
+          </li>
+          <li className="flex gap-3">
+            <strong className="text-slate-800 shrink-0">2. 全向同频的双车道互转：</strong>
+            <span>界面上方提供了丝滑顺畅的制式开关。你既可以黏贴文书翻译成密密麻麻的大小写英文及符号等号串；也可以贴上传感器传来的密报做直接还原。</span>
+          </li>
+          <li className="flex gap-3">
+            <strong className="text-slate-800 shrink-0">3. 免接口强效物理保险箱：</strong>
+            <span>在您转译诸如 .env 环境底层配置密钥字或 Jwt token 体时，数据在网络上传输是一件危险的事情。此发报机贯彻零请求、纯离线的底线原则，保护你在局域网环境下的任何逆向解构动作。</span>
+          </li>
+        </ul>
+        
+        <p className="text-slate-500 text-sm mt-8 pt-6 border-t border-slate-100">
+          声明排雷：目前的底层编码组件只针对单纯的 Text 文本面流，请不要将以 data:image 开头混杂着图片二进制流的文件体喂入，如果需要清洗小体积挂载图片请使用图片转换板块。
+        </p>
+      </div>
+
     </div>
   );
 }

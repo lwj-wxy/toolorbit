@@ -120,6 +120,36 @@ export default function QrGenerator() {
           </button>
         </div>
       </div>
+
+      {/* Bottom SEO Instructions Panel */}
+      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-8 lg:p-12 mt-8">
+        <h2 className="text-xl font-bold text-slate-800 mb-6">QR Code 免费在线生成器：定制专属商业名片与链接转换</h2>
+        
+        <p className="text-slate-600 mb-6 leading-relaxed">
+          数字化时代，扫描已成为连接线下与线上、屏幕与移动端最有效率的桥梁。无论是您的微信个人主页、独立站营销落地页网址，甚至是一段简单的 Wi-Fi 连接指令，都能通过这款无需注册的在线工具一键编码为黑白矩阵。
+        </p>
+
+        <h3 className="font-bold text-slate-800 text-lg mb-4">掌握多维矩阵编码的独家亮点：</h3>
+        <ul className="space-y-4 text-slate-600">
+          <li className="flex gap-3">
+            <strong className="text-slate-800 shrink-0">1. 无级微调色彩与容错：</strong>
+            <span>打破传统黑白双色的单调！您可以自由定义前景和背景色以搭配自家品牌 VI 视觉。同时支持 L、M、Q、H 级别容错率切换，即便中心被 Logo 遮挡或遭到轻度信损，依然能被摄像头高精扫出。</span>
+          </li>
+          <li className="flex gap-3">
+            <strong className="text-slate-800 shrink-0">2. 高清 PNG 矢量级导出：</strong>
+            <span>一键输出的高保真位图可直接用于易拉宝海报印刷包装、商品防伪标贴或简历打印，边缘拒绝锯齿与模糊，保证多机型全天候的超高一次性扫码成功率。</span>
+          </li>
+          <li className="flex gap-3">
+            <strong className="text-slate-800 shrink-0">3. 基于 Local 的轻量化极客安全：</strong>
+            <span>当您将加密邮箱或家庭联络方式转化为阵列时可能充满隐私性担忧。本模块组件坚持无后台上传和截留政策，纯 JavaScript 计算绘图，闭网状态下依旧能够流畅产出结果图片。</span>
+          </li>
+        </ul>
+        
+        <p className="text-slate-500 text-sm mt-8 pt-6 border-t border-slate-100">
+          友情建议：进行前景色与背景色倒挂调整的时候，必须确保扫码枪和大部分手机摄像头的感光算法能够感知足够的极度对比色差，否则存在“废码”无法被光学读取的风险。
+        </p>
+      </div>
+
     </div>
   );
 }
