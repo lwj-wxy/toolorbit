@@ -64,13 +64,13 @@ export default function UnicodeConverter() {
     <div className="max-w-6xl mx-auto space-y-6">
       
       {/* Header */}
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6 lg:p-8 flex items-center justify-between">
+      <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 bg-blue-50 text-[#2563eb] rounded-xl flex items-center justify-center shrink-0">
             <FileCode2 className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-[#1e293b]">Unicode 编码转换</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900">Unicode 编码转换</h1>
             <p className="text-[#64748b] mt-1 text-sm md:text-base">
               一键实现中文字符、符号与 \uXXXX 格式的 Unicode 编码互转还原。
             </p>
@@ -89,7 +89,7 @@ export default function UnicodeConverter() {
       <div className="flex flex-col lg:flex-row gap-4 items-stretch min-h-[500px]">
         
         {/* Left Side: Native Text */}
-        <div className="flex-1 bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-5 flex flex-col">
+        <div className="flex-1 bg-white rounded-2xl shadow-sm border border-slate-200/80 p-5 flex flex-col">
             <div className="flex items-center justify-between mb-4">
                 <h3 className="font-bold text-[#1e293b] flex items-center gap-2">
                     <span className="w-2 h-6 bg-[#2563eb] rounded-sm block"></span>
@@ -135,7 +135,7 @@ export default function UnicodeConverter() {
         </div>
 
         {/* Right Side: Unicode Text */}
-        <div className="flex-1 bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-5 flex flex-col">
+        <div className="flex-1 bg-white rounded-2xl shadow-sm border border-slate-200/80 p-5 flex flex-col">
             <div className="flex items-center justify-between mb-4">
                 <h3 className="font-bold text-[#1e293b] flex items-center gap-2">
                     <span className="w-2 h-6 bg-purple-500 rounded-sm block"></span>
@@ -159,7 +159,7 @@ export default function UnicodeConverter() {
       </div>
       
       {/* Bottom SEO Instructions Panel */}
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-8 lg:p-12 mt-8">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-8 lg:p-12 mt-8">
         <h2 className="text-xl font-bold text-slate-800 mb-6">在线 Unicode 双向转换计算器：解析底层字符编码之谜</h2>
         
         <p className="text-slate-600 mb-6 leading-relaxed">

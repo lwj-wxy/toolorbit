@@ -55,7 +55,7 @@ export default function HashGenerator() {
     <div className="max-w-4xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
+          <h2 className="text-3xl font-bold tracking-tight text-slate-900">
             哈希生成器
           </h2>
           <p className="mt-1 text-sm text-gray-500">
@@ -105,7 +105,7 @@ export default function HashGenerator() {
       </div>
 
       {/* Bottom SEO Instructions Panel */}
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-8 lg:p-12 mt-8">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-8 lg:p-12 mt-8">
         <h2 className="text-xl font-bold text-slate-800 mb-6">哈希数据安全转换器，一键生成校验摘要与指纹</h2>
         
         <p className="text-slate-600 mb-6 leading-relaxed">

@@ -106,13 +106,13 @@ export default function QrScanner() {
     <div className="max-w-5xl mx-auto space-y-6">
       
       {/* Header */}
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6 lg:p-8 flex items-center justify-between">
+      <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 bg-blue-50 text-[#2563eb] rounded-xl flex items-center justify-center shrink-0">
             <ScanLine className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-[#1e293b]">二维码识别</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900">二维码识别</h1>
             <p className="text-[#64748b] mt-1 text-sm md:text-base">
               上传二维码图片，基于纯前端引擎离线解析提取隐藏信息。
             </p>
@@ -123,7 +123,7 @@ export default function QrScanner() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         
         {/* Left Side: Upload Area */}
-        <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6 flex flex-col min-h-[400px]">
+        <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6 flex flex-col min-h-[400px]">
            <h3 className="font-bold text-[#1e293b] mb-4 flex items-center gap-2">
               <span className="w-2 h-5 bg-[#2563eb] rounded-sm block"></span>
               输入图像源
@@ -182,7 +182,7 @@ export default function QrScanner() {
         </div>
 
         {/* Right Side: Result Output */}
-        <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6 flex flex-col min-h-[400px]">
+        <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6 flex flex-col min-h-[400px]">
            <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-4">
                <h3 className="font-bold text-[#1e293b] flex items-center gap-2">
                   <span className="w-2 h-5 bg-purple-500 rounded-sm block"></span>
@@ -221,7 +221,7 @@ export default function QrScanner() {
       </div>
 
       {/* Bottom SEO Instructions Panel */}
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-8 lg:p-12 mt-8">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-8 lg:p-12 mt-8">
         <h2 className="text-xl font-bold text-slate-800 mb-6">二维码防钓鱼检测与在线图片解码提取工具</h2>
         
         <p className="text-slate-600 mb-6 leading-relaxed">

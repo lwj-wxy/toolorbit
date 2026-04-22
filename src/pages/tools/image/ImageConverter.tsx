@@ -125,13 +125,13 @@ export default function ImageConverter() {
     <div className="max-w-4xl mx-auto space-y-6">
       
       {/* Header */}
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6 lg:p-8 flex items-center justify-between">
+      <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 bg-blue-50 text-[#2563eb] rounded-xl flex items-center justify-center shrink-0">
             <RefreshCcw className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-[#1e293b]">图片格式在线转换工具</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900">图片格式在线转换工具</h1>
             <p className="text-[#64748b] mt-1 text-sm md:text-base">
               在本地安全极速地互转 JPEG、PNG、WEBP 等常见图片格式。
             </p>
@@ -140,7 +140,7 @@ export default function ImageConverter() {
       </div>
 
       {/* Main App Workspace */}
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6 lg:p-10">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6 lg:p-10">
         {!file ? (
           <div 
             className={`rounded-2xl border-2 border-dashed transition-all p-12 text-center flex flex-col items-center justify-center min-h-[360px] cursor-pointer
@@ -257,7 +257,7 @@ export default function ImageConverter() {
       </div>
 
       {/* Bottom SEO Instructions Panel */}
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-8 lg:p-12 mb-8 mt-8">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-8 lg:p-12 mb-8 mt-8">
         <h2 className="text-xl font-bold text-slate-800 mb-6">在线图片格式转换器，实现图像无缝互转</h2>
         
         <p className="text-slate-600 mb-6 leading-relaxed">

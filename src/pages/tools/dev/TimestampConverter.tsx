@@ -86,13 +86,13 @@ export default function TimestampConverter() {
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-8 pb-6">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-8 pb-6">
         <div className="flex items-center gap-4 mb-2">
           <div className="w-12 h-12 bg-blue-50 text-[#2563eb] rounded-xl flex items-center justify-center">
             <Calculator className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-[#1e293b]">时间戳转换</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900">时间戳转换</h1>
             <p className="text-[#64748b] mt-1">
               Unix 时间戳与标准时间（本地/北京时间）在线相互转换工具。
             </p>
@@ -101,7 +101,7 @@ export default function TimestampConverter() {
       </div>
 
       {/* Current Time Widget */}
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6 lg:p-8 relative">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6 lg:p-8 relative">
         <button
           onClick={() => setIsLive(!isLive)}
           className="absolute top-4 right-4 sm:top-6 sm:right-6 flex items-center justify-center gap-2 px-3 py-1.5 rounded-lg border text-sm font-bold transition-all bg-white shadow-sm hover:shadow-md"
@@ -140,7 +140,7 @@ export default function TimestampConverter() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Timestamp to Date */}
-        <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6 lg:p-8 flex flex-col h-full">
+        <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6 lg:p-8 flex flex-col h-full">
           <div className="flex items-center gap-3 mb-6">
             <div className="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center">
               <ArrowRight className="w-4 h-4 text-[#2563eb]" />
@@ -210,7 +210,7 @@ export default function TimestampConverter() {
         </div>
 
         {/* Date to Timestamp */}
-        <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6 lg:p-8 flex flex-col h-full">
+        <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6 lg:p-8 flex flex-col h-full">
           <div className="flex items-center gap-3 mb-6">
             <div className="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center">
               <ArrowRight className="w-4 h-4 text-[#2563eb]" />
@@ -300,7 +300,7 @@ export default function TimestampConverter() {
       </div>
 
       {/* Bottom SEO Instructions Panel */}
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-8 lg:p-12 mt-8">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-8 lg:p-12 mt-8">
         <h2 className="text-xl font-bold text-slate-800 mb-6">在线 Unix 时间戳转换工具，程序员必备跨时区数据校验准绳</h2>
         
         <p className="text-slate-600 mb-6 leading-relaxed">

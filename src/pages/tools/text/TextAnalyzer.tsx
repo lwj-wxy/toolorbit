@@ -37,7 +37,7 @@ export default function TextAnalyzer() {
     <div className="space-y-6 max-w-5xl mx-auto">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
+          <h2 className="text-3xl font-bold tracking-tight text-slate-900">
             文本分析器
           </h2>
           <p className="mt-1 text-sm text-gray-500">
@@ -101,7 +101,7 @@ export default function TextAnalyzer() {
       </div>
 
       {/* Bottom SEO Instructions Panel */}
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-8 lg:p-12 mt-8">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-8 lg:p-12 mt-8">
         <h2 className="text-xl font-bold text-slate-800 mb-6">纯前端在线文本分析器，中英排版与润色的数据量度助手</h2>
         
         <p className="text-slate-600 mb-6 leading-relaxed">

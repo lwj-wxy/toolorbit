@@ -185,13 +185,13 @@ export default function ImageToPdf() {
     <div className="max-w-5xl mx-auto space-y-6">
       
       {/* Header */}
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6 lg:p-8 flex items-center justify-between">
+      <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 bg-blue-50 text-[#2563eb] rounded-xl flex items-center justify-center shrink-0">
             <FileImage className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-[#1e293b]">图片转 PDF 工具</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900">图片转 PDF 工具</h1>
             <p className="text-[#64748b] mt-1 text-sm md:text-base">
               将多张图片（JPG/PNG 等）无损合并为一个 PDF 文件，纯本地处理。
             </p>
@@ -203,7 +203,7 @@ export default function ImageToPdf() {
         
         {/* Left: Upload and List */}
         <div className="lg:col-span-8 flex flex-col">
-          <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6 flex-1 flex flex-col">
+          <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6 flex-1 flex flex-col">
             
             <div 
               className={`rounded-2xl border-2 border-dashed transition-all p-12 text-center flex flex-col items-center justify-center cursor-pointer mb-6 min-h-[300px]
@@ -302,7 +302,7 @@ export default function ImageToPdf() {
 
         {/* Right: Settings and Actions */}
         <div className="lg:col-span-4 flex flex-col gap-6">
-          <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6 flex flex-col flex-1">
+          <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6 flex flex-col flex-1">
             <h3 className="font-bold text-[#1e293b] mb-4">输出设置</h3>
             
             <div className="space-y-5 flex-1">
@@ -362,7 +362,7 @@ export default function ImageToPdf() {
       </div>
       
       {/* Bottom SEO Instructions Panel */}
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-8 lg:p-12 mt-8">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-8 lg:p-12 mt-8">
         <h2 className="text-xl font-bold text-slate-800 mb-6">图片转 PDF 工具，纯本地多图合并转换神器</h2>
         
         <p className="text-slate-600 mb-6 leading-relaxed">

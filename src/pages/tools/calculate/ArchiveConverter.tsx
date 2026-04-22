@@ -122,13 +122,13 @@ export default function ArchiveConverter() {
 
   return (
     <div className="max-w-5xl mx-auto space-y-6">
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6 lg:p-8 flex items-center justify-between">
+      <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 bg-sky-50 text-sky-600 rounded-xl flex items-center justify-center shrink-0">
             <Archive className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-[#1e293b]">格式与在线存档处理器</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900">格式与在线存档处理器</h1>
             <p className="text-[#64748b] mt-1 text-sm md:text-base">
               在线解压分析 ZIP 文件并提取内置项目，或多文件打包下载。
             </p>
@@ -136,7 +136,7 @@ export default function ArchiveConverter() {
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6 lg:p-8">
+      <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div
           onClick={() => !isProcessing && fileInputRef.current?.click()}
           onDragOver={handleDragOver}
@@ -221,7 +221,7 @@ export default function ArchiveConverter() {
         )}
       </div>
 
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-8 lg:p-12 mt-8">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-8 lg:p-12 mt-8">
         <h2 className="text-xl font-bold text-slate-800 mb-6">在线存档解析合成工具，免装客户端的封包站</h2>
         
         <p className="text-slate-600 mb-6 leading-relaxed">

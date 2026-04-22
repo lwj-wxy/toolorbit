@@ -4,15 +4,15 @@ import { TOOLS, Category } from '../data/tools';
 
 const getCategoryStyles = (category: Category) => {
   switch(category) {
-    case '开发者工具': return { bg: 'bg-[#f0f9ff]', icon: 'text-[#0ea5e9]', tagBg: 'bg-[#dcfce7]', tagText: 'text-[#166534]', tag: 'DEV' };
-    case '站长工具': return { bg: 'bg-[#f3e8ff]', icon: 'text-[#a855f7]', tagBg: 'bg-[#f3e8ff]', tagText: 'text-[#6b21a8]', tag: 'NET' };
-    case '文本排版': return { bg: 'bg-[#eff6ff]', icon: 'text-[#3b82f6]', tagBg: 'bg-[#dbeafe]', tagText: 'text-[#1e40af]', tag: 'TXT' };
-    case '生成器': return { bg: 'bg-[#fff7ed]', icon: 'text-[#f97316]', tagBg: 'bg-[#fef9c3]', tagText: 'text-[#854d0e]', tag: 'GEN' };
-    case '电商工具': return { bg: 'bg-[#f0fdf4]', icon: 'text-[#22c55e]', tagBg: 'bg-[#f0fdf4]', tagText: 'text-[#15803d]', tag: 'ECO' };
-    case 'PDF工具': return { bg: 'bg-[#fef2f2]', icon: 'text-[#ef4444]', tagBg: 'bg-[#fef2f2]', tagText: 'text-[#b91c1c]', tag: 'PDF' };
-    case '图片处理': return { bg: 'bg-[#fdf4ff]', icon: 'text-[#d946ef]', tagBg: 'bg-[#fdf4ff]', tagText: 'text-[#a21caf]', tag: 'IMAGE' };
-    case '计算转换': return { bg: 'bg-[#ffedd5]', icon: 'text-[#f97316]', tagBg: 'bg-[#ffedd5]', tagText: 'text-[#c2410c]', tag: 'CALC' };
-    default: return { bg: 'bg-[#f1f5f9]', icon: 'text-[#64748b]', tagBg: 'bg-[#f1f5f9]', tagText: 'text-[#475569]', tag: 'OTHER' };
+    case '开发者工具': return { border: 'border-green-500', title: 'text-green-600', icon: 'text-green-500', bg: 'bg-green-50 hover:bg-green-100 hover:text-green-600' };
+    case '站长工具': return { border: 'border-blue-500', title: 'text-blue-600', icon: 'text-blue-500', bg: 'bg-blue-50 hover:bg-blue-100 hover:text-blue-600' };
+    case '文本排版': return { border: 'border-indigo-500', title: 'text-indigo-600', icon: 'text-indigo-500', bg: 'bg-indigo-50 hover:bg-indigo-100 hover:text-indigo-600' };
+    case '生成器': return { border: 'border-orange-500', title: 'text-orange-600', icon: 'text-orange-500', bg: 'bg-orange-50 hover:bg-orange-100 hover:text-orange-600' };
+    case '电商工具': return { border: 'border-emerald-500', title: 'text-emerald-600', icon: 'text-emerald-500', bg: 'bg-emerald-50 hover:bg-emerald-100 hover:text-emerald-600' };
+    case 'PDF工具': return { border: 'border-rose-500', title: 'text-rose-600', icon: 'text-rose-500', bg: 'bg-rose-50 hover:bg-rose-100 hover:text-rose-600' };
+    case '图片处理': return { border: 'border-fuchsia-500', title: 'text-fuchsia-600', icon: 'text-fuchsia-500', bg: 'bg-fuchsia-50 hover:bg-fuchsia-100 hover:text-fuchsia-600' };
+    case '计算转换': return { border: 'border-amber-500', title: 'text-amber-600', icon: 'text-amber-500', bg: 'bg-amber-50 hover:bg-amber-100 hover:text-amber-600' };
+    default: return { border: 'border-slate-500', title: 'text-slate-600', icon: 'text-slate-500', bg: 'bg-slate-50 hover:bg-slate-100 hover:text-slate-600' };
   }
 };
 
@@ -37,57 +37,98 @@ export default function Home() {
     setFilteredTools(result);
   }, [categoryFilter, searchQuery]);
 
-  return (
-    <div className="flex flex-col">
-      <div className="flex items-baseline justify-between mb-[24px]">
-        <h2 className="text-[20px] font-bold text-[#1e293b]">
-          {categoryFilter ? `${categoryFilter}` : '热门推荐'}
-        </h2>
-        <span className="text-[13px] text-[#94a3b8] ml-3 hidden sm:inline">
-          {categoryFilter 
-            ? `为您精选的 ${categoryFilter} 集合`
-            : 'ToolOrbit 每日精选最常用的效率工具'}
-        </span>
-      </div>
+  // If there's a search or filter, show the flat grid view (like before but adapted)
+  if (categoryFilter || searchQuery) {
+     return (
+        <div className="flex flex-col">
+          <div className="flex items-baseline justify-between mb-8">
+            <h2 className="text-2xl font-bold text-slate-800 tracking-tight">
+              {categoryFilter ? `${categoryFilter}` : `搜索结果: "${searchQuery}"`}
+            </h2>
+          </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-[20px]">
-        {filteredTools.map((tool) => {
-          const styles = getCategoryStyles(tool.category);
-          return (
-            <Link
-              key={tool.id}
-              to={tool.path}
-              className="bg-white border border-[#e2e8f0] rounded-[12px] p-[20px] transition-all duration-200 cursor-pointer flex flex-col gap-[12px] hover:-translate-y-[2px] hover:shadow-[0_10px_15px_-3px_rgba(0,0,0,0.05)] hover:border-[#cbd5e1] group"
-            >
-              <div className={`w-[40px] h-[40px] rounded-[10px] flex items-center justify-center ${styles.bg} ${styles.icon}`}>
-                <tool.icon size={22} strokeWidth={2} />
-              </div>
-              
-              <div className="flex flex-col">
-                <h3 className="text-[15px] font-semibold text-[#334155] mb-[4px] group-hover:text-[#2563eb] transition-colors">{tool.name}</h3>
-                <p className="text-[12px] text-[#64748b] leading-[1.4] line-clamp-2">
-                  {tool.description}
-                </p>
-              </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {filteredTools.map((tool) => {
+              const styles = getCategoryStyles(tool.category);
+              return (
+                <Link
+                  key={tool.id}
+                  to={tool.path}
+                  className="bg-white border border-slate-200/80 rounded-xl p-4 transition-all duration-200 cursor-pointer flex items-center justify-center text-center hover:-translate-y-1 hover:shadow-md hover:border-slate-300 group"
+                >
+                  <span className="text-sm font-medium text-slate-600 group-hover:text-blue-600 transition-colors">
+                    {tool.name}
+                  </span>
+                </Link>
+              );
+            })}
+          </div>
 
-              <div className="mt-auto pt-2">
-                <span className={`inline-block px-[8px] py-[2px] rounded-[4px] text-[10px] uppercase font-bold ${styles.tagBg} ${styles.tagText}`}>
-                  {styles.tag}
-                </span>
-              </div>
-            </Link>
-          );
-        })}
-      </div>
-
-      {filteredTools.length === 0 && (
-        <div className="text-center py-12">
-          <h3 className="mt-2 text-sm font-semibold text-[#1e293b]">没有找到相关工具</h3>
-          <p className="mt-1 text-sm text-[#64748b]">
-            我们未能找到与您搜索匹配的工具，请尝试其他关键词。
-          </p>
+          {filteredTools.length === 0 && (
+            <div className="text-center py-16">
+              <h3 className="text-lg font-semibold text-slate-800">没有找到相关工具</h3>
+              <p className="mt-2 text-sm text-slate-500">
+                我们未能找到与您搜索匹配的工具，请尝试其他关键词。
+              </p>
+            </div>
+          )}
         </div>
-      )}
+     );
+  }
+
+  // Otherwise, group by categories (Default View)
+  const groupedTools = TOOLS.reduce((acc, tool) => {
+    if (!acc[tool.category]) {
+      acc[tool.category] = [];
+    }
+    acc[tool.category].push(tool);
+    return acc;
+  }, {} as Record<Category, typeof TOOLS>);
+
+  const categoriesOrder = Array.from(new Set(TOOLS.map(t => t.category)));
+
+  return (
+    <div className="flex flex-col gap-12 pb-12">
+      {/* We can potentially add recent used here later if we use localStorage */}
+      {/* 
+      <div className="flex items-center justify-center text-sm text-slate-500 mb-8">
+         您最近使用了：<span className="text-green-600 ml-2">颜色代码转换</span>
+      </div>
+      */}
+
+      {categoriesOrder.map((category) => {
+         const toolsInCategory = groupedTools[category];
+         if (!toolsInCategory || toolsInCategory.length === 0) return null;
+         
+         const styles = getCategoryStyles(category);
+
+         return (
+            <section key={category} className="space-y-4">
+               {/* Category Header */}
+               <div className="flex items-center gap-3">
+                  <div className={`w-1 h-6 ${styles.bg.replace('bg-', 'bg-').split(' ')[0]} rounded-full ${styles.bg.replace('bg-', 'bg-').replace('50', '500').split(' ')[0]}`} />
+                  <h2 className={`text-[17px] font-bold ${styles.title} tracking-tight`}>
+                     {category}
+                  </h2>
+               </div>
+
+               {/* Tools Grid */}
+               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                  {toolsInCategory.map(tool => (
+                     <Link
+                       key={tool.id}
+                       to={tool.path}
+                       className="bg-white border border-slate-200/80 rounded-xl py-3.5 px-4 flex items-center justify-center text-center transition-all duration-200 hover:shadow-sm hover:-translate-y-[2px] group hover:border-slate-300"
+                     >
+                        <span className="text-[14px] font-medium text-slate-700 group-hover:text-slate-900 transition-colors">
+                           {tool.name}
+                        </span>
+                     </Link>
+                  ))}
+               </div>
+            </section>
+         );
+      })}
     </div>
   );
 }

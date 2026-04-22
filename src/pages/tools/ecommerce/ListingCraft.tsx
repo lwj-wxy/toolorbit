@@ -55,7 +55,7 @@ export default function ListingCraft() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="space-y-4 flex flex-col">
-          <div className="bg-white rounded-xl shadow-sm border border-[#e2e8f0] p-5 flex flex-col flex-1">
+          <div className="bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 flex flex-col flex-1">
             <label className="block text-sm font-bold text-[#334155] mb-3">产品基础信息入录</label>
             <textarea
               value={input}
@@ -74,7 +74,7 @@ export default function ListingCraft() {
           </div>
         </div>
 
-        <div className="bg-[#f8fafc] rounded-xl shadow-sm border border-[#e2e8f0] flex flex-col overflow-hidden h-[600px] relative">
+        <div className="bg-[#f8fafc] rounded-xl shadow-sm border border-slate-200/80 flex flex-col overflow-hidden h-[600px] relative">
           <div className="bg-white border-b border-[#e2e8f0] p-4 flex justify-between items-center">
             <h3 className="font-bold text-[#1e293b]">生成的 AI 方案</h3>
             {result && (
@@ -105,7 +105,7 @@ export default function ListingCraft() {
       </div>
 
       {/* Bottom SEO Instructions Panel */}
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-8 lg:p-12 mt-8">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-8 lg:p-12 mt-8">
         <h2 className="text-xl font-bold text-slate-800 mb-6">Listing Craft 核心 AI 文案生成平台，赋能跨境出海电商</h2>
         
         <p className="text-slate-600 mb-6 leading-relaxed">

@@ -96,13 +96,13 @@ export default function BarcodeGenerator() {
     <div className="max-w-6xl mx-auto space-y-6">
       
       {/* Header */}
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6 lg:p-8 flex items-center justify-between">
+      <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 bg-blue-50 text-[#2563eb] rounded-xl flex items-center justify-center shrink-0">
             <Barcode className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-[#1e293b]">条形码生成</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900">条形码生成</h1>
             <p className="text-[#64748b] mt-1 text-sm md:text-base">
               在线生成主流的各种标准一维条形码，支持 CODE128、CODE39、EAN 等数十种规格。
             </p>
@@ -114,7 +114,7 @@ export default function BarcodeGenerator() {
         
         {/* Left Side: Settings */}
         <div className="lg:col-span-4 space-y-6">
-          <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6">
+          <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6">
              
              <div className="space-y-5">
                 <div>
@@ -214,7 +214,7 @@ export default function BarcodeGenerator() {
 
         {/* Right Side: Output Preview */}
         <div className="lg:col-span-8 flex flex-col">
-          <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6 flex flex-col min-h-[500px]">
+          <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6 flex flex-col min-h-[500px]">
              
              <div className="flex items-center justify-between mb-4 border-b border-slate-100 pb-4">
                 <h3 className="font-bold text-[#1e293b] flex items-center gap-2">
@@ -262,7 +262,7 @@ export default function BarcodeGenerator() {
       </div>
 
       {/* Bottom SEO Instructions Panel */}
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-8 lg:p-12 mt-8">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-8 lg:p-12 mt-8">
         <h2 className="text-xl font-bold text-slate-800 mb-6">在线多形态条码生成引擎：为电商零售提供轻量化商品贴标方案</h2>
         
         <p className="text-slate-600 mb-6 leading-relaxed">

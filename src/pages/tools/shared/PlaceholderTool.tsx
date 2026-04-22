@@ -7,7 +7,7 @@ interface Props {
 
 export default function PlaceholderTool({ title }: Props) {
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] overflow-hidden flex flex-col items-center justify-center p-16 text-center min-h-[500px]">
+    <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 overflow-hidden flex flex-col items-center justify-center p-16 text-center min-h-[500px]">
       <div className="w-20 h-20 bg-blue-50 text-[#2563eb] rounded-2xl flex items-center justify-center mb-6">
         <Settings2 className="w-10 h-10 animate-spin-slow" />
       </div>

@@ -80,13 +80,13 @@ export default function UuidGenerator() {
     <div className="max-w-5xl mx-auto space-y-6">
       
       {/* Header */}
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6 lg:p-8 flex items-center justify-between">
+      <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 bg-blue-50 text-[#2563eb] rounded-xl flex items-center justify-center shrink-0">
             <Fingerprint className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-[#1e293b]">UUID 在线生成</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900">UUID 在线生成</h1>
             <p className="text-[#64748b] mt-1 text-sm md:text-base">
               基于 RFC 4122 标准，快速批量生成 Version 4 随机 UUID/GUID。
             </p>
@@ -98,7 +98,7 @@ export default function UuidGenerator() {
         
         {/* Left Side: Settings */}
         <div className="lg:col-span-4 space-y-6">
-          <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6">
+          <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6">
              <h3 className="text-lg font-bold text-[#1e293b] mb-6">生成参数约束</h3>
              
              <div className="space-y-5">
@@ -163,7 +163,7 @@ export default function UuidGenerator() {
 
         {/* Right Side: Results */}
         <div className="lg:col-span-8">
-          <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6 flex flex-col h-full min-h-[500px]">
+          <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6 flex flex-col h-full min-h-[500px]">
              <div className="flex items-center justify-between mb-4">
                 <h3 className="font-bold text-[#1e293b]">
                    运算结果分析 
@@ -228,7 +228,7 @@ export default function UuidGenerator() {
       </div>
 
       {/* Bottom SEO Instructions Panel */}
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-8 lg:p-12 mt-8">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-8 lg:p-12 mt-8">
         <h2 className="text-xl font-bold text-slate-800 mb-6">UUID v4 纯前端在线生成器：唯一业务流水号与主键工厂</h2>
         
         <p className="text-slate-600 mb-6 leading-relaxed">

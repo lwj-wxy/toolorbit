@@ -151,13 +151,13 @@ export default function PdfMerge() {
     <div className="max-w-5xl mx-auto space-y-6">
       
       {/* Header */}
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6 lg:p-8 flex items-center justify-between">
+      <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 bg-blue-50 text-[#2563eb] rounded-xl flex items-center justify-center shrink-0">
             <Files className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-[#1e293b]">PDF 合并</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900">PDF 合并</h1>
             <p className="text-[#64748b] mt-1 text-sm md:text-base">
               免费、快速、安全地将多个 PDF 文件拼接合并为一个文件。完全在浏览器本地处理，数据不上传。
             </p>
@@ -211,7 +211,7 @@ export default function PdfMerge() {
 
              {/* File List */}
              {pdfs.length > 0 && (
-                <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6 lg:p-8">
+                <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                   <h3 className="font-bold text-[#1e293b] text-lg mb-4 flex justify-between items-center">
                     <span>文件列表排序 ({pdfs.length})</span>
                     <button 
@@ -290,7 +290,7 @@ export default function PdfMerge() {
 
          {/* Right Sidebar: Merge Options & Trigger */}
          <div className="lg:col-span-4 self-start sticky top-6">
-            <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6">
+            <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6">
                 <h3 className="font-bold text-[#1e293b] mb-4 flex items-center gap-2">
                    <div className="w-2 h-5 bg-blue-500 rounded-sm"></div>
                    合并设置与导出
@@ -348,7 +348,7 @@ export default function PdfMerge() {
       </div>
     
       {/* Bottom SEO Instructions Panel */}
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-8 lg:p-12">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-8 lg:p-12">
         <h2 className="text-xl font-bold text-slate-800 mb-6">在线 PDF 批量合并工具，一键无损拼合文档</h2>
         
         <p className="text-slate-600 mb-6 leading-relaxed">

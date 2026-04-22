@@ -24,6 +24,11 @@ import EtsyFeeCalculator from './pages/tools/ecommerce/EtsyFee';
 import StripeFeeCalculator from './pages/tools/ecommerce/StripeFee';
 import ListingCraft from './pages/tools/ecommerce/ListingCraft';
 import PlaceholderTool from './pages/tools/shared/PlaceholderTool';
+
+import ColorConverter from './pages/tools/dev/ColorConverter';
+import ColorPalette from './pages/tools/dev/ColorPalette';
+import ColorPicker from './pages/tools/dev/ColorPicker';
+import ImageToIco from './pages/tools/image/ImageToIco';
 import TimestampConverter from './pages/tools/dev/TimestampConverter';
 import BaseConverter from './pages/tools/dev/BaseConverter';
 import ImageCompressor from './pages/tools/image/ImageCompressor';

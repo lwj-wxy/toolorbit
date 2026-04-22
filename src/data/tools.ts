@@ -1,4 +1,6 @@
 import { 
+  Palette,
+  Pipette, 
   Code2, 
   Hash, 
   Link, 
@@ -304,5 +306,37 @@ export const TOOLS: ToolItem[] = [
     icon: MonitorSmartphone,
     category: '计算转换',
     path: '/tools/ppi-calculator',
+  },
+  {
+    id: "color-converter",
+    name: "颜色代码转换",
+    description: "HEX, RGB, HSL, HSV, CMYK 等多种工业色彩规格之间无损互转，支持透明度提取。",
+    icon: Palette,
+    category: "开发者工具",
+    path: "/tools/dev/color-converter"
+  },
+  {
+    id: "color-palette",
+    name: "阶梯调色板推演工具",
+    description: "针对主色调自动演化同色系更具层次的高级 Tints 与 Shades。",
+    icon: Palette,
+    category: "开发者工具",
+    path: "/tools/dev/color-palette"
+  },
+  {
+    id: "color-picker",
+    name: "屏幕颜色拾取器",
+    description: "调用浏览器原生 EyeDropper 接口全屏取色。",
+    icon: Pipette,
+    category: "开发者工具",
+    path: "/tools/dev/color-picker"
+  },
+  {
+    id: "image-to-ico",
+    name: "图片转 ico 图标",
+    description: "生成正规带 Header 的 ICO 系统级专用图标封装格式。",
+    icon: ImageIcon,
+    category: "图片处理",
+    path: "/tools/image/image-to-ico"
   }
 ];

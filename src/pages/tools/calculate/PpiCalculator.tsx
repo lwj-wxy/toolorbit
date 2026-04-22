@@ -25,13 +25,13 @@ export default function PpiCalculator() {
 
   return (
     <div className="max-w-5xl mx-auto space-y-6">
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6 lg:p-8 flex items-center justify-between">
+      <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 bg-teal-50 text-teal-600 rounded-xl flex items-center justify-center shrink-0">
             <MonitorSmartphone className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-[#1e293b]">屏幕 PPI 像素密度计算器</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900">屏幕 PPI 像素密度计算器</h1>
             <p className="text-[#64748b] mt-1 text-sm md:text-base">
               输入物理设备属性以及屏幕分辨率，换算得出面板的每英寸像素密度及视网膜效果评估。
             </p>
@@ -40,7 +40,7 @@ export default function PpiCalculator() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6 lg:p-8 space-y-6">
+        <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6 lg:p-8 space-y-6">
            <div className="grid grid-cols-2 gap-6">
               <div>
                  <label className="block text-sm font-bold text-slate-700 mb-2">水平分辨率宽度 (px)</label>
@@ -128,7 +128,7 @@ export default function PpiCalculator() {
       </div>
 
       {/* Bottom SEO Instructions Panel */}
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-8 lg:p-12 mt-8">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-8 lg:p-12 mt-8">
         <h2 className="text-xl font-bold text-slate-800 mb-6">屏幕 PPI 在线换算器，精准测评手机与显示器的“细腻度”谎言</h2>
         
         <p className="text-slate-600 mb-6 leading-relaxed">

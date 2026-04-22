@@ -175,13 +175,13 @@ export default function SvgToPng() {
       <canvas ref={canvasRef} width={width} height={height} className="hidden" />
 
       {/* Header */}
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6 lg:p-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6 lg:p-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 bg-blue-50 text-[#2563eb] rounded-xl flex items-center justify-center shrink-0">
             <FileImage className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-[#1e293b]">SVG 转 PNG</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900">SVG 转 PNG</h1>
             <p className="text-[#64748b] mt-1 text-sm md:text-base">
               无需服务器参与，纯净本地浏览器运算，将 SVG 矢量图渲染导出为高清 PNG 图片。
             </p>
@@ -200,7 +200,7 @@ export default function SvgToPng() {
 
       {!svgContent ? (
           /* Step 1: Upload Area */
-          <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-8 lg:p-16 flex flex-col items-center">
+          <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-8 lg:p-16 flex flex-col items-center">
                <div
                   onDragOver={onDragOver}
                   onDragLeave={onDragLeave}
@@ -256,7 +256,7 @@ export default function SvgToPng() {
               {/* Left Column: Code Editor & Export Settings */}
               <div className="lg:col-span-5 space-y-6">
                  {/* Raw Editor */}
-                 <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-5 flex flex-col h-[400px]">
+                 <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-5 flex flex-col h-[400px]">
                     <div className="flex items-center gap-2 mb-3">
                         <Code className="w-5 h-5 text-blue-600" />
                         <h3 className="font-bold text-[#1e293b]">SVG 源码编辑</h3>
@@ -270,7 +270,7 @@ export default function SvgToPng() {
                  </div>
 
                  {/* Export Engine */}
-                 <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-5">
+                 <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-5">
                     <h3 className="font-bold text-[#1e293b] mb-4 flex items-center gap-2">
                        <span className="w-2 h-5 bg-emerald-500 rounded-sm block"></span>
                        导出光栅化参数
@@ -320,7 +320,7 @@ export default function SvgToPng() {
               </div>
 
               {/* Right Column: Visual Render */}
-              <div className="lg:col-span-7 bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6 min-h-[500px] flex flex-col">
+              <div className="lg:col-span-7 bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6 min-h-[500px] flex flex-col">
                  <h3 className="font-bold text-[#1e293b] mb-4 flex items-center gap-2 border-b border-slate-100 pb-4">
                     <ImageIcon className="w-5 h-5 text-blue-600" /> WebKit 渲染核心视图
                  </h3>
@@ -358,7 +358,7 @@ export default function SvgToPng() {
       )}
 
       {/* Bottom SEO Instructions Panel */}
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-8 lg:p-12 mb-8 mt-8">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-8 lg:p-12 mb-8 mt-8">
         <h2 className="text-xl font-bold text-slate-800 mb-6">在线 SVG 转 PNG 工具，保留矢量的完美细节</h2>
         
         <p className="text-slate-600 mb-6 leading-relaxed">

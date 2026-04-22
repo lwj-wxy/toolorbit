@@ -51,13 +51,13 @@ export default function SymbolLibrary() {
 
   return (
     <div className="max-w-6xl mx-auto space-y-6">
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6 lg:p-8 flex items-center justify-between">
+      <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 bg-pink-50 text-pink-500 rounded-xl flex items-center justify-center shrink-0">
             <Type className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-[#1e293b]">特殊符号与 Emoji 大全</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900">特殊符号与 Emoji 大全</h1>
             <p className="text-[#64748b] mt-1 text-sm md:text-base">
               无需费力在输入法中翻找，一键点击复制全网覆盖面最广的特殊文本与表情图库。
             </p>
@@ -65,7 +65,7 @@ export default function SymbolLibrary() {
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] overflow-hidden">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 overflow-hidden">
         <div className="p-6 border-b border-[#e2e8f0] bg-slate-50 flex flex-col sm:flex-row items-center gap-4">
           <div className="w-full sm:w-72">
              <input
@@ -118,7 +118,7 @@ export default function SymbolLibrary() {
       </div>
 
       {/* Bottom SEO Instructions Panel */}
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-8 lg:p-12 mt-8">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-8 lg:p-12 mt-8">
         <h2 className="text-xl font-bold text-slate-800 mb-6">特殊符号与 Emoji 表情大全，一键复制的排版文案图库</h2>
         
         <p className="text-slate-600 mb-6 leading-relaxed">

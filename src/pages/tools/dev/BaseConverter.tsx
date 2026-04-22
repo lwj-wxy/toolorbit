@@ -120,13 +120,13 @@ export default function BaseConverter() {
     <div className="max-w-5xl mx-auto space-y-6">
       
       {/* Header */}
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6 lg:p-8 flex items-center justify-between">
+      <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 bg-blue-50 text-[#2563eb] rounded-xl flex items-center justify-center shrink-0">
             <Binary className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-[#1e293b]">进制转换</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900">进制转换</h1>
             <p className="text-[#64748b] mt-1 text-sm md:text-base">
               支持 2 到 36 进制之间的任意互转。采用 BigInt 算法支持无限长度的超大整数。
             </p>
@@ -135,7 +135,7 @@ export default function BaseConverter() {
       </div>
 
       {/* Main Converter Block */}
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6 lg:p-10 relative">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6 lg:p-10 relative">
           
           <div className="grid grid-cols-1 lg:grid-cols-11 gap-6 items-stretch">
               
@@ -257,7 +257,7 @@ export default function BaseConverter() {
       </div>
 
       {/* Bottom SEO Instructions Panel */}
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-8 lg:p-12 mt-4">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-8 lg:p-12 mt-4">
         <h2 className="text-xl font-bold text-slate-800 mb-6">各类数制进制间的高效互换助手，跨越基数转换障碍</h2>
         
         <p className="text-slate-600 mb-6 leading-relaxed">

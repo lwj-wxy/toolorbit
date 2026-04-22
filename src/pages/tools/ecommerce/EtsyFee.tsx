@@ -34,7 +34,7 @@ export default function EtsyFeeCalculator() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="bg-white rounded-xl shadow-sm border border-[#e2e8f0] p-6 space-y-5">
+        <div className="bg-white rounded-xl shadow-sm border border-slate-200/80 p-6 space-y-5">
           <div>
             <label className="block text-sm font-medium text-[#334155] mb-2">商品售价 (USD)</label>
             <div className="relative">
@@ -84,7 +84,7 @@ export default function EtsyFeeCalculator() {
           </div>
         </div>
 
-        <div className="bg-[#f8fafc] rounded-xl shadow-sm border border-[#e2e8f0] p-6">
+        <div className="bg-[#f8fafc] rounded-xl shadow-sm border border-slate-200/80 p-6">
           <h3 className="text-[16px] font-bold text-[#1e293b] mb-4 border-b border-[#e2e8f0] pb-2">费用详情计算</h3>
           
           <dl className="space-y-3 text-sm">
@@ -128,7 +128,7 @@ export default function EtsyFeeCalculator() {
       </div>
 
       {/* Bottom SEO Instructions Panel */}
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-8 lg:p-12 mt-8">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-8 lg:p-12 mt-8">
         <h2 className="text-xl font-bold text-slate-800 mb-6">在线 Etsy 利润计算器，精准预估跨境电商真实收益</h2>
         
         <p className="text-slate-600 mb-6 leading-relaxed">

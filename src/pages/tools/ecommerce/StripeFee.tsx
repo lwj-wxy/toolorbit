@@ -31,7 +31,7 @@ export default function StripeFeeCalculator() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="bg-white rounded-xl shadow-sm border border-[#e2e8f0] p-6">
+        <div className="bg-white rounded-xl shadow-sm border border-slate-200/80 p-6">
           <label className="block text-sm font-medium text-[#334155] mb-2">交易金额 (USD)</label>
           <div className="relative">
             <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
@@ -48,7 +48,7 @@ export default function StripeFeeCalculator() {
         </div>
 
         <div className="space-y-4">
-          <div className="bg-[#f8fafc] rounded-xl shadow-sm border border-[#e2e8f0] p-5">
+          <div className="bg-[#f8fafc] rounded-xl shadow-sm border border-slate-200/80 p-5">
             <h3 className="text-[14px] font-bold text-[#64748b] uppercase tracking-wider mb-3">如果客户支付 ${val.toFixed(2)}</h3>
             <div className="flex justify-between items-end mb-2">
               <span className="text-sm text-[#334155]">Stripe 扣除手续费</span>
@@ -75,7 +75,7 @@ export default function StripeFeeCalculator() {
       </div>
 
       {/* Bottom SEO Instructions Panel */}
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-8 lg:p-12 mt-8">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-8 lg:p-12 mt-8">
         <h2 className="text-xl font-bold text-slate-800 mb-6">Stripe 手续费在线计算器，一键换算全球信用卡收单成本</h2>
         
         <p className="text-slate-600 mb-6 leading-relaxed">

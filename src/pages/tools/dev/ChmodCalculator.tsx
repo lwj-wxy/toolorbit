@@ -73,13 +73,13 @@ export default function ChmodCalculator() {
 
   return (
     <div className="max-w-5xl mx-auto space-y-6">
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6 lg:p-8 flex items-center justify-between">
+      <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center shrink-0">
             <FileKey className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-[#1e293b]">Linux chmod 权限掩码计算器</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900">Linux chmod 权限掩码计算器</h1>
             <p className="text-[#64748b] mt-1 text-sm md:text-base">
               直观点击多选框，在八进制数字掩码与 RWX 符号模式之间快速推导转换。
             </p>
@@ -88,7 +88,7 @@ export default function ChmodCalculator() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <div className="lg:col-span-8 bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6 lg:p-8">
+        <div className="lg:col-span-8 bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6 lg:p-8">
            <h3 className="font-bold text-slate-800 mb-6 flex items-center gap-2">
              <span className="w-2 h-6 bg-indigo-500 rounded block"></span>
              文件属性访问权限配置 (Access Classes)
@@ -198,7 +198,7 @@ export default function ChmodCalculator() {
       </div>
 
       {/* Bottom SEO Instructions Panel */}
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-8 lg:p-12 mt-8">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-8 lg:p-12 mt-8">
         <h2 className="text-xl font-bold text-slate-800 mb-6">在线 Chmod 权限计算推导器，Linux 运维必装瑞士军刀</h2>
         
         <p className="text-slate-600 mb-6 leading-relaxed">

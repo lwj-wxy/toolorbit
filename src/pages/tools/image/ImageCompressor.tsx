@@ -165,13 +165,13 @@ export default function ImageCompressor() {
   return (
     <div className="max-w-5xl mx-auto space-y-6">
       
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6 lg:p-8 flex items-center justify-between">
+      <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 bg-blue-50 text-[#2563eb] rounded-xl flex items-center justify-center shrink-0">
             <ImageIcon className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-[#1e293b]">图片在线压缩</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900">图片在线压缩</h1>
             <p className="text-[#64748b] mt-1 text-sm md:text-base">
               在本地浏览器中极速压缩图片体积，保护隐私不传服务器，一键提升网页加载速度。
             </p>
@@ -209,7 +209,7 @@ export default function ImageCompressor() {
           
           {/* Main Workspace (Preview) */}
           <div className="lg:col-span-2 space-y-6">
-            <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6">
+            <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6">
               <div className="flex items-center justify-between mb-6 border-b border-[#e2e8f0] pb-4">
                 <h3 className="text-lg font-bold text-[#1e293b] flex items-center gap-2">
                   <CheckCircle2 className="w-5 h-5 text-green-500" />
@@ -274,7 +274,7 @@ export default function ImageCompressor() {
 
           {/* Controls Sidebar */}
           <div className="lg:col-span-1 space-y-6">
-            <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6 relative overflow-hidden">
+            <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6 relative overflow-hidden">
               <div className="flex items-center gap-2 mb-6">
                 <Settings className="w-5 h-5 text-[#2563eb]" />
                 <h3 className="font-bold text-[#1e293b]">压缩设置</h3>
@@ -344,7 +344,7 @@ export default function ImageCompressor() {
       )}
 
       {/* Bottom SEO Instructions Panel */}
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-8 lg:p-12 mb-8 mt-8">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-8 lg:p-12 mb-8 mt-8">
         <h2 className="text-xl font-bold text-slate-800 mb-6">图片在线压缩工具，提升网页性能的神器</h2>
         
         <p className="text-slate-600 mb-6 leading-relaxed">

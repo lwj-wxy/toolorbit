@@ -61,13 +61,13 @@ export default function TimeConverter() {
 
   return (
     <div className="max-w-5xl mx-auto space-y-6">
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6 lg:p-8 flex items-center justify-between">
+      <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 bg-orange-50 text-orange-600 rounded-xl flex items-center justify-center shrink-0">
             <Clock className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-[#1e293b]">时间与时区转换器</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900">时间与时区转换器</h1>
             <p className="text-[#64748b] mt-1 text-sm md:text-base">
               在各大主流时区之间快速转换时间，协助跨国协作排期规划。
             </p>
@@ -78,7 +78,7 @@ export default function TimeConverter() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Base Time Input */}
         <div className="lg:col-span-5 flex flex-col gap-6">
-          <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6 flex-1">
+          <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6 flex-1">
             <div className="flex items-center justify-between mb-6">
                <h3 className="font-bold text-[#1e293b] flex items-center gap-2 text-lg">
                  基准时间设定
@@ -131,7 +131,7 @@ export default function TimeConverter() {
 
         {/* Target Timezones Preview */}
         <div className="lg:col-span-7 flex flex-col gap-6">
-           <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6 min-h-[500px] flex flex-col">
+           <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6 min-h-[500px] flex flex-col">
               <div className="flex items-center justify-between mb-6 pb-4 border-b border-slate-100">
                  <h3 className="font-bold text-[#1e293b] flex items-center gap-2 text-lg">
                     目标时区换算面板
@@ -192,7 +192,7 @@ export default function TimeConverter() {
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-8 lg:p-12 mt-8">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-8 lg:p-12 mt-8">
         <h2 className="text-xl font-bold text-slate-800 mb-6">在线时区对比与会议换排工具，破除全球协作壁垒</h2>
         
         <p className="text-slate-600 mb-6 leading-relaxed">

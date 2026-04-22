@@ -72,13 +72,13 @@ export default function AsciiTable() {
 
   return (
     <div className="max-w-6xl mx-auto space-y-6">
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6 lg:p-8 flex items-center justify-between">
+      <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center shrink-0">
             <Hash className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-[#1e293b]">ASCII 编码表</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900">ASCII 编码表</h1>
             <p className="text-[#64748b] mt-1 text-sm md:text-base">
               标准 ASCII 字符编码速查及转换（包括控制字符、十进制、十六进制等）。
             </p>
@@ -86,7 +86,7 @@ export default function AsciiTable() {
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] overflow-hidden flex flex-col">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 overflow-hidden flex flex-col">
         <div className="p-6 border-b border-[#e2e8f0] bg-slate-50 flex items-center gap-4">
           <div className="relative flex-1 max-w-md">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -158,7 +158,7 @@ export default function AsciiTable() {
       </div>
 
       {/* Bottom SEO Instructions Panel */}
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-8 lg:p-12 mt-8">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-8 lg:p-12 mt-8">
         <h2 className="text-xl font-bold text-slate-800 mb-6">在线 ASCII 码表查询大全，程序员必备的字符编码速查手册</h2>
         
         <p className="text-slate-600 mb-6 leading-relaxed">

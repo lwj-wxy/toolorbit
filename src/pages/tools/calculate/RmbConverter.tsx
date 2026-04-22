@@ -96,13 +96,13 @@ export default function RmbConverter() {
 
   return (
     <div className="max-w-5xl mx-auto space-y-6">
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6 lg:p-8 flex items-center justify-between">
+      <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 bg-red-50 text-red-600 rounded-xl flex items-center justify-center shrink-0">
             <Banknote className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-[#1e293b]">人民币大写转换</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900">人民币大写转换</h1>
             <p className="text-[#64748b] mt-1 text-sm md:text-base">
               一键将阿拉伯数字金额翻译为规范的中华财务报销、合同书写大写金额格式。
             </p>
@@ -111,7 +111,7 @@ export default function RmbConverter() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6 lg:p-8">
+        <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
            <label className="block text-sm font-bold text-slate-700 mb-4">输入金额数字 (阿拉伯数字)</label>
            <div className="relative">
               <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-lg">¥</span>
@@ -160,7 +160,7 @@ export default function RmbConverter() {
       </div>
 
       {/* Bottom SEO Instructions Panel */}
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-8 lg:p-12 mt-8">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-8 lg:p-12 mt-8">
         <h2 className="text-xl font-bold text-slate-800 mb-6">人民币大写强制转换器，杜绝合同账单金额涂改漏洞</h2>
         
         <p className="text-slate-600 mb-6 leading-relaxed">

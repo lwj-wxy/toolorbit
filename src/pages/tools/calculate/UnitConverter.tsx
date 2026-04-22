@@ -103,19 +103,19 @@ export default function UnitConverter() {
 
   return (
     <div className="max-w-5xl mx-auto space-y-6">
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6 lg:p-8 flex items-center gap-4">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6 lg:p-8 flex items-center gap-4">
         <div className="w-12 h-12 bg-orange-50 text-orange-600 rounded-xl flex items-center justify-center shrink-0">
           <Calculator className="w-6 h-6" />
         </div>
         <div>
-          <h1 className="text-2xl font-bold text-[#1e293b]">单位转换器</h1>
+          <h1 className="text-3xl font-bold tracking-tight text-slate-900">单位转换器</h1>
           <p className="text-[#64748b] mt-1 text-sm md:text-base">
             快速在长度、重量、体积、温度等各类计量单位间换算。
           </p>
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6 lg:p-8">
+      <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="flex gap-2 p-1 bg-slate-100 rounded-xl overflow-x-auto mb-8 custom-scrollbar">
           {(Object.entries(UNITS) as [UnitCategory, typeof UNITS[UnitCategory]][]).map(([cat, data]) => (
             <button
@@ -191,7 +191,7 @@ export default function UnitConverter() {
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-8 lg:p-12 mt-8">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-8 lg:p-12 mt-8">
         <h2 className="text-xl font-bold text-slate-800 mb-6">全能型网页单位转换器：涵盖物理与生活场景的精确推演</h2>
         
         <p className="text-slate-600 mb-6 leading-relaxed">

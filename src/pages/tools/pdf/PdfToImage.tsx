@@ -122,13 +122,13 @@ export default function PdfToImage() {
     <div className="max-w-5xl mx-auto space-y-6">
       
       {/* Header */}
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6 lg:p-8 flex items-center justify-between">
+      <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 bg-blue-50 text-[#2563eb] rounded-xl flex items-center justify-center shrink-0">
             <Layers className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-[#1e293b]">PDF 转长图 / 图片</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900">PDF 转长图 / 图片</h1>
             <p className="text-[#64748b] mt-1 text-sm md:text-base">
               在本地解析 PDF 文档并将每一页导出为高清 JPEG 图片，支持一键打包下载。
             </p>
@@ -137,7 +137,7 @@ export default function PdfToImage() {
       </div>
 
       {!file ? (
-        <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-8 lg:p-16 flex flex-col items-center">
+        <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-8 lg:p-16 flex flex-col items-center">
             <div 
               className={`w-full max-w-2xl border-2 border-dashed rounded-2xl transition-all p-12 text-center flex flex-col items-center justify-center min-h-[300px] cursor-pointer
                 ${isDragging ? 'border-[#2563eb] bg-blue-50/50' : 'border-[#cbd5e1] hover:border-[#94a3b8] hover:bg-slate-50'}`}
@@ -165,7 +165,7 @@ export default function PdfToImage() {
         </div>
       ) : (
         <div className="space-y-6">
-          <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-3">
               <FileText className="w-8 h-8 text-rose-500" />
               <div>
@@ -196,7 +196,7 @@ export default function PdfToImage() {
           </div>
 
           {isProcessing && (
-            <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-12 flex flex-col items-center justify-center min-h-[300px]">
+            <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-12 flex flex-col items-center justify-center min-h-[300px]">
               <div className="w-12 h-12 border-4 border-slate-200 border-t-blue-600 rounded-full animate-spin mb-4"></div>
               <h3 className="text-lg font-bold text-[#1e293b] mb-2">正在全力解析 PDF...</h3>
               <p className="text-[#64748b]">
@@ -214,7 +214,7 @@ export default function PdfToImage() {
           {!isProcessing && images.length > 0 && (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {images.map((img) => (
-                <div key={img.pageNumber} className="bg-white rounded-xl shadow-sm border border-[#e2e8f0] overflow-hidden group">
+                <div key={img.pageNumber} className="bg-white rounded-xl shadow-sm border border-slate-200/80 overflow-hidden group">
                   <div className="bg-slate-100 aspect-[1/1.4] relative flex items-center justify-center p-2 border-b border-[#e2e8f0]">
                     <img 
                       src={img.dataUrl} 
@@ -242,7 +242,7 @@ export default function PdfToImage() {
       )}
       
       {/* Bottom SEO Instructions Panel */}
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-8 lg:p-12 mt-8">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-8 lg:p-12 mt-8">
         <h2 className="text-xl font-bold text-slate-800 mb-6">PDF 转图片工具，高清离线、安全便捷</h2>
         
         <p className="text-slate-600 mb-6 leading-relaxed">

@@ -68,13 +68,13 @@ export default function TextCleaner() {
     <div className="max-w-6xl mx-auto space-y-6">
       
       {/* Header */}
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6 lg:p-8 flex items-center justify-between">
+      <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 bg-blue-50 text-[#2563eb] rounded-xl flex items-center justify-center shrink-0">
             <Eraser className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-[#1e293b]">字符串清洗</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900">字符串清洗</h1>
             <p className="text-[#64748b] mt-1 text-sm md:text-base">
               在线批量去除文本中的多余空格、换行符、制表符及各类标点符号。
             </p>
@@ -93,7 +93,7 @@ export default function TextCleaner() {
       <div className="flex flex-col lg:flex-row gap-6">
         
         {/* Left Side: Input */}
-        <div className="flex-1 lg:w-0 bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-5 flex flex-col min-h-[500px]">
+        <div className="flex-1 lg:w-0 bg-white rounded-2xl shadow-sm border border-slate-200/80 p-5 flex flex-col min-h-[500px]">
            <div className="flex items-center justify-between mb-4">
               <h3 className="font-bold text-[#1e293b] flex items-center gap-2">
                  <span className="w-2 h-6 bg-[#2563eb] rounded-sm block"></span>
@@ -113,7 +113,7 @@ export default function TextCleaner() {
 
         {/* Center: Pipeline Settings */}
         <div className="w-full lg:w-[220px] shrink-0 flex flex-col justify-center space-y-4">
-           <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-5 hidden lg:flex flex-col items-center">
+           <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-5 hidden lg:flex flex-col items-center">
               <h4 className="text-sm font-bold text-[#475569] mb-4 w-full text-center border-b border-slate-100 pb-2">过滤规则</h4>
               <div className="space-y-3 w-full">
                  <label className="flex items-center gap-3 cursor-pointer text-sm font-medium text-[#334155] p-2 hover:bg-slate-50 rounded-lg transition-colors whitespace-nowrap">
@@ -141,7 +141,7 @@ export default function TextCleaner() {
            </div>
 
            {/* Mobile View Rules */}
-           <div className="lg:hidden bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-5">
+           <div className="lg:hidden bg-white rounded-2xl shadow-sm border border-slate-200/80 p-5">
               <h4 className="text-sm font-bold text-[#475569] mb-3">勾选过滤规则</h4>
               <div className="grid grid-cols-2 gap-2">
                  <label className="flex items-center gap-2 cursor-pointer text-sm text-[#334155] bg-slate-50 p-2 rounded-lg whitespace-nowrap">
@@ -169,7 +169,7 @@ export default function TextCleaner() {
         </div>
 
         {/* Right Side: Output */}
-        <div className="flex-1 lg:w-0 bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-5 flex flex-col min-h-[500px]">
+        <div className="flex-1 lg:w-0 bg-white rounded-2xl shadow-sm border border-slate-200/80 p-5 flex flex-col min-h-[500px]">
            <div className="flex items-center justify-between mb-4">
               <h3 className="font-bold text-[#1e293b] flex items-center gap-2">
                  <span className="w-2 h-6 bg-emerald-500 rounded-sm block"></span>
@@ -220,7 +220,7 @@ export default function TextCleaner() {
       </div>
 
       {/* Bottom SEO Instructions Panel */}
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-8 lg:p-12 mt-8">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-8 lg:p-12 mt-8">
         <h2 className="text-xl font-bold text-slate-800 mb-6">在线文本清洗与格式化工具，高效净化杂乱字符串</h2>
         
         <p className="text-slate-600 mb-6 leading-relaxed">

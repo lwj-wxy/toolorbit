@@ -163,13 +163,13 @@ export default function PdfSplit() {
     <div className="max-w-5xl mx-auto space-y-6">
       
       {/* Header */}
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6 lg:p-8 flex items-center justify-between">
+      <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center shrink-0">
             <Columns className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-[#1e293b]">PDF 拆分 & 提取</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900">PDF 拆分 & 提取</h1>
             <p className="text-[#64748b] mt-1 text-sm md:text-base">
               从 PDF 中单独提取您需要的页面，或将一个大的文件按页切分成多份。离线纯前端解析，安全无忧。
             </p>
@@ -178,7 +178,7 @@ export default function PdfSplit() {
       </div>
 
       {!pdf ? (
-         <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-8 lg:p-16 flex flex-col items-center">
+         <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-8 lg:p-16 flex flex-col items-center">
             <div
                onDragOver={onDragOver}
                onDragLeave={onDragLeave}
@@ -213,7 +213,7 @@ export default function PdfSplit() {
              <div className="lg:col-span-7 flex flex-col gap-6">
                 
                 {/* File Card */}
-                <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6 lg:p-8 flex-1 flex flex-col justify-center">
+                <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6 lg:p-8 flex-1 flex flex-col justify-center">
                    <div className="flex justify-between items-center mb-6">
                      <h3 className="font-bold text-[#1e293b] text-lg">待处理的源文档</h3>
                      <button 
@@ -317,7 +317,7 @@ export default function PdfSplit() {
       )}
 
       {/* Bottom SEO Instructions Panel */}
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-8 lg:p-12">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-8 lg:p-12">
         <h2 className="text-xl font-bold text-slate-800 mb-6">在线 PDF 批量拆分工具，安全高效的办公利器</h2>
         
         <p className="text-slate-600 mb-6 leading-relaxed">

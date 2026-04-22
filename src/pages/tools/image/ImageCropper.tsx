@@ -171,13 +171,13 @@ export default function ImageCropper() {
     <div className="max-w-6xl mx-auto space-y-6">
       
       {/* Header */}
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6 lg:p-8 flex items-center justify-between">
+      <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 bg-blue-50 text-[#2563eb] rounded-xl flex items-center justify-center shrink-0">
             <CropIcon className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-[#1e293b]">图片裁剪与缩略图生成</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900">图片裁剪与缩略图生成</h1>
             <p className="text-[#64748b] mt-1 text-sm md:text-base">
               通过可视化拖拽与选区，自由提取图片中您想要的任何区域，自动输出高清大图。
             </p>
@@ -189,7 +189,7 @@ export default function ImageCropper() {
         
         {/* Main Interface */}
         <div className="lg:col-span-2 space-y-6">
-          <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6 lg:p-8">
+          <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             
             {!imgSrc ? (
               <div 
@@ -263,7 +263,7 @@ export default function ImageCropper() {
 
         {/* Sidebar Controls */}
         <div className="lg:col-span-1 space-y-6">
-          <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-6">
+          <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6">
             <div className="flex items-center gap-2 mb-6">
               <Settings2 className="w-5 h-5 text-[#2563eb]" />
               <h3 className="font-bold text-[#1e293b]">裁剪参数控制</h3>
@@ -352,7 +352,7 @@ export default function ImageCropper() {
       </div>
       
       {/* Bottom SEO Instructions Panel */}
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] p-8 lg:p-12 mt-2">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-8 lg:p-12 mt-2">
         <h2 className="text-xl font-bold text-slate-800 mb-6">在线图片编辑与裁剪，自由构图极简呈现</h2>
         
         <p className="text-slate-600 mb-6 leading-relaxed">
