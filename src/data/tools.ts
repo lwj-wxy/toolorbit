@@ -28,10 +28,15 @@ import {
   Keyboard,
   Banknote,
   FileKey,
-  MonitorSmartphone
+  MonitorSmartphone,
+  Gamepad2,
+  Link2,
+  ShieldCheck,
+  Bomb,
+  Layers
 } from 'lucide-react';
 
-export type Category = '开发者工具' | '站长工具' | '文本排版' | '生成器' | '电商工具' | 'PDF工具' | '图片处理' | '计算转换';
+export type Category = '开发者工具' | '站长工具' | '文本排版' | '生成器' | '电商工具' | 'PDF工具' | '图片处理' | '计算转换' | '娱乐工具';
 
 export interface ToolItem {
   id: string;
@@ -338,5 +343,45 @@ export const TOOLS: ToolItem[] = [
     icon: ImageIcon,
     category: "图片处理",
     path: "/tools/image/image-to-ico"
+  },
+  {
+    id: "short-url",
+    name: "短链接生成",
+    description: "将长链接转换为极简短链接，方便分享与社交媒体传播。",
+    icon: Link2,
+    category: "站长工具",
+    path: "/tools/net/short-url"
+  },
+  {
+    id: "game-2048",
+    name: "2048 经典游戏",
+    description: "经典的 2048 益智数字合并小游戏，解压、益智、防无聊。",
+    icon: Gamepad2,
+    category: "娱乐工具",
+    path: "/tools/fun/game-2048"
+  },
+  {
+    id: "password-generator",
+    name: "强密码生成器",
+    description: "本地随机生成高强度复杂密码，保护您的账户隐私安全。",
+    icon: ShieldCheck,
+    category: "开发者工具",
+    path: "/tools/dev/password-generator"
+  },
+  {
+    id: "jwt-debugger",
+    name: "JWT 在线解码",
+    description: "解析 JSON Web Token 内容内容，本地解码，安全无忧。",
+    icon: Layers,
+    category: "开发者工具",
+    path: "/tools/dev/jwt-debugger"
+  },
+  {
+    id: "minesweeper",
+    name: "经典扫雷",
+    description: "Windows 经典扫雷小游戏，挑战逻辑思维与运气。",
+    icon: Bomb,
+    category: "娱乐工具",
+    path: "/tools/fun/minesweeper"
   }
 ];

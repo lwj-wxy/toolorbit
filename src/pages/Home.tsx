@@ -12,6 +12,7 @@ const getCategoryStyles = (category: Category) => {
     case 'PDF工具': return { border: 'border-rose-500', title: 'text-rose-600', icon: 'text-rose-500', bg: 'bg-rose-50 hover:bg-rose-100 hover:text-rose-600' };
     case '图片处理': return { border: 'border-fuchsia-500', title: 'text-fuchsia-600', icon: 'text-fuchsia-500', bg: 'bg-fuchsia-50 hover:bg-fuchsia-100 hover:text-fuchsia-600' };
     case '计算转换': return { border: 'border-amber-500', title: 'text-amber-600', icon: 'text-amber-500', bg: 'bg-amber-50 hover:bg-amber-100 hover:text-amber-600' };
+    case '娱乐工具': return { border: 'border-pink-500', title: 'text-pink-600', icon: 'text-pink-500', bg: 'bg-pink-50 hover:bg-pink-100 hover:text-pink-600' };
     default: return { border: 'border-slate-500', title: 'text-slate-600', icon: 'text-slate-500', bg: 'bg-slate-50 hover:bg-slate-100 hover:text-slate-600' };
   }
 };

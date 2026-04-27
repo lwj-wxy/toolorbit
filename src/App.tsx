@@ -46,6 +46,12 @@ import ArchiveConverter from './pages/tools/calculate/ArchiveConverter';
 import RmbConverter from './pages/tools/calculate/RmbConverter';
 import PpiCalculator from './pages/tools/calculate/PpiCalculator';
 
+import ShortUrl from './pages/tools/net/ShortUrl';
+import Game2048 from './pages/tools/fun/Game2048';
+import PasswordGenerator from './pages/tools/dev/PasswordGenerator';
+import JwtDebugger from './pages/tools/dev/JwtDebugger';
+import Minesweeper from './pages/tools/fun/Minesweeper';
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -60,6 +66,12 @@ export default function App() {
           <Route path="/tools/uuid-generator" element={<UuidGenerator />} />
           <Route path="/tools/unicode-converter" element={<UnicodeConverter />} />
           <Route path="/tools/chmod-calculator" element={<ChmodCalculator />} />
+          
+          <Route path="/tools/dev/color-converter" element={<ColorConverter />} />
+          <Route path="/tools/dev/color-palette" element={<ColorPalette />} />
+          <Route path="/tools/dev/color-picker" element={<ColorPicker />} />
+          <Route path="/tools/image/image-to-ico" element={<ImageToIco />} />
+          
           <Route path="/tools/text-analyzer" element={<TextAnalyzer />} />
           <Route path="/tools/text-cleaner" element={<TextCleaner />} />
           <Route path="/tools/symbol-library" element={<SymbolLibrary />} />
@@ -87,6 +99,12 @@ export default function App() {
           <Route path="/tools/archive-converter" element={<ArchiveConverter />} />
           <Route path="/tools/rmb-converter" element={<RmbConverter />} />
           <Route path="/tools/ppi-calculator" element={<PpiCalculator />} />
+
+          <Route path="/tools/net/short-url" element={<ShortUrl />} />
+          <Route path="/tools/fun/game-2048" element={<Game2048 />} />
+          <Route path="/tools/dev/password-generator" element={<PasswordGenerator />} />
+          <Route path="/tools/dev/jwt-debugger" element={<JwtDebugger />} />
+          <Route path="/tools/fun/minesweeper" element={<Minesweeper />} />
         </Routes>
       </Layout>
     </BrowserRouter>
