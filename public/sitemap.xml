@@ -2,61 +2,61 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- 首页 -->
   <url>
-    <loc>https://ais-pre-l43mepfnuzcsebdlekooa7-842464931762.asia-southeast1.run.app/</loc>
+    <loc>https://toolorbit.site/</loc>
     <lastmod>2024-04-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
-  <!-- 各类工具页 (以静态路径或主要分类页为主) -->
-  <!-- 注意：如果您的工具页有独立的路由路径，请在这里一一列出 -->
-  <!-- 示例：Dev Tools -->
-  <url>
-    <loc>https://ais-pre-l43mepfnuzcsebdlekooa7-842464931762.asia-southeast1.run.app/?category=Dev%20Tools</loc>
-    <lastmod>2024-04-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
-  <url>
-    <loc>https://ais-pre-l43mepfnuzcsebdlekooa7-842464931762.asia-southeast1.run.app/?category=Webmaster</loc>
-    <lastmod>2024-04-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
+  <!-- 分类页 -->
+  <url><loc>https://toolorbit.site/?category=Dev%20Tools</loc><lastmod>2024-04-29</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolorbit.site/?category=Webmaster</loc><lastmod>2024-04-29</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolorbit.site/?category=Typography</loc><lastmod>2024-04-29</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolorbit.site/?category=Generators</loc><lastmod>2024-04-29</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolorbit.site/?category=E-commerce</loc><lastmod>2024-04-29</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolorbit.site/?category=PDF%20Tools</loc><lastmod>2024-04-29</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolorbit.site/?category=Image</loc><lastmod>2024-04-29</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
 
-  <url>
-    <loc>https://ais-pre-l43mepfnuzcsebdlekooa7-842464931762.asia-southeast1.run.app/?category=Typography</loc>
-    <lastmod>2024-04-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://ais-pre-l43mepfnuzcsebdlekooa7-842464931762.asia-southeast1.run.app/?category=Generators</loc>
-    <lastmod>2024-04-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://ais-pre-l43mepfnuzcsebdlekooa7-842464931762.asia-southeast1.run.app/?category=E-commerce</loc>
-    <lastmod>2024-04-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://ais-pre-l43mepfnuzcsebdlekooa7-842464931762.asia-southeast1.run.app/?category=PDF%20Tools</loc>
-    <lastmod>2024-04-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://ais-pre-l43mepfnuzcsebdlekooa7-842464931762.asia-southeast1.run.app/?category=Image</loc>
-    <lastmod>2024-04-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
+  <!-- 具体工具页 -->
+  <url><loc>https://toolorbit.site/tools/dev/json-formatter</loc><lastmod>2024-04-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolorbit.site/tools/dev/base64</loc><lastmod>2024-04-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolorbit.site/tools/dev/ascii-table</loc><lastmod>2024-04-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolorbit.site/tools/dev/url-encoder</loc><lastmod>2024-04-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolorbit.site/tools/dev/hash-generator</loc><lastmod>2024-04-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolorbit.site/tools/dev/uuid-generator</loc><lastmod>2024-04-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolorbit.site/tools/dev/unicode-converter</loc><lastmod>2024-04-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolorbit.site/tools/dev/chmod-calculator</loc><lastmod>2024-04-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolorbit.site/tools/text/text-analyzer</loc><lastmod>2024-04-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolorbit.site/tools/text/text-cleaner</loc><lastmod>2024-04-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolorbit.site/tools/text/symbol-library</loc><lastmod>2024-04-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolorbit.site/tools/generator/qr-generator</loc><lastmod>2024-04-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolorbit.site/tools/generator/qr-scanner</loc><lastmod>2024-04-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolorbit.site/tools/generator/barcode-generator</loc><lastmod>2024-04-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolorbit.site/tools/ecommerce/etsy-fee-calculator</loc><lastmod>2024-04-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolorbit.site/tools/ecommerce/stripe-fee-calculator</loc><lastmod>2024-04-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolorbit.site/tools/pdf/pdf-merge</loc><lastmod>2024-04-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolorbit.site/tools/pdf/pdf-split</loc><lastmod>2024-04-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolorbit.site/tools/pdf/pdf-to-image</loc><lastmod>2024-04-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolorbit.site/tools/pdf/image-to-pdf</loc><lastmod>2024-04-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolorbit.site/tools/image/image-compressor</loc><lastmod>2024-04-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolorbit.site/tools/image/image-converter</loc><lastmod>2024-04-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolorbit.site/tools/image/svg-to-png</loc><lastmod>2024-04-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolorbit.site/tools/image/image-to-base64</loc><lastmod>2024-04-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolorbit.site/tools/image/image-cropper</loc><lastmod>2024-04-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolorbit.site/tools/dev/timestamp-converter</loc><lastmod>2024-04-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolorbit.site/tools/dev/base-converter</loc><lastmod>2024-04-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolorbit.site/tools/calculate/unit-converter</loc><lastmod>2024-04-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolorbit.site/tools/calculate/time-converter</loc><lastmod>2024-04-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolorbit.site/tools/calculate/archive-converter</loc><lastmod>2024-04-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolorbit.site/tools/calculate/rmb-converter</loc><lastmod>2024-04-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolorbit.site/tools/calculate/ppi-calculator</loc><lastmod>2024-04-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolorbit.site/tools/dev/color-converter</loc><lastmod>2024-04-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolorbit.site/tools/dev/color-palette</loc><lastmod>2024-04-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolorbit.site/tools/dev/color-picker</loc><lastmod>2024-04-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolorbit.site/tools/image/image-to-ico</loc><lastmod>2024-04-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolorbit.site/tools/net/short-url</loc><lastmod>2024-04-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolorbit.site/tools/dev/password-generator</loc><lastmod>2024-04-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolorbit.site/tools/dev/jwt-debugger</loc><lastmod>2024-04-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolorbit.site/tools/fun/game-2048</loc><lastmod>2024-04-29</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolorbit.site/tools/fun/minesweeper</loc><lastmod>2024-04-29</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
 </urlset>

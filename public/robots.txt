@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
 
-# Sitemap 定位
-Sitemap: https://ais-pre-l43mepfnuzcsebdlekooa7-842464931762.asia-southeast1.run.app/sitemap.xml
+# Sitemap Location for Search Engines
+Sitemap: https://toolorbit.site/sitemap.xml
