@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- 首页 -->
+  <url>
+    <loc>https://ais-pre-l43mepfnuzcsebdlekooa7-842464931762.asia-southeast1.run.app/</loc>
+    <lastmod>2024-04-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- 各类工具页 (以静态路径或主要分类页为主) -->
+  <!-- 注意：如果您的工具页有独立的路由路径，请在这里一一列出 -->
+  <!-- 示例：Dev Tools -->
+  <url>
+    <loc>https://ais-pre-l43mepfnuzcsebdlekooa7-842464931762.asia-southeast1.run.app/?category=Dev%20Tools</loc>
+    <lastmod>2024-04-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://ais-pre-l43mepfnuzcsebdlekooa7-842464931762.asia-southeast1.run.app/?category=Webmaster</loc>
+    <lastmod>2024-04-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://ais-pre-l43mepfnuzcsebdlekooa7-842464931762.asia-southeast1.run.app/?category=Typography</loc>
+    <lastmod>2024-04-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://ais-pre-l43mepfnuzcsebdlekooa7-842464931762.asia-southeast1.run.app/?category=Generators</loc>
+    <lastmod>2024-04-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://ais-pre-l43mepfnuzcsebdlekooa7-842464931762.asia-southeast1.run.app/?category=E-commerce</loc>
+    <lastmod>2024-04-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://ais-pre-l43mepfnuzcsebdlekooa7-842464931762.asia-southeast1.run.app/?category=PDF%20Tools</loc>
+    <lastmod>2024-04-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://ais-pre-l43mepfnuzcsebdlekooa7-842464931762.asia-southeast1.run.app/?category=Image</loc>
+    <lastmod>2024-04-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+</urlset>
