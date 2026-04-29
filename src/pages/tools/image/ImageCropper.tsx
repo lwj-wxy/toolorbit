@@ -3,6 +3,7 @@ import ReactCrop, { type Crop, type PixelCrop, centerCrop, makeAspectCrop } from
 import 'react-image-crop/dist/ReactCrop.css';
 import { Upload, Crop as CropIcon, Download, Trash2, Image as ImageIcon, Settings2, Columns, Maximize, MousePointer2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { analytics } from '../../../services/analytics';
 
 function centerAspectCrop(mediaWidth: number, mediaHeight: number, aspect: number) {
   return centerCrop(
@@ -61,6 +62,13 @@ export default function ImageCropper() {
       setImgSrc(reader.result?.toString() || '')
     );
     reader.readAsDataURL(selectedFile);
+
+    analytics.trackEvent({
+      category: 'Image Tools',
+      action: 'Upload for Crop',
+      label: selectedFile.type,
+      metadata: { size: selectedFile.size }
+    });
   };
 
   const onImageLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
@@ -83,6 +91,13 @@ export default function ImageCropper() {
 
   const handleAspectClick = (newAspect: number | undefined) => {
     setAspect(newAspect);
+    
+    analytics.trackEvent({
+      category: 'Image Tools',
+      action: 'Change Crop Aspect',
+      label: newAspect ? newAspect.toString() : 'free'
+    });
+
     if (imgRef.current) {
       const { width, height } = imgRef.current;
       if (newAspect) {
@@ -139,6 +154,13 @@ export default function ImageCropper() {
       nameParts.pop(); // remove original extension
       a.download = `${nameParts.join('.')}-cropped.jpg`;
       
+      analytics.trackEvent({
+        category: 'Image Tools',
+        action: 'Download Cropped Image',
+        label: aspect ? aspect.toString() : 'free',
+        metadata: { width: canvas.width, height: canvas.height }
+      });
+
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);

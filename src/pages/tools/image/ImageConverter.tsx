@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { Upload, Image as ImageIcon, Download, Trash2, CheckCircle2, RefreshCcw } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { analytics } from '../../../services/analytics';
 
 export default function ImageConverter() {
   const { t } = useTranslation();
@@ -54,11 +55,23 @@ export default function ImageConverter() {
     } else {
       setTargetFormat('image/jpeg');
     }
+
+    analytics.trackEvent({
+      category: 'Image Tools',
+      action: 'Upload for Convert',
+      label: selectedFile.type
+    });
   };
 
   const convertImage = () => {
     if (!originalUrl || !file) return;
     setIsConverting(true);
+
+    analytics.trackEvent({
+      category: 'Image Tools',
+      action: 'Convert Image Start',
+      label: `${file.type} to ${targetFormat}`
+    });
 
     const img = new Image();
     img.crossOrigin = 'Anonymous';
@@ -86,6 +99,13 @@ export default function ImageConverter() {
             setConvertedBlob(blob);
             setConvertedUrl(URL.createObjectURL(blob));
             setHasConverted(true);
+
+            analytics.trackEvent({
+              category: 'Image Tools',
+              action: 'Convert Image Success',
+              label: targetFormat,
+              metadata: { originalSize: file.size, newSize: blob.size }
+            });
           }
           setIsConverting(false);
         },
@@ -108,6 +128,13 @@ export default function ImageConverter() {
 
   const downloadImage = () => {
     if (!convertedUrl || !file) return;
+
+    analytics.trackEvent({
+      category: 'Image Tools',
+      action: 'Download Converted Image',
+      label: targetFormat
+    });
+
     const a = document.createElement('a');
     a.href = convertedUrl;
     

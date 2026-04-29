@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { Upload, Image as ImageIcon, Download, Trash2, CheckCircle2, Sliders, FileImage } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { analytics } from '../../../services/analytics';
 
 export default function ImageCompressor() {
   const { t } = useTranslation();
@@ -52,6 +53,13 @@ export default function ImageCompressor() {
     if (!previewUrl || !file) return;
     setIsCompressing(true);
 
+    analytics.trackEvent({
+      category: 'Image Tools',
+      action: 'Compress Image',
+      label: file.type,
+      metadata: { quality, targetFormat: format }
+    });
+
     const img = new Image();
     img.src = previewUrl;
     img.onload = () => {
@@ -81,6 +89,13 @@ export default function ImageCompressor() {
 
   const downloadImage = () => {
     if (!compressedUrl || !file) return;
+
+    analytics.trackEvent({
+      category: 'Image Tools',
+      action: 'Download Compressed Image',
+      label: format
+    });
+
     const a = document.createElement('a');
     a.href = compressedUrl;
     const ext = format === 'image/jpeg' ? 'jpg' : (format === 'image/webp' ? 'webp' : 'png');

@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { MonitorSmartphone, LayoutPanelLeft } from 'lucide-react';
+import { analytics } from '../../../services/analytics';
 
 export default function PpiCalculator() {
   const [width, setWidth] = useState('1920');
@@ -21,6 +22,12 @@ export default function PpiCalculator() {
     setWidth(w);
     setHeight(h);
     setDiagonal(d);
+
+    analytics.trackEvent({
+      category: 'Calculation Tools',
+      action: 'Select PPI Preset',
+      label: `${w}x${h} @ ${d}"`
+    });
   };
 
   return (

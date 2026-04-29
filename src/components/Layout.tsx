@@ -13,9 +13,11 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
   const { t } = useTranslation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
   const location = useLocation();
 
   const categories = Array.from(new Set(TOOLS.map(t => t.category)));
+  const navCategories = categories.filter(c => c !== '娱乐工具');
 
   return (
     <div className="flex min-h-screen flex-col bg-[#fafafa] text-[#1e293b] font-sans relative overflow-x-hidden">
@@ -38,8 +40,8 @@ export default function Layout({ children }: LayoutProps) {
           </Link>
           
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-stretch gap-1 lg:gap-1.5 h-full overflow-hidden">
-            {categories.map((category) => {
+          <nav className="hidden md:flex items-stretch gap-0.5 lg:gap-1 h-full">
+            {navCategories.map((category) => {
               const categoryTools = TOOLS.filter(t => t.category === category);
               const isActive = location.search.includes(category);
               
@@ -48,7 +50,7 @@ export default function Layout({ children }: LayoutProps) {
                   <Link
                     to={`/?category=${category}`}
                     className={cn(
-                      "px-2 lg:px-3 flex items-center gap-1 h-full text-[14px] lg:text-[15px] font-bold transition-all duration-200 border-b-[3px] border-transparent mt-[3px] cursor-pointer whitespace-nowrap",
+                      "px-1.5 lg:px-2.5 flex items-center gap-1 h-full text-[14px] lg:text-[15px] font-bold transition-all duration-200 border-b-[3px] border-transparent mt-[3px] cursor-pointer whitespace-nowrap",
                       isActive ? "text-blue-600 border-blue-600" : "text-slate-600 group-hover:text-slate-900"
                     )}
                   >
@@ -90,7 +92,10 @@ export default function Layout({ children }: LayoutProps) {
 
         {/* Right side actions */}
         <div className="flex items-center shrink-0 gap-2 lg:gap-4 ml-4">
-          <div className="relative group hidden lg:block w-[200px] xl:w-[280px]">
+          <div className={cn(
+            "relative group hidden lg:block transition-all duration-300 ease-in-out",
+            isSearchFocused ? "w-[240px] xl:w-[300px]" : "w-[40px] xl:w-[150px]"
+          )}>
             <form 
               onSubmit={(e) => {
                 e.preventDefault();
@@ -100,13 +105,18 @@ export default function Layout({ children }: LayoutProps) {
               }}
             >
               <Search
-                className="absolute left-[14px] top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400"
+                className="absolute left-[14px] top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400 pointer-events-none"
                 aria-hidden="true"
               />
               <input
                 id="search-field"
-                className="w-full py-[8px] pr-[16px] pl-[38px] rounded-full border border-slate-200/80 bg-slate-50 text-[13px] outline-none transition-all focus:border-blue-500 focus:bg-white focus:ring-[3px] focus:ring-blue-500/10 placeholder:text-slate-400 text-slate-800"
-                placeholder={t('common.searchPlaceholder')}
+                onFocus={() => setIsSearchFocused(true)}
+                onBlur={() => setIsSearchFocused(false)}
+                className={cn(
+                  "w-full py-[8px] pr-[16px] pl-[38px] rounded-full border border-slate-200/80 bg-slate-50 text-[13px] outline-none transition-all placeholder:text-slate-400 text-slate-800",
+                  isSearchFocused ? "border-blue-500 bg-white ring-[3px] ring-blue-500/10" : "cursor-pointer hover:bg-slate-100"
+                )}
+                placeholder={isSearchFocused || window.innerWidth > 1280 ? t('common.searchPlaceholder') : ""}
                 type="search"
                 name="search"
                 defaultValue={new URLSearchParams(useLocation().search).get('search') || ''}
@@ -163,7 +173,7 @@ export default function Layout({ children }: LayoutProps) {
                 />
               </form>
 
-              {categories.map((category) => {
+              {navCategories.map((category) => {
                 const categoryTools = TOOLS.filter(t => t.category === category);
                 return (
                   <div key={category} className="flex flex-col gap-3">

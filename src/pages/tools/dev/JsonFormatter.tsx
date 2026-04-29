@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Copy, Check } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { analytics } from '../../../services/analytics';
 
 export default function JsonFormatter() {
   const { t } = useTranslation();
@@ -19,12 +20,21 @@ export default function JsonFormatter() {
       const parsed = JSON.parse(input);
       setOutput(JSON.stringify(parsed, null, spaces));
       setError(null);
+
+      analytics.trackEvent({
+        category: 'Dev Tools',
+        action: 'Format JSON',
+        label: `spaces-${spaces}`,
+        metadata: { inputLength: input.length }
+      });
     } catch (e) {
-      if (e instanceof Error) {
-        setError(e.message);
-      } else {
-        setError('Invalid JSON');
-      }
+      const errorMsg = e instanceof Error ? e.message : 'Invalid JSON';
+      setError(errorMsg);
+      analytics.trackEvent({
+        category: 'Dev Tools',
+        action: 'Format JSON Error',
+        label: errorMsg.substring(0, 50)
+      });
     }
   };
 
@@ -32,6 +42,11 @@ export default function JsonFormatter() {
     if (!output) return;
     navigator.clipboard.writeText(output);
     setCopied(true);
+    analytics.trackEvent({
+      category: 'Dev Tools',
+      action: 'Copy JSON Output',
+      metadata: { outputLength: output.length }
+    });
     setTimeout(() => setCopied(false), 2000);
   };
 

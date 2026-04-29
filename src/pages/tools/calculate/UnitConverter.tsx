@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ArrowRightLeft, Calculator } from 'lucide-react';
+import { analytics } from '../../../services/analytics';
 
 type UnitCategory = 'length' | 'weight' | 'volume' | 'temperature';
 
@@ -65,12 +66,24 @@ export default function UnitConverter() {
     const keys = Object.keys(UNITS_CONFIG[cat].units);
     setFromUnit(keys[0]);
     setToUnit(keys[1] || keys[0]);
+
+    analytics.trackEvent({
+      category: 'Calculation Tools',
+      action: 'Change Unit Category',
+      label: cat
+    });
   };
 
   const swapUnits = () => {
     const temp = fromUnit;
     setFromUnit(toUnit);
     setToUnit(temp);
+
+    analytics.trackEvent({
+      category: 'Calculation Tools',
+      action: 'Swap Units',
+      label: `${toUnit} <-> ${fromUnit}`
+    });
   };
 
   const convertTemperature = (val: number, from: string, to: string) => {
@@ -100,6 +113,15 @@ export default function UnitConverter() {
     // base_value / toRatio = output_value
     const out = (val * fromRatio) / toRatio;
     
+    if (!isNaN(out)) {
+      analytics.trackEvent({
+        category: 'Calculation Tools',
+        action: 'Convert Units',
+        label: `${fromUnit} to ${toUnit}`,
+        metadata: { category, value: val }
+      });
+    }
+
     // limit precision nicely
     return Number.isInteger(out) ? out.toString() : parseFloat(out.toPrecision(10)).toString();
   }, [inputValue, fromUnit, toUnit, category, UNITS_CONFIG]);

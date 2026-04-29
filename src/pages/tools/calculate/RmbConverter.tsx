@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Banknote, Copy, Check } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { analytics } from '../../../services/analytics';
 
 const upperNumbers = ['零', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖'];
 const upperUnits = ['', '拾', '佰', '仟'];
@@ -84,7 +85,15 @@ export default function RmbConverter() {
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-     setInput(formatInput(e.target.value));
+     const formatted = formatInput(e.target.value);
+     setInput(formatted);
+     if (formatted.length > 5) {
+       analytics.trackEvent({
+         category: 'Finance Tools',
+         action: 'Input RMB',
+         value: parseFloat(formatted) || 0
+       });
+     }
   };
 
   const output = convertToRMB(input, {
@@ -96,6 +105,11 @@ export default function RmbConverter() {
     if (!output || output.includes(t('tools.rmb-converter.errors.tooLarge')) || output.includes(t('tools.rmb-converter.errors.invalid'))) return;
     navigator.clipboard.writeText(output);
     setCopied(true);
+    analytics.trackEvent({
+      category: 'Finance Tools',
+      action: 'Copy RMB Result',
+      label: input
+    });
     setTimeout(() => setCopied(false), 2000);
   };
 

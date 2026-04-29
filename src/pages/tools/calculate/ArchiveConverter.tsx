@@ -3,6 +3,7 @@ import { Archive, UploadCloud, Download, X } from 'lucide-react';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
 import { useTranslation } from 'react-i18next';
+import { analytics } from '../../../services/analytics';
 
 interface FileItem {
   name: string;
@@ -51,6 +52,12 @@ export default function ArchiveConverter() {
 
   const processUploadedFiles = async (uploadedFiles: File[]) => {
     setIsProcessing(true);
+    analytics.trackEvent({
+      category: 'Archive Tools',
+      action: 'Upload Files',
+      value: uploadedFiles.length
+    });
+
     try {
       const newFiles: FileItem[] = [];
 
@@ -70,6 +77,11 @@ export default function ArchiveConverter() {
               });
             }
           }
+          analytics.trackEvent({
+            category: 'Archive Tools',
+            action: 'Extract ZIP',
+            label: file.name
+          });
         } else {
           // Regular file
           newFiles.push({
@@ -84,6 +96,11 @@ export default function ArchiveConverter() {
     } catch (error) {
       console.error('Error processing files', error);
       alert(t('archive-converter.errors.parseError'));
+      analytics.trackEvent({
+        category: 'Archive Tools',
+        action: 'Process Error',
+        label: error instanceof Error ? error.message : 'Unknown'
+      });
     } finally {
       setIsProcessing(false);
       if (fileInputRef.current) {
@@ -101,12 +118,23 @@ export default function ArchiveConverter() {
   };
 
   const downloadSingle = (file: FileItem) => {
+    analytics.trackEvent({
+      category: 'Archive Tools',
+      action: 'Download Single File',
+      label: file.name
+    });
     saveAs(file.content, file.name.split('/').pop() || 'download');
   };
 
   const generateZip = async () => {
     if (files.length === 0) return;
     setIsProcessing(true);
+    analytics.trackEvent({
+      category: 'Archive Tools',
+      action: 'Generate ZIP Start',
+      value: files.length
+    });
+
     try {
       const zip = new JSZip();
       files.forEach((file) => {
@@ -114,8 +142,19 @@ export default function ArchiveConverter() {
       });
       const blob = await zip.generateAsync({ type: 'blob' });
       saveAs(blob, `archive_${Date.now()}.zip`);
+
+      analytics.trackEvent({
+        category: 'Archive Tools',
+        action: 'Generate ZIP Success',
+        metadata: { fileCount: files.length, totalSize: blob.size }
+      });
     } catch (error) {
        console.error('Error creating zip', error);
+       analytics.trackEvent({
+         category: 'Archive Tools',
+         action: 'Generate ZIP Error',
+         label: error instanceof Error ? error.message : 'Unknown'
+       });
     } finally {
       setIsProcessing(false);
     }

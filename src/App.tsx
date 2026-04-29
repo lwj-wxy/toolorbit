@@ -4,6 +4,7 @@
  */
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { usePageTracking } from './hooks/usePageTracking';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import JsonFormatter from './pages/tools/dev/JsonFormatter';
@@ -52,9 +53,15 @@ import PasswordGenerator from './pages/tools/dev/PasswordGenerator';
 import JwtDebugger from './pages/tools/dev/JwtDebugger';
 import Minesweeper from './pages/tools/fun/Minesweeper';
 
+function AnalyticsTracker() {
+  usePageTracking();
+  return null;
+}
+
 export default function App() {
   return (
     <BrowserRouter>
+      <AnalyticsTracker />
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />

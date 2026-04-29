@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import { QRCodeCanvas } from 'qrcode.react';
 import { Download } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { analytics } from '../../../services/analytics';
 
 export default function QrGenerator() {
   const { t } = useTranslation();
@@ -23,6 +24,14 @@ export default function QrGenerator() {
     const downloadLink = document.createElement('a');
     downloadLink.href = pngUrl;
     downloadLink.download = 'qrcode.png';
+    
+    analytics.trackEvent({
+      category: 'Image Tools',
+      action: 'Download QR Code',
+      label: level,
+      metadata: { contentLength: value.length }
+    });
+
     document.body.appendChild(downloadLink);
     downloadLink.click();
     document.body.removeChild(downloadLink);
@@ -49,6 +58,15 @@ export default function QrGenerator() {
               <textarea
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
+                onBlur={() => {
+                  if (value) {
+                    analytics.trackEvent({
+                      category: 'Image Tools',
+                      action: 'Generate QR Content',
+                      value: value.length
+                    });
+                  }
+                }}
                 className="block w-full rounded-md border-0 py-2.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm resize-none"
                 rows={4}
               />
