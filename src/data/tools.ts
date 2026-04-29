@@ -177,14 +177,6 @@ export const TOOLS: ToolItem[] = [
     path: '/tools/ecommerce/stripe-fee-calculator',
   },
   {
-    id: 'listing-craft-ai',
-    name: 'Listing Craft AI',
-    description: '内置大模型，一键生成高转化率、带SEO结构的跨境商品 Listing。',
-    icon: Sparkles,
-    category: '电商工具',
-    path: '/tools/ecommerce/listing-craft-ai',
-  },
-  {
     id: 'pdf-merge',
     name: 'PDF合并',
     description: '免费、快速地将多个PDF文件合并为一个文件。',
