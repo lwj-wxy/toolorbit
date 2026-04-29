@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { TOOLS, Category } from '../data/tools';
 
 const getCategoryStyles = (category: Category) => {
@@ -18,6 +19,7 @@ const getCategoryStyles = (category: Category) => {
 };
 
 export default function Home() {
+  const { t } = useTranslation();
   const [searchParams] = useSearchParams();
   const categoryFilter = searchParams.get('category') as Category | null;
   const searchQuery = searchParams.get('search')?.toLowerCase() || '';
@@ -30,13 +32,14 @@ export default function Home() {
       result = result.filter(t => t.category === categoryFilter);
     }
     if (searchQuery) {
-      result = result.filter(t => 
-        t.name.toLowerCase().includes(searchQuery) || 
-        t.description.toLowerCase().includes(searchQuery)
-      );
+      result = result.filter(tool => {
+        const name = t(`tools.${tool.id}.name`, { defaultValue: tool.name }).toLowerCase();
+        const description = t(`tools.${tool.id}.description`, { defaultValue: tool.description }).toLowerCase();
+        return name.includes(searchQuery) || description.includes(searchQuery);
+      });
     }
     setFilteredTools(result);
-  }, [categoryFilter, searchQuery]);
+  }, [categoryFilter, searchQuery, t]);
 
   // If there's a search or filter, show the flat grid view (like before but adapted)
   if (categoryFilter || searchQuery) {
@@ -44,13 +47,12 @@ export default function Home() {
         <div className="flex flex-col">
           <div className="flex items-baseline justify-between mb-8">
             <h2 className="text-2xl font-bold text-slate-800 tracking-tight">
-              {categoryFilter ? `${categoryFilter}` : `搜索结果: "${searchQuery}"`}
+              {categoryFilter ? t(`common.categories.${categoryFilter}`) : t('search.results', { query: searchQuery })}
             </h2>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {filteredTools.map((tool) => {
-              const styles = getCategoryStyles(tool.category);
               return (
                 <Link
                   key={tool.id}
@@ -58,7 +60,7 @@ export default function Home() {
                   className="bg-white border border-slate-200/80 rounded-xl p-4 transition-all duration-200 cursor-pointer flex items-center justify-center text-center hover:-translate-y-1 hover:shadow-md hover:border-slate-300 group"
                 >
                   <span className="text-sm font-medium text-slate-600 group-hover:text-blue-600 transition-colors">
-                    {tool.name}
+                    {t(`tools.${tool.id}.name`, { defaultValue: tool.name })}
                   </span>
                 </Link>
               );
@@ -67,9 +69,9 @@ export default function Home() {
 
           {filteredTools.length === 0 && (
             <div className="text-center py-16">
-              <h3 className="text-lg font-semibold text-slate-800">没有找到相关工具</h3>
+              <h3 className="text-lg font-semibold text-slate-800">{t('search.noResults')}</h3>
               <p className="mt-2 text-sm text-slate-500">
-                我们未能找到与您搜索匹配的工具，请尝试其他关键词。
+                {t('search.noResultsSub')}
               </p>
             </div>
           )}
@@ -90,13 +92,6 @@ export default function Home() {
 
   return (
     <div className="flex flex-col gap-12 pb-12">
-      {/* We can potentially add recent used here later if we use localStorage */}
-      {/* 
-      <div className="flex items-center justify-center text-sm text-slate-500 mb-8">
-         您最近使用了：<span className="text-green-600 ml-2">颜色代码转换</span>
-      </div>
-      */}
-
       {categoriesOrder.map((category) => {
          const toolsInCategory = groupedTools[category];
          if (!toolsInCategory || toolsInCategory.length === 0) return null;
@@ -109,7 +104,7 @@ export default function Home() {
                <div className="flex items-center gap-3">
                   <div className={`w-1 h-6 ${styles.bg.replace('bg-', 'bg-').split(' ')[0]} rounded-full ${styles.bg.replace('bg-', 'bg-').replace('50', '500').split(' ')[0]}`} />
                   <h2 className={`text-[17px] font-bold ${styles.title} tracking-tight`}>
-                     {category}
+                     {t(`common.categories.${category}`)}
                   </h2>
                </div>
 
@@ -122,7 +117,7 @@ export default function Home() {
                        className="bg-white border border-slate-200/80 rounded-xl py-3.5 px-4 flex items-center justify-center text-center transition-all duration-200 hover:shadow-sm hover:-translate-y-[2px] group hover:border-slate-300"
                      >
                         <span className="text-[14px] font-medium text-slate-700 group-hover:text-slate-900 transition-colors">
-                           {tool.name}
+                           {t(`tools.${tool.id}.name`, { defaultValue: tool.name })}
                         </span>
                      </Link>
                   ))}

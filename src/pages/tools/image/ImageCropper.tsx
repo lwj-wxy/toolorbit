@@ -1,7 +1,8 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef } from 'react';
 import ReactCrop, { type Crop, type PixelCrop, centerCrop, makeAspectCrop } from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
-import { Upload, Crop as CropIcon, Download, Trash2, CheckCircle2, Image as ImageIcon, Settings2, Columns, Maximize, MousePointer2 } from 'lucide-react';
+import { Upload, Crop as CropIcon, Download, Trash2, Image as ImageIcon, Settings2, Columns, Maximize, MousePointer2 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 function centerAspectCrop(mediaWidth: number, mediaHeight: number, aspect: number) {
   return centerCrop(
@@ -20,6 +21,7 @@ function centerAspectCrop(mediaWidth: number, mediaHeight: number, aspect: numbe
 }
 
 export default function ImageCropper() {
+  const { t } = useTranslation();
   const [imgSrc, setImgSrc] = useState('');
   const [file, setFile] = useState<File | null>(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -47,8 +49,6 @@ export default function ImageCropper() {
       const droppedFile = e.dataTransfer.files[0];
       if (droppedFile.type.startsWith('image/')) {
         processFile(droppedFile);
-      } else {
-        alert("请上传有效的图片文件！");
       }
     }
   };
@@ -177,9 +177,9 @@ export default function ImageCropper() {
             <CropIcon className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold tracking-tight text-slate-900">图片裁剪与缩略图生成</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900">{t('tools.image-cropper.title')}</h1>
             <p className="text-[#64748b] mt-1 text-sm md:text-base">
-              通过可视化拖拽与选区，自由提取图片中您想要的任何区域，自动输出高清大图。
+              {t('tools.image-cropper.subtitle')}
             </p>
           </div>
         </div>
@@ -189,11 +189,11 @@ export default function ImageCropper() {
         
         {/* Main Interface */}
         <div className="lg:col-span-2 space-y-6">
-          <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 w-full">
             
             {!imgSrc ? (
               <div 
-                className={`rounded-2xl border-2 border-dashed transition-all p-12 text-center flex flex-col items-center justify-center min-h-[400px] cursor-pointer
+                className={`rounded-2xl border-2 border-dashed transition-all p-12 text-center flex flex-col items-center justify-center min-h-[400px] cursor-pointer w-full
                   ${isDragging ? 'border-[#2563eb] bg-blue-50/50' : 'border-[#cbd5e1] hover:border-[#94a3b8] hover:bg-slate-50'}`}
                 onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
                 onDragLeave={(e) => { e.preventDefault(); setIsDragging(false); }}
@@ -210,24 +210,24 @@ export default function ImageCropper() {
                 <div className="w-20 h-20 bg-blue-50 text-[#2563eb] rounded-full flex items-center justify-center mb-6 shadow-sm">
                   <Upload className="w-10 h-10" />
                 </div>
-                <h3 className="text-xl font-bold text-[#1e293b] mb-2">点击选择或拖入要裁剪的图片</h3>
-                <p className="text-[#64748b] mb-6">纯前端无损处理，支持自由框选、固定比例缩放</p>
+                <h3 className="text-xl font-bold text-[#1e293b] mb-2">{t('tools.image-cropper.dropLabel')}</h3>
+                <p className="text-[#64748b] mb-6">{t('tools.image-cropper.dropDesc')}</p>
                 <button className="bg-[#2563eb] text-white px-8 py-3 rounded-full font-bold shadow-sm hover:bg-[#1d4ed8] transition-colors">
-                  选择本地图片
+                  {t('tools.image-cropper.selectBtn')}
                 </button>
               </div>
             ) : (
-              <div className="space-y-4">
+              <div className="space-y-4 w-full">
                 <div className="flex items-center justify-between border-b border-[#e2e8f0] pb-4">
                   <h3 className="text-lg font-bold text-[#1e293b] flex items-center gap-2 truncate">
                     <ImageIcon className="w-5 h-5 text-blue-500" />
-                    正在编辑：{file?.name}
+                    {t('tools.image-cropper.editingTitle', { name: file?.name })}
                   </h3>
                   <button 
                     onClick={clearFile}
                     className="text-sm font-bold text-red-500 hover:text-red-700 hover:bg-red-50 px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 shrink-0"
                   >
-                    <Trash2 className="w-4 h-4" />重新选择
+                    <Trash2 className="w-4 h-4" />{t('tools.image-cropper.reselectBtn')}
                   </button>
                 </div>
                 
@@ -251,9 +251,9 @@ export default function ImageCropper() {
 
                 <div className="flex justify-between items-center text-sm text-[#64748b] px-2 font-medium">
                   <div className="flex items-center gap-2">
-                    <MousePointer2 className="w-4 h-4" /> 拖拽四个角或选区内部进行微调
+                    <MousePointer2 className="w-4 h-4" /> {t('tools.image-cropper.dragTip')}
                   </div>
-                  <div>原图尺寸: {actualWidth} × {actualHeight} px</div>
+                  <div>{t('tools.image-cropper.originalDim', { width: actualWidth, height: actualHeight })}</div>
                 </div>
               </div>
             )}
@@ -266,48 +266,48 @@ export default function ImageCropper() {
           <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6">
             <div className="flex items-center gap-2 mb-6">
               <Settings2 className="w-5 h-5 text-[#2563eb]" />
-              <h3 className="font-bold text-[#1e293b]">裁剪参数控制</h3>
+              <h3 className="font-bold text-[#1e293b]">{t('tools.image-cropper.settingsTitle')}</h3>
             </div>
 
             <div className="space-y-6">
               {/* Aspect Ratio Presets */}
               <div>
-                <label className="text-sm font-bold text-[#64748b] mb-3 block">宽高比例限制</label>
+                <label className="text-sm font-bold text-[#64748b] mb-3 block">{t('tools.image-cropper.aspectLabel')}</label>
                 <div className="grid grid-cols-2 gap-3">
                   <button 
                     onClick={() => handleAspectClick(undefined)}
                     disabled={!imgSrc}
                     className={`py-2 rounded-lg font-bold text-sm transition-all border ${!aspect ? 'bg-blue-50 border-blue-200 text-blue-700' : 'bg-white border-[#e2e8f0] text-slate-600 hover:border-slate-300'} disabled:opacity-50 disabled:cursor-not-allowed`}
                   >
-                    自由拖拉
+                    {t('tools.image-cropper.aspectFree')}
                   </button>
                   <button 
                     onClick={() => handleAspectClick(1)}
                     disabled={!imgSrc}
                     className={`py-2 rounded-lg font-bold text-sm transition-all border ${aspect === 1 ? 'bg-blue-50 border-blue-200 text-blue-700' : 'bg-white border-[#e2e8f0] text-slate-600 hover:border-slate-300'} disabled:opacity-50 disabled:cursor-not-allowed`}
                   >
-                    1:1 (正方形)
+                    {t('tools.image-cropper.aspectSquare')}
                   </button>
                   <button 
                     onClick={() => handleAspectClick(16 / 9)}
                     disabled={!imgSrc}
                     className={`py-2 rounded-lg font-bold text-sm transition-all border ${aspect === 16 / 9 ? 'bg-blue-50 border-blue-200 text-blue-700' : 'bg-white border-[#e2e8f0] text-slate-600 hover:border-slate-300'} disabled:opacity-50 disabled:cursor-not-allowed`}
                   >
-                    16:9 (横屏)
+                    {t('tools.image-cropper.aspect169')}
                   </button>
                   <button 
                     onClick={() => handleAspectClick(4 / 3)}
                     disabled={!imgSrc}
                     className={`py-2 rounded-lg font-bold text-sm transition-all border ${aspect === 4 / 3 ? 'bg-blue-50 border-blue-200 text-blue-700' : 'bg-white border-[#e2e8f0] text-slate-600 hover:border-slate-300'} disabled:opacity-50 disabled:cursor-not-allowed`}
                   >
-                    4:3 (标准)
+                    {t('tools.image-cropper.aspect43')}
                   </button>
                   <button 
                     onClick={() => handleAspectClick(9 / 16)}
                     disabled={!imgSrc}
                     className={`py-2 col-span-2 rounded-lg font-bold text-sm transition-all border ${aspect === 9 / 16 ? 'bg-blue-50 border-blue-200 text-blue-700' : 'bg-white border-[#e2e8f0] text-slate-600 hover:border-slate-300'} disabled:opacity-50 disabled:cursor-not-allowed`}
                   >
-                    9:16 (手机全屏 / 短视频)
+                    {t('tools.image-cropper.aspect916')}
                   </button>
                 </div>
               </div>
@@ -315,20 +315,20 @@ export default function ImageCropper() {
               {/* Real-time Crop Size Feedback */}
               <div className="bg-[#f8fafc] border border-[#e2e8f0] p-4 rounded-xl">
                  <label className="text-sm font-bold text-[#64748b] mb-3 flex items-center gap-1">
-                   <Columns className="w-4 h-4" /> 最终输出画面尺寸
+                   <Columns className="w-4 h-4" /> {t('tools.image-cropper.outputDimLabel')}
                  </label>
                  
                  <div className="flex items-center gap-4 text-center">
                     <div className="flex-1 bg-white border border-[#cbd5e1] rounded-lg p-2 shadow-sm relative">
                        <span className="block text-[#0f172a] font-mono font-bold text-xl tracking-tight">{realCropSize.width}</span>
-                       <span className="text-[11px] text-[#64748b] uppercase font-bold tracking-wider">宽度 (px)</span>
+                       <span className="text-[11px] text-[#64748b] uppercase font-bold tracking-wider">{t('tools.image-cropper.widthLabel')}</span>
                     </div>
                     <div className="text-slate-300">
                       <Maximize className="w-5 h-5 mx-auto" />
                     </div>
                     <div className="flex-1 bg-white border border-[#cbd5e1] rounded-lg p-2 shadow-sm relative">
                        <span className="block text-[#0f172a] font-mono font-bold text-xl tracking-tight">{realCropSize.height}</span>
-                       <span className="text-[11px] text-[#64748b] uppercase font-bold tracking-wider">高度 (px)</span>
+                       <span className="text-[11px] text-[#64748b] uppercase font-bold tracking-wider">{t('tools.image-cropper.heightLabel')}</span>
                     </div>
                  </div>
               </div>
@@ -342,7 +342,7 @@ export default function ImageCropper() {
                 className="w-full bg-[#2563eb] text-white hover:bg-[#1d4ed8] disabled:bg-slate-300 disabled:cursor-not-allowed py-3.5 rounded-xl font-bold shadow-sm transition-all flex justify-center items-center gap-2 text-[15px]"
               >
                 <Download className="w-5 h-5" />
-                下载裁剪后的结果
+                {t('tools.image-cropper.downloadBtn')}
               </button>
             </div>
 
@@ -353,36 +353,36 @@ export default function ImageCropper() {
       
       {/* Bottom SEO Instructions Panel */}
       <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-8 lg:p-12 mt-2">
-        <h2 className="text-xl font-bold text-slate-800 mb-6">在线图片编辑与裁剪，自由构图极简呈现</h2>
+        <h2 className="text-xl font-bold text-slate-800 mb-6">{t('tools.image-cropper.seoTitle')}</h2>
         
         <p className="text-slate-600 mb-6 leading-relaxed">
-          在线图片裁剪工具致力于为您提供丝滑灵活的视觉剪裁体验。无需笨重的修图软件，您可以在这块干净的画布上，通过拖拉选取框将证件照片、头像、横幅或活动海报切分出最完美的构图比例。
+          {t('tools.image-cropper.seoDesc')}
         </p>
 
         <div className="bg-rose-50 border border-rose-100/50 rounded-xl p-5 mb-8">
           <p className="text-rose-700 text-sm font-bold leading-relaxed">
-            严格的数据避风港：您的原始相片与最终剪裁结果，全程驻留在您眼前的这块屏幕及设备浏览器内执行重绘，绝对没有任何侵犯隐私的窃取或后台云端保存动作，保护家庭合影及私密资料的安全。
+            {t('tools.image-cropper.privacyNotice')}
           </p>
         </div>
 
-        <h3 className="font-bold text-slate-800 text-lg mb-4">掌握在线精细化裁图的三大核心：</h3>
+        <h3 className="font-bold text-slate-800 text-lg mb-4">{t('tools.image-cropper.whyTitle')}</h3>
         <ul className="space-y-4 text-slate-600">
           <li className="flex gap-3">
-            <strong className="text-slate-800 shrink-0">1. 操作简单直观无门槛：</strong>
-            <span>去掉了多余让人眼花缭乱的调色、美颜功能包袱，它极其纯粹地聚焦在“比例裁切”这件事上。极简交互使得即使是对电脑不太熟悉的边缘用户，也能顺着本能拖动框选顺利完成修改。</span>
+            <strong className="text-slate-800 shrink-0">{t('tools.image-cropper.highlight1Title')}</strong>
+            <span>{t('tools.image-cropper.highlight1Desc')}</span>
           </li>
           <li className="flex gap-3">
-            <strong className="text-slate-800 shrink-0">2. 尺寸可感且自由度高：</strong>
-            <span>不论是需要切出一个完美的正方形来用作微信及各类社交媒体头像，还是需要裁剪一张符合黄金分割比 (16:9) 的大宽屏横幅用作自媒体博客头图，工具本身都能以指到眼到的顺滑度来配合。</span>
+            <strong className="text-slate-800 shrink-0">{t('tools.image-cropper.highlight2Title')}</strong>
+            <span>{t('tools.image-cropper.highlight2Desc')}</span>
           </li>
           <li className="flex gap-3">
-            <strong className="text-slate-800 shrink-0">3. 极速导出高画质成品：</strong>
-            <span>底层选用的图片渲染逻辑能够在裁剪的过程里维持原始文件的质感。完成选定后，一次点击便能把局部图像干净利落地剥离出来并触发浏览器的高速本地下载，不用等待。</span>
+            <strong className="text-slate-800 shrink-1 md:shrink-0">{t('tools.image-cropper.highlight3Title')}</strong>
+            <span>{t('tools.image-cropper.highlight3Desc')}</span>
           </li>
         </ul>
         
-        <p className="text-slate-500 text-sm mt-8 pt-6 border-t border-slate-100">
-          所谓好用的生产力部件，就在于你需要时它能光速加载，用完时挥一挥衣袖不留垃圾数据。它始终是您处理视觉内容的得力辅助助手。
+        <p className="text-slate-500 text-sm mt-8 pt-6 border-t border-slate-100 italic">
+          {t('tools.image-cropper.seoFooter')}
         </p>
       </div>
 

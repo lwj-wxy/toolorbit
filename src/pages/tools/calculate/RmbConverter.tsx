@@ -1,16 +1,17 @@
 import { useState } from 'react';
 import { Banknote, Copy, Check } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const upperNumbers = ['零', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖'];
 const upperUnits = ['', '拾', '佰', '仟'];
 const bigUnits = ['', '万', '亿', '兆'];
 const decimals = ['角', '分'];
 
-function convertToRMB(amount: string): string {
+function convertToRMB(amount: string, errorMessages: { invalid: string, tooLarge: string }): string {
   if (!amount) return '';
   const num = parseFloat(amount.replace(/,/g, ''));
-  if (isNaN(num)) return '请输入有效的数字';
-  if (num >= 9999999999999.99) return '数字过大，无法转换';
+  if (isNaN(num)) return errorMessages.invalid;
+  if (num >= 9999999999999.99) return errorMessages.tooLarge;
   if (num === 0) return '零元整';
 
   const parts = Number(num).toFixed(2).split('.');
@@ -67,6 +68,7 @@ function convertToRMB(amount: string): string {
 }
 
 export default function RmbConverter() {
+  const { t } = useTranslation();
   const [input, setInput] = useState('');
   const [copied, setCopied] = useState(false);
 
@@ -85,10 +87,13 @@ export default function RmbConverter() {
      setInput(formatInput(e.target.value));
   };
 
-  const output = convertToRMB(input);
+  const output = convertToRMB(input, {
+    invalid: t('tools.rmb-converter.errors.invalid'),
+    tooLarge: t('tools.rmb-converter.errors.tooLarge')
+  });
 
   const copyToClipboard = () => {
-    if (!output || output.includes('无法转换') || output.includes('有效')) return;
+    if (!output || output.includes(t('tools.rmb-converter.errors.tooLarge')) || output.includes(t('tools.rmb-converter.errors.invalid'))) return;
     navigator.clipboard.writeText(output);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
@@ -102,89 +107,98 @@ export default function RmbConverter() {
             <Banknote className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold tracking-tight text-slate-900">人民币大写转换</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900">{t('tools.rmb-converter.title')}</h1>
             <p className="text-[#64748b] mt-1 text-sm md:text-base">
-              一键将阿拉伯数字金额翻译为规范的中华财务报销、合同书写大写金额格式。
+              {t('tools.rmb-converter.subtitle')}
             </p>
           </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-           <label className="block text-sm font-bold text-slate-700 mb-4">输入金额数字 (阿拉伯数字)</label>
-           <div className="relative">
-              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-lg">¥</span>
-              <input
-                type="text"
-                value={input}
-                onChange={handleInputChange}
-                placeholder="例如: 12345.67"
-                className="w-full pl-10 pr-4 py-4 text-2xl font-mono border-2 border-slate-200 rounded-xl focus:border-red-500 focus:ring-4 focus:ring-red-500/10 outline-none transition-all placeholder:text-slate-300"
-              />
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+        <div className="space-y-6">
+           <div>
+              <label className="block text-sm font-bold text-slate-700 mb-4">{t('tools.rmb-converter.inputLabel')}</label>
+              <div className="relative group">
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-lg group-focus-within:text-red-500 transition-colors">¥</span>
+                  <input
+                    type="text"
+                    value={input}
+                    onChange={handleInputChange}
+                    placeholder="例如: 12345.67"
+                    className="w-full pl-10 pr-4 py-4 text-2xl font-mono border-2 border-slate-200 rounded-xl focus:border-red-500 focus:ring-4 focus:ring-red-500/10 outline-none transition-all placeholder:text-slate-200"
+                  />
+              </div>
            </div>
            
-           <div className="mt-8">
-              <div className="flex flex-wrap gap-2">
-                 {[100, 1000, 10000, 100000, 1000000].map(val => (
-                    <button
-                      key={val}
-                      onClick={() => setInput(val.toString())}
-                      className="px-3 py-1.5 bg-slate-50 border border-slate-200 text-slate-600 hover:text-red-600 hover:border-red-200 rounded-lg text-sm font-medium transition-colors"
-                    >
-                       快速填入: ¥{val.toLocaleString()}
-                    </button>
-                 ))}
-              </div>
+           <div className="flex flex-wrap gap-2">
+              {[100, 1000, 10000, 100000, 1000000].map(val => (
+                 <button
+                   key={val}
+                   onClick={() => setInput(val.toString())}
+                   className="px-3 py-1.5 bg-slate-50 border border-slate-200 text-slate-500 hover:text-red-600 hover:border-red-200 rounded-lg text-xs font-bold transition-all"
+                 >
+                    {t('tools.rmb-converter.quickFill', { val: val.toLocaleString() })}
+                 </button>
+              ))}
            </div>
         </div>
 
         <div className="bg-slate-50 rounded-2xl shadow-inner border border-[#cbd5e1] p-6 lg:p-8 relative">
            <div className="flex items-center justify-between mb-4">
-              <label className="block text-sm font-bold text-slate-700">财务标准大写结果</label>
+              <label className="block text-sm font-bold text-slate-700 uppercase tracking-widest">{t('tools.rmb-converter.resultLabel')}</label>
               <button 
                 onClick={copyToClipboard}
                 disabled={!input}
                 className="flex items-center gap-1.5 px-4 py-2 bg-white border border-slate-200 shadow-sm text-red-600 hover:bg-red-50 rounded-lg font-bold transition-all disabled:opacity-50 disabled:cursor-not-allowed group"
               >
                 {copied ? <Check className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4" />}
-                {copied ? '已复制' : '复制结果'}
+                {copied ? t('tools.rmb-converter.copiedBtn') : t('tools.rmb-converter.copyBtn')}
               </button>
            </div>
-           <div className="min-h-[120px] flex items-center justify-center p-6 bg-white border-2 border-red-100 rounded-xl">
-              <span className={`text-2xl lg:text-3xl font-bold tracking-widest text-center ${input ? 'text-red-700' : 'text-slate-300'}`}>
-                 {input ? output : '待输入...'}
+           <div className="min-h-[140px] flex items-center justify-center p-6 bg-white border-2 border-red-100 rounded-xl shadow-sm">
+              <span className={`text-xl md:text-2xl lg:text-3xl font-bold tracking-widest text-center leading-relaxed ${input ? 'text-red-700' : 'text-slate-200'}`}>
+                 {input ? output : t('tools.rmb-converter.waitingMsg')}
               </span>
            </div>
         </div>
       </div>
 
-      {/* Bottom SEO Instructions Panel */}
+      {/* SEO Section */}
       <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-8 lg:p-12 mt-8">
-        <h2 className="text-xl font-bold text-slate-800 mb-6">人民币大写强制转换器，杜绝合同账单金额涂改漏洞</h2>
+        <h2 className="text-xl font-bold text-slate-800 mb-6">{t('tools.rmb-converter.seoTitle')}</h2>
         
-        <p className="text-slate-600 mb-6 leading-relaxed">
-          在我们签署正规的商业合同、借款欠条或是填写银行转账对账单时，必须强制附带标准的汉字大写金额（如 壹、贰、叁）。这是因为常规的阿拉伯数字极其容易受到后来者的笔画涂改（例如把“1”画改成“7”，把“3”改成“8”）。但繁杂生僻的大写汉字让很多人提笔忘字，这款轻量的文本转换工具能瞬间助您写出天衣无缝的标准财务体。
+        <p className="text-slate-600 mb-8 leading-relaxed">
+          {t('tools.rmb-converter.seoDesc')}
         </p>
 
-        <h3 className="font-bold text-slate-800 text-lg mb-4">深入大写转化器在合规记账中的标准原则：</h3>
-        <ul className="space-y-4 text-slate-600">
-          <li className="flex gap-3">
-            <strong className="text-slate-800 shrink-0">1. 空零位智能推导补全：</strong>
-            <span>金额的书写远不是“照拼音翻译”那么简单。当遇到如 1001.5 这样的数字时，系统会自动将中间的空洞填充并优化语法为“壹仟零壹元伍角”，完美贴合银行对于中文借记金额连词的强制校验逻辑。</span>
+        <h3 className="font-bold text-slate-800 text-lg mb-6">{t('tools.rmb-converter.whyTitle')}</h3>
+        <ul className="space-y-6 text-slate-600 text-sm">
+          <li className="flex gap-4 items-start">
+            <div className="w-8 h-8 rounded-full bg-red-50 text-red-600 flex items-center justify-center shrink-0 font-bold">1</div>
+            <div>
+              <strong className="text-slate-800 block mb-1">{t('tools.rmb-converter.highlight1Title')}</strong>
+              <span>{t('tools.rmb-converter.highlight1Desc')}</span>
+            </div>
           </li>
-          <li className="flex gap-3">
-            <strong className="text-slate-800 shrink-0">2. 圆满的角分“整”字关门：</strong>
-            <span>如果在您的发票或账目输入中不存在小数点后的角与分，组件除了给到正确的整数域外，会在最终的结尾自动补上一个“整”或“正”字。这在会计法中，是防止不法分子伺机填补小数尾数的防火墙。</span>
+          <li className="flex gap-4 items-start">
+            <div className="w-8 h-8 rounded-full bg-red-50 text-red-600 flex items-center justify-center shrink-0 font-bold">2</div>
+            <div>
+              <strong className="text-slate-800 block mb-1">{t('tools.rmb-converter.highlight2Title')}</strong>
+              <span>{t('tools.rmb-converter.highlight2Desc')}</span>
+            </div>
           </li>
-          <li className="flex gap-3">
-            <strong className="text-slate-800 shrink-0">3. 规避系统乱码与隐私审计：</strong>
-            <span>您可以放心地把你公司上亿级别或者附带薪资隐私的敏感流水在这里计算。该工具通过原生的 JS 语法拦截剥离技术在浏览器内核沙盒中直接渲染结果，任何外力均无法拦截或监听您的大额账面转账意图。</span>
+          <li className="flex gap-4 items-start">
+            <div className="w-8 h-8 rounded-full bg-red-50 text-red-600 flex items-center justify-center shrink-0 font-bold">3</div>
+            <div>
+              <strong className="text-slate-800 block mb-1">{t('tools.rmb-converter.highlight3Title')}</strong>
+              <span>{t('tools.rmb-converter.highlight3Desc')}</span>
+            </div>
           </li>
         </ul>
         
-        <p className="text-slate-500 text-sm mt-8 pt-6 border-t border-slate-100">
-          填报提示：生成的汉字字符诸如“零、壹、贰、叁、肆、伍、陆、柒、捌、玖、拾、佰、仟、万、亿”等，已经符合绝大部分国家和区域性银行柜台的标准手签报备规范。可以直接双击点选复制贴入您的 PDF 或 Word 电子合同中。
+        <p className="text-slate-400 text-xs mt-12 pt-8 border-t border-slate-100 text-center italic">
+          {t('tools.rmb-converter.seoFooter')}
         </p>
       </div>
 

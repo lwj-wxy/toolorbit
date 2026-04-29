@@ -54,7 +54,7 @@ export const TOOLS: ToolItem[] = [
     description: '提供美化、压缩、验证等全方位 JSON 数据处理服务。',
     icon: Code2,
     category: '开发者工具',
-    path: '/tools/json-formatter',
+    path: '/tools/dev/json-formatter',
   },
   {
     id: 'base64',
@@ -62,7 +62,7 @@ export const TOOLS: ToolItem[] = [
     description: '网页端快速编解码工具，完美支持 UTF-8 中文字符集。',
     icon: Binary,
     category: '开发者工具',
-    path: '/tools/base64',
+    path: '/tools/dev/base64',
   },
   {
     id: 'ascii-table',
@@ -70,7 +70,7 @@ export const TOOLS: ToolItem[] = [
     description: '标准 ASCII 及控制字符在线对照与各进制速查手册。',
     icon: Hash,
     category: '开发者工具',
-    path: '/tools/ascii-table',
+    path: '/tools/dev/ascii-table',
   },
   {
     id: 'url-encoder',
@@ -78,7 +78,7 @@ export const TOOLS: ToolItem[] = [
     description: '安全地编码网页链接，或将其解码为可读的标准格式。',
     icon: Link,
     category: '站长工具',
-    path: '/tools/url-encoder',
+    path: '/tools/dev/url-encoder',
   },
   {
     id: 'hash-generator',
@@ -86,7 +86,7 @@ export const TOOLS: ToolItem[] = [
     description: '快速生成安全的 MD5 等同类的 SHA-1、SHA-256、SHA-512 会话摘要信息。',
     icon: Hash,
     category: '开发者工具',
-    path: '/tools/hash-generator',
+    path: '/tools/dev/hash-generator',
   },
   {
     id: 'uuid-generator',
@@ -94,7 +94,7 @@ export const TOOLS: ToolItem[] = [
     description: '批量生成 RFC 4122 标准的随机 Version 4 UUID。',
     icon: Fingerprint,
     category: '开发者工具',
-    path: '/tools/uuid-generator',
+    path: '/tools/dev/uuid-generator',
   },
   {
     id: 'unicode-converter',
@@ -102,7 +102,7 @@ export const TOOLS: ToolItem[] = [
     description: '中文等原生字符与 \\uXXXX 格式的 Unicode 转义互转。',
     icon: Code,
     category: '开发者工具',
-    path: '/tools/unicode-converter',
+    path: '/tools/dev/unicode-converter',
   },
   {
     id: 'chmod-calculator',
@@ -110,7 +110,7 @@ export const TOOLS: ToolItem[] = [
     description: 'Linux 权限掩码与 RWX 符号模式的可视化直观转换。',
     icon: FileKey,
     category: '开发者工具',
-    path: '/tools/chmod-calculator',
+    path: '/tools/dev/chmod-calculator',
   },
   {
     id: 'text-analyzer',
@@ -118,7 +118,7 @@ export const TOOLS: ToolItem[] = [
     description: '在线统计字数、字符数、段落数并分析文本频率占比。',
     icon: Type,
     category: '文本排版',
-    path: '/tools/text-analyzer',
+    path: '/tools/text/text-analyzer',
   },
   {
     id: 'text-cleaner',
@@ -126,7 +126,7 @@ export const TOOLS: ToolItem[] = [
     description: '去空格、去换行、去制表符和标点。',
     icon: Eraser,
     category: '文本排版',
-    path: '/tools/text-cleaner',
+    path: '/tools/text/text-cleaner',
   },
   {
     id: 'symbol-library',
@@ -134,7 +134,7 @@ export const TOOLS: ToolItem[] = [
     description: 'Emoji、数学公式、货币等长尾排版符号一键式点选复制。',
     icon: Keyboard,
     category: '文本排版',
-    path: '/tools/symbol-library',
+    path: '/tools/text/symbol-library',
   },
   {
     id: 'qr-generator',
@@ -142,7 +142,7 @@ export const TOOLS: ToolItem[] = [
     description: '一键生成可下载二维码。',
     icon: QrCode,
     category: '生成器',
-    path: '/tools/qr-generator',
+    path: '/tools/generator/qr-generator',
   },
   {
     id: 'qr-scanner',
@@ -150,7 +150,7 @@ export const TOOLS: ToolItem[] = [
     description: '上传二维码图片并解析内容。',
     icon: ScanLine,
     category: '生成器',
-    path: '/tools/qr-scanner',
+    path: '/tools/generator/qr-scanner',
   },
   {
     id: 'barcode-generator',
@@ -158,7 +158,7 @@ export const TOOLS: ToolItem[] = [
     description: '支持 CODE128、CODE39、EAN、UPC 生成。',
     icon: Barcode,
     category: '生成器',
-    path: '/tools/barcode-generator',
+    path: '/tools/generator/barcode-generator',
   },
   {
     id: 'etsy-fee-calculator',
@@ -166,7 +166,7 @@ export const TOOLS: ToolItem[] = [
     description: '精确计算 Etsy 的上架费、交易费及支付处理费，掌握真实利润。',
     icon: ShoppingCart,
     category: '电商工具',
-    path: '/tools/etsy-fee-calculator',
+    path: '/tools/ecommerce/etsy-fee-calculator',
   },
   {
     id: 'stripe-fee-calculator',
@@ -174,7 +174,7 @@ export const TOOLS: ToolItem[] = [
     description: '计算 Stripe 收款产生的手续费用，快速预估实际到账金额。',
     icon: CreditCard,
     category: '电商工具',
-    path: '/tools/stripe-fee-calculator',
+    path: '/tools/ecommerce/stripe-fee-calculator',
   },
   {
     id: 'listing-craft-ai',
@@ -182,7 +182,7 @@ export const TOOLS: ToolItem[] = [
     description: '内置大模型，一键生成高转化率、带SEO结构的跨境商品 Listing。',
     icon: Sparkles,
     category: '电商工具',
-    path: '/tools/listing-craft-ai',
+    path: '/tools/ecommerce/listing-craft-ai',
   },
   {
     id: 'pdf-merge',
@@ -190,7 +190,7 @@ export const TOOLS: ToolItem[] = [
     description: '免费、快速地将多个PDF文件合并为一个文件。',
     icon: Files,
     category: 'PDF工具',
-    path: '/tools/pdf-merge',
+    path: '/tools/pdf/pdf-merge',
   },
   {
     id: 'pdf-split',
@@ -198,7 +198,7 @@ export const TOOLS: ToolItem[] = [
     description: '轻松提取PDF页面，或将大型PDF拆分为多个小文件。',
     icon: FileText,
     category: 'PDF工具',
-    path: '/tools/pdf-split',
+    path: '/tools/pdf/pdf-split',
   },
   {
     id: 'pdf-to-image',
@@ -206,7 +206,7 @@ export const TOOLS: ToolItem[] = [
     description: '将PDF文档的每一页高质量转换为 JPG 或 PNG 格式图片。',
     icon: FileImage,
     category: 'PDF工具',
-    path: '/tools/pdf-to-image',
+    path: '/tools/pdf/pdf-to-image',
   },
   {
     id: 'image-to-pdf',
@@ -214,7 +214,7 @@ export const TOOLS: ToolItem[] = [
     description: '上传JPG、PNG图片文件并快速打包合并成一个PDF文档。',
     icon: ImageIcon,
     category: 'PDF工具',
-    path: '/tools/image-to-pdf',
+    path: '/tools/pdf/image-to-pdf',
   },
   {
     id: 'image-compressor',
@@ -222,7 +222,7 @@ export const TOOLS: ToolItem[] = [
     description: '在保持画质的前提下，大幅缩小图片体积，提升网页加载速度。',
     icon: ImageMinus,
     category: '图片处理',
-    path: '/tools/image-compressor',
+    path: '/tools/image/image-compressor',
   },
   {
     id: 'image-converter',
@@ -230,7 +230,7 @@ export const TOOLS: ToolItem[] = [
     description: '在本地瞬间将图片互转为 JPG、PNG、WebP 等格式。',
     icon: RefreshCcw,
     category: '图片处理',
-    path: '/tools/image-converter',
+    path: '/tools/image/image-converter',
   },
   {
     id: 'svg-to-png',
@@ -238,7 +238,7 @@ export const TOOLS: ToolItem[] = [
     description: '将 SVG 矢量图导出为 PNG。',
     icon: FileImage,
     category: '图片处理',
-    path: '/tools/svg-to-png',
+    path: '/tools/image/svg-to-png',
   },
   {
     id: 'image-to-base64',
@@ -246,7 +246,7 @@ export const TOOLS: ToolItem[] = [
     description: '将本地图片转换为 Base64 编码，可直接用于 HTML/CSS 减少 HTTP 请求。',
     icon: FileCode2,
     category: '图片处理',
-    path: '/tools/image-to-base64',
+    path: '/tools/image/image-to-base64',
   },
   {
     id: 'image-cropper',
@@ -254,7 +254,7 @@ export const TOOLS: ToolItem[] = [
     description: '通过可视化选区自由裁剪您的图片，并精准提取缩略图。',
     icon: CropIcon,
     category: '图片处理',
-    path: '/tools/image-cropper',
+    path: '/tools/image/image-cropper',
   },
   {
     id: 'timestamp-converter',
@@ -262,7 +262,7 @@ export const TOOLS: ToolItem[] = [
     description: 'Unix 时间戳与标准北京时间相互转换计算。',
     icon: Calculator,
     category: '计算转换',
-    path: '/tools/timestamp-converter',
+    path: '/tools/dev/timestamp-converter',
   },
   {
     id: 'base-converter',
@@ -270,7 +270,7 @@ export const TOOLS: ToolItem[] = [
     description: '支持 2~36 进制互转（大整数）。',
     icon: Calculator,
     category: '计算转换',
-    path: '/tools/base-converter',
+    path: '/tools/dev/base-converter',
   },
   {
     id: 'unit-converter',
@@ -278,7 +278,7 @@ export const TOOLS: ToolItem[] = [
     description: '快速在长度、重量、体积、温度等各类计量单位间换算。',
     icon: Calculator,
     category: '计算转换',
-    path: '/tools/unit-converter',
+    path: '/tools/calculate/unit-converter',
   },
   {
     id: 'time-converter',
@@ -286,7 +286,7 @@ export const TOOLS: ToolItem[] = [
     description: '全球各大时区时间、时间差及标准时间戳极速互转工具。',
     icon: Calculator,
     category: '计算转换',
-    path: '/tools/time-converter',
+    path: '/tools/calculate/time-converter',
   },
   {
     id: 'archive-converter',
@@ -294,7 +294,7 @@ export const TOOLS: ToolItem[] = [
     description: 'ZIP/RAR/TAR 等压缩存档格式在线封包与转换提取。',
     icon: RefreshCcw,
     category: '计算转换',
-    path: '/tools/archive-converter',
+    path: '/tools/calculate/archive-converter',
   },
   {
     id: 'rmb-converter',
@@ -302,7 +302,7 @@ export const TOOLS: ToolItem[] = [
     description: '阿拉伯数字金额一键转为标准财务人民币大写（含角分）。',
     icon: Banknote,
     category: '计算转换',
-    path: '/tools/rmb-converter',
+    path: '/tools/calculate/rmb-converter',
   },
   {
     id: 'ppi-calculator',
@@ -310,7 +310,7 @@ export const TOOLS: ToolItem[] = [
     description: '通过物理尺寸和分辨率解析出设备屏幕像素密度。',
     icon: MonitorSmartphone,
     category: '计算转换',
-    path: '/tools/ppi-calculator',
+    path: '/tools/calculate/ppi-calculator',
   },
   {
     id: "color-converter",

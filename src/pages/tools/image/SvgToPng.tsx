@@ -1,7 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { FileImage, UploadCloud, Download, Code, Image as ImageIcon, Trash2, ArrowRight } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import { FileImage, UploadCloud, Download, Code, Image as ImageIcon, Trash2 } from 'lucide-react';
 
 export default function SvgToPng() {
+  const { t } = useTranslation();
   const [svgContent, setSvgContent] = useState<string>('');
   const [fileName, setFileName] = useState<string>('converted_image');
   const [width, setWidth] = useState<number>(800);
@@ -26,13 +28,13 @@ export default function SvgToPng() {
         const doc = parser.parseFromString(svgContent, 'image/svg+xml');
         const errNode = doc.querySelector('parsererror');
         if (errNode) {
-            setPreviewError('SVG 解析失败，格式可能有误。');
+            setPreviewError(t('tools.svg-to-png.parseError'));
             return;
         }
 
         const rootSvg = doc.documentElement;
         if (rootSvg.tagName.toLowerCase() !== 'svg') {
-            setPreviewError('未找到根 <svg> 元素。');
+            setPreviewError(t('tools.svg-to-png.noRootError'));
             return;
         }
 
@@ -59,10 +61,10 @@ export default function SvgToPng() {
         setPreviewError('');
 
     } catch (e) {
-        setPreviewError('未知解析错误');
+        setPreviewError(t('tools.svg-to-png.unknownError'));
     }
 
-  }, [svgContent]);
+  }, [svgContent, t]);
 
   const handleWidthChange = (val: number) => {
       setWidth(val);
@@ -81,7 +83,6 @@ export default function SvgToPng() {
   const handleFileUpload = (file: File) => {
     if (!file) return;
     
-    // Some SVGs show up as text/xml or similar sometimes, but we prefer image/svg+xml
     const nameWithoutExt = file.name.replace(/\.[^/.]+$/, "");
     setFileName(nameWithoutExt);
 
@@ -122,7 +123,6 @@ export default function SvgToPng() {
      const ctx = canvas.getContext('2d');
      if (!ctx) return;
 
-     // Ensure SVG has valid width/height attributes for the Image constructor to respect
      const parser = new DOMParser();
      const doc = parser.parseFromString(svgContent, 'image/svg+xml');
      const rootSvg = doc.documentElement;
@@ -132,15 +132,11 @@ export default function SvgToPng() {
 
      const img = new Image();
      const svgBlob = new Blob([modifiedSvgString], { type: 'image/svg+xml;charset=utf-8' });
-     const URL = window.URL || window.webkitURL || window;
      const blobURL = URL.createObjectURL(svgBlob);
 
      img.onload = () => {
-         // Clear canvas
          ctx.clearRect(0, 0, canvas.width, canvas.height);
-         // Draw
          ctx.drawImage(img, 0, 0, width, height);
-         // Export
          const pngUrl = canvas.toDataURL("image/png");
          const downloadLink = document.createElement("a");
          downloadLink.href = pngUrl;
@@ -162,7 +158,6 @@ export default function SvgToPng() {
       }
   };
 
-  // Convert pure SVG string into renderable URI for img tag Preview
   const getEncodedSvgUri = () => {
       if (!svgContent || previewError) return null;
       return "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svgContent)));
@@ -181,9 +176,9 @@ export default function SvgToPng() {
             <FileImage className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold tracking-tight text-slate-900">SVG 转 PNG</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900">{t('tools.svg-to-png.title')}</h1>
             <p className="text-[#64748b] mt-1 text-sm md:text-base">
-              无需服务器参与，纯净本地浏览器运算，将 SVG 矢量图渲染导出为高清 PNG 图片。
+              {t('tools.svg-to-png.subtitle')}
             </p>
           </div>
         </div>
@@ -193,7 +188,7 @@ export default function SvgToPng() {
                  onClick={clearAll}
                  className="px-4 py-2 text-sm font-bold text-red-500 hover:bg-red-50 rounded-lg flex items-center gap-2 transition-colors border border-transparent hover:border-red-100 self-start md:self-auto"
                >
-                 <Trash2 className="w-4 h-4" /> 清空重置
+                 <Trash2 className="w-4 h-4" /> {t('tools.svg-to-png.clearBtn')}
              </button>
         )}
       </div>
@@ -223,21 +218,21 @@ export default function SvgToPng() {
                   <div className="w-20 h-20 bg-white shadow-sm border border-slate-100 rounded-full flex items-center justify-center mb-6 text-[#94a3b8]">
                       <UploadCloud className="w-10 h-10" />
                   </div>
-                  <p className="text-[#1e293b] font-medium text-xl mb-3">拖拽 SVG 图片文件至此处</p>
+                  <p className="text-[#1e293b] font-medium text-xl mb-3">{t('tools.svg-to-png.dropLabel')}</p>
                   <p className="text-[#64748b] text-sm text-center mb-8">
-                      极速的本地纯前端解析器，所有处理都在您的离线设备完成
+                      {t('tools.svg-to-png.dropDesc')}
                   </p>
                   <button
                       onClick={() => fileInputRef.current?.click()}
                       className="px-8 py-3 bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-medium rounded-xl transition-colors shadow-sm"
                   >
-                      选择 SVG 文件
+                      {t('tools.svg-to-png.selectBtn')}
                   </button>
                </div>
 
                <div className="mt-8 flex items-center gap-4 w-full max-w-2xl">
                   <div className="h-px bg-slate-200 flex-1"></div>
-                  <span className="text-sm font-medium text-slate-400">或者直接粘贴代码</span>
+                  <span className="text-sm font-medium text-slate-400">{t('tools.svg-to-png.orPaste')}</span>
                   <div className="h-px bg-slate-200 flex-1"></div>
                </div>
 
@@ -259,7 +254,7 @@ export default function SvgToPng() {
                  <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-5 flex flex-col h-[400px]">
                     <div className="flex items-center gap-2 mb-3">
                         <Code className="w-5 h-5 text-blue-600" />
-                        <h3 className="font-bold text-[#1e293b]">SVG 源码编辑</h3>
+                        <h3 className="font-bold text-[#1e293b]">{t('tools.svg-to-png.editorTitle')}</h3>
                     </div>
                     <textarea
                        value={svgContent}
@@ -273,13 +268,13 @@ export default function SvgToPng() {
                  <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-5">
                     <h3 className="font-bold text-[#1e293b] mb-4 flex items-center gap-2">
                        <span className="w-2 h-5 bg-emerald-500 rounded-sm block"></span>
-                       导出光栅化参数
+                       {t('tools.svg-to-png.settingsTitle')}
                     </h3>
                     
                     <div className="space-y-4">
                        <div className="grid grid-cols-2 gap-4">
                            <div>
-                               <label className="block text-sm font-bold text-[#475569] mb-2">画布宽度 (px)</label>
+                               <label className="block text-sm font-bold text-[#475569] mb-2">{t('tools.svg-to-png.widthLabel')}</label>
                                <input
                                  type="number"
                                  value={width || ''}
@@ -288,7 +283,7 @@ export default function SvgToPng() {
                                />
                            </div>
                            <div>
-                               <label className="block text-sm font-bold text-[#475569] mb-2">画布高度 (px)</label>
+                               <label className="block text-sm font-bold text-[#475569] mb-2">{t('tools.svg-to-png.heightLabel')}</label>
                                <input
                                  type="number"
                                  value={height || ''}
@@ -305,7 +300,7 @@ export default function SvgToPng() {
                             onChange={(e) => setMaintainRatio(e.target.checked)}
                             className="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500 border-gray-300"
                          />
-                         锁定原图宽高比，防止拉伸形变
+                         {t('tools.svg-to-png.lockRatio')}
                        </label>
 
                        <button
@@ -313,7 +308,7 @@ export default function SvgToPng() {
                          disabled={!!previewError || width === 0 || height === 0}
                          className="w-full mt-4 flex items-center justify-center gap-2 px-4 py-3 font-bold rounded-xl bg-emerald-500 text-white hover:bg-emerald-600 transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
                        >
-                         <Download className="w-5 h-5" /> 生成 PNG 并下载
+                         <Download className="w-5 h-5" /> {t('tools.svg-to-png.downloadBtn')}
                        </button>
                     </div>
                  </div>
@@ -322,7 +317,7 @@ export default function SvgToPng() {
               {/* Right Column: Visual Render */}
               <div className="lg:col-span-7 bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6 min-h-[500px] flex flex-col">
                  <h3 className="font-bold text-[#1e293b] mb-4 flex items-center gap-2 border-b border-slate-100 pb-4">
-                    <ImageIcon className="w-5 h-5 text-blue-600" /> WebKit 渲染核心视图
+                    <ImageIcon className="w-5 h-5 text-blue-600" /> {t('tools.svg-to-png.renderTitle')}
                  </h3>
                  
                  <div className="flex-1 relative flex items-center justify-center bg-checkered p-8 rounded-xl overflow-hidden border border-slate-200">
@@ -337,16 +332,16 @@ export default function SvgToPng() {
                     {previewError ? (
                         <div className="bg-white/90 backdrop-blur-sm border border-red-200 rounded-xl p-6 text-center max-w-sm">
                            <div className="w-12 h-12 bg-red-100 text-red-500 rounded-full flex items-center justify-center mx-auto mb-3">
-                              <span className="font-bold text-xl">!</span>
+                               <span className="font-bold text-xl">!</span>
                            </div>
-                           <h4 className="font-bold text-slate-800 mb-1">解析失败</h4>
+                           <h4 className="font-bold text-slate-800 mb-1">{t('tools.svg-to-png.failTitle')}</h4>
                            <p className="text-sm text-slate-600">{previewError}</p>
                         </div>
                     ) : (
                         getEncodedSvgUri() && (
                             <img 
                               src={getEncodedSvgUri()!} 
-                              alt="SVG Prefix" 
+                              alt="SVG Preview" 
                               style={{ maxWidth: '100%', maxHeight: '600px' }}
                               className="shadow-sm" 
                             />
@@ -359,36 +354,36 @@ export default function SvgToPng() {
 
       {/* Bottom SEO Instructions Panel */}
       <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-8 lg:p-12 mb-8 mt-8">
-        <h2 className="text-xl font-bold text-slate-800 mb-6">在线 SVG 转 PNG 工具，保留矢量的完美细节</h2>
+        <h2 className="text-xl font-bold text-slate-800 mb-6">{t('tools.svg-to-png.seoTitle')}</h2>
         
         <p className="text-slate-600 mb-6 leading-relaxed">
-          SVG 转 PNG 转换器是一款致力于消除前端与平面设计代沟的小巧应用。在互联网开发中，SVG 矢量图凭借无限放大不失真的特性广受欢迎；然而在传统的文档分享、社交媒体配图或是旧版系统的兼容上，我们往往需要将其栅格化为背景透明的 PNG 图片。
+          {t('tools.svg-to-png.seoDesc1')}
         </p>
 
         <div className="bg-rose-50 border border-rose-100/50 rounded-xl p-5 mb-8">
           <p className="text-rose-700 text-sm font-bold leading-relaxed">
-            您的安全始终是第一位的。本工具所进行的一切矢量图解析与 PNG 画布绘制渲染，100% 局限在您个人的浏览器内执行，绝对不会将您的商业 Logo 源文件或私密矢量图纸泄露至外部网络。
+            {t('tools.svg-to-png.seoPrivacy')}
           </p>
         </div>
 
-        <h3 className="font-bold text-slate-800 text-lg mb-4">关于纯本地 SVG 转换方案的亮点：</h3>
+        <h3 className="font-bold text-slate-800 text-lg mb-4">{t('tools.svg-to-png.seoHighlightsTitle')}</h3>
         <ul className="space-y-4 text-slate-600">
           <li className="flex gap-3">
-            <strong className="text-slate-800 shrink-0">1. 透明通道全保留：</strong>
-            <span>SVG 设计中常用的 Alpha 透明度以及不规则边框效果，能够在转化为 PNG 时得到原汁原味的保留，不会像粗劣的截图操作一样强制加上难以去掉的白底。</span>
+            <strong className="text-slate-800 shrink-0">1. {t('tools.svg-to-png.highlight1Title')}</strong>
+            <span>{t('tools.svg-to-png.highlight1Desc')}</span>
           </li>
           <li className="flex gap-3">
-            <strong className="text-slate-800 shrink-0">2. 自定义放大倍率：</strong>
-            <span>您可以随心所欲地控制导出结果的尺寸。由于源头是矢量文件，即便将其长宽在此工具中翻倍放大并导出为 PNG，它的边缘与线条依旧清晰锐利，不起毛边。</span>
+            <strong className="text-slate-800 shrink-0">2. {t('tools.svg-to-png.highlight2Title')}</strong>
+            <span>{t('tools.svg-to-png.highlight2Desc')}</span>
           </li>
           <li className="flex gap-3">
-            <strong className="text-slate-800 shrink-0">3. 告别设计软件的笨重：</strong>
-            <span>想要将 UI 同事发来的一个 SVG 图标简单地丢进 PPT，终于不必再为此去苦苦启动重达几个 G 的专业设计工具了，丢进网页瞬间出图。</span>
+            <strong className="text-slate-800 shrink-0">3. {t('tools.svg-to-png.highlight3Title')}</strong>
+            <span>{t('tools.svg-to-png.highlight3Desc')}</span>
           </li>
         </ul>
         
         <p className="text-slate-500 text-sm mt-8 pt-6 border-t border-slate-100">
-          用高效轻捷的技术手段去承接繁重复杂的设计资产切图任务，是保证工作流顺畅、避免无效加班的绝佳策略。
+          {t('tools.svg-to-png.seoFooter')}
         </p>
       </div>
 

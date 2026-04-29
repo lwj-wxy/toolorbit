@@ -58,47 +58,47 @@ export default function App() {
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/tools/json-formatter" element={<JsonFormatter />} />
-          <Route path="/tools/base64" element={<Base64 />} />
-          <Route path="/tools/ascii-table" element={<AsciiTable />} />
-          <Route path="/tools/url-encoder" element={<UrlEncoder />} />
-          <Route path="/tools/hash-generator" element={<HashGenerator />} />
-          <Route path="/tools/uuid-generator" element={<UuidGenerator />} />
-          <Route path="/tools/unicode-converter" element={<UnicodeConverter />} />
-          <Route path="/tools/chmod-calculator" element={<ChmodCalculator />} />
+          <Route path="/tools/dev/json-formatter" element={<JsonFormatter />} />
+          <Route path="/tools/dev/base64" element={<Base64 />} />
+          <Route path="/tools/dev/ascii-table" element={<AsciiTable />} />
+          <Route path="/tools/dev/url-encoder" element={<UrlEncoder />} />
+          <Route path="/tools/dev/hash-generator" element={<HashGenerator />} />
+          <Route path="/tools/dev/uuid-generator" element={<UuidGenerator />} />
+          <Route path="/tools/dev/unicode-converter" element={<UnicodeConverter />} />
+          <Route path="/tools/dev/chmod-calculator" element={<ChmodCalculator />} />
           
           <Route path="/tools/dev/color-converter" element={<ColorConverter />} />
           <Route path="/tools/dev/color-palette" element={<ColorPalette />} />
           <Route path="/tools/dev/color-picker" element={<ColorPicker />} />
           <Route path="/tools/image/image-to-ico" element={<ImageToIco />} />
           
-          <Route path="/tools/text-analyzer" element={<TextAnalyzer />} />
-          <Route path="/tools/text-cleaner" element={<TextCleaner />} />
-          <Route path="/tools/symbol-library" element={<SymbolLibrary />} />
-          <Route path="/tools/qr-generator" element={<QrGenerator />} />
-          <Route path="/tools/qr-scanner" element={<QrScanner />} />
-          <Route path="/tools/barcode-generator" element={<BarcodeGenerator />} />
-          <Route path="/tools/etsy-fee-calculator" element={<EtsyFeeCalculator />} />
-          <Route path="/tools/stripe-fee-calculator" element={<StripeFeeCalculator />} />
-          <Route path="/tools/listing-craft-ai" element={<ListingCraft />} />
-          <Route path="/tools/timestamp-converter" element={<TimestampConverter />} />
-          <Route path="/tools/base-converter" element={<BaseConverter />} />
-          <Route path="/tools/image-compressor" element={<ImageCompressor />} />
-          <Route path="/tools/image-converter" element={<ImageConverter />} />
-          <Route path="/tools/svg-to-png" element={<SvgToPng />} />
-          <Route path="/tools/image-to-base64" element={<ImageToBase64 />} />
-          <Route path="/tools/image-cropper" element={<ImageCropper />} />
+          <Route path="/tools/text/text-analyzer" element={<TextAnalyzer />} />
+          <Route path="/tools/text/text-cleaner" element={<TextCleaner />} />
+          <Route path="/tools/text/symbol-library" element={<SymbolLibrary />} />
+          <Route path="/tools/generator/qr-generator" element={<QrGenerator />} />
+          <Route path="/tools/generator/qr-scanner" element={<QrScanner />} />
+          <Route path="/tools/generator/barcode-generator" element={<BarcodeGenerator />} />
+          <Route path="/tools/ecommerce/etsy-fee-calculator" element={<EtsyFeeCalculator />} />
+          <Route path="/tools/ecommerce/stripe-fee-calculator" element={<StripeFeeCalculator />} />
+          <Route path="/tools/ecommerce/listing-craft-ai" element={<ListingCraft />} />
+          <Route path="/tools/dev/timestamp-converter" element={<TimestampConverter />} />
+          <Route path="/tools/dev/base-converter" element={<BaseConverter />} />
+          <Route path="/tools/image/image-compressor" element={<ImageCompressor />} />
+          <Route path="/tools/image/image-converter" element={<ImageConverter />} />
+          <Route path="/tools/image/svg-to-png" element={<SvgToPng />} />
+          <Route path="/tools/image/image-to-base64" element={<ImageToBase64 />} />
+          <Route path="/tools/image/image-cropper" element={<ImageCropper />} />
           
-          <Route path="/tools/pdf-to-image" element={<PdfToImage />} />
-          <Route path="/tools/image-to-pdf" element={<ImageToPdf />} />
-          <Route path="/tools/pdf-merge" element={<PdfMerge />} />
-          <Route path="/tools/pdf-split" element={<PdfSplit />} />
+          <Route path="/tools/pdf/pdf-to-image" element={<PdfToImage />} />
+          <Route path="/tools/pdf/image-to-pdf" element={<ImageToPdf />} />
+          <Route path="/tools/pdf/pdf-merge" element={<PdfMerge />} />
+          <Route path="/tools/pdf/pdf-split" element={<PdfSplit />} />
           
-          <Route path="/tools/unit-converter" element={<UnitConverter />} />
-          <Route path="/tools/time-converter" element={<TimeConverter />} />
-          <Route path="/tools/archive-converter" element={<ArchiveConverter />} />
-          <Route path="/tools/rmb-converter" element={<RmbConverter />} />
-          <Route path="/tools/ppi-calculator" element={<PpiCalculator />} />
+          <Route path="/tools/calculate/unit-converter" element={<UnitConverter />} />
+          <Route path="/tools/calculate/time-converter" element={<TimeConverter />} />
+          <Route path="/tools/calculate/archive-converter" element={<ArchiveConverter />} />
+          <Route path="/tools/calculate/rmb-converter" element={<RmbConverter />} />
+          <Route path="/tools/calculate/ppi-calculator" element={<PpiCalculator />} />
 
           <Route path="/tools/net/short-url" element={<ShortUrl />} />
           <Route path="/tools/fun/game-2048" element={<Game2048 />} />

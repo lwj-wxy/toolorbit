@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Palette, Copy, Check } from 'lucide-react';
 import tinycolor from 'tinycolor2';
 
 export default function ColorConverter() {
+  const { t } = useTranslation();
   const [inputColor, setInputColor] = useState('#42b983');
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
 
@@ -11,7 +13,6 @@ export default function ColorConverter() {
   const hsl = tc.toHsl();
   const hsv = tc.toHsv();
   
-  // Custom CMYK logic
   const getCmyk = (r: number, g: number, b: number) => {
     const r01 = r / 255;
     const g01 = g / 255;
@@ -50,9 +51,9 @@ export default function ColorConverter() {
             <Palette className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold tracking-tight text-slate-900">颜色代码转换</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900">{t('tools.color-converter.title')}</h1>
             <p className="text-slate-500 mt-1 text-sm md:text-base">
-              在 HEX, RGB, HSL, HSV, CMYK 等多种工业色彩规格之间无损互转，支持透明度提取。
+              {t('tools.color-converter.subtitle')}
             </p>
           </div>
         </div>
@@ -61,7 +62,7 @@ export default function ColorConverter() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-1 border border-slate-200/80 bg-white rounded-2xl p-6 shadow-sm flex flex-col gap-6">
           <div className="space-y-3">
-             <label className="block text-sm font-bold text-slate-700">色彩提取控制板</label>
+             <label className="block text-sm font-bold text-slate-700">{t('tools.color-converter.previewLabel')}</label>
              <div 
                className="w-full h-48 rounded-xl border border-slate-200/80 shadow-inner flex items-end justify-start p-4 transition-colors"
                style={{ backgroundColor: tc.isValid() ? tc.toHexString() : '#ffffff' }}
@@ -73,7 +74,7 @@ export default function ColorConverter() {
           </div>
           
           <div>
-             <label className="block text-sm font-bold text-slate-700 mb-2">手动输入色值 (兼容各类格式)</label>
+             <label className="block text-sm font-bold text-slate-700 mb-2">{t('tools.color-converter.inputLabel')}</label>
              <div className="flex items-center gap-3">
                 <input 
                   type="color" 
@@ -86,16 +87,16 @@ export default function ColorConverter() {
                   value={inputColor}
                   onChange={(e) => setInputColor(e.target.value)}
                   className="w-full bg-slate-50 border border-slate-200/80 rounded-xl px-4 py-3 font-mono outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20"
-                  placeholder="e.g. #42b983, rgb(66, 185, 131)"
+                  placeholder={t('tools.color-converter.inputPlaceholder')}
                 />
              </div>
-             {!tc.isValid() && <p className="text-red-500 text-xs mt-2 font-bold">无法解析当前色值。</p>}
+             {!tc.isValid() && <p className="text-red-500 text-xs mt-2 font-bold">{t('tools.color-converter.invalidColor')}</p>}
           </div>
         </div>
 
         <div className="lg:col-span-2 border border-slate-200/80 bg-white rounded-2xl overflow-hidden shadow-sm">
            <div className="px-6 py-4 bg-slate-50 border-b border-slate-200/80">
-              <h3 className="font-bold text-slate-700">标准色系解析矩阵</h3>
+              <h3 className="font-bold text-slate-700">{t('tools.color-converter.resultsTitle')}</h3>
            </div>
            <div className="divide-y divide-slate-100">
               {colorFormats.map((fmt, idx) => (
@@ -110,20 +111,11 @@ export default function ColorConverter() {
                        className="ml-4 shrink-0 flex items-center gap-2 px-3 py-1.5 bg-white border border-slate-200/80 rounded-lg text-sm text-slate-600 hover:text-pink-600 hover:border-pink-200 hover:bg-pink-50 transition-all disabled:opacity-50"
                     >
                        {copiedIndex === idx ? <Check className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4" />}
-                       {copiedIndex === idx ? '已复制' : '复制'}
+                       {copiedIndex === idx ? t('tools.color-converter.copiedBtn') : t('tools.color-converter.copyBtn')}
                     </button>
                  </div>
               ))}
            </div>
-        </div>
-      </div>
-
-      <div className="bg-transparent border border-slate-200/60 rounded-2xl p-8 lg:p-12 mt-12 mb-12 bg-gradient-to-b from-white/50 to-transparent">
-        <h2 className="text-xl font-bold text-slate-800 mb-6">全光谱色彩模型互转说明</h2>
-        <div className="space-y-4 text-slate-600 text-sm leading-relaxed">
-           <p><strong>HEX / RGB:</strong> 网页与显示器最通用的发光三原色（红、绿、蓝）模型，HEX 只是其 16 进制表现形式。完美支持 8 位的 Alpha 透明通道（即 RGBA 或 HEX8）。</p>
-           <p><strong>HSL / HSV:</strong> 这是更贴近人眼视觉感知的色相（Hue）、饱和度（Saturation）、与亮度/明度（Lightness/Value）的圆柱坐标系表示法。适合在 UI 调整中基于相近颜色寻找色阶（通过加减亮度或饱和度）。</p>
-           <p><strong>CMYK:</strong> 传统的工业印刷四分色模式（青、洋红、黄、黑）。此处的转换为理论推导值，如果您需要进行极其严苛的印前级调色，请使用包含了特定 ICC 色彩配置文件的本地专业排版软件完成。</p>
         </div>
       </div>
     </div>

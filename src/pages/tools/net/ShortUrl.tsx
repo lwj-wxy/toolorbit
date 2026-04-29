@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Link2, Copy, Check, ExternalLink, Loader2, Globe } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export default function ShortUrl() {
+  const { t } = useTranslation();
   const [url, setUrl] = useState('');
   const [shortLinks, setShortLinks] = useState<Array<{ provider: string, url: string, note?: string }>>([]);
   const [loading, setLoading] = useState(false);
@@ -11,7 +13,7 @@ export default function ShortUrl() {
   const generateShortUrl = async () => {
     if (!url) return;
     if (!url.startsWith('http')) {
-      setError('请输入以 http:// 或 https:// 开头的完整有效链接');
+      setError(t('tools.short-url.errorHttp'));
       return;
     }
 
@@ -32,10 +34,10 @@ export default function ShortUrl() {
       if (data.success && data.links) {
         setShortLinks(data.links);
       } else {
-        throw new Error(data.error || '短链接获取失败');
+        throw new Error(data.error || t('tools.short-url.errorFetch'));
       }
     } catch (err: any) {
-      setError(err.message || '短链服务暂时不可用，请稍后重试');
+      setError(err.message || t('tools.short-url.errorRetry'));
       console.error('Shorten Error:', err);
     } finally {
       setLoading(false);
@@ -56,9 +58,9 @@ export default function ShortUrl() {
             <Link2 className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold tracking-tight text-slate-900">在线短链接转换器</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900">{t('tools.short-url.title')}</h1>
             <p className="text-slate-500 mt-1 text-sm md:text-base">
-              多平台并行分发逻辑，确保在任何网络环境下都有 100% 稳定的跳转体验。
+              {t('tools.short-url.subtitle')}
             </p>
           </div>
         </div>
@@ -66,7 +68,7 @@ export default function ShortUrl() {
 
       <div className="bg-white border border-slate-200/80 rounded-3xl p-6 lg:p-10 shadow-sm space-y-8">
         <div className="space-y-4">
-          <label className="block text-sm font-bold text-slate-700">原始长链接 (URL)</label>
+          <label className="block text-sm font-bold text-slate-700">{t('tools.short-url.labelLong')}</label>
           <div className="flex gap-3">
             <div className="relative flex-1">
               <Globe className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
@@ -83,7 +85,7 @@ export default function ShortUrl() {
               disabled={loading || !url}
               className="px-8 py-4 bg-indigo-600 text-white rounded-2xl font-bold hover:bg-indigo-700 transition-all active:scale-95 disabled:opacity-50 disabled:active:scale-100 flex items-center gap-2 shrink-0"
             >
-              {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : '立即缩短'}
+              {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : t('tools.short-url.btnShorten')}
             </button>
           </div>
           {error && <p className="text-rose-500 text-sm font-medium ml-1">{error}</p>}
@@ -92,7 +94,7 @@ export default function ShortUrl() {
         {shortLinks.length > 0 && (
           <div className="space-y-4 animate-in fade-in slide-in-from-top-2 duration-300">
             <div className="flex items-center justify-between mb-2">
-              <label className="text-sm font-bold text-slate-700 italic">检测到多条可用分发路线，请选择最稳定的一条：</label>
+              <label className="text-sm font-bold text-slate-700 italic">{t('tools.short-url.multiStream')}</label>
               <span className="text-[10px] bg-indigo-50 text-indigo-600 px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">Multi-Stream Enabled</span>
             </div>
             <div className="grid grid-cols-1 gap-4">
@@ -102,7 +104,7 @@ export default function ShortUrl() {
                     <div className="flex-1 space-y-1">
                       <div className="flex items-center gap-2">
                         <span className="text-sm font-black text-indigo-600 uppercase tracking-widest">{link.provider}</span>
-                        {index === 0 && <span className="text-[10px] bg-emerald-100 text-emerald-700 px-1.5 py-0.5 rounded font-bold">推荐</span>}
+                        {index === 0 && <span className="text-[10px] bg-emerald-100 text-emerald-700 px-1.5 py-0.5 rounded font-bold">{t('tools.short-url.recommended')}</span>}
                       </div>
                       <div className="font-mono font-bold text-lg text-slate-700 truncate break-all">
                         {link.url}
@@ -115,7 +117,7 @@ export default function ShortUrl() {
                         className="flex-1 sm:flex-none px-4 py-2 bg-white border border-slate-200 rounded-xl text-slate-600 hover:border-indigo-500 hover:text-indigo-600 transition-all shadow-sm flex items-center justify-center gap-2"
                       >
                         {copiedId === `copy-${index}` ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-                        <span className="font-bold text-sm">{copiedId === `copy-${index}` ? '已复制' : '复制'}</span>
+                        <span className="font-bold text-sm">{copiedId === `copy-${index}` ? t('tools.short-url.copied') : t('tools.short-url.copy')}</span>
                       </button>
                       <a
                         href={link.url}

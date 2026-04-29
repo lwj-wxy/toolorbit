@@ -1,7 +1,9 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FileKey, Copy, Check } from 'lucide-react';
 
 export default function ChmodCalculator() {
+  const { t } = useTranslation();
   const [permissions, setPermissions] = useState({
     owner: { read: false, write: false, execute: false },
     group: { read: false, write: false, execute: false },
@@ -79,9 +81,9 @@ export default function ChmodCalculator() {
             <FileKey className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold tracking-tight text-slate-900">Linux chmod 权限掩码计算器</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900">{t('tools.chmod-calculator.title')}</h1>
             <p className="text-[#64748b] mt-1 text-sm md:text-base">
-              直观点击多选框，在八进制数字掩码与 RWX 符号模式之间快速推导转换。
+              {t('tools.chmod-calculator.subtitle')}
             </p>
           </div>
         </div>
@@ -91,13 +93,17 @@ export default function ChmodCalculator() {
         <div className="lg:col-span-8 bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6 lg:p-8">
            <h3 className="font-bold text-slate-800 mb-6 flex items-center gap-2">
              <span className="w-2 h-6 bg-indigo-500 rounded block"></span>
-             文件属性访问权限配置 (Access Classes)
+             {t('tools.chmod-calculator.classesTitle')}
            </h3>
 
            <div className="space-y-6">
               {['owner', 'group', 'public'].map((groupType) => {
                  const typeKey = groupType as 'owner' | 'group' | 'public';
-                 const labels = { owner: '拥有者 (Owner)', group: '所属组 (Group)', public: '公共 (Public)' };
+                 const labels = { 
+                   owner: t('tools.chmod-calculator.owner'), 
+                   group: t('tools.chmod-calculator.group'), 
+                   public: t('tools.chmod-calculator.public') 
+                 };
                  return (
                  <div key={groupType} className="bg-slate-50 border border-slate-200 rounded-xl p-5">
                     <div className="font-bold text-slate-700 mb-4">{labels[typeKey]}</div>
@@ -109,7 +115,7 @@ export default function ChmodCalculator() {
                             onChange={() => handleToggle(typeKey, 'read')}
                             className="w-5 h-5 text-indigo-600 rounded bg-gray-100 border-gray-300 focus:ring-indigo-500 cursor-pointer" 
                           />
-                          <span className="text-sm font-medium text-slate-700">读取 (r = 4)</span>
+                          <span className="text-sm font-medium text-slate-700">{t('tools.chmod-calculator.read')}</span>
                        </label>
                        <label className="flex flex-col sm:flex-row items-center gap-3 p-3 bg-white border border-slate-200 rounded-lg cursor-pointer hover:border-indigo-400 transition-colors">
                           <input 
@@ -118,7 +124,7 @@ export default function ChmodCalculator() {
                             onChange={() => handleToggle(typeKey, 'write')}
                             className="w-5 h-5 text-indigo-600 rounded bg-gray-100 border-gray-300 focus:ring-indigo-500 cursor-pointer" 
                           />
-                          <span className="text-sm font-medium text-slate-700">写入 (w = 2)</span>
+                          <span className="text-sm font-medium text-slate-700">{t('tools.chmod-calculator.write')}</span>
                        </label>
                        <label className="flex flex-col sm:flex-row items-center gap-3 p-3 bg-white border border-slate-200 rounded-lg cursor-pointer hover:border-indigo-400 transition-colors">
                           <input 
@@ -127,7 +133,7 @@ export default function ChmodCalculator() {
                             onChange={() => handleToggle(typeKey, 'execute')}
                             className="w-5 h-5 text-indigo-600 rounded bg-gray-100 border-gray-300 focus:ring-indigo-500 cursor-pointer" 
                           />
-                          <span className="text-sm font-medium text-slate-700">执行 (x = 1)</span>
+                          <span className="text-sm font-medium text-slate-700">{t('tools.chmod-calculator.execute')}</span>
                        </label>
                     </div>
                  </div>
@@ -135,13 +141,13 @@ export default function ChmodCalculator() {
            </div>
 
            <div className="mt-8 border-t border-slate-100 pt-6">
-              <div className="font-bold text-slate-700 mb-4">常用预设 (Presets)</div>
+              <div className="font-bold text-slate-700 mb-4">{t('tools.chmod-calculator.presets')}</div>
               <div className="flex flex-wrap gap-2">
                  {[
-                   {val: '777', tag: '完全开放'},
-                   {val: '755', tag: 'Web目录'},
-                   {val: '644', tag: 'Web文件'},
-                   {val: '600', tag: '私密密钥'}
+                   {val: '777', tag: t('tools.chmod-calculator.presetAll')},
+                   {val: '755', tag: t('tools.chmod-calculator.presetDir')},
+                   {val: '644', tag: t('tools.chmod-calculator.presetFile')},
+                   {val: '600', tag: t('tools.chmod-calculator.presetKey')}
                  ].map(preset => (
                     <button
                       key={preset.val}
@@ -159,13 +165,13 @@ export default function ChmodCalculator() {
         <div className="lg:col-span-4 flex flex-col gap-6">
            <div className="bg-indigo-900 rounded-2xl shadow-lg p-6 lg:p-8 flex flex-col">
               <h3 className="font-bold text-indigo-100 mb-8 flex items-center gap-2 uppercase tracking-wider text-sm">
-                 Result Output
+                 {t('tools.chmod-calculator.resultTitle')}
               </h3>
 
               <div className="space-y-8 flex-1">
                  <div>
                     <div className="flex items-center justify-between mb-2">
-                       <label className="block text-sm font-medium text-indigo-300">八进制 (Octal)</label>
+                       <label className="block text-sm font-medium text-indigo-300">{t('tools.chmod-calculator.octal')}</label>
                        <button
                           onClick={() => copyText(octalValue, 'octal')}
                           className="text-indigo-400 hover:text-white transition-colors p-1"
@@ -180,7 +186,7 @@ export default function ChmodCalculator() {
 
                  <div className="pt-8 border-t border-indigo-800">
                     <div className="flex items-center justify-between mb-2">
-                       <label className="block text-sm font-medium text-indigo-300">符号表示 (Symbolic)</label>
+                       <label className="block text-sm font-medium text-indigo-300">{t('tools.chmod-calculator.symbolic')}</label>
                        <button
                           onClick={() => copyText(symbolicValue, 'symbolic')}
                           className="text-indigo-400 hover:text-white transition-colors p-1"
@@ -196,36 +202,6 @@ export default function ChmodCalculator() {
            </div>
         </div>
       </div>
-
-      {/* Bottom SEO Instructions Panel */}
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-8 lg:p-12 mt-8">
-        <h2 className="text-xl font-bold text-slate-800 mb-6">在线 Chmod 权限计算推导器，Linux 运维必装瑞士军刀</h2>
-        
-        <p className="text-slate-600 mb-6 leading-relaxed">
-          当你在配置云服务器（诸如 Nginx Web 目录或是 SSH 私钥文件 `~/.ssh/id_rsa`）的系统安全隔离组时，通常避不开和 `chmod` 指令打交道。它那抽象古板的八进制掩码结构往往令非科班运维开发者摸不着头脑。这款转换器将命令行中生涩的 4/2/1 转化为了傻瓜式的可视化点选面板。
-        </p>
-
-        <h3 className="font-bold text-slate-800 text-lg mb-4">掌握操作系统底层的权限组合哲学：</h3>
-        <ul className="space-y-4 text-slate-600">
-          <li className="flex gap-3">
-            <strong className="text-slate-800 shrink-0">1. RWX 的三要素算理：</strong>
-            <span>在 Unix-like 系统中，读（Read）、写（Write）、执行（Execute）所代表的二进制权重值分别是 4、2、1。当你需要让用户组既能够读又能够执行但不赋予写入权的时候，“4+1” 组合便导出了标志性的数字 `5`。你可以在上方点选测试这套严谨的加法机制。</span>
-          </li>
-          <li className="flex gap-3">
-            <strong className="text-slate-800 shrink-0">2. 可视化八进制/符号模式双排互转：</strong>
-            <span>不论你是在系统 FTP 客户端属性项里看到了诸如 `-rwxr-xr-x` 这样如同摩斯密码一样的字母带，还是打算通过终端执行 `chmod 755 index.html`，面板右侧均会随堂变动且同时抛出这两个答案以备不时之需的黏贴。</span>
-          </li>
-          <li className="flex gap-3">
-            <strong className="text-slate-800 shrink-0">3. 规避系统事故的一键预设挡位：</strong>
-            <span>我们在计算器的下方直接锁定了诸如 `644`、`777` 这样最常见的场景挡位。警示：请不要在除开发调试或临时文件挂载之外的根目录随意应用 777 最高掩码，这相当于给公网的黑客敞开了自家机器底层的读写提权大门！</span>
-          </li>
-        </ul>
-        
-        <p className="text-slate-500 text-sm mt-8 pt-6 border-t border-slate-100">
-          运维提示：我们默认符号计算推导时携带了开头的 `-` 号（代表普通文件档），如果是需要应用于目录挂载树，这第一位元应该表示为表示文件夹特性的 `d` （如 drwxr-xr-x）。
-        </p>
-      </div>
-
     </div>
   );
 }

@@ -1,7 +1,8 @@
 import { useState, useRef } from 'react';
-import { Archive, UploadCloud, Download, FileJson, X, Settings } from 'lucide-react';
+import { Archive, UploadCloud, Download, X } from 'lucide-react';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
+import { useTranslation } from 'react-i18next';
 
 interface FileItem {
   name: string;
@@ -10,6 +11,7 @@ interface FileItem {
 }
 
 export default function ArchiveConverter() {
+  const { t } = useTranslation();
   const [files, setFiles] = useState<FileItem[]>([]);
   const [isDragging, setIsDragging] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -81,7 +83,7 @@ export default function ArchiveConverter() {
       setFiles(prev => [...prev, ...newFiles]);
     } catch (error) {
       console.error('Error processing files', error);
-      alert('解析文件出错，请确保 ZIP 文件未损坏且格式受支持。');
+      alert(t('archive-converter.errors.parseError'));
     } finally {
       setIsProcessing(false);
       if (fileInputRef.current) {
@@ -114,7 +116,6 @@ export default function ArchiveConverter() {
       saveAs(blob, `archive_${Date.now()}.zip`);
     } catch (error) {
        console.error('Error creating zip', error);
-       alert('生成 ZIP 失败。');
     } finally {
       setIsProcessing(false);
     }
@@ -128,15 +129,15 @@ export default function ArchiveConverter() {
             <Archive className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold tracking-tight text-slate-900">格式与在线存档处理器</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900">{t('archive-converter.title')}</h1>
             <p className="text-[#64748b] mt-1 text-sm md:text-base">
-              在线解压分析 ZIP 文件并提取内置项目，或多文件打包下载。
+              {t('archive-converter.subtitle')}
             </p>
           </div>
         </div>
       </div>
 
-      <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div className="mb-8 flex flex-col items-stretch gap-8">
         <div
           onClick={() => !isProcessing && fileInputRef.current?.click()}
           onDragOver={handleDragOver}
@@ -157,58 +158,63 @@ export default function ArchiveConverter() {
             <UploadCloud className={`w-10 h-10 ${isDragging ? 'text-sky-500' : 'text-slate-400'}`} />
           </div>
           <h3 className="text-lg font-bold text-slate-800 mb-2">
-             {isProcessing ? '正在处理打包分析...' : '拖拽任意文件或 ZIP 压缩包至此处'}
+             {isProcessing ? t('tools.archive-converter.processingMsg') : t('tools.archive-converter.dropLabel')}
           </h3>
-          <p className="text-slate-500 text-sm max-w-sm mx-auto">
-            纯前端解析：我们可以提取并罗列出 ZIP 中的所有文件内容，并且支持为您合并重组为全新包裹。
+          <p className="text-slate-500 text-sm max-w-sm mx-auto italic">
+            {t('tools.archive-converter.dropDesc')}
           </p>
         </div>
 
         {files.length > 0 && (
-          <div className="mt-8">
+          <div className="animate-in slide-in-from-bottom-4 duration-500">
             <div className="flex items-center justify-between mb-4">
                <h3 className="font-bold text-[#1e293b]">
-                 队列列表 ({files.length})
+                 {t('tools.archive-converter.queueTitle', { count: files.length })}
                </h3>
                <div className="flex gap-3">
                  <button onClick={clearAll} className="px-4 py-2 text-sm font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors">
-                   清空队列
+                   {t('tools.archive-converter.clearAll')}
                  </button>
                  <button 
                    onClick={generateZip}
                    disabled={isProcessing}
-                   className="px-4 py-2 text-sm font-bold text-white bg-sky-600 hover:bg-sky-700 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                   className="px-4 py-2 text-sm font-bold text-white bg-sky-600 hover:bg-sky-700 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 shadow-md shadow-sky-100"
                  >
-                   <Download className="w-4 h-4" /> 包装为 ZIP
+                   <Download className="w-4 h-4" /> {t('tools.archive-converter.bundleBtn')}
                  </button>
                </div>
             </div>
 
-            <div className="bg-slate-50 border border-slate-200 rounded-xl overflow-hidden max-h-[500px] overflow-y-auto custom-scrollbar">
-               <ul className="divide-y divide-slate-200">
+            <div className="bg-slate-50 border border-slate-200 rounded-xl overflow-hidden max-h-[500px] overflow-y-auto custom-scrollbar shadow-inner">
+               <ul className="divide-y divide-slate-200 text-slate-700">
                  {files.map((file, index) => (
                    <li key={index} className="flex items-center justify-between px-5 py-3 hover:bg-white transition-colors group">
-                      <div className="flex flex-col gap-1 overflow-hidden pr-4">
-                        <span className="font-medium text-slate-700 text-sm truncate" title={file.name}>
-                          {file.name}
-                        </span>
-                        <span className="text-xs text-slate-400 font-mono">
-                          {formatSize(file.size)}
-                        </span>
+                      <div className="flex items-center gap-3 overflow-hidden pr-4">
+                        <div className="bg-white p-2 rounded-lg border border-slate-100 shadow-sm shrink-0">
+                          <Archive className="w-4 h-4 text-sky-500" />
+                        </div>
+                        <div className="flex flex-col gap-0.5 overflow-hidden">
+                          <span className="font-medium text-sm truncate" title={file.name}>
+                            {file.name}
+                          </span>
+                          <span className="text-[10px] text-slate-400 font-mono font-bold uppercase">
+                            {formatSize(file.size)}
+                          </span>
+                        </div>
                       </div>
 
                       <div className="flex items-center gap-2 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
                          <button
                            onClick={() => downloadSingle(file)}
                            className="p-1.5 text-sky-600 hover:bg-sky-50 rounded-md transition-colors"
-                           title="单独提取下载"
+                           title={t('tools.archive-converter.extractSingle')}
                          >
                             <Download className="w-4 h-4" />
                          </button>
                          <button
                            onClick={() => removeFile(index)}
                            className="p-1.5 text-red-500 hover:bg-red-50 rounded-md transition-colors"
-                           title="从队列移除"
+                           title={t('tools.archive-converter.removeFile')}
                          >
                             <X className="w-4 h-4" />
                          </button>
@@ -221,31 +227,32 @@ export default function ArchiveConverter() {
         )}
       </div>
 
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-8 lg:p-12 mt-8">
-        <h2 className="text-xl font-bold text-slate-800 mb-6">在线存档解析合成工具，免装客户端的封包站</h2>
+      {/* SEO Section */}
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-8 lg:p-12 mb-12">
+        <h2 className="text-xl font-bold text-slate-800 mb-6">{t('tools.archive-converter.seoTitle')}</h2>
         
-        <p className="text-slate-600 mb-6 leading-relaxed">
-          当您接收到某个客户或者运营人员传来的 ZIP 压缩包时，传统操作需要您繁琐地下载第三方解压缩软件，不但容易被植入广告全家桶，而且还会产生大量的临时缓存废料文件占用硬盘空间。在这里，这一切重装阵列都能通过您的浏览器无缝解决。
+        <p className="text-slate-600 mb-8 leading-relaxed">
+          {t('tools.archive-converter.seoDesc')}
         </p>
 
-        <h3 className="font-bold text-slate-800 text-lg mb-4">掌握无痕解压缩与装配的三张王牌：</h3>
-        <ul className="space-y-4 text-slate-600">
-          <li className="flex gap-3">
-            <strong className="text-slate-800 shrink-0">1. 即用即拆的透明可视化：</strong>
-            <span>只要您将一份受支持格式的 ZIP （未来随着底层库会适配更多流）丢进拖拽上传框里，底层的沙盒脚本会马上把压缩包划开。您可以一眼全览里面的多层级列表页项，只挑挑拣拣把心怡的内部图文或者单体文件提取下载，不必再解压全部无用废料。</span>
-          </li>
-          <li className="flex gap-3">
-            <strong className="text-slate-800 shrink-0">2. 自定义拼接再次组合打包：</strong>
-            <span>除了具备“拆解”的能力之外，由于文件已经载入您的内存画布里，您可以自己再传进来一些本地的素材资料或者修改列表内的文件分布，点击右上方的按钮，轻松秒间就能拼装成一个完全归属于您的新压缩包邮寄给他人。</span>
-          </li>
-          <li className="flex gap-3">
-            <strong className="text-slate-800 shrink-0">3. 基于本地内存的静默安全域：</strong>
-            <span>您的源代码备份包或者装满了机密证件、商业发票的档案箱是极其隐私的。此封包机器建立在纯 JavaScript 沙盘算法上，在浏览器加载完成并断网后依然可以运作，百分之百杜绝敏感材料的云盘留底与监听侧漏泄露。</span>
-          </li>
-        </ul>
+        <h3 className="font-bold text-slate-800 text-lg mb-6">{t('tools.archive-converter.whyTitle')}</h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-sm">
+           <div className="bg-slate-50 p-5 rounded-xl border border-slate-100">
+              <h4 className="font-bold text-slate-800 mb-2">{t('tools.archive-converter.highlight1Title')}</h4>
+              <p className="text-slate-500 leading-relaxed">{t('tools.archive-converter.highlight1Desc')}</p>
+           </div>
+           <div className="bg-slate-50 p-5 rounded-xl border border-slate-100">
+              <h4 className="font-bold text-slate-800 mb-2">{t('tools.archive-converter.highlight2Title')}</h4>
+              <p className="text-slate-500 leading-relaxed">{t('tools.archive-converter.highlight2Desc')}</p>
+           </div>
+           <div className="bg-slate-50 p-5 rounded-xl border border-slate-100">
+              <h4 className="font-bold text-slate-800 mb-2">{t('tools.archive-converter.highlight3Title')}</h4>
+              <p className="text-slate-500 leading-relaxed">{t('tools.archive-converter.highlight3Desc')}</p>
+           </div>
+        </div>
         
-        <p className="text-slate-500 text-sm mt-8 pt-6 border-t border-slate-100">
-          容量限制提示：因为此解压缩封包站是运行挂载在您的本地浏览器标签页内存堆条中进行，因此受制于移动端与桌面端的性能隔离，它更适合处理 1~2 GB 量级以下的文件包。超级蓝光母盘等超巨集档案还是建议使用传统系统工具挂载。
+        <p className="text-slate-400 text-[11px] mt-12 pt-8 border-t border-slate-100 text-center uppercase font-bold tracking-widest">
+          {t('tools.archive-converter.seoFooter')}
         </p>
       </div>
     </div>

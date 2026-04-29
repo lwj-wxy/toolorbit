@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { ShieldCheck, Copy, Check, RefreshCw, Layers } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import { ShieldCheck, Copy, Check, RefreshCw } from 'lucide-react';
 
 export default function PasswordGenerator() {
+  const { t } = useTranslation();
   const [length, setLength] = useState(16);
   const [password, setPassword] = useState('');
   const [copied, setCopied] = useState(false);
@@ -15,9 +17,9 @@ export default function PasswordGenerator() {
 
   const generatePassword = () => {
     let charset = "";
-    let uppercase = "ABCDEFGHJKLMNPQRSTUVWXYZ"; // Excluded I, O
-    let lowercase = "abcdefghijkmnpqrstuvwxyz"; // Excluded l, o
-    let numbers = "23456789"; // Excluded 0, 1
+    let uppercase = "ABCDEFGHJKLMNPQRSTUVWXYZ"; 
+    let lowercase = "abcdefghijkmnpqrstuvwxyz"; 
+    let numbers = "23456789"; 
     let symbols = "!@#$%^&*()_+~`|}{[]:;?><,./-=";
 
     if (!options.excludeSimilar) {
@@ -32,7 +34,7 @@ export default function PasswordGenerator() {
     if (options.symbols) charset += symbols;
 
     if (charset === "") {
-      setPassword("请至少选择一种字符类型");
+      setPassword(t('tools.password-generator.errorNoChars'));
       return;
     }
 
@@ -48,7 +50,7 @@ export default function PasswordGenerator() {
   }, [length, options]);
 
   const handleCopy = () => {
-    if (password === "请至少选择一种字符类型") return;
+    if (password === t('tools.password-generator.errorNoChars')) return;
     navigator.clipboard.writeText(password);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
@@ -63,10 +65,10 @@ export default function PasswordGenerator() {
     if (options.numbers) score++;
     if (options.symbols) score++;
     
-    if (score < 3) return { label: '弱', color: 'text-rose-500', bar: 'w-1/4 bg-rose-500' };
-    if (score < 5) return { label: '中', color: 'text-amber-500', bar: 'w-2/4 bg-amber-500' };
-    if (score < 7) return { label: '强', color: 'text-emerald-500', bar: 'w-3/4 bg-emerald-500' };
-    return { label: '极强', color: 'text-blue-500', bar: 'w-full bg-blue-500' };
+    if (score < 3) return { label: t('tools.password-generator.strengthWeak'), color: 'text-rose-500', bar: 'w-1/4 bg-rose-500' };
+    if (score < 5) return { label: t('tools.password-generator.strengthMedium'), color: 'text-amber-500', bar: 'w-2/4 bg-amber-500' };
+    if (score < 7) return { label: t('tools.password-generator.strengthStrong'), color: 'text-emerald-500', bar: 'w-3/4 bg-emerald-500' };
+    return { label: t('tools.password-generator.strengthVeryStrong'), color: 'text-blue-500', bar: 'w-full bg-blue-500' };
   };
 
   const strength = getStrength();
@@ -79,9 +81,9 @@ export default function PasswordGenerator() {
             <ShieldCheck className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold tracking-tight text-slate-900">强密码生成器</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900">{t('tools.password-generator.title')}</h1>
             <p className="text-slate-500 mt-1 text-sm md:text-base">
-              在本地生成高强度的随机密码，确保您的账户安全。
+              {t('tools.password-generator.subtitle')}
             </p>
           </div>
         </div>
@@ -96,7 +98,7 @@ export default function PasswordGenerator() {
             <button
               onClick={generatePassword}
               className="p-3 bg-white border border-slate-200 rounded-xl text-slate-400 hover:text-indigo-600 hover:border-indigo-200 transition-all"
-              title="重新生成"
+              title={t('tools.password-generator.refreshTitle')}
             >
               <RefreshCw className="w-5 h-5" />
             </button>
@@ -107,15 +109,15 @@ export default function PasswordGenerator() {
               }`}
             >
               {copied ? <Check className="w-5 h-5" /> : <Copy className="w-5 h-5" />}
-              <span className="font-bold text-sm">{copied ? '已复制' : '复制密码'}</span>
+              <span className="font-bold text-sm">{copied ? t('tools.password-generator.copiedBtn') : t('tools.password-generator.copyBtn')}</span>
             </button>
           </div>
         </div>
 
         <div className="space-y-6">
            <div className="flex items-center justify-between">
-              <span className="text-sm font-bold text-slate-700">安全强度: <span className={strength.color}>{strength.label}</span></span>
-              <span className="text-sm text-slate-400">长度: {length} 字符</span>
+              <span className="text-sm font-bold text-slate-700">{t('tools.password-generator.strengthLabel')}: <span className={strength.color}>{strength.label}</span></span>
+              <span className="text-sm text-slate-400">{t('tools.password-generator.lengthLabel')}: {length}</span>
            </div>
            <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
               <div className={`h-full transition-all duration-500 ${strength.bar}`} />
@@ -124,7 +126,7 @@ export default function PasswordGenerator() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 pt-4">
            <div className="space-y-6">
-              <label className="block text-sm font-bold text-slate-700 mb-4">密码长度调节</label>
+              <label className="block text-sm font-bold text-slate-700 mb-4">{t('tools.password-generator.adjustLength')}</label>
               <input 
                 type="range"
                 min="4"
@@ -134,19 +136,19 @@ export default function PasswordGenerator() {
                 className="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-indigo-600"
               />
               <div className="flex justify-between text-[10px] font-bold text-slate-400 uppercase tracking-widest pt-2">
-                 <span>极短</span>
-                 <span>标准 (16)</span>
-                 <span>超长安全</span>
+                 <span>{t('tools.password-generator.lenShort')}</span>
+                 <span>{t('tools.password-generator.lenNormal')}</span>
+                 <span>{t('tools.password-generator.lenLong')}</span>
               </div>
            </div>
 
-           <div className="grid grid-cols-2 gap-4">
+           <div className="grid grid-cols-1 gap-3">
               {[
-                { id: 'uppercase', label: '大写字母 (A-Z)' },
-                { id: 'lowercase', label: '小写字母 (a-z)' },
-                { id: 'numbers', label: '数字 (0-9)' },
-                { id: 'symbols', label: '特殊符号 (!@#)' },
-                { id: 'excludeSimilar', label: '排除易混淆 (i, l, 1, 0, O)' }
+                { id: 'uppercase', label: t('tools.password-generator.optUppercase') },
+                { id: 'lowercase', label: t('tools.password-generator.optLowercase') },
+                { id: 'numbers', label: t('tools.password-generator.optNumbers') },
+                { id: 'symbols', label: t('tools.password-generator.optSymbols') },
+                { id: 'excludeSimilar', label: t('tools.password-generator.optExcludeSimilar') }
               ].map(opt => (
                 <label key={opt.id} className="flex items-center gap-3 p-3 rounded-xl border border-slate-100 hover:bg-slate-50 transition-all cursor-pointer">
                    <div className="relative">
@@ -163,15 +165,6 @@ export default function PasswordGenerator() {
                 </label>
               ))}
            </div>
-        </div>
-      </div>
-
-      <div className="bg-transparent border border-slate-200/60 rounded-2xl p-8 lg:p-12 mb-12 mt-12 bg-gradient-to-b from-white/50 to-transparent">
-        <h2 className="text-xl font-bold text-slate-800 mb-6">关于强密码生成与安全</h2>
-        <div className="space-y-4 text-slate-600 text-sm leading-relaxed">
-          <p><strong>为何选择本工具？</strong> 很多在线生成器会将您的密码保存在服务器上。而我们的工具完全在您的浏览器本地（Client-Side）运行，没有任何数据会被上传，生成的每一个密码都是独一无二且瞬时的。 </p>
-          <p><strong>安全建议：</strong> 建议在重要账户（如银行、主邮箱、支付平台）使用超过 18 位且包含符号的密码。启用“排除易混淆”选项可以避免在手动输入时输入错误。</p>
-          <p><strong>管理密码：</strong> 为了不丢失这些复杂的随机密码，建议您配合 Bitwarden、1Password 或 Chrome 原生密码管理器使用。</p>
         </div>
       </div>
     </div>

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { Layers, Info, AlertTriangle, CheckCircle2, ChevronRight, Hash, Database, Clock } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import { Layers, Info, AlertTriangle, CheckCircle2, Hash, Database, Clock } from 'lucide-react';
 
 export default function JwtDebugger() {
+  const { t } = useTranslation();
   const [jwt, setJwt] = useState('');
   const [header, setHeader] = useState<any>(null);
   const [payload, setPayload] = useState<any>(null);
@@ -17,12 +19,11 @@ export default function JwtDebugger() {
     try {
       const parts = token.split('.');
       if (parts.length !== 3) {
-        throw new Error('JWT 格式错误：必须包含由点(.)分隔的三个部分（Header.Payload.Signature）');
+        throw new Error(t('tools.jwt-debugger.errorFormat'));
       }
 
       const decodePart = (str: string) => {
         try {
-          // Replace URL-safe characters
           const base64 = str.replace(/-/g, '+').replace(/_/g, '/');
           const json = decodeURIComponent(
             atob(base64)
@@ -32,14 +33,14 @@ export default function JwtDebugger() {
           );
           return JSON.parse(json);
         } catch (e) {
-          throw new Error('无法解码 Base64 字符串');
+          throw new Error(t('tools.jwt-debugger.errorBase64'));
         }
       };
 
       setHeader(decodePart(parts[0]));
       setPayload(decodePart(parts[1]));
     } catch (err: any) {
-      setError(err.message || '解码失败，请检查 Token 格式是否正确');
+      setError(err.message || t('tools.jwt-debugger.errorUnknown'));
     }
   };
 
@@ -61,24 +62,23 @@ export default function JwtDebugger() {
           <Layers className="w-6 h-6" />
         </div>
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-slate-900 font-sans">JWT 在线解码器</h1>
-          <p className="text-slate-500 mt-1 text-sm">解析 JSON Web Token 内容，无需上传，完全在浏览器本地运行。</p>
+          <h1 className="text-3xl font-bold tracking-tight text-slate-900 font-sans">{t('tools.jwt-debugger.title')}</h1>
+          <p className="text-slate-500 mt-1 text-sm">{t('tools.jwt-debugger.subtitle')}</p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Left Side: Input */}
         <div className="space-y-6">
           <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm flex flex-col h-full min-h-[500px]">
-            <label className="block text-sm font-bold text-slate-700 mb-4 flex items-center gap-2">
+             <label className="block text-sm font-bold text-slate-700 mb-4 flex items-center gap-2">
               <Hash className="w-4 h-4 text-slate-400" />
-              输入编码后的 JWT 字符串
+              {t('tools.jwt-debugger.inputLabel')}
             </label>
             <textarea
               value={jwt}
               onChange={handleInputChange}
               spellCheck={false}
-              placeholder="在这里粘贴您的 JWT Token (Header.Payload.Signature)..."
+              placeholder={t('tools.jwt-debugger.inputPlaceholder')}
               className="flex-1 w-full p-6 bg-slate-50 border border-slate-200 rounded-2xl font-mono text-sm leading-relaxed outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all resize-none overflow-auto"
             />
             {error && (
@@ -90,56 +90,53 @@ export default function JwtDebugger() {
             {!error && jwt && (
                <div className="mt-4 p-4 bg-emerald-50 border border-emerald-100 rounded-xl flex items-start gap-3 text-emerald-600">
                 <CheckCircle2 className="w-5 h-5 shrink-0" />
-                <span className="text-sm font-medium">Token 格式有效，预览已在右侧生成。</span>
+                <span className="text-sm font-medium">{t('tools.jwt-debugger.successMsg')}</span>
               </div>
             )}
           </div>
         </div>
 
-        {/* Right Side: Output */}
         <div className="space-y-6">
-          {/* Header */}
           <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm">
             <h2 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
-              <Layers className="w-4 h-4" /> Header (头部)
+              <Layers className="w-4 h-4" /> Header
             </h2>
             <pre className="p-4 bg-indigo-50/50 border border-indigo-100 rounded-xl font-mono text-xs text-indigo-700 overflow-auto max-h-[150px]">
-              {header ? JSON.stringify(header, null, 2) : '// 等待输入...'}
+              {header ? JSON.stringify(header, null, 2) : `// ${t('tools.jwt-debugger.waitingMsg')}`}
             </pre>
           </div>
 
-          {/* Payload */}
           <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm overflow-hidden flex-1 flex flex-col">
             <h2 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
-              <Database className="w-4 h-4" /> Payload (载荷/数据)
+              <Database className="w-4 h-4" /> Payload
             </h2>
             <pre className="p-4 bg-amber-50/50 border border-amber-100 rounded-xl font-mono text-xs text-amber-700 overflow-auto max-h-[300px] mb-6">
-              {payload ? JSON.stringify(payload, null, 2) : '// 等待输入...'}
+              {payload ? JSON.stringify(payload, null, 2) : `// ${t('tools.jwt-debugger.waitingMsg')}`}
             </pre>
 
             {payload && (
-              <div className="space-y-3 pt-4 border-top border-slate-100">
+              <div className="space-y-3 pt-4 border-t border-slate-100">
                  <h3 className="text-xs font-bold text-slate-500 uppercase flex items-center gap-2">
-                    <Info className="w-3.5 h-3.5" /> 常用 claims 解析
+                    <Info className="w-3.5 h-3.5" /> {t('tools.jwt-debugger.claimsTitle')}
                  </h3>
                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div className="bg-white border border-slate-100 rounded-xl px-4 py-3 shadow-sm">
-                       <span className="block text-[10px] font-bold text-slate-400 uppercase">发行人 (iss)</span>
-                       <span className="text-sm font-mono text-slate-700 truncate block">{payload.iss || '未定义'}</span>
+                       <span className="block text-[10px] font-bold text-slate-400 uppercase">{t('tools.jwt-debugger.issLabel')} (iss)</span>
+                       <span className="text-sm font-mono text-slate-700 truncate block">{payload.iss || 'N/A'}</span>
                     </div>
                     <div className="bg-white border border-slate-100 rounded-xl px-4 py-3 shadow-sm">
-                       <span className="block text-[10px] font-bold text-slate-400 uppercase">主题 (sub)</span>
-                       <span className="text-sm font-mono text-slate-700 truncate block">{payload.sub || '未定义'}</span>
+                       <span className="block text-[10px] font-bold text-slate-400 uppercase">{t('tools.jwt-debugger.subLabel')} (sub)</span>
+                       <span className="text-sm font-mono text-slate-700 truncate block">{payload.sub || 'N/A'}</span>
                     </div>
                     <div className="bg-white border border-slate-100 rounded-xl px-4 py-3 shadow-sm">
                        <span className="block text-[10px] font-bold text-slate-400 uppercase flex items-center gap-1">
-                          <Clock className="w-3 h-3" /> 过期时间 (exp)
+                          <Clock className="w-3 h-3" /> {t('tools.jwt-debugger.expLabel')} (exp)
                        </span>
                        <span className="text-sm font-mono text-slate-700 block">{formatTimestamp(payload.exp)}</span>
                     </div>
                     <div className="bg-white border border-slate-100 rounded-xl px-4 py-3 shadow-sm">
                        <span className="block text-[10px] font-bold text-slate-400 uppercase flex items-center gap-1">
-                          <Clock className="w-3 h-3" /> 签发时间 (iat)
+                          <Clock className="w-3 h-3" /> {t('tools.jwt-debugger.iatLabel')} (iat)
                        </span>
                        <span className="text-sm font-mono text-slate-700 block">{formatTimestamp(payload.iat)}</span>
                     </div>
@@ -151,9 +148,9 @@ export default function JwtDebugger() {
           <div className="bg-rose-50 border border-rose-100 rounded-3xl p-6 flex items-start gap-4">
              <AlertTriangle className="w-6 h-6 text-rose-500 shrink-0" />
              <div className="space-y-1">
-                <h3 className="text-sm font-bold text-rose-700 uppercase tracking-wide">注意：不包含签名验证</h3>
+                <h3 className="text-sm font-bold text-rose-700 uppercase tracking-wide">{t('tools.jwt-debugger.warningTitle')}</h3>
                 <p className="text-xs text-rose-600 leading-relaxed">
-                  本工具仅用于快速解码查看 JWT 内部明文信息。它<b>不会</b>验证签名的合法性。在实际生产环境调试中，请始终验证签名以确保内容未被篡改。
+                  {t('tools.jwt-debugger.warningDesc')}
                 </p>
              </div>
           </div>

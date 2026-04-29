@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { DollarSign } from 'lucide-react';
 
 export default function StripeFeeCalculator() {
+  const { t } = useTranslation();
   const [amount, setAmount] = useState<number | ''>('');
 
   const val = Number(amount) || 0;
@@ -22,17 +24,17 @@ export default function StripeFeeCalculator() {
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-[24px] font-bold text-[#1e293b]">
-            Stripe 手续费计算器
+            {t('tools.stripe-fee-calculator.title')}
           </h2>
           <p className="mt-1 text-sm text-[#94a3b8]">
-            采用 Stripe 默认费率标准（2.9% + 30¢），一键计算收付款项及到账情况。
+            {t('tools.stripe-fee-calculator.subtitle')}
           </p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="bg-white rounded-xl shadow-sm border border-slate-200/80 p-6">
-          <label className="block text-sm font-medium text-[#334155] mb-2">交易金额 (USD)</label>
+          <label className="block text-sm font-medium text-[#334155] mb-2">{t('tools.stripe-fee-calculator.amountLabel')}</label>
           <div className="relative">
             <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
               <DollarSign className="h-5 w-5 text-gray-400" />
@@ -49,25 +51,25 @@ export default function StripeFeeCalculator() {
 
         <div className="space-y-4">
           <div className="bg-[#f8fafc] rounded-xl shadow-sm border border-slate-200/80 p-5">
-            <h3 className="text-[14px] font-bold text-[#64748b] uppercase tracking-wider mb-3">如果客户支付 ${val.toFixed(2)}</h3>
+            <h3 className="text-[14px] font-bold text-[#64748b] uppercase tracking-wider mb-3">{t('tools.stripe-fee-calculator.ifPayTitle', { amount: val.toFixed(2) })}</h3>
             <div className="flex justify-between items-end mb-2">
-              <span className="text-sm text-[#334155]">Stripe 扣除手续费</span>
+              <span className="text-sm text-[#334155]">{t('tools.stripe-fee-calculator.feeLabel')}</span>
               <span className="text-red-500 font-medium">-${totalFee.toFixed(2)}</span>
             </div>
             <div className="flex justify-between items-end pt-3 border-t border-[#e2e8f0]">
-              <span className="text-sm font-bold text-[#1e293b]">您实际到账金额</span>
+              <span className="text-sm font-bold text-[#1e293b]">{t('tools.stripe-fee-calculator.payoutLabel')}</span>
               <span className="text-[24px] font-bold text-green-600">${payout.toFixed(2)}</span>
             </div>
           </div>
 
           <div className="bg-[#f0f9ff] rounded-xl shadow-sm border border-[#bae6fd] p-5">
-            <h3 className="text-[14px] font-bold text-[#0369a1] uppercase tracking-wider mb-3">如果想要实收 ${val.toFixed(2)}</h3>
+            <h3 className="text-[14px] font-bold text-[#0369a1] uppercase tracking-wider mb-3">{t('tools.stripe-fee-calculator.ifReceiveTitle', { amount: val.toFixed(2) })}</h3>
             <div className="flex justify-between items-end mb-2">
-              <span className="text-sm text-[#0c4a6e]">需让客户承担的手续费</span>
+              <span className="text-sm text-[#0c4a6e]">{t('tools.stripe-fee-calculator.chargeFeeLabel')}</span>
               <span className="text-[#0c4a6e] font-medium">+${ReverseFee.toFixed(2)}</span>
             </div>
             <div className="flex justify-between items-end pt-3 border-t border-[#bae6fd]">
-              <span className="text-sm font-bold text-[#0c4a6e]">您需要给客户的账单金额</span>
+              <span className="text-sm font-bold text-[#0c4a6e]">{t('tools.stripe-fee-calculator.invoiceLabel')}</span>
               <span className="text-[20px] font-bold text-[#0284c7]">${amountToInvoice.toFixed(2)}</span>
             </div>
           </div>
@@ -76,30 +78,30 @@ export default function StripeFeeCalculator() {
 
       {/* Bottom SEO Instructions Panel */}
       <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-8 lg:p-12 mt-8">
-        <h2 className="text-xl font-bold text-slate-800 mb-6">Stripe 手续费在线计算器，一键换算全球信用卡收单成本</h2>
+        <h2 className="text-xl font-bold text-slate-800 mb-6">{t('tools.stripe-fee-calculator.seoTitle')}</h2>
         
         <p className="text-slate-600 mb-6 leading-relaxed">
-          无论您是在运营独立站的电商达人，或是通过邮件向海外客户发送数字账单的自由职业者，Stripe 作为国际顶尖的支付网关，都是极佳的收单途径。但其每笔“百分比 + 固定美分”的基础费率模型往往使得实际到账数额难以依靠心算立刻预估得出。
+          {t('tools.stripe-fee-calculator.seoDesc')}
         </p>
 
-        <h3 className="font-bold text-slate-800 text-lg mb-4">帮助独立站站长优化收款策略的核心亮点：</h3>
+        <h3 className="font-bold text-slate-800 text-lg mb-4">{t('tools.stripe-fee-calculator.highlightsTitle')}</h3>
         <ul className="space-y-4 text-slate-600">
           <li className="flex gap-3">
-            <strong className="text-slate-800 shrink-0">1. 双向逆推反向结账金额：</strong>
-            <span>传统的计算只能告诉你“收100块只到账96块”，而本工具特有的反向算法能够直接精准告知您——如果我想实打实“拿到手100块正”，到底该在开票账单上填多少钱，让客户来承担这笔网关摩擦费。</span>
+            <strong className="text-slate-800 shrink-0">{t('tools.stripe-fee-calculator.highlight1Title')}</strong>
+            <span>{t('tools.stripe-fee-calculator.highlight1Desc')}</span>
           </li>
           <li className="flex gap-3">
-            <strong className="text-slate-800 shrink-0">2. 基于通用标准的快速对账：</strong>
-            <span>内置了标准美国区的常用扣费比例（即 2.9% 加上 30 美分固定处理费），无论是日常对账还是月度销售利润审计，直接输入仪表盘的总流水数字便能快速拆解出资金损耗占比。</span>
+            <strong className="text-slate-800 shrink-0">{t('tools.stripe-fee-calculator.highlight2Title')}</strong>
+            <span>{t('tools.stripe-fee-calculator.highlight2Desc')}</span>
           </li>
           <li className="flex gap-3">
-            <strong className="text-slate-800 shrink-0">3. 高安全度的纯前端组件体验：</strong>
-            <span>和所有金融属性的表单一样，避免留痕是对用户最大的保护。界面内的全部收支测算代码直接嵌入在网页之中，没有任何将您的营收额度外发到第三方服务器进行打点收集的恶意行为。</span>
+            <strong className="text-slate-800 shrink-0">{t('tools.stripe-fee-calculator.highlight3Title')}</strong>
+            <span>{t('tools.stripe-fee-calculator.highlight3Desc')}</span>
           </li>
         </ul>
         
         <p className="text-slate-500 text-sm mt-8 pt-6 border-t border-slate-100">
-          声明补充：此工具面板目前不考虑非本地卡国际多币种附加费（Cross-border fee）的部分。如果您的消费者使用非美卡的境外发卡行或者涉及到货币转换，Stripe 官方账单有一定几率收取部分额外税费，请以最终控制台报表为准。
+          {t('tools.stripe-fee-calculator.disclaimer')}
         </p>
       </div>
 

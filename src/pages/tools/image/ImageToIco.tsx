@@ -1,8 +1,10 @@
 import React, { useState, useRef } from 'react';
 import { Image as ImageIcon, UploadCloud, Download, Loader2 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { cn } from '../../../lib/utils';
 
 export default function ImageToIco() {
+  const { t } = useTranslation();
   const [fileUrl, setFileUrl] = useState<string | null>(null);
   const [fileName, setFileName] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
@@ -97,7 +99,6 @@ export default function ImageToIco() {
 
     } catch (e) {
         console.error(e);
-        alert("转换过程中发生了错误。");
     } finally {
         setIsProcessing(false);
     }
@@ -111,9 +112,9 @@ export default function ImageToIco() {
             <ImageIcon className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold tracking-tight text-slate-900">ICO 软图标封装转换器</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900">{t('tools.image-to-ico.title')}</h1>
             <p className="text-slate-500 mt-1 text-sm md:text-base">
-              一键快速打通从普通相片、PNG 底图往真正的系统底层 `favicon.ico` 后缀包裹格式直转方案。
+              {t('tools.image-to-ico.subtitle')}
             </p>
           </div>
         </div>
@@ -136,8 +137,8 @@ export default function ImageToIco() {
             <div className="w-16 h-16 bg-white shadow-sm border border-slate-200 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
               <UploadCloud className="w-8 h-8" />
             </div>
-            <p className="font-bold text-lg text-slate-700 group-hover:text-emerald-700 mb-1">点此选择本地源图片文件</p>
-            <p className="text-sm opacity-60">支持所有的 JPG, PNG, WEBP, GIF 等通用媒体载体。</p>
+            <p className="font-bold text-lg text-slate-700 group-hover:text-emerald-700 mb-1">{t('tools.image-to-ico.dropLabel')}</p>
+            <p className="text-sm opacity-60 text-center">{t('tools.image-to-ico.dropDesc')}</p>
           </div>
         ) : (
           <div className="space-y-8 animate-in fade-in duration-300">
@@ -152,7 +153,7 @@ export default function ImageToIco() {
                      </div>
 
                      <div className="space-y-3">
-                         <label className="text-sm font-bold text-slate-700 block">选择目标输出定级尺寸规格</label>
+                         <label className="text-sm font-bold text-slate-700 block">{t('tools.image-to-ico.sizeLabel')}</label>
                          <div className="flex flex-wrap gap-3">
                              {SIZES.map(s => (
                                 <button
@@ -176,7 +177,7 @@ export default function ImageToIco() {
                     onClick={() => { setFileUrl(null); setFileName(''); }}
                     className="px-6 py-3 bg-white border border-slate-200/80 text-slate-600 rounded-xl font-bold hover:bg-slate-50 transition-colors"
                  >
-                     重选介质
+                     {t('tools.image-to-ico.reselectBtn')}
                  </button>
                  <button 
                     disabled={isProcessing}
@@ -184,18 +185,19 @@ export default function ImageToIco() {
                     className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-emerald-600 text-white rounded-xl font-bold hover:bg-emerald-500 transition-colors disabled:opacity-50"
                  >
                      {isProcessing ? <Loader2 className="w-5 h-5 animate-spin" /> : <Download className="w-5 h-5" />}
-                     {isProcessing ? '底层封包与降噪渲染中...' : '启动强制压制导出 (.ico)'}
+                     {isProcessing ? t('tools.image-to-ico.processingMsg') : t('tools.image-to-ico.exportBtn')}
                  </button>
              </div>
           </div>
         )}
       </div>
 
+      {/* Footer Content */}
       <div className="bg-transparent border border-slate-200/60 rounded-2xl p-8 lg:p-12 mb-12 mt-12 bg-gradient-to-b from-white/50 to-transparent">
-        <h2 className="text-xl font-bold text-slate-800 mb-6">浏览器原教旨图标生态：Favicon</h2>
+        <h2 className="text-xl font-bold text-slate-800 mb-6">{t('tools.image-to-ico.seoTitle')}</h2>
         <div className="space-y-4 text-slate-600 text-sm leading-relaxed">
-           <p>对于在根目录或者系统层面（如旧平台的收藏夹）中进行网站图标 `favicon.ico` 声明来说，简单的在文件名更改后缀 `.ico` 并扔进去通常是会招致各种意外兼容麻烦和安全报错的（因为内核文件头依旧是其他的非格式规范阵列）。</p>
-           <p>我们内置引擎通过底层的图像缓冲并利用标准 JS `Blob` 和二进制 `ArrayBuffer` 重写包装出真正能跨系统容灾通过的合法 `ico` 头部字节阵列。且在转换时会自动按照标准 `64*64` 以及其他预设大小等比例裁切收缩图阵保证居中完美呈现，让普通的美工与开发能够一键脱离 PS 打包导出标准物料库文件。</p>
+           <p>{t('tools.image-to-ico.seoDesc')}</p>
+           <p>{t('tools.image-to-ico.seoFooter')}</p>
         </div>
       </div>
     </div>

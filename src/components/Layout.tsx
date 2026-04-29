@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Search, Menu, X, ChevronDown } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { cn } from '../lib/utils';
 import { TOOLS } from '../data/tools';
+import LanguageSwitcher from './LanguageSwitcher';
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
 export default function Layout({ children }: LayoutProps) {
+  const { t } = useTranslation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
 
@@ -25,17 +28,17 @@ export default function Layout({ children }: LayoutProps) {
 
       {/* Top Header Navigation */}
       <header className="sticky top-0 z-50 flex h-[64px] items-center justify-between border-b border-slate-200/80 bg-white/80 backdrop-blur-md px-4 sm:px-6 lg:px-8 shadow-sm">
-        <div className="flex items-center gap-4 lg:gap-8 xl:gap-10">
+        <div className="flex items-center gap-4 lg:gap-6 xl:gap-8 min-w-0">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 lg:gap-[10px] text-[18px] lg:text-[20px] font-extrabold text-blue-600 tracking-tight shrink-0">
             <div className="w-7 h-7 lg:w-8 lg:h-8 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-[14px] lg:text-[16px] shadow-sm">
               Ω
             </div>
-            ToolOrbit
+            <span className="hidden sm:inline">{t('common.logoName')}</span>
           </Link>
           
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-stretch gap-1 lg:gap-2 h-full">
+          <nav className="hidden md:flex items-stretch gap-1 lg:gap-1.5 h-full overflow-hidden">
             {categories.map((category) => {
               const categoryTools = TOOLS.filter(t => t.category === category);
               const isActive = location.search.includes(category);
@@ -49,7 +52,7 @@ export default function Layout({ children }: LayoutProps) {
                       isActive ? "text-blue-600 border-blue-600" : "text-slate-600 group-hover:text-slate-900"
                     )}
                   >
-                    {category}
+                    {t(`common.categories.${category}`)}
                     <ChevronDown className="w-3.5 h-3.5 lg:w-4 lg:h-4 transition-transform duration-200 group-hover:rotate-180 text-slate-400" />
                   </Link>
 
@@ -67,8 +70,12 @@ export default function Layout({ children }: LayoutProps) {
                               <tool.icon size={20} strokeWidth={2} />
                             </div>
                             <div className="min-w-0 flex-1">
-                              <h4 className="text-[14px] font-bold text-slate-800 group-hover/item:text-blue-600 mb-1 truncate">{tool.name}</h4>
-                              <p className="text-[12px] text-slate-500 line-clamp-2 leading-relaxed">{tool.description}</p>
+                              <h4 className="text-[14px] font-bold text-slate-800 group-hover/item:text-blue-600 mb-1 truncate">
+                                {t(`tools.${tool.id}.name`, { defaultValue: tool.name })}
+                              </h4>
+                              <p className="text-[12px] text-slate-500 line-clamp-2 leading-relaxed">
+                                {t(`tools.${tool.id}.description`, { defaultValue: tool.description })}
+                              </p>
                             </div>
                           </Link>
                         ))}
@@ -82,8 +89,8 @@ export default function Layout({ children }: LayoutProps) {
         </div>
 
         {/* Right side actions */}
-        <div className="flex items-center shrink-0">
-          <div className="relative group hidden md:block w-[180px] lg:w-[240px] xl:w-[280px] mr-2">
+        <div className="flex items-center shrink-0 gap-2 lg:gap-4 ml-4">
+          <div className="relative group hidden lg:block w-[200px] xl:w-[280px]">
             <form 
               onSubmit={(e) => {
                 e.preventDefault();
@@ -99,12 +106,16 @@ export default function Layout({ children }: LayoutProps) {
               <input
                 id="search-field"
                 className="w-full py-[8px] pr-[16px] pl-[38px] rounded-full border border-slate-200/80 bg-slate-50 text-[13px] outline-none transition-all focus:border-blue-500 focus:bg-white focus:ring-[3px] focus:ring-blue-500/10 placeholder:text-slate-400 text-slate-800"
-                placeholder="搜索工具..."
+                placeholder={t('common.searchPlaceholder')}
                 type="search"
                 name="search"
                 defaultValue={new URLSearchParams(useLocation().search).get('search') || ''}
               />
             </form>
+          </div>
+
+          <div className="hidden md:block">
+            <LanguageSwitcher />
           </div>
 
           <button
@@ -123,10 +134,13 @@ export default function Layout({ children }: LayoutProps) {
           <div className="fixed inset-0 bg-black/30 backdrop-blur-sm" onClick={() => setMobileMenuOpen(false)} />
           <div className="fixed inset-y-0 right-0 w-[300px] bg-white shadow-2xl overflow-y-auto flex flex-col">
             <div className="flex items-center justify-between p-6 border-b border-slate-200 sticky top-0 bg-white z-10">
-              <span className="font-bold text-[18px] text-slate-900">导航菜单</span>
-              <button onClick={() => setMobileMenuOpen(false)} className="p-2 text-slate-500 hover:bg-slate-100 rounded-md">
-                <X className="h-5 w-5" />
-              </button>
+              <span className="font-bold text-[18px] text-slate-900">{t('common.mobileMenu')}</span>
+              <div className="flex items-center gap-2">
+                <LanguageSwitcher />
+                <button onClick={() => setMobileMenuOpen(false)} className="p-2 text-slate-500 hover:bg-slate-100 rounded-md">
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
             </div>
             <div className="p-6 flex flex-col gap-6">
               <form 
@@ -142,7 +156,7 @@ export default function Layout({ children }: LayoutProps) {
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
                 <input
                   className="w-full py-2.5 pr-4 pl-9 rounded-lg border border-slate-200 bg-slate-50 text-[14px] outline-none focus:border-blue-500 focus:bg-white focus:ring-[2px] focus:ring-blue-500/10 placeholder:text-slate-400 text-black"
-                  placeholder="搜索工具..."
+                  placeholder={t('common.searchPlaceholder')}
                   type="search"
                   name="search"
                   defaultValue={new URLSearchParams(useLocation().search).get('search') || ''}
@@ -153,7 +167,7 @@ export default function Layout({ children }: LayoutProps) {
                 const categoryTools = TOOLS.filter(t => t.category === category);
                 return (
                   <div key={category} className="flex flex-col gap-3">
-                    <h4 className="font-bold text-slate-900 text-[15px] border-b border-slate-200 pb-2">{category}</h4>
+                    <h4 className="font-bold text-slate-900 text-[15px] border-b border-slate-200 pb-2">{t(`common.categories.${category}`)}</h4>
                     <div className="flex flex-col gap-2">
                        {categoryTools.map(tool => (
                         <Link
@@ -163,7 +177,7 @@ export default function Layout({ children }: LayoutProps) {
                           className="flex items-center gap-3 py-2 px-2 rounded-lg text-slate-600 hover:bg-slate-100 hover:text-blue-600 transition-colors"
                         >
                           <tool.icon size={16} />
-                          <span className="text-[14px] font-medium">{tool.name}</span>
+                          <span className="text-[14px] font-medium">{t(`tools.${tool.id}.name`, { defaultValue: tool.name })}</span>
                         </Link>
                       ))}
                     </div>
@@ -183,7 +197,7 @@ export default function Layout({ children }: LayoutProps) {
       </div>
 
       <footer className="bg-transparent py-8 flex items-center justify-center text-[13px] text-slate-400 mt-auto relative z-10">
-        <p>© 2024 ToolOrbit.site - 专业的一站式效率工具聚合平台 | 备案号: 鄂ICP备20210001号-1</p>
+        <p>{t('common.footerText')}</p>
       </footer>
 
     </div>
