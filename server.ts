@@ -12,6 +12,9 @@ async function startServer() {
   const PORT = 3000;
 
   app.use(express.json());
+  app.set('trust proxy', 1);
+
+  const usageMap = new Map<string, number>();
 
   // 短链接中转接口 - 多线路并行抓取，彻底解决供应商不稳定或网络拦截问题
   app.post("/api/shorten", async (req, res) => {
@@ -59,10 +62,28 @@ async function startServer() {
       
       const isChinese = language?.startsWith('zh');
       const targetLanguage = isChinese ? '简体中文' : 'English';
+
+      const ip = req.ip || (req.headers['x-forwarded-for'] as string) || req.socket.remoteAddress;
+      const now = Date.now();
+      const lastUse = usageMap.get(ip as string);
+
+      // 1-day limit (24 hours)
+      if (lastUse && (now - lastUse < 24 * 60 * 60 * 1000)) {
+        const timeLeft = Math.ceil((24 * 60 * 60 * 1000 - (now - lastUse)) / (60 * 60 * 1000));
+        return res.status(429).json({ 
+          success: false, 
+          error: isChinese 
+            ? `为了节省 API 配额，每位用户 24 小时内仅限使用一次。请在大约 ${timeLeft} 小时后再试。` 
+            : `To conserve API quota, usage is limited to once every 24 hours. Please try again in about ${timeLeft} hours.` 
+        });
+      }
       
       if (!apiKey) {
         throw new Error('DEEPSEEK_API_KEY is not configured');
       }
+
+      // Record usage
+      usageMap.set(ip as string, now);
 
       // Set headers for streaming
       res.setHeader('Content-Type', 'text/event-stream');

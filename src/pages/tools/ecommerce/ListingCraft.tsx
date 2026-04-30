@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Sparkles, Loader2, Copy, Check } from 'lucide-react';
+import { Sparkles, Loader2, Copy, Check, ExternalLink } from 'lucide-react';
 import Markdown from 'react-markdown';
 
 export default function ListingCraft() {
@@ -82,7 +82,7 @@ export default function ListingCraft() {
 
   return (
     <div className="max-w-5xl mx-auto space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h2 className="text-[24px] font-bold text-[#1e293b] flex items-center gap-2">
             <Sparkles className="text-blue-600" /> {t('tools.listing-craft-ai.title')}
@@ -91,6 +91,15 @@ export default function ListingCraft() {
             {t('tools.listing-craft-ai.subtitle')}
           </p>
         </div>
+        <a 
+          href="https://ecomcopy-ai.toolorbit.site" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white px-5 py-2.5 rounded-full text-sm font-bold shadow-sm transition-all hover:shadow-md"
+        >
+          <ExternalLink size={16} />
+          {t('tools.listing-craft-ai.fullFeaturesBtn')}
+        </a>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
