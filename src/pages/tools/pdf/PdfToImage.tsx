@@ -19,7 +19,8 @@ import { saveAs } from 'file-saver';
 import { motion, AnimatePresence } from 'motion/react';
 
 // Initialize PDF.js worker
-pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
+const PDFJS_VERSION = '5.6.205';
+pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${PDFJS_VERSION}/build/pdf.worker.min.mjs`;
 
 interface PageImage {
   pageNumber: number;
@@ -46,7 +47,12 @@ export default function PdfToImage() {
 
     try {
       const arrayBuffer = await file.arrayBuffer();
-      const pdf = await pdfjs.getDocument({ data: arrayBuffer }).promise;
+      const pdf = await pdfjs.getDocument({ 
+        data: arrayBuffer,
+        cMapUrl: `https://unpkg.com/pdfjs-dist@${PDFJS_VERSION}/cmaps/`,
+        cMapPacked: true,
+        standardFontDataUrl: `https://unpkg.com/pdfjs-dist@${PDFJS_VERSION}/standard_fonts/`,
+      }).promise;
       const totalPages = pdf.numPages;
       setProgress({ current: 0, total: totalPages });
 
@@ -54,14 +60,14 @@ export default function PdfToImage() {
 
       for (let i = 1; i <= totalPages; i++) {
         const page = await pdf.getPage(i);
-        const viewport = page.getViewport({ scale: 2.0 }); // 2x scale for better quality
+        const viewport = page.getViewport({ scale: 2.0 }); 
         const canvas = document.createElement('canvas');
         const context = canvas.getContext('2d')!;
         
         canvas.height = viewport.height;
         canvas.width = viewport.width;
 
-        await (page as any).render({
+        await page.render({
           canvasContext: context,
           viewport: viewport,
         }).promise;
@@ -71,9 +77,9 @@ export default function PdfToImage() {
         setProgress(prev => ({ ...prev, current: i }));
         setImages(prev => [...prev, { pageNumber: i, dataUrl }]);
       }
-    } catch (err) {
-      console.error(err);
-      alert(t('tools.pdf-to-image.errors.parseError'));
+    } catch (err: any) {
+      console.error('PDF parsing error:', err);
+      alert(`${t('tools.pdf-to-image.errors.parseError')} (${err.message || 'Unknown error'})`);
     } finally {
       setIsProcessing(false);
     }
