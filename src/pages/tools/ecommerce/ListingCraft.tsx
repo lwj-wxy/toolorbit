@@ -4,7 +4,7 @@ import { Sparkles, Loader2, Copy, Check } from 'lucide-react';
 import Markdown from 'react-markdown';
 
 export default function ListingCraft() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [input, setInput] = useState('');
   const [result, setResult] = useState('');
   const [loading, setLoading] = useState(false);
@@ -15,19 +15,57 @@ export default function ListingCraft() {
     if (!input.trim()) return;
     
     setLoading(true);
+    setResult('');
     setError('');
     
     try {
       const response = await fetch('/api/listing-craft', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ productInfo: input })
+        body: JSON.stringify({ 
+          productInfo: input,
+          language: i18n.language 
+        })
       });
       
-      const data = await response.json();
-      if (!data.success) throw new Error(data.error);
-      
-      setResult(data.text);
+      if (!response.ok) {
+        const data = await response.json().catch(() => ({}));
+        throw new Error(data.error || 'Request failed');
+      }
+
+      const reader = response.body?.getReader();
+      const decoder = new TextDecoder();
+
+      if (!reader) throw new Error('Reader initialization failed');
+
+      let isDone = false;
+      while (!isDone) {
+        const { value, done } = await reader.read();
+        isDone = done;
+        
+        if (value) {
+          const chunk = decoder.decode(value, { stream: true });
+          const lines = chunk.split('\n');
+          
+          for (const line of lines) {
+            const trimmedLine = line.trim();
+            if (trimmedLine.startsWith('data: ')) {
+              try {
+                const jsonStr = trimmedLine.substring(6).trim();
+                const data = JSON.parse(jsonStr);
+                
+                if (data.error) {
+                  setError(data.error);
+                } else if (data.content) {
+                  setResult(prev => prev + data.content);
+                }
+              } catch (e) {
+                // Ignore incomplete JSON chunks from buffer
+              }
+            }
+          }
+        }
+      }
     } catch (err: any) {
       setError(err.message || t('tools.listing-craft-ai.errorMsg'));
     } finally {

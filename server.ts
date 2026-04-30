@@ -54,14 +54,82 @@ async function startServer() {
   // API router
   app.post("/api/listing-craft", async (req, res) => {
     try {
-      const { productInfo } = req.body;
-      const response = await ai.models.generateContent({
-        model: "gemini-2.5-flash",
-        contents: `作为一位资深的跨境电商运营（如Etsy、Amazon），请根据以下产品信息，生成一个高转化率的商品Listing。\n产品信息：${productInfo}\n\n请严格返回以下4部分结构，并使用Markdown格式：\n1. 吸引人的标题（Title）\n2. 高频搜索关键词（Tags/Keywords）\n3. 详细且带有感情色彩的商品描述（Description）\n4. 五大卖点（Bullet Points，清晰分点）`,
+      const { productInfo, language } = req.body;
+      const apiKey = process.env.DEEPSEEK_API_KEY?.trim();
+      
+      const isChinese = language?.startsWith('zh');
+      const targetLanguage = isChinese ? '简体中文' : 'English';
+      
+      if (!apiKey) {
+        throw new Error('DEEPSEEK_API_KEY is not configured');
+      }
+
+      // Set headers for streaming
+      res.setHeader('Content-Type', 'text/event-stream');
+      res.setHeader('Cache-Control', 'no-cache');
+      res.setHeader('Connection', 'keep-alive');
+
+      const response = await axios.post("https://api.deepseek.com/chat/completions", {
+        model: "deepseek-v4-pro",
+        messages: [
+          {
+            role: "system",
+            content: `你是一位资深的跨境电商运营专家（精通Etsy、Amazon、eBay）。你的任务是根据用户提供的基础产品信息，创作出具有极高转化率的商品 Listing。请确保内容不仅符合 SEO 逻辑，还要充满诱惑力，触达消费者的情感痛点。重要：请务必使用 ${targetLanguage} 输出内容。`
+          },
+          {
+            role: "user",
+            content: `产品信息：${productInfo}\n\n请严格按照以下 4 部分结构返回内容，并使用标准的 Markdown 格式输出：\n\n1. ### 爆款标题 (Title)\n2. ### 核心 SEO 标签 (Tags/Keywords)\n3. ### 走心商品描述 (Description)\n4. ### 核心成交卖点 (Key Selling Points / Bullet Points)`
+          }
+        ],
+        thinking: { type: "enabled" },
+        reasoning_effort: "high",
+        stream: true
+      }, {
+        headers: {
+          'Authorization': `Bearer ${apiKey}`,
+          'Content-Type': 'application/json'
+        },
+        responseType: 'stream'
       });
-      res.json({ success: true, text: response.text });
+
+      response.data.on('data', (chunk: any) => {
+        const lines = chunk.toString().split('\n').filter((line: string) => line.trim() !== '');
+        for (const line of lines) {
+          const message = line.replace(/^data: /, '');
+          if (message === '[DONE]') {
+            res.end();
+            return;
+          }
+          try {
+            const parsed = JSON.parse(message);
+            const content = parsed.choices[0].delta?.content || "";
+            if (content) {
+              res.write(`data: ${JSON.stringify({ content })}\n\n`);
+            }
+          } catch (e) {
+            // Ignore parse errors for partial chunks
+          }
+        }
+      });
+
+      response.data.on('end', () => {
+        res.end();
+      });
+
+      req.on('close', () => {
+        // Optional: close original response if client disconnects
+      });
+
     } catch (err: any) {
-      res.status(500).json({ success: false, error: err.message });
+      console.error('DeepSeek API Error:', err.response?.data || err.message);
+      const errorMsg = err.response?.data?.error?.message || err.message;
+      // If error happens before streaming starts
+      if (!res.headersSent) {
+        res.status(500).json({ success: false, error: errorMsg });
+      } else {
+        res.write(`data: ${JSON.stringify({ error: errorMsg })}\n\n`);
+        res.end();
+      }
     }
   });
 
