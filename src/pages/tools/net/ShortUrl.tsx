@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link2, Copy, Check, ExternalLink, Loader2, Globe } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function ShortUrl() {
   const { t } = useTranslation();
@@ -95,7 +96,7 @@ export default function ShortUrl() {
           <div className="space-y-4 animate-in fade-in slide-in-from-top-2 duration-300">
             <div className="flex items-center justify-between mb-2">
               <label className="text-sm font-bold text-slate-700 italic">{t('tools.short-url.multiStream')}</label>
-              <span className="text-[10px] bg-indigo-50 text-indigo-600 px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">Multi-Stream Enabled</span>
+              <span className="text-[10px] bg-indigo-50 text-indigo-600 px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">{t('tools.short-url.multiStreamEnabled')}</span>
             </div>
             <div className="grid grid-cols-1 gap-4">
               {shortLinks.map((link, index) => (
@@ -135,15 +136,7 @@ export default function ShortUrl() {
           </div>
         )}
       </div>
-
-      <div className="bg-transparent border border-slate-200/60 rounded-2xl p-8 lg:p-12 mb-12 mt-12 bg-gradient-to-b from-white/50 to-transparent">
-        <h2 className="text-xl font-bold text-slate-800 mb-6">短链工具使用手册与常见问题</h2>
-        <div className="space-y-4 text-slate-600 text-sm leading-relaxed">
-          <p><strong>为何需要使用短链接？</strong> 长链接在短信推销、微博转发或者生成二维码时会占用大量空间/点阵。短链接不仅观感清爽，还能有效规避某些平台对过长参数链接的自动截断。 </p>
-          <p><strong>关于本工具：</strong> 我们基于全球著名的公益短链服务提供商渲染结果。该服务非常稳定，生成的短链通常是永久活性的（除非因为违规被源站封禁）。</p>
-          <p><strong>隐私提示：</strong> 转换过程通过我们的网页与短链接口直接通信，我们不会记录或缓存您的原始长链接内容。请放心使用。</p>
-        </div>
-      </div>
+      <ToolSEOCard toolKey="short-url" />
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Copy, Check, ArrowDownUp } from 'lucide-react';
+import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function UrlEncoder() {
   const { t } = useTranslation();
@@ -117,6 +118,7 @@ export default function UrlEncoder() {
           </div>
         </div>
       </div>
+      <ToolSEOCard toolKey="url-encoder" />
     </div>
   );
 }

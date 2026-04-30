@@ -35,7 +35,7 @@ export default function PdfSplit() {
 
   const handleFile = useCallback(async (file: File) => {
     if (file.type !== 'application/pdf') {
-      alert(t('pdf-split.errors.onlyPdf'));
+      alert(t('tools.pdf-split.errors.onlyPdf'));
       return;
     }
 
@@ -52,7 +52,7 @@ export default function PdfSplit() {
       setIsSuccess(false);
     } catch (err) {
       console.error(err);
-      alert(t('pdf-split.errors.parseError'));
+      alert(t('tools.pdf-split.errors.parseError'));
     }
   }, [t]);
 
@@ -78,7 +78,7 @@ export default function PdfSplit() {
       setIsSuccess(true);
     } catch (err) {
       console.error(err);
-      alert(t('pdf-split.errors.splitError'));
+      alert(t('tools.pdf-split.errors.splitError'));
     } finally {
       setIsProcessing(false);
     }
@@ -95,10 +95,10 @@ export default function PdfSplit() {
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold text-gray-900 mb-4 flex items-center justify-center gap-3">
           <Scissors className="w-10 h-10 text-orange-600" />
-          {t('pdf-split.title')}
+          {t('tools.pdf-split.title')}
         </h1>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-          {t('pdf-split.subtitle')}
+          {t('tools.pdf-split.subtitle')}
         </p>
       </div>
 
@@ -127,10 +127,10 @@ export default function PdfSplit() {
             <div className="bg-orange-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
               <Upload className="w-10 h-10 text-orange-600" />
             </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-2">{t('pdf-split.dropLabel')}</h3>
-            <p className="text-gray-500 mb-8">{t('pdf-split.readyDesc')}</p>
+            <h3 className="text-2xl font-bold text-gray-900 mb-2">{t('tools.pdf-split.dropLabel')}</h3>
+            <p className="text-gray-500 mb-8">{t('tools.pdf-split.readyDesc')}</p>
             <button className="bg-orange-600 text-white px-10 py-4 rounded-xl font-bold text-lg hover:bg-orange-700 transition-colors shadow-lg shadow-orange-200">
-              {t('pdf-split.selectBtn')}
+              {t('tools.pdf-split.selectBtn')}
             </button>
           </div>
         ) : (
@@ -140,7 +140,7 @@ export default function PdfSplit() {
                 <div className="absolute top-0 right-0 p-4 opacity-5">
                   <FileText className="w-24 h-24" />
                 </div>
-                <h3 className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-4">{t('pdf-split.fileCardTitle')}</h3>
+                <h3 className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-4">{t('tools.pdf-split.fileCardTitle')}</h3>
                 <div className="flex items-center gap-4 mb-6">
                   <div className="bg-red-50 p-4 rounded-xl">
                     <FileText className="w-8 h-8 text-red-600" />
@@ -148,7 +148,7 @@ export default function PdfSplit() {
                   <div className="flex-1 min-w-0">
                     <p className="font-bold text-gray-900 text-lg truncate">{pdf.name}</p>
                     <p className="text-gray-500">
-                      {t('pdf-split.pageCount', { count: pdf.pages })} · {(pdf.size / 1024 / 1024).toFixed(2)} MB
+                      {t('tools.pdf-split.pageCount', { count: pdf.pages })} · {(pdf.size / 1024 / 1024).toFixed(2)} MB
                     </p>
                   </div>
                 </div>
@@ -157,9 +157,9 @@ export default function PdfSplit() {
                   <div className="flex gap-3">
                     <Box className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
                     <div>
-                      <h4 className="font-bold text-blue-900 text-sm">{t('pdf-split.extractFeatureTitle')}</h4>
+                      <h4 className="font-bold text-blue-900 text-sm">{t('tools.pdf-split.extractFeatureTitle')}</h4>
                       <p className="text-xs text-blue-800 leading-relaxed mt-1">
-                        {t('pdf-split.extractFeatureDesc')}
+                        {t('tools.pdf-split.extractFeatureDesc')}
                       </p>
                     </div>
                   </div>
@@ -169,10 +169,10 @@ export default function PdfSplit() {
               <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm">
                 <h3 className="text-sm font-bold text-gray-900 mb-4 flex items-center gap-2">
                   <Zap className="w-4 h-4 text-orange-600" />
-                  {t('pdf-split.readyTitle')}
+                  {t('tools.pdf-split.readyTitle')}
                 </h3>
                 <p className="text-gray-600 text-sm leading-relaxed mb-6">
-                  {t('pdf-split.readyDesc')}
+                  {t('tools.pdf-split.readyDesc')}
                 </p>
                 <div className="flex items-center gap-2 text-green-600 bg-green-50 p-3 rounded-lg border border-green-100">
                   <ShieldCheck className="w-4 h-4" />
@@ -194,15 +194,15 @@ export default function PdfSplit() {
                       <CheckCircle2 className="w-10 h-10 text-green-600" />
                     </div>
                     <div>
-                      <h3 className="text-2xl font-bold text-gray-900 mb-2">{t('pdf-split.successMsg')}</h3>
-                      <p className="text-gray-600">{t('pdf-split.successTip')}</p>
+                      <h3 className="text-2xl font-bold text-gray-900 mb-2">{t('tools.pdf-split.successMsg')}</h3>
+                      <p className="text-gray-600">{t('tools.pdf-split.successTip')}</p>
                     </div>
                     <button
                       onClick={reset}
                       className="flex items-center gap-2 text-orange-600 font-bold mx-auto hover:gap-3 transition-all"
                     >
                       <RefreshCw className="w-5 h-5" />
-                      {t('pdf-split.processNext')}
+                      {t('tools.pdf-split.processNext')}
                     </button>
                   </motion.div>
                 ) : (
@@ -224,17 +224,17 @@ export default function PdfSplit() {
                       {isProcessing ? (
                         <>
                           <div className="w-8 h-8 border-3 border-white/30 border-t-white rounded-full animate-spin" />
-                          <span>{t('pdf-split.processingMsg')}</span>
+                          <span>{t('tools.pdf-split.processingMsg')}</span>
                         </>
                       ) : (
                         <>
                           <div className="flex items-center gap-2 text-xl">
                             <Download className="w-6 h-6" />
-                            {t('pdf-split.downloadBtn')}
+                            {t('tools.pdf-split.downloadBtn')}
                           </div>
                           <span className="text-xs opacity-80 font-normal uppercase tracking-widest flex items-center gap-1">
                             <FileArchive className="w-3 h-3" />
-                            {t('pdf-split.downloadDesc')}
+                            {t('tools.pdf-split.downloadDesc')}
                           </span>
                         </>
                       )}
@@ -244,7 +244,7 @@ export default function PdfSplit() {
                       onClick={reset}
                       className="w-full py-4 text-gray-500 font-medium hover:text-gray-700 transition-colors"
                     >
-                      {t('pdf-split.clearAll')}
+                      {t('tools.pdf-split.clearAll')}
                     </button>
                   </motion.div>
                 )}
@@ -259,29 +259,29 @@ export default function PdfSplit() {
         <div className="max-w-4xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12 mb-16">
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('pdf-split.seoTitle')}</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('tools.pdf-split.seoTitle')}</h2>
               <div className="space-y-4 text-gray-600 leading-relaxed">
-                <p>{t('pdf-split.seoDesc')}</p>
+                <p>{t('tools.pdf-split.seoDesc')}</p>
                 <div className="bg-orange-50 p-6 rounded-2xl border border-orange-100">
                   <div className="flex gap-4 items-start">
                     <ShieldCheck className="w-6 h-6 text-orange-600 shrink-0 mt-1" />
                     <p className="text-sm text-orange-900">
-                      <strong>{t('pdf-split.privacyNotice')}</strong>
+                      <strong>{t('tools.pdf-split.privacyNotice')}</strong>
                     </p>
                   </div>
                 </div>
               </div>
             </div>
             <div className="space-y-8">
-              <h3 className="text-xl font-bold text-gray-900">{t('pdf-split.whyTitle')}</h3>
+              <h3 className="text-xl font-bold text-gray-900">{t('tools.pdf-split.highlightsTitle')}</h3>
               
               <div className="flex gap-4">
                 <div className="bg-gray-100 w-12 h-12 rounded-xl flex items-center justify-center shrink-0">
                   <AlertCircle className="w-6 h-6 text-orange-600" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-gray-900 mb-1">{t('pdf-split.highlight1Title')}</h4>
-                  <p className="text-sm text-gray-600">{t('pdf-split.highlight1Desc')}</p>
+                  <h4 className="font-bold text-gray-900 mb-1">{t('tools.pdf-split.highlight1Title')}</h4>
+                  <p className="text-sm text-gray-600">{t('tools.pdf-split.highlight1Desc')}</p>
                 </div>
               </div>
 
@@ -290,8 +290,8 @@ export default function PdfSplit() {
                   <FileArchive className="w-6 h-6 text-orange-600" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-gray-900 mb-1">{t('pdf-split.highlight2Title')}</h4>
-                  <p className="text-sm text-gray-600">{t('pdf-split.highlight2Desc')}</p>
+                  <h4 className="font-bold text-gray-900 mb-1">{t('tools.pdf-split.highlight2Title')}</h4>
+                  <p className="text-sm text-gray-600">{t('tools.pdf-split.highlight2Desc')}</p>
                 </div>
               </div>
 
@@ -300,8 +300,8 @@ export default function PdfSplit() {
                   <MonitorSmartphone className="w-6 h-6 text-orange-600" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-gray-900 mb-1">{t('pdf-split.highlight3Title')}</h4>
-                  <p className="text-sm text-gray-600">{t('pdf-split.highlight3Desc')}</p>
+                  <h4 className="font-bold text-gray-900 mb-1">{t('tools.pdf-split.highlight3Title')}</h4>
+                  <p className="text-sm text-gray-600">{t('tools.pdf-split.highlight3Desc')}</p>
                 </div>
               </div>
             </div>
@@ -309,7 +309,7 @@ export default function PdfSplit() {
           
           <div className="bg-gray-50 p-8 rounded-3xl text-center">
             <p className="text-gray-500 italic">
-              {t('pdf-split.seoFooter')}
+              {t('tools.pdf-split.seoFooter')}
             </p>
           </div>
         </div>

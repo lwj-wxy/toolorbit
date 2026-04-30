@@ -38,7 +38,7 @@ export default function PdfMerge() {
     
     for (const file of Array.from(files)) {
       if (file.type !== 'application/pdf') {
-        alert(t('pdf-merge.errors.onlyPdf'));
+        alert(t('tools.pdf-merge.errors.onlyPdf'));
         continue;
       }
 
@@ -55,7 +55,7 @@ export default function PdfMerge() {
         });
       } catch (err) {
         console.error(err);
-        alert(t('pdf-merge.errors.parseError', { name: file.name }));
+        alert(t('tools.pdf-merge.errors.parseError', { name: file.name }));
       }
     }
 
@@ -98,7 +98,7 @@ export default function PdfMerge() {
       setIsSuccess(true);
     } catch (err) {
       console.error(err);
-      alert(t('pdf-merge.errors.mergeError'));
+      alert(t('tools.pdf-merge.errors.mergeError'));
     } finally {
       setIsMerging(false);
     }
@@ -111,10 +111,10 @@ export default function PdfMerge() {
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold text-gray-900 mb-4 flex items-center justify-center gap-3">
           <Layers className="w-10 h-10 text-blue-600" />
-          {t('pdf-merge.title')}
+          {t('tools.pdf-merge.title')}
         </h1>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-          {t('pdf-merge.subtitle')}
+          {t('tools.pdf-merge.subtitle')}
         </p>
       </div>
 
@@ -141,10 +141,10 @@ export default function PdfMerge() {
             <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
               <Upload className="w-8 h-8 text-blue-600" />
             </div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">{t('pdf-merge.dropLabel')}</h3>
-            <p className="text-gray-500 mb-6">{t('pdf-merge.dropDesc')}</p>
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">{t('tools.pdf-merge.dropLabel')}</h3>
+            <p className="text-gray-500 mb-6">{t('tools.pdf-merge.dropDesc')}</p>
             <button className="bg-blue-600 text-white px-8 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors">
-              {t('pdf-merge.selectBtn')}
+              {t('tools.pdf-merge.selectBtn')}
             </button>
           </div>
 
@@ -154,13 +154,13 @@ export default function PdfMerge() {
               <div className="p-4 border-b border-gray-100 bg-gray-50/50 flex justify-between items-center">
                 <h3 className="font-semibold text-gray-900 flex items-center gap-2">
                   <FileText className="w-5 h-5 text-gray-500" />
-                  {t('pdf-merge.listTitle', { count: pdfs.length })}
+                  {t('tools.pdf-merge.listTitle', { count: pdfs.length })}
                 </h3>
                 <button 
                   onClick={() => setPdfs([])}
                   className="text-sm text-red-600 hover:text-red-700 font-medium"
                 >
-                  {t('pdf-merge.clearAll')}
+                  {t('tools.pdf-merge.clearAll')}
                 </button>
               </div>
               <div className="divide-y divide-gray-100">
@@ -198,7 +198,7 @@ export default function PdfMerge() {
                       <div className="flex-1 min-w-0">
                         <p className="font-medium text-gray-900 truncate">{pdf.name}</p>
                         <p className="text-sm text-gray-500">
-                          {pdf.pages} {t('pdf-merge.totalPages')} · {(pdf.size / 1024 / 1024).toFixed(2)} MB
+                          {pdf.pages} {t('tools.pdf-merge.totalPages')} · {(pdf.size / 1024 / 1024).toFixed(2)} MB
                         </p>
                       </div>
 
@@ -217,7 +217,7 @@ export default function PdfMerge() {
                 className="w-full p-4 text-blue-600 hover:bg-blue-50 font-medium flex items-center justify-center gap-2 transition-colors border-t border-gray-100"
               >
                 <FilePlus className="w-5 h-5" />
-                {t('pdf-merge.addMore')}
+                {t('tools.pdf-merge.addMore')}
               </button>
             </div>
           )}
@@ -228,16 +228,16 @@ export default function PdfMerge() {
           <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm sticky top-8">
             <h3 className="text-lg font-bold text-gray-900 mb-6 flex items-center gap-2">
               <Layers className="w-5 h-5 text-blue-600" />
-              {t('pdf-merge.settingsTitle')}
+              {t('tools.pdf-merge.settingsTitle')}
             </h3>
 
             <div className="space-y-4 mb-8">
               <div className="flex justify-between py-3 border-b border-gray-100">
-                <span className="text-gray-600">{t('pdf-merge.totalFiles')}</span>
+                <span className="text-gray-600">{t('tools.pdf-merge.totalFiles')}</span>
                 <span className="font-semibold text-gray-900">{pdfs.length}</span>
               </div>
               <div className="flex justify-between py-3 border-b border-gray-100">
-                <span className="text-gray-600">{t('pdf-merge.totalPages')}</span>
+                <span className="text-gray-600">{t('tools.pdf-merge.totalPages')}</span>
                 <span className="font-semibold text-gray-900">{totalPages}</span>
               </div>
             </div>
@@ -246,7 +246,7 @@ export default function PdfMerge() {
               <div className="flex gap-3">
                 <Info className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
                 <p className="text-sm text-amber-800 leading-relaxed">
-                  {t('pdf-merge.dragTip')}
+                  {t('tools.pdf-merge.dragTip')}
                 </p>
               </div>
             </div>
@@ -254,7 +254,7 @@ export default function PdfMerge() {
             {isSuccess && !isMerging && (
               <div className="bg-green-50 text-green-700 p-4 rounded-xl mb-6 flex items-center gap-3 border border-green-100 animate-in fade-in slide-in-from-bottom-2">
                 <CheckCircle2 className="w-5 h-5" />
-                <span className="text-sm font-medium">{t('pdf-merge.successMsg')}</span>
+                <span className="text-sm font-medium">{t('tools.pdf-merge.successMsg')}</span>
               </div>
             )}
 
@@ -270,16 +270,16 @@ export default function PdfMerge() {
               {isMerging ? (
                 <div className="flex items-center gap-2">
                   <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                  {t('pdf-merge.processingMsg')}
+                  {t('tools.pdf-merge.processingMsg')}
                 </div>
               ) : (
                 <>
                   <div className="flex items-center gap-2">
                     <Download className="w-5 h-5" />
-                    {t('pdf-merge.downloadBtn')}
+                    {t('tools.pdf-merge.downloadBtn')}
                   </div>
                   <span className="text-[10px] opacity-80 font-normal uppercase tracking-wider">
-                    {t('pdf-merge.downloadDesc')}
+                    {t('tools.pdf-merge.downloadDesc')}
                   </span>
                 </>
               )}
@@ -293,29 +293,29 @@ export default function PdfMerge() {
         <div className="max-w-4xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12 mb-16">
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('pdf-merge.seoTitle')}</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('tools.pdf-merge.seoTitle')}</h2>
               <div className="space-y-4 text-gray-600 leading-relaxed">
-                <p>{t('pdf-merge.seoDesc')}</p>
+                <p>{t('tools.pdf-merge.seoDesc')}</p>
                 <div className="bg-blue-50 p-6 rounded-2xl border border-blue-100">
                   <div className="flex gap-4 items-start">
                     <ShieldCheck className="w-6 h-6 text-blue-600 shrink-0 mt-1" />
                     <p className="text-sm text-blue-900">
-                      <strong>{t('pdf-merge.privacyNotice')}</strong>
+                      <strong>{t('tools.pdf-merge.privacyNotice')}</strong>
                     </p>
                   </div>
                 </div>
               </div>
             </div>
             <div className="space-y-8">
-              <h3 className="text-xl font-bold text-gray-900">{t('pdf-merge.whyTitle')}</h3>
+              <h3 className="text-xl font-bold text-gray-900">{t('tools.pdf-merge.highlightsTitle')}</h3>
               
               <div className="flex gap-4">
                 <div className="bg-gray-100 w-12 h-12 rounded-xl flex items-center justify-center shrink-0">
                   <Zap className="w-6 h-6 text-blue-600" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-gray-900 mb-1">{t('pdf-merge.highlight1Title')}</h4>
-                  <p className="text-sm text-gray-600">{t('pdf-merge.highlight1Desc')}</p>
+                  <h4 className="font-bold text-gray-900 mb-1">{t('tools.pdf-merge.highlight1Title')}</h4>
+                  <p className="text-sm text-gray-600">{t('tools.pdf-merge.highlight1Desc')}</p>
                 </div>
               </div>
 
@@ -324,8 +324,8 @@ export default function PdfMerge() {
                   <MousePointer2 className="w-6 h-6 text-blue-600" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-gray-900 mb-1">{t('pdf-merge.highlight2Title')}</h4>
-                  <p className="text-sm text-gray-600">{t('pdf-merge.highlight2Desc')}</p>
+                  <h4 className="font-bold text-gray-900 mb-1">{t('tools.pdf-merge.highlight2Title')}</h4>
+                  <p className="text-sm text-gray-600">{t('tools.pdf-merge.highlight2Desc')}</p>
                 </div>
               </div>
 
@@ -334,8 +334,8 @@ export default function PdfMerge() {
                   <Layers className="w-6 h-6 text-blue-600" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-gray-900 mb-1">{t('pdf-merge.highlight3Title')}</h4>
-                  <p className="text-sm text-gray-600">{t('pdf-merge.highlight3Desc')}</p>
+                  <h4 className="font-bold text-gray-900 mb-1">{t('tools.pdf-merge.highlight3Title')}</h4>
+                  <p className="text-sm text-gray-600">{t('tools.pdf-merge.highlight3Desc')}</p>
                 </div>
               </div>
             </div>
@@ -343,7 +343,7 @@ export default function PdfMerge() {
           
           <div className="bg-gray-50 p-8 rounded-3xl text-center">
             <p className="text-gray-500 italic">
-              {t('pdf-merge.seoFooter')}
+              {t('tools.pdf-merge.seoFooter')}
             </p>
           </div>
         </div>

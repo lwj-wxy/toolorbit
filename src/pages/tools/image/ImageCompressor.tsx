@@ -330,7 +330,7 @@ export default function ImageCompressor() {
           </p>
         </div>
 
-        <h3 className="font-bold text-slate-900 text-xl mb-6">{t('tools.image-compressor.whyTitle')}</h3>
+        <h3 className="font-bold text-slate-900 text-xl mb-6">{t('tools.image-compressor.highlightsTitle')}</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
            <div className="space-y-3">
               <h4 className="font-bold text-slate-800">{t('tools.image-compressor.highlight1Title')}</h4>

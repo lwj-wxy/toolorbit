@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DollarSign } from 'lucide-react';
+import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function StripeFeeCalculator() {
   const { t } = useTranslation();
@@ -76,35 +77,7 @@ export default function StripeFeeCalculator() {
         </div>
       </div>
 
-      {/* Bottom SEO Instructions Panel */}
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-8 lg:p-12 mt-8">
-        <h2 className="text-xl font-bold text-slate-800 mb-6">{t('tools.stripe-fee-calculator.seoTitle')}</h2>
-        
-        <p className="text-slate-600 mb-6 leading-relaxed">
-          {t('tools.stripe-fee-calculator.seoDesc')}
-        </p>
-
-        <h3 className="font-bold text-slate-800 text-lg mb-4">{t('tools.stripe-fee-calculator.highlightsTitle')}</h3>
-        <ul className="space-y-4 text-slate-600">
-          <li className="flex gap-3">
-            <strong className="text-slate-800 shrink-0">{t('tools.stripe-fee-calculator.highlight1Title')}</strong>
-            <span>{t('tools.stripe-fee-calculator.highlight1Desc')}</span>
-          </li>
-          <li className="flex gap-3">
-            <strong className="text-slate-800 shrink-0">{t('tools.stripe-fee-calculator.highlight2Title')}</strong>
-            <span>{t('tools.stripe-fee-calculator.highlight2Desc')}</span>
-          </li>
-          <li className="flex gap-3">
-            <strong className="text-slate-800 shrink-0">{t('tools.stripe-fee-calculator.highlight3Title')}</strong>
-            <span>{t('tools.stripe-fee-calculator.highlight3Desc')}</span>
-          </li>
-        </ul>
-        
-        <p className="text-slate-500 text-sm mt-8 pt-6 border-t border-slate-100">
-          {t('tools.stripe-fee-calculator.disclaimer')}
-        </p>
-      </div>
-
+      <ToolSEOCard toolKey="stripe-fee-calculator" />
     </div>
   );
 }

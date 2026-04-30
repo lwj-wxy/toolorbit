@@ -108,7 +108,7 @@ export default function ImageToPdf() {
       pdf.save(`images_to_pdf_${new Date().getTime()}.pdf`);
     } catch (err) {
       console.error(err);
-      alert(t('image-to-pdf.errors.generateError'));
+      alert(t('tools.image-to-pdf.errors.generateError'));
     } finally {
       setIsGenerating(false);
     }
@@ -128,10 +128,10 @@ export default function ImageToPdf() {
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold text-gray-900 mb-4 flex items-center justify-center gap-3">
           <FileImage className="w-10 h-10 text-indigo-600" />
-          {t('image-to-pdf.title')}
+          {t('tools.image-to-pdf.title')}
         </h1>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-          {t('image-to-pdf.subtitle')}
+          {t('tools.image-to-pdf.subtitle')}
         </p>
       </div>
 
@@ -158,22 +158,22 @@ export default function ImageToPdf() {
             <div className="bg-indigo-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
               <Upload className="w-8 h-8 text-indigo-600" />
             </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">{t('image-to-pdf.dropLabel')}</h3>
-            <p className="text-gray-500">{t('image-to-pdf.dropDesc')}</p>
+            <h3 className="text-xl font-bold text-gray-900 mb-2">{t('tools.image-to-pdf.dropLabel')}</h3>
+            <p className="text-gray-500">{t('tools.image-to-pdf.dropDesc')}</p>
           </div>
 
           {/* Image List */}
           <div className="space-y-4">
             <div className="flex justify-between items-center px-2">
               <h3 className="font-bold text-gray-900 text-lg">
-                {t('image-to-pdf.checkedTitle', { count: images.length })}
+                {t('tools.image-to-pdf.checkedTitle', { count: images.length })}
               </h3>
               {images.length > 0 && (
                 <button
                   onClick={() => setImages([])}
                   className="text-sm font-bold text-red-600 hover:text-red-700"
                 >
-                  {t('image-to-pdf.clearAllBtn')}
+                  {t('tools.image-to-pdf.clearAllBtn')}
                 </button>
               )}
             </div>
@@ -233,13 +233,13 @@ export default function ImageToPdf() {
           <div className="bg-white p-6 rounded-3xl border border-gray-200 shadow-sm sticky top-8">
             <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
               <Settings className="w-5 h-5 text-indigo-600" />
-              {t('image-to-pdf.settingsTitle')}
+              {t('tools.image-to-pdf.settingsTitle')}
             </h3>
 
             <div className="space-y-6 mb-8">
               <div>
                 <label className="block text-sm font-bold text-gray-700 mb-3 uppercase tracking-wider">
-                  {t('image-to-pdf.pageSizeLabel')}
+                  {t('tools.image-to-pdf.pageSizeLabel')}
                 </label>
                 <div className="space-y-3">
                   <button
@@ -250,9 +250,9 @@ export default function ImageToPdf() {
                         : 'border-gray-100 hover:border-gray-200'
                     }`}
                   >
-                    <div className="font-bold text-gray-900 mb-1">{t('image-to-pdf.pageA4Title')}</div>
+                    <div className="font-bold text-gray-900 mb-1">{t('tools.image-to-pdf.pageA4Title')}</div>
                     <div className="text-xs text-gray-500 leading-relaxed">
-                      {t('image-to-pdf.pageA4Desc')}
+                      {t('tools.image-to-pdf.pageA4Desc')}
                     </div>
                   </button>
 
@@ -264,9 +264,9 @@ export default function ImageToPdf() {
                         : 'border-gray-100 hover:border-gray-200'
                     }`}
                   >
-                    <div className="font-bold text-gray-900 mb-1">{t('image-to-pdf.pageFitTitle')}</div>
+                    <div className="font-bold text-gray-900 mb-1">{t('tools.image-to-pdf.pageFitTitle')}</div>
                     <div className="text-xs text-gray-500 leading-relaxed">
-                      {t('image-to-pdf.pageFitDesc')}
+                      {t('tools.image-to-pdf.pageFitDesc')}
                     </div>
                   </button>
                 </div>
@@ -285,12 +285,14 @@ export default function ImageToPdf() {
               {isGenerating ? (
                 <>
                   <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                  <span>{t('image-to-pdf.generatingBtn')}</span>
+                  <span>{t('tools.image-to-pdf.generatingBtn')}</span>
                 </>
               ) : (
                 <>
-                  <Download className="w-5 h-5" />
-                  <span>{t('image-to-pdf.generateBtn')}</span>
+                  <div className="flex items-center gap-2">
+                    <Download className="w-5 h-5" />
+                    <span>{t('tools.image-to-pdf.generateBtn')}</span>
+                  </div>
                 </>
               )}
             </button>
@@ -303,29 +305,29 @@ export default function ImageToPdf() {
         <div className="max-w-4xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12 mb-16">
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('image-to-pdf.seoTitle')}</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('tools.image-to-pdf.seoTitle')}</h2>
               <div className="space-y-4 text-gray-600 leading-relaxed">
-                <p>{t('image-to-pdf.seoDesc')}</p>
+                <p>{t('tools.image-to-pdf.seoDesc')}</p>
                 <div className="bg-indigo-50 p-6 rounded-2xl border border-indigo-100">
                   <div className="flex gap-4 items-start">
                     <ShieldCheck className="w-6 h-6 text-indigo-600 shrink-0 mt-1" />
                     <p className="text-sm text-indigo-900">
-                      <strong>{t('image-to-pdf.privacyNotice')}</strong>
+                      <strong>{t('tools.image-to-pdf.privacyNotice')}</strong>
                     </p>
                   </div>
                 </div>
               </div>
             </div>
             <div className="space-y-8">
-              <h3 className="text-xl font-bold text-gray-900">{t('image-to-pdf.whyTitle')}</h3>
+              <h3 className="text-xl font-bold text-gray-900">{t('tools.image-to-pdf.highlightsTitle')}</h3>
               
               <div className="flex gap-4">
                 <div className="bg-gray-100 w-12 h-12 rounded-xl flex items-center justify-center shrink-0">
                   <ImageIcon className="w-6 h-6 text-indigo-600" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-gray-900 mb-1">{t('image-to-pdf.highlight1Title')}</h4>
-                  <p className="text-sm text-gray-600">{t('image-to-pdf.highlight1Desc')}</p>
+                  <h4 className="font-bold text-gray-900 mb-1">{t('tools.image-to-pdf.highlight1Title')}</h4>
+                  <p className="text-sm text-gray-600">{t('tools.image-to-pdf.highlight1Desc')}</p>
                 </div>
               </div>
 
@@ -334,8 +336,8 @@ export default function ImageToPdf() {
                   <MousePointer2 className="w-6 h-6 text-indigo-600" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-gray-900 mb-1">{t('image-to-pdf.highlight2Title')}</h4>
-                  <p className="text-sm text-gray-600">{t('image-to-pdf.highlight2Desc')}</p>
+                  <h4 className="font-bold text-gray-900 mb-1">{t('tools.image-to-pdf.highlight2Title')}</h4>
+                  <p className="text-sm text-gray-600">{t('tools.image-to-pdf.highlight2Desc')}</p>
                 </div>
               </div>
 
@@ -344,8 +346,8 @@ export default function ImageToPdf() {
                   <MonitorSmartphone className="w-6 h-6 text-indigo-600" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-gray-900 mb-1">{t('image-to-pdf.highlight3Title')}</h4>
-                  <p className="text-sm text-gray-600">{t('image-to-pdf.highlight3Desc')}</p>
+                  <h4 className="font-bold text-gray-900 mb-1">{t('tools.image-to-pdf.highlight3Title')}</h4>
+                  <p className="text-sm text-gray-600">{t('tools.image-to-pdf.highlight3Desc')}</p>
                 </div>
               </div>
             </div>
@@ -353,7 +355,7 @@ export default function ImageToPdf() {
           
           <div className="bg-gray-50 p-8 rounded-3xl text-center">
             <p className="text-gray-500 italic">
-              {t('image-to-pdf.seoFooter')}
+              {t('tools.image-to-pdf.seoFooter')}
             </p>
           </div>
         </div>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Clock, ArrowRight, ArrowDown, Copy, Check, RefreshCw, Calculator } from 'lucide-react';
+import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function TimestampConverter() {
   const { t } = useTranslation();
@@ -75,7 +76,7 @@ export default function TimestampConverter() {
   }
 
   const copyToClipboard = async (text: string, fieldId: string) => {
-    if (!text || text.includes('Invalid') || text.includes('无效')) return;
+    if (!text || text.includes(t('tools.timestamp-converter.invalidDate')) || text.includes(t('tools.timestamp-converter.invalidTimestamp'))) return;
     try {
       await navigator.clipboard.writeText(text);
       setCopiedField(fieldId);
@@ -292,6 +293,7 @@ export default function TimestampConverter() {
           <li>{t('tools.timestamp-converter.instruction3')}</li>
         </ul>
       </div>
+      <ToolSEOCard toolKey="timestamp-converter" />
     </div>
   );
 }

@@ -1,6 +1,8 @@
 import { useState } from 'react';
-import { Copy, Check, ArrowDownUp } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { Copy, Check, ArrowDownUp } from 'lucide-react';
+import { analytics } from '../../../services/analytics';
+import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function Base64() {
   const { t } = useTranslation();
@@ -148,6 +150,7 @@ export default function Base64() {
           </div>
         </div>
       </div>
+      <ToolSEOCard toolKey="base64" />
     </div>
   );
 }

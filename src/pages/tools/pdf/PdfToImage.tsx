@@ -35,7 +35,7 @@ export default function PdfToImage() {
 
   const handleFile = useCallback(async (file: File) => {
     if (file.type !== 'application/pdf') {
-      alert(t('pdf-to-image.errors.invalidPdf'));
+      alert(t('tools.pdf-to-image.errors.invalidPdf'));
       return;
     }
 
@@ -73,7 +73,7 @@ export default function PdfToImage() {
       }
     } catch (err) {
       console.error(err);
-      alert(t('pdf-to-image.errors.parseError'));
+      alert(t('tools.pdf-to-image.errors.parseError'));
     } finally {
       setIsProcessing(false);
     }
@@ -105,10 +105,10 @@ export default function PdfToImage() {
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold text-gray-900 mb-4 flex items-center justify-center gap-3">
           <ImageIcon className="w-10 h-10 text-emerald-600" />
-          {t('pdf-to-image.title')}
+          {t('tools.pdf-to-image.title')}
         </h1>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-          {t('pdf-to-image.subtitle')}
+          {t('tools.pdf-to-image.subtitle')}
         </p>
       </div>
 
@@ -137,10 +137,10 @@ export default function PdfToImage() {
             <div className="bg-emerald-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
               <Upload className="w-10 h-10 text-emerald-600" />
             </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-2">{t('pdf-to-image.dropLabel')}</h3>
-            <p className="text-gray-500 mb-8">{t('pdf-to-image.dropDesc')}</p>
+            <h3 className="text-2xl font-bold text-gray-900 mb-2">{t('tools.pdf-to-image.dropLabel')}</h3>
+            <p className="text-gray-500 mb-8">{t('tools.pdf-to-image.dropDesc')}</p>
             <button className="bg-emerald-600 text-white px-10 py-4 rounded-xl font-bold text-lg hover:bg-emerald-700 transition-colors shadow-lg shadow-emerald-200">
-              {t('pdf-to-image.selectBtn')}
+              {t('tools.pdf-to-image.selectBtn')}
             </button>
           </div>
         ) : (
@@ -153,7 +153,7 @@ export default function PdfToImage() {
                 <div>
                   <p className="font-bold text-gray-900">{file.name}</p>
                   <p className="text-sm text-gray-500">
-                    {(file.size / 1024 / 1024).toFixed(2)} MB · {t('pdf-to-image.progressMsg', { current: progress.current, total: progress.total })}
+                    {(file.size / 1024 / 1024).toFixed(2)} MB · {t('tools.pdf-to-image.progressMsg', { current: progress.current, total: progress.total })}
                   </p>
                 </div>
               </div>
@@ -165,14 +165,14 @@ export default function PdfToImage() {
                   className="bg-emerald-600 text-white px-6 py-2.5 rounded-xl font-bold text-sm flex items-center gap-2 hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                 >
                   <FileArchive className="w-4 h-4" />
-                  {t('pdf-to-image.downloadZipBtn')}
+                  {t('tools.pdf-to-image.downloadZipBtn')}
                 </button>
                 <button
                   onClick={clearAll}
                   className="p-2.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-colors"
                 >
                   <Trash2 className="w-5 h-5" />
-                  <span className="sr-only">{t('pdf-to-image.clearBtn')}</span>
+                  <span className="sr-only">{t('tools.pdf-to-image.clearBtn')}</span>
                 </button>
               </div>
             </div>
@@ -180,8 +180,8 @@ export default function PdfToImage() {
             {isProcessing && (
               <div className="bg-white p-12 rounded-3xl border border-gray-100 shadow-sm text-center space-y-4">
                 <div className="w-12 h-12 border-4 border-emerald-100 border-t-emerald-600 rounded-full animate-spin mx-auto" />
-                <h3 className="text-xl font-bold text-gray-900">{t('pdf-to-image.processingTitle')}</h3>
-                <p className="text-gray-500">{t('pdf-to-image.progressMsg', { current: progress.current, total: progress.total })}</p>
+                <h3 className="text-xl font-bold text-gray-900">{t('tools.pdf-to-image.processingTitle')}</h3>
+                <p className="text-gray-500">{t('tools.pdf-to-image.progressMsg', { current: progress.current, total: progress.total })}</p>
                 <div className="max-w-md mx-auto h-2 bg-gray-100 rounded-full overflow-hidden">
                   <motion.div 
                     initial={{ width: 0 }}
@@ -217,12 +217,12 @@ export default function PdfToImage() {
                       </div>
                     </div>
                     <div className="p-3 border-t border-gray-100 flex items-center justify-between">
-                      <span className="text-sm font-bold text-gray-600">{t('pdf-to-image.pageLabel', { count: img.pageNumber })}</span>
+                      <span className="text-sm font-bold text-gray-600">{t('tools.pdf-to-image.pageLabel', { count: img.pageNumber })}</span>
                       <button
                         onClick={() => saveAs(img.dataUrl, `page_${img.pageNumber}.jpg`)}
                         className="text-emerald-600 text-sm font-bold hover:underline"
                       >
-                        {t('pdf-to-image.downloadSingleBtn')}
+                        {t('tools.pdf-to-image.downloadSingleBtn')}
                       </button>
                     </div>
                   </motion.div>
@@ -238,29 +238,29 @@ export default function PdfToImage() {
         <div className="max-w-4xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12 mb-16">
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('pdf-to-image.seoTitle')}</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('tools.pdf-to-image.seoTitle')}</h2>
               <div className="space-y-4 text-gray-600 leading-relaxed">
-                <p>{t('pdf-to-image.seoDesc')}</p>
+                <p>{t('tools.pdf-to-image.seoDesc')}</p>
                 <div className="bg-emerald-50 p-6 rounded-2xl border border-emerald-100">
                   <div className="flex gap-4 items-start">
                     <ShieldCheck className="w-6 h-6 text-emerald-600 shrink-0 mt-1" />
                     <p className="text-sm text-emerald-900">
-                      <strong>{t('pdf-to-image.privacyNotice')}</strong>
+                      <strong>{t('tools.pdf-to-image.privacyNotice')}</strong>
                     </p>
                   </div>
                 </div>
               </div>
             </div>
             <div className="space-y-8">
-              <h3 className="text-xl font-bold text-gray-900">{t('pdf-to-image.whyTitle')}</h3>
+              <h3 className="text-xl font-bold text-gray-900">{t('tools.pdf-to-image.highlightsTitle')}</h3>
               
               <div className="flex gap-4">
                 <div className="bg-gray-100 w-12 h-12 rounded-xl flex items-center justify-center shrink-0">
                   <MousePointer2 className="w-6 h-6 text-emerald-600" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-gray-900 mb-1">{t('pdf-to-image.highlight1Title')}</h4>
-                  <p className="text-sm text-gray-600">{t('pdf-to-image.highlight1Desc')}</p>
+                  <h4 className="font-bold text-gray-900 mb-1">{t('tools.pdf-to-image.highlight1Title')}</h4>
+                  <p className="text-sm text-gray-600">{t('tools.pdf-to-image.highlight1Desc')}</p>
                 </div>
               </div>
 
@@ -269,8 +269,8 @@ export default function PdfToImage() {
                   <Layers className="w-6 h-6 text-emerald-600" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-gray-900 mb-1">{t('pdf-to-image.highlight2Title')}</h4>
-                  <p className="text-sm text-gray-600">{t('pdf-to-image.highlight2Desc')}</p>
+                  <h4 className="font-bold text-gray-900 mb-1">{t('tools.pdf-to-image.highlight2Title')}</h4>
+                  <p className="text-sm text-gray-600">{t('tools.pdf-to-image.highlight2Desc')}</p>
                 </div>
               </div>
 
@@ -279,8 +279,8 @@ export default function PdfToImage() {
                   <FileArchive className="w-6 h-6 text-emerald-600" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-gray-900 mb-1">{t('pdf-to-image.highlight3Title')}</h4>
-                  <p className="text-sm text-gray-600">{t('pdf-to-image.highlight3Desc')}</p>
+                  <h4 className="font-bold text-gray-900 mb-1">{t('tools.pdf-to-image.highlight3Title')}</h4>
+                  <p className="text-sm text-gray-600">{t('tools.pdf-to-image.highlight3Desc')}</p>
                 </div>
               </div>
             </div>
@@ -288,7 +288,7 @@ export default function PdfToImage() {
           
           <div className="bg-gray-50 p-8 rounded-3xl text-center">
             <p className="text-gray-500 italic">
-              {t('pdf-to-image.seoFooter')}
+              {t('tools.pdf-to-image.seoFooter')}
             </p>
           </div>
         </div>

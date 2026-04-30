@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Banknote, Copy, Check } from 'lucide-react';
+import ToolSEOCard from '../../../components/ToolSEOCard';
 import { useTranslation } from 'react-i18next';
 import { analytics } from '../../../services/analytics';
 
@@ -178,44 +179,7 @@ export default function RmbConverter() {
         </div>
       </div>
 
-      {/* SEO Section */}
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-8 lg:p-12 mt-8">
-        <h2 className="text-xl font-bold text-slate-800 mb-6">{t('tools.rmb-converter.seoTitle')}</h2>
-        
-        <p className="text-slate-600 mb-8 leading-relaxed">
-          {t('tools.rmb-converter.seoDesc')}
-        </p>
-
-        <h3 className="font-bold text-slate-800 text-lg mb-6">{t('tools.rmb-converter.whyTitle')}</h3>
-        <ul className="space-y-6 text-slate-600 text-sm">
-          <li className="flex gap-4 items-start">
-            <div className="w-8 h-8 rounded-full bg-red-50 text-red-600 flex items-center justify-center shrink-0 font-bold">1</div>
-            <div>
-              <strong className="text-slate-800 block mb-1">{t('tools.rmb-converter.highlight1Title')}</strong>
-              <span>{t('tools.rmb-converter.highlight1Desc')}</span>
-            </div>
-          </li>
-          <li className="flex gap-4 items-start">
-            <div className="w-8 h-8 rounded-full bg-red-50 text-red-600 flex items-center justify-center shrink-0 font-bold">2</div>
-            <div>
-              <strong className="text-slate-800 block mb-1">{t('tools.rmb-converter.highlight2Title')}</strong>
-              <span>{t('tools.rmb-converter.highlight2Desc')}</span>
-            </div>
-          </li>
-          <li className="flex gap-4 items-start">
-            <div className="w-8 h-8 rounded-full bg-red-50 text-red-600 flex items-center justify-center shrink-0 font-bold">3</div>
-            <div>
-              <strong className="text-slate-800 block mb-1">{t('tools.rmb-converter.highlight3Title')}</strong>
-              <span>{t('tools.rmb-converter.highlight3Desc')}</span>
-            </div>
-          </li>
-        </ul>
-        
-        <p className="text-slate-400 text-xs mt-12 pt-8 border-t border-slate-100 text-center italic">
-          {t('tools.rmb-converter.seoFooter')}
-        </p>
-      </div>
-
+      <ToolSEOCard toolKey="rmb-converter" />
     </div>
   );
 }

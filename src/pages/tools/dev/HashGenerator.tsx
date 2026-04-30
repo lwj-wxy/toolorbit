@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Copy, Check } from 'lucide-react';
+import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function HashGenerator() {
   const { t } = useTranslation();
@@ -100,6 +101,7 @@ export default function HashGenerator() {
           })}
         </div>
       </div>
+      <ToolSEOCard toolKey="hash-generator" />
     </div>
   );
 }

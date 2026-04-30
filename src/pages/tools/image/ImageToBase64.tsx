@@ -240,7 +240,7 @@ export default function ImageToBase64() {
           </p>
         </div>
 
-        <h3 className="font-bold text-slate-800 text-lg mb-4">{t('tools.image-to-base64.whyTitle')}</h3>
+        <h3 className="font-bold text-slate-800 text-lg mb-4">{t('tools.image-to-base64.highlightsTitle')}</h3>
         <ul className="space-y-4 text-slate-600">
           <li className="flex gap-3">
             <strong className="text-slate-800 shrink-0">{t('tools.image-to-base64.highlight1Title')}</strong>

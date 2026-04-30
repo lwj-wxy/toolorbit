@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FileKey, Copy, Check } from 'lucide-react';
+import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function ChmodCalculator() {
   const { t } = useTranslation();
@@ -202,6 +203,7 @@ export default function ChmodCalculator() {
            </div>
         </div>
       </div>
+      <ToolSEOCard toolKey="chmod-calculator" />
     </div>
   );
 }

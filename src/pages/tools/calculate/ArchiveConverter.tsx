@@ -4,6 +4,7 @@ import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
 import { useTranslation } from 'react-i18next';
 import { analytics } from '../../../services/analytics';
+import ToolSEOCard from '../../../components/ToolSEOCard';
 
 interface FileItem {
   name: string;
@@ -95,7 +96,7 @@ export default function ArchiveConverter() {
       setFiles(prev => [...prev, ...newFiles]);
     } catch (error) {
       console.error('Error processing files', error);
-      alert(t('archive-converter.errors.parseError'));
+      alert(t('tools.archive-converter.errors.parseError'));
       analytics.trackEvent({
         category: 'Archive Tools',
         action: 'Process Error',
@@ -168,9 +169,9 @@ export default function ArchiveConverter() {
             <Archive className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold tracking-tight text-slate-900">{t('archive-converter.title')}</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900">{t('tools.archive-converter.title')}</h1>
             <p className="text-[#64748b] mt-1 text-sm md:text-base">
-              {t('archive-converter.subtitle')}
+              {t('tools.archive-converter.subtitle')}
             </p>
           </div>
         </div>
@@ -266,34 +267,7 @@ export default function ArchiveConverter() {
         )}
       </div>
 
-      {/* SEO Section */}
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-8 lg:p-12 mb-12">
-        <h2 className="text-xl font-bold text-slate-800 mb-6">{t('tools.archive-converter.seoTitle')}</h2>
-        
-        <p className="text-slate-600 mb-8 leading-relaxed">
-          {t('tools.archive-converter.seoDesc')}
-        </p>
-
-        <h3 className="font-bold text-slate-800 text-lg mb-6">{t('tools.archive-converter.whyTitle')}</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-sm">
-           <div className="bg-slate-50 p-5 rounded-xl border border-slate-100">
-              <h4 className="font-bold text-slate-800 mb-2">{t('tools.archive-converter.highlight1Title')}</h4>
-              <p className="text-slate-500 leading-relaxed">{t('tools.archive-converter.highlight1Desc')}</p>
-           </div>
-           <div className="bg-slate-50 p-5 rounded-xl border border-slate-100">
-              <h4 className="font-bold text-slate-800 mb-2">{t('tools.archive-converter.highlight2Title')}</h4>
-              <p className="text-slate-500 leading-relaxed">{t('tools.archive-converter.highlight2Desc')}</p>
-           </div>
-           <div className="bg-slate-50 p-5 rounded-xl border border-slate-100">
-              <h4 className="font-bold text-slate-800 mb-2">{t('tools.archive-converter.highlight3Title')}</h4>
-              <p className="text-slate-500 leading-relaxed">{t('tools.archive-converter.highlight3Desc')}</p>
-           </div>
-        </div>
-        
-        <p className="text-slate-400 text-[11px] mt-12 pt-8 border-t border-slate-100 text-center uppercase font-bold tracking-widest">
-          {t('tools.archive-converter.seoFooter')}
-        </p>
-      </div>
+      <ToolSEOCard toolKey="archive-converter" />
     </div>
   );
 }

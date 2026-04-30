@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ArrowRightLeft, Calculator } from 'lucide-react';
 import { analytics } from '../../../services/analytics';
+import ToolSEOCard from '../../../components/ToolSEOCard';
 
 type UnitCategory = 'length' | 'weight' | 'volume' | 'temperature';
 
@@ -216,45 +217,7 @@ export default function UnitConverter() {
         </div>
       </div>
 
-      {/* SEO Section */}
-      <div className="bg-white rounded-[2rem] shadow-sm border border-slate-200/80 p-8 lg:p-12 mb-8 mt-12 overflow-hidden relative">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-orange-50 rounded-full -mr-32 -mt-32 opacity-50 blur-3xl animate-pulse" />
-        
-        <h2 className="text-2xl font-extrabold text-slate-800 mb-8 relative z-10">{t('tools.unit-converter.seoTitle')}</h2>
-        
-        <p className="text-slate-600 mb-8 leading-relaxed text-lg relative z-10">
-          {t('tools.unit-converter.seoDesc1')}
-        </p>
-
-        <h3 className="font-black text-slate-800 text-xl mb-6 relative z-10">{t('tools.unit-converter.seoHighlightsTitle')}</h3>
-        <ul className="space-y-6 text-slate-600 relative z-10">
-          <li className="flex gap-4 items-start bg-slate-50/50 p-4 rounded-xl border border-slate-100">
-            <div className="w-8 h-8 bg-orange-100 text-orange-600 rounded-lg flex items-center justify-center shrink-0 font-black">1</div>
-            <div>
-              <strong className="text-slate-800 block mb-1 text-lg">{t('tools.unit-converter.highlight1Title')}</strong>
-              <span className="leading-relaxed">{t('tools.unit-converter.highlight1Desc')}</span>
-            </div>
-          </li>
-          <li className="flex gap-4 items-start bg-slate-50/50 p-4 rounded-xl border border-slate-100">
-            <div className="w-8 h-8 bg-orange-100 text-orange-600 rounded-lg flex items-center justify-center shrink-0 font-black">2</div>
-            <div>
-              <strong className="text-slate-800 block mb-1 text-lg">{t('tools.unit-converter.highlight2Title')}</strong>
-              <span className="leading-relaxed">{t('tools.unit-converter.highlight2Desc')}</span>
-            </div>
-          </li>
-          <li className="flex gap-4 items-start bg-slate-50/50 p-4 rounded-xl border border-slate-100">
-            <div className="w-8 h-8 bg-orange-100 text-orange-600 rounded-lg flex items-center justify-center shrink-0 font-black">3</div>
-            <div>
-              <strong className="text-slate-800 block mb-1 text-lg">{t('tools.unit-converter.highlight3Title')}</strong>
-              <span className="leading-relaxed">{t('tools.unit-converter.highlight3Desc')}</span>
-            </div>
-          </li>
-        </ul>
-        
-        <p className="text-slate-400 text-sm mt-10 pt-8 border-t border-slate-100 italic">
-          {t('tools.unit-converter.seoFooter')}
-        </p>
-      </div>
+      <ToolSEOCard toolKey="unit-converter" />
     </div>
   );
 }
