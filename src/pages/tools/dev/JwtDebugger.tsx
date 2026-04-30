@@ -100,7 +100,7 @@ export default function JwtDebugger() {
         <div className="space-y-6">
           <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm">
             <h2 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
-              <Layers className="w-4 h-4" /> Header
+              <Layers className="w-4 h-4" /> {t('tools.jwt-debugger.headerLabel')}
             </h2>
             <pre className="p-4 bg-indigo-50/50 border border-indigo-100 rounded-xl font-mono text-xs text-indigo-700 overflow-auto max-h-[150px]">
               {header ? JSON.stringify(header, null, 2) : `// ${t('tools.jwt-debugger.waitingMsg')}`}
@@ -109,7 +109,7 @@ export default function JwtDebugger() {
 
           <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm overflow-hidden flex-1 flex flex-col">
             <h2 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
-              <Database className="w-4 h-4" /> Payload
+              <Database className="w-4 h-4" /> {t('tools.jwt-debugger.payloadLabel')}
             </h2>
             <pre className="p-4 bg-amber-50/50 border border-amber-100 rounded-xl font-mono text-xs text-amber-700 overflow-auto max-h-[300px] mb-6">
               {payload ? JSON.stringify(payload, null, 2) : `// ${t('tools.jwt-debugger.waitingMsg')}`}

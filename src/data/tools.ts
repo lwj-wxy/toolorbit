@@ -33,7 +33,9 @@ import {
   Link2,
   ShieldCheck,
   Bomb,
-  Layers
+  Layers,
+  FileJson,
+  Regex
 } from 'lucide-react';
 
 export type Category = '开发者工具' | '站长工具' | '文本排版' | '生成器' | '电商工具' | 'PDF工具' | '图片处理' | '计算转换' | '娱乐工具';
@@ -375,6 +377,22 @@ export const TOOLS: ToolItem[] = [
     icon: Layers,
     category: "开发者工具",
     path: "/tools/dev/jwt-debugger"
+  },
+  {
+    id: "regex-tester",
+    name: "正则表达式测试",
+    description: "实时编写与调试正则表达式，支持匹配高亮、分组提取及常用修饰符配置。",
+    icon: Regex,
+    category: "开发者工具",
+    path: "/tools/dev/regex-tester"
+  },
+  {
+    id: "json-to-ts",
+    name: "JSON 转 TypeScript",
+    description: "依据 JSON 数据自动推导并生成精准的 TypeScript 接口定义代码。",
+    icon: FileJson,
+    category: "开发者工具",
+    path: "/tools/dev/json-to-ts"
   },
   {
     id: "minesweeper",

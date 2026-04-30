@@ -51,6 +51,8 @@ import ShortUrl from './pages/tools/net/ShortUrl';
 import Game2048 from './pages/tools/fun/Game2048';
 import PasswordGenerator from './pages/tools/dev/PasswordGenerator';
 import JwtDebugger from './pages/tools/dev/JwtDebugger';
+import JsonToTs from './pages/tools/dev/JsonToTs';
+import RegexTester from './pages/tools/dev/RegexTester';
 import Minesweeper from './pages/tools/fun/Minesweeper';
 
 function AnalyticsTracker() {
@@ -111,6 +113,8 @@ export default function App() {
           <Route path="/tools/fun/game-2048" element={<Game2048 />} />
           <Route path="/tools/dev/password-generator" element={<PasswordGenerator />} />
           <Route path="/tools/dev/jwt-debugger" element={<JwtDebugger />} />
+          <Route path="/tools/dev/json-to-ts" element={<JsonToTs />} />
+          <Route path="/tools/dev/regex-tester" element={<RegexTester />} />
           <Route path="/tools/fun/minesweeper" element={<Minesweeper />} />
         </Routes>
       </Layout>
