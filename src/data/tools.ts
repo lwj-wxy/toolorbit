@@ -35,7 +35,10 @@ import {
   Bomb,
   Layers,
   FileJson,
-  Regex
+  Regex,
+  Lock,
+  Radio,
+  FileCode
 } from 'lucide-react';
 
 export type Category = '开发者工具' | '站长工具' | '文本排版' | '生成器' | '电商工具' | 'PDF工具' | '图片处理' | '计算转换' | '娱乐工具';
@@ -63,7 +66,7 @@ export const TOOLS: ToolItem[] = [
     name: 'Base64 编解码',
     description: '网页端快速编解码工具，完美支持 UTF-8 中文字符集。',
     icon: Binary,
-    category: '开发者工具',
+    category: '计算转换',
     path: '/tools/dev/base64',
   },
   {
@@ -71,7 +74,7 @@ export const TOOLS: ToolItem[] = [
     name: 'ASCII 编码表',
     description: '标准 ASCII 及控制字符在线对照与各进制速查手册。',
     icon: Hash,
-    category: '开发者工具',
+    category: '计算转换',
     path: '/tools/dev/ascii-table',
   },
   {
@@ -95,7 +98,7 @@ export const TOOLS: ToolItem[] = [
     name: 'UUID 在线生成',
     description: '批量生成 RFC 4122 标准的随机 Version 4 UUID。',
     icon: Fingerprint,
-    category: '开发者工具',
+    category: '生成器',
     path: '/tools/dev/uuid-generator',
   },
   {
@@ -103,7 +106,7 @@ export const TOOLS: ToolItem[] = [
     name: 'Unicode 转换',
     description: '中文等原生字符与 \\uXXXX 格式的 Unicode 转义互转。',
     icon: Code,
-    category: '开发者工具',
+    category: '计算转换',
     path: '/tools/dev/unicode-converter',
   },
   {
@@ -319,7 +322,7 @@ export const TOOLS: ToolItem[] = [
     name: "颜色代码转换",
     description: "HEX, RGB, HSL, HSV, CMYK 等多种工业色彩规格之间无损互转，支持透明度提取。",
     icon: Palette,
-    category: "开发者工具",
+    category: "计算转换",
     path: "/tools/dev/color-converter"
   },
   {
@@ -327,7 +330,7 @@ export const TOOLS: ToolItem[] = [
     name: "阶梯调色板推演工具",
     description: "针对主色调自动演化同色系更具层次的高级 Tints 与 Shades。",
     icon: Palette,
-    category: "开发者工具",
+    category: "计算转换",
     path: "/tools/dev/color-palette"
   },
   {
@@ -335,7 +338,7 @@ export const TOOLS: ToolItem[] = [
     name: "屏幕颜色拾取器",
     description: "调用浏览器原生 EyeDropper 接口全屏取色。",
     icon: Pipette,
-    category: "开发者工具",
+    category: "计算转换",
     path: "/tools/dev/color-picker"
   },
   {
@@ -367,7 +370,7 @@ export const TOOLS: ToolItem[] = [
     name: "强密码生成器",
     description: "本地随机生成高强度复杂密码，保护您的账户隐私安全。",
     icon: ShieldCheck,
-    category: "开发者工具",
+    category: "生成器",
     path: "/tools/dev/password-generator"
   },
   {
@@ -393,6 +396,38 @@ export const TOOLS: ToolItem[] = [
     icon: FileJson,
     category: "开发者工具",
     path: "/tools/dev/json-to-ts"
+  },
+  {
+    id: "crypto-symmetric",
+    name: "对称加密 (AES/DES)",
+    description: "AES, DES, RC4 等对称加密与解密工具，支持多种补位与模式配置。",
+    icon: Lock,
+    category: "开发者工具",
+    path: "/tools/dev/crypto-symmetric"
+  },
+  {
+    id: "morse-code",
+    name: "摩斯密码转换",
+    description: "在线将文本编码为摩斯电码，或将电码解码为可读文本。",
+    icon: Radio,
+    category: "娱乐工具",
+    path: "/tools/dev/morse-code"
+  },
+  {
+    id: "hex-string-converter",
+    name: "16 进制转字符串",
+    description: "文本与 16 进制（Hex）编码之间的相互转换工具。",
+    icon: FileCode,
+    category: "计算转换",
+    path: "/tools/dev/hex-string-converter"
+  },
+  {
+    id: "chinese-crypto",
+    name: "国密算法 (SM2/3/4)",
+    description: "中国国家密码管理局发布的国产加密算法在线工具，包含 SM2, SM3, SM4。",
+    icon: ShieldCheck,
+    category: "开发者工具",
+    path: "/tools/dev/chinese-crypto"
   },
   {
     id: "minesweeper",

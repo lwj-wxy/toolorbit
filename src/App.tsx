@@ -54,6 +54,10 @@ import JwtDebugger from './pages/tools/dev/JwtDebugger';
 import JsonToTs from './pages/tools/dev/JsonToTs';
 import RegexTester from './pages/tools/dev/RegexTester';
 import Minesweeper from './pages/tools/fun/Minesweeper';
+import CryptoSymmetric from './pages/tools/dev/CryptoSymmetric';
+import MorseCode from './pages/tools/dev/MorseCode';
+import HexStringConverter from './pages/tools/dev/HexStringConverter';
+import ChineseCrypto from './pages/tools/dev/ChineseCrypto';
 
 function AnalyticsTracker() {
   usePageTracking();
@@ -115,6 +119,10 @@ export default function App() {
           <Route path="/tools/dev/jwt-debugger" element={<JwtDebugger />} />
           <Route path="/tools/dev/json-to-ts" element={<JsonToTs />} />
           <Route path="/tools/dev/regex-tester" element={<RegexTester />} />
+          <Route path="/tools/dev/crypto-symmetric" element={<CryptoSymmetric />} />
+          <Route path="/tools/dev/morse-code" element={<MorseCode />} />
+          <Route path="/tools/dev/hex-string-converter" element={<HexStringConverter />} />
+          <Route path="/tools/dev/chinese-crypto" element={<ChineseCrypto />} />
           <Route path="/tools/fun/minesweeper" element={<Minesweeper />} />
         </Routes>
       </Layout>

@@ -2,11 +2,13 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Copy, Check } from 'lucide-react';
 import ToolSEOCard from '../../../components/ToolSEOCard';
+import CryptoJS from 'crypto-js';
 
 export default function HashGenerator() {
   const { t } = useTranslation();
   const [input, setInput] = useState('');
   const [hashes, setHashes] = useState<Record<string, string>>({
+    'MD5': '',
     'SHA-1': '',
     'SHA-256': '',
     'SHA-384': '',
@@ -16,16 +18,20 @@ export default function HashGenerator() {
 
   const generateHashes = async (text: string) => {
     if (!text) {
-      setHashes({ 'SHA-1': '', 'SHA-256': '', 'SHA-384': '', 'SHA-512': '' });
+      setHashes({ 'MD5': '', 'SHA-1': '', 'SHA-256': '', 'SHA-384': '', 'SHA-512': '' });
       return;
     }
 
-    const encoder = new TextEncoder();
-    const data = encoder.encode(text);
-    
     try {
-      const algos = ['SHA-1', 'SHA-256', 'SHA-384', 'SHA-512'];
       const newHashes: Record<string, string> = {};
+      
+      // MD5 via crypto-js
+      newHashes['MD5'] = CryptoJS.MD5(text).toString();
+
+      // SHA via native crypto.subtle
+      const encoder = new TextEncoder();
+      const data = encoder.encode(text);
+      const algos = ['SHA-1', 'SHA-256', 'SHA-384', 'SHA-512'];
       
       for (const algo of algos) {
         const hashBuffer = await crypto.subtle.digest(algo, data);
