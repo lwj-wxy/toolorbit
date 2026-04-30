@@ -91,15 +91,6 @@ export default function ListingCraft() {
             {t('tools.listing-craft-ai.subtitle')}
           </p>
         </div>
-        <a 
-          href="https://ecomcopy-ai.toolorbit.site" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white px-5 py-2.5 rounded-full text-sm font-bold shadow-sm transition-all hover:shadow-md"
-        >
-          <ExternalLink size={16} />
-          {t('tools.listing-craft-ai.fullFeaturesBtn')}
-        </a>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
