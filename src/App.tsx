@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { usePageTracking } from './hooks/usePageTracking';
 import Layout from './components/Layout';
 import Home from './pages/Home';
@@ -124,6 +124,8 @@ export default function App() {
           <Route path="/tools/dev/hex-string-converter" element={<HexStringConverter />} />
           <Route path="/tools/dev/chinese-crypto" element={<ChineseCrypto />} />
           <Route path="/tools/fun/minesweeper" element={<Minesweeper />} />
+          {/* Catch-all route to redirect invalid paths to Home */}
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Layout>
     </BrowserRouter>
