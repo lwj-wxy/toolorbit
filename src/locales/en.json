@@ -2,6 +2,7 @@
   "common": {
     "searchPlaceholder": "Search tools...",
     "logoName": "ToolOrbit",
+    "navTools": "Online Tools",
     "mobileMenu": "Navigation",
     "footerText": "© 2026 ToolOrbit.site - One-stop professional efficiency tool aggregation platform.",
     "categories": {
@@ -1270,6 +1271,29 @@
       "highlight3Title": "3. Privacy First Mapping:",
       "highlight3Desc": "We do not log or cache your original long URLs. The conversion happens directly between the web interface and the shortener API.",
       "disclaimer": "Note: Links may be disabled if they violate the terms of service of the underlying provider."
+    }
+  },
+  "blog": {
+    "nav": "Blog",
+    "title": "Developer Resources",
+    "subtitle": "Deep dive into tool mechanics and explore efficient workflows.",
+    "readMore": "Read More",
+    "posts": {
+      "why-use-json-formatter": {
+        "title": "Why Developers Can't Live Without JSON Formatters",
+        "summary": "When dealing with complex API responses, well-formatted data is key to efficient debugging. This post explores common scenarios.",
+        "content": "<h3>What is JSON Formatting?</h3><p>JSON (JavaScript Object Notation) is a lightweight data interchange format. While machine-friendly, nested or minified JSON string is hard for humans to parse.</p><h3>Core Benefits</h3><ul><li><strong>Readability:</strong> Auto-indentation and syntax highlighting make structure clear.</li><li><strong>Error Checking:</strong> Real-time syntax validation prevents crashes due to missing commas.</li><li><strong>Local Safety:</strong> At ToolOrbit, all formatting happens locally; your API data never leaves the browser.</li></ul>"
+      },
+      "benefits-of-chinese-crypto-sm": {
+        "title": "Intro to SM Crypto: Explaining SM2, SM3, and SM4",
+        "summary": "SM algorithms are standard for financial systems in China. Learn why they differ from RSA/AES and how to use them.",
+        "content": "<p>With the rise of localized technology, SM (Commercial Cryptography) algorithms defined by OSCCA are becoming essential for developers.</p><h3>SM2: Asymmetric Cipher</h3><p>SM2 is based on ECC. Its security at 256-bit key length is equivalent to 2048-bit RSA, offering faster processing.</p><h3>SM3: Hashing</h3><p>A replacement for MD5/SHA-256, producing a 256-bit hash with strong collision resistance.</p><h3>SM4: Symmetric Block Cipher</h3><p>Used for bulk data encryption. Its security matches AES-128 while adhering to domestic regulatory compliance.</p>"
+      },
+      "morse-code-guide": {
+        "title": "Morse Code: From Telegraph to Modern Geek Culture",
+        "summary": "Morse code isn't just history; it remains a favorite in emergency comms and logic puzzles. Learn how to master it.",
+        "content": "<p>Morse code encodes characters into sequences of dots and dashes.</p><h3>How to Memorize?</h3><p>The simplest way is rhythm. 'S' is three short dots (...) and 'O' is three long dashes (---), forming the famous SOS distress signal.</p><h3>Modern Usage</h3><p>Despite high-speed wireless, it remains useful in outdoor survival, assistive tech, and CTF challenges.</p>"
+      }
     }
   },
   "nav": {

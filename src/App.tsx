@@ -58,6 +58,8 @@ import CryptoSymmetric from './pages/tools/dev/CryptoSymmetric';
 import MorseCode from './pages/tools/dev/MorseCode';
 import HexStringConverter from './pages/tools/dev/HexStringConverter';
 import ChineseCrypto from './pages/tools/dev/ChineseCrypto';
+import BlogList from './pages/BlogList';
+import BlogPost from './pages/BlogPost';
 
 function AnalyticsTracker() {
   usePageTracking();
@@ -71,6 +73,8 @@ export default function App() {
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/blog" element={<BlogList />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/tools/dev/json-formatter" element={<JsonFormatter />} />
           <Route path="/tools/dev/base64" element={<Base64 />} />
           <Route path="/tools/dev/ascii-table" element={<AsciiTable />} />

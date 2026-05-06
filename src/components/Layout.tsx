@@ -40,53 +40,71 @@ export default function Layout({ children }: LayoutProps) {
           </Link>
           
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-stretch gap-0.5 lg:gap-1 h-full">
-            {navCategories.map((category) => {
-              const categoryTools = TOOLS.filter(t => t.category === category);
-              const isActive = location.search.includes(category);
-              
-              return (
-                <div key={category} className="group flex items-center h-full">
-                  <Link
-                    to={`/?category=${category}`}
-                    className={cn(
-                      "px-1.5 lg:px-2.5 flex items-center gap-1 h-full text-[14px] lg:text-[15px] font-bold transition-all duration-200 border-b-[3px] border-transparent mt-[3px] cursor-pointer whitespace-nowrap",
-                      isActive ? "text-blue-600 border-blue-600" : "text-slate-600 group-hover:text-slate-900"
-                    )}
-                  >
-                    {t(`common.categories.${category}`)}
-                    <ChevronDown className="w-3.5 h-3.5 lg:w-4 lg:h-4 transition-transform duration-200 group-hover:rotate-180 text-slate-400" />
-                  </Link>
+          <nav className="hidden md:flex items-stretch gap-1 lg:gap-2 h-full">
+            <div className="group flex items-center h-full">
+              <Link
+                to="/"
+                className={cn(
+                  "px-2 lg:px-3 flex items-center gap-1.5 h-full text-[14px] lg:text-[15px] font-bold transition-all duration-200 border-b-[3px] border-transparent mt-[3px] cursor-pointer whitespace-nowrap",
+                  location.pathname === '/' || location.search.includes('category') ? "text-blue-600 border-blue-600" : "text-slate-600 group-hover:text-slate-900"
+                )}
+              >
+                {t('common.navTools')}
+                <ChevronDown className="w-3.5 h-3.5 lg:w-4 lg:h-4 transition-transform duration-200 group-hover:rotate-180 text-slate-400" />
+              </Link>
 
-                  {/* Mega Menu Full Width Dropdown */}
-                  <div className="absolute top-[64px] left-0 w-full bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.05)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top -translate-y-1 group-hover:translate-y-0 z-50">
-                    <div className="max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-8">
-                      <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 lg:gap-x-8 gap-y-3 lg:gap-y-4">
-                        {categoryTools.map(tool => (
-                          <Link
-                            key={tool.id}
-                            to={tool.path}
-                            className="flex items-start gap-4 p-3 rounded-xl hover:bg-slate-50 transition-all group/item"
-                          >
-                            <div className="w-10 h-10 rounded-lg bg-slate-100 border border-slate-200/60 flex items-center justify-center flex-shrink-0 text-slate-500 group-hover/item:text-blue-600 group-hover/item:bg-blue-50 group-hover/item:border-blue-200 transition-colors">
-                              <tool.icon size={20} strokeWidth={2} />
-                            </div>
-                            <div className="min-w-0 flex-1">
-                              <h4 className="text-[14px] font-bold text-slate-800 group-hover/item:text-blue-600 mb-1 truncate">
-                                {t(`tools.${tool.id}.name`, { defaultValue: tool.name })}
-                              </h4>
-                              <p className="text-[12px] text-slate-500 line-clamp-2 leading-relaxed">
-                                {t(`tools.${tool.id}.description`, { defaultValue: tool.description })}
-                              </p>
-                            </div>
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
+              {/* Mega Menu - Grouped by Category */}
+              <div className="absolute top-[64px] left-0 w-full bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.05)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top -translate-y-1 group-hover:translate-y-0 z-50">
+                <div className="max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-10">
+                  <div className="grid grid-cols-4 lg:grid-cols-5 xl:grid-cols-8 gap-6">
+                    {navCategories.map(category => {
+                      const categoryTools = TOOLS.filter(t => t.category === category);
+                      return (
+                        <div key={category} className="flex flex-col gap-3">
+                          <h3 className="text-[13px] font-extrabold text-slate-400 uppercase tracking-wider mb-2 px-2">
+                             {t(`common.categories.${category}`)}
+                          </h3>
+                          <div className="flex flex-col gap-1">
+                            {categoryTools.slice(0, 6).map(tool => (
+                              <Link
+                                key={tool.id}
+                                to={tool.path}
+                                className="group/item flex items-center gap-2 p-2 rounded-lg hover:bg-slate-50 transition-all"
+                              >
+                                <div className="w-6 h-6 rounded flex items-center justify-center text-slate-400 group-hover/item:text-blue-600 transition-colors">
+                                  <tool.icon size={16} />
+                                </div>
+                                <span className="text-[13px] font-bold text-slate-700 group-hover/item:text-blue-600 truncate">
+                                  {t(`tools.${tool.id}.name`)}
+                                </span>
+                              </Link>
+                            ))}
+                            {categoryTools.length > 6 && (
+                              <Link 
+                                to={`/?category=${category}`} 
+                                className="text-[12px] font-bold text-blue-500 hover:text-blue-700 px-2 mt-1"
+                              >
+                                查看更多...
+                              </Link>
+                            )}
+                          </div>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
-              );
-            })}
+              </div>
+            </div>
+
+            <Link
+              to="/blog"
+              className={cn(
+                "px-2 lg:px-3 flex items-center h-full text-[14px] lg:text-[15px] font-bold transition-all duration-200 border-b-[3px] border-transparent mt-[3px] cursor-pointer whitespace-nowrap",
+                location.pathname.startsWith('/blog') ? "text-blue-600 border-blue-600" : "text-slate-600 hover:text-slate-900"
+              )}
+            >
+              🚀 {t('blog.nav')}
+            </Link>
           </nav>
         </div>
 
@@ -194,6 +212,19 @@ export default function Layout({ children }: LayoutProps) {
                   </div>
                 );
               })}
+              
+              <div className="flex flex-col gap-3 mt-4 pt-4 border-t border-slate-200">
+                <Link
+                  to="/blog"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={cn(
+                    "flex items-center gap-3 py-3 px-4 rounded-xl font-bold transition-all",
+                    location.pathname.startsWith('/blog') ? "bg-blue-50 text-blue-600 shadow-sm" : "text-slate-600 hover:bg-slate-50"
+                  )}
+                >
+                   <span className="text-[16px]">{t('blog.nav')}</span>
+                </Link>
+              </div>
             </div>
           </div>
         </div>

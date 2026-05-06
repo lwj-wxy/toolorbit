@@ -68,5 +68,11 @@
   <url><loc>https://toolorbit.site/tools/dev/chinese-crypto</loc><lastmod>2026-05-06</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://toolorbit.site/tools/fun/game-2048</loc><lastmod>2026-05-06</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://toolorbit.site/tools/fun/minesweeper</loc><lastmod>2026-05-06</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  
+  <!-- Blogs -->
+  <url><loc>https://toolorbit.site/blog</loc><lastmod>2026-05-06</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>
+  <url><loc>https://toolorbit.site/blog/why-use-json-formatter</loc><lastmod>2026-05-06</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolorbit.site/blog/benefits-of-chinese-crypto-sm</loc><lastmod>2026-05-06</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolorbit.site/blog/morse-code-guide</loc><lastmod>2026-05-06</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
 </urlset>
 
