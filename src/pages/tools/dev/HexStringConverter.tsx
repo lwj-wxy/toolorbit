@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FileCode, ArrowRightLeft, Copy, CheckCircle2, Trash2, Info } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function HexStringConverter() {
   const { t } = useTranslation();
@@ -139,6 +140,7 @@ export default function HexStringConverter() {
           </p>
         </div>
       </div>
+      <ToolSEOCard toolKey="hex-string-converter" />
     </div>
   );
 }

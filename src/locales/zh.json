@@ -1181,7 +1181,17 @@
       "statusMsg": "双向实时同步转换",
       "didYouKnowTitle": "你知道吗？",
       "didYouKnowDesc": "16 进制 (Hexadecimal) 是一种基数为 16 的计数系统。在计算机科学中，它常被用作二进制数据的人类友好表示形式。一个字节 (8 bits) 可以由两个 16 进制字符精确表示。",
-      "errorInvalid": "无效的 16 进制格式"
+      "errorInvalid": "无效的 16 进制格式",
+      "seoTitle": "16进制与字符串转换工具：高效编码解析",
+      "seoDesc": "在处理底层协议、数据包分析或文件编码时，16进制（Hex）是不可或缺的。我们的工具支持将 UTF-8 文本快速转换为标准的 16 进制表示，并支持反向解析，所有操作均在本地浏览器中完成。",
+      "highlightsTitle": "16进制转换器核心优势",
+      "highlight1Title": "1. 完整的 UTF-8 支持：",
+      "highlight1Desc": "完美支持中文字符、Emoji 以及特殊符号的 16 进制编解码，不会出现乱码。",
+      "highlight2Title": "2. 可视化交互：",
+      "highlight2Desc": "双向实时同步转换，随着您的输入即时更新结果，提高调试效率。",
+      "highlight3Title": "3. 隐私与安全：",
+      "highlight3Desc": "采用原生 Web 技术实现，不存储任何输入内容，保障开发者数据隐私。",
+      "disclaimer": "提示：在复制结果时，请注意 16 进制字符串中的空格分隔符可能会影响某些程序的读取。"
     },
     "chinese-crypto": {
       "name": "国密算法 (SM2/3/4)",
@@ -1210,7 +1220,17 @@
       "errorSm4Key": "SM4 密钥必须是 32 位 16 进制字符串（16 字节）",
       "errorNoInput": "请输入输入内容",
       "errorOperationFailed": "操作失败",
-      "errorErrorOccurred": "发生错误"
+      "errorErrorOccurred": "发生错误",
+      "seoTitle": "国密算法（SM2/SM3/SM4）在线工具：安全与合规",
+      "seoDesc": "支持中国国家标准局发布的国密算法合规实现。包含 SM2 椭圆曲线非对称加解密、SM3 杂凑算法（哈希）以及 SM4 分组对称加密。为政务、金融及军工相关开发者提供便捷的调试支持。",
+      "highlightsTitle": "为什么选择我们的国密工具？",
+      "highlight1Title": "1. 硬核加密库支持：",
+      "highlight1Desc": "基于高性能的原生国密算法库实现，确保计算结果与主流软硬件接口完全一致。",
+      "highlight2Title": "2. 极简集成测试：",
+      "highlight2Desc": "无需安装复杂的运行环境，开箱即用，支持多模式转换和密钥验证。",
+      "highlight3Title": "3. 绝对安全：",
+      "highlight3Desc": "所有敏感计算全部通过 JavaScript 在客户端完成，您的明文和密钥绝不上传。建议在正式环境部署前进行充分测试。",
+      "disclaimer": "注意：本工具仅供开发调试使用，请勿在非受控环境下传输核心算法密钥。"
     },
     "regex-tester": {
       "name": "正则表达式测试",
@@ -1241,7 +1261,17 @@
       "flagSinglelineLabel": "单行模式 (s)",
       "flagSinglelineDesc": "让 . 点号能够匹配包含换行符在内的所有字符。",
       "flagUnicodeLabel": "Unicode 支持 (u)",
-      "flagUnicodeDesc": "开启完整的 Unicode 字符支持。"
+      "flagUnicodeDesc": "开启完整的 Unicode 字符支持。",
+      "seoTitle": "正则表达式在线测试与调试利器：语法解析与高亮",
+      "seoDesc": "正则表达式是处理文本的魔法。我们的正则测试器提供实时的语法高亮、捕获组提取和修饰符配置，帮助初学者和高阶开发者快速验证正则逻辑，并直接导出各种语言可用的代码片段。",
+      "highlightsTitle": "正则测试器功能亮点",
+      "highlight1Title": "1. 实时所见即所得：",
+      "highlight1Desc": "输入即匹配。蓝色高亮完整匹配，黄色标注捕获组，错误时提供友好的语法纠偏建议。",
+      "highlight2Title": "2. 全方位的修饰符支：",
+      "highlight2Desc": "一键开关 g, i, m, s, u 等标志，模拟真实执行环境下的匹配行为。",
+      "highlight3Title": "3. 常用语法参考：",
+      "highlight3Desc": "内置常见的正则模版（如电子邮箱、URL、手机号），节省重复查阅文档的时间。",
+      "disclaimer": "法律提示：请确保在生产环境中使用性能优化的正则，以避免潜在的正则拒绝服务 (ReDoS) 风险。"
     },
     "game-2048": { "name": "2048 经典游戏", "description": "经典的 2048 益智数字合并小游戏，解压、益智、防无聊。" },
     "minesweeper": { "name": "经典扫雷", "description": "Windows 经典扫雷小游戏，挑战逻辑思维与运气。" },

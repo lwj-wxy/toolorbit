@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import ToolSEOCard from '../../../components/ToolSEOCard';
 import { 
   Copy, 
   Trash2, 
@@ -192,6 +193,7 @@ const JsonToTs: React.FC = () => {
           </p>
         </div>
       </div>
+      <ToolSEOCard toolKey="json-to-ts" />
     </div>
   );
 };

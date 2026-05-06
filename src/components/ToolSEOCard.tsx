@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 interface ToolSEOCardProps {
@@ -8,8 +8,31 @@ interface ToolSEOCardProps {
 const ToolSEOCard: React.FC<ToolSEOCardProps> = ({ toolKey }) => {
   const { t } = useTranslation();
 
-  // Check if at least the title exists to avoid rendering empty cards
   const title = t(`tools.${toolKey}.seoTitle`);
+  const description = t(`tools.${toolKey}.seoDesc`);
+
+  useEffect(() => {
+    if (title && title !== `tools.${toolKey}.seoTitle`) {
+      document.title = `${title} | ToolOrbit`;
+      
+      // Update meta description
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc && description && description !== `tools.${toolKey}.seoDesc`) {
+        metaDesc.setAttribute('content', description);
+      }
+    }
+
+    return () => {
+      // Revert to default on unmount
+      document.title = 'ToolOrbit - All-in-one Online Productivity Toolkit | Image, Dev & Math Tools';
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc) {
+        metaDesc.setAttribute('content', 'ToolOrbit is a collection of free, secure, and fast online tools for developers, designers, and webmasters. Features image converters, JSON formatters, calculators, and more.');
+      }
+    };
+  }, [title, description, toolKey, t]);
+
+  // Check if at least the title exists to avoid rendering empty cards
   if (!title || title === `tools.${toolKey}.seoTitle`) return null;
 
   return (
