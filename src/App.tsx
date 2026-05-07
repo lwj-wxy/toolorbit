@@ -60,6 +60,9 @@ import HexStringConverter from './pages/tools/dev/HexStringConverter';
 import ChineseCrypto from './pages/tools/dev/ChineseCrypto';
 import BlogList from './pages/BlogList';
 import BlogPost from './pages/BlogPost';
+import Privacy from './pages/Privacy';
+import Terms from './pages/Terms';
+import About from './pages/About';
 
 function AnalyticsTracker() {
   usePageTracking();
@@ -75,6 +78,9 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/blog" element={<BlogList />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/about" element={<About />} />
           <Route path="/tools/dev/json-formatter" element={<JsonFormatter />} />
           <Route path="/tools/dev/base64" element={<Base64 />} />
           <Route path="/tools/dev/ascii-table" element={<AsciiTable />} />

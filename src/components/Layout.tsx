@@ -237,8 +237,16 @@ export default function Layout({ children }: LayoutProps) {
         </main>
       </div>
 
-      <footer className="bg-transparent py-8 flex items-center justify-center text-[13px] text-slate-400 mt-auto relative z-10">
-        <p>{t('common.footerText')}</p>
+      <footer className="bg-transparent pt-8 pb-12 flex flex-col items-center justify-center text-[13px] text-slate-400 mt-auto relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-200/50">
+        <div className="flex gap-6 mb-4 font-medium">
+          <Link to="/about" className="hover:text-blue-600 transition-colors">{t('common.nav_about')}</Link>
+          <Link to="/privacy" className="hover:text-blue-600 transition-colors">{t('common.nav_privacy')}</Link>
+          <Link to="/terms" className="hover:text-blue-600 transition-colors">{t('common.nav_terms')}</Link>
+        </div>
+        <div className="text-center">
+          <p>{t('common.footer_desc')}</p>
+          <p>{t('common.footerText')}</p>
+        </div>
       </footer>
 
     </div>
