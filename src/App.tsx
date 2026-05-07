@@ -4,6 +4,7 @@
  */
 
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 import { usePageTracking } from './hooks/usePageTracking';
 import Layout from './components/Layout';
 import Home from './pages/Home';
@@ -72,6 +73,7 @@ function AnalyticsTracker() {
 export default function App() {
   return (
     <BrowserRouter>
+      <Toaster position="top-right" toastOptions={{ className: 'text-sm font-medium' }} />
       <AnalyticsTracker />
       <Layout>
         <Routes>

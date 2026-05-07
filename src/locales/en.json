@@ -26,7 +26,10 @@
     "nav_about": "About Us",
     "footer_desc": "ToolOrbit - Modern toolset for developers.",
     "related_tools": "Related Tools",
-    "nav_home": "Home"
+    "nav_home": "Home",
+    "pinned": "Pinned to top",
+    "unpinned": "Unpinned from top",
+    "pinned_tools": "My Pinned Tools"
   },
   "search": {
     "results": "Search Results: \"{{query}}\"",

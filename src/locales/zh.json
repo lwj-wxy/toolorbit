@@ -26,7 +26,10 @@
     "nav_about": "关于我们",
     "footer_desc": "ToolOrbit - 面向开发者的现代工具集合。",
     "related_tools": "相关工具推荐",
-    "nav_home": "首页"
+    "nav_home": "首页",
+    "pinned": "已固定到首页",
+    "unpinned": "已取消固定",
+    "pinned_tools": "我的常用工具"
   },
   "search": {
     "results": "搜索结果: \"{{query}}\"",

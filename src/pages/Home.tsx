@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { TOOLS, Category } from '../data/tools';
+import { Star } from 'lucide-react';
+import { toast } from 'react-hot-toast';
 
 const getCategoryStyles = (category: Category) => {
   switch(category) {
@@ -25,6 +27,30 @@ export default function Home() {
   const searchQuery = searchParams.get('search')?.toLowerCase() || '';
 
   const [filteredTools, setFilteredTools] = useState(TOOLS);
+  const [pinnedTools, setPinnedTools] = useState<string[]>(() => {
+    try {
+      return JSON.parse(localStorage.getItem('toolorbit_pinned_tools') || '[]');
+    } catch {
+      return [];
+    }
+  });
+
+  const togglePin = (e: React.MouseEvent, toolId: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setPinnedTools(prev => {
+      const isPinned = prev.includes(toolId);
+      const next = isPinned ? prev.filter(id => id !== toolId) : [...prev, toolId];
+      localStorage.setItem('toolorbit_pinned_tools', JSON.stringify(next));
+      
+      if (isPinned) {
+        toast.success(t('common.unpinned') || 'Tool unpinned');
+      } else {
+        toast.success(t('common.pinned') || 'Tool pinned to top');
+      }
+      return next;
+    });
+  };
 
   useEffect(() => {
     let result = TOOLS;
@@ -53,15 +79,22 @@ export default function Home() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {filteredTools.map((tool) => {
+              const isPinned = pinnedTools.includes(tool.id);
               return (
                 <Link
                   key={tool.id}
                   to={tool.path}
-                  className="bg-white border border-slate-200/80 rounded-xl p-4 transition-all duration-200 cursor-pointer flex items-center justify-center text-center hover:-translate-y-1 hover:shadow-md hover:border-slate-300 group"
+                  className="bg-white border border-slate-200/80 rounded-xl p-4 transition-all duration-200 cursor-pointer flex items-center justify-between text-center hover:-translate-y-1 hover:shadow-md hover:border-slate-300 group"
                 >
                   <span className="text-sm font-medium text-slate-600 group-hover:text-blue-600 transition-colors">
                     {t(`tools.${tool.id}.name`, { defaultValue: tool.name })}
                   </span>
+                  <button 
+                    onClick={(e) => togglePin(e, tool.id)}
+                    className={`p-1.5 rounded-md hover:bg-slate-100 transition-colors ${isPinned ? 'text-amber-500' : 'text-slate-300 opacity-0 group-hover:opacity-100'}`}
+                  >
+                    <Star size={16} fill={isPinned ? "currentColor" : "none"} />
+                  </button>
                 </Link>
               );
             })}
@@ -89,9 +122,42 @@ export default function Home() {
   }, {} as Record<Category, typeof TOOLS>);
 
   const categoriesOrder = Array.from(new Set(TOOLS.map(t => t.category)));
+  const pinnedToolObjects = pinnedTools.map(id => TOOLS.find(t => t.id === id)).filter(Boolean) as typeof TOOLS;
 
   return (
     <div className="flex flex-col gap-12 pb-12">
+      {/* Pinned Tools Section */}
+      {pinnedToolObjects.length > 0 && (
+         <section className="space-y-4">
+            <div className="flex items-center gap-3">
+               <div className="w-1 h-6 bg-amber-500 rounded-full" />
+               <h2 className="text-[17px] font-bold text-amber-600 tracking-tight flex items-center gap-2">
+                  <Star size={18} fill="currentColor" />
+                  {t('common.pinned_tools') || 'Pinned Tools'}
+               </h2>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+               {pinnedToolObjects.map(tool => (
+                  <Link
+                    key={`pinned-${tool.id}`}
+                    to={tool.path}
+                    className="bg-white/60 border border-amber-200/50 rounded-xl py-3.5 px-4 flex items-center justify-between text-center transition-all duration-200 hover:shadow-sm hover:-translate-y-[2px] group hover:border-amber-300"
+                  >
+                     <span className="text-[14px] font-medium text-slate-700 group-hover:text-slate-900 transition-colors">
+                        {t(`tools.${tool.id}.name`, { defaultValue: tool.name })}
+                     </span>
+                     <button 
+                       onClick={(e) => togglePin(e, tool.id)}
+                       className="p-1 text-amber-500 hover:text-slate-400 transition-colors"
+                     >
+                       <Star size={16} fill="currentColor" />
+                     </button>
+                  </Link>
+               ))}
+            </div>
+         </section>
+      )}
+
       {categoriesOrder.map((category) => {
          const toolsInCategory = groupedTools[category];
          if (!toolsInCategory || toolsInCategory.length === 0) return null;
@@ -110,17 +176,26 @@ export default function Home() {
 
                {/* Tools Grid */}
                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                  {toolsInCategory.map(tool => (
-                     <Link
-                       key={tool.id}
-                       to={tool.path}
-                       className="bg-white border border-slate-200/80 rounded-xl py-3.5 px-4 flex items-center justify-center text-center transition-all duration-200 hover:shadow-sm hover:-translate-y-[2px] group hover:border-slate-300"
-                     >
-                        <span className="text-[14px] font-medium text-slate-700 group-hover:text-slate-900 transition-colors">
-                           {t(`tools.${tool.id}.name`, { defaultValue: tool.name })}
-                        </span>
-                     </Link>
-                  ))}
+                  {toolsInCategory.map(tool => {
+                     const isPinned = pinnedTools.includes(tool.id);
+                     return (
+                        <Link
+                          key={tool.id}
+                          to={tool.path}
+                          className="bg-white border border-slate-200/80 rounded-xl py-3.5 px-4 flex items-center justify-between text-center transition-all duration-200 hover:shadow-sm hover:-translate-y-[2px] group hover:border-slate-300"
+                        >
+                           <span className="text-[14px] font-medium text-slate-700 group-hover:text-slate-900 transition-colors">
+                              {t(`tools.${tool.id}.name`, { defaultValue: tool.name })}
+                           </span>
+                           <button 
+                             onClick={(e) => togglePin(e, tool.id)}
+                             className={`p-1.5 rounded-md hover:bg-slate-100 transition-colors ${isPinned ? 'text-amber-500' : 'text-slate-300 opacity-0 group-hover:opacity-100'}`}
+                           >
+                             <Star size={16} fill={isPinned ? "currentColor" : "none"} />
+                           </button>
+                        </Link>
+                     );
+                  })}
                </div>
             </section>
          );
