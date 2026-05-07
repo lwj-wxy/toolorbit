@@ -84,5 +84,26 @@ export const BLOG_POSTS: BlogPost[] = [
     date: '2026-04-26',
     category: 'Lifestyle',
     image: 'https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&q=80&w=800'
+  },
+  {
+    id: '12',
+    slug: 'modern-pdf-workflow-efficiency',
+    category: 'tech',
+    image: 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&q=80&w=800',
+    date: '2026-05-06',
+  },
+  {
+    id: '13',
+    slug: 'ai-ecommerce-marketing-tips',
+    category: 'lifestyle',
+    image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=800',
+    date: '2026-05-05',
+  },
+  {
+    id: '14',
+    slug: 'secure-developer-tools-privacy',
+    category: 'security',
+    image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=800',
+    date: '2026-05-04',
   }
 ];
