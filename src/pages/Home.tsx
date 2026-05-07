@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { TOOLS, Category } from '../data/tools';
-import { Star } from 'lucide-react';
+import { Star, Clock } from 'lucide-react';
 import { toast } from 'react-hot-toast';
+import { useRecentTools } from '../hooks/useRecentTools';
 
 const getCategoryStyles = (category: Category) => {
   switch(category) {
@@ -23,6 +24,7 @@ const getCategoryStyles = (category: Category) => {
 export default function Home() {
   const { t } = useTranslation();
   const [searchParams] = useSearchParams();
+  const { recentTools } = useRecentTools();
   const categoryFilter = searchParams.get('category') as Category | null;
   const searchQuery = searchParams.get('search')?.toLowerCase() || '';
 
@@ -154,6 +156,41 @@ export default function Home() {
                      </button>
                   </Link>
                ))}
+            </div>
+         </section>
+      )}
+
+      {/* Recent Tools Section */}
+      {recentTools.length > 0 && !categoryFilter && !searchQuery && (
+         <section className="space-y-4">
+            <div className="flex items-center gap-3">
+               <div className="w-1 h-6 bg-blue-500 rounded-full" />
+               <h2 className="text-[17px] font-bold text-blue-600 dark:text-blue-500 tracking-tight flex items-center gap-2">
+                  <Clock size={18} />
+                  {t('common.recent_tools') || '最近使用'}
+               </h2>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+               {recentTools.map(tool => {
+                  const isPinned = pinnedTools.includes(tool.id);
+                  return (
+                    <Link
+                      key={`recent-${tool.id}`}
+                      to={tool.path}
+                      className="bg-white/60 dark:bg-slate-900/60 border border-slate-200/50 dark:border-slate-800/50 rounded-xl py-3.5 px-4 flex items-center justify-between text-center transition-all duration-200 hover:shadow-sm hover:-translate-y-[2px] group hover:border-blue-300/50 dark:hover:border-blue-700/30"
+                    >
+                       <span className="text-[14px] font-medium text-slate-700 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-slate-100 transition-colors line-clamp-1">
+                          {t(`tools.${tool.id}.name`, { defaultValue: tool.name })}
+                       </span>
+                       <button 
+                         onClick={(e) => togglePin(e, tool.id)}
+                         className={`p-1.5 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors ${isPinned ? 'text-amber-500' : 'text-slate-300 dark:text-slate-600 opacity-0 group-hover:opacity-100'}`}
+                       >
+                         <Star size={16} fill={isPinned ? "currentColor" : "none"} />
+                       </button>
+                    </Link>
+                  );
+               })}
             </div>
          </section>
       )}

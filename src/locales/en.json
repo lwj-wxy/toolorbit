@@ -29,7 +29,8 @@
     "nav_home": "Home",
     "pinned": "Pinned to top",
     "unpinned": "Unpinned from top",
-    "pinned_tools": "My Pinned Tools"
+    "pinned_tools": "My Pinned Tools",
+    "recent_tools": "Recent Tools"
   },
   "search": {
     "results": "Search Results: \"{{query}}\"",

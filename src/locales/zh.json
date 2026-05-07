@@ -29,7 +29,8 @@
     "nav_home": "首页",
     "pinned": "已固定到首页",
     "unpinned": "已取消固定",
-    "pinned_tools": "我的常用工具"
+    "pinned_tools": "我的常用工具",
+    "recent_tools": "最近使用"
   },
   "search": {
     "results": "搜索结果: \"{{query}}\"",

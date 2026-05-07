@@ -8,6 +8,7 @@ import { Toaster } from 'react-hot-toast';
 import { ThemeProvider } from './context/ThemeContext';
 import { usePageTracking } from './hooks/usePageTracking';
 import ScrollToTop from './components/ScrollToTop';
+import RecentToolsTracker from './components/RecentToolsTracker';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import JsonFormatter from './pages/tools/dev/JsonFormatter';
@@ -77,6 +78,7 @@ export default function App() {
     <ThemeProvider>
       <BrowserRouter>
         <ScrollToTop />
+        <RecentToolsTracker />
         <Toaster position="top-right" toastOptions={{ className: 'text-sm font-medium' }} />
         <AnalyticsTracker />
         <Layout>
