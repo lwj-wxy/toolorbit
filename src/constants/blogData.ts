@@ -63,5 +63,26 @@ export const BLOG_POSTS: BlogPost[] = [
     date: '2026-04-29',
     category: 'Security',
     image: 'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&q=80&w=800'
+  },
+  {
+    id: '9',
+    slug: 'sugar-content-rankings',
+    date: '2026-04-28',
+    category: 'Science',
+    image: 'https://images.unsplash.com/photo-1546241072-48010ad2862c?auto=format&fit=crop&q=80&w=800'
+  },
+  {
+    id: '10',
+    slug: 'coffee-caffeine-guide',
+    date: '2026-04-27',
+    category: 'Science',
+    image: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&q=80&w=800'
+  },
+  {
+    id: '11',
+    slug: 'remote-work-ergonomics',
+    date: '2026-04-26',
+    category: 'Lifestyle',
+    image: 'https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&q=80&w=800'
   }
 ];

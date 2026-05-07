@@ -1,9 +1,4 @@
 {
-  "1920": "1920",
-  "2532": "2532",
-  "2560": "2560",
-  "3840": "3840",
-  "1234567": "1234567",
   "common": {
     "searchPlaceholder": "搜索工具...",
     "logoName": "ToolOrbit",
@@ -28,8 +23,8 @@
     "noResultsSub": "我们未能找到与您搜索匹配的工具，请尝试其他关键词。"
   },
   "tools": {
-    "json-formatter": {
-      "name": "JSON 格式化",
+    "json-formatter": { 
+      "name": "JSON 格式化", 
       "description": "提供美化、压缩、验证等全方位 JSON 数据处理服务。",
       "title": "JSON 格式化器",
       "subtitle": "格式化、验证及美化您的 JSON 数据。",
@@ -52,8 +47,8 @@
       "highlight3Desc": "在输出的 2 个空格或 4 个空格之间进行选择，以匹配您项目的编码标准或偏好。",
       "disclaimer": "注意：此工具处理标准的 JSON 格式。在部署任务关键型配置之前，请务必手动核对。"
     },
-    "base64": {
-      "name": "Base64 编解码",
+    "base64": { 
+      "name": "Base64 编解码", 
       "description": "网页端快速编解码工具，完美支持 UTF-8 中文字符集。",
       "title": "Base64 {{mode}}",
       "encode": "编码器",
@@ -82,8 +77,8 @@
       "highlight3Desc": "快速将生成的结果字符串复制到剪贴板，以便在代码或文档中立即使用。",
       "disclaimer": "提醒：Base64 是一种编码格式，而不是加密形式。它不提供数据机密性保护。"
     },
-    "ascii-table": {
-      "name": "ASCII 编码表",
+    "ascii-table": { 
+      "name": "ASCII 编码表", 
       "description": "标准 ASCII 及控制字符在线对照与各进制速查手册。",
       "title": "ASCII 编码表",
       "subtitle": "标准 ASCII 字符编码速查及转换（包括控制字符、十进制、十六进制等）。",
@@ -107,8 +102,8 @@
       "highlight3Desc": "在单个统一视图中访问十进制、十六进制、八进制、二进制和 HTML 实体代码。",
       "disclaimer": "标准 ASCII 支持 128 个字符。对于扩展字符集，请参阅 Unicode 文档。"
     },
-    "url-encoder": {
-      "name": "URL 编解码",
+    "url-encoder": { 
+      "name": "URL 编解码", 
       "description": "安全地编码网页链接，或将其解码为可读的标准格式。",
       "title": "URL {{mode}}",
       "encode": "编码器",
@@ -135,8 +130,8 @@
       "highlight3Desc": "在编码和解码模式之间即时切换，保持流畅的开发进度和效率。",
       "disclaimer": "提示：务必对查询参数进行编码，以防止断链以及通过 XSS 产生的潜在安全漏洞。"
     },
-    "hash-generator": {
-      "name": "哈希生成器",
+    "hash-generator": { 
+      "name": "哈希生成器", 
       "description": "快速生成安全的 MD5 等同类的 SHA-1、SHA-256、SHA-512 会话摘要信息。",
       "title": "哈希在线生成器",
       "subtitle": "在本地浏览器快速生成 MD5、SHA1、SHA256、SHA512 等各类安全散列值。",
@@ -156,8 +151,8 @@
       "highlight3Desc": "同时生成 SHA-1, SHA-256, SHA-384 和 SHA-512 值，便于进行侧对侧的数据比对。",
       "disclaimer": "安全提示：虽然出于兼容性原因支持 SHA-1，但对于现代安全应用程序，它被认为存在加密漏洞。"
     },
-    "uuid-generator": {
-      "name": "UUID 在线生成",
+    "uuid-generator": { 
+      "name": "UUID 在线生成", 
       "description": "批量生成 RFC 4122 标准的随机 Version 4 UUID。",
       "title": "UUID 在线生成",
       "subtitle": "基于 RFC 4122 标准，快速批量生成 Version 4 随机 UUID/GUID。",
@@ -183,8 +178,8 @@
       "highlight3Desc": "原生密码级安全随机数生成器 (CSPRNG) 确保了数学意义上的唯一性。所有 ID 均不会上报或保存至服务器。",
       "disclaimer": "注意：Version 4 UUID 是纯随机的。如果需要顺序或基于时间的 ID，请考虑 Version 1 或 Version 7 实现。"
     },
-    "unicode-converter": {
-      "name": "Unicode 转换",
+    "unicode-converter": { 
+      "name": "Unicode 转换", 
       "description": "中文等原生字符与 \\uXXXX 格式的 Unicode 转义互转。",
       "title": "Unicode 编码转换",
       "subtitle": "一键实现中文字符、符号与 \\uXXXX 格式的 Unicode 编码互转还原。",
@@ -210,8 +205,8 @@
       "highlight3Desc": "专为开发者设计，提供双栏对比编辑、语法高亮辅助以及一键复制功能。",
       "disclaimer": "提示：在部署 Unicode 字符串之前，请务必核对目标系统的字符集要求（如 UTF-16 与 UTF-8 的差异）。"
     },
-    "chmod-calculator": {
-      "name": "chmod 计算器",
+    "chmod-calculator": { 
+      "name": "chmod 计算器", 
       "description": "Linux 权限掩码与 RWX 符号模式的可视化直观转换。",
       "title": "Linux chmod 权限掩码计算器",
       "subtitle": "直观点击多选框，在八进制数字掩码与 RWX 符号模式之间快速推导转换。",
@@ -242,8 +237,8 @@
       "highlight3Desc": "快速将完整的 shell 命令字符串复制到剪贴板，以便在终端中立即应用。",
       "disclaimer": "安全提示：除非绝对必要，否则请避免在生产环境中设置 777 权限，因为它会带来重大的安全风险。"
     },
-    "text-analyzer": {
-      "name": "文本分析器",
+    "text-analyzer": { 
+      "name": "文本分析器", 
       "description": "在线统计字数、字符数、段落数并分析文本频率占比。",
       "title": "文本分析器",
       "subtitle": "实时的字数、字符规格、段落统计以及字母频率分析。",
@@ -258,8 +253,8 @@
       "letterFreq": "字母频率 (前 10 名)",
       "noLetterFound": "未发现字母字符。"
     },
-    "text-cleaner": {
-      "name": "字符串清洗",
+    "text-cleaner": { 
+      "name": "字符串清洗", 
       "description": "去空格、去换行、去制表符和标点。",
       "title": "字符串清洗",
       "subtitle": "在线批量去除文本中的多余空格、换行符、制���符及各类标点符号。",
@@ -280,8 +275,8 @@
       "copyTitle": "一键拷贝",
       "supportMsg": "支持百万级字符实时无损清洗"
     },
-    "symbol-library": {
-      "name": "特殊符号大全",
+    "symbol-library": { 
+      "name": "特殊符号大全", 
       "description": "Emoji、数学公式、货币等长尾排版符号一键式点选复制。",
       "title": "特殊符号与 Emoji 大全",
       "subtitle": "无需费力在输入法中翻找，一键点击复制全网覆盖面最广的特殊文本与表情图库。",
@@ -307,10 +302,10 @@
       "highlight2Desc": "除了为美编等文艺内容准备的星星装饰、颜文字脸谱，我们也一并收录了极其难拼打的偏门“物理高等数学推导符号”（如微积分、求和矩阵等），为论文撰稿人和知乎深度回答从业者提供后盾。",
       "highlight3Title": "3. 规避系统乱码：",
       "highlight3Desc": "在这里提取出来并挂载上剪切板的全为基于全球通用 Unicode 标准的原生代码字符转换，并非图片贴图格式。这保障了它们在发送到绝大多数主流系统甚至古老文档时，皆能维持文本本质结构。",
-      "seoFooter": "注意：如果您的操作系统的字体库过时，较少见的表情符号可能会显示为空心缺字方块。"
+      "disclaimer": "版面说明：随着微信苹果系统版本库每年的更新推进，会有少部分新添加的极罕见 Emoji 如果在旧版本的 Win 操作系统的浏览器中渲染可能会出现空心方块，这属于本地域字库尚未覆盖正常表现。"
     },
-    "qr-generator": {
-      "name": "二维码生成器",
+    "qr-generator": { 
+      "name": "二维码生成器", 
       "description": "一键生成可下载二维码。",
       "title": "二维码生成器",
       "subtitle": "一键创建高质量、可定制颜色的二维码及纠错率。",
@@ -327,17 +322,18 @@
       "downloadBtn": "导出为 PNG",
       "seoTitle": "QR Code 免费在线生成器：定制专属商业名片与链接转换",
       "seoDesc": "数字化时代，扫描已成为连接线下与线上、屏幕与移动端最有效率的桥梁。无论是您的微信个人主页、独立站营销落地页网址，甚至是一段简单的 Wi-Fi 连接指令，都能通过这款无需注册的在线工具一键编码为黑白矩阵。",
-      "seoHighlightsTitle": "我们多维矩阵编码器的独家核心功能：",
+      "highlightsTitle": "掌握多维矩阵编码的独家亮点：",
       "highlight1Title": "1. 无级微调色彩与容错：",
       "highlight1Desc": "打破传统黑白双色的单调！您可以自由定义前景和背景色以搭配自家品牌 VI 视觉。同时支持 L、M、Q、H 级别容错率切换，即便中心被 Logo 遮挡或遭到轻度信损，依然能被摄像头高精扫出。",
       "highlight2Title": "2. 高清 PNG 矢量级导出：",
       "highlight2Desc": "一键输出的高保真位图可直接用于易拉宝海报印刷包装、商品防伪标贴或简历打印，边缘拒绝锯齿与模糊，保证多机型全天候的超高一次性扫码成功率。",
       "highlight3Title": "3. 基于 Local 的轻量化极客安全：",
       "highlight3Desc": "当您将加密邮箱或家庭联络方式转化为阵列时可能充满隐私性担忧。本模块组件坚持无后台上传和截留政策，纯 JavaScript 计算绘图，闭网状态下依旧能够流畅产出结果图片。",
+      "disclaimer": "友情建议：进行前景色与背景色倒挂调整的时候，必须确保扫码枪和大部分手机摄像头的感光算法能够感知足够的极度对比色差，否则存在“废码”无法被光学读取的风险。",
       "seoFooter": "友情建议：进行前景色与背景色倒挂调整的时候，必须确保扫码枪和大部分手机摄像头的感光算法能够感知足够的极度对比色差，否则存在“废码”无法被光学读取的风险。"
     },
-    "qr-scanner": {
-      "name": "二维码识别",
+    "qr-scanner": { 
+      "name": "二维码识别", 
       "description": "上传二维码图片并解析内容。",
       "title": "二维码识别",
       "subtitle": "上传二维码图片，基于纯前端引擎离线解析提取隐藏信息。",
@@ -440,9 +436,7 @@
       "highlight2Desc": "您不需要一页一页去疯狂点击下载。拆分完成后，引擎会自动将成百上千张分离后的 PDF 合成为一个标准 ZIP 文件盒，并一次性推送到您的本地。解压即得所有单页文件。",
       "highlight3Title": "3. 卓越的全景兼容性：",
       "highlight3Desc": "只要设备具备现代化的浏览器，便能打破 Windows、macOS 甚至是移动端手机和平板的生态隔离。不论您的源 PDF 结构多复杂，皆能稳健按页拆解。",
-      "seoFooter": "简而言之，合理利用 PDF 本地处理工具，不仅将极大节约您的数字内容整理时间，更是确保数据绝对留存在本地的必备之选。",
-      "disclaimer": "安全提示：所有 PDF 的拆分与提取均在您当前设备的内存中本地完成。",
-      "clearAll": "Clear ll"
+      "seoFooter": "简而言之，合理利用 PDF 本地处理工具，不仅将极大节约您的数字内容整理时间，更是确保数据绝对留存在本地的必备之选。"
     },
     "pdf-to-image": {
       "name": "PDF 转图片",
@@ -472,8 +466,7 @@
       "highlight2Desc": "内置了专业的图形渲染算法，它并不是简单地“截个图”，而是深入解析了 PDF 的源数据，保证提取出的静态图片依然保留原本高清的字形排版和色彩。",
       "highlight3Title": "3. 灵活导出与一键打包：",
       "highlight3Desc": "除了单独预览下载某张特定的页面外，转换完毕后工具还会立刻在本地瞬间生成 ZIP 压缩包，方便您将数十甚至上百页生成的图片打包带走，大大提升文件梳理的效率。",
-      "seoFooter": "总之，依托尖端的本地网页技术解析各类 PDF 文件，您不仅将摆脱缓慢的云端上传等待，更会因彻底阻断了隐密风险而获得一份省心的操作体验。",
-      "disclaimer": "温馨提示：受限于您设备的 CPU 算力，渲染极其复杂的超大矢量图层可能需要稍长的时间。"
+      "seoFooter": "总之，依托尖端的本地网页技术解析各类 PDF 文件，您不仅将摆脱缓慢的云端上传等待，更会因彻底阻断了隐密风险而获得一份省心的操作体验。"
     },
     "image-to-pdf": {
       "name": "图片转 PDF",
@@ -508,11 +501,10 @@
       "highlight2Desc": "我们为您提供了灵活明快的拖拽面板，您可以像玩拼图一样随意调整图片的排列顺序。无论是保持图源比例无留白，还是自动居中缩放置入规范的 A4 打印尺寸中，皆顺随心意。",
       "highlight3Title": "3. 零门槛免安装：",
       "highlight3Desc": "摒弃传统体积庞大的桌面格式化处理软件，也无需忍受各类夹杂广告的在线转换全家桶。简单极客的网页形态赋予它强大的跨端可用性，打开即用、用完即走。",
-      "seoFooter": "灵活掌握此工具，能够大幅削减日常信息整理的繁琐步骤，尤其在投递简历附件、报销票据汇总等高频业务场景下，一份统一打包的 PDF 永远比零碎的图包显得更具专业素养。",
-      "disclaimer": "安全隐私保护：您的原图绝不会上传至任何云端服务器，全程的 PDF 装订合成都在浏览器的沙盒内存中发生。"
+      "seoFooter": "灵活掌握此工具，能够大幅削减日常信息整理的繁琐步骤，尤其在投递简历附件、报销票据汇总等高频业务场景下，一份统一打包的 PDF 永远比零碎的图包显得更具专业素养。"
     },
-    "barcode-generator": {
-      "name": "条形码生成",
+    "barcode-generator": { 
+      "name": "条形码生成", 
       "description": "支持 CODE128、CODE39、EAN、UPC 生成。",
       "title": "条形码生成",
       "subtitle": "在线生成主流的各种标准一维条形码，支持 CODE128、CODE39、EAN 等数十种规格。",
@@ -546,8 +538,8 @@
       "highlight3Desc": "某些条码具有严苛的位数、校验和规则或只能录入整数值范围。如果在文本框输入违规或少位元值，防呆检测将直接抛出红色致命阻断错误日志，避免无效空标签被批量投放到工业生产中。",
       "seoFooter": "声明与拓展：部分快递与航空件经常使用具有特殊标识符开头的长款 CODE_128 作为派递单。建议对于这部分长码，您需要手工调大【单条宽度】像素单位比例防止在长边挤压导致扫描镭射头无法解构的情况。"
     },
-    "etsy-fee-calculator": {
-      "name": "Etsy 利润计算器",
+    "etsy-fee-calculator": { 
+      "name": "Etsy 利润计算器", 
       "description": "利润计算器，精确计算 Etsy 的上架费、交易费及支付处理费，掌握真实利润。",
       "title": "Etsy 利润与手续费计算器",
       "subtitle": "输入您的商品售价、运费和制造成本，实时计算实际到账金额。",
@@ -572,8 +564,8 @@
       "highlight3Desc": "我们深刻理解商业数据的机密性。您的任何进货底价与售价设定均在当前页面的浏览器沙箱内运算完毕即抛弃，服务器没有任何截桩或录入动作，防止商业底牌流失。",
       "disclaimer": "请注意：该面板计算结果基于北美地区标准卖家架构搭建。如果您开通了站外广告（Offsite Ads）功能，则可能需要在此基准上额外预留部分浮动预算进行规避。"
     },
-    "stripe-fee-calculator": {
-      "name": "Stripe 手续费计算器",
+    "stripe-fee-calculator": { 
+      "name": "Stripe 手续费计算器", 
       "description": "计算 Stripe 收款产生的手续费用，快速预估实际到账金额。",
       "title": "Stripe 手续费计算器",
       "subtitle": "采用 Stripe 默认费率标准（2.9% + 30¢），一键计算收付款项及到账情况。",
@@ -786,8 +778,8 @@
       "highlight3Desc": "底层选用的图片渲染逻辑能够在裁剪的过程里维持原始文件的质感。完成选定后，一次点击便能把局部图像干净利落地剥离出来并触发浏览器的高速本地下载，不用等待。",
       "seoFooter": "所谓好用的生产力部件，就在于你需要时它能光速加载，用完时挥一挥衣袖不留垃圾数据。它始终是您处理视觉内容的得力辅助助手。"
     },
-    "timestamp-converter": {
-      "name": "时间戳转换",
+    "timestamp-converter": { 
+      "name": "时间戳转换", 
       "description": "Unix 时间戳与标准北京时间相互转换计算。",
       "title": "Unix 时间戳转换工具",
       "subtitle": "在秒/毫秒级 Unix 时间戳与人类可读的标准日期时间之间进行互转。",
@@ -822,8 +814,8 @@
       "highlight3Desc": "我们的引擎可自动处理常见的日期格式，允许您直接粘贴并转换，省去繁琐的手动格式化步骤。",
       "disclaimer": "注意：除明确指定 UTC 外，所有转换均相对于您浏览器的本地时区进行计算。"
     },
-    "base-converter": {
-      "name": "进制转换",
+    "base-converter": { 
+      "name": "进制转换", 
       "description": "支持 2~36 进制互转（大整数）。",
       "title": "任意进制转换器",
       "subtitle": "支持 2 到 36 任意进制之间的数值互转，支持大数字运算。",
@@ -863,8 +855,8 @@
       "highlight3Desc": "提供常用的转换预设（如十进制转十六进制），在调试代码或分析内存数据时为您节省宝贵时间。",
       "disclaimer": "注意：对于带有小数点的浮点数，本工具的 BigInt 实现目前仅保证整数部分的绝对转换精度。"
     },
-    "unit-converter": {
-      "name": "单位转换器",
+    "unit-converter": { 
+      "name": "单位转换器", 
       "description": "快速在长度、重量、体积、温度等各类计量单位间换算。",
       "title": "全能单位转换器",
       "subtitle": "快速在长度、重量、体积、温度等各类常用的国际计量单位间进行高精度换算。",
@@ -974,6 +966,9 @@
       "heightLabel": "垂直分辨率高度 (px)",
       "diagonalLabel": "物理对角线尺寸 (英寸 inch)",
       "presetsTitle": "典型设备参照",
+      "widthPlaceholder": "如: 1920",
+      "heightPlaceholder": "如: 1080",
+      "diagonalPlaceholder": "如: 27",
       "resultTitle": "Pixels Per Inch (PPI) 计算结果",
       "retinaRatingTitle": "视网膜视觉评估 (Retina Rating)",
       "ratingHigh": "达到手机/平板级惊艳细腻基准 (≥300)",
@@ -989,12 +984,10 @@
       "highlight2Desc": "PPI 若跨过能够达到“326” 屏障槛就意味着人眼在正常距离下已经无法辨析细小像素块。27 寸 4K 显示器拥有着 163 PPI 就已是非常通透艳丽。",
       "highlight3Title": "3. 为 UI 设计师的矢量位图输出把关：",
       "highlight3Desc": "协助界面开发人员通过计算 @2x 甚至 @3x 的倍数导出比率确认产品线渲染密度区间。",
-      "disclaimer": "极客背调：请注意区别 PPI (图像采样率单位) 和 DPI (打印机油墨输出单位界限点阵) 的本质区别。",
-      "widthPlaceholder": "Width laceholder",
-      "heightPlaceholder": "Height laceholder"
+      "disclaimer": "极客背调：请注意区别 PPI (图像采样率单位) 和 DPI (打印机油墨输出单位界限点阵) 的本质区别。"
     },
-    "color-converter": {
-      "name": "颜色代码转换",
+    "color-converter": { 
+      "name": "颜色代码转换", 
       "description": "HEX, RGB, HSL, HSV, CMYK 等多种工业色彩规格之间无损互转，支持透明度提取。",
       "title": "颜色代码转换",
       "subtitle": "在 HEX, RGB, HSL, HSV, CMYK 等多种工业色彩规格之间无损互转，支持透明度提取。",
@@ -1006,8 +999,8 @@
       "copyBtn": "复制",
       "copiedBtn": "已复制"
     },
-    "color-palette": {
-      "name": "阶梯调色板推演工具",
+    "color-palette": { 
+      "name": "阶梯调色板推演工具", 
       "description": "针对主色调自动演化同色系更具层次的高级 Tints 与 Shades。",
       "title": "阶梯调色板推演工具",
       "subtitle": "针对主色调自动演化同色系更具层次的高级 Tints (明亮色阶) 与 Shades (暗黑环境色阶)。",
@@ -1018,8 +1011,8 @@
       "tints": "Tints (明色调)",
       "shades": "Shades (暗色调)"
     },
-    "color-picker": {
-      "name": "屏幕颜色拾取器",
+    "color-picker": { 
+      "name": "屏幕颜色拾取器", 
       "description": "调用浏览器原生 EyeDropper 接口全屏取色。",
       "title": "原生生态屏幕颜色拾取器",
       "subtitle": "脱离外部截图软件，直接通过浏览器底层接口呼出拾色放大镜捕捉显示器任何像素色块。",
@@ -1047,8 +1040,8 @@
       "seoDesc": "对于在根目录或者系统层面中进行网站图标 `favicon.ico` 声明来说，简单的在文件名更改后缀 `.ico` 并扔进去通常是会招致各种意外兼容麻烦和安全报错的。我们内置引擎通过底层的图像缓冲并利用标准 JS `Blob` 和二进制 `ArrayBuffer` 重写包装出真正能跨系统容灾通过的合法 `ico` 头部字节阵列。",
       "seoFooter": "一键脱离 PS 打包导出标准物料库文件。"
     },
-    "password-generator": {
-      "name": "强密码生成器",
+    "password-generator": { 
+      "name": "强密码生成器", 
       "description": "本地随机生成高强度复杂密码，保护您的账户隐私安全。",
       "title": "强密码生成器",
       "subtitle": "在本地生成高强度的随机密码，确保您的账户安全。",
@@ -1072,8 +1065,8 @@
       "copiedBtn": "已复制",
       "errorNoChars": "请至少勾选一种字符类型"
     },
-    "jwt-debugger": {
-      "name": "JWT 在线解码",
+    "jwt-debugger": { 
+      "name": "JWT 在线解码", 
       "description": "解析 JSON Web Token 内容内容，本地解码，安全无忧。",
       "title": "JWT 在线解码器",
       "subtitle": "解析 JSON Web Token 内容，无需上传，完全在浏览器本地运行。",
@@ -1157,24 +1150,23 @@
       "securityNoteDesc": "所有加解密操作均在您的浏览器本地执行。您的密钥和数据绝不会被发送到服务器。",
       "errorNoKey": "请输入密钥",
       "errorNoInput": "请输入输入内容",
-      "errorDecryptFailed": "解密失败，请检查您的密钥、IV 或模式配置。",
-      "errorErrorOccurred": "Error rror ccurred"
+      "errorDecryptFailed": "解密失败，请检查您的密钥、IV 或模式配置。"
     },
-    "morse-code": {
-      "name": "摩斯密码转换",
-      "description": "实时将文本内容转换为标准摩斯电码，或将电码解码回复为原始文本。",
-      "title": "摩斯密码转换器",
-      "subtitle": "支持文本与电码的双向转换，内置标准电码表对照。",
-      "textLabel": "文本内容 (Text)",
-      "textPlaceholder": "在此输入文字，例如：Hello ToolOrbit",
-      "morseLabel": "摩斯电码 (Morse Code)",
-      "morsePlaceholder": "... - .- -.-- / ... .- ..-. .",
-      "clearBtn": "清空内容",
-      "copyBtn": "复制结果",
-      "copiedBtn": "已复制",
-      "guideTitle": "符号说明",
-      "guideDesc": "使用点 (.) 和划 (-) 表示字母，空格分隔字母，斜杠 (/) 分隔单词。"
-    },
+      "morse-code": {
+        "name": "摩斯密码转换",
+        "description": "实时将文本内容转换为标准摩斯电码，或将电码解码回复为原始文本。",
+        "title": "摩斯密码转换器",
+        "subtitle": "支持文本与电码的双向转换，内置标准电码表对照。",
+        "textLabel": "文本内容 (Text)",
+        "textPlaceholder": "在此输入文字，例如：Hello ToolOrbit",
+        "morseLabel": "摩斯电码 (Morse Code)",
+        "morsePlaceholder": "... - .- -.-- / ... .- ..-. .",
+        "clearBtn": "清空内容",
+        "copyBtn": "复制结果",
+        "copiedBtn": "已复制",
+        "guideTitle": "符号说明",
+        "guideDesc": "使用点 (.) 和划 (-) 表示字母，空格分隔字母，斜杠 (/) 分隔单词。"
+      },
     "hex-string-converter": {
       "name": "16 进制转字符串",
       "description": "高效实现普通文本与 16 进制（Hex）编码之间的相互转换与解析。",
@@ -1190,7 +1182,17 @@
       "statusMsg": "双向实时同步转换",
       "didYouKnowTitle": "你知道吗？",
       "didYouKnowDesc": "16 进制 (Hexadecimal) 是一种基数为 16 的计数系统。在计算机科学中，它常被用作二进制数据的人类友好表示形式。一个字节 (8 bits) 可以由两个 16 进制字符精确表示。",
-      "errorInvalid": "无效的 16 进制格式"
+      "errorInvalid": "无效的 16 进制格式",
+      "seoTitle": "16进制与字符串转换工具：高效编码解析",
+      "seoDesc": "在处理底层协议、数据包分析或文件编码时，16进制（Hex）是不可或缺的。我们的工具支持将 UTF-8 文本快速转换为标准的 16 进制表示，并支持反向解析，所有操作均在本地浏览器中完成。",
+      "highlightsTitle": "16进制转换器核心优势",
+      "highlight1Title": "1. 完整的 UTF-8 支持：",
+      "highlight1Desc": "完美支持中文字符、Emoji 以及特殊符号的 16 进制编解码，不会出现乱码。",
+      "highlight2Title": "2. 可视化交互：",
+      "highlight2Desc": "双向实时同步转换，随着您的输入即时更新结果，提高调试效率。",
+      "highlight3Title": "3. 隐私与安全：",
+      "highlight3Desc": "采用原生 Web 技术实现，不存储任何输入内容，保障开发者数据隐私。",
+      "disclaimer": "提示：在复制结果时，请注意 16 进制字符串中的空格分隔符可能会影响某些程序的读取。"
     },
     "chinese-crypto": {
       "name": "国密算法 (SM2/3/4)",
@@ -1219,7 +1221,17 @@
       "errorSm4Key": "SM4 密钥必须是 32 位 16 进制字符串（16 字节）",
       "errorNoInput": "请输入输入内容",
       "errorOperationFailed": "操作失败",
-      "errorErrorOccurred": "发生错误"
+      "errorErrorOccurred": "发生错误",
+      "seoTitle": "国密算法（SM2/SM3/SM4）在线工具：安全与合规",
+      "seoDesc": "支持中国国家标准局发布的国密算法合规实现。包含 SM2 椭圆曲线非对称加解密、SM3 杂凑算法（哈希）以及 SM4 分组对称加密。为政务、金融及军工相关开发者提供便捷的调试支持。",
+      "highlightsTitle": "为什么选择我们的国密工具？",
+      "highlight1Title": "1. 硬核加密库支持：",
+      "highlight1Desc": "基于高性能的原生国密算法库实现，确保计算结果与主流软硬件接口完全一致。",
+      "highlight2Title": "2. 极简集成测试：",
+      "highlight2Desc": "无需安装复杂的运行环境，开箱即用，支持多模式转换和密钥验证。",
+      "highlight3Title": "3. 绝对安全：",
+      "highlight3Desc": "所有敏感计算全部通过 JavaScript 在客户端完成，您的明文和密钥绝不上传。建议在正式环境部署前进行充分测试。",
+      "disclaimer": "注意：本工具仅供开发调试使用，请勿在非受控环境下传输核心算法密钥。"
     },
     "regex-tester": {
       "name": "正则表达式测试",
@@ -1250,16 +1262,20 @@
       "flagSinglelineLabel": "单行模式 (s)",
       "flagSinglelineDesc": "让 . 点号能够匹配包含换行符在内的所有字符。",
       "flagUnicodeLabel": "Unicode 支持 (u)",
-      "flagUnicodeDesc": "开启完整的 Unicode 字符支持。"
+      "flagUnicodeDesc": "开启完整的 Unicode 字符支持。",
+      "seoTitle": "正则表达式在线测试与调试利器：语法解析与高亮",
+      "seoDesc": "正则表达式是处理文本的魔法。我们的正则测试器提供实时的语法高亮、捕获组提取和修饰符配置，帮助初学者和高阶开发者快速验证正则逻辑，并直接导出各种语言可用的代码片段。",
+      "highlightsTitle": "正则测试器功能亮点",
+      "highlight1Title": "1. 实时所见即所得：",
+      "highlight1Desc": "输入即匹配。蓝色高亮完整匹配，黄色标注捕获组，错误时提供友好的语法纠偏建议。",
+      "highlight2Title": "2. 全方位的修饰符支：",
+      "highlight2Desc": "一键开关 g, i, m, s, u 等标志，模拟真实执行环境下的匹配行为。",
+      "highlight3Title": "3. 常用语法参考：",
+      "highlight3Desc": "内置常见的正则模版（如电子邮箱、URL、手机号），节省重复查阅文档的时间。",
+      "disclaimer": "法律提示：请确保在生产环境中使用性能优化的正则，以避免潜在的正则拒绝服务 (ReDoS) 风险。"
     },
-    "game-2048": {
-      "name": "2048 经典游戏",
-      "description": "经典的 2048 益智数字合并小游戏，解压、益智、防无聊。"
-    },
-    "minesweeper": {
-      "name": "经典扫雷",
-      "description": "Windows 经典扫雷小游戏，挑战逻辑思维与运气。"
-    },
+    "game-2048": { "name": "2048 经典游戏", "description": "经典的 2048 益智数字合并小游戏，解压、益智、防无聊。" },
+    "minesweeper": { "name": "经典扫雷", "description": "Windows 经典扫雷小游戏，挑战逻辑思维与运气。" },
     "short-url": {
       "name": "短链接生成",
       "description": "将长链接转换为极简短链接，方便分享与社交媒体传播。",
@@ -1333,53 +1349,11 @@
         "title": "API 安全实战：从 JWT 泄露到 SSRF 漏洞防护",
         "summary": "在互联网裸奔是非常危险的。本文总结了现代 Web 应用中 API 安全的五个黄金法则，保护您的数据免受攻击。",
         "content": "<h4>安全的第一道防线</h4><p>即使是小工具集合网站，安全也不容忽视。以下是必须要做的配置：</p><ul><li><strong>严格的 CORS：</strong> 不要使用通配符 <code>*</code>，只允许信任的域访问您的 API。</li><li><strong>速率限制 (Rate Limiting)：</strong> 防止机器人恶意刷票或通过自动化工具拖垮您的服务。</li><li><strong>输入验证：</strong> 永远不要相信用户的输入。使用我们的 JSON 校验工具可以初步检查结构安全性。</li></ul>"
-      },
-      "sugar-content-rankings": {
-        "title": "常见饮品含糖量大起底",
-        "summary": "揭秘日常饮品中的隐藏糖分，教你如何科学控糖，保持健康。",
-        "content": "本文将详细对比各种网红奶茶、碳酸饮料的实际含糖量..."
-      },
-      "coffee-caffeine-guide": {
-        "title": "职场人必备：全网最全咖啡因指南",
-        "summary": "美式、拿铁、冷萃哪种最提神？带你全面了解咖啡因的作用机制。",
-        "content": "很多人依赖咖啡因来保持清醒，但你真的了解它吗？..."
-      },
-      "remote-work-ergonomics": {
-        "title": "远程办公人体工学指南",
-        "summary": "告别腰酸背痛！在家打造高效健康的办公环境。",
-        "content": "长时间对着电脑？正确的坐姿和外设可以拯救你的脊椎..."
       }
-    },
-    "categories": {
-      "tech": "前沿技术",
-      "science": "科学发现",
-      "education": "知识科普",
-      "development": "研发",
-      "security": "安全",
-      "network": "网络",
-      "design": "设计",
-      "lifestyle": "生活方式"
     }
   },
   "nav": {
     "home": "首页",
     "language": "语言"
-  },
-  "category": "Category",
-  " ": "",
-  "/": "/",
-  "": {
-    "": ""
-  },
-  "YYYY-MM-DDTHH:mm": ":mm",
-  "YYYY-MM-DD HH:mm:ss": ":mm:ss",
-  "Hello World 2026 ToolOrbit": "Ello  orld 2026  ool rbit",
-  "a": "A",
-  "\\n": "\\n",
-  "canvas": "Canvas",
-  "2d": "2d",
-  "123456789012": "123456789012",
-  "image/png": "Image/png",
-  "image/jpeg": "Image/jpeg",
-  ",": ","
+  }
 }

@@ -1,4 +1,9 @@
 {
+  "1920": "1920",
+  "2532": "2532",
+  "2560": "2560",
+  "3840": "3840",
+  "1234567": "1234567",
   "common": {
     "searchPlaceholder": "Search tools...",
     "logoName": "ToolOrbit",
@@ -23,8 +28,8 @@
     "noResultsSub": "We couldn't find any tools matching your search. Please try other keywords."
   },
   "tools": {
-    "json-formatter": { 
-      "name": "JSON Formatter", 
+    "json-formatter": {
+      "name": "JSON Formatter",
       "description": "Beautify, compress, and validate JSON data.",
       "title": "JSON Formatter",
       "subtitle": "Format, validate, and beautify your JSON data.",
@@ -47,8 +52,8 @@
       "highlight3Desc": "Choose between 2 or 4 spaces for the output to match your project's coding standards or preferences.",
       "disclaimer": "Note: This tool handles standard JSON format. Always verify mission-critical configurations before deployment."
     },
-    "base64": { 
-      "name": "Base64 Codec", 
+    "base64": {
+      "name": "Base64 Codec",
       "description": "Quickly encode/decode Base64 online.",
       "title": "Base64 {{mode}}",
       "encode": "Encoder",
@@ -77,8 +82,8 @@
       "highlight3Desc": "Quickly copy the resulting string to your clipboard for instant use in your code or documentation.",
       "disclaimer": "Reminder: Base64 is an encoding format, not a form of encryption. It does not provide data confidentiality."
     },
-    "ascii-table": { 
-      "name": "ASCII Table", 
+    "ascii-table": {
+      "name": "ASCII Table",
       "description": "Standard ASCII and control character reference.",
       "title": "ASCII Table",
       "subtitle": "Standard ASCII character reference and conversion (including control characters, decimal, hex, etc).",
@@ -102,8 +107,8 @@
       "highlight3Desc": "Access codes for Decimal, Hexadecimal, Octal, Binary, and HTML entities in a single unified view.",
       "disclaimer": "Standard ASCII supports 128 characters. For extended character sets, please refer to Unicode documentation."
     },
-    "url-encoder": { 
-      "name": "URL Codec", 
+    "url-encoder": {
+      "name": "URL Codec",
       "description": "Safely encode or decode URL components.",
       "title": "URL {{mode}}",
       "encode": "Encoder",
@@ -130,8 +135,8 @@
       "highlight3Desc": "Switch between encoding and decoding modes instantly to maintain a fluid development speed.",
       "disclaimer": "Tip: Always encode query parameters to prevent broken links and potential security vulnerabilities via XSS."
     },
-    "hash-generator": { 
-      "name": "Hash Generator", 
+    "hash-generator": {
+      "name": "Hash Generator",
       "description": "Generate MD5, SHA-1/256/512 hashes quickly.",
       "title": "Online Hash Generator",
       "subtitle": "Quickly generate MD5, SHA1, SHA256, SHA512 hashes in your browser.",
@@ -151,8 +156,8 @@
       "highlight3Desc": "Generate SHA-1, SHA-256, SHA-384, and SHA-512 values simultaneously for side-by-side comparison.",
       "disclaimer": "Security Notice: While SHA-1 is supported for legacy reasons, it is considered cryptographically vulnerable for modern secure applications."
     },
-    "uuid-generator": { 
-      "name": "UUID Generator", 
+    "uuid-generator": {
+      "name": "UUID Generator",
       "description": "Generate RFC 4122 v4 UUIDs online.",
       "title": "UUID Generator",
       "subtitle": "Generate RFC 4122 v4 random UUIDs/GUIDs in bulk.",
@@ -178,8 +183,8 @@
       "highlight3Desc": "Native CSPRNG ensures mathematical uniqueness. No IDs are shared or saved on any server.",
       "disclaimer": "Note: Version 4 UUIDs are random. For sequential or time-based IDs, consider Version 1 or 7 implementations."
     },
-    "unicode-converter": { 
-      "name": "Unicode Converter", 
+    "unicode-converter": {
+      "name": "Unicode Converter",
       "description": "Convert between native characters and Unicode escape.",
       "title": "Unicode Converter",
       "subtitle": "Convert between native characters, symbols, and \\uXXXX Unicode escape format.",
@@ -205,8 +210,8 @@
       "highlight3Desc": "Designed for developers with side-by-side editing, syntax highlighting focus, and one-click copy functionality.",
       "disclaimer": "Tip: Always verify the target system's character set requirements (UTF-16 vs UTF-8) before deploying Unicode strings."
     },
-    "chmod-calculator": { 
-      "name": "chmod Calculator", 
+    "chmod-calculator": {
+      "name": "chmod Calculator",
       "description": "Visual Linux permissions mode calculator.",
       "title": "Linux chmod Calculator",
       "subtitle": "Visually toggle checkboxes to derive octal and symbolic permission modes.",
@@ -237,8 +242,8 @@
       "highlight3Desc": "Quickly copy the full shell command string to your clipboard for instant application in your terminal.",
       "disclaimer": "Security Tip: Avoid setting permissions to 777 in production environments unless absolutely necessary, as it poses a significant security risk."
     },
-    "text-analyzer": { 
-      "name": "Text Analyzer", 
+    "text-analyzer": {
+      "name": "Text Analyzer",
       "description": "Count words, characters, and frequency analysis.",
       "title": "Text Analyzer",
       "subtitle": "Real-time word, character, paragraph statistics and letter frequency analysis.",
@@ -253,8 +258,8 @@
       "letterFreq": "Letter Frequency (Top 10)",
       "noLetterFound": "No letter characters found."
     },
-    "text-cleaner": { 
-      "name": "Text Cleaner", 
+    "text-cleaner": {
+      "name": "Text Cleaner",
       "description": "Remove spaces, newlines, tabs, and punctuation.",
       "title": "Text Cleaner",
       "subtitle": "Remove extra spaces, newlines, tabs, and various punctuation marks from text online.",
@@ -275,8 +280,8 @@
       "copyTitle": "Copy Results",
       "supportMsg": "Support real-time cleaning of massive text data"
     },
-    "symbol-library": { 
-      "name": "Symbol Library", 
+    "symbol-library": {
+      "name": "Symbol Library",
       "description": "Copy Emoji, Math, Currency, and special symbols.",
       "title": "Symbols & Emoji Library",
       "subtitle": "No more searching through menus. Copy the most widely used special text and emojis with one click.",
@@ -304,8 +309,8 @@
       "highlight3Desc": "Symbols copied here are native Unicode characters, not images, ensuring they render correctly across different platforms and documents.",
       "seoFooter": "Note: Rare emojis may appear as hollow boxes if your operating system's font library is outdated."
     },
-    "qr-generator": { 
-      "name": "QR Generator", 
+    "qr-generator": {
+      "name": "QR Generator",
       "description": "Generate downloadable QR codes for any link.",
       "title": "QR Code Generator",
       "subtitle": "Create high-quality, customizable QR codes with adjustable colors and error correction levels.",
@@ -331,8 +336,8 @@
       "highlight3Desc": "Privacy concerns when converting sensitive data? This tool uses 100% client-side JavaScript. No data is ever uploaded to our servers, and it works offline.",
       "seoFooter": "Tip: When swapping foreground and background colors, ensure sufficient contrast so that scanners and camera algorithms can reliably detect the code."
     },
-    "qr-scanner": { 
-      "name": "QR Scanner", 
+    "qr-scanner": {
+      "name": "QR Scanner",
       "description": "Upload and scan QR codes to see their contents.",
       "title": "QR Code Scanner",
       "subtitle": "Upload QR code images to extract hidden information using a pure client-side engine.",
@@ -436,7 +441,8 @@
       "highlight3Title": "3. Cross-Platform Stability",
       "highlight3Desc": "Works on Windows, Mac, and mobile. If you have a modern browser, you can extract pages anywhere.",
       "seoFooter": "Professional PDF tool suite. Secure, browser-native, high-performance splitting.",
-      "disclaimer": "Security Note: All splitting and extraction happens locally in your device's memory."
+      "disclaimer": "Security Note: All splitting and extraction happens locally in your device's memory.",
+      "clearAll": "Clear ll"
     },
     "pdf-to-image": {
       "name": "PDF to Image",
@@ -505,8 +511,8 @@
       "seoFooter": "Perfect for creating digital portfolios, combining receipts for reports, or creating simple PDF documents from photos.",
       "disclaimer": "Security Note: Your photos never leave your device. All PDF assembly happens in memory."
     },
-    "barcode-generator": { 
-      "name": "Barcode Generator", 
+    "barcode-generator": {
+      "name": "Barcode Generator",
       "description": "Support CODE128, CODE39, EAN, UPC generation.",
       "title": "Barcode Generator",
       "subtitle": "Generate standard 1D barcodes online. Supports CODE128, CODE39, EAN, and dozens more.",
@@ -540,8 +546,8 @@
       "highlight3Desc": "Strict validation for digit counts and checksums. Anti-mistake detection prevents invalid labels from being sent to production.",
       "seoFooter": "Disclaimer & Extensions: Some shipping labels use long CODE_128 formats. We suggest increasing the 'Bar Width' for long codes to ensure scanners can reliably decode them."
     },
-    "etsy-fee-calculator": { 
-      "name": "Etsy Fee Calculator", 
+    "etsy-fee-calculator": {
+      "name": "Etsy Fee Calculator",
       "description": "Calculate Etsy listing, transaction and payment fees.",
       "title": "Etsy Profit & Fee Calculator",
       "subtitle": "Enter your item price, shipping and cost to calculate real profit in real-time.",
@@ -566,8 +572,8 @@
       "highlight3Desc": "We understand data sensitivity. All calculations stay in your browser. No data is sent to or stored on our servers.",
       "disclaimer": "Note: Calculations are based on standard US seller rates. Offsite Ads or international fees may apply additionally."
     },
-    "stripe-fee-calculator": { 
-      "name": "Stripe Fee Calculator", 
+    "stripe-fee-calculator": {
+      "name": "Stripe Fee Calculator",
       "description": "Estimate Stripe transaction fees and net payouts.",
       "title": "Stripe Fee Calculator",
       "subtitle": "Uses standard Stripe rates (2.9% + 30¢) to calculate fees and net payout instantly.",
@@ -780,8 +786,8 @@
       "highlight3Desc": "Maintains original image quality during the crop. One-click export directly from your browser memory.",
       "seoFooter": "Great production tools should be fast and leak-free. This is your visual framing assistant."
     },
-    "timestamp-converter": { 
-      "name": "Timestamp Converter", 
+    "timestamp-converter": {
+      "name": "Timestamp Converter",
       "description": "Convert Unix timestamps to local time and back.",
       "title": "Unix Timestamp Converter",
       "subtitle": "Convert between Unix timestamps (seconds/millis) and human-readable dates.",
@@ -816,8 +822,8 @@
       "highlight3Desc": "Our engine handles common date formats automatically, allowing you to paste and convert with minimal manual formatting.",
       "disclaimer": "Note: All conversions are performed relative to your browser's local time zone unless UTC is explicitly specified."
     },
-    "base-converter": { 
-      "name": "Base Converter", 
+    "base-converter": {
+      "name": "Base Converter",
       "description": "Convert between bases 2 to 36 for large integers.",
       "title": "Any Base Converter",
       "subtitle": "Convert values between any base from 2 to 36 with large number support.",
@@ -857,8 +863,8 @@
       "highlight3Desc": "Common transformations like Decimal to Hex are provided as presets to save you time during debugging.",
       "disclaimer": "Note: For floating-point numbers, precision is guaranteed for the integer portion using our BigInt implementation."
     },
-    "unit-converter": { 
-      "name": "Unit Converter", 
+    "unit-converter": {
+      "name": "Unit Converter",
       "description": "Convert between length, weight, volume, and temperature.",
       "title": "Unit Converter",
       "subtitle": "Quickly convert between common units like length, weight, volume, and temperature.",
@@ -983,10 +989,12 @@
       "highlight2Desc": "Retina display refers to a density where the human eye can't distinguish pixels at typical viewing distances. For phones, this is often ≥326 PPI.",
       "highlight3Title": "3. UI Design Asset Check:",
       "highlight3Desc": "Helps UI designers calculate export ratios (@2x, @3x) based on target device densities to ensure crisp rendering.",
-      "disclaimer": "Note: PPI (Image density) differs from DPI (Printer ink dots). This tool specifically measures light-emitting pixel arrays for screens."
+      "disclaimer": "Note: PPI (Image density) differs from DPI (Printer ink dots). This tool specifically measures light-emitting pixel arrays for screens.",
+      "widthPlaceholder": "Width laceholder",
+      "heightPlaceholder": "Height laceholder"
     },
-    "color-converter": { 
-      "name": "Color Converter", 
+    "color-converter": {
+      "name": "Color Converter",
       "description": "Convert between HEX, RGB, HSL, HSV, CMYK colors.",
       "title": "Color Code Converter",
       "subtitle": "Convert between color systems (HEX, RGB, HSL, HSV, CMYK) with transparency support.",
@@ -998,8 +1006,8 @@
       "copyBtn": "Copy",
       "copiedBtn": "Copied"
     },
-    "color-palette": { 
-      "name": "Color Palette", 
+    "color-palette": {
+      "name": "Color Palette",
       "description": "Generate Tints and Shades from a primary color.",
       "title": "Color Palette Generator",
       "subtitle": "Automatically generate professional Tints and Shades from a base color.",
@@ -1010,8 +1018,8 @@
       "tints": "Tints",
       "shades": "Shades"
     },
-    "color-picker": { 
-      "name": "Color Picker", 
+    "color-picker": {
+      "name": "Color Picker",
       "description": "Pick colors from your screen using EyeDropper API.",
       "title": "Native Screen Color Picker",
       "subtitle": "Use the browser's native EyeDropper API to pick colors from anywhere on your screen.",
@@ -1039,8 +1047,8 @@
       "seoDesc": "Build authentic cross-platform *.ico binary blobs. Wraps resized PNGs inside true MS Windows ICON structure blocks for maximum compatibility.",
       "seoFooter": "Uses native JS Blob and ArrayBuffer to write valid ICO headers locally."
     },
-    "password-generator": { 
-      "name": "Password Generator", 
+    "password-generator": {
+      "name": "Password Generator",
       "description": "Generate complex secure passwords locally.",
       "title": "Secure Password Generator",
       "subtitle": "Generate high-strength random passwords locally for better account security.",
@@ -1064,8 +1072,8 @@
       "copiedBtn": "Copied",
       "errorNoChars": "Please select at least one character type"
     },
-    "jwt-debugger": { 
-      "name": "JWT Debugger", 
+    "jwt-debugger": {
+      "name": "JWT Debugger",
       "description": "Decode and debug JSON Web Tokens locally with ease.",
       "title": "JWT Online Decoder",
       "subtitle": "Decode JSON Web Tokens locally in your browser. No data is ever uploaded.",
@@ -1149,7 +1157,8 @@
       "securityNoteDesc": "All encryption happens locally in your browser. Your secret keys and data are never sent to our servers.",
       "errorNoKey": "Please enter a key",
       "errorNoInput": "Please enter input text",
-      "errorDecryptFailed": "Decryption failed. Check your key/iv/mode."
+      "errorDecryptFailed": "Decryption failed. Check your key/iv/mode.",
+      "errorErrorOccurred": "Error rror ccurred"
     },
     "morse-code": {
       "name": "Morse Code",
@@ -1243,10 +1252,16 @@
       "flagUnicodeLabel": "Unicode (u)",
       "flagUnicodeDesc": "Enable full unicode support."
     },
-    "game-2048": { "name": "2048 Game", "description": "Classic numbers puzzle game to relax and focus." },
-    "minesweeper": { "name": "Minesweeper", "description": "Classic logic game. Clear the grid and avoid mines." },
-    "short-url": { 
-      "name": "Short URL", 
+    "game-2048": {
+      "name": "2048 Game",
+      "description": "Classic numbers puzzle game to relax and focus."
+    },
+    "minesweeper": {
+      "name": "Minesweeper",
+      "description": "Classic logic game. Clear the grid and avoid mines."
+    },
+    "short-url": {
+      "name": "Short URL",
       "description": "Generate tiny URLs for easy sharing.",
       "title": "Online Short URL Converter",
       "subtitle": "Multi-platform distribution logic ensures a 100% stable experience in any network environment.",
@@ -1318,11 +1333,53 @@
         "title": "API Security in Practice: From JWT Leaks to SSRF Protection",
         "summary": "The internet is a dangerous place. Here are five golden rules for API security in modern web applications to protect your data.",
         "content": "<h4>Your First Line of Defense</h4><p>Even for a curated tool site, security is paramount. Consider these essentials:</p><ul><li><strong>Strict CORS:</strong> Never use wildcards. Only allow trusted domains to access your APIs.</li><li><strong>Rate Limiting:</strong> Prevent bots from consuming your resources.</li><li><strong>Input Validation:</strong> Never trust user input. Use our validation tools to pre-sanitize data structures.</li></ul>"
+      },
+      "sugar-content-rankings": {
+        "title": "Sugar Content Rankings in Popular Drinks",
+        "summary": "Uncovering hidden sugar in daily drinks and how to manage sugar intake safely.",
+        "content": "This article gives a detailed comparison of sugar content in various bubble teas and sodas..."
+      },
+      "coffee-caffeine-guide": {
+        "title": "The Ultimate Caffeine Guide for Professionals",
+        "summary": "Americano, Latte, or Cold Brew - which keeps you most alert? Understand how caffeine works.",
+        "content": "Many rely on caffeine to stay awake, but do you really understand its mechanism?..."
+      },
+      "remote-work-ergonomics": {
+        "title": "Remote Work Ergonomics Guide",
+        "summary": "Say goodbye to back pain! Build a healthy and efficient home office environment.",
+        "content": "Staring at the screen for long hours? Proper posture and peripherals can save your spine..."
       }
+    },
+    "categories": {
+      "tech": "Tech",
+      "science": "Science",
+      "education": "Education",
+      "development": "Development",
+      "security": "Security",
+      "network": "Network",
+      "design": "Design",
+      "lifestyle": "Lifestyle"
     }
   },
   "nav": {
     "home": "Home",
     "language": "Language"
-  }
+  },
+  "category": "Category",
+  " ": "",
+  "/": "/",
+  "": {
+    "": ""
+  },
+  "YYYY-MM-DDTHH:mm": ":mm",
+  "YYYY-MM-DD HH:mm:ss": ":mm:ss",
+  "Hello World 2026 ToolOrbit": "Ello  orld 2026  ool rbit",
+  "a": "A",
+  "\\n": "\\n",
+  "canvas": "Canvas",
+  "2d": "2d",
+  "123456789012": "123456789012",
+  "image/png": "Image/png",
+  "image/jpeg": "Image/jpeg",
+  ",": ","
 }
