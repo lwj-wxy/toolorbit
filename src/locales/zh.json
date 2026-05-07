@@ -1359,7 +1359,9 @@
       "network": "网络",
       "design": "设计",
       "lifestyle": "生活方式"
-    }
+    },
+    "shareTitle": "分享本文",
+    "shareTwitter": "分享至 Twitter"
   },
   "nav": {
     "home": "首页",

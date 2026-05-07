@@ -1359,7 +1359,9 @@
       "network": "Network",
       "design": "Design",
       "lifestyle": "Lifestyle"
-    }
+    },
+    "shareTitle": "Share this post",
+    "shareTwitter": "Share on Twitter"
   },
   "nav": {
     "home": "Home",
