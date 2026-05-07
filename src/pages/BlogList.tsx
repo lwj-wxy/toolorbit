@@ -54,6 +54,7 @@ const BlogList: React.FC = () => {
         <img 
           src={post.image} 
           alt={t(`blog.posts.${post.slug}.title`)}
+          referrerPolicy="no-referrer"
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
           onError={(e) => {
             (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&q=80&w=800';

@@ -72,7 +72,7 @@ export default function Home() {
      return (
         <div className="flex flex-col">
           <div className="flex items-baseline justify-between mb-8">
-            <h2 className="text-2xl font-bold text-slate-800 tracking-tight">
+            <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-100 tracking-tight transition-colors">
               {categoryFilter ? t(`common.categories.${categoryFilter}`) : t('search.results', { query: searchQuery })}
             </h2>
           </div>
@@ -84,14 +84,14 @@ export default function Home() {
                 <Link
                   key={tool.id}
                   to={tool.path}
-                  className="bg-white border border-slate-200/80 rounded-xl p-4 transition-all duration-200 cursor-pointer flex items-center justify-between text-center hover:-translate-y-1 hover:shadow-md hover:border-slate-300 group"
+                  className="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-xl p-4 transition-all duration-200 cursor-pointer flex items-center justify-between text-center hover:-translate-y-1 hover:shadow-md dark:hover:shadow-slate-900/50 hover:border-slate-300 dark:hover:border-slate-700 group"
                 >
-                  <span className="text-sm font-medium text-slate-600 group-hover:text-blue-600 transition-colors">
+                  <span className="text-sm font-medium text-slate-600 dark:text-slate-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                     {t(`tools.${tool.id}.name`, { defaultValue: tool.name })}
                   </span>
                   <button 
                     onClick={(e) => togglePin(e, tool.id)}
-                    className={`p-1.5 rounded-md hover:bg-slate-100 transition-colors ${isPinned ? 'text-amber-500' : 'text-slate-300 opacity-0 group-hover:opacity-100'}`}
+                    className={`p-1.5 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors ${isPinned ? 'text-amber-500' : 'text-slate-300 dark:text-slate-600 opacity-0 group-hover:opacity-100'}`}
                   >
                     <Star size={16} fill={isPinned ? "currentColor" : "none"} />
                   </button>
@@ -102,8 +102,8 @@ export default function Home() {
 
           {filteredTools.length === 0 && (
             <div className="text-center py-16">
-              <h3 className="text-lg font-semibold text-slate-800">{t('search.noResults')}</h3>
-              <p className="mt-2 text-sm text-slate-500">
+              <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-100">{t('search.noResults')}</h3>
+              <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
                 {t('search.noResultsSub')}
               </p>
             </div>
@@ -131,7 +131,7 @@ export default function Home() {
          <section className="space-y-4">
             <div className="flex items-center gap-3">
                <div className="w-1 h-6 bg-amber-500 rounded-full" />
-               <h2 className="text-[17px] font-bold text-amber-600 tracking-tight flex items-center gap-2">
+               <h2 className="text-[17px] font-bold text-amber-600 dark:text-amber-500 tracking-tight flex items-center gap-2">
                   <Star size={18} fill="currentColor" />
                   {t('common.pinned_tools') || 'Pinned Tools'}
                </h2>
@@ -141,14 +141,14 @@ export default function Home() {
                   <Link
                     key={`pinned-${tool.id}`}
                     to={tool.path}
-                    className="bg-white/60 border border-amber-200/50 rounded-xl py-3.5 px-4 flex items-center justify-between text-center transition-all duration-200 hover:shadow-sm hover:-translate-y-[2px] group hover:border-amber-300"
+                    className="bg-white/60 dark:bg-slate-900/60 border border-amber-200/50 dark:border-amber-900/30 rounded-xl py-3.5 px-4 flex items-center justify-between text-center transition-all duration-200 hover:shadow-sm hover:-translate-y-[2px] group hover:border-amber-300 dark:hover:border-amber-700"
                   >
-                     <span className="text-[14px] font-medium text-slate-700 group-hover:text-slate-900 transition-colors">
+                     <span className="text-[14px] font-medium text-slate-700 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-slate-100 transition-colors">
                         {t(`tools.${tool.id}.name`, { defaultValue: tool.name })}
                      </span>
                      <button 
                        onClick={(e) => togglePin(e, tool.id)}
-                       className="p-1 text-amber-500 hover:text-slate-400 transition-colors"
+                       className="p-1 text-amber-500 hover:text-slate-400 dark:hover:text-slate-500 transition-colors"
                      >
                        <Star size={16} fill="currentColor" />
                      </button>
@@ -182,14 +182,14 @@ export default function Home() {
                         <Link
                           key={tool.id}
                           to={tool.path}
-                          className="bg-white border border-slate-200/80 rounded-xl py-3.5 px-4 flex items-center justify-between text-center transition-all duration-200 hover:shadow-sm hover:-translate-y-[2px] group hover:border-slate-300"
+                          className="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-xl py-3.5 px-4 flex items-center justify-between text-center transition-all duration-200 hover:shadow-sm hover:-translate-y-[2px] group hover:border-slate-300 dark:hover:border-slate-700"
                         >
-                           <span className="text-[14px] font-medium text-slate-700 group-hover:text-slate-900 transition-colors">
+                           <span className="text-[14px] font-medium text-slate-700 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-slate-100 transition-colors">
                               {t(`tools.${tool.id}.name`, { defaultValue: tool.name })}
                            </span>
                            <button 
                              onClick={(e) => togglePin(e, tool.id)}
-                             className={`p-1.5 rounded-md hover:bg-slate-100 transition-colors ${isPinned ? 'text-amber-500' : 'text-slate-300 opacity-0 group-hover:opacity-100'}`}
+                             className={`p-1.5 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors ${isPinned ? 'text-amber-500' : 'text-slate-300 dark:text-slate-600 opacity-0 group-hover:opacity-100'}`}
                            >
                              <Star size={16} fill={isPinned ? "currentColor" : "none"} />
                            </button>

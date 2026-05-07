@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Search, Menu, X, ChevronDown, ChevronRight, Home } from 'lucide-react';
+import { Search, Menu, X, ChevronDown, ChevronRight, Home, Sun, Moon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useTheme } from '../context/ThemeContext';
 import { cn } from '../lib/utils';
 import { TOOLS } from '../data/tools';
 import LanguageSwitcher from './LanguageSwitcher';
@@ -12,6 +13,7 @@ interface LayoutProps {
 
 export default function Layout({ children }: LayoutProps) {
   const { t } = useTranslation();
+  const { theme, setTheme, isDark } = useTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
@@ -32,19 +34,19 @@ export default function Layout({ children }: LayoutProps) {
   const navCategories = categories.filter(c => c !== '娱乐工具');
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#fafafa] text-[#1e293b] font-sans relative overflow-x-hidden">
+    <div className="flex min-h-screen flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-200 font-sans relative overflow-x-hidden transition-colors duration-300">
       
       {/* Subtle Background Elements */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
         {/* Soft radial glow */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-blue-50/50 blur-[100px] rounded-full mix-blend-multiply opacity-50" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-blue-50/50 dark:bg-blue-900/10 blur-[100px] rounded-full mix-blend-multiply opacity-50" />
       </div>
 
       {/* Top Header Navigation */}
-      <header className="sticky top-0 z-50 flex h-[64px] items-center justify-between border-b border-slate-200/80 bg-white/80 backdrop-blur-md px-4 sm:px-6 lg:px-8 shadow-sm">
+      <header className="sticky top-0 z-50 flex h-[64px] items-center justify-between border-b border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md px-4 sm:px-6 lg:px-8 shadow-sm">
         <div className="flex items-center gap-4 lg:gap-6 xl:gap-8 min-w-0">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 lg:gap-[10px] text-[18px] lg:text-[20px] font-extrabold text-blue-600 tracking-tight shrink-0">
+          <Link to="/" className="flex items-center gap-2 lg:gap-[10px] text-[18px] lg:text-[20px] font-extrabold text-blue-600 dark:text-blue-400 tracking-tight shrink-0">
             <div className="w-7 h-7 lg:w-8 lg:h-8 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-[14px] lg:text-[16px] shadow-sm">
               Ω
             </div>
@@ -58,7 +60,7 @@ export default function Layout({ children }: LayoutProps) {
                 to="/"
                 className={cn(
                   "px-2 lg:px-3 flex items-center gap-1.5 h-full text-[14px] lg:text-[15px] font-bold transition-all duration-200 border-b-[3px] border-transparent mt-[3px] cursor-pointer whitespace-nowrap",
-                  location.pathname === '/' || location.search.includes('category') ? "text-blue-600 border-blue-600" : "text-slate-600 group-hover:text-slate-900"
+                  location.pathname === '/' || location.search.includes('category') ? "text-blue-600 border-blue-600 dark:text-blue-400 dark:border-blue-400" : "text-slate-600 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-slate-100"
                 )}
               >
                 {t('common.navTools')}
@@ -66,14 +68,14 @@ export default function Layout({ children }: LayoutProps) {
               </Link>
 
               {/* Mega Menu - Grouped by Category */}
-              <div className="absolute top-[64px] left-0 w-full bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.05)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top -translate-y-1 group-hover:translate-y-0 z-50">
+              <div className="absolute top-[64px] left-0 w-full bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800/80 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.05)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top -translate-y-1 group-hover:translate-y-0 z-50">
                 <div className="max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-10">
                   <div className="grid grid-cols-4 lg:grid-cols-5 xl:grid-cols-8 gap-6">
                     {navCategories.map(category => {
                       const categoryTools = TOOLS.filter(t => t.category === category);
                       return (
                         <div key={category} className="flex flex-col gap-3">
-                          <h3 className="text-[13px] font-extrabold text-slate-400 uppercase tracking-wider mb-2 px-2">
+                          <h3 className="text-[13px] font-extrabold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2 px-2">
                              {t(`common.categories.${category}`)}
                           </h3>
                           <div className="flex flex-col gap-1">
@@ -81,12 +83,12 @@ export default function Layout({ children }: LayoutProps) {
                               <Link
                                 key={tool.id}
                                 to={tool.path}
-                                className="group/item flex items-center gap-2 p-2 rounded-lg hover:bg-slate-50 transition-all"
+                                className="group/item flex items-center gap-2 p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-all"
                               >
-                                <div className="w-6 h-6 rounded flex items-center justify-center text-slate-400 group-hover/item:text-blue-600 transition-colors">
+                                <div className="w-6 h-6 rounded flex items-center justify-center text-slate-400 group-hover/item:text-blue-600 dark:group-hover/item:text-blue-400 transition-colors">
                                   <tool.icon size={16} />
                                 </div>
-                                <span className="text-[13px] font-bold text-slate-700 group-hover/item:text-blue-600 truncate">
+                                <span className="text-[13px] font-bold text-slate-700 dark:text-slate-300 group-hover/item:text-blue-600 dark:group-hover/item:text-blue-400 truncate">
                                   {t(`tools.${tool.id}.name`)}
                                 </span>
                               </Link>
@@ -165,6 +167,14 @@ export default function Layout({ children }: LayoutProps) {
           </div>
 
           <button
+            onClick={() => setTheme(isDark ? 'light' : 'dark')}
+            className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 transition-colors"
+            title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
+          >
+            {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+          </button>
+
+          <button
             type="button"
             className="md:hidden p-2 text-slate-500 hover:bg-slate-100 rounded-md transition-colors"
             onClick={() => setMobileMenuOpen(true)}
@@ -178,12 +188,12 @@ export default function Layout({ children }: LayoutProps) {
       {mobileMenuOpen && (
         <div className="fixed inset-0 z-[100] md:hidden">
           <div className="fixed inset-0 bg-black/30 backdrop-blur-sm" onClick={() => setMobileMenuOpen(false)} />
-          <div className="fixed inset-y-0 right-0 w-[300px] bg-white shadow-2xl overflow-y-auto flex flex-col">
-            <div className="flex items-center justify-between p-6 border-b border-slate-200 sticky top-0 bg-white z-10">
-              <span className="font-bold text-[18px] text-slate-900">{t('common.mobileMenu')}</span>
+          <div className="fixed inset-y-0 right-0 w-[300px] bg-white dark:bg-slate-900 shadow-2xl overflow-y-auto flex flex-col transition-colors duration-300">
+            <div className="flex items-center justify-between p-6 border-b border-slate-200 dark:border-slate-800 sticky top-0 bg-white dark:bg-slate-900 z-10">
+              <span className="font-bold text-[18px] text-slate-900 dark:text-slate-100">{t('common.mobileMenu')}</span>
               <div className="flex items-center gap-2">
                 <LanguageSwitcher />
-                <button onClick={() => setMobileMenuOpen(false)} className="p-2 text-slate-500 hover:bg-slate-100 rounded-md">
+                <button onClick={() => setMobileMenuOpen(false)} className="p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-md">
                   <X className="h-5 w-5" />
                 </button>
               </div>
@@ -201,7 +211,7 @@ export default function Layout({ children }: LayoutProps) {
               >
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
                 <input
-                  className="w-full py-2.5 pr-4 pl-9 rounded-lg border border-slate-200 bg-slate-50 text-[14px] outline-none focus:border-blue-500 focus:bg-white focus:ring-[2px] focus:ring-blue-500/10 placeholder:text-slate-400 text-black"
+                  className="w-full py-2.5 pr-4 pl-9 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-[14px] outline-none focus:border-blue-500 focus:bg-white dark:focus:bg-slate-900 focus:ring-[2px] focus:ring-blue-500/10 placeholder:text-slate-400 text-slate-900 dark:text-slate-100"
                   placeholder={t('common.searchPlaceholder')}
                   type="search"
                   name="search"
@@ -213,14 +223,14 @@ export default function Layout({ children }: LayoutProps) {
                 const categoryTools = TOOLS.filter(t => t.category === category);
                 return (
                   <div key={category} className="flex flex-col gap-3">
-                    <h4 className="font-bold text-slate-900 text-[15px] border-b border-slate-200 pb-2">{t(`common.categories.${category}`)}</h4>
+                    <h4 className="font-bold text-slate-900 dark:text-slate-100 text-[15px] border-b border-slate-200 dark:border-slate-800 pb-2">{t(`common.categories.${category}`)}</h4>
                     <div className="flex flex-col gap-2">
                        {categoryTools.map(tool => (
                         <Link
                           key={tool.id}
                           to={tool.path}
                           onClick={() => setMobileMenuOpen(false)}
-                          className="flex items-center gap-3 py-2 px-2 rounded-lg text-slate-600 hover:bg-slate-100 hover:text-blue-600 transition-colors"
+                          className="flex items-center gap-3 py-2 px-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                         >
                           <tool.icon size={16} />
                           <span className="text-[14px] font-medium">{t(`tools.${tool.id}.name`, { defaultValue: tool.name })}</span>
@@ -231,13 +241,13 @@ export default function Layout({ children }: LayoutProps) {
                 );
               })}
               
-              <div className="flex flex-col gap-3 mt-4 pt-4 border-t border-slate-200">
+              <div className="flex flex-col gap-3 mt-4 pt-4 border-t border-slate-200 dark:border-slate-800">
                 <Link
                   to="/blog"
                   onClick={() => setMobileMenuOpen(false)}
                   className={cn(
                     "flex items-center gap-3 py-3 px-4 rounded-xl font-bold transition-all",
-                    location.pathname.startsWith('/blog') ? "bg-blue-50 text-blue-600 shadow-sm" : "text-slate-600 hover:bg-slate-50"
+                    location.pathname.startsWith('/blog') ? "bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 shadow-sm" : "text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800"
                   )}
                 >
                    <span className="text-[16px]">{t('blog.nav')}</span>
@@ -257,17 +267,17 @@ export default function Layout({ children }: LayoutProps) {
             const currentTool = TOOLS.find(t => t.path === location.pathname);
             if (!currentTool) return null;
             return (
-              <nav className="flex items-center space-x-2 text-sm text-slate-500 mb-6 font-medium whitespace-nowrap overflow-x-auto pb-2">
-                <Link to="/" className="hover:text-blue-600 transition-colors flex items-center gap-1.5 flex-shrink-0">
+              <nav className="flex items-center space-x-2 text-sm text-slate-500 dark:text-slate-400 mb-6 font-medium whitespace-nowrap overflow-x-auto pb-2">
+                <Link to="/" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-1.5 flex-shrink-0">
                   <Home className="w-4 h-4" />
                   {t('common.nav_home') || 'Home'}
                 </Link>
-                <ChevronRight className="w-4 h-4 text-slate-300 flex-shrink-0" />
-                <Link to={`/?category=${currentTool.category}`} className="hover:text-blue-600 transition-colors flex-shrink-0">
+                <ChevronRight className="w-4 h-4 text-slate-300 dark:text-slate-700 flex-shrink-0" />
+                <Link to={`/?category=${currentTool.category}`} className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex-shrink-0">
                   {t(`common.categories.${currentTool.category}`)}
                 </Link>
-                <ChevronRight className="w-4 h-4 text-slate-300 flex-shrink-0" />
-                <span className="text-slate-800 text-ellipsis overflow-hidden break-all flex-shrink-0 max-w-[200px] sm:max-w-none inline-block">
+                <ChevronRight className="w-4 h-4 text-slate-300 dark:text-slate-700 flex-shrink-0" />
+                <span className="text-slate-800 dark:text-slate-200 text-ellipsis overflow-hidden break-all flex-shrink-0 max-w-[200px] sm:max-w-none inline-block">
                   {t(`tools.${currentTool.id}.name`, { defaultValue: currentTool.name })}
                 </span>
               </nav>
@@ -279,8 +289,8 @@ export default function Layout({ children }: LayoutProps) {
         
         {/* Related Tools for Internal Linking / SEO */}
         {location.pathname.startsWith('/tools/') && (
-          <div className="mt-16 pt-12 border-t border-slate-200/60">
-            <h3 className="text-xl font-bold text-slate-900 mb-6">{t('common.related_tools') || 'Related Tools'}</h3>
+          <div className="mt-16 pt-12 border-t border-slate-200/60 dark:border-slate-800/60">
+            <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-6">{t('common.related_tools') || 'Related Tools'}</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {(() => {
                 const currentTool = TOOLS.find(t => t.path === location.pathname);
@@ -290,15 +300,15 @@ export default function Layout({ children }: LayoutProps) {
                   <Link 
                     key={tool.id} 
                     to={tool.path}
-                    className="flex flex-col p-4 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all"
+                    className="flex flex-col p-4 bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all"
                   >
                     <div className="flex items-center gap-3 mb-2">
-                       <div className="p-2 rounded-xl bg-blue-50 text-blue-600">
+                       <div className="p-2 rounded-xl bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400">
                          <tool.icon size={20} />
                        </div>
-                       <h4 className="font-bold text-slate-800">{t(`tools.${tool.id}.name`, { defaultValue: tool.name })}</h4>
+                       <h4 className="font-bold text-slate-800 dark:text-slate-200">{t(`tools.${tool.id}.name`, { defaultValue: tool.name })}</h4>
                     </div>
-                    <p className="text-sm text-slate-500 line-clamp-2 mt-auto">
+                    <p className="text-sm text-slate-500 dark:text-slate-400 line-clamp-2 mt-auto">
                       {t(`tools.${tool.id}.description`, { defaultValue: tool.description })}
                     </p>
                   </Link>
@@ -309,11 +319,11 @@ export default function Layout({ children }: LayoutProps) {
         )}
       </div>
 
-      <footer className="bg-transparent pt-8 pb-12 flex flex-col items-center justify-center text-[13px] text-slate-400 mt-auto relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-200/50">
+      <footer className="bg-transparent pt-8 pb-12 flex flex-col items-center justify-center text-[13px] text-slate-400 dark:text-slate-500 mt-auto relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-200/50 dark:border-slate-800/50">
         <div className="flex gap-6 mb-4 font-medium">
-          <Link to="/about" className="hover:text-blue-600 transition-colors">{t('common.nav_about')}</Link>
-          <Link to="/privacy" className="hover:text-blue-600 transition-colors">{t('common.nav_privacy')}</Link>
-          <Link to="/terms" className="hover:text-blue-600 transition-colors">{t('common.nav_terms')}</Link>
+          <Link to="/about" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors uppercase tracking-wider">{t('common.nav_about')}</Link>
+          <Link to="/privacy" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors uppercase tracking-wider">{t('common.nav_privacy')}</Link>
+          <Link to="/terms" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors uppercase tracking-wider">{t('common.nav_terms')}</Link>
         </div>
         <div className="text-center">
           <p>{t('common.footer_desc')}</p>

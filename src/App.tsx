@@ -5,7 +5,9 @@
 
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
+import { ThemeProvider } from './context/ThemeContext';
 import { usePageTracking } from './hooks/usePageTracking';
+import ScrollToTop from './components/ScrollToTop';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import JsonFormatter from './pages/tools/dev/JsonFormatter';
@@ -72,74 +74,78 @@ function AnalyticsTracker() {
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <Toaster position="top-right" toastOptions={{ className: 'text-sm font-medium' }} />
-      <AnalyticsTracker />
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/blog" element={<BlogList />} />
-          <Route path="/blog/:slug" element={<BlogPost />} />
-          <Route path="/privacy" element={<Privacy />} />
-          <Route path="/terms" element={<Terms />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/tools/dev/json-formatter" element={<JsonFormatter />} />
-          <Route path="/tools/dev/base64" element={<Base64 />} />
-          <Route path="/tools/dev/ascii-table" element={<AsciiTable />} />
-          <Route path="/tools/dev/url-encoder" element={<UrlEncoder />} />
-          <Route path="/tools/dev/hash-generator" element={<HashGenerator />} />
-          <Route path="/tools/dev/uuid-generator" element={<UuidGenerator />} />
-          <Route path="/tools/dev/unicode-converter" element={<UnicodeConverter />} />
-          <Route path="/tools/dev/chmod-calculator" element={<ChmodCalculator />} />
-          
-          <Route path="/tools/dev/color-converter" element={<ColorConverter />} />
-          <Route path="/tools/dev/color-palette" element={<ColorPalette />} />
-          <Route path="/tools/dev/color-picker" element={<ColorPicker />} />
-          <Route path="/tools/image/image-to-ico" element={<ImageToIco />} />
-          
-          <Route path="/tools/text/text-analyzer" element={<TextAnalyzer />} />
-          <Route path="/tools/text/text-cleaner" element={<TextCleaner />} />
-          <Route path="/tools/text/symbol-library" element={<SymbolLibrary />} />
-          <Route path="/tools/generator/qr-generator" element={<QrGenerator />} />
-          <Route path="/tools/generator/qr-scanner" element={<QrScanner />} />
-          <Route path="/tools/generator/barcode-generator" element={<BarcodeGenerator />} />
-          <Route path="/tools/ecommerce/etsy-fee-calculator" element={<EtsyFeeCalculator />} />
-          <Route path="/tools/ecommerce/stripe-fee-calculator" element={<StripeFeeCalculator />} />
-          <Route path="/tools/ecommerce/listing-craft-ai" element={<ListingCraft />} />
-          <Route path="/tools/dev/timestamp-converter" element={<TimestampConverter />} />
-          <Route path="/tools/dev/base-converter" element={<BaseConverter />} />
-          <Route path="/tools/image/image-compressor" element={<ImageCompressor />} />
-          <Route path="/tools/image/image-converter" element={<ImageConverter />} />
-          <Route path="/tools/image/svg-to-png" element={<SvgToPng />} />
-          <Route path="/tools/image/image-to-base64" element={<ImageToBase64 />} />
-          <Route path="/tools/image/image-cropper" element={<ImageCropper />} />
-          
-          <Route path="/tools/pdf/pdf-to-image" element={<PdfToImage />} />
-          <Route path="/tools/pdf/image-to-pdf" element={<ImageToPdf />} />
-          <Route path="/tools/pdf/pdf-merge" element={<PdfMerge />} />
-          <Route path="/tools/pdf/pdf-split" element={<PdfSplit />} />
-          
-          <Route path="/tools/calculate/unit-converter" element={<UnitConverter />} />
-          <Route path="/tools/calculate/time-converter" element={<TimeConverter />} />
-          <Route path="/tools/calculate/archive-converter" element={<ArchiveConverter />} />
-          <Route path="/tools/calculate/rmb-converter" element={<RmbConverter />} />
-          <Route path="/tools/calculate/ppi-calculator" element={<PpiCalculator />} />
+    <ThemeProvider>
+      <BrowserRouter>
+        <ScrollToTop />
+        <Toaster position="top-right" toastOptions={{ className: 'text-sm font-medium' }} />
+        <AnalyticsTracker />
+        <Layout>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            {/* ... other routes ... */}
+            <Route path="/blog" element={<BlogList />} />
+            <Route path="/blog/:slug" element={<BlogPost />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/tools/dev/json-formatter" element={<JsonFormatter />} />
+            <Route path="/tools/dev/base64" element={<Base64 />} />
+            <Route path="/tools/dev/ascii-table" element={<AsciiTable />} />
+            <Route path="/tools/dev/url-encoder" element={<UrlEncoder />} />
+            <Route path="/tools/dev/hash-generator" element={<HashGenerator />} />
+            <Route path="/tools/dev/uuid-generator" element={<UuidGenerator />} />
+            <Route path="/tools/dev/unicode-converter" element={<UnicodeConverter />} />
+            <Route path="/tools/dev/chmod-calculator" element={<ChmodCalculator />} />
+            
+            <Route path="/tools/dev/color-converter" element={<ColorConverter />} />
+            <Route path="/tools/dev/color-palette" element={<ColorPalette />} />
+            <Route path="/tools/dev/color-picker" element={<ColorPicker />} />
+            <Route path="/tools/image/image-to-ico" element={<ImageToIco />} />
+            
+            <Route path="/tools/text/text-analyzer" element={<TextAnalyzer />} />
+            <Route path="/tools/text/text-cleaner" element={<TextCleaner />} />
+            <Route path="/tools/text/symbol-library" element={<SymbolLibrary />} />
+            <Route path="/tools/generator/qr-generator" element={<QrGenerator />} />
+            <Route path="/tools/generator/qr-scanner" element={<QrScanner />} />
+            <Route path="/tools/generator/barcode-generator" element={<BarcodeGenerator />} />
+            <Route path="/tools/ecommerce/etsy-fee-calculator" element={<EtsyFeeCalculator />} />
+            <Route path="/tools/ecommerce/stripe-fee-calculator" element={<StripeFeeCalculator />} />
+            <Route path="/tools/ecommerce/listing-craft-ai" element={<ListingCraft />} />
+            <Route path="/tools/dev/timestamp-converter" element={<TimestampConverter />} />
+            <Route path="/tools/dev/base-converter" element={<BaseConverter />} />
+            <Route path="/tools/image/image-compressor" element={<ImageCompressor />} />
+            <Route path="/tools/image/image-converter" element={<ImageConverter />} />
+            <Route path="/tools/image/svg-to-png" element={<SvgToPng />} />
+            <Route path="/tools/image/image-to-base64" element={<ImageToBase64 />} />
+            <Route path="/tools/image/image-cropper" element={<ImageCropper />} />
+            
+            <Route path="/tools/pdf/pdf-to-image" element={<PdfToImage />} />
+            <Route path="/tools/pdf/image-to-pdf" element={<ImageToPdf />} />
+            <Route path="/tools/pdf/pdf-merge" element={<PdfMerge />} />
+            <Route path="/tools/pdf/pdf-split" element={<PdfSplit />} />
+            
+            <Route path="/tools/calculate/unit-converter" element={<UnitConverter />} />
+            <Route path="/tools/calculate/time-converter" element={<TimeConverter />} />
+            <Route path="/tools/calculate/archive-converter" element={<ArchiveConverter />} />
+            <Route path="/tools/calculate/rmb-converter" element={<RmbConverter />} />
+            <Route path="/tools/calculate/ppi-calculator" element={<PpiCalculator />} />
 
-          <Route path="/tools/net/short-url" element={<ShortUrl />} />
-          <Route path="/tools/fun/game-2048" element={<Game2048 />} />
-          <Route path="/tools/dev/password-generator" element={<PasswordGenerator />} />
-          <Route path="/tools/dev/jwt-debugger" element={<JwtDebugger />} />
-          <Route path="/tools/dev/json-to-ts" element={<JsonToTs />} />
-          <Route path="/tools/dev/regex-tester" element={<RegexTester />} />
-          <Route path="/tools/dev/crypto-symmetric" element={<CryptoSymmetric />} />
-          <Route path="/tools/dev/morse-code" element={<MorseCode />} />
-          <Route path="/tools/dev/hex-string-converter" element={<HexStringConverter />} />
-          <Route path="/tools/dev/chinese-crypto" element={<ChineseCrypto />} />
-          <Route path="/tools/fun/minesweeper" element={<Minesweeper />} />
-          {/* Catch-all route to redirect invalid paths to Home */}
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </Layout>
-    </BrowserRouter>
+            <Route path="/tools/net/short-url" element={<ShortUrl />} />
+            <Route path="/tools/fun/game-2048" element={<Game2048 />} />
+            <Route path="/tools/dev/password-generator" element={<PasswordGenerator />} />
+            <Route path="/tools/dev/jwt-debugger" element={<JwtDebugger />} />
+            <Route path="/tools/dev/json-to-ts" element={<JsonToTs />} />
+            <Route path="/tools/dev/regex-tester" element={<RegexTester />} />
+            <Route path="/tools/dev/crypto-symmetric" element={<CryptoSymmetric />} />
+            <Route path="/tools/dev/morse-code" element={<MorseCode />} />
+            <Route path="/tools/dev/hex-string-converter" element={<HexStringConverter />} />
+            <Route path="/tools/dev/chinese-crypto" element={<ChineseCrypto />} />
+            <Route path="/tools/fun/minesweeper" element={<Minesweeper />} />
+            {/* Catch-all route to redirect invalid paths to Home */}
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </Layout>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }

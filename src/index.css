@@ -1,11 +1,87 @@
 @import "tailwindcss";
 
-@layer base {
-  body {
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    background-color: #f4f7fa;
-    color: #1e293b;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
+@theme {
+  --variant-dark: .dark &;
+}
+
+:root {
+  color-scheme: light;
+}
+
+:root.dark {
+  color-scheme: dark;
+}
+
+body {
+  @apply bg-slate-50 text-slate-900 transition-colors duration-300;
+}
+
+/* 
+  Global Dark Mode Styles
+  We manually target .dark class to ensure it works even if tailwind's dark: variant is not configured.
+*/
+.dark {
+  background-color: #020617; /* slate-950 */
+  color: #f1f5f9; /* slate-100 */
+}
+
+.dark body {
+  background-color: #020617;
+  color: #f1f5f9;
+}
+
+/* Target Layout wrapper */
+.dark .bg-slate-50 {
+  background-color: #020617 !important;
+}
+
+/* Target Header and Cards */
+.dark .bg-white,
+.dark .bg-white\/80,
+.dark .bg-slate-100,
+.dark .bg-slate-200,
+.dark .bg-gray-50,
+.dark .bg-gray-100 {
+  background-color: #0f172a !important;
+}
+
+.dark .hover\:bg-slate-100:hover,
+.dark .hover\:bg-slate-200:hover {
+  background-color: #1e293b !important;
+}
+
+/* Target all text that might still be dark */
+.dark .text-slate-900,
+.dark .text-slate-800,
+.dark .text-slate-700 {
+  color: #f1f5f9 !important;
+}
+
+.dark .text-slate-600,
+.dark .text-slate-500 {
+  color: #94a3b8 !important;
+}
+
+/* Target borders */
+.dark .border-slate-200,
+.dark .border-slate-100,
+.dark .border-slate-200\/80 {
+  border-color: #1e293b !important;
+}
+
+/* Inputs and interactive elements */
+.dark input,
+.dark textarea,
+.dark select {
+  background-color: #1e293b !important;
+  color: #f1f5f9 !important;
+  border-color: #334155 !important;
+}
+
+.dark .bg-blue-50 {
+  background-color: rgba(30, 58, 138, 0.3) !important;
+}
+
+.dark .text-blue-600 {
+  color: #60a5fa !important;
 }

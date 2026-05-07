@@ -37,6 +37,16 @@ const BlogPost: React.FC = () => {
     );
   }
 
+  // Related Posts Logic: same category first, otherwise any other posts
+  const relatedPosts = BLOG_POSTS
+    .filter(p => p.slug !== post.slug)
+    .sort((a, b) => {
+      if (a.category === post.category && b.category !== post.category) return -1;
+      if (a.category !== post.category && b.category === post.category) return 1;
+      return 0;
+    })
+    .slice(0, 2);
+
   return (
     <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <nav className="flex items-center space-x-2 text-sm text-slate-500 mb-8 font-medium whitespace-nowrap overflow-x-auto pb-2">
@@ -76,16 +86,18 @@ const BlogPost: React.FC = () => {
         <img 
           src={post.image} 
           alt={t(`blog.posts.${post.slug}.title`)}
+          referrerPolicy="no-referrer"
           className="w-full h-[400px] object-cover rounded-3xl shadow-lg mb-12"
         />
 
         <div 
           className="prose prose-slate prose-lg max-w-none 
-            prose-headings:text-slate-900 prose-headings:font-bold
-            prose-p:text-slate-600 prose-p:leading-relaxed
-            prose-li:text-slate-600 
+            dark:prose-invert
+            prose-headings:text-slate-900 dark:prose-headings:text-slate-100 prose-headings:font-bold
+            prose-p:text-slate-600 dark:prose-p:text-slate-300 prose-p:leading-relaxed
+            prose-li:text-slate-600 dark:prose-li:text-slate-300
             prose-img:rounded-2xl
-            prose-strong:text-slate-900
+            prose-strong:text-slate-900 dark:prose-strong:text-slate-100
             prose-a:text-emerald-600 prose-a:font-bold hover:prose-a:text-emerald-700"
           dangerouslySetInnerHTML={{ __html: t(`blog.posts.${post.slug}.content`) }}
         />
@@ -114,7 +126,7 @@ const BlogPost: React.FC = () => {
       <div className="mt-16 pt-12 border-t border-slate-200/60 max-w-4xl mx-auto">
         <h3 className="text-2xl font-bold text-slate-900 mb-8">{t('blog.related_posts') || 'Related Articles'}</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {BLOG_POSTS.filter(p => p.slug !== post.slug && p.category === post.category).slice(0, 2).map(related => (
+          {relatedPosts.map(related => (
             <Link 
               key={related.id} 
               to={`/blog/${related.slug}`}
@@ -124,6 +136,7 @@ const BlogPost: React.FC = () => {
                 <img 
                   src={related.image} 
                   alt={t(`blog.posts.${related.slug}.title`)}
+                  referrerPolicy="no-referrer"
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
               </div>
