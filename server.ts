@@ -1,11 +1,46 @@
 import express from "express";
 import { createServer as createViteServer } from "vite";
 import path from "path";
+import fs from "fs";
 import { GoogleGenAI } from "@google/genai";
 
 import axios from "axios";
 
+// @ts-ignore
+import zhLocale from "./src/locales/zh.json";
+// @ts-ignore
+import enLocale from "./src/locales/en.json";
+
+function injectSEO(html: string, title: string, description: string, url: string, jsonLd: string = ""): string {
+  let injected = html;
+  
+  if (title) {
+    injected = injected.replace(/<title>.*?<\/title>/, `<title>${title}</title>`);
+    injected = injected.replace(/<meta property="og:title" content=".*?"\s*\/?>/, '');
+    injected = injected.replace(/<meta name="twitter:title" content=".*?"\s*\/?>/, '');
+    injected = injected.replace('</head>', `<meta property="og:title" content="${title}">\n<meta name="twitter:title" content="${title}">\n</head>`);
+  }
+  
+  if (description) {
+    injected = injected.replace(/<meta name="description" content=".*?"\s*\/?>/, `<meta name="description" content="${description}">`);
+    injected = injected.replace(/<meta property="og:description" content=".*?"\s*\/?>/, '');
+    injected = injected.replace(/<meta name="twitter:description" content=".*?"\s*\/?>/, '');
+    injected = injected.replace('</head>', `<meta property="og:description" content="${description}">\n<meta name="twitter:description" content="${description}">\n</head>`);
+  }
+
+  if (url) {
+    injected = injected.replace('</head>', `<link rel="canonical" href="${url}">\n<meta property="og:url" content="${url}">\n</head>`);
+  }
+
+  if (jsonLd) {
+    injected = injected.replace('</head>', `${jsonLd}\n</head>`);
+  }
+
+  return injected;
+}
+
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+
 
 async function startServer() {
   const app = express();
@@ -163,10 +198,131 @@ async function startServer() {
     app.use(vite.middlewares);
   } else {
     const distPath = path.join(process.cwd(), 'dist');
-    app.use(express.static(distPath));
-    // For Express v4, we use * 
+    const indexPath = path.join(distPath, 'index.html');
+    
+    // Serve static assets but not index.html directly
+    app.use(express.static(distPath, { index: false }));
+    
     app.get('*', (req, res) => {
-      res.sendFile(path.join(distPath, 'index.html'));
+      // 1. Determine base HTML
+      let html = "";
+      try {
+        html = fs.readFileSync(indexPath, "utf-8");
+      } catch (e) {
+        return res.status(404).send("Not found");
+      }
+
+      // 2. Determine App Locale
+      const acceptLang = req.headers['accept-language'] || '';
+      const isZh = acceptLang.toLowerCase().startsWith('zh');
+      const locale = isZh ? zhLocale : enLocale;
+      const url = `https://toolorbit.site${req.path}`;
+      let title = locale.common?.footerText?.split(' - ')[0] || "ToolOrbit";
+      let desc = locale.common?.footer_desc || "Modern toolset for developers.";
+      let jsonLd = "";
+
+      if (req.path === "/") {
+        title = locale.search?.results ? `ToolOrbit | ${desc}` : "ToolOrbit";
+        jsonLd = `
+          <script type="application/ld+json">
+          {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "ToolOrbit",
+            "url": "https://toolorbit.site",
+            "description": "${desc}"
+          }
+          </script>
+        `;
+      } else if (req.path.startsWith('/tools/')) {
+        const parts = req.path.split('/');
+        if (parts.length >= 4) {
+          const toolId = parts[3];
+          if (locale.tools?.[toolId]) {
+             title = locale.tools[toolId].seoTitle || locale.tools[toolId].name || title;
+             desc = locale.tools[toolId].seoDesc || locale.tools[toolId].description || desc;
+             const toolName = title;
+             title = `${title} | ToolOrbit`;
+             
+             jsonLd = `
+              <script type="application/ld+json">
+              {
+                "@context": "https://schema.org",
+                "@type": "BreadcrumbList",
+                "itemListElement": [{
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "${isZh ? "首页" : "Home"}",
+                  "item": "https://toolorbit.site"
+                },{
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "${toolName}",
+                  "item": "${url}"
+                }]
+              }
+              </script>
+              <script type="application/ld+json">
+              {
+                "@context": "https://schema.org",
+                "@type": "SoftwareApplication",
+                "name": "${toolName}",
+                "operatingSystem": "Web",
+                "applicationCategory": "UtilitiesApplication",
+                "description": "${desc}"
+              }
+              </script>
+             `;
+          }
+        }
+      } else if (req.path.startsWith('/blog/')) {
+        const parts = req.path.split('/');
+        if (parts.length >= 3) {
+          const slug = parts[2];
+          if (locale.blog?.posts?.[slug]) {
+             title = locale.blog.posts[slug].title || title;
+             desc = locale.blog.posts[slug].summary || desc;
+             const articleName = title;
+             title = `${title} | ToolOrbit Blog`;
+             
+             jsonLd = `
+              <script type="application/ld+json">
+              {
+                "@context": "https://schema.org",
+                "@type": "BreadcrumbList",
+                "itemListElement": [{
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "${isZh ? "首页" : "Home"}",
+                  "item": "https://toolorbit.site"
+                },{
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "${isZh ? "博客" : "Blog"}",
+                  "item": "https://toolorbit.site/blog"
+                },{
+                  "@type": "ListItem",
+                  "position": 3,
+                  "name": "${articleName}",
+                  "item": "${url}"
+                }]
+              }
+              </script>
+              <script type="application/ld+json">
+              {
+                "@context": "https://schema.org",
+                "@type": "Article",
+                "headline": "${articleName}",
+                "description": "${desc}"
+              }
+              </script>
+             `;
+          }
+        }
+      }
+
+      html = injectSEO(html, title, desc, url, jsonLd);
+      res.send(html);
     });
   }
 
