@@ -1,5 +1,10 @@
 User-agent: *
 Allow: /
+Allow: /blog/
+Allow: /tools/
+Allow: /sitemap.xml
+Disallow: /assets/
+Disallow: /api/
 
 # Sitemap Location for Search Engines
 Sitemap: https://toolorbit.site/sitemap.xml

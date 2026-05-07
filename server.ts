@@ -11,9 +11,16 @@ import zhLocale from "./src/locales/zh.json";
 // @ts-ignore
 import enLocale from "./src/locales/en.json";
 
-function injectSEO(html: string, title: string, description: string, url: string, jsonLd: string = ""): string {
+function injectSEO(html: string, title: string, description: string, url: string, jsonLd: string = "", isZh: boolean = false): string {
   let injected = html;
   
+  // Set html lang
+  if (isZh) {
+    injected = injected.replace(/<html[^>]*>/, '<html lang="zh-CN">');
+  } else {
+    injected = injected.replace(/<html[^>]*>/, '<html lang="en">');
+  }
+
   if (title) {
     injected = injected.replace(/<title>.*?<\/title>/, `<title>${title}</title>`);
     injected = injected.replace(/<meta property="og:title" content=".*?"\s*\/?>/, '');
@@ -321,7 +328,7 @@ async function startServer() {
         }
       }
 
-      html = injectSEO(html, title, desc, url, jsonLd);
+      html = injectSEO(html, title, desc, url, jsonLd, isZh);
       res.send(html);
     });
   }
