@@ -1,15 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
+import SEO from '../components/SEO';
 
 export default function Terms() {
   const { t } = useTranslation();
 
-  useEffect(() => {
-    document.title = `${t('terms.title')} | ToolOrbit`;
-  }, [t]);
-
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <SEO title={t('terms.title')} description={t('terms.lastUpdated')} />
       <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
         <div className="p-8 md:p-12">
           <h1 className="text-3xl font-extrabold text-slate-900 mb-2">{t('terms.title')}</h1>

@@ -1,29 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Calendar, ArrowLeft, Clock, Tag } from 'lucide-react';
+import { Calendar, Clock, Tag } from 'lucide-react';
 import { BLOG_POSTS } from '../constants/blogData';
+import SEO from '../components/SEO';
 
 const BlogPost: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   
   const post = BLOG_POSTS.find(p => p.slug === slug);
-
-  useEffect(() => {
-    if (post) {
-      document.title = `${t(`blog.posts.${post.slug}.title`)} | ToolOrbit Blog`;
-      
-      const metaDesc = document.querySelector('meta[name="description"]');
-      if (metaDesc) {
-        metaDesc.setAttribute('content', t(`blog.posts.${post.slug}.summary`));
-      }
-    }
-    
-    return () => {
-      document.title = 'ToolOrbit - All-in-one Online Productivity Toolkit';
-    };
-  }, [post, t]);
 
   if (!post) {
     return (
@@ -47,8 +33,43 @@ const BlogPost: React.FC = () => {
     })
     .slice(0, 2);
 
+  const title = t(`blog.posts.${post.slug}.title`);
+  const summary = t(`blog.posts.${post.slug}.summary`);
+  const content = t(`blog.posts.${post.slug}.content`);
+
+  const blogSchema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": title,
+    "description": summary,
+    "image": post.image,
+    "datePublished": post.date,
+    "author": {
+      "@type": "Organization",
+      "name": "ToolOrbit"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "ToolOrbit",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://toolorbit.site/logo.png"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `https://toolorbit.site/blog/${post.slug}`
+    }
+  };
+
   return (
     <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <SEO 
+        title={title}
+        description={summary}
+        type="article"
+        schema={blogSchema}
+      />
       <nav className="flex items-center space-x-2 text-sm text-slate-500 mb-8 font-medium whitespace-nowrap overflow-x-auto pb-2">
         <Link to="/" className="hover:text-emerald-600 transition-colors flex items-center gap-1.5 flex-shrink-0">
           {t('common.nav_home') || 'Home'}
@@ -80,12 +101,12 @@ const BlogPost: React.FC = () => {
         </div>
         
         <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight mb-8">
-          {t(`blog.posts.${post.slug}.title`)}
+          {title}
         </h1>
 
         <img 
           src={post.image} 
-          alt={t(`blog.posts.${post.slug}.title`)}
+          alt={title}
           referrerPolicy="no-referrer"
           className="w-full h-[400px] object-cover rounded-3xl shadow-lg mb-12"
         />
@@ -99,7 +120,7 @@ const BlogPost: React.FC = () => {
             prose-img:rounded-2xl
             prose-strong:text-slate-900 dark:prose-strong:text-slate-100
             prose-a:text-emerald-600 prose-a:font-bold hover:prose-a:text-emerald-700"
-          dangerouslySetInnerHTML={{ __html: t(`blog.posts.${post.slug}.content`) }}
+          dangerouslySetInnerHTML={{ __html: content }}
         />
       </div>
 

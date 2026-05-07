@@ -3,6 +3,7 @@ import { QRCodeCanvas } from 'qrcode.react';
 import { Download } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { analytics } from '../../../services/analytics';
+import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function QrGenerator() {
   const { t } = useTranslation();
@@ -141,35 +142,7 @@ export default function QrGenerator() {
         </div>
       </div>
 
-      {/* Bottom SEO Instructions Panel */}
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-8 lg:p-12 mt-8">
-        <h2 className="text-xl font-bold text-slate-800 mb-6">{t('tools.qr-generator.seoTitle')}</h2>
-        
-        <p className="text-slate-600 mb-6 leading-relaxed">
-          {t('tools.qr-generator.seoDesc')}
-        </p>
-
-        <h3 className="font-bold text-slate-800 text-lg mb-4">{t('tools.qr-generator.seoHighlightsTitle')}</h3>
-        <ul className="space-y-4 text-slate-600">
-          <li className="flex gap-3">
-            <strong className="text-slate-800 shrink-0">{t('tools.qr-generator.highlight1Title')}</strong>
-            <span>{t('tools.qr-generator.highlight1Desc')}</span>
-          </li>
-          <li className="flex gap-3">
-            <strong className="text-slate-800 shrink-0">{t('tools.qr-generator.highlight2Title')}</strong>
-            <span>{t('tools.qr-generator.highlight2Desc')}</span>
-          </li>
-          <li className="flex gap-3">
-            <strong className="text-slate-800 shrink-0">{t('tools.qr-generator.highlight3Title')}</strong>
-            <span>{t('tools.qr-generator.highlight3Desc')}</span>
-          </li>
-        </ul>
-        
-        <p className="text-slate-500 text-sm mt-8 pt-6 border-t border-slate-100">
-          {t('tools.qr-generator.seoFooter')}
-        </p>
-      </div>
-
+      <ToolSEOCard toolKey="qr-generator" />
     </div>
   );
 }

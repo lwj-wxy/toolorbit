@@ -4,6 +4,7 @@
  */
 
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import { Toaster } from 'react-hot-toast';
 import { ThemeProvider } from './context/ThemeContext';
 import { usePageTracking } from './hooks/usePageTracking';
@@ -76,13 +77,14 @@ function AnalyticsTracker() {
 export default function App() {
   return (
     <ThemeProvider>
-      <BrowserRouter>
-        <ScrollToTop />
-        <RecentToolsTracker />
-        <Toaster position="top-right" toastOptions={{ className: 'text-sm font-medium' }} />
-        <AnalyticsTracker />
-        <Layout>
-          <Routes>
+      <HelmetProvider>
+        <BrowserRouter>
+          <ScrollToTop />
+          <RecentToolsTracker />
+          <Toaster position="top-right" toastOptions={{ className: 'text-sm font-medium' }} />
+          <AnalyticsTracker />
+          <Layout>
+            <Routes>
             <Route path="/" element={<Home />} />
             {/* ... other routes ... */}
             <Route path="/blog" element={<BlogList />} />
@@ -148,6 +150,7 @@ export default function App() {
           </Routes>
         </Layout>
       </BrowserRouter>
-    </ThemeProvider>
-  );
+    </HelmetProvider>
+  </ThemeProvider>
+);
 }
