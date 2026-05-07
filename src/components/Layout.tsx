@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Search, Menu, X, ChevronDown, ChevronRight, Home } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
@@ -14,7 +14,19 @@ export default function Layout({ children }: LayoutProps) {
   const { t } = useTranslation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
+  const searchInputRef = useRef<HTMLInputElement>(null);
   const location = useLocation();
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        searchInputRef.current?.focus();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   const categories = Array.from(new Set(TOOLS.map(t => t.category)));
   const navCategories = categories.filter(c => c !== '娱乐工具');
@@ -128,6 +140,7 @@ export default function Layout({ children }: LayoutProps) {
               />
               <input
                 id="search-field"
+                ref={searchInputRef}
                 onFocus={() => setIsSearchFocused(true)}
                 onBlur={() => setIsSearchFocused(false)}
                 className={cn(
@@ -139,6 +152,11 @@ export default function Layout({ children }: LayoutProps) {
                 name="search"
                 defaultValue={new URLSearchParams(useLocation().search).get('search') || ''}
               />
+              {!isSearchFocused && (
+                <div className="absolute right-3 top-1/2 -translate-y-1/2 hidden xl:flex items-center pointer-events-none">
+                  <kbd className="font-sans px-1.5 py-[2px] text-[10px] text-slate-400 bg-slate-200/50 border border-slate-200 rounded font-medium">Ctrl K</kbd>
+                </div>
+              )}
             </form>
           </div>
 
