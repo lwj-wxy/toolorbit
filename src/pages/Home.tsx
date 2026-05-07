@@ -38,18 +38,18 @@ export default function Home() {
   const togglePin = (e: React.MouseEvent, toolId: string) => {
     e.preventDefault();
     e.stopPropagation();
-    setPinnedTools(prev => {
-      const isPinned = prev.includes(toolId);
-      const next = isPinned ? prev.filter(id => id !== toolId) : [...prev, toolId];
-      localStorage.setItem('toolorbit_pinned_tools', JSON.stringify(next));
-      
-      if (isPinned) {
-        toast.success(t('common.unpinned') || 'Tool unpinned');
-      } else {
-        toast.success(t('common.pinned') || 'Tool pinned to top');
-      }
-      return next;
-    });
+    
+    const isPinned = pinnedTools.includes(toolId);
+    const next = isPinned ? pinnedTools.filter(id => id !== toolId) : [...pinnedTools, toolId];
+    
+    setPinnedTools(next);
+    localStorage.setItem('toolorbit_pinned_tools', JSON.stringify(next));
+    
+    if (isPinned) {
+      toast.success(t('common.unpinned') || 'Tool unpinned', { id: `unpin-${toolId}` });
+    } else {
+      toast.success(t('common.pinned') || 'Tool pinned to top', { id: `pin-${toolId}` });
+    }
   };
 
   useEffect(() => {
