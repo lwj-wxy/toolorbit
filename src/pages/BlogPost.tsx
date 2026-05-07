@@ -39,13 +39,19 @@ const BlogPost: React.FC = () => {
 
   return (
     <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <Link 
-        to="/blog" 
-        className="inline-flex items-center gap-2 text-slate-500 hover:text-emerald-600 font-medium mb-8 transition-colors"
-      >
-        <ArrowLeft size={16} />
-        {t('blog.nav')}
-      </Link>
+      <nav className="flex items-center space-x-2 text-sm text-slate-500 mb-8 font-medium whitespace-nowrap overflow-x-auto pb-2">
+        <Link to="/" className="hover:text-emerald-600 transition-colors flex items-center gap-1.5 flex-shrink-0">
+          {t('common.nav_home') || 'Home'}
+        </Link>
+        <span className="text-slate-300 flex-shrink-0">{"/"}</span>
+        <Link to="/blog" className="hover:text-emerald-600 transition-colors flex-shrink-0">
+          {t('blog.nav') || 'Blog'}
+        </Link>
+        <span className="text-slate-300 flex-shrink-0">{"/"}</span>
+        <span className="text-slate-800 text-ellipsis overflow-hidden break-all flex-shrink-0 max-w-[200px] sm:max-w-none inline-block">
+          {t(`blog.posts.${post.slug}.title`)}
+        </span>
+      </nav>
 
       <div className="mb-12">
         <div className="flex items-center gap-4 text-sm text-slate-500 mb-6">
@@ -101,6 +107,39 @@ const BlogPost: React.FC = () => {
             </svg>
             {t('blog.shareTwitter')}
           </button>
+        </div>
+      </div>
+
+      {/* Related Posts */}
+      <div className="mt-16 pt-12 border-t border-slate-200/60 max-w-4xl mx-auto">
+        <h3 className="text-2xl font-bold text-slate-900 mb-8">{t('blog.related_posts') || 'Related Articles'}</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {BLOG_POSTS.filter(p => p.slug !== post.slug && p.category === post.category).slice(0, 2).map(related => (
+            <Link 
+              key={related.id} 
+              to={`/blog/${related.slug}`}
+              className="group flex flex-col bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+            >
+              <div className="relative h-48 overflow-hidden bg-slate-100">
+                <img 
+                  src={related.image} 
+                  alt={t(`blog.posts.${related.slug}.title`)}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+              </div>
+              <div className="p-6 flex flex-col flex-1">
+                <span className="text-xs font-bold text-emerald-600 tracking-wider uppercase mb-2">
+                  {t(`blog.categories.${related.category}`)}
+                </span>
+                <h4 className="text-xl font-bold text-slate-900 mb-2 line-clamp-2 group-hover:text-emerald-600 transition-colors">
+                  {t(`blog.posts.${related.slug}.title`)}
+                </h4>
+                <p className="text-slate-600 mb-4 line-clamp-2 text-sm flex-1">
+                  {t(`blog.posts.${related.slug}.summary`)}
+                </p>
+              </div>
+            </Link>
+          ))}
         </div>
       </div>
     </article>

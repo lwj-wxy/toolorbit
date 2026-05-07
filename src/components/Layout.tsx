@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Search, Menu, X, ChevronDown } from 'lucide-react';
+import { Search, Menu, X, ChevronDown, ChevronRight, Home } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { cn } from '../lib/utils';
 import { TOOLS } from '../data/tools';
@@ -233,8 +233,62 @@ export default function Layout({ children }: LayoutProps) {
       {/* Main Content Layout */}
       <div className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 flex flex-col min-w-0 relative z-10">
         <main className="w-full min-w-0">
+          
+          {/* Breadcrumbs for Tools */}
+          {location.pathname.startsWith('/tools/') && (() => {
+            const currentTool = TOOLS.find(t => t.path === location.pathname);
+            if (!currentTool) return null;
+            return (
+              <nav className="flex items-center space-x-2 text-sm text-slate-500 mb-6 font-medium whitespace-nowrap overflow-x-auto pb-2">
+                <Link to="/" className="hover:text-blue-600 transition-colors flex items-center gap-1.5 flex-shrink-0">
+                  <Home className="w-4 h-4" />
+                  {t('common.nav_home') || 'Home'}
+                </Link>
+                <ChevronRight className="w-4 h-4 text-slate-300 flex-shrink-0" />
+                <Link to={`/?category=${currentTool.category}`} className="hover:text-blue-600 transition-colors flex-shrink-0">
+                  {t(`common.categories.${currentTool.category}`)}
+                </Link>
+                <ChevronRight className="w-4 h-4 text-slate-300 flex-shrink-0" />
+                <span className="text-slate-800 text-ellipsis overflow-hidden break-all flex-shrink-0 max-w-[200px] sm:max-w-none inline-block">
+                  {t(`tools.${currentTool.id}.name`, { defaultValue: currentTool.name })}
+                </span>
+              </nav>
+            );
+          })()}
+
           {children}
         </main>
+        
+        {/* Related Tools for Internal Linking / SEO */}
+        {location.pathname.startsWith('/tools/') && (
+          <div className="mt-16 pt-12 border-t border-slate-200/60">
+            <h3 className="text-xl font-bold text-slate-900 mb-6">{t('common.related_tools') || 'Related Tools'}</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {(() => {
+                const currentTool = TOOLS.find(t => t.path === location.pathname);
+                if (!currentTool) return null;
+                const related = TOOLS.filter(t => t.category === currentTool.category && t.id !== currentTool.id).slice(0, 4);
+                return related.map(tool => (
+                  <Link 
+                    key={tool.id} 
+                    to={tool.path}
+                    className="flex flex-col p-4 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all"
+                  >
+                    <div className="flex items-center gap-3 mb-2">
+                       <div className="p-2 rounded-xl bg-blue-50 text-blue-600">
+                         <tool.icon size={20} />
+                       </div>
+                       <h4 className="font-bold text-slate-800">{t(`tools.${tool.id}.name`, { defaultValue: tool.name })}</h4>
+                    </div>
+                    <p className="text-sm text-slate-500 line-clamp-2 mt-auto">
+                      {t(`tools.${tool.id}.description`, { defaultValue: tool.description })}
+                    </p>
+                  </Link>
+                ));
+              })()}
+            </div>
+          </div>
+        )}
       </div>
 
       <footer className="bg-transparent pt-8 pb-12 flex flex-col items-center justify-center text-[13px] text-slate-400 mt-auto relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-200/50">

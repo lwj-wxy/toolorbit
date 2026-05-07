@@ -24,7 +24,9 @@
     "nav_privacy": "Privacy Policy",
     "nav_terms": "Terms of Service",
     "nav_about": "About Us",
-    "footer_desc": "ToolOrbit - Modern toolset for developers."
+    "footer_desc": "ToolOrbit - Modern toolset for developers.",
+    "related_tools": "Related Tools",
+    "nav_home": "Home"
   },
   "search": {
     "results": "Search Results: \"{{query}}\"",
@@ -1365,7 +1367,8 @@
       "lifestyle": "Lifestyle"
     },
     "shareTitle": "Share this post",
-    "shareTwitter": "Share on Twitter"
+    "shareTwitter": "Share on Twitter",
+    "related_posts": "Related Articles"
   },
   "nav": {
     "home": "Home",
