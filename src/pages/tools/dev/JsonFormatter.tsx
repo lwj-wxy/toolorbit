@@ -3,6 +3,7 @@ import { Copy, Check } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { analytics } from '../../../services/analytics';
 import ToolSEOCard from '../../../components/ToolSEOCard';
+import { LoadingButton } from '../../../components/ui/LoadingButton';
 
 export default function JsonFormatter() {
   const { t } = useTranslation();
@@ -10,12 +11,18 @@ export default function JsonFormatter() {
   const [output, setOutput] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const [isFormatting, setIsFormatting] = useState(false);
 
-  const formatJson = (spaces: number) => {
+  const formatJson = async (spaces: number) => {
+    setIsFormatting(true);
+    // Add artificial delay to make it feel like "work" is being done
+    await new Promise(resolve => setTimeout(resolve, 600));
+    
     try {
       if (!input.trim()) {
         setOutput('');
         setError(null);
+        setIsFormatting(false);
         return;
       }
       const parsed = JSON.parse(input);
@@ -36,6 +43,8 @@ export default function JsonFormatter() {
         action: 'Format JSON Error',
         label: errorMsg.substring(0, 50)
       });
+    } finally {
+      setIsFormatting(false);
     }
   };
 
@@ -71,13 +80,23 @@ export default function JsonFormatter() {
             <label className="block text-sm font-medium leading-6 text-gray-900">
               {t('tools.json-formatter.inputLabel')}
             </label>
-            <div className="space-x-2">
-              <button onClick={() => formatJson(2)} className="text-xs bg-indigo-50 text-indigo-700 px-3 py-1.5 rounded-md font-medium hover:bg-indigo-100 transition-colors">
+            <div className="space-x-2 flex">
+              <LoadingButton 
+                isLoading={isFormatting} 
+                onClick={() => formatJson(2)} 
+                className="text-xs bg-indigo-50 text-indigo-700 px-3 py-1.5 rounded-md font-medium hover:bg-indigo-100 transition-colors"
+                loadingText={t('tools.json-formatter.formatting') || 'Formatting...'}
+              >
                 {t('tools.json-formatter.btnFormat2')}
-              </button>
-              <button onClick={() => formatJson(4)} className="text-xs bg-indigo-50 text-indigo-700 px-3 py-1.5 rounded-md font-medium hover:bg-indigo-100 transition-colors">
+              </LoadingButton>
+              <LoadingButton 
+                isLoading={isFormatting} 
+                onClick={() => formatJson(4)} 
+                className="text-xs bg-indigo-50 text-indigo-700 px-3 py-1.5 rounded-md font-medium hover:bg-indigo-100 transition-colors"
+                loadingText={t('tools.json-formatter.formatting') || 'Formatting...'}
+              >
                 {t('tools.json-formatter.btnFormat4')}
-              </button>
+              </LoadingButton>
             </div>
           </div>
           <div className="flex-1 relative">

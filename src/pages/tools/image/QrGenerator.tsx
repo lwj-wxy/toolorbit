@@ -4,6 +4,7 @@ import { Download } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { analytics } from '../../../services/analytics';
 import ToolSEOCard from '../../../components/ToolSEOCard';
+import { LoadingButton } from '../../../components/ui/LoadingButton';
 
 export default function QrGenerator() {
   const { t } = useTranslation();
@@ -11,12 +12,21 @@ export default function QrGenerator() {
   const [fgColor, setFgColor] = useState('#000000');
   const [bgColor, setBgColor] = useState('#ffffff');
   const [level, setLevel] = useState<'L' | 'M' | 'Q' | 'H'>('H');
+  const [isDownloading, setIsDownloading] = useState(false);
   const qrRef = useRef<HTMLDivElement>(null);
 
-  const handleDownload = () => {
+  const handleDownload = async () => {
     if (!qrRef.current) return;
+    setIsDownloading(true);
+    
+    // Artificial delay for feedback
+    await new Promise(resolve => setTimeout(resolve, 800));
+
     const canvas = qrRef.current.querySelector('canvas');
-    if (!canvas) return;
+    if (!canvas) {
+      setIsDownloading(false);
+      return;
+    }
 
     const pngUrl = canvas
       .toDataURL('image/png')
@@ -36,6 +46,7 @@ export default function QrGenerator() {
     document.body.appendChild(downloadLink);
     downloadLink.click();
     document.body.removeChild(downloadLink);
+    setIsDownloading(false);
   };
 
   return (
@@ -133,12 +144,15 @@ export default function QrGenerator() {
             />
           </div>
           
-          <button
+          <LoadingButton
+            isLoading={isDownloading}
             onClick={handleDownload}
             className="inline-flex items-center gap-2 px-5 py-2.5 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-colors shadow-sm"
+            loadingText={t('tools.qr-generator.preparing') || 'Preparing...'}
+            icon={<Download size={18} />}
           >
-            <Download size={18} /> {t('tools.qr-generator.downloadBtn')}
-          </button>
+            {t('tools.qr-generator.downloadBtn')}
+          </LoadingButton>
         </div>
       </div>
 

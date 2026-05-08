@@ -6,6 +6,7 @@ import { useTheme } from '../context/ThemeContext';
 import { cn } from '../lib/utils';
 import { TOOLS } from '../data/tools';
 import LanguageSwitcher from './LanguageSwitcher';
+import { motion, AnimatePresence } from 'motion/react';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -284,7 +285,17 @@ export default function Layout({ children }: LayoutProps) {
             );
           })()}
 
-          {children}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={location.pathname}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
+            >
+              {children}
+            </motion.div>
+          </AnimatePresence>
         </main>
         
         {/* Related Tools for Internal Linking / SEO */}
