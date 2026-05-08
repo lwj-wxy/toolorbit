@@ -2,7 +2,7 @@ import express from "express";
 import { createServer as createViteServer } from "vite";
 import path from "path";
 import fs from "fs";
-import { GoogleGenAI } from "@google/genai";
+import OpenAI from "openai";
 
 import axios from "axios";
 
@@ -46,7 +46,10 @@ function injectSEO(html: string, title: string, description: string, url: string
   return injected;
 }
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+const deepseek = new OpenAI({
+  apiKey: process.env.DEEPSEEK_API_KEY,
+  baseURL: "https://api.deepseek.com"
+});
 
 
 async function startServer() {
@@ -99,98 +102,109 @@ async function startServer() {
   // API router
   app.post("/api/listing-craft", async (req, res) => {
     try {
-      const { productInfo, language } = req.body;
-      const apiKey = process.env.DEEPSEEK_API_KEY?.trim();
+      const { productInfo, details, keywords, tone, targetAudience, language } = req.body;
       
       const isChinese = language?.startsWith('zh');
-      const targetLanguage = isChinese ? '简体中文' : 'English';
+      const targetLanguage = isChinese ? 'Simplified Chinese' : 'English';
 
       const ip = req.ip || (req.headers['x-forwarded-for'] as string) || req.socket.remoteAddress;
       const now = Date.now();
       const lastUse = usageMap.get(ip as string);
 
-      // 1-day limit (24 hours)
-      if (lastUse && (now - lastUse < 24 * 60 * 60 * 1000)) {
+      // 1-day limit (24 hours) - Relaxed slightly for better UX while testing, but still present
+      if (process.env.NODE_ENV === "production" && lastUse && (now - lastUse < 24 * 60 * 60 * 1000)) {
         const timeLeft = Math.ceil((24 * 60 * 60 * 1000 - (now - lastUse)) / (60 * 60 * 1000));
         return res.status(429).json({ 
           success: false, 
           error: isChinese 
-            ? `为了节省 API 配额，每位用户 24 小时内仅限使用一次。请在大约 ${timeLeft} 小时后再试。` 
-            : `To conserve API quota, usage is limited to once every 24 hours. Please try again in about ${timeLeft} hours.` 
+            ? `为了平衡服务器负载，每 24 小时限使用一次。请在大约 ${timeLeft} 小时后再试。` 
+            : `To balance load, usage is limited to once every 24 hours. Try again in ${timeLeft}h.` 
         });
       }
       
-      if (!apiKey) {
-        throw new Error('DEEPSEEK_API_KEY is not configured');
-      }
-
-      // Record usage
-      usageMap.set(ip as string, now);
-
       // Set headers for streaming
       res.setHeader('Content-Type', 'text/event-stream');
       res.setHeader('Cache-Control', 'no-cache');
       res.setHeader('Connection', 'keep-alive');
 
-      const response = await axios.post("https://api.deepseek.com/chat/completions", {
-        model: "deepseek-v4-pro",
+      // Record usage
+      usageMap.set(ip as string, now);
+
+      const isDeepAnalysis = req.body.isDeepAnalysis === true;
+      const prompt = isDeepAnalysis
+        ? `Please analyze the following text in depth:\n\n${details || productInfo}`
+        : `
+      Product Name: ${productInfo}
+      Key Features: ${details || "Standard features based on name"}
+      Keywords to Include: ${keywords || "Most relevant SEO terms"}
+      Tone: ${tone || "Professional and Persuasive"}
+      Target Audience: ${targetAudience || "General consumers"}
+
+      Please generate a comprehensive listing including:
+      1. **High-Converting Title** (Optimized for ${targetLanguage} platforms)
+      2. **5 Compelling Bullet Points** (Highlighting benefits, formatted with emojis)
+      3. **Strategic SEO Description** (Deeply engaging, story-telling approach)
+      4. **Suggested Tags/Meta Keywords** (For backend SEO)
+      5. **Conversion Optimization Tips** (Brief advice on photos or pricing for this specific item)
+      `;
+
+      const systemPrompt = isDeepAnalysis 
+        ? `You are an expert Linguistic Analyst and Sentiment Architect. 
+           Analyze the provided text for:
+           1. Tone & Voice (Professional, Casual, Grumpy, etc.)
+           2. Sentiment Score (0-100)
+           3. Key Themes & Narrative Structure
+           4. Suggestions for Improvement
+           Always output in ${targetLanguage} using Markdown.`
+        : `You are an elite E-commerce Copywriting Specialist and SEO Expert. 
+           Your goal is to create high-converting product listings for platforms like Amazon, Etsy, and eBay.
+           
+           STRICT OUTPUT STRUCTURE (REQUIRED):
+           You must use the following markers and ONLY output relevant content within them. Do not add intro or outro conversational text.
+           
+           [TITLE]
+           (One high-converting, SEO-optimized title)
+           
+           [DESCRIPTION]
+           (Compelling product description with bullet points if applicable)
+           
+           [TAGS]
+           (List of 10-15 keywords separated by commas)
+           
+           [SOCIAL]
+           (Short, catchy social media copy for Instagram/Pinterest)
+           
+           Guidelines:
+           1. Emphasize emotional benefits, not just technical features.
+           2. Use strong, persuasive language suitable for the chosen tone.
+           3. Include high-traffic keywords naturally.
+           4. Always output in ${targetLanguage}.`;
+
+      const stream = await deepseek.chat.completions.create({
+        model: isDeepAnalysis ? "deepseek-reasoner" : "deepseek-chat",
         messages: [
-          {
-            role: "system",
-            content: `你是一位资深的跨境电商运营专家（精通Etsy、Amazon、eBay）。你的任务是根据用户提供的基础产品信息，创作出具有极高转化率的商品 Listing。请确保内容不仅符合 SEO 逻辑，还要充满诱惑力，触达消费者的情感痛点。重要：请务必使用 ${targetLanguage} 输出内容。`
-          },
-          {
-            role: "user",
-            content: `产品信息：${productInfo}\n\n请严格按照以下 4 部分结构返回内容，并使用标准的 Markdown 格式输出：\n\n1. ### 爆款标题 (Title)\n2. ### 核心 SEO 标签 (Tags/Keywords)\n3. ### 走心商品描述 (Description)\n4. ### 核心成交卖点 (Key Selling Points / Bullet Points)`
-          }
+          { role: "system", content: systemPrompt },
+          { role: "user", content: prompt }
         ],
-        thinking: { type: "enabled" },
-        reasoning_effort: "high",
-        stream: true
-      }, {
-        headers: {
-          'Authorization': `Bearer ${apiKey}`,
-          'Content-Type': 'application/json'
-        },
-        responseType: 'stream'
+        stream: true,
       });
 
-      response.data.on('data', (chunk: any) => {
-        const lines = chunk.toString().split('\n').filter((line: string) => line.trim() !== '');
-        for (const line of lines) {
-          const message = line.replace(/^data: /, '');
-          if (message === '[DONE]') {
-            res.end();
-            return;
-          }
-          try {
-            const parsed = JSON.parse(message);
-            const content = parsed.choices[0].delta?.content || "";
-            if (content) {
-              res.write(`data: ${JSON.stringify({ content })}\n\n`);
-            }
-          } catch (e) {
-            // Ignore parse errors for partial chunks
-          }
+      for await (const chunk of stream) {
+        const chunkText = chunk.choices[0]?.delta?.content || "";
+        if (chunkText) {
+          res.write(`data: ${JSON.stringify({ content: chunkText })}\n\n`);
         }
-      });
-
-      response.data.on('end', () => {
-        res.end();
-      });
-
-      req.on('close', () => {
-        // Optional: close original response if client disconnects
-      });
+      }
+      
+      res.write(`data: [DONE]\n\n`);
+      res.end();
 
     } catch (err: any) {
-      console.error('DeepSeek API Error:', err.response?.data || err.message);
-      const errorMsg = err.response?.data?.error?.message || err.message;
-      // If error happens before streaming starts
+      console.error('AI Error:', err.message);
       if (!res.headersSent) {
-        res.status(500).json({ success: false, error: errorMsg });
+        res.status(500).json({ success: false, error: "AI service is currently unavailable. Please try again later." });
       } else {
-        res.write(`data: ${JSON.stringify({ error: errorMsg })}\n\n`);
+        res.write(`data: ${JSON.stringify({ error: err.message })}\n\n`);
         res.end();
       }
     }

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { TOOLS, Category, ToolItem } from '../data/tools';
-import { Star, Clock, ChevronRight } from 'lucide-react';
+import { Star, Clock, ChevronRight, Sparkles } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 import { useRecentTools } from '../hooks/useRecentTools';
 import SEO from '../components/SEO';
@@ -24,71 +24,137 @@ const getCategoryStyles = (category: Category) => {
   }
 };
 
+const PopularToolCard = ({ tool, isPinned, togglePin, index }: { tool: ToolItem, isPinned: boolean, togglePin: (e: React.MouseEvent, id: string) => void, index?: number }) => {
+  const { t } = useTranslation();
+  const Icon = tool.icon;
+  const color = tool.color || 'blue';
+  
+  const bgColors: Record<string, string> = {
+    emerald: 'from-emerald-500/10 to-teal-500/5 border-emerald-500/20 text-emerald-700 dark:text-emerald-300',
+    blue: 'from-blue-500/10 to-indigo-500/5 border-blue-500/20 text-blue-700 dark:text-blue-300',
+    violet: 'from-violet-500/10 to-purple-500/5 border-violet-500/20 text-violet-700 dark:text-violet-300',
+    amber: 'from-amber-500/10 to-orange-500/5 border-amber-500/20 text-amber-700 dark:text-amber-300',
+    rose: 'from-rose-500/10 to-pink-500/5 border-rose-500/20 text-rose-700 dark:text-rose-300',
+    green: 'from-green-500/10 to-emerald-500/5 border-green-500/20 text-green-700 dark:text-green-300',
+    orange: 'from-orange-500/10 to-amber-500/5 border-orange-500/20 text-orange-700 dark:text-orange-300',
+    pink: 'from-pink-500/10 to-rose-500/5 border-pink-500/20 text-pink-700 dark:text-pink-300',
+    fuchsia: 'from-fuchsia-500/10 to-purple-500/5 border-fuchsia-500/20 text-fuchsia-700 dark:text-fuchsia-300',
+    indigo: 'from-indigo-500/10 to-blue-500/5 border-indigo-500/20 text-indigo-700 dark:text-indigo-300',
+  };
+
+  const accents: Record<string, string> = {
+    emerald: 'bg-emerald-500',
+    blue: 'bg-blue-500',
+    violet: 'bg-violet-500',
+    amber: 'bg-amber-500',
+    rose: 'bg-rose-500',
+    green: 'bg-green-500',
+    orange: 'bg-orange-500',
+    pink: 'bg-pink-500',
+    fuchsia: 'bg-fuchsia-500',
+    indigo: 'bg-indigo-500',
+  };
+
+  const currentBg = bgColors[color] || bgColors.blue;
+  const currentAccent = accents[color] || accents.blue;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, delay: (index || 0) * 0.1 }}
+      whileHover={{ y: -8 }}
+      className="relative group h-48 sm:h-56"
+    >
+      <Link
+        to={tool.path}
+        className={`block h-full w-full rounded-[32px] p-6 bg-gradient-to-br ${currentBg} border backdrop-blur-sm shadow-xl shadow-slate-200/40 dark:shadow-none overflow-hidden relative transition-all duration-500 group-hover:border-opacity-50`}
+      >
+        <div className="relative z-10 h-full flex flex-col justify-between">
+          <div className="flex justify-between items-start">
+            <div className={`p-3.5 ${currentAccent} text-white rounded-2xl shadow-lg shadow-${color}-500/20`}>
+              <Icon size={24} strokeWidth={2.5} />
+            </div>
+            <button 
+              onClick={(e) => togglePin(e, tool.id)}
+              className={`p-2 rounded-xl transition-all ${isPinned ? 'text-amber-500 bg-amber-500/10' : 'text-slate-400 hover:text-slate-600'}`}
+            >
+              <Star size={20} fill={isPinned ? "currentColor" : "none"} />
+            </button>
+          </div>
+          
+          <div>
+            <div className="flex items-center gap-2 mb-2">
+               <span className={`w-1 h-1 rounded-full ${currentAccent}`} />
+               <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">
+                 {t(`common.categories.${tool.category}`)}
+               </span>
+            </div>
+            <h3 className="text-xl sm:text-2xl font-black tracking-tight text-slate-800 dark:text-white mb-1 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-slate-900 group-hover:to-slate-600 dark:group-hover:from-white dark:group-hover:to-slate-400 transition-all">
+              {t(`tools.${tool.id}.name`, { defaultValue: tool.name })}
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium line-clamp-1">
+              {t(`tools.${tool.id}.description`, { defaultValue: tool.description })}
+            </p>
+          </div>
+        </div>
+
+        {/* Decorative Art Background */}
+        <div className={`absolute right-0 bottom-0 opacity-[0.03] dark:opacity-[0.07] group-hover:opacity-[0.06] transition-opacity duration-500 pointer-events-none`}>
+           <Icon size={200} strokeWidth={1} className="translate-x-1/4 translate-y-1/4 rotate-12" />
+        </div>
+        <div className="absolute top-0 right-0 p-6 opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0 transition-all duration-300">
+           <ChevronRight className="text-slate-300" />
+        </div>
+      </Link>
+    </motion.div>
+  );
+};
+
 const ToolCard = ({ tool, isPinned, togglePin, index }: { tool: ToolItem, isPinned: boolean, togglePin: (e: React.MouseEvent, id: string) => void, index?: number }) => {
   const { t } = useTranslation();
   const Icon = tool.icon;
+  const styles = getCategoryStyles(tool.category);
   
-  // Use tool.color or a default based on category if not available
-  const color = tool.color || 'blue';
-  const colorVariants: Record<string, string> = {
-    emerald: 'bg-emerald-50 text-emerald-600 border-emerald-100 dark:bg-emerald-900/20 dark:text-emerald-400 dark:border-emerald-800/30',
-    blue: 'bg-blue-50 text-blue-600 border-blue-100 dark:bg-blue-900/20 dark:text-blue-400 dark:border-blue-800/30',
-    slate: 'bg-slate-50 text-slate-600 border-slate-100 dark:bg-slate-900/20 dark:text-slate-400 dark:border-slate-800/30',
-    sky: 'bg-sky-50 text-sky-600 border-sky-100 dark:bg-sky-900/20 dark:text-sky-400 dark:border-sky-800/30',
-    indigo: 'bg-indigo-50 text-indigo-600 border-indigo-100 dark:bg-indigo-900/20 dark:text-indigo-400 dark:border-indigo-800/30',
-    purple: 'bg-purple-50 text-purple-600 border-purple-100 dark:bg-purple-900/20 dark:text-purple-400 dark:border-purple-800/30',
-    cyan: 'bg-cyan-50 text-cyan-600 border-cyan-100 dark:bg-cyan-900/20 dark:text-cyan-400 dark:border-cyan-800/30',
-    orange: 'bg-orange-50 text-orange-600 border-orange-100 dark:bg-orange-900/20 dark:text-orange-400 dark:border-orange-800/30',
-    violet: 'bg-violet-50 text-violet-600 border-violet-100 dark:bg-violet-900/20 dark:text-violet-400 dark:border-violet-800/30',
-    fuchsia: 'bg-fuchsia-50 text-fuchsia-600 border-fuchsia-100 dark:bg-fuchsia-900/20 dark:text-fuchsia-400 dark:border-fuchsia-800/30',
-    pink: 'bg-pink-50 text-pink-600 border-pink-100 dark:bg-pink-900/20 dark:text-pink-400 dark:border-pink-800/30',
-    teal: 'bg-teal-50 text-teal-600 border-teal-100 dark:bg-teal-900/20 dark:text-teal-400 dark:border-teal-800/30',
-    neutral: 'bg-neutral-50 text-neutral-600 border-neutral-100 dark:bg-neutral-900/20 dark:text-neutral-400 dark:border-neutral-800/30',
-    rose: 'bg-rose-50 text-rose-600 border-rose-100 dark:bg-rose-900/20 dark:text-rose-400 dark:border-rose-800/30',
-    amber: 'bg-amber-50 text-amber-600 border-amber-100 dark:bg-amber-900/20 dark:text-amber-400 dark:border-amber-800/30',
-    green: 'bg-green-50 text-green-600 border-green-100 dark:bg-green-900/20 dark:text-green-400 dark:border-green-800/30',
-    gray: 'bg-gray-50 text-gray-600 border-gray-100 dark:bg-gray-900/20 dark:text-gray-400 dark:border-gray-800/30',
-    red: 'bg-red-50 text-red-600 border-red-100 dark:bg-red-900/20 dark:text-red-400 dark:border-red-800/30',
-  };
-
-  const currentVariant = colorVariants[color] || colorVariants.blue;
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, delay: (index || 0) * 0.05 }}
       whileHover={{ y: -4 }}
-      className="group"
+      className="group h-full"
     >
       <Link
         to={tool.path}
-        className="block bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl p-5 h-full transition-all duration-300 hover:shadow-xl hover:shadow-slate-200/50 dark:hover:shadow-slate-950/50 hover:border-slate-300 dark:hover:border-slate-700 relative overflow-hidden"
+        className={`block h-full border rounded-2xl p-5 transition-all duration-300 hover:shadow-xl hover:shadow-slate-200/50 dark:hover:shadow-none relative overflow-hidden bg-white dark:bg-slate-900 ${styles.border.replace('border-', 'border-').split(' ')[0]}/10 hover:${styles.border}`}
       >
-        <div className="flex items-start justify-between mb-4">
-          <div className={`p-3 rounded-xl border ${currentVariant.split(' ')[2]} ${currentVariant.split(' ')[0]} ${currentVariant.split(' ')[1]} transition-transform duration-300 group-hover:scale-110 shadow-sm`}>
-            <Icon size={24} strokeWidth={2.5} />
+        <div className="relative z-10">
+          <div className="flex items-start justify-between mb-4">
+            <div className={`p-2.5 rounded-xl ${styles.bg} ${styles.icon} shadow-sm transition-transform duration-300 group-hover:scale-110`}>
+              <Icon size={20} strokeWidth={2.5} />
+            </div>
+            <button 
+              onClick={(e) => togglePin(e, tool.id)}
+              className={`p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-200 ${isPinned ? 'text-amber-500' : 'text-slate-300 dark:text-slate-600'}`}
+            >
+              <Star size={16} fill={isPinned ? "currentColor" : "none"} strokeWidth={2} />
+            </button>
           </div>
-          <button 
-            onClick={(e) => togglePin(e, tool.id)}
-            className={`p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-200 ${isPinned ? 'text-amber-500 bg-amber-50 dark:bg-amber-900/20' : 'text-slate-300 dark:text-slate-600'}`}
-          >
-            <Star size={18} fill={isPinned ? "currentColor" : "none"} strokeWidth={2} />
-          </button>
-        </div>
-        
-        <div className="space-y-1.5">
-          <h3 className="text-base font-bold text-slate-800 dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors tracking-tight flex items-center gap-1.5">
-            {t(`tools.${tool.id}.name`, { defaultValue: tool.name })}
-            <ChevronRight size={14} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-blue-500" />
-          </h3>
-          <p className="text-[13px] text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed">
-            {t(`tools.${tool.id}.description`, { defaultValue: tool.description })}
-          </p>
+          
+          <div className="space-y-1">
+            <h3 className="text-[15px] font-bold text-slate-800 dark:text-slate-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors tracking-tight">
+              {t(`tools.${tool.id}.name`, { defaultValue: tool.name })}
+            </h3>
+            <p className="text-[12px] text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed font-medium">
+              {t(`tools.${tool.id}.description`, { defaultValue: tool.description })}
+            </p>
+          </div>
         </div>
 
-        {/* Decorative background element */}
-        <div className={`absolute -right-6 -bottom-6 w-24 h-24 rounded-full opacity-[0.03] dark:opacity-[0.05] group-hover:opacity-[0.08] dark:group-hover:opacity-[0.1] transition-opacity duration-300 pointer-events-none ${currentVariant.split(' ')[0]}`} />
+        {/* Decorative Light Background Icon */}
+        <div className={`absolute -right-4 -bottom-4 opacity-[0.03] dark:opacity-[0.06] group-hover:opacity-[0.08] transition-all duration-500 pointer-events-none group-hover:scale-110 group-hover:-rotate-6 ${styles.icon}`}>
+           <Icon size={100} strokeWidth={1} />
+        </div>
       </Link>
     </motion.div>
   );
@@ -209,6 +275,7 @@ export default function Home() {
 
   const categoriesOrder = Array.from(new Set(TOOLS.map(t => t.category)));
   const pinnedToolObjects = pinnedTools.map(id => TOOLS.find(t => t.id === id)).filter(Boolean) as typeof TOOLS;
+  const popularTools = TOOLS.filter(t => t.isPopular);
 
   return (
     <div className="flex flex-col gap-16 pb-16">
@@ -216,6 +283,78 @@ export default function Home() {
         description={siteDescription}
         schema={mainSchema}
       />
+      
+      {/* Dynamic Hero Section */}
+      {!categoryFilter && !searchQuery && (
+        <section className="relative pt-8 pb-12 overflow-hidden rounded-[40px] bg-slate-900 border border-slate-800 shadow-2xl">
+          <div className="absolute inset-0 opacity-20">
+             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600 blur-[120px] rounded-full mix-blend-screen -translate-y-1/2 translate-x-1/2" />
+             <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-indigo-600 blur-[100px] rounded-full mix-blend-screen translate-y-1/3 -translate-x-1/4" />
+          </div>
+          
+          <div className="relative z-10 px-8 sm:px-12 flex flex-col items-center text-center">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, type: 'spring' }}
+              className="flex items-center gap-3 px-4 py-1.5 bg-blue-500/10 border border-blue-500/20 rounded-full text-blue-400 text-xs font-black uppercase tracking-widest mb-6"
+            >
+              <Sparkles size={14} className="fill-blue-400" />
+              {t('common.hero_badge') || 'Pro Efficiency Suite'}
+            </motion.div>
+            
+            <h1 className="text-4xl sm:text-6xl font-black text-white tracking-tight mb-6 leading-[1.1] max-w-4xl">
+               {t('common.hero_title') || 'Simple Tools for Big Ideas'}
+            </h1>
+            
+            <p className="text-slate-400 text-lg sm:text-xl max-w-2xl mb-12 font-medium">
+               {t('common.hero_subtitle') || 'A collection of developer-first tools powered by AI to supercharge your workflow.'}
+            </p>
+
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full max-w-2xl">
+               {[
+                 { label: 'PDF 转图片', path: '/tools/pdf/pdf-to-image', icon: '📄' },
+                 { label: '图片压缩', path: '/tools/image/image-compressor', icon: '🖼️' },
+                 { label: 'AI 文案', path: '/tools/ecommerce/listing-craft-ai', icon: '✨' },
+                 { label: 'JSON 格式化', path: '/tools/dev/json-formatter', icon: '⚡' }
+               ].map((fav) => (
+                 <Link 
+                   key={fav.path} 
+                   to={fav.path}
+                   className="flex items-center gap-2 px-4 py-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl transition-all group"
+                 >
+                   <span className="text-lg">{fav.icon}</span>
+                   <span className="text-xs font-bold text-slate-300 group-hover:text-white transition-colors">{fav.label}</span>
+                 </Link>
+               ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Popular Tools Visual Banner */}
+      {!categoryFilter && !searchQuery && (
+        <section className="space-y-8">
+          <div className="flex items-center gap-3">
+             <div className="w-1.5 h-6 bg-indigo-600 rounded-full" />
+             <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 tracking-tight flex items-center gap-2">
+               {t('common.popular_tools') || '热门推荐'}
+               <Sparkles className="text-amber-500 fill-amber-500" size={16} />
+             </h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {popularTools.map((tool, idx) => (
+              <PopularToolCard 
+                key={`pop-${tool.id}`}
+                tool={tool}
+                isPinned={pinnedTools.includes(tool.id)}
+                togglePin={togglePin}
+                index={idx}
+              />
+            ))}
+          </div>
+        </section>
+      )}
       
       {/* Pinned & Recent Split Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">

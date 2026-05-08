@@ -5,14 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "tsx server.ts",
-    "build": "node gen_sitemap.cjs && vite build && esbuild server.ts --bundle --platform=node --format=cjs --outfile=dist/server.cjs --external:express --external:vite --external:axios --external:@google/genai",
+    "build": "node gen_sitemap.cjs && vite build && esbuild server.ts --bundle --platform=node --format=cjs --outfile=dist/server.cjs --external:express --external:vite --external:axios --external:openai",
     "start": "node dist/server.cjs",
     "preview": "vite preview",
     "clean": "rm -rf dist",
     "lint": "tsc --noEmit"
   },
   "dependencies": {
-    "@google/genai": "^1.29.0",
+    "@tailwindcss/typography": "^0.5.19",
     "@tailwindcss/vite": "^4.1.14",
     "@types/crypto-js": "^4.2.2",
     "@vitejs/plugin-react": "^5.0.4",
@@ -32,6 +32,7 @@
     "jszip": "^3.10.1",
     "lucide-react": "^0.546.0",
     "motion": "^12.23.24",
+    "openai": "^6.37.0",
     "pdf-lib": "^1.17.1",
     "pdfjs-dist": "^5.6.205",
     "qrcode.react": "^4.2.0",
@@ -43,6 +44,7 @@
     "react-image-crop": "^11.0.10",
     "react-markdown": "^10.1.0",
     "react-router-dom": "^7.14.1",
+    "recharts": "^3.8.1",
     "sm-crypto": "^0.4.0",
     "tailwind-merge": "^3.5.0",
     "tinycolor2": "^1.6.0",

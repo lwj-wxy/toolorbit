@@ -50,6 +50,7 @@ export interface ToolItem {
   category: Category;
   path: string;
   color?: string; // Tailwind color name like 'emerald', 'blue', etc.
+  isPopular?: boolean;
 }
 
 export const TOOLS: ToolItem[] = [
@@ -60,7 +61,8 @@ export const TOOLS: ToolItem[] = [
     icon: Code2,
     category: '开发者工具',
     path: '/tools/dev/json-formatter',
-    color: 'emerald',
+    color: 'green',
+    isPopular: true,
   },
   {
     id: 'base64',
@@ -69,7 +71,7 @@ export const TOOLS: ToolItem[] = [
     icon: Binary,
     category: '计算转换',
     path: '/tools/dev/base64',
-    color: 'blue',
+    color: 'amber',
   },
   {
     id: 'ascii-table',
@@ -78,7 +80,7 @@ export const TOOLS: ToolItem[] = [
     icon: Hash,
     category: '计算转换',
     path: '/tools/dev/ascii-table',
-    color: 'slate',
+    color: 'amber',
   },
   {
     id: 'url-encoder',
@@ -87,7 +89,7 @@ export const TOOLS: ToolItem[] = [
     icon: Link,
     category: '站长工具',
     path: '/tools/dev/url-encoder',
-    color: 'sky',
+    color: 'blue',
   },
   {
     id: 'hash-generator',
@@ -96,7 +98,7 @@ export const TOOLS: ToolItem[] = [
     icon: Hash,
     category: '开发者工具',
     path: '/tools/dev/hash-generator',
-    color: 'indigo',
+    color: 'green',
   },
   {
     id: 'uuid-generator',
@@ -105,7 +107,7 @@ export const TOOLS: ToolItem[] = [
     icon: Fingerprint,
     category: '生成器',
     path: '/tools/dev/uuid-generator',
-    color: 'purple',
+    color: 'orange',
   },
   {
     id: 'unicode-converter',
@@ -114,7 +116,7 @@ export const TOOLS: ToolItem[] = [
     icon: Code,
     category: '计算转换',
     path: '/tools/dev/unicode-converter',
-    color: 'cyan',
+    color: 'amber',
   },
   {
     id: 'chmod-calculator',
@@ -123,7 +125,7 @@ export const TOOLS: ToolItem[] = [
     icon: FileKey,
     category: '开发者工具',
     path: '/tools/dev/chmod-calculator',
-    color: 'orange',
+    color: 'green',
   },
   {
     id: 'text-analyzer',
@@ -132,7 +134,8 @@ export const TOOLS: ToolItem[] = [
     icon: Type,
     category: '文本排版',
     path: '/tools/text/text-analyzer',
-    color: 'violet',
+    color: 'indigo',
+    isPopular: true,
   },
   {
     id: 'text-cleaner',
@@ -141,7 +144,7 @@ export const TOOLS: ToolItem[] = [
     icon: Eraser,
     category: '文本排版',
     path: '/tools/text/text-cleaner',
-    color: 'fuchsia',
+    color: 'indigo',
   },
   {
     id: 'symbol-library',
@@ -150,7 +153,7 @@ export const TOOLS: ToolItem[] = [
     icon: Keyboard,
     category: '文本排版',
     path: '/tools/text/symbol-library',
-    color: 'pink',
+    color: 'indigo',
   },
   {
     id: 'qr-generator',
@@ -159,7 +162,7 @@ export const TOOLS: ToolItem[] = [
     icon: QrCode,
     category: '生成器',
     path: '/tools/generator/qr-generator',
-    color: 'teal',
+    color: 'orange',
   },
   {
     id: 'qr-scanner',
@@ -168,7 +171,7 @@ export const TOOLS: ToolItem[] = [
     icon: ScanLine,
     category: '生成器',
     path: '/tools/generator/qr-scanner',
-    color: 'emerald',
+    color: 'orange',
   },
   {
     id: 'barcode-generator',
@@ -177,7 +180,7 @@ export const TOOLS: ToolItem[] = [
     icon: Barcode,
     category: '生成器',
     path: '/tools/generator/barcode-generator',
-    color: 'neutral',
+    color: 'orange',
   },
   {
     id: 'etsy-fee-calculator',
@@ -186,7 +189,7 @@ export const TOOLS: ToolItem[] = [
     icon: ShoppingCart,
     category: '电商工具',
     path: '/tools/ecommerce/etsy-fee-calculator',
-    color: 'orange',
+    color: 'emerald',
   },
   {
     id: 'stripe-fee-calculator',
@@ -195,7 +198,7 @@ export const TOOLS: ToolItem[] = [
     icon: CreditCard,
     category: '电商工具',
     path: '/tools/ecommerce/stripe-fee-calculator',
-    color: 'blue',
+    color: 'emerald',
   },
   {
     id: 'listing-craft-ai',
@@ -204,7 +207,8 @@ export const TOOLS: ToolItem[] = [
     icon: Sparkles,
     category: '电商工具',
     path: '/tools/ecommerce/listing-craft-ai',
-    color: 'amber',
+    color: 'emerald',
+    isPopular: true,
   },
   {
     id: 'pdf-merge',
@@ -214,6 +218,7 @@ export const TOOLS: ToolItem[] = [
     category: 'PDF工具',
     path: '/tools/pdf/pdf-merge',
     color: 'rose',
+    isPopular: true,
   },
   {
     id: 'pdf-split',
@@ -231,7 +236,7 @@ export const TOOLS: ToolItem[] = [
     icon: FileImage,
     category: 'PDF工具',
     path: '/tools/pdf/pdf-to-image',
-    color: 'amber',
+    color: 'rose',
   },
   {
     id: 'image-to-pdf',
@@ -240,7 +245,7 @@ export const TOOLS: ToolItem[] = [
     icon: ImageIcon,
     category: 'PDF工具',
     path: '/tools/pdf/image-to-pdf',
-    color: 'blue',
+    color: 'rose',
   },
   {
     id: 'image-compressor',
@@ -249,7 +254,8 @@ export const TOOLS: ToolItem[] = [
     icon: ImageMinus,
     category: '图片处理',
     path: '/tools/image/image-compressor',
-    color: 'green',
+    color: 'fuchsia',
+    isPopular: true,
   },
   {
     id: 'image-converter',
@@ -258,7 +264,7 @@ export const TOOLS: ToolItem[] = [
     icon: RefreshCcw,
     category: '图片处理',
     path: '/tools/image/image-converter',
-    color: 'indigo',
+    color: 'fuchsia',
   },
   {
     id: 'svg-to-png',
@@ -267,7 +273,7 @@ export const TOOLS: ToolItem[] = [
     icon: FileImage,
     category: '图片处理',
     path: '/tools/image/svg-to-png',
-    color: 'orange',
+    color: 'fuchsia',
   },
   {
     id: 'image-to-base64',
@@ -276,7 +282,7 @@ export const TOOLS: ToolItem[] = [
     icon: FileCode2,
     category: '图片处理',
     path: '/tools/image/image-to-base64',
-    color: 'gray',
+    color: 'fuchsia',
   },
   {
     id: 'image-cropper',
@@ -285,7 +291,7 @@ export const TOOLS: ToolItem[] = [
     icon: CropIcon,
     category: '图片处理',
     path: '/tools/image/image-cropper',
-    color: 'blue',
+    color: 'fuchsia',
   },
   {
     id: 'timestamp-converter',
@@ -303,7 +309,7 @@ export const TOOLS: ToolItem[] = [
     icon: Calculator,
     category: '计算转换',
     path: '/tools/dev/base-converter',
-    color: 'slate',
+    color: 'amber',
   },
   {
     id: 'unit-converter',
@@ -312,7 +318,7 @@ export const TOOLS: ToolItem[] = [
     icon: Calculator,
     category: '计算转换',
     path: '/tools/calculate/unit-converter',
-    color: 'blue',
+    color: 'amber',
   },
   {
     id: 'time-converter',
@@ -321,7 +327,7 @@ export const TOOLS: ToolItem[] = [
     icon: Calculator,
     category: '计算转换',
     path: '/tools/calculate/time-converter',
-    color: 'teal',
+    color: 'amber',
   },
   {
     id: 'archive-converter',
@@ -330,7 +336,7 @@ export const TOOLS: ToolItem[] = [
     icon: RefreshCcw,
     category: '计算转换',
     path: '/tools/calculate/archive-converter',
-    color: 'gray',
+    color: 'amber',
   },
   {
     id: 'rmb-converter',
@@ -339,7 +345,7 @@ export const TOOLS: ToolItem[] = [
     icon: Banknote,
     category: '计算转换',
     path: '/tools/calculate/rmb-converter',
-    color: 'green',
+    color: 'amber',
   },
   {
     id: 'ppi-calculator',
@@ -348,7 +354,7 @@ export const TOOLS: ToolItem[] = [
     icon: MonitorSmartphone,
     category: '计算转换',
     path: '/tools/calculate/ppi-calculator',
-    color: 'indigo',
+    color: 'amber',
   },
   {
     id: "color-converter",
@@ -357,7 +363,7 @@ export const TOOLS: ToolItem[] = [
     icon: Palette,
     category: "计算转换",
     path: "/tools/dev/color-converter",
-    color: "pink"
+    color: "amber"
   },
   {
     id: "color-palette",
@@ -366,7 +372,7 @@ export const TOOLS: ToolItem[] = [
     icon: Palette,
     category: "计算转换",
     path: "/tools/dev/color-palette",
-    color: "purple"
+    color: "amber"
   },
   {
     id: "color-picker",
@@ -375,7 +381,7 @@ export const TOOLS: ToolItem[] = [
     icon: Pipette,
     category: "计算转换",
     path: "/tools/dev/color-picker",
-    color: "sky"
+    color: "amber"
   },
   {
     id: "image-to-ico",
@@ -384,7 +390,7 @@ export const TOOLS: ToolItem[] = [
     icon: ImageIcon,
     category: "图片处理",
     path: "/tools/image/image-to-ico",
-    color: "blue"
+    color: "fuchsia"
   },
   {
     id: "short-url",
@@ -402,7 +408,7 @@ export const TOOLS: ToolItem[] = [
     icon: Gamepad2,
     category: "娱乐工具",
     path: "/tools/fun/game-2048",
-    color: "orange"
+    color: "pink"
   },
   {
     id: "password-generator",
@@ -411,7 +417,7 @@ export const TOOLS: ToolItem[] = [
     icon: ShieldCheck,
     category: "生成器",
     path: "/tools/dev/password-generator",
-    color: "green"
+    color: "orange"
   },
   {
     id: "jwt-debugger",
@@ -420,7 +426,7 @@ export const TOOLS: ToolItem[] = [
     icon: Layers,
     category: "开发者工具",
     path: "/tools/dev/jwt-debugger",
-    color: "sky"
+    color: "green"
   },
   {
     id: "regex-tester",
@@ -429,7 +435,7 @@ export const TOOLS: ToolItem[] = [
     icon: Regex,
     category: "开发者工具",
     path: "/tools/dev/regex-tester",
-    color: "amber"
+    color: "green"
   },
   {
     id: "json-to-ts",
@@ -438,7 +444,7 @@ export const TOOLS: ToolItem[] = [
     icon: FileJson,
     category: "开发者工具",
     path: "/tools/dev/json-to-ts",
-    color: "blue"
+    color: "green"
   },
   {
     id: "crypto-symmetric",
@@ -447,7 +453,7 @@ export const TOOLS: ToolItem[] = [
     icon: Lock,
     category: "开发者工具",
     path: "/tools/dev/crypto-symmetric",
-    color: "slate"
+    color: "green"
   },
   {
     id: "morse-code",
@@ -456,7 +462,7 @@ export const TOOLS: ToolItem[] = [
     icon: Radio,
     category: "娱乐工具",
     path: "/tools/dev/morse-code",
-    color: "neutral"
+    color: "pink"
   },
   {
     id: "hex-string-converter",
@@ -465,7 +471,7 @@ export const TOOLS: ToolItem[] = [
     icon: FileCode,
     category: "计算转换",
     path: "/tools/dev/hex-string-converter",
-    color: "indigo"
+    color: "amber"
   },
   {
     id: "chinese-crypto",
@@ -474,7 +480,7 @@ export const TOOLS: ToolItem[] = [
     icon: ShieldCheck,
     category: "开发者工具",
     path: "/tools/dev/chinese-crypto",
-    color: "red"
+    color: "green"
   },
   {
     id: "minesweeper",
@@ -483,6 +489,6 @@ export const TOOLS: ToolItem[] = [
     icon: Bomb,
     category: "娱乐工具",
     path: "/tools/fun/minesweeper",
-    color: "gray"
+    color: "pink"
   }
 ];
