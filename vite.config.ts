@@ -15,6 +15,24 @@ export default defineConfig(({mode}) => {
         '@': path.resolve(__dirname, '.'),
       },
     },
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            'vendor-react': ['react', 'react-dom', 'react-router-dom', 'react-helmet-async'],
+            'vendor-pdf': ['pdfjs-dist', 'pdf-lib', 'jspdf'],
+            'vendor-ui': ['lucide-react', 'motion', 'react-hot-toast'],
+            'vendor-utils': ['axios', 'dayjs', 'i18next', 'react-i18next'],
+            'vendor-charts': ['recharts'],
+            'vendor-crypto': ['crypto-js', 'sm-crypto'],
+          },
+        },
+      },
+      chunkSizeWarningLimit: 1000,
+      minify: 'esbuild',
+      cssMinify: true,
+      reportCompressedSize: false,
+    },
     server: {
       // HMR is disabled in AI Studio via DISABLE_HMR env var.
       // Do not modifyâfile watching is disabled to prevent flickering during agent edits.

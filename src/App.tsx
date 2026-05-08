@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { Toaster } from 'react-hot-toast';
@@ -11,63 +12,85 @@ import { usePageTracking } from './hooks/usePageTracking';
 import ScrollToTop from './components/ScrollToTop';
 import RecentToolsTracker from './components/RecentToolsTracker';
 import Layout from './components/Layout';
-import Home from './pages/Home';
-import JsonFormatter from './pages/tools/dev/JsonFormatter';
-import Base64 from './pages/tools/dev/Base64';
-import AsciiTable from './pages/tools/dev/AsciiTable';
-import UrlEncoder from './pages/tools/dev/UrlEncoder';
-import HashGenerator from './pages/tools/dev/HashGenerator';
-import UuidGenerator from './pages/tools/dev/UuidGenerator';
-import UnicodeConverter from './pages/tools/dev/UnicodeConverter';
-import ChmodCalculator from './pages/tools/dev/ChmodCalculator';
-import TextAnalyzer from './pages/tools/text/TextAnalyzer';
-import TextCleaner from './pages/tools/text/TextCleaner';
-import SymbolLibrary from './pages/tools/text/SymbolLibrary';
-import QrGenerator from './pages/tools/image/QrGenerator';
-import QrScanner from './pages/tools/image/QrScanner';
-import BarcodeGenerator from './pages/tools/image/BarcodeGenerator';
-import EtsyFeeCalculator from './pages/tools/ecommerce/EtsyFee';
-import StripeFeeCalculator from './pages/tools/ecommerce/StripeFee';
-import ListingCraft from './pages/tools/ecommerce/ListingCraft';
-import PlaceholderTool from './pages/tools/shared/PlaceholderTool';
 
-import ColorConverter from './pages/tools/dev/ColorConverter';
-import ColorPalette from './pages/tools/dev/ColorPalette';
-import ColorPicker from './pages/tools/dev/ColorPicker';
-import ImageToIco from './pages/tools/image/ImageToIco';
-import TimestampConverter from './pages/tools/dev/TimestampConverter';
-import BaseConverter from './pages/tools/dev/BaseConverter';
-import ImageCompressor from './pages/tools/image/ImageCompressor';
-import ImageConverter from './pages/tools/image/ImageConverter';
-import ImageToBase64 from './pages/tools/image/ImageToBase64';
-import SvgToPng from './pages/tools/image/SvgToPng';
-import PdfToImage from './pages/tools/pdf/PdfToImage';
-import ImageToPdf from './pages/tools/pdf/ImageToPdf';
-import PdfMerge from './pages/tools/pdf/PdfMerge';
-import PdfSplit from './pages/tools/pdf/PdfSplit';
-import ImageCropper from './pages/tools/image/ImageCropper';
-import UnitConverter from './pages/tools/calculate/UnitConverter';
-import TimeConverter from './pages/tools/calculate/TimeConverter';
-import ArchiveConverter from './pages/tools/calculate/ArchiveConverter';
-import RmbConverter from './pages/tools/calculate/RmbConverter';
-import PpiCalculator from './pages/tools/calculate/PpiCalculator';
+// Core Pages
+const Home = lazy(() => import('./pages/Home'));
+const BlogList = lazy(() => import('./pages/BlogList'));
+const BlogPost = lazy(() => import('./pages/BlogPost'));
+const Privacy = lazy(() => import('./pages/Privacy'));
+const Terms = lazy(() => import('./pages/Terms'));
+const About = lazy(() => import('./pages/About'));
 
-import ShortUrl from './pages/tools/net/ShortUrl';
-import Game2048 from './pages/tools/fun/Game2048';
-import PasswordGenerator from './pages/tools/dev/PasswordGenerator';
-import JwtDebugger from './pages/tools/dev/JwtDebugger';
-import JsonToTs from './pages/tools/dev/JsonToTs';
-import RegexTester from './pages/tools/dev/RegexTester';
-import Minesweeper from './pages/tools/fun/Minesweeper';
-import CryptoSymmetric from './pages/tools/dev/CryptoSymmetric';
-import MorseCode from './pages/tools/dev/MorseCode';
-import HexStringConverter from './pages/tools/dev/HexStringConverter';
-import ChineseCrypto from './pages/tools/dev/ChineseCrypto';
-import BlogList from './pages/BlogList';
-import BlogPost from './pages/BlogPost';
-import Privacy from './pages/Privacy';
-import Terms from './pages/Terms';
-import About from './pages/About';
+// Dev Tools
+const JsonFormatter = lazy(() => import('./pages/tools/dev/JsonFormatter'));
+const Base64 = lazy(() => import('./pages/tools/dev/Base64'));
+const AsciiTable = lazy(() => import('./pages/tools/dev/AsciiTable'));
+const UrlEncoder = lazy(() => import('./pages/tools/dev/UrlEncoder'));
+const HashGenerator = lazy(() => import('./pages/tools/dev/HashGenerator'));
+const UuidGenerator = lazy(() => import('./pages/tools/dev/UuidGenerator'));
+const UnicodeConverter = lazy(() => import('./pages/tools/dev/UnicodeConverter'));
+const ChmodCalculator = lazy(() => import('./pages/tools/dev/ChmodCalculator'));
+const ColorConverter = lazy(() => import('./pages/tools/dev/ColorConverter'));
+const ColorPalette = lazy(() => import('./pages/tools/dev/ColorPalette'));
+const ColorPicker = lazy(() => import('./pages/tools/dev/ColorPicker'));
+const TimestampConverter = lazy(() => import('./pages/tools/dev/TimestampConverter'));
+const BaseConverter = lazy(() => import('./pages/tools/dev/BaseConverter'));
+const PasswordGenerator = lazy(() => import('./pages/tools/dev/PasswordGenerator'));
+const JwtDebugger = lazy(() => import('./pages/tools/dev/JwtDebugger'));
+const JsonToTs = lazy(() => import('./pages/tools/dev/JsonToTs'));
+const RegexTester = lazy(() => import('./pages/tools/dev/RegexTester'));
+const CryptoSymmetric = lazy(() => import('./pages/tools/dev/CryptoSymmetric'));
+const MorseCode = lazy(() => import('./pages/tools/dev/MorseCode'));
+const HexStringConverter = lazy(() => import('./pages/tools/dev/HexStringConverter'));
+const ChineseCrypto = lazy(() => import('./pages/tools/dev/ChineseCrypto'));
+
+// Text Tools
+const TextAnalyzer = lazy(() => import('./pages/tools/text/TextAnalyzer'));
+const TextCleaner = lazy(() => import('./pages/tools/text/TextCleaner'));
+const SymbolLibrary = lazy(() => import('./pages/tools/text/SymbolLibrary'));
+
+// Image Tools
+const QrGenerator = lazy(() => import('./pages/tools/image/QrGenerator'));
+const QrScanner = lazy(() => import('./pages/tools/image/QrScanner'));
+const BarcodeGenerator = lazy(() => import('./pages/tools/image/BarcodeGenerator'));
+const ImageToIco = lazy(() => import('./pages/tools/image/ImageToIco'));
+const ImageCompressor = lazy(() => import('./pages/tools/image/ImageCompressor'));
+const ImageConverter = lazy(() => import('./pages/tools/image/ImageConverter'));
+const ImageToBase64 = lazy(() => import('./pages/tools/image/ImageToBase64'));
+const SvgToPng = lazy(() => import('./pages/tools/image/SvgToPng'));
+const ImageCropper = lazy(() => import('./pages/tools/image/ImageCropper'));
+
+// PDF Tools
+const PdfToImage = lazy(() => import('./pages/tools/pdf/PdfToImage'));
+const ImageToPdf = lazy(() => import('./pages/tools/pdf/ImageToPdf'));
+const PdfMerge = lazy(() => import('./pages/tools/pdf/PdfMerge'));
+const PdfSplit = lazy(() => import('./pages/tools/pdf/PdfSplit'));
+
+// Ecommerce Tools
+const EtsyFeeCalculator = lazy(() => import('./pages/tools/ecommerce/EtsyFee'));
+const StripeFeeCalculator = lazy(() => import('./pages/tools/ecommerce/StripeFee'));
+const ListingCraft = lazy(() => import('./pages/tools/ecommerce/ListingCraft'));
+
+// Calculate & Unit Tools
+const UnitConverter = lazy(() => import('./pages/tools/calculate/UnitConverter'));
+const TimeConverter = lazy(() => import('./pages/tools/calculate/TimeConverter'));
+const ArchiveConverter = lazy(() => import('./pages/tools/calculate/ArchiveConverter'));
+const RmbConverter = lazy(() => import('./pages/tools/calculate/RmbConverter'));
+const PpiCalculator = lazy(() => import('./pages/tools/calculate/PpiCalculator'));
+
+// Other Tools
+const ShortUrl = lazy(() => import('./pages/tools/net/ShortUrl'));
+const Game2048 = lazy(() => import('./pages/tools/fun/Game2048'));
+const Minesweeper = lazy(() => import('./pages/tools/fun/Minesweeper'));
+const PlaceholderTool = lazy(() => import('./pages/tools/shared/PlaceholderTool'));
+
+function Loading() {
+  return (
+    <div className="flex h-64 w-full items-center justify-center">
+      <div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-500 border-t-transparent shadow-sm"></div>
+    </div>
+  );
+}
 
 function AnalyticsTracker() {
   usePageTracking();
@@ -84,7 +107,8 @@ export default function App() {
           <Toaster position="top-right" toastOptions={{ className: 'text-sm font-medium' }} />
           <AnalyticsTracker />
           <Layout>
-            <Routes>
+            <Suspense fallback={<Loading />}>
+              <Routes>
             <Route path="/" element={<Home />} />
             {/* ... other routes ... */}
             <Route path="/blog" element={<BlogList />} />
@@ -148,6 +172,7 @@ export default function App() {
             {/* Catch-all route to redirect invalid paths to Home */}
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
+          </Suspense>
         </Layout>
       </BrowserRouter>
     </HelmetProvider>
