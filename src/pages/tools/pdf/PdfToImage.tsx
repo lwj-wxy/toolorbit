@@ -14,13 +14,15 @@ import {
   ChevronRight
 } from 'lucide-react';
 import * as pdfjs from 'pdfjs-dist';
+import pdfWorker from 'pdfjs-dist/build/pdf.worker.mjs?url';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
 import { motion, AnimatePresence } from 'motion/react';
 
-// Initialize PDF.js worker
-const PDFJS_VERSION = '5.6.205';
-pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${PDFJS_VERSION}/build/pdf.worker.min.mjs`;
+// Initialize PDF.js worker using local Vite URL
+pdfjs.GlobalWorkerOptions.workerSrc = pdfWorker;
+
+import ToolSEOCard from '../../../components/ToolSEOCard';
 
 interface PageImage {
   pageNumber: number;
@@ -240,66 +242,7 @@ export default function PdfToImage() {
         )}
       </div>
 
-      {/* SEO Content Section */}
-      <div className="mt-24 border-t border-gray-100 pt-16">
-        <div className="max-w-4xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 mb-16">
-            <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('tools.pdf-to-image.seoTitle')}</h2>
-              <div className="space-y-4 text-gray-600 leading-relaxed">
-                <p>{t('tools.pdf-to-image.seoDesc')}</p>
-                <div className="bg-emerald-50 p-6 rounded-2xl border border-emerald-100">
-                  <div className="flex gap-4 items-start">
-                    <ShieldCheck className="w-6 h-6 text-emerald-600 shrink-0 mt-1" />
-                    <p className="text-sm text-emerald-900">
-                      <strong>{t('tools.pdf-to-image.privacyNotice')}</strong>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="space-y-8">
-              <h3 className="text-xl font-bold text-gray-900">{t('tools.pdf-to-image.highlightsTitle')}</h3>
-              
-              <div className="flex gap-4">
-                <div className="bg-gray-100 w-12 h-12 rounded-xl flex items-center justify-center shrink-0">
-                  <MousePointer2 className="w-6 h-6 text-emerald-600" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-gray-900 mb-1">{t('tools.pdf-to-image.highlight1Title')}</h4>
-                  <p className="text-sm text-gray-600">{t('tools.pdf-to-image.highlight1Desc')}</p>
-                </div>
-              </div>
-
-              <div className="flex gap-4">
-                <div className="bg-gray-100 w-12 h-12 rounded-xl flex items-center justify-center shrink-0">
-                  <Layers className="w-6 h-6 text-emerald-600" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-gray-900 mb-1">{t('tools.pdf-to-image.highlight2Title')}</h4>
-                  <p className="text-sm text-gray-600">{t('tools.pdf-to-image.highlight2Desc')}</p>
-                </div>
-              </div>
-
-              <div className="flex gap-4">
-                <div className="bg-gray-100 w-12 h-12 rounded-xl flex items-center justify-center shrink-0">
-                  <FileArchive className="w-6 h-6 text-emerald-600" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-gray-900 mb-1">{t('tools.pdf-to-image.highlight3Title')}</h4>
-                  <p className="text-sm text-gray-600">{t('tools.pdf-to-image.highlight3Desc')}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div className="bg-gray-50 p-8 rounded-3xl text-center">
-            <p className="text-gray-500 italic">
-              {t('tools.pdf-to-image.seoFooter')}
-            </p>
-          </div>
-        </div>
-      </div>
+      <ToolSEOCard toolKey="pdf-to-image" />
     </div>
   );
 }

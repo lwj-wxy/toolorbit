@@ -47,6 +47,14 @@ const ToolSEOCard: React.FC<ToolSEOCardProps> = ({ toolKey }) => {
     return null;
   }).filter(Boolean);
 
+  const guideList = [1, 2, 3, 4].map(i => {
+    const step = t(`tools.${toolKey}.guide${i}`);
+    if (step && step !== `tools.${toolKey}.guide${i}`) {
+      return step;
+    }
+    return null;
+  }).filter(Boolean);
+
   const faqSchema = faqList.length > 0 ? {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -74,6 +82,22 @@ const ToolSEOCard: React.FC<ToolSEOCardProps> = ({ toolKey }) => {
             {description}
           </p>
         </section>
+
+        {guideList.length > 0 && (
+          <section className="mb-10 p-6 bg-blue-50/50 dark:bg-blue-900/10 rounded-2xl border border-blue-100/50 dark:border-blue-800/30">
+            <h3 className="font-bold text-slate-800 dark:text-slate-200 text-xl mb-4">{t(`tools.${toolKey}.guideTitle`, { defaultValue: 'Quick Usage Guide' })}</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+              {guideList.map((step, idx) => (
+                <div key={idx} className="flex gap-3 items-start">
+                   <div className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-600 text-white text-xs flex items-center justify-center font-bold mt-0.5">
+                     {idx + 1}
+                   </div>
+                   <p className="text-slate-700 dark:text-slate-300 text-sm leading-relaxed">{step}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
 
         <section className="mb-10">
           <h3 className="font-bold text-slate-800 dark:text-slate-200 text-xl mb-6">{t(`tools.${toolKey}.highlightsTitle`)}</h3>

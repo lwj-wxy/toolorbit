@@ -355,6 +355,37 @@ export default function Home() {
           </div>
         </section>
       )}
+
+      {/* Why ToolOrbit Section */}
+      <section className="bg-white dark:bg-slate-900 rounded-[32px] p-8 sm:p-12 border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden relative group">
+        <div className="absolute top-0 right-0 p-12 opacity-5 translate-x-1/4 -translate-y-1/4 group-hover:scale-110 transition-transform duration-700 pointer-events-none">
+          <Sparkles size={300} className="text-slate-900 dark:text-white" />
+        </div>
+        
+        <div className="relative z-10 max-w-4xl mx-auto">
+          <h2 className="text-3xl font-black text-slate-800 dark:text-white mb-12 text-center tracking-tight">
+            {t('common.why_title')}
+          </h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-12">
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="flex gap-6">
+                <div className="flex-shrink-0 w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-900/30 flex items-center justify-center text-indigo-600 dark:text-indigo-400 font-black text-xl border border-indigo-100 dark:border-indigo-800">
+                  {i}
+                </div>
+                <div className="space-y-2">
+                  <h3 className="font-bold text-lg text-slate-800 dark:text-slate-100 italic tracking-tight">
+                    {t(`common.why_item${i}_title`)}
+                  </h3>
+                  <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed font-medium">
+                    {t(`common.why_item${i}_desc`)}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
       
       {/* Pinned & Recent Split Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
