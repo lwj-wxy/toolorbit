@@ -20,11 +20,8 @@ export default defineConfig(({mode}) => {
         output: {
           manualChunks: {
             'vendor-react': ['react', 'react-dom', 'react-router-dom', 'react-helmet-async'],
-            'vendor-pdf': ['pdfjs-dist', 'pdf-lib', 'jspdf'],
             'vendor-ui': ['lucide-react', 'motion', 'react-hot-toast'],
             'vendor-utils': ['axios', 'dayjs', 'i18next', 'react-i18next'],
-            'vendor-charts': ['recharts'],
-            'vendor-crypto': ['crypto-js', 'sm-crypto'],
           },
         },
       },
