@@ -37,37 +37,79 @@ const ToolSEOCard: React.FC<ToolSEOCardProps> = ({ toolKey }) => {
     }
   };
 
+  // Dynamically build FAQ Schema if FAQs exist
+  const faqList = [1, 2, 3].map(i => {
+    const question = t(`tools.${toolKey}.faq${i}Q`);
+    const answer = t(`tools.${toolKey}.faq${i}A`);
+    if (question && question !== `tools.${toolKey}.faq${i}Q`) {
+      return { question, answer };
+    }
+    return null;
+  }).filter(Boolean);
+
+  const faqSchema = faqList.length > 0 ? {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqList.map(item => ({
+      "@type": "Question",
+      "name": item?.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": item?.answer
+      }
+    }))
+  } : null;
+
   return (
     <>
       <SEO 
         title={title}
         description={description}
-        schema={toolSchema}
+        schema={faqSchema ? [toolSchema, faqSchema] : toolSchema}
       />
       <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-800 p-8 lg:p-12 mt-8 transition-colors duration-300">
-        <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-6">{title}</h2>
-        
-        <p className="text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
-          {description}
-        </p>
+        <section className="mb-10">
+          <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-6">{title}</h2>
+          <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-lg">
+            {description}
+          </p>
+        </section>
 
-        <h3 className="font-bold text-slate-800 dark:text-slate-200 text-lg mb-4">{t(`tools.${toolKey}.highlightsTitle`)}</h3>
-        <ul className="space-y-4 text-slate-600 dark:text-slate-400">
-          <li className="flex flex-col sm:flex-row gap-1 sm:gap-3">
-            <strong className="text-slate-800 dark:text-slate-100 shrink-0">{t(`tools.${toolKey}.highlight1Title`)}</strong>
-            <span>{t(`tools.${toolKey}.highlight1Desc`)}</span>
-          </li>
-          <li className="flex flex-col sm:flex-row gap-1 sm:gap-3">
-            <strong className="text-slate-800 dark:text-slate-100 shrink-0">{t(`tools.${toolKey}.highlight2Title`)}</strong>
-            <span>{t(`tools.${toolKey}.highlight2Desc`)}</span>
-          </li>
-          <li className="flex flex-col sm:flex-row gap-1 sm:gap-3">
-            <strong className="text-slate-800 dark:text-slate-100 shrink-0">{t(`tools.${toolKey}.highlight3Title`)}</strong>
-            <span>{t(`tools.${toolKey}.highlight3Desc`)}</span>
-          </li>
-        </ul>
+        <section className="mb-10">
+          <h3 className="font-bold text-slate-800 dark:text-slate-200 text-xl mb-6">{t(`tools.${toolKey}.highlightsTitle`)}</h3>
+          <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[1, 2, 3].map(i => (
+              <li key={i} className="flex flex-col gap-2 p-5 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-800 transition-all hover:shadow-md">
+                <strong className="text-slate-900 dark:text-slate-100 font-bold block border-b border-slate-200 dark:border-slate-700 pb-2 mb-2">
+                  {t(`tools.${toolKey}.highlight${i}Title`)}
+                </strong>
+                <span className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                  {t(`tools.${toolKey}.highlight${i}Desc`)}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        {faqList.length > 0 && (
+          <section className="mt-12 border-t border-slate-100 dark:border-slate-800 pt-10">
+            <h3 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-8">{t('common.faqTitle', { defaultValue: 'Frequently Asked Questions' })}</h3>
+            <div className="space-y-6">
+              {faqList.map((faq, idx) => (
+                <div key={idx} className="group border-b border-slate-100 dark:border-slate-800 pb-6 last:border-0">
+                  <h4 className="text-lg font-semibold text-slate-800 dark:text-slate-200 mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                    {faq?.question}
+                  </h4>
+                  <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+                    {faq?.answer}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
         
-        <p className="text-slate-500 dark:text-slate-500 text-sm mt-8 pt-6 border-t border-slate-100 dark:border-slate-800">
+        <p className="text-slate-500 dark:text-slate-500 text-sm mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 italic">
           {t(`tools.${toolKey}.disclaimer`)}
         </p>
       </div>

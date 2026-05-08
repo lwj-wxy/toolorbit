@@ -70,6 +70,12 @@
       "highlight2Desc": "Detect syntax errors automatically as you paste your code. Get clear error messages to fix issues immediately.",
       "highlight3Title": "3. Customizable Spacing:",
       "highlight3Desc": "Choose between 2 or 4 spaces for the output to match your project's coding standards or preferences.",
+      "faq1Q": "Does the JSON Formatter save my data?",
+      "faq1A": "Absolutely not. ToolOrbit follows a client-side first principle. All formatting logic runs locally in your browser. Your data is not uploaded to our servers, ensuring maximum privacy and security.",
+      "faq2Q": "What is JSON validation and how does it work?",
+      "faq2A": "JSON validation is the process of checking if your code adheres to standard JSON syntax. Our tool automatically detects missing commas, mismatched brackets, or illegal quotes and provides clear error messages for instant fixing.",
+      "faq3Q": "Can I beautify minified JSON?",
+      "faq3A": "Yes, that's the primary purpose of this tool. It takes compressed, single-line JSON and converts it into a readable, hierarchical format with proper indentation.",
       "disclaimer": "Note: This tool handles standard JSON format. Always verify mission-critical configurations before deployment."
     },
     "base64": {
@@ -100,6 +106,12 @@
       "highlight2Desc": "Seamlessly toggle between encoding and decoding modes with a single click, keeping your workflow efficient.",
       "highlight3Title": "3. One-Click Copy:",
       "highlight3Desc": "Quickly copy the resulting string to your clipboard for instant use in your code or documentation.",
+      "faq1Q": "Is Base64 encoding considered encryption?",
+      "faq1A": "No, Base64 is an encoding scheme, not encryption. It represents binary data as ASCII text for transmission over text-only protocols. Anyone can easily decode a Base64 string back to its original form.",
+      "faq2Q": "Why do my special characters break in Base64?",
+      "faq2A": "This often happens when UTF-8 encoding is not correctly handled. ToolOrbit ensures that text is encoded as a UTF-8 byte stream before Base64 conversion, supporting all Unicode characters, including emojis.",
+      "faq3Q": "How much does Base64 increase file size?",
+      "faq3A": "Base64 encoding typically increases the data size by about 33%. While efficient for small data snippets like icons or markers, it is not recommended for very large files.",
       "disclaimer": "Reminder: Base64 is an encoding format, not a form of encryption. It does not provide data confidentiality."
     },
     "ascii-table": {
@@ -663,6 +675,12 @@
       "highlight2Desc": "Generated titles and tags naturally cover core search terms, helping you gain more organic traffic and lower PPC costs.",
       "highlight3Title": "3. Finish Work in Seconds:",
       "highlight3Desc": "Input a few keywords and get a professional listing instantly. Supports multiple languages to help you sell globally.",
+      "faq1Q": "Can I use AI-generated copy directly on Amazon or Etsy?",
+      "faq1A": "Yes, the copy is optimized based on platform algorithms. However, we recommend a quick review to verify physical parameters like dimensions or materials before publishing to ensure 100% accuracy.",
+      "faq2Q": "Does this tool support multiple languages?",
+      "faq2A": "Current AI engines automatically generate the most natural descriptions based on your input context (English, Chinese, etc.). By selecting different target audiences, AI adjusts the vocabulary style accordingly.",
+      "faq3Q": "How does AI copy improve SEO rankings?",
+      "faq3A": "AI intelligently embeds core keywords in the first 50 characters of the title and naturally repeats long-tail keywords in the description. This aligns with search engine indexing logic to boost your visibility.",
       "disclaimer": "Note: AI results are for reference. We recommend fine-tuning the copy to match your specific brand voice before publishing."
     },
     "image-compressor": {
