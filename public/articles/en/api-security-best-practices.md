@@ -1,21 +1,12 @@
-# API Security in Practice: From JWT Leaks to SSRF Protection
+## API Security: Hardening Your Endpoints Against the Dark Web
 
-> *The internet is a dangerous place. Here are five golden rules for API security in modern web applications to protect your data.*
+If an application is a vault, APIs are the doors. Over 80% of modern web traffic flows through APIs, making them the primary target for malicious actors, botnets, and automated vulnerability scanners. Securing them is not an IT problem; it is an existential business necessity.
 
-Welcome to another insight from ToolOrbit.
+### 1. The Principle of Least Privilege
+Never expose an endpoint that allows unrestricted mass data retrieval. A classic vulnerability is the "Mass Assignment" flaw. If a user sends a `POST /api/user/update` request and includes `"isAdmin": true` in the JSON payload, a poorly secured ORM might blindly map that property to the database, instantly granting the attacker administrative rights. Strict payload validation schemas (using tools like Zod or Joi) are mandatory.
 
-### The Perimeter DefenseModern web applications are only as secure as their APIs. Exposing endpoints without proper safeguards is an open invitation for data breaches. Here is a practical security checklist.
+### 2. Rate Limiting and Volumetric Defenses
+A server without rate limiting is a server waiting to be crushed by a DDoS attack. Implementing robust IP-based, or better yet, Token-based rate limiting guarantees that a bad actor looping a script cannot exhaust your database connections or violently inflate your AWS billing metrics. In modern stacks, this is handled via Redis token buckets at the proxy edge layer.
 
-* **Authentication & Authorization:** Implement robust JWT validation. Ensure tokens have strict expiration times and use rotating signing keys. Distinguish between 'who you are' (AuthN) and 'what you can do' (AuthZ).
-* **Strict CORS Policies:** Never use `Access-Control-Allow-Origin: *` with credentials. Manually allowlist trusted domains to prevent Cross-Origin Resource Sharing exploits.
-* **Rate Limiting & Throttling:** Prevent brute-force and DDoS attacks by limiting requests per IP and per user token.
-* **Input Parsing:** Always sanitize payloads. A malicious JSON block with deep nesting can cause exponential CPU spikes (JSON denial of service).
-
-### Defending Against SSRFServer-Side Request Forgery is dangerous. If your API fetches URLs provided by users (e.g., webhook testing), ensure the backend resolver blocks internal IP ranges (like `127.0.0.1` or AWS metadata endpoints at `169.254.169.254`).
-
-### Audit LoggingLog all access metrics and anomalies. Without logs, you are blind to ongoing attacks. Ensure sensitive fields (like passwords or PII) are strictly masked before hitting the log stream.
-
-
-
-## Conclusion
-We hope this brief guide sheds some light on the subject. Feel free to explore our suite of tools designed exactly for tasks like these.
+### Conclusion
+API security is an adversarial game. By treating every incoming payload as inherently hostile and locking down the ingress points with strict validation schemas and rate throttles, systems can withstand the chaos of the public internet.
