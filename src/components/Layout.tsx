@@ -99,7 +99,7 @@ export default function Layout({ children }: LayoutProps) {
                                 to={`/?category=${category}`} 
                                 className="text-[12px] font-bold text-blue-500 hover:text-blue-700 px-2 mt-1"
                               >
-                                查看更多...
+                                {t('common.viewMore')}
                               </Link>
                             )}
                           </div>
