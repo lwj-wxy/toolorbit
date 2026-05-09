@@ -10,6 +10,9 @@ import {
   ShoppingCart,
   CreditCard,
   Sparkles,
+  Zap,
+  Target,
+  BarChart3,
   FileText,
   Files,
   FileImage,
@@ -37,10 +40,12 @@ import {
   Regex,
   Lock,
   Radio,
-  FileCode
+  FileCode,
+  Wand2,
+  Languages
 } from 'lucide-react';
 
-export type Category = '开发者工具' | '站长工具' | '文本排版' | '生成器' | '电商工具' | 'PDF工具' | '图片处理' | '计算转换' | '娱乐工具';
+export type Category = 'AI 工具' | '开发者工具' | '站长工具' | '文本排版' | '生成器' | '电商工具' | 'PDF工具' | '图片处理' | '计算转换' | '娱乐工具';
 
 export interface ToolItem {
   id: string;
@@ -54,6 +59,26 @@ export interface ToolItem {
 }
 
 export const TOOLS: ToolItem[] = [
+  {
+    id: 'ai-text-polisher',
+    name: 'AI 智能润色',
+    description: '采用顶尖大模型，一键优化文章、邮件或文案，提升表达专业度和流畅度。',
+    icon: Wand2,
+    category: 'AI 工具',
+    path: '/tools/ai/text-polisher',
+    color: 'violet',
+    isPopular: true,
+  },
+  {
+    id: 'ai-translator',
+    name: 'AI 智能翻译',
+    description: '超越传统翻译引擎！基于 AI 重写，提供更具母语感、符合语境的高质量翻译。',
+    icon: Languages,
+    category: 'AI 工具',
+    path: '/tools/ai/translator',
+    color: 'violet',
+    isPopular: true,
+  },
   {
     id: 'json-formatter',
     name: 'JSON 格式化',
@@ -201,14 +226,42 @@ export const TOOLS: ToolItem[] = [
     color: 'emerald',
   },
   {
-    id: 'listing-craft-ai',
-    name: 'Listing Craft AI',
-    description: 'AI 驱动的跨境电商文案生成器，一键创作爆款 Listing。',
+    id: 'listing-generator',
+    name: 'Listing Generator',
+    description: 'AI-driven e-commerce listing generator. Creates titles, descriptions and tags in seconds.',
     icon: Sparkles,
-    category: '电商工具',
-    path: '/tools/ecommerce/listing-craft-ai',
+    category: 'AI 工具',
+    path: '/tools/ai/listing-generator',
     color: 'emerald',
     isPopular: true,
+  },
+  {
+    id: 'keyword-analyzer',
+    name: 'Keyword Analyzer',
+    description: 'Deep-dive into e-commerce long-tail keywords, discovering hidden profitable niches.',
+    icon: Zap,
+    category: 'AI 工具',
+    path: '/tools/ai/keyword-analyzer',
+    color: 'emerald',
+    isPopular: true,
+  },
+  {
+    id: 'competitor-tracker',
+    name: 'Competitor Tracker',
+    description: 'Analyze competitors, find weaknesses, and identify opportunities for your products.',
+    icon: Target,
+    category: 'AI 工具',
+    path: '/tools/ai/competitor-tracker',
+    color: 'emerald',
+  },
+  {
+    id: 'market-insights',
+    name: 'Market Insights',
+    description: 'Acquire platform-specific market research reports, trends, and category dynamics.',
+    icon: BarChart3,
+    category: 'AI 工具',
+    path: '/tools/ai/market-insights',
+    color: 'emerald',
   },
   {
     id: 'pdf-merge',

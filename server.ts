@@ -210,6 +210,298 @@ async function startServer() {
     }
   });
 
+  app.post("/api/keywords", async (req, res) => {
+    try {
+      const { productName, language } = req.body;
+      const isChinese = language?.toLowerCase() === '中文' || language?.toLowerCase().startsWith('zh');
+      const targetLang = isChinese ? 'Simplified Chinese' : language || 'English';
+
+      const ip = req.ip || (req.headers['x-forwarded-for'] as string) || req.socket.remoteAddress;
+      const now = Date.now();
+      const lastUse = usageMap.get(ip as string);
+
+      if (process.env.NODE_ENV === "production" && lastUse && (now - lastUse < 1000)) {
+        return res.status(429).json({ success: false, error: 'Rate limit exceeded.' });
+      }
+      usageMap.set(ip as string, now);
+
+      res.setHeader('Content-Type', 'text/event-stream');
+      res.setHeader('Cache-Control', 'no-cache');
+      res.setHeader('Connection', 'keep-alive');
+
+      const systemPrompt = `You are a Keyword Research Expert. Generate a comprehensive keyword analysis in JSON format ONLY. 
+      Do no include any surrounding text.
+      JSON Schema:
+      {
+        "summary": {
+          "total": number,
+          "avgCompetition": "string",
+          "topRecommendation": "string"
+        },
+        "categories": [
+          {
+            "name": "string",
+            "keywords": [
+              {
+                "term": "string",
+                "volume": "string",
+                "competition": number,
+                "score": number,
+                "intent": "string",
+                "reason": "string"
+              }
+            ]
+          }
+        ]
+      }
+      Must output in ${targetLang}.`;
+
+      const stream = await deepseek.chat.completions.create({
+        model: "deepseek-chat",
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: `Product: ${productName}` }
+        ],
+        stream: true,
+      });
+
+      for await (const chunk of stream) {
+        const chunkText = chunk.choices[0]?.delta?.content || "";
+        if (chunkText) res.write(`data: ${JSON.stringify({ content: chunkText })}\n\n`);
+      }
+      res.write(`data: [DONE]\n\n`);
+      res.end();
+    } catch (err: any) {
+      if (!res.headersSent) res.status(500).json({ error: err.message });
+      else { res.write(`data: ${JSON.stringify({ error: err.message })}\n\n`); res.end(); }
+    }
+  });
+
+  app.post("/api/competitor", async (req, res) => {
+    try {
+      const { productName, competitorInfo, language } = req.body;
+      const isChinese = language?.toLowerCase() === '中文' || language?.toLowerCase().startsWith('zh');
+      const targetLang = isChinese ? 'Simplified Chinese' : language || 'English';
+
+      const ip = req.ip || (req.headers['x-forwarded-for'] as string) || req.socket.remoteAddress;
+      const now = Date.now();
+      const lastUse = usageMap.get(ip as string);
+
+      if (process.env.NODE_ENV === "production" && lastUse && (now - lastUse < 1000)) {
+        return res.status(429).json({ success: false, error: 'Rate limit exceeded.' });
+      }
+      usageMap.set(ip as string, now);
+
+      res.setHeader('Content-Type', 'text/event-stream');
+      res.setHeader('Cache-Control', 'no-cache');
+      res.setHeader('Connection', 'keep-alive');
+
+      const systemPrompt = `You are a Competitor Analysis AI. Produce a JSON format analysis. Do not include markdown wrapper.
+      JSON Schema:
+      {
+        "comparison": {
+          "score": { "mine": number, "competitor": number },
+          "metrics": [ { "name": "string", "mine": number, "competitor": number, "comment": "string" } ]
+        },
+        "swot": {
+          "strengths": ["string"], "weaknesses": ["string"], "opportunities": ["string"], "threats": ["string"]
+        },
+        "strategies": [ { "title": "string", "action": "string", "impact": "string" } ]
+      }
+      Output language: ${targetLang}.`;
+
+      const stream = await deepseek.chat.completions.create({
+        model: "deepseek-chat",
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: `My Product: ${productName}\nCompetitor Info: ${competitorInfo}` }
+        ],
+        stream: true,
+      });
+
+      for await (const chunk of stream) {
+        const chunkText = chunk.choices[0]?.delta?.content || "";
+        if (chunkText) res.write(`data: ${JSON.stringify({ content: chunkText })}\n\n`);
+      }
+      res.write(`data: [DONE]\n\n`);
+      res.end();
+    } catch (err: any) {
+      if (!res.headersSent) res.status(500).json({ error: err.message });
+      else { res.write(`data: ${JSON.stringify({ error: err.message })}\n\n`); res.end(); }
+    }
+  });
+
+  app.post("/api/market-research", async (req, res) => {
+    try {
+      const { platform, timeframe, language } = req.body;
+      const targetLang = language === '中文' ? 'Simplified Chinese' : language || 'English';
+
+      const ip = req.ip || (req.headers['x-forwarded-for'] as string) || req.socket.remoteAddress;
+      const now = Date.now();
+      const lastUse = usageMap.get(ip as string);
+
+      if (process.env.NODE_ENV === "production" && lastUse && (now - lastUse < 1000)) {
+        return res.status(429).json({ success: false, error: 'Rate limit exceeded.' });
+      }
+      usageMap.set(ip as string, now);
+
+      res.setHeader('Content-Type', 'text/event-stream');
+      res.setHeader('Cache-Control', 'no-cache');
+      res.setHeader('Connection', 'keep-alive');
+
+      const todayString = new Date().toISOString().split('T')[0];
+      const systemPrompt = `You are a Market Researcher. Output ONLY JSON. No surrounding text. The current date is ${todayString}.
+      JSON Schema:
+      {
+        "lastUpdate": "YYYY-MM-DD",
+        "platform": "string",
+        "categories": [ { "category": "string", "searchVolume": number, "growth": number } ],
+        "products": [ { "rank": number, "name": "string", "price": "string", "sales": "string", "hotpoint": "string", "thumbnail": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=200&h=200&fit=crop" } ],
+        "insights": [ "string" ]
+      }
+      Please use unsplash images for thumbnails. Output in ${targetLang}.`;
+
+      const stream = await deepseek.chat.completions.create({
+        model: "deepseek-chat",
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: `Platform: ${platform}\nTimeframe: ${timeframe} days` }
+        ],
+        stream: true,
+      });
+
+      for await (const chunk of stream) {
+        const chunkText = chunk.choices[0]?.delta?.content || "";
+        if (chunkText) res.write(`data: ${JSON.stringify({ content: chunkText })}\n\n`);
+      }
+      res.write(`data: [DONE]\n\n`);
+      res.end();
+    } catch (err: any) {
+      if (!res.headersSent) res.status(500).json({ error: err.message });
+      else { res.write(`data: ${JSON.stringify({ error: err.message })}\n\n`); res.end(); }
+    }
+  });
+
+  app.post("/api/ai-polisher", async (req, res) => {
+    try {
+      const { text, tone, language } = req.body;
+      const isChinese = language?.startsWith('zh');
+      
+      const ip = req.ip || (req.headers['x-forwarded-for'] as string) || req.socket.remoteAddress;
+      const now = Date.now();
+      const lastUse = usageMap.get(ip as string);
+
+      if (process.env.NODE_ENV === "production" && lastUse && (now - lastUse < 2 * 60 * 1000)) {
+        return res.status(429).json({ 
+          success: false, 
+          error: isChinese ? '请求过于频繁，请等待 2 分钟后再试。' : 'Too many requests, please wait 2 minutes.' 
+        });
+      }
+      
+      res.setHeader('Content-Type', 'text/event-stream');
+      res.setHeader('Cache-Control', 'no-cache');
+      res.setHeader('Connection', 'keep-alive');
+      usageMap.set(ip as string, now);
+
+      const targetLang = isChinese ? 'Simplified Chinese' : 'English';
+      
+      const systemPrompt = `You are an expert copywriter and text editor. Your task is to polish and rewrite the provided text according to the requested tone.
+      
+      Guidelines:
+      1. Correct any grammar, spelling, and punctuation errors.
+      2. Improve sentence structure and vocabulary for better flow.
+      3. Ensure the output strictly follows the requested tone (${tone}).
+      4. ONLY output the polished text. Do not add conversational filler, introductions, or explanations.
+      5. Output language MUST match the original text's primary language, leaning towards ${targetLang} if ambiguous.`;
+
+      const stream = await deepseek.chat.completions.create({
+        model: "deepseek-chat",
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: `Tone: ${tone}\n\nText to polish:\n${text}` }
+        ],
+        stream: true,
+      });
+
+      for await (const chunk of stream) {
+        const chunkText = chunk.choices[0]?.delta?.content || "";
+        if (chunkText) {
+          res.write(`data: ${JSON.stringify({ content: chunkText })}\n\n`);
+        }
+      }
+      
+      res.write(`data: [DONE]\n\n`);
+      res.end();
+    } catch (error: any) {
+      console.error("AI Polisher Error:", error);
+      if (!res.headersSent) {
+        res.status(500).json({ error: error.message || 'Internal Server Error' });
+      } else {
+        res.write(`data: {"error": "${error.message || 'Internal Server Error'}"}\n\n`);
+        res.end();
+      }
+    }
+  });
+
+  app.post("/api/ai-translator", async (req, res) => {
+    try {
+      const { text, targetLang, tone } = req.body;
+      
+      const ip = req.ip || (req.headers['x-forwarded-for'] as string) || req.socket.remoteAddress;
+      const now = Date.now();
+      const lastUse = usageMap.get(ip as string);
+
+      if (process.env.NODE_ENV === "production" && lastUse && (now - lastUse < 2 * 60 * 1000)) {
+        return res.status(429).json({ 
+          success: false, 
+          error: 'Rate limit exceeded. Please wait 2 minutes.' 
+        });
+      }
+      
+      res.setHeader('Content-Type', 'text/event-stream');
+      res.setHeader('Cache-Control', 'no-cache');
+      res.setHeader('Connection', 'keep-alive');
+      usageMap.set(ip as string, now);
+
+      const systemPrompt = `You are a world-class professional translator and localization expert.
+      Your task is to translate the provided text into ${targetLang}.
+      
+      Guidelines:
+      1. Ensure the translation is highly accurate but also reads naturally to native speakers.
+      2. Avoid literal word-for-word translation if it sounds awkward. Rephrase to capture the true meaning and idiom of the target language.
+      3. Adapt the tone to be ${tone}.
+      4. Keep the original formatting (paragraphs, markdown if any).
+      5. ONLY provide the translated text. No conversational filler, no explanations.`;
+
+      const stream = await deepseek.chat.completions.create({
+        model: "deepseek-chat",
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: `Please translate the following text to ${targetLang} with a ${tone} tone:\n\n${text}` }
+        ],
+        stream: true,
+      });
+
+      for await (const chunk of stream) {
+        const chunkText = chunk.choices[0]?.delta?.content || "";
+        if (chunkText) {
+          res.write(`data: ${JSON.stringify({ content: chunkText })}\n\n`);
+        }
+      }
+      
+      res.write(`data: [DONE]\n\n`);
+      res.end();
+    } catch (error: any) {
+      console.error("AI Translator Error:", error);
+      if (!res.headersSent) {
+        res.status(500).json({ error: error.message || 'Internal Server Error' });
+      } else {
+        res.write(`data: {"error": "${error.message || 'Internal Server Error'}"}\n\n`);
+        res.end();
+      }
+    }
+  });
+
   // Vite middleware for development
   if (process.env.NODE_ENV !== "production") {
     const vite = await createViteServer({

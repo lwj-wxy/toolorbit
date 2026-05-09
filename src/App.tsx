@@ -69,7 +69,14 @@ const PdfSplit = lazy(() => import('./pages/tools/pdf/PdfSplit'));
 // Ecommerce Tools
 const EtsyFeeCalculator = lazy(() => import('./pages/tools/ecommerce/EtsyFee'));
 const StripeFeeCalculator = lazy(() => import('./pages/tools/ecommerce/StripeFee'));
-const ListingCraft = lazy(() => import('./pages/tools/ecommerce/ListingCraft'));
+
+// AI Tools
+const ListingGenerator = lazy(() => import('./pages/tools/ai/ListingGenerator'));
+const KeywordAnalyzer = lazy(() => import('./pages/tools/ai/KeywordAnalyzer'));
+const CompetitorTracker = lazy(() => import('./pages/tools/ai/CompetitorTracker'));
+const MarketInsights = lazy(() => import('./pages/tools/ai/MarketInsights'));
+const TextPolisher = lazy(() => import('./pages/tools/ai/TextPolisher'));
+const Translator = lazy(() => import('./pages/tools/ai/Translator'));
 
 // Calculate & Unit Tools
 const UnitConverter = lazy(() => import('./pages/tools/calculate/UnitConverter'));
@@ -138,7 +145,12 @@ export default function App() {
             <Route path="/tools/generator/barcode-generator" element={<BarcodeGenerator />} />
             <Route path="/tools/ecommerce/etsy-fee-calculator" element={<EtsyFeeCalculator />} />
             <Route path="/tools/ecommerce/stripe-fee-calculator" element={<StripeFeeCalculator />} />
-            <Route path="/tools/ecommerce/listing-craft-ai" element={<ListingCraft />} />
+            <Route path="/tools/ai/listing-generator" element={<ListingGenerator />} />
+            <Route path="/tools/ai/keyword-analyzer" element={<KeywordAnalyzer />} />
+            <Route path="/tools/ai/competitor-tracker" element={<CompetitorTracker />} />
+            <Route path="/tools/ai/market-insights" element={<MarketInsights />} />
+            <Route path="/tools/ai/text-polisher" element={<TextPolisher />} />
+            <Route path="/tools/ai/translator" element={<Translator />} />
             <Route path="/tools/dev/timestamp-converter" element={<TimestampConverter />} />
             <Route path="/tools/dev/base-converter" element={<BaseConverter />} />
             <Route path="/tools/image/image-compressor" element={<ImageCompressor />} />

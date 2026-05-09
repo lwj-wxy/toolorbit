@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Search, Menu, X, ChevronDown, ChevronRight, Home, Sun, Moon } from 'lucide-react';
+import { Search, Menu, X, ChevronDown, ChevronRight, Home, Sun, Moon, Sparkles } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../context/ThemeContext';
 import { cn } from '../lib/utils';
@@ -32,7 +32,7 @@ export default function Layout({ children }: LayoutProps) {
   }, []);
 
   const categories = Array.from(new Set(TOOLS.map(t => t.category)));
-  const navCategories = categories.filter(c => c !== '娱乐工具');
+  const navCategories = categories.filter(c => c !== '娱乐工具' && c !== 'AI 工具');
 
   return (
     <div className="flex min-h-screen flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-200 font-sans relative overflow-x-hidden transition-colors duration-300">
@@ -61,7 +61,7 @@ export default function Layout({ children }: LayoutProps) {
                 to="/"
                 className={cn(
                   "px-2 lg:px-3 flex items-center gap-1.5 h-full text-[14px] lg:text-[15px] font-bold transition-all duration-200 border-b-[3px] border-transparent mt-[3px] cursor-pointer whitespace-nowrap",
-                  location.pathname === '/' || location.search.includes('category') ? "text-blue-600 border-blue-600 dark:text-blue-400 dark:border-blue-400" : "text-slate-600 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-slate-100"
+                  ((location.pathname === '/' && !location.search.includes('AI')) || (location.search.includes('category') && !location.search.includes('AI')) || (location.pathname.startsWith('/tools/') && !location.pathname.startsWith('/tools/ai/'))) ? "text-blue-600 border-blue-600 dark:text-blue-400 dark:border-blue-400" : "text-slate-600 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-slate-100"
                 )}
               >
                 {t('common.navTools')}
@@ -90,7 +90,7 @@ export default function Layout({ children }: LayoutProps) {
                                   <tool.icon size={16} />
                                 </div>
                                 <span className="text-[13px] font-bold text-slate-700 dark:text-slate-300 group-hover/item:text-blue-600 dark:group-hover/item:text-blue-400 truncate">
-                                  {t(`tools.${tool.id}.name`)}
+                                  {t(`tools.${tool.id}.name`, { defaultValue: tool.name })}
                                 </span>
                               </Link>
                             ))}
@@ -107,6 +107,54 @@ export default function Layout({ children }: LayoutProps) {
                       );
                     })}
                   </div>
+                </div>
+              </div>
+            </div>
+
+            {/* AI Tools Nav (Highlighted) */}
+            <div className="group flex items-center h-full relative">
+              <Link
+                to="/?category=AI%20%E5%B7%A5%E5%85%B7"
+                className={cn(
+                  "px-2 lg:px-3 flex items-center gap-1.5 h-full text-[14px] lg:text-[15px] font-bold transition-all duration-200 border-b-[3px] border-transparent mt-[3px] cursor-pointer whitespace-nowrap",
+                  (location.search.includes('AI') || location.pathname.startsWith('/tools/ai/')) ? "text-violet-600 border-violet-600 dark:text-violet-400 dark:border-violet-400" : "text-slate-600 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-slate-100"
+                )}
+              >
+                <div className="flex items-center justify-center text-violet-500 dark:text-violet-400 mr-0.5">
+                  <Sparkles size={16} className="fill-violet-500/20" />
+                </div>
+                {t('common.categories.AI 工具') || 'AI Tools'}
+                <ChevronDown className="w-3.5 h-3.5 lg:w-4 lg:h-4 transition-transform duration-200 group-hover:rotate-180 text-slate-400" />
+              </Link>
+
+              {/* AI Dropdown Menu */}
+              <div className="absolute top-[64px] left-0 w-[300px] bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border border-slate-200/80 dark:border-slate-800/80 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.1)] rounded-b-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top -translate-y-1 group-hover:translate-y-0 z-50 overflow-hidden">
+                <div className="p-2 flex flex-col gap-1">
+                  {TOOLS.filter(t => t.category === 'AI 工具').map(tool => (
+                    <Link
+                      key={tool.id}
+                      to={tool.path}
+                      className="group/item flex items-start gap-3 p-3 rounded-lg hover:bg-violet-50 dark:hover:bg-violet-900/20 transition-all border border-transparent hover:border-violet-100 dark:hover:border-violet-800/50"
+                    >
+                      <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 bg-violet-100 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400 transition-colors">
+                        <tool.icon size={16} />
+                      </div>
+                      <div className="flex flex-col flex-1 min-w-0">
+                        <span className="text-[14px] font-bold text-slate-700 dark:text-slate-200 group-hover/item:text-violet-700 dark:group-hover/item:text-violet-400 truncate">
+                          {t(`tools.${tool.id}.name`, { defaultValue: tool.name })}
+                        </span>
+                        <span className="text-[12px] text-slate-500 dark:text-slate-400 line-clamp-1 mt-0.5" title={t(`tools.${tool.id}.description`, { defaultValue: tool.description }) as string || ''}>
+                          {t(`tools.${tool.id}.description`, { defaultValue: tool.description })}
+                        </span>
+                      </div>
+                    </Link>
+                  ))}
+                  <Link 
+                    to="/?category=AI%20%E5%B7%A5%E5%85%B7" 
+                    className="mt-2 text-[12px] font-bold text-violet-600 hover:text-violet-700 dark:text-violet-400 dark:hover:text-violet-300 p-2 text-center bg-slate-50 dark:bg-slate-800/50 rounded-lg"
+                  >
+                    {t('common.categories.AI 工具')} &rarr;
+                  </Link>
                 </div>
               </div>
             </div>
@@ -241,6 +289,27 @@ export default function Layout({ children }: LayoutProps) {
                   </div>
                 );
               })}
+
+              {/* Special AI Category for Mobile */}
+              <div className="flex flex-col gap-3">
+                <h4 className="font-bold text-violet-600 dark:text-violet-400 text-[15px] border-b border-violet-100 dark:border-violet-900/50 pb-2 flex items-center gap-1.5">
+                  <Sparkles size={16} /> 
+                  {t('common.categories.AI 工具') || 'AI Tools'}
+                </h4>
+                <div className="flex flex-col gap-2">
+                   {TOOLS.filter(t => t.category === 'AI 工具').map(tool => (
+                    <Link
+                      key={tool.id}
+                      to={tool.path}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center gap-3 py-2 px-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-violet-50 dark:hover:bg-violet-900/20 hover:text-violet-600 dark:hover:text-violet-400 transition-colors"
+                    >
+                      <tool.icon size={16} />
+                      <span className="text-[14px] font-medium">{t(`tools.${tool.id}.name`, { defaultValue: tool.name })}</span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
               
               <div className="flex flex-col gap-3 mt-4 pt-4 border-t border-slate-200 dark:border-slate-800">
                 <Link
