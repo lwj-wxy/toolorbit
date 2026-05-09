@@ -46,7 +46,9 @@
     "why_item3_desc": "Professional grade tools available instantly without bulky software or browser plugins.",
     "why_item4_title": "Free & Unrestricted",
     "why_item4_desc": "Access premium-quality tools with no accounts, no subscriptions, and no limits.",
-    "viewMore": "View More"
+    "viewMore": "View More",
+    "prevPage": "Previous",
+    "nextPage": "Next"
   },
   "blog": {
     "nav": "Blog",

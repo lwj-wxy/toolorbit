@@ -40,7 +40,9 @@
     "why_item3_desc": "专为开发者和跨境卖家设计的专业工具箱，涵盖从 PDF 处理到 AI 文案生成的全方位需求，无需安装任何插件。",
     "why_item4_title": "永久免费，无额度限制",
     "why_item4_desc": "打破传统工具站的繁琐订阅制，我们承诺所有核心功能永久免费且无使用频率限制，让创意不再受阻。",
-    "viewMore": "查看更多"
+    "viewMore": "查看更多",
+    "prevPage": "上一页",
+    "nextPage": "下一页"
   },
   "search": {
     "results": "搜索结果: \"{{query}}\"",

@@ -1,46 +1,31 @@
-import React, { useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Calendar, ChevronRight, Hash } from 'lucide-react';
+import { Calendar, ChevronRight, ChevronLeft } from 'lucide-react';
 import { BLOG_POSTS, BlogPost } from '../constants/blogData';
+
+const POSTS_PER_PAGE = 12;
 
 const BlogList: React.FC = () => {
   const { t } = useTranslation();
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const sections = useMemo(() => {
-    const techCategories = ['Development', 'Security', 'Network', 'Design'];
-    const scienceCategories = ['Science', 'Education', 'Lifestyle'];
+  // Sorting posts by date descending ensures the newest posts are first
+  const sortedPosts = useMemo(() => {
+    return [...BLOG_POSTS].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  }, []);
 
-    const techPosts = BLOG_POSTS.filter(post => techCategories.includes(post.category));
-    const sciencePosts = BLOG_POSTS.filter(post => scienceCategories.includes(post.category));
+  const totalPages = Math.ceil(sortedPosts.length / POSTS_PER_PAGE);
 
-    return [
-      {
-        id: 'dev-resources',
-        title: t('blog.categories.tech'),
-        posts: techPosts
-      },
-      {
-        id: 'science-knowledge',
-        title: t('blog.categories.science'),
-        posts: sciencePosts
-      }
-    ];
-  }, [t]);
+  const currentPosts = useMemo(() => {
+    const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
+    return sortedPosts.slice(startIndex, startIndex + POSTS_PER_PAGE);
+  }, [sortedPosts, currentPage]);
 
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      const offset = 80;
-      const bodyRect = document.body.getBoundingClientRect().top;
-      const elementRect = element.getBoundingClientRect().top;
-      const elementPosition = elementRect - bodyRect;
-      const offsetPosition = elementPosition - offset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
+  const handlePageChange = (newPage: number) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
@@ -62,7 +47,7 @@ const BlogList: React.FC = () => {
         />
         <div className="absolute top-4 left-4 z-10">
           <span className="px-3 py-1 bg-white/90 backdrop-blur-sm text-[10px] uppercase tracking-wider font-extrabold text-slate-700 rounded-lg shadow-sm border border-white/20">
-            {t(`blog.categories.${post.category.toLowerCase()}`)}
+            {t(`blog.categories.${post.category.toLowerCase()}`, { defaultValue: post.category })}
           </span>
         </div>
       </div>
@@ -74,15 +59,15 @@ const BlogList: React.FC = () => {
         </div>
         
         <h2 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-emerald-600 transition-colors line-clamp-2 leading-snug">
-          {t(`blog.posts.${post.slug}.title`)}
+          {t(`blog.posts.${post.slug}.title`, { defaultValue: post.slug.replace(/-/g, ' ') })}
         </h2>
         
         <p className="text-slate-500 text-[13px] mb-6 line-clamp-2 leading-relaxed">
-          {t(`blog.posts.${post.slug}.summary`)}
+          {t(`blog.posts.${post.slug}.summary`, { defaultValue: '' })}
         </p>
         
         <div className="mt-auto flex items-center text-emerald-600 text-sm font-bold gap-1 group-hover:gap-2 transition-all">
-          {t('blog.readMore')} <ChevronRight size={16} />
+          {t('blog.readMore', { defaultValue: 'Read More' })} <ChevronRight size={16} />
         </div>
       </div>
     </Link>
@@ -97,36 +82,51 @@ const BlogList: React.FC = () => {
         <p className="text-lg text-slate-600 max-w-2xl mx-auto mb-10">
           {t('blog.subtitle')}
         </p>
-
-        {/* Category Anchors */}
-        <div className="flex flex-wrap justify-center gap-3">
-          {sections.map((section) => (
-            <button
-              key={section.id}
-              onClick={() => scrollToSection(section.id)}
-              className="flex items-center gap-2 px-5 py-2.5 bg-slate-50 hover:bg-emerald-50 text-slate-600 hover:text-emerald-700 rounded-2xl border border-slate-200 hover:border-emerald-200 font-bold text-sm transition-all shadow-sm"
-            >
-              <Hash size={14} className="opacity-50" />
-              {section.title}
-            </button>
-          ))}
-        </div>
       </div>
 
-      <div className="space-y-20">
-        {sections.map((section) => (
-          <section key={section.id} id={section.id} className="scroll-mt-24">
-            <div className="flex items-center gap-4 mb-8">
-              <h2 className="text-2xl font-black text-slate-900 tracking-tight">
-                {section.title}
-              </h2>
-              <div className="h-0.5 flex-1 bg-slate-100 rounded-full" />
+      <div className="space-y-12">
+        <section>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {currentPosts.map(renderPostCard)}
+          </div>
+        </section>
+
+        {/* Pagination Controls */}
+        {totalPages > 1 && (
+          <div className="flex justify-center items-center gap-4 mt-16 pb-8">
+            <button
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+              className="flex items-center gap-2 px-4 py-2 border border-slate-200 rounded-xl text-slate-600 hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all font-medium text-sm"
+            >
+              <ChevronLeft size={16} />
+              {t('common.prevPage', { defaultValue: 'Previous' })}
+            </button>
+            <div className="flex items-center gap-1">
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                <button
+                  key={page}
+                  onClick={() => handlePageChange(page)}
+                  className={`w-10 h-10 rounded-xl text-sm font-bold transition-all ${
+                    currentPage === page
+                      ? 'bg-emerald-600 text-white shadow-md'
+                      : 'text-slate-600 hover:bg-slate-100 hover:text-emerald-600'
+                  }`}
+                >
+                  {page}
+                </button>
+              ))}
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {section.posts.map(renderPostCard)}
-            </div>
-          </section>
-        ))}
+            <button
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              className="flex items-center gap-2 px-4 py-2 border border-slate-200 rounded-xl text-slate-600 hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all font-medium text-sm"
+            >
+              {t('common.nextPage', { defaultValue: 'Next' })}
+              <ChevronRight size={16} />
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
