@@ -60,6 +60,16 @@ export interface ToolItem {
 
 export const TOOLS: ToolItem[] = [
   {
+    id: 'ai-xiaohongshu',
+    name: '小红书文案生成',
+    description: '深谙爆款逻辑，一键生成自带网感、包含 Emoji 和话题标签的小红书图文笔记文案。',
+    icon: Sparkles,
+    category: 'AI 工具',
+    path: '/tools/ai/xiaohongshu',
+    color: 'rose',
+    isPopular: true,
+  },
+  {
     id: 'ai-text-polisher',
     name: 'AI 智能润色',
     description: '采用顶尖大模型，一键优化文章、邮件或文案，提升表达专业度和流畅度。',
@@ -87,6 +97,25 @@ export const TOOLS: ToolItem[] = [
     category: '开发者工具',
     path: '/tools/dev/json-formatter',
     color: 'green',
+    isPopular: true,
+  },
+  {
+    id: 'xml-json',
+    name: 'XML / JSON 互转',
+    description: '强大的数据格式转换器，实现 XML 与 JSON 之间的双向极速转换。',
+    icon: RefreshCcw,
+    category: '开发者工具',
+    path: '/tools/dev/xml-to-json',
+    color: 'fuchsia',
+  },
+  {
+    id: 'text-diff',
+    name: '文本对比 Diff',
+    description: '快速找出两段文本或代码的差异点，支持逐词与逐行比对分析。',
+    icon: Layers,
+    category: '开发者工具',
+    path: '/tools/dev/text-diff',
+    color: 'emerald',
     isPopular: true,
   },
   {

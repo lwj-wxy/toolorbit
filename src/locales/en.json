@@ -58,6 +58,42 @@
     "noResultsSub": "We couldn't find any tools matching your search. Please try other keywords."
   },
   "tools": {
+    "xml-json": {
+      "seoTitle": "Online XML to JSON Converter | Fast & Lossless Format Conversion | ToolOrbit",
+      "seoDesc": "Quickly convert between XML and JSON securely. Supports deep nesting, attribute mapping, code highlighting and instant error catching.",
+      "title": "XML ↔ JSON Converter",
+      "subtitle": "Convert instantly between the two most popular API data structures with deep nesting support."
+    },
+    "xiaohongshu": {
+      "seoTitle": "Xiaohongshu (RED) AI Copywriter | Viral Post Generator | ToolOrbit",
+      "seoDesc": "Automatically generate viral-ready Xiaohongshu (RED) copy with emojis and hashtags using AI. Supports various popular tones like product review and tutorials.",
+      "title": "Xiaohongshu AI Copywriter",
+      "subtitle": "Trained on deep social media corpus to instantly produce viral, highly readable, and emoji-structured notes.",
+      "topicLabel": "Core Topic (Required)",
+      "topicPlaceholder": "e.g., Winter Skincare Routine, Cozy Apartment Finds...",
+      "keywordsLabel": "Include Keywords (Optional)",
+      "keywordsPlaceholder": "e.g., affordable, aesthetic, highly recommend (comma separated)",
+      "styleLabel": "Copy Style Format",
+      "generating": "AI is writing creatively...",
+      "generateBtn": "Generate Viral Note",
+      "resultTitle": "AI Draft Result",
+      "errorEmpty": "Please enter a core topic",
+      "emptyTip": "Witness the birth of viral copy here"
+    },
+    "text-diff": {
+      "seoTitle": "Online Text Diff Tool | ToolOrbit",
+      "seoDesc": "Pure frontend online text comparison tool. Find differences between codes or copies line-by-line or word-by-word with absolute privacy.",
+      "title": "Text Difference (Diff)",
+      "subtitle": "Quickly find the differences between two pieces of text or code. Supports line and word modes. 100% local front-end comparison.",
+      "modeWords": "Word Diff",
+      "modeLines": "Line Diff",
+      "originalText": "Original (Old)",
+      "placeholderOriginal": "Paste original text here...",
+      "modifiedText": "Modified (New)",
+      "placeholderModified": "Paste modified text here...",
+      "resultTitle": "Diff Result",
+      "emptyTip": "Waiting for input to show differences..."
+    },
     "ai-text-polisher": {
       "name": "AI Text Polisher",
       "description": "Uses top-tier AI models to instantly rewrite, polish, and adapt your texts to any tone.",
@@ -1993,6 +2029,21 @@
         "title": "Why 'Local Processing' is the Future of Developer Tools",
         "summary": "In the age of SaaS, why do we stick to Client-side First? Explore the privacy vulnerabilities of online tools and our technical decisions.",
         "content": "<h4>The 'Glass House' Trap of Online Tools</h4><p>When you enter code into an unknown online JSON beautifier, that data—containing API credentials or user secrets—might be silently uploaded to a database. This is a massive enterprise security risk.</p><h4>What is Client-side First?</h4><p>Client-side Processing means all algorithms—image compression, code formatting, or encryption—run directly in your local browser process. <strong>Data never crosses the network.</strong></p><h4>Advantages of Local Processing</h4><ul><li><strong>Near-Zero Latency:</strong> No waiting for uploads; processing text takes only milliseconds.</li><li><strong>Offline Availability:</strong> Once the page is loaded, most functions work even without an internet connection.</li><li><strong>Compliance:</strong> For developers bound by GDPR or other data laws, this is the only secure choice.</li></ul><h4>Conclusion</h4><p>ToolOrbit is committed to providing a clean, secure, offline-style online toolkit. We don't record your input or store your files. Your data stays in your control.</p>"
+      },
+      "xml-json-conversion-guide": {
+        "title": "The Data Bridge: Why We Need Powerful XML and JSON Converters",
+        "summary": "With REST and SOAP alternating over the years, JSON and XML are unavoidable data carriers. Mastering seamless conversion between them greatly enhances API integration efficiency.",
+        "content": "<p>As the two most common data formats in modern development, JSON’s lightweight structure and XML’s rigor each have their merits. During legacy system refactoring or cross-enterprise API integration, converting between these formats often becomes a pain point for developers.</p><h4>Core Challenges of Bidirectional Conversion</h4><p>Because XML has the concept of 'attributes' while JSON does not, we often face issues of lost hierarchy or attributes being incorrectly identified as child nodes during conversion. Excellent conversion tools require not only speed but also correct 'mapping rules'. When using the XML/JSON tool provided by ToolOrbit, all nested relationships are safely preserved.</p><h4>Use Cases</h4><p>For example, integrating with bank systems or early WeChat payment APIs (which use a lot of XML), while fully embracing JSON in the frontend React/Vue. A pure frontend converter that requires no server uploads is key to ensuring the security of capital and business data.</p>"
+      },
+      "xiaohongshu-copywriting-ai": {
+        "title": "The Traffic Code: Using AI to Write High-Performing Xiaohongshu Copy",
+        "summary": "Say goodbye to writer's block and layout anxiety! Deconstruct Xiaohongshu algorithm preferences and use LLMs to automate generating high-quality posts with emojis.",
+        "content": "<h4>Why Are Your Posts Always Ignored?</h4><p>Xiaohongshu (RED) user reading habits are extremely 'fragmented' and 'visual-oriented'. If your first three sentences don't hit a pain point or don't use enough emotional words, users will scroll away in 0.5 seconds.</p><h4>The Golden Rule of AI Copy Generators</h4><p>ToolOrbit's Xiaohongshu Copywriter isn't just 'writing a paragraph'; it strictly follows the viral logic:</p><ul><li><strong>Viral Titles:</strong> Digital contrast + strong emotions + curiosity creation.</li><li><strong>Visual Layout:</strong> Forced use of Emojis as paragraph anchors to ensure text blocks remain highly readable.</li><li><strong>Tag Matrix:</strong> Automatically appends optimized long-tail and trending tags at the end of the text.</li></ul><h4>Try It Now</h4><p>Just tell the AI what your core topic is, and it will instantly provide you with beautifully edited copy in various styles, helping you easily grab traffic.</p>"
+      },
+      "why-text-diff-matters": {
+        "title": "More Than Code: The Importance of Text Diff in Daily Office and Development Work",
+        "summary": "From code conflicts to contract proofreading, diff tools are our 'x-ray vision' for finding clues between two documents. Uncover the advantages of pure frontend Diffing.",
+        "content": "<h4>The Ultimate 'Spot the Difference'</h4><p>Whether you are a programmer, legal counsel, or copywriter, finding the differences between two highly similar documents is highly energy-consuming. Traditional manual checking is not only prone to omissions but may also bring business risks.</p><h4>Precision to the 'Word' Level</h4><p>Excellent Text Diff tools not only tell you 'which line' changed, but also highlight 'which word' was deleted or modified. The online Diff tool from ToolOrbit supports both line-by-line and word-by-word modes to meet varying check granularity needs.</p><h4>Privacy First</h4><p>When you are comparing business contracts or core algorithm code, you must never send them to unknown backend servers. Our Diff tool runs 100% in your browser. Whether offline or on a weak network, it protects your data security at all times.</p>"
       }
     },
     "categories": {

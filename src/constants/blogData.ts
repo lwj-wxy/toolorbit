@@ -9,6 +9,27 @@ export interface BlogPost {
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    id: '15',
+    slug: 'xml-json-conversion-guide',
+    category: 'Development',
+    image: 'https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&q=80&w=800',
+    date: '2026-05-09',
+  },
+  {
+    id: '16',
+    slug: 'xiaohongshu-copywriting-ai',
+    category: 'Design',
+    image: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&q=80&w=800',
+    date: '2026-05-09',
+  },
+  {
+    id: '17',
+    slug: 'why-text-diff-matters',
+    category: 'Development',
+    image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800',
+    date: '2026-05-09',
+  },
+  {
     id: '12',
     slug: 'modern-pdf-workflow-efficiency',
     category: 'Development',

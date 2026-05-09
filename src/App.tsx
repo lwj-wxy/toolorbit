@@ -23,6 +23,8 @@ const About = lazy(() => import('./pages/About'));
 
 // Dev Tools
 const JsonFormatter = lazy(() => import('./pages/tools/dev/JsonFormatter'));
+const XmlToJson = lazy(() => import('./pages/tools/dev/XmlToJson'));
+const TextDiff = lazy(() => import('./pages/tools/dev/TextDiff'));
 const Base64 = lazy(() => import('./pages/tools/dev/Base64'));
 const AsciiTable = lazy(() => import('./pages/tools/dev/AsciiTable'));
 const UrlEncoder = lazy(() => import('./pages/tools/dev/UrlEncoder'));
@@ -71,6 +73,7 @@ const EtsyFeeCalculator = lazy(() => import('./pages/tools/ecommerce/EtsyFee'));
 const StripeFeeCalculator = lazy(() => import('./pages/tools/ecommerce/StripeFee'));
 
 // AI Tools
+const Xiaohongshu = lazy(() => import('./pages/tools/ai/Xiaohongshu'));
 const ListingGenerator = lazy(() => import('./pages/tools/ai/ListingGenerator'));
 const KeywordAnalyzer = lazy(() => import('./pages/tools/ai/KeywordAnalyzer'));
 const CompetitorTracker = lazy(() => import('./pages/tools/ai/CompetitorTracker'));
@@ -124,6 +127,8 @@ export default function App() {
             <Route path="/terms" element={<Terms />} />
             <Route path="/about" element={<About />} />
             <Route path="/tools/dev/json-formatter" element={<JsonFormatter />} />
+            <Route path="/tools/dev/xml-to-json" element={<XmlToJson />} />
+            <Route path="/tools/dev/text-diff" element={<TextDiff />} />
             <Route path="/tools/dev/base64" element={<Base64 />} />
             <Route path="/tools/dev/ascii-table" element={<AsciiTable />} />
             <Route path="/tools/dev/url-encoder" element={<UrlEncoder />} />
@@ -151,6 +156,7 @@ export default function App() {
             <Route path="/tools/ai/market-insights" element={<MarketInsights />} />
             <Route path="/tools/ai/text-polisher" element={<TextPolisher />} />
             <Route path="/tools/ai/translator" element={<Translator />} />
+            <Route path="/tools/ai/xiaohongshu" element={<Xiaohongshu />} />
             <Route path="/tools/dev/timestamp-converter" element={<TimestampConverter />} />
             <Route path="/tools/dev/base-converter" element={<BaseConverter />} />
             <Route path="/tools/image/image-compressor" element={<ImageCompressor />} />

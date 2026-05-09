@@ -331,6 +331,58 @@ async function startServer() {
     }
   });
 
+  app.post("/api/xiaohongshu", async (req, res) => {
+    try {
+      const { topic, keywords, style, language } = req.body;
+      const targetLang = language === '中文' ? 'Simplified Chinese' : language || 'Simplified Chinese';
+
+      const ip = req.ip || (req.headers['x-forwarded-for'] as string) || req.socket.remoteAddress;
+      const now = Date.now();
+      const lastUse = usageMap.get(ip as string);
+
+      if (process.env.NODE_ENV === "production" && lastUse && (now - lastUse < 1000)) {
+        return res.status(429).json({ success: false, error: 'Rate limit exceeded.' });
+      }
+      usageMap.set(ip as string, now);
+
+      res.setHeader('Content-Type', 'text/event-stream');
+      res.setHeader('Cache-Control', 'no-cache');
+      res.setHeader('Connection', 'keep-alive');
+
+      const systemPrompt = `你是一个深谙小红书爆款逻辑的顶级内容文案写手。
+      请根据用户提供的主题、关键词和风格，生成一篇吸睛、高转化的小红书图文笔记文案。
+      
+      输出要求 (必须严格遵守)：
+      1. 【爆款标题】：自带网感，善用数字、情绪词、猎奇感或痛点直击（如：“绝了！”“千万别买…”“熬夜也要整理…”），标题中必须带有 Emoji。
+      2. 【正文结构】：
+         - 开篇：抓眼球/提出痛点/共鸣代入。
+         - 中段：条理清晰的干货/测评/使用体验，多分段，多用 Emoji 作为视觉锚点。
+         - 结尾：引导互动（点赞、收藏、留言）。
+      3. 【话题标签】：在文章最后列出 5-10 个精准的 #话题。
+      4. 输出语言格式：全部采用 ${targetLang} 的口吻，直接输出文案即可，不需要解释说明。
+      5. 风格定向：${style || '种草测评'}`;
+
+      const stream = await deepseek.chat.completions.create({
+        model: "deepseek-chat",
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: `主题: ${topic}\n关键词: ${keywords}` }
+        ],
+        stream: true,
+      });
+
+      for await (const chunk of stream) {
+        const chunkText = chunk.choices[0]?.delta?.content || "";
+        if (chunkText) res.write(`data: ${JSON.stringify({ content: chunkText })}\n\n`);
+      }
+      res.write(`data: [DONE]\n\n`);
+      res.end();
+    } catch (err: any) {
+      if (!res.headersSent) res.status(500).json({ error: err.message });
+      else { res.write(`data: ${JSON.stringify({ error: err.message })}\n\n`); res.end(); }
+    }
+  });
+
   app.post("/api/market-research", async (req, res) => {
     try {
       const { platform, timeframe, language } = req.body;
