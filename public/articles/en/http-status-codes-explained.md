@@ -4,7 +4,19 @@
 
 Welcome to another insight from ToolOrbit.
 
-<h4>The Taxonomy of Status Codes</h4><p>HTTP status codes are divided into five categories, where the first digit defines the semantics. Understanding these codes is essential for debugging RESTful APIs and ensuring smooth client-server communication.</p><ul><li><strong>1xx (Informational):</strong> The server has received the request headers and the client should proceed to send the request body.</li><li><strong>2xx (Success):</strong> From <code>200 OK</code> to <code>201 Created</code> (ideal for POST requests) and <code>204 No Content</code> (common for DELETE requests).</li><li><strong>3xx (Redirection):</strong> <code>301 Permanent</code>, <code>302 Temporary</code>, and <code>304 Not Modified</code> (the king of caching that saves massive bandwidth).</li><li><strong>4xx (Client Errors):</strong> <code>400 Bad Request</code>, <code>403 Forbidden</code>, <code>404 Not Found</code>, and the critical <code>429 Too Many Requests</code> (Rate Limiting).</li><li><strong>5xx (Server Errors):</strong> <code>500 Internal Error</code>, <code>502 Bad Gateway</code>, and <code>503 Service Unavailable</code>.</li></ul><h4>Why 404 is Not Always Bad</h4><p>Sometimes returning a 404 is the safest response. If an attacker is scanning for endpoints, returning a 403 Forbidden might confirm that the endpoint exists but is protected. A 404 effectively masks the existence of administrative routes.</p><h4>Proper Handling in Frontend</h4><p>Frontend applications should gracefully intercept these codes. A 401 should trigger a login redirect, a 429 should engage an exponential backoff retry mechanism, and a 500 should present a friendly out-of-service page rather than crashing the app.</p>
+### The Taxonomy of Status CodesHTTP status codes are divided into five categories, where the first digit defines the semantics. Understanding these codes is essential for debugging RESTful APIs and ensuring smooth client-server communication.
+
+* **1xx (Informational):** The server has received the request headers and the client should proceed to send the request body.
+* **2xx (Success):** From `200 OK` to `201 Created` (ideal for POST requests) and `204 No Content` (common for DELETE requests).
+* **3xx (Redirection):** `301 Permanent`, `302 Temporary`, and `304 Not Modified` (the king of caching that saves massive bandwidth).
+* **4xx (Client Errors):** `400 Bad Request`, `403 Forbidden`, `404 Not Found`, and the critical `429 Too Many Requests` (Rate Limiting).
+* **5xx (Server Errors):** `500 Internal Error`, `502 Bad Gateway`, and `503 Service Unavailable`.
+
+### Why 404 is Not Always BadSometimes returning a 404 is the safest response. If an attacker is scanning for endpoints, returning a 403 Forbidden might confirm that the endpoint exists but is protected. A 404 effectively masks the existence of administrative routes.
+
+### Proper Handling in FrontendFrontend applications should gracefully intercept these codes. A 401 should trigger a login redirect, a 429 should engage an exponential backoff retry mechanism, and a 500 should present a friendly out-of-service page rather than crashing the app.
+
+
 
 ## Conclusion
 We hope this brief guide sheds some light on the subject. Feel free to explore our suite of tools designed exactly for tasks like these.

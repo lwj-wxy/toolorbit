@@ -4,7 +4,18 @@
 
 Welcome to another insight from ToolOrbit.
 
-<h4>The Perimeter Defense</h4><p>Modern web applications are only as secure as their APIs. Exposing endpoints without proper safeguards is an open invitation for data breaches. Here is a practical security checklist.</p><ul><li><strong>Authentication & Authorization:</strong> Implement robust JWT validation. Ensure tokens have strict expiration times and use rotating signing keys. Distinguish between 'who you are' (AuthN) and 'what you can do' (AuthZ).</li><li><strong>Strict CORS Policies:</strong> Never use <code>Access-Control-Allow-Origin: *</code> with credentials. Manually allowlist trusted domains to prevent Cross-Origin Resource Sharing exploits.</li><li><strong>Rate Limiting & Throttling:</strong> Prevent brute-force and DDoS attacks by limiting requests per IP and per user token.</li><li><strong>Input Parsing:</strong> Always sanitize payloads. A malicious JSON block with deep nesting can cause exponential CPU spikes (JSON denial of service).</li></ul><h4>Defending Against SSRF</h4><p>Server-Side Request Forgery is dangerous. If your API fetches URLs provided by users (e.g., webhook testing), ensure the backend resolver blocks internal IP ranges (like <code>127.0.0.1</code> or AWS metadata endpoints at <code>169.254.169.254</code>).</p><h4>Audit Logging</h4><p>Log all access metrics and anomalies. Without logs, you are blind to ongoing attacks. Ensure sensitive fields (like passwords or PII) are strictly masked before hitting the log stream.</p>
+### The Perimeter DefenseModern web applications are only as secure as their APIs. Exposing endpoints without proper safeguards is an open invitation for data breaches. Here is a practical security checklist.
+
+* **Authentication & Authorization:** Implement robust JWT validation. Ensure tokens have strict expiration times and use rotating signing keys. Distinguish between 'who you are' (AuthN) and 'what you can do' (AuthZ).
+* **Strict CORS Policies:** Never use `Access-Control-Allow-Origin: *` with credentials. Manually allowlist trusted domains to prevent Cross-Origin Resource Sharing exploits.
+* **Rate Limiting & Throttling:** Prevent brute-force and DDoS attacks by limiting requests per IP and per user token.
+* **Input Parsing:** Always sanitize payloads. A malicious JSON block with deep nesting can cause exponential CPU spikes (JSON denial of service).
+
+### Defending Against SSRFServer-Side Request Forgery is dangerous. If your API fetches URLs provided by users (e.g., webhook testing), ensure the backend resolver blocks internal IP ranges (like `127.0.0.1` or AWS metadata endpoints at `169.254.169.254`).
+
+### Audit LoggingLog all access metrics and anomalies. Without logs, you are blind to ongoing attacks. Ensure sensitive fields (like passwords or PII) are strictly masked before hitting the log stream.
+
+
 
 ## Conclusion
 We hope this brief guide sheds some light on the subject. Feel free to explore our suite of tools designed exactly for tasks like these.
