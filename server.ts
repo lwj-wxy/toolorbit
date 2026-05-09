@@ -1,4 +1,5 @@
 import express from "express";
+import compression from "compression";
 import { createServer as createViteServer } from "vite";
 import path from "path";
 import fs from "fs";
@@ -56,6 +57,7 @@ async function startServer() {
   const app = express();
   const PORT = 3000;
 
+  app.use(compression());
   app.use(express.json());
   app.set('trust proxy', 1);
 
@@ -566,7 +568,16 @@ async function startServer() {
     const indexPath = path.join(distPath, 'index.html');
     
     // Serve static assets but not index.html directly
-    app.use(express.static(distPath, { index: false }));
+    app.use(express.static(distPath, { 
+      index: false,
+      setHeaders: (res, path) => {
+        if (path.includes('/assets/')) {
+          res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+        } else {
+          res.setHeader('Cache-Control', 'no-cache');
+        }
+      }
+    }));
     
     app.get('*', (req, res) => {
       // 1. Determine base HTML
