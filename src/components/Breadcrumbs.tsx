@@ -28,8 +28,11 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items }) => {
     else if (part === 'fun') label = t('common.categories.娱乐工具');
     else {
       // Try to get tool name from i18n
-      const toolName = t(`tools.${part}.name`);
-      if (toolName && toolName !== `tools.${part}.name`) {
+      let lookupPart = part;
+      if (part === 'xiaohongshu') lookupPart = 'ai-xiaohongshu';
+      else if (part === 'xml-to-json') lookupPart = 'xml-json';
+      const toolName = t(`tools.${lookupPart}.name`);
+      if (toolName && toolName !== `tools.${lookupPart}.name`) {
         label = toolName;
       }
     }

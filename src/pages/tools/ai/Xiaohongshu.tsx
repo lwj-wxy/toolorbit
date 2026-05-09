@@ -19,16 +19,16 @@ export default function Xiaohongshu() {
   const resultRef = useRef<HTMLDivElement>(null);
 
   const styleOptions = [
-    { value: '种草测评', label: '种草测评 (分享/安利)' },
-    { value: '干货教程', label: '干货教程 (技能/科普)' },
-    { value: '情感共鸣', label: '情感共鸣 (吐槽/鸡汤)' },
-    { value: '好物合集', label: '好物合集 (盘点/清单)' },
-    { value: '探店打卡', label: '探店打卡 (美食/旅游)' }
+    { value: '种草测评', label: t('tools.ai-xiaohongshu.style1', '种草测评 (分享/安利)') },
+    { value: '干货教程', label: t('tools.ai-xiaohongshu.style2', '干货教程 (技能/科普)') },
+    { value: '情感共鸣', label: t('tools.ai-xiaohongshu.style3', '情感共鸣 (吐槽/鸡汤)') },
+    { value: '好物合集', label: t('tools.ai-xiaohongshu.style4', '好物合集 (盘点/清单)') },
+    { value: '探店打卡', label: t('tools.ai-xiaohongshu.style5', '探店打卡 (美食/旅游)') }
   ];
 
   const handleGenerate = async () => {
     if (!topic.trim()) {
-      toast.error(t('tools.xiaohongshu.errorEmpty', '请输入核心主题'));
+      toast.error(t('tools.ai-xiaohongshu.errorEmpty', '请输入核心主题'));
       return;
     }
 
@@ -111,8 +111,8 @@ export default function Xiaohongshu() {
   return (
     <>
       <Helmet>
-        <title>{t('tools.xiaohongshu.seoTitle', '小红书文案生存器 | AI 种草文案 | ToolOrbit')}</title>
-        <meta name="description" content={t('tools.xiaohongshu.seoDesc', '利用 AI 自动生成自带网感、包含 Emoji 和话题标签的小红书爆款文案。支持种草测评、干货教程等多种热门风格。')} />
+        <title>{t('tools.ai-xiaohongshu.seoTitle', '小红书文案生存器 | AI 种草文案 | ToolOrbit')}</title>
+        <meta name="description" content={t('tools.ai-xiaohongshu.seoDesc', '利用 AI 自动生成自带网感、包含 Emoji 和话题标签的小红书爆款文案。支持种草测评、干货教程等多种热门风格。')} />
       </Helmet>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
@@ -121,10 +121,10 @@ export default function Xiaohongshu() {
             <Sparkles className="w-6 h-6 text-red-600 dark:text-red-400" />
           </div>
           <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">
-            {t('tools.xiaohongshu.title', '小红书文案生存器')}
+            {t('tools.ai-xiaohongshu.title', '小红书文案生存器')}
           </h1>
           <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl">
-            {t('tools.xiaohongshu.subtitle', '基于深度的社交媒体语料库训练，一键产出网感满分、排版吸睛的爆款图文笔记文案。')}
+            {t('tools.ai-xiaohongshu.subtitle', '基于深度的社交媒体语料库训练，一键产出网感满分、排版吸睛的爆款图文笔记文案。')}
           </p>
         </div>
 
@@ -136,33 +136,33 @@ export default function Xiaohongshu() {
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                    {t('tools.xiaohongshu.topicLabel', '核心主题 (必填)')}
+                    {t('tools.ai-xiaohongshu.topicLabel', '核心主题 (必填)')}
                   </label>
                   <input
                     type="text"
                     value={topic}
                     onChange={(e) => setTopic(e.target.value)}
-                    placeholder={t('tools.xiaohongshu.topicPlaceholder', '例如：租房神器、冬季护肤指南...')}
+                    placeholder={t('tools.ai-xiaohongshu.topicPlaceholder', '例如：租房神器、冬季护肤指南...')}
                     className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-red-500/20 focus:border-red-500 transition-all text-slate-900 dark:text-white"
                   />
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                    {t('tools.xiaohongshu.keywordsLabel', '包含关键词 (选填)')}
+                    {t('tools.ai-xiaohongshu.keywordsLabel', '包含关键词 (选填)')}
                   </label>
                   <input
                     type="text"
                     value={keywords}
                     onChange={(e) => setKeywords(e.target.value)}
-                    placeholder={t('tools.xiaohongshu.keywordsPlaceholder', '例如：平价, 氛围感, 绝绝子 (用逗号分隔)')}
+                    placeholder={t('tools.ai-xiaohongshu.keywordsPlaceholder', '例如：平价, 氛围感, 绝绝子 (用逗号分隔)')}
                     className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-red-500/20 focus:border-red-500 transition-all text-slate-900 dark:text-white"
                   />
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                    {t('tools.xiaohongshu.styleLabel', '笔记风格定调')}
+                    {t('tools.ai-xiaohongshu.styleLabel', '笔记风格定调')}
                   </label>
                   <div className="grid grid-cols-2 gap-2">
                     {styleOptions.map((opt) => (
@@ -191,12 +191,12 @@ export default function Xiaohongshu() {
                     {isGenerating ? (
                       <>
                         <Loader2 className="w-5 h-5 animate-spin" />
-                        {t('tools.xiaohongshu.generating', 'AI 奋笔疾书中...')}
+                        {t('tools.ai-xiaohongshu.generating', 'AI 奋笔疾书中...')}
                       </>
                     ) : (
                       <>
                         <Send className="w-5 h-5" />
-                        {t('tools.xiaohongshu.generateBtn', '一键生成爆款笔记')}
+                        {t('tools.ai-xiaohongshu.generateBtn', '一键生成爆款笔记')}
                       </>
                     )}
                   </button>
@@ -221,7 +221,7 @@ export default function Xiaohongshu() {
               <div className="flex items-center justify-between p-4 border-b border-slate-100 dark:border-slate-700/50">
                 <h3 className="font-semibold text-slate-800 dark:text-white flex items-center gap-2">
                   <FileText className="w-5 h-5 text-red-500" />
-                  {t('tools.xiaohongshu.resultTitle', 'AI 成稿结果')}
+                  {t('tools.ai-xiaohongshu.resultTitle', 'AI 成稿结果')}
                 </h3>
                 <button
                   onClick={handleCopy}
@@ -239,7 +239,7 @@ export default function Xiaohongshu() {
                     <div className="w-16 h-16 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
                       <Tag className="w-8 h-8 opacity-50" />
                     </div>
-                    <p>{t('tools.xiaohongshu.emptyTip', '在这里见证爆款文案的诞生')}</p>
+                    <p>{t('tools.ai-xiaohongshu.emptyTip', '在这里见证爆款文案的诞生')}</p>
                   </div>
                 ) : (
                   <div className="prose prose-red dark:prose-invert max-w-none text-slate-700 dark:text-slate-300 

@@ -48,12 +48,16 @@
   },
   "tools": {
     "xml-json": {
+      "name": "XML / JSON 互转",
+      "description": "强大的数据格式转换器，实现 XML 与 JSON 之间的双向极速转换。",
       "seoTitle": "XML/JSON 在线互转工具 | 高效无损转换格式 | ToolOrbit",
       "seoDesc": "快速在 XML 和 JSON 格式之间进行双向无损互转，支持代码高亮与错误捕捉，前端数据联调与配置解析必备利器。",
       "title": "XML ↔ JSON 互转器",
       "subtitle": "在两种最流行的 API 数据结构间即时互转，支持深层嵌套与属性映射。"
     },
-    "xiaohongshu": {
+    "ai-xiaohongshu": {
+      "name": "小红书文案生成",
+      "description": "深谙爆款逻辑，一键生成自带网感、包含 Emoji 和话题标签的小红书图文笔记文案。",
       "seoTitle": "小红书文案生存器 | AI 种草文案 | ToolOrbit",
       "seoDesc": "利用 AI 自动生成自带网感、包含 Emoji 和话题标签的小红书爆款文案。支持种草测评、干货教程等多种热门风格。",
       "title": "小红书文案生存器",
@@ -63,6 +67,11 @@
       "keywordsLabel": "包含关键词 (选填)",
       "keywordsPlaceholder": "例如：平价, 氛围感, 绝绝子 (用逗号分隔)",
       "styleLabel": "笔记风格定调",
+      "style1": "种草测评 (分享/安利)",
+      "style2": "干货教程 (技能/科普)",
+      "style3": "情感共鸣 (吐槽/鸡汤)",
+      "style4": "好物合集 (盘点/清单)",
+      "style5": "探店打卡 (美食/旅游)",
       "generating": "AI 奋笔疾书中...",
       "generateBtn": "一键生成爆款笔记",
       "resultTitle": "AI 成稿结果",
@@ -70,6 +79,8 @@
       "emptyTip": "在这里见证爆款文案的诞生"
     },
     "text-diff": {
+      "name": "文本对比 Diff",
+      "description": "快速找出两段文本或代码的差异点，支持逐词与逐行比对分析。",
       "seoTitle": "文本对比 Diff 工具 | ToolOrbit",
       "seoDesc": "在线纯前端文本对比工具，支持逐行和逐词比对代码或文案差异，精准高亮改动，本地处理绝对安全。",
       "title": "文本内容比对 (Diff)",
@@ -132,8 +143,8 @@
       "highlight3Desc": "全面支持十余种全球主流语言的双向互译，采用大图模型并发架构，极长的文档也可以瞬间开始流式展现。",
       "disclaimer": "免责声明：本工具的翻译结果由人工智能大模型提供，包含但不限于自动生成的文本，可能存在错误、遗漏或不准确的内容。因此，不建议用于正式或法律场合。请您自行评估翻译结果并承担相应的风险。"
     },
-    "json-formatter": { 
-      "name": "JSON 格式化", 
+    "json-formatter": {
+      "name": "JSON 格式化",
       "description": "提供美化、压缩、验证等全方位 JSON 数据处理服务。",
       "title": "JSON 格式化器",
       "subtitle": "格式化、验证及美化您的 JSON 数据。",
@@ -162,8 +173,8 @@
       "faq3A": "是的，这就是格式化工具的主要作用。它可以将没有任何缩进的“单行”压缩 JSON 转换为具有层级关系的易读格式。",
       "disclaimer": "注意：此工具处理标准的 JSON 格式。在部署任务关键型配置之前，请务必手动核对。"
     },
-    "base64": { 
-      "name": "Base64 编解码", 
+    "base64": {
+      "name": "Base64 编解码",
       "description": "网页端快速编解码工具，完美支持 UTF-8 中文字符集。",
       "title": "Base64 {{mode}}",
       "encode": "编码器",
@@ -203,8 +214,8 @@
       "faq3A": "是的，Base64 编码后的数据比原始二进制数据大约增加 33%。因此，它通常用于传输小型数据片段（如 DataURI），而不适合传输超大文件。",
       "disclaimer": "提醒：Base64 是一种编码格式，而不是加密形式。它不提供数据机密性保护。"
     },
-    "ascii-table": { 
-      "name": "ASCII 编码表", 
+    "ascii-table": {
+      "name": "ASCII 编码表",
       "description": "标准 ASCII 及控制字符在线对照与各进制速查手册。",
       "title": "ASCII 编码表",
       "subtitle": "标准 ASCII 字符编码速查及转换（包括控制字符、十进制、十六进制等）。",
@@ -239,8 +250,8 @@
       "highlight3Desc": "在单个统一视图中访问十进制、十六进制、八进制、二进制和 HTML 实体代码。",
       "disclaimer": "标准 ASCII 支持 128 个字符。对于扩展字符集，请参阅 Unicode 文档。"
     },
-    "url-encoder": { 
-      "name": "URL 编解码", 
+    "url-encoder": {
+      "name": "URL 编解码",
       "description": "安全地编码网页链接，或将其解码为可读的标准格式。",
       "title": "URL {{mode}}",
       "encode": "编码器",
@@ -278,8 +289,8 @@
       "highlight3Desc": "在编码和解码模式之间即时切换，保持流畅的开发进度和效率。",
       "disclaimer": "提示：务必对查询参数进行编码，以防止断链以及通过 XSS 产生的潜在安全漏洞。"
     },
-    "hash-generator": { 
-      "name": "哈希生成器", 
+    "hash-generator": {
+      "name": "哈希生成器",
       "description": "快速生成安全的 MD5 等同类的 SHA-1、SHA-256、SHA-512 会话摘要信息。",
       "title": "哈希在线生成器",
       "subtitle": "在本地浏览器快速生成 MD5、SHA1、SHA256、SHA512 等各类安全散列值。",
@@ -310,8 +321,8 @@
       "highlight3Desc": "同时生成 SHA-1, SHA-256, SHA-384 和 SHA-512 值，便于进行侧对侧的数据比对。",
       "disclaimer": "安全提示：虽然出于兼容性原因支持 SHA-1，但对于现代安全应用程序，它被认为存在加密漏洞。"
     },
-    "uuid-generator": { 
-      "name": "UUID 在线生成", 
+    "uuid-generator": {
+      "name": "UUID 在线生成",
       "description": "批量生成 RFC 4122 标准的随机 Version 4 UUID。",
       "title": "UUID 在线生成",
       "subtitle": "基于 RFC 4122 标准，快速批量生成 Version 4 随机 UUID/GUID。",
@@ -327,7 +338,7 @@
       "securityDesc": "生成的 UUID 是在您的当前设备内存中通过 CSPRNG 直接运算所得，没有经过任何网络请求或回传，完全保障您的系统业务数据私密性。",
       "copyAll": "一键复制全部",
       "guideTitle": "如何批量生成随机 UUID？",
-      "guide1": "1. 在参数约束区选择您需要的生成数量（单次最高支持 1000 个）。" ,
+      "guide1": "1. 在参数约束区选择您需要的生成数量（单次最高支持 1000 个）。",
       "guide2": "2. 根据后端需求勾选“包含连接符”或“使用大写字母”来调整排版格式。",
       "guide3": "3. 点击“立即生成”按钮，您将立即看到一串全新的、唯一的标识符列表。",
       "guide4": "4. 使用“一键复制全部”获取完整清单，或单独点击某个 ID 进行复制。",
@@ -348,8 +359,8 @@
       "highlight3Desc": "原生密码级安全随机数生成器 (CSPRNG) 确保了数学意义上的唯一性。所有 ID 均不会上报或保存至服务器。",
       "disclaimer": "注意：Version 4 UUID 是纯随机的。如果需要顺序或基于时间的 ID，请考虑 Version 1 或 Version 7 实现。"
     },
-    "unicode-converter": { 
-      "name": "Unicode 转换", 
+    "unicode-converter": {
+      "name": "Unicode 转换",
       "description": "中文等原生字符与 \\uXXXX 格式的 Unicode 转义互转。",
       "title": "Unicode 编码转换",
       "subtitle": "一键实现中文字符、符号与 \\uXXXX 格式的 Unicode 编码互转还原。",
@@ -386,8 +397,8 @@
       "highlight3Desc": "专为开发者设计，提供双栏对比编辑、语法高亮辅助以及一键复制功能。",
       "disclaimer": "提示：在部署 Unicode 字符串之前，请务必核对目标系统的字符集要求（如 UTF-16 与 UTF-8 的差异）。"
     },
-    "chmod-calculator": { 
-      "name": "chmod 计算器", 
+    "chmod-calculator": {
+      "name": "chmod 计算器",
       "description": "Linux 权限掩码与 RWX 符号模式的可视化直观转换。",
       "title": "Linux chmod 权限掩码计算器",
       "subtitle": "直观点击多选框，在八进制数字掩码与 RWX 符号模式之间快速推导转换。",
@@ -429,8 +440,8 @@
       "highlight3Desc": "快速将完整的 shell 命令字符串复制到剪贴板，以便在终端中立即应用。",
       "disclaimer": "安全提示：除非绝对必要，否则请避免在生产环境中设置 777 权限，因为它会带来重大的安全风险。"
     },
-    "text-analyzer": { 
-      "name": "文本分析器", 
+    "text-analyzer": {
+      "name": "文本分析器",
       "description": "在线统计字数、字符数、段落数并分析文本频率占比。",
       "title": "文本分析器",
       "subtitle": "实时的字数、字符规格、段落统计以及词频/情感分析。",
@@ -472,8 +483,8 @@
       "highlight3Title": "3. 词频与热力图分析：",
       "highlight3Desc": "自动提取高频词汇并进行视觉化展示。识别文本中的核心关键词，辅助您进行 SEO 优化及风格微调。"
     },
-    "text-cleaner": { 
-      "name": "字符串清洗", 
+    "text-cleaner": {
+      "name": "字符串清洗",
       "description": "去空格、去换行、去制表符和标点。",
       "title": "字符串清洗",
       "subtitle": "在线批量去除文本中的多余空格、换行符、制表符及各类标点符号。",
@@ -514,8 +525,8 @@
       "highlight3Title": "3. 尊重原始编码：",
       "highlight3Desc": "采用 UTF-8 标准无损处理，确保清洗后的内容依然保留原本的文字属性，不会导致乱码或数据丢失。"
     },
-    "symbol-library": { 
-      "name": "特殊符号大全", 
+    "symbol-library": {
+      "name": "特殊符号大全",
       "description": "Emoji、数学公式、货币等长尾排版符号一键式点选复制。",
       "title": "特殊符号与 Emoji 大全",
       "subtitle": "无需费力在输入法中翻找，一键点击复制全网覆盖面最广的特殊文本与表情图库。",
@@ -543,8 +554,8 @@
       "highlight3Desc": "在这里提取出来并挂载上剪切板的全为基于全球通用 Unicode 标准的原生代码字符转换，并非图片贴图格式。这保障了它们在发送到绝大多数主流系统甚至古老文档时，皆能维持文本本质结构。",
       "disclaimer": "版面说明：随着微信苹果系统版本库每年的更新推进，会有少部分新添加的极罕见 Emoji 如果在旧版本的 Win 操作系统的浏览器中渲染可能会出现空心方块，这属于本地域字库尚未覆盖正常表现。"
     },
-    "qr-generator": { 
-      "name": "二维码生成器", 
+    "qr-generator": {
+      "name": "二维码生成器",
       "description": "一键生成可下载二维码。",
       "title": "二维码生成器",
       "subtitle": "一键创建高质量、可定制颜色的二维码及纠错率。",
@@ -582,8 +593,8 @@
       "highlight3Desc": "当您将加密邮箱或家庭联络方式转化为阵列时可能充满隐私性担忧。本模块组件坚持无后台上传和截留政策，纯 JavaScript 计算绘图，闭网状态下依旧能够流畅产出结果图片。",
       "disclaimer": "友情建议：进行前景色与背景色倒挂调整的时候，必须确保扫码枪和大部分手机摄像头的感光算法能够感知足够的极度对比色差，否则存在“废码”无法被光学读取的风险。"
     },
-    "qr-scanner": { 
-      "name": "二维码识别", 
+    "qr-scanner": {
+      "name": "二维码识别",
       "description": "上传二维码图片并解析内容。",
       "title": "二维码识别",
       "subtitle": "上传二维码图片，基于纯前端引擎离线解析提取隐藏信息。",
@@ -837,26 +848,42 @@
       "disclaimer": "免责声明：此处不包含跨境或货币转换费。请参考您的 Stripe 后台获取最终准确值。"
     },
     "short-url": {
-      "name": "短链接生成",
-      "description": "将长网址转换为简短易记的链接，方便分享。",
-      "title": "在线短链接转换工具",
-      "subtitle": "支持多种分发引擎，确保在各种社交平台和网络环境下 100% 稳定跳转。",
+      "name": "短链接转化",
+      "description": "一键缩短长链接，便于分享与传播。",
+      "title": "在线短链接生成器",
+      "subtitle": "多平台分流逻辑，确保在任何网络环境下都能获得 100% 稳定的访问体验。",
+      "guideTitle": "如何生成短链接？",
+      "guide1": "1. 将长链接（需以 http:// 或 https:// 开头）粘贴到输入框中。",
+      "guide2": "2. 点击“立即缩短”按钮，系统将通过合作伙伴接口进行转化。",
+      "guide3": "3. 在生成的可用分流路径中，选择一个最适合您的短域名。",
+      "guide4": "4. 复制并分发该链接，适用于社交媒体、广告投放或二维码生成。",
+      "faq1Q": "生成的链接会过期吗？",
+      "faq1A": "大多数通过我们合作伙伴生成的链接是永久有效的，除非它们违反了服务协议。",
+      "faq2Q": "你们会追踪点击数据吗？",
+      "faq2A": "ToolOrbit 本身不追踪您的链接。追踪（如有）由底层的 URL 缩短服务商负责提供。",
+      "faq3Q": "我可以自定义短链接后缀吗？",
+      "faq3A": "当前版本专注于即时随机生成。如需自定义别名，可能需要在具体的缩短商平台注册账户。",
       "labelLong": "原始长链接",
       "btnShorten": "立即缩短",
-      "btnShortening": "正在生成...",
-      "errorHttp": "请输入以 http:// 或 https:// 开头的有效链接",
-      "errorFetch": "获取短链接失败",
-      "errorRetry": "缩短服务繁忙，请稍后重试",
-      "multiStream": "检测到多个可用分发线路，请选择最稳定的一条：",
-      "multiStreamEnabled": "已启用多线路备选方案",
-      "recommended": "荐",
+      "btnShortening": "转换中...",
+      "errorHttp": "请输入以 http:// 或 https:// 开头的合法链接",
+      "errorFetch": "获取短链接失败，请稍后重试",
+      "errorRetry": "分流服务繁忙，请尝试切换路径或稍后再试",
+      "multiStream": "检测到多个可用分流路径，请选择最稳定的一个：",
+      "multiStreamEnabled": "已启用多路分流",
+      "recommended": "推荐",
       "copy": "复制",
       "copied": "已复制",
-      "seoTitle": "短链接生成器在线工具 - 社交媒体分享利器",
-      "seoDesc": "将冗长复杂的网址转化为短小精悍的链接。完美适用于短信营销、小红书/微博分享以及二维码生成，节省字符空间并提升点击率。",
+      "seoTitle": "在线短链接生成器：使用手册与常见问题",
+      "seoDesc": "将冗长复杂的 URL 转换为简洁易懂的短链接。非常适合短信营销、社交媒体分享以及空间受限的二维码生成场景。",
       "highlightsTitle": "为什么选择我们的短链接服务？",
-      "highlight1Title": "1. 更好的视觉效果与触达：",
-      "highlight1Desc": "短链接更整洁，且能防止平台截断长参数字符串，确保您的完整链接能顺利触达用户。"
+      "highlight1Title": "1. 更好的视觉与触达：",
+      "highlight1Desc": "短链接更整洁，能防止某些平台对长参数字符串的截断，确保链接 100% 触达用户。",
+      "highlight2Title": "2. 稳定持久的服务：",
+      "highlight2Desc": "接入多家世界级的公共短链接 API，提供极高的稳定性和长期有效的访问保障。",
+      "highlight3Title": "3. 隐私优先映射：",
+      "highlight3Desc": "我们不对您的原始长链接进行日志记录。转换过程在前端界面与缩短商 API 之间直接完成。",
+      "disclaimer": "注意：如果链接内容违反底层服务商的条款，可能会被禁用。"
     },
     "pdf-split": {
       "name": "PDF 拆分",
@@ -992,8 +1019,8 @@
       "highlight3Desc": "摒弃传统体积庞大的桌面格式化处理软件，也无需忍受各类夹杂广告的在线转换全家桶。简单极客的网页形态赋予它强大的跨端可用性，打开即用、用完即走。",
       "seoFooter": "灵活掌握此工具，能够大幅削减日常信息整理的繁琐步骤，尤其在投递简历附件、报销票据汇总等高频业务场景下，一份统一打包的 PDF 永远比零碎的图包显得更具专业素养。"
     },
-    "timestamp-converter": { 
-      "name": "时间戳转换", 
+    "timestamp-converter": {
+      "name": "时间戳转换",
       "description": "Unix 时间戳与标准北京时间相互转换计算。",
       "title": "Unix 时间戳转换工具",
       "subtitle": "在秒/毫秒级 Unix 时间戳与人类可读的标准日期时间之间进行互转。",
@@ -1781,7 +1808,7 @@
       "morseLabel": "摩斯电码结果",
       "morsePlaceholder": "或在此输入点(.)与划(-)进行解码",
       "clearBtn": "全清",
-      "guideTitle": "如何使用摩斯密码工具？",
+      "guideTitle": "如何转换摩斯密码？",
       "guide1": "1. 在上框输入文字（支持中英文），下框会自动渲染出点划序列。",
       "guide2": "2. 若要解码，将点 (.) 和划 (-) 系列粘贴到下框，上框会还原回原始语言。",
       "guide3": "3. 摩斯密码使用空格分隔字符，使用斜杠 (/) 分隔单词。",
@@ -1803,7 +1830,8 @@
       "highlight2Title": "2. 实时直观的结果：",
       "highlight2Desc": "随着您的每一次敲击，翻译结果都会实时呈现。您可以即时学习点 (.) 和划 (-) 的对应关系。",
       "highlight3Title": "3. 极速一键分享：",
-      "highlight3Desc": "生成的电码可轻松复制到剪贴板，用于社交媒体发帖、游戏解谜或私人通讯，既有趣又神秘。"
+      "highlight3Desc": "生成的电码可轻松复制到剪贴板，用于社交媒体发帖、游戏解谜或私人通讯，既有趣又神秘。",
+      "symbolGuideTitle": "符号指南"
     },
     "hex-string-converter": {
       "name": "16 进制转字符串",
@@ -1978,44 +2006,6 @@
       "highlight2Desc": "无论是在 PC 端使用鼠标精准定位，还是在移动端通过长按插旗，都能获得丝滑的操作反馈。",
       "highlight3Title": "3. 逻辑严密性：",
       "highlight3Desc": "采用业界标准的布雷算法，确保开局不踩雷，且每一局都充满挑战与乐趣。"
-    },
-    "short-url": {
-      "name": "短链接转化",
-      "description": "一键缩短长链接，便于分享与传播。",
-      "title": "在线短链接生成器",
-      "subtitle": "多平台分流逻辑，确保在任何网络环境下都能获得 100% 稳定的访问体验。",
-      "guideTitle": "如何生成短链接？",
-      "guide1": "1. 将长链接（需以 http:// 或 https:// 开头）粘贴到输入框中。",
-      "guide2": "2. 点击“立即缩短”按钮，系统将通过合作伙伴接口进行转化。",
-      "guide3": "3. 在生成的可用分流路径中，选择一个最适合您的短域名。",
-      "guide4": "4. 复制并分发该链接，适用于社交媒体、广告投放或二维码生成。",
-      "faq1Q": "生成的链接会过期吗？",
-      "faq1A": "大多数通过我们合作伙伴生成的链接是永久有效的，除非它们违反了服务协议。",
-      "faq2Q": "你们会追踪点击数据吗？",
-      "faq2A": "ToolOrbit 本身不追踪您的链接。追踪（如有）由底层的 URL 缩短服务商负责提供。",
-      "faq3Q": "我可以自定义短链接后缀吗？",
-      "faq3A": "当前版本专注于即时随机生成。如需自定义别名，可能需要在具体的缩短商平台注册账户。",
-      "labelLong": "原始长链接",
-      "btnShorten": "立即缩短",
-      "btnShortening": "转换中...",
-      "errorHttp": "请输入以 http:// 或 https:// 开头的合法链接",
-      "errorFetch": "获取短链接失败，请稍后重试",
-      "errorRetry": "分流服务繁忙，请尝试切换路径或稍后再试",
-      "multiStream": "检测到多个可用分流路径，请选择最稳定的一个：",
-      "multiStreamEnabled": "已启用多路分流",
-      "recommended": "推荐",
-      "copy": "复制",
-      "copied": "已复制",
-      "seoTitle": "在线短链接生成器：使用手册与常见问题",
-      "seoDesc": "将冗长复杂的 URL 转换为简洁易懂的短链接。非常适合短信营销、社交媒体分享以及空间受限的二维码生成场景。",
-      "highlightsTitle": "为什么选择我们的短链接服务？",
-      "highlight1Title": "1. 更好的视觉与触达：",
-      "highlight1Desc": "短链接更整洁，能防止某些平台对长参数字符串的截断，确保链接 100% 触达用户。",
-      "highlight2Title": "2. 稳定持久的服务：",
-      "highlight2Desc": "接入多家世界级的公共短链接 API，提供极高的稳定性和长期有效的访问保障。",
-      "highlight3Title": "3. 隐私优先映射：",
-      "highlight3Desc": "我们不对您的原始长链接进行日志记录。转换过程在前端界面与缩短商 API 之间直接完成。",
-      "disclaimer": "注意：如果链接内容违反底层服务商的条款，可能会被禁用。"
     }
   },
   "blog": {

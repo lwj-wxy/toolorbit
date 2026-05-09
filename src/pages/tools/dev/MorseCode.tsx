@@ -173,7 +173,7 @@ export default function MorseCode() {
               </div>
               <div>
                 <h4 className="text-white font-bold text-lg mb-2 flex items-center gap-2">
-                  {t('tools.morse-code.guideTitle')}
+                  {t('tools.morse-code.symbolGuideTitle', 'Symbol Guide')}
                 </h4>
                 <p className="text-slate-400 text-sm leading-relaxed">
                   {t('tools.morse-code.guideDesc')}
