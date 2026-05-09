@@ -45,7 +45,8 @@
     "why_item3_title": "No Installation Required",
     "why_item3_desc": "Professional grade tools available instantly without bulky software or browser plugins.",
     "why_item4_title": "Free & Unrestricted",
-    "why_item4_desc": "Access premium-quality tools with no accounts, no subscriptions, and no limits."
+    "why_item4_desc": "Access premium-quality tools with no accounts, no subscriptions, and no limits.",
+    "viewMore": "View More"
   },
   "blog": {
     "nav": "Blog",
@@ -2064,6 +2065,30 @@
       "highlight3Title": "3. Privacy First Mapping:",
       "highlight3Desc": "We do not log or cache your original long URLs. The conversion happens directly between the web interface and the shortener API.",
       "disclaimer": "Note: Links may be disabled if they violate the terms of service of the underlying provider."
+    },
+    "listing-generator": {
+      "name": "Listing Generator",
+      "description": "AI-driven e-commerce listing generator. Creates titles, descriptions and tags in seconds.",
+      "title": "Listing Generator",
+      "subtitle": "AI-driven e-commerce listing generator. Creates titles, descriptions and tags in seconds."
+    },
+    "keyword-analyzer": {
+      "name": "Keyword Analyzer",
+      "description": "Deep-dive into e-commerce long-tail keywords, discovering hidden profitable niches.",
+      "title": "Keyword Analyzer",
+      "subtitle": "Deep-dive into e-commerce long-tail keywords, discovering hidden profitable niches."
+    },
+    "competitor-tracker": {
+      "name": "Competitor Tracker",
+      "description": "Analyze competitors, find weaknesses, and identify opportunities for your products.",
+      "title": "Competitor Tracker",
+      "subtitle": "Analyze competitors, find weaknesses, and identify opportunities for your products."
+    },
+    "market-insights": {
+      "name": "Market Insights",
+      "description": "Acquire platform-specific market research reports, trends, and category dynamics.",
+      "title": "Market Insights",
+      "subtitle": "Acquire platform-specific market research reports, trends, and category dynamics."
     }
   },
   "nav": {

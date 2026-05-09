@@ -39,7 +39,8 @@
     "why_item3_title": "集成专家级工作流",
     "why_item3_desc": "专为开发者和跨境卖家设计的专业工具箱，涵盖从 PDF 处理到 AI 文案生成的全方位需求，无需安装任何插件。",
     "why_item4_title": "永久免费，无额度限制",
-    "why_item4_desc": "打破传统工具站的繁琐订阅制，我们承诺所有核心功能永久免费且无使用频率限制，让创意不再受阻。"
+    "why_item4_desc": "打破传统工具站的繁琐订阅制，我们承诺所有核心功能永久免费且无使用频率限制，让创意不再受阻。",
+    "viewMore": "查看更多"
   },
   "search": {
     "results": "搜索结果: \"{{query}}\"",
@@ -2006,6 +2007,30 @@
       "highlight2Desc": "无论是在 PC 端使用鼠标精准定位，还是在移动端通过长按插旗，都能获得丝滑的操作反馈。",
       "highlight3Title": "3. 逻辑严密性：",
       "highlight3Desc": "采用业界标准的布雷算法，确保开局不踩雷，且每一局都充满挑战与乐趣。"
+    },
+    "listing-generator": {
+      "name": "Listing 生成器",
+      "description": "AI驱动的电商商品文案生成器。秒级生成标题、描述和标签。",
+      "title": "Listing 生成器",
+      "subtitle": "AI驱动的电商商品文案生成器。秒级生成标题、描述和标签。"
+    },
+    "keyword-analyzer": {
+      "name": "关键词分析器",
+      "description": "深入挖掘电商长尾关键词，发现隐藏的高利润利基市场。",
+      "title": "关键词分析器",
+      "subtitle": "深入挖掘电商长尾关键词，发现隐藏的高利润利基市场。"
+    },
+    "competitor-tracker": {
+      "name": "竞品追踪器",
+      "description": "分析竞争对手，找出弱点，为你的产品寻找新机会。",
+      "title": "竞品追踪器",
+      "subtitle": "分析竞争对手，找出弱点，为你的产品寻找新机会。"
+    },
+    "market-insights": {
+      "name": "市场洞察",
+      "description": "获取指定平台的市场调研报告、趋势和类目动态。",
+      "title": "市场洞察",
+      "subtitle": "获取指定平台的市场调研报告、趋势和类目动态。"
     }
   },
   "blog": {
