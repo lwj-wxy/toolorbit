@@ -19,6 +19,9 @@ import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
 import { motion, AnimatePresence } from 'motion/react';
 
+// Get version from package
+const PDFJS_VERSION = '4.0.379'; // Stable version matching our package
+
 // Initialize PDF.js worker using local Vite URL
 pdfjs.GlobalWorkerOptions.workerSrc = pdfWorker;
 

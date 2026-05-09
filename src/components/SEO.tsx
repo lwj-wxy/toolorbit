@@ -31,6 +31,11 @@ const SEO: React.FC<SEOProps> = ({
       <meta name="description" content={description} />
       {keywords && <meta name="keywords" content={keywords} />}
       <link rel="canonical" href={canonicalUrl} />
+      
+      {/* Hreflang Tags for SEO Multilingual Support */}
+      <link rel="alternate" href={`https://toolorbit.site${pathname}`} hrefLang="x-default" />
+      <link rel="alternate" href={`https://toolorbit.site${pathname}`} hrefLang="en" />
+      <link rel="alternate" href={`https://toolorbit.site${pathname}`} hrefLang="zh" />
 
       {/* Open Graph / Facebook */}
       <meta property="og:type" content={type === 'article' ? 'article' : 'website'} />

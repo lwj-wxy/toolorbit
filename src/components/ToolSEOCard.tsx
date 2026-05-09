@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router-dom';
 import SEO from './SEO';
 
 interface ToolSEOCardProps {
@@ -8,6 +9,7 @@ interface ToolSEOCardProps {
 
 const ToolSEOCard: React.FC<ToolSEOCardProps> = ({ toolKey }) => {
   const { t } = useTranslation();
+  const location = useLocation();
 
   const title = t(`tools.${toolKey}.seoTitle`);
   const description = t(`tools.${toolKey}.seoDesc`);
@@ -16,11 +18,39 @@ const ToolSEOCard: React.FC<ToolSEOCardProps> = ({ toolKey }) => {
   if (!title || title === `tools.${toolKey}.seoTitle`) return null;
 
   const toolName = t(`tools.${toolKey}.name`);
+  const pathParts = location.pathname.split('/').filter(Boolean);
   
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://toolorbit.site"
+      },
+      ...pathParts.map((part, index) => {
+        const url = `https://toolorbit.site/${pathParts.slice(0, index + 1).join('/')}`;
+        let name = part;
+        if (part === 'tools') name = 'Tools';
+        if (index === pathParts.length - 1) name = toolName;
+        
+        return {
+          "@type": "ListItem",
+          "position": index + 2,
+          "name": name,
+          "item": url
+        };
+      })
+    ]
+  };
+
   const toolSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": toolName,
+    "url": `https://toolorbit.site${location.pathname}`,
     "softwareCategory": "UtilitiesApplication",
     "operatingSystem": "Web",
     "applicationCategory": "DeveloperApplication",
@@ -73,7 +103,7 @@ const ToolSEOCard: React.FC<ToolSEOCardProps> = ({ toolKey }) => {
       <SEO 
         title={title}
         description={description}
-        schema={faqSchema ? [toolSchema, faqSchema] : toolSchema}
+        schema={faqSchema ? [toolSchema, faqSchema, breadcrumbSchema] : [toolSchema, breadcrumbSchema]}
       />
       <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-800 p-8 lg:p-12 mt-8 transition-colors duration-300">
         <section className="mb-10">
