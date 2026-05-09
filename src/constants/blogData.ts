@@ -126,5 +126,40 @@ export const BLOG_POSTS: BlogPost[] = [
     date: '2026-04-26',
     category: 'Lifestyle',
     image: 'https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&q=80&w=800'
+  },
+  {
+    id: '18',
+    slug: 'ai-text-polisher-guide',
+    date: '2026-05-10',
+    category: 'Tech',
+    image: 'https://picsum.photos/seed/polisher/800/400'
+  },
+  {
+    id: '19',
+    slug: 'ai-translator-future',
+    date: '2026-05-11',
+    category: 'Tech',
+    image: 'https://picsum.photos/seed/translator/800/400'
+  },
+  {
+    id: '20',
+    slug: 'image-compression-techniques',
+    date: '2026-05-12',
+    category: 'Design',
+    image: 'https://picsum.photos/seed/compression/800/400'
+  },
+  {
+    id: '21',
+    slug: 'svg-to-png-conversion-tips',
+    date: '2026-05-13',
+    category: 'Design',
+    image: 'https://picsum.photos/seed/svgpng/800/400'
+  },
+  {
+    id: '22',
+    slug: 'image-converter-web-formats',
+    date: '2026-05-14',
+    category: 'Development',
+    image: 'https://picsum.photos/seed/converter/800/400'
   }
 ];
