@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FileCode2, Loader2, Copy, Check, RotateCcw } from 'lucide-react';
 import { motion } from 'motion/react';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function CodeReviewer() {
@@ -15,6 +17,7 @@ export default function CodeReviewer() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [copied, setCopied] = useState(false);
+  const [copiedCode, setCopiedCode] = useState<string | null>(null);
   
   const langs = [
     'Auto-Detect', 'JavaScript', 'TypeScript', 'React (JSX/TSX)', 'Python', 'Java', 'Go', 'Rust', 'C++', 'CSS/SCSS'
@@ -93,6 +96,12 @@ export default function CodeReviewer() {
     navigator.clipboard.writeText(result);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  const copyCodeToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedCode(text);
+    setTimeout(() => setCopiedCode(null), 2000);
   };
 
   return (
@@ -217,7 +226,47 @@ export default function CodeReviewer() {
                           className="prose prose-green dark:prose-invert max-w-none text-sm leading-relaxed"
                         >
                           <div className="markdown-body">
-                            <Markdown remarkPlugins={[remarkGfm]}>{result}</Markdown>
+                            <Markdown 
+                               remarkPlugins={[remarkGfm]}
+                               components={{
+                                 code({ node, inline, className, children, ...props }: any) {
+                                   const match = /language-(\w+)/.exec(className || '');
+                                   const codeText = String(children).replace(/\n$/, '');
+                                   if (!inline && match) {
+                                     return (
+                                       <div className="relative group rounded-md overflow-hidden my-4 border border-slate-700">
+                                         <div className="flex items-center justify-between px-4 py-2 bg-slate-800 text-slate-300 text-xs font-mono">
+                                            <span>{match[1]}</span>
+                                            <button
+                                              onClick={() => copyCodeToClipboard(codeText)}
+                                              className="flex items-center gap-1.5 hover:text-white transition-colors"
+                                            >
+                                              {copiedCode === codeText ? <Check className="w-3.5 h-3.5 text-green-400" /> : <Copy className="w-3.5 h-3.5" />}
+                                              {copiedCode === codeText ? (t('common.copied') || 'Copied') : (t('common.copy') || 'Copy')}
+                                            </button>
+                                         </div>
+                                         <SyntaxHighlighter
+                                           {...props}
+                                           style={vscDarkPlus}
+                                           language={match[1]}
+                                           PreTag="div"
+                                           customStyle={{ margin: 0, border: 'none', borderRadius: 0 }}
+                                         >
+                                           {codeText}
+                                         </SyntaxHighlighter>
+                                       </div>
+                                     );
+                                   }
+                                   return (
+                                     <code {...props} className={className}>
+                                       {children}
+                                     </code>
+                                   );
+                                 }
+                               }}
+                            >
+                               {result}
+                            </Markdown>
                           </div>
                         </motion.div>
                       ) : (
