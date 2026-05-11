@@ -880,6 +880,48 @@ async function startServer() {
     }
   });
 
+  app.post("/api/ai-svg-generator", async (req, res) => {
+    try {
+      const { prompt, style, language } = req.body;
+      const ip = req.ip || (req.headers['x-forwarded-for'] as string) || req.socket.remoteAddress;
+      const now = Date.now();
+      const lastUse = usageMap.get(ip as string);
+
+      if (process.env.NODE_ENV === "production" && lastUse && (now - lastUse < 1000)) {
+        return res.status(429).json({ success: false, error: 'Too many requests' });
+      }
+      usageMap.set(ip as string, now);
+
+      const targetLang = language?.startsWith('zh') ? 'Simplified Chinese' : 'English';
+      
+      const systemPrompt = `You are an expert SVG designer and front-end developer.
+      Your task is to generate complete, high-quality, valid raw SVG code based on the user's description.
+      
+      Requirements:
+      1. Style: ${style}
+      2. Responsive: Use a generic viewBox (e.g., viewBox="0 0 500 500") rather than fixed width/height.
+      3. ONLY output the raw <svg>...</svg> code. DO NOT wrap it in \`\`\`svg or markdown blocks. Provide absolutely no explanation.
+      4. Ensure the SVG forms a complete, well-designed illustration or icon.
+      5. Include necessary namespaces like xmlns="http://www.w3.org/2000/svg".`;
+
+      const userContent = `Description:\n${prompt}`;
+
+      const response = await deepseek.chat.completions.create({
+        model: "deepseek-chat",
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: userContent }
+        ],
+        stream: false,
+      });
+
+      const content = response.choices[0]?.message?.content || "";
+      res.json({ content });
+    } catch (error: any) {
+      res.status(500).json({ error: error.message || 'Error' });
+    }
+  });
+
   app.post("/api/ai-code-reviewer", async (req, res) => {
     try {
       const { code, codeLang, tone, language } = req.body;

@@ -50,7 +50,8 @@
     "prevPage": "Previous",
     "nextPage": "Next",
     "copy": "Copy",
-    "copied": "Copied"
+    "copied": "Copied",
+    "download": "Download"
   },
   "blog": {
     "nav": "Blog",
@@ -234,6 +235,29 @@
       "highlight3Title": "Built-in Explanations",
       "highlight3Desc": "Every generated RegEx includes a plain-text breakdown of why it works.",
       "disclaimer": "Always test the generated RegEx against your specific production data to prevent edge-case bugs."
+    },
+    "ai-svg-generator": {
+      "name": "AI SVG Generator",
+      "description": "Generate scalable, high-quality SVG vector illustrations or icon code directly from text descriptions.",
+      "seoTitle": "AI SVG Generator | Vector Image Creator | ToolOrbit",
+      "seoDesc": "Use AI to generate scalable vector graphics (SVG) from text parameters and style preferences. Perfect for web design and frontend projects.",
+      "title": "Smart SVG Vector Generator",
+      "subtitle": "Describe what you want to draw, and AI will generate perfect, raw SVG code that you can use instantly.",
+      "prompt": "What do you want to draw?",
+      "promptPlaceholder": "e.g. A cute cat drinking coffee, flat design style, pastel colors",
+      "style": "Visual Style",
+      "generating": "Drawing SVG...",
+      "generateBtn": "Generate SVG Code",
+      "resultTitle": "Generated SVG Graphic",
+      "waiting": "Awaiting drawing description...",
+      "highlightsTitle": "Why Use AI SVG Generator?",
+      "highlight1Title": "Infinitely Scalable",
+      "highlight1Desc": "Get mathematically perfect SVG files that never lose quality when scaled.",
+      "highlight2Title": "Instantly Editable",
+      "highlight2Desc": "Outputs raw DOM-ready SVG code you can tweak via CSS and JS.",
+      "highlight3Title": "No Design Skills Needed",
+      "highlight3Desc": "Transform ideas into neat flat illustrations or minimalist icons without opening Illustrator.",
+      "disclaimer": "AI-generated SVGs may contain complex grouping; verify path efficiency if used in high-performance animations."
     },
     "ai-video-script": {
       "name": "Video Script Generator",

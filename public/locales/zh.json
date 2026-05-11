@@ -44,7 +44,8 @@
     "prevPage": "上一页",
     "nextPage": "下一页",
     "copy": "复制",
-    "copied": "已复制"
+    "copied": "已复制",
+    "download": "下载"
   },
   "search": {
     "results": "搜索结果: \"{{query}}\"",
@@ -97,6 +98,29 @@
       "highlight3Title": "逻辑拆解",
       "highlight3Desc": "提供正则逻辑的详细说明，让你不仅能用，还能看懂背后的机理。",
       "disclaimer": "正则表达式可能存在性能瓶颈（如灾难性回溯），请在用于生产环境前使用代表性的数据进行验证。"
+    },
+    "ai-svg-generator": {
+      "name": "AI SVG 矢量图生成",
+      "description": "通过文字描述直接生成可伸缩、高质量的 SVG 矢量插画或图标代码。",
+      "seoTitle": "AI SVG 矢量图生成器 | 在线矢量插画 | ToolOrbit",
+      "seoDesc": "利用 AI 技术自动生成精美、可无限放大的 SVG 矢量图形代码，支持扁平化、线条等多种风格，让前端设计更轻松。",
+      "title": "智能 SVG 图像生成",
+      "subtitle": "只需一段文字描述，AI 立刻作画并产出可以直接复制使用的、高质量的 SVG 矢量代码。",
+      "prompt": "你想画什么？",
+      "promptPlaceholder": "例如：一只正在喝咖啡的可爱小猫，扁平化设计，使用暖色调。",
+      "style": "绘画风格",
+      "generating": "正在绘制 SVG...",
+      "generateBtn": "生成矢量图形",
+      "resultTitle": "生成的 SVG 图像",
+      "waiting": "等待输入描述...",
+      "highlightsTitle": "为什么使用 AI SVG 生成器？",
+      "highlight1Title": "矢量无损伸缩",
+      "highlight1Desc": "生成的 SVG 是数学描述的几何图形，无论放大多少倍都保持绝对清晰。",
+      "highlight2Title": "代码级控制",
+      "highlight2Desc": "直接输出源码，方便前端工程师使用 CSS 或 JS 进一步控制其动画与色彩。",
+      "highlight3Title": "解放视觉设计",
+      "highlight3Desc": "不懂 AI(Illustrator) 或设计工具？文字直出线稿、扁平化插画等精美视觉素材。",
+      "disclaimer": "复杂的生成要求可能会产生较长的路径代码，若用作关键节点动画资产，请人工检查路径合理性。"
     },
     "ai-video-script": {
       "name": "短视频脚本生成",

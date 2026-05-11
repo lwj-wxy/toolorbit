@@ -46,7 +46,8 @@ import {
   Clapperboard,
   Mic,
   FileSpreadsheet,
-  Terminal
+  Terminal,
+  Image
 } from 'lucide-react';
 
 export type Category = 'AI 工具' | '开发者工具' | '站长工具' | '文本排版' | '生成器' | '电商工具' | 'PDF工具' | '图片处理' | '计算转换' | '娱乐工具';
@@ -132,6 +133,16 @@ export const TOOLS: ToolItem[] = [
     path: '/tools/ai/regex',
     color: 'indigo',
     isPopular: false,
+  },
+  {
+    id: 'ai-svg-generator',
+    name: 'AI SVG 矢量图生成',
+    description: '通过文字描述直接生成可伸缩、高质量的 SVG 矢量插画或图标代码。',
+    icon: Image,
+    category: 'AI 工具',
+    path: '/tools/ai/svg-generator',
+    color: 'pink',
+    isPopular: true,
   },
   {
     id: 'ai-xiaohongshu',
