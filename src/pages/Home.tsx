@@ -114,7 +114,21 @@ const PopularToolCard = ({ tool, isPinned, togglePin, index }: { tool: ToolItem,
 const ToolCard = ({ tool, isPinned, togglePin, index }: { tool: ToolItem, isPinned: boolean, togglePin: (e: React.MouseEvent, id: string) => void, index?: number }) => {
   const { t } = useTranslation();
   const Icon = tool.icon;
-  const styles = getCategoryStyles(tool.category);
+  const color = tool.color || 'blue';
+  
+  const styleMap: Record<string, any> = {
+    emerald: { border: 'border-emerald-500', title: 'text-emerald-600 dark:text-emerald-400', icon: 'text-emerald-500', bg: 'bg-emerald-50 dark:bg-emerald-900/30' },
+    blue: { border: 'border-blue-500', title: 'text-blue-600 dark:text-blue-400', icon: 'text-blue-500', bg: 'bg-blue-50 dark:bg-blue-900/30' },
+    violet: { border: 'border-violet-500', title: 'text-violet-600 dark:text-violet-400', icon: 'text-violet-500', bg: 'bg-violet-50 dark:bg-violet-900/30' },
+    amber: { border: 'border-amber-500', title: 'text-amber-600 dark:text-amber-400', icon: 'text-amber-500', bg: 'bg-amber-50 dark:bg-amber-900/30' },
+    rose: { border: 'border-rose-500', title: 'text-rose-600 dark:text-rose-400', icon: 'text-rose-500', bg: 'bg-rose-50 dark:bg-rose-900/30' },
+    green: { border: 'border-green-500', title: 'text-green-600 dark:text-green-400', icon: 'text-green-500', bg: 'bg-green-50 dark:bg-green-900/30' },
+    orange: { border: 'border-orange-500', title: 'text-orange-600 dark:text-orange-400', icon: 'text-orange-500', bg: 'bg-orange-50 dark:bg-orange-900/30' },
+    pink: { border: 'border-pink-500', title: 'text-pink-600 dark:text-pink-400', icon: 'text-pink-500', bg: 'bg-pink-50 dark:bg-pink-900/30' },
+    fuchsia: { border: 'border-fuchsia-500', title: 'text-fuchsia-600 dark:text-fuchsia-400', icon: 'text-fuchsia-500', bg: 'bg-fuchsia-50 dark:bg-fuchsia-900/30' },
+    indigo: { border: 'border-indigo-500', title: 'text-indigo-600 dark:text-indigo-400', icon: 'text-indigo-500', bg: 'bg-indigo-50 dark:bg-indigo-900/30' }
+  };
+  const styles = styleMap[color] || styleMap.blue;
   
   return (
     <motion.div
