@@ -83,6 +83,8 @@ const Translator = lazy(() => import('./pages/tools/ai/Translator'));
 const PromptGenerator = lazy(() => import('./pages/tools/ai/PromptGenerator'));
 const WeeklyReport = lazy(() => import('./pages/tools/ai/WeeklyReport'));
 const CodeReviewer = lazy(() => import('./pages/tools/ai/CodeReviewer'));
+const VideoScript = lazy(() => import('./pages/tools/ai/VideoScript'));
+const MeetingMinutes = lazy(() => import('./pages/tools/ai/MeetingMinutes'));
 
 // Calculate & Unit Tools
 const UnitConverter = lazy(() => import('./pages/tools/calculate/UnitConverter'));
@@ -162,6 +164,8 @@ export default function App() {
             <Route path="/tools/ai/prompt-generator" element={<PromptGenerator />} />
             <Route path="/tools/ai/weekly-report" element={<WeeklyReport />} />
             <Route path="/tools/ai/code-reviewer" element={<CodeReviewer />} />
+            <Route path="/tools/ai/video-script" element={<VideoScript />} />
+            <Route path="/tools/ai/meeting-minutes" element={<MeetingMinutes />} />
             <Route path="/tools/ai/xiaohongshu" element={<Xiaohongshu />} />
             <Route path="/tools/dev/timestamp-converter" element={<TimestampConverter />} />
             <Route path="/tools/dev/base-converter" element={<BaseConverter />} />

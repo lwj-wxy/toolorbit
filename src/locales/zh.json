@@ -52,6 +52,41 @@
     "noResultsSub": "我们未能找到与您搜索匹配的工具，请尝试其他关键词。"
   },
   "tools": {
+    "ai-video-script": {
+      "name": "短视频脚本生成",
+      "description": "AI 帮你一键生成爆款短视频脚本，包含分镜头、画面描述、字幕与旁白。",
+      "seoTitle": "短视频脚本生成器 | 抖音/TikTok文案 | ToolOrbit",
+      "seoDesc": "输入主题即可快速生成包含画面分镜头、旁白、时间轴和BGM建议的完整短视频拍摄脚本，助力自媒体创作者提效。",
+      "title": "短视频分镜脚本生成",
+      "subtitle": "只需输入核心主题与预设风格，即刻输出包含画面描述与配音旁白的专业拍摄分镜剧本。",
+      "topic": "视频主题/核心信息",
+      "topicPlaceholder": "例如：打工人必备的5个提高效率好习惯",
+      "duration": "预估时长",
+      "platform": "目标平台",
+      "tone": "脚本风格",
+      "generating": "正在构思剧本...",
+      "generateBtn": "一键生成脚本",
+      "resultTitle": "生成的短视频脚本",
+      "waiting": "等待输入视频主题..."
+    },
+    "ai-meeting-minutes": {
+      "name": "AI 会议纪要生成",
+      "description": "自动对冗杂的会议记录、访谈文字进行提取和梳理，生成重点突出、条理清晰的会议纪要。",
+      "seoTitle": "AI 会议纪要生成器 | 录音转写总结 | ToolOrbit",
+      "seoDesc": "将杂乱的会议语音转译文本或速记粘贴进来，AI 为您自动梳理出核心结论与待办事项，提升职场办公效率。",
+      "title": "智能会议纪要提炼",
+      "subtitle": "一键将混乱的原始会议速记转化为结构化、专业的会议结论与待办清单(Action Items)。",
+      "rawInput": "原始会议记录/转写文本",
+      "rawPlaceholder": "请粘贴长篇的会议讨论内容或混杂的语音转文本记录...",
+      "formatType": "生成格式",
+      "formatDetailed": "详细总结 (包含详细讨论点)",
+      "formatAction": "仅待办事项 (Action Items)",
+      "formatExecutive": "执行摘要 (Executive Summary)",
+      "generating": "正在提炼会议重点...",
+      "generateBtn": "生成结构化纪要",
+      "resultTitle": "会议纪要",
+      "waiting": "等待粘贴会议记录..."
+    },
     "xml-json": {
       "name": "XML / JSON 互转",
       "description": "强大的数据格式转换器，实现 XML 与 JSON 之间的双向极速转换。",

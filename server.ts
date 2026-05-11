@@ -666,6 +666,116 @@ async function startServer() {
     }
   });
 
+  app.post("/api/ai-video-script", async (req, res) => {
+    try {
+      const { topic, duration, platform, tone, language } = req.body;
+      const ip = req.ip || (req.headers['x-forwarded-for'] as string) || req.socket.remoteAddress;
+      const now = Date.now();
+      const lastUse = usageMap.get(ip as string);
+
+      if (process.env.NODE_ENV === "production" && lastUse && (now - lastUse < 1000)) {
+        return res.status(429).json({ success: false, error: 'Too many requests' });
+      }
+      res.setHeader('Content-Type', 'text/event-stream');
+      res.setHeader('Cache-Control', 'no-cache');
+      res.setHeader('Connection', 'keep-alive');
+      usageMap.set(ip as string, now);
+
+      const targetLang = language?.startsWith('zh') ? 'Simplified Chinese' : 'English';
+      
+      const systemPrompt = `You are a viral short-video director and scriptwriter expert. 
+      Your task is to create a highly engaging, high-retention video script.
+      
+      Guidelines:
+      1. Tailor the pacing and format for ${platform}.
+      2. Keep the estimated duration around ${duration}.
+      3. Use a ${tone} tone.
+      4. Format the script clearly (e.g., Markdown table or structured sections with Scene, Visual/Action, Dialogue/Text, Duration).
+      5. Include a catchy hook in the first 3 seconds, a clear call-to-action (CTA) at the end, and BGM suggestions if appropriate.
+      6. Output the entire response in ${targetLang}.`;
+
+      const userContent = `Topic/Core Message:\n${topic}`;
+
+      const stream = await deepseek.chat.completions.create({
+        model: "deepseek-chat",
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: userContent }
+        ],
+        stream: true,
+      });
+
+      for await (const chunk of stream) {
+        const chunkText = chunk.choices[0]?.delta?.content || "";
+        if (chunkText) res.write(`data: ${JSON.stringify({ content: chunkText })}\n\n`);
+      }
+      res.write(`data: [DONE]\n\n`);
+      res.end();
+    } catch (error: any) {
+      if (!res.headersSent) res.status(500).json({ error: error.message || 'Error' });
+      else { res.write(`data: {"error": "${error.message || 'Error'}"}\n\n`); res.end(); }
+    }
+  });
+
+  app.post("/api/ai-meeting-minutes", async (req, res) => {
+    try {
+      const { rawInput, formatType, language } = req.body;
+      const ip = req.ip || (req.headers['x-forwarded-for'] as string) || req.socket.remoteAddress;
+      const now = Date.now();
+      const lastUse = usageMap.get(ip as string);
+
+      if (process.env.NODE_ENV === "production" && lastUse && (now - lastUse < 1000)) {
+        return res.status(429).json({ success: false, error: 'Too many requests' });
+      }
+      res.setHeader('Content-Type', 'text/event-stream');
+      res.setHeader('Cache-Control', 'no-cache');
+      res.setHeader('Connection', 'keep-alive');
+      usageMap.set(ip as string, now);
+
+      const targetLang = language?.startsWith('zh') ? 'Simplified Chinese' : 'English';
+      
+      let formatInstruction = "";
+      if (formatType === 'action') {
+        formatInstruction = "Focus heavily on listing Action Items with assigned people and deadlines. Keep everything else to a bare minimum.";
+      } else if (formatType === 'executive') {
+        formatInstruction = "Provide a high-level summary of the meeting, the main decisions made, and the overall outcome. Be extremely concise.";
+      } else {
+        formatInstruction = "Provide a detailed summary including key discussion points, arguments made, decisions, and action items.";
+      }
+
+      const systemPrompt = `You are a professional executive assistant and AI secretary.
+      Your task is to re-structure messy raw meeting notes or voice transcripts into formal, polished meeting minutes.
+      
+      Guidelines:
+      1. Ignore filler words and off-topic chat.
+      2. Extract core topics, decisions, and action items.
+      3. ${formatInstruction}
+      4. Use professional corporate language. Format using clear Markdown headings and bullet points.
+      5. Output ONLY the meeting minutes in ${targetLang}.`;
+
+      const userContent = `Raw Meeting Notes:\n${rawInput}`;
+
+      const stream = await deepseek.chat.completions.create({
+        model: "deepseek-chat",
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: userContent }
+        ],
+        stream: true,
+      });
+
+      for await (const chunk of stream) {
+        const chunkText = chunk.choices[0]?.delta?.content || "";
+        if (chunkText) res.write(`data: ${JSON.stringify({ content: chunkText })}\n\n`);
+      }
+      res.write(`data: [DONE]\n\n`);
+      res.end();
+    } catch (error: any) {
+      if (!res.headersSent) res.status(500).json({ error: error.message || 'Error' });
+      else { res.write(`data: {"error": "${error.message || 'Error'}"}\n\n`); res.end(); }
+    }
+  });
+
   app.post("/api/ai-code-reviewer", async (req, res) => {
     try {
       const { code, codeLang, tone, language } = req.body;

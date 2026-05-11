@@ -128,33 +128,37 @@ export default function Layout({ children }: LayoutProps) {
               </Link>
 
               {/* AI Dropdown Menu */}
-              <div className="absolute top-[64px] left-0 w-[300px] bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border border-slate-200/80 dark:border-slate-800/80 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.1)] rounded-b-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top -translate-y-1 group-hover:translate-y-0 z-50 overflow-hidden">
-                <div className="p-2 flex flex-col gap-1">
-                  {TOOLS.filter(t => t.category === 'AI 工具').map(tool => (
-                    <Link
-                      key={tool.id}
-                      to={tool.path}
-                      className="group/item flex items-start gap-3 p-3 rounded-lg hover:bg-violet-50 dark:hover:bg-violet-900/20 transition-all border border-transparent hover:border-violet-100 dark:hover:border-violet-800/50"
+              <div className="absolute top-[64px] left-[-30px] w-[600px] bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border border-slate-200/80 dark:border-slate-800/80 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.1)] rounded-b-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top -translate-y-1 group-hover:translate-y-0 z-50 overflow-hidden">
+                <div className="p-3">
+                  <div className="grid grid-cols-2 gap-2">
+                    {TOOLS.filter(t => t.category === 'AI 工具').map(tool => (
+                      <Link
+                        key={tool.id}
+                        to={tool.path}
+                        className="group/item flex items-start gap-3 p-3 rounded-lg hover:bg-violet-50 dark:hover:bg-violet-900/20 transition-all border border-transparent hover:border-violet-100 dark:hover:border-violet-800/50"
+                      >
+                        <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 bg-violet-100 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400 transition-colors">
+                          <tool.icon size={16} />
+                        </div>
+                        <div className="flex flex-col flex-1 min-w-0">
+                          <span className="text-[14px] font-bold text-slate-700 dark:text-slate-200 group-hover/item:text-violet-700 dark:group-hover/item:text-violet-400 truncate">
+                            {t(`tools.${tool.id}.name`, { defaultValue: tool.name })}
+                          </span>
+                          <span className="text-[12px] text-slate-500 dark:text-slate-400 line-clamp-1 mt-0.5" title={t(`tools.${tool.id}.description`, { defaultValue: tool.description }) as string || ''}>
+                            {t(`tools.${tool.id}.description`, { defaultValue: tool.description })}
+                          </span>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                  <div className="mt-2 text-center">
+                    <Link 
+                      to="/?category=AI%20%E5%B7%A5%E5%85%B7" 
+                      className="inline-block text-[13px] font-bold text-violet-600 hover:text-violet-700 dark:text-violet-400 dark:hover:text-violet-300 py-1.5 px-6 bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
                     >
-                      <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 bg-violet-100 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400 transition-colors">
-                        <tool.icon size={16} />
-                      </div>
-                      <div className="flex flex-col flex-1 min-w-0">
-                        <span className="text-[14px] font-bold text-slate-700 dark:text-slate-200 group-hover/item:text-violet-700 dark:group-hover/item:text-violet-400 truncate">
-                          {t(`tools.${tool.id}.name`, { defaultValue: tool.name })}
-                        </span>
-                        <span className="text-[12px] text-slate-500 dark:text-slate-400 line-clamp-1 mt-0.5" title={t(`tools.${tool.id}.description`, { defaultValue: tool.description }) as string || ''}>
-                          {t(`tools.${tool.id}.description`, { defaultValue: tool.description })}
-                        </span>
-                      </div>
+                      {t('common.categories.AI 工具')} &rarr;
                     </Link>
-                  ))}
-                  <Link 
-                    to="/?category=AI%20%E5%B7%A5%E5%85%B7" 
-                    className="mt-2 text-[12px] font-bold text-violet-600 hover:text-violet-700 dark:text-violet-400 dark:hover:text-violet-300 p-2 text-center bg-slate-50 dark:bg-slate-800/50 rounded-lg"
-                  >
-                    {t('common.categories.AI 工具')} &rarr;
-                  </Link>
+                  </div>
                 </div>
               </div>
             </div>

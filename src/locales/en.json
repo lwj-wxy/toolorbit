@@ -167,6 +167,41 @@
     "noResultsSub": "We couldn't find any tools matching your search. Please try other keywords."
   },
   "tools": {
+    "ai-video-script": {
+      "name": "Video Script Generator",
+      "description": "AI-powered tool to generate viral short video scripts, including storyboards, visuals, subtitles, and voiceover.",
+      "seoTitle": "AI Video Script Generator | TikTok & Shorts Creator | ToolOrbit",
+      "seoDesc": "Generate complete short video shooting scripts, including visual descriptions, voiceovers, timelines, and BGM suggestions, to help content creators work efficiently.",
+      "title": "Short Video Script Generator",
+      "subtitle": "Just input the core topic and desired style, and instantly output a professional shooting script with visuals and voiceovers.",
+      "topic": "Video Topic / Core Message",
+      "topicPlaceholder": "e.g., 5 productivity habits for office workers",
+      "duration": "Estimated Duration",
+      "platform": "Target Platform",
+      "tone": "Script Tone",
+      "generating": "Crafting the script...",
+      "generateBtn": "Generate Script",
+      "resultTitle": "Generated Video Script",
+      "waiting": "Awaiting video topic input..."
+    },
+    "ai-meeting-minutes": {
+      "name": "AI Meeting Minutes",
+      "description": "Automatically extract and organize messy meeting notes or transcripts into clear, structured meeting minutes.",
+      "seoTitle": "AI Meeting Minutes Generator | Speech to Text Summary | ToolOrbit",
+      "seoDesc": "Paste your messy meeting transcripts or notes, and let AI automatically organize core conclusions and action items to boost workplace efficiency.",
+      "title": "Smart Meeting Minutes",
+      "subtitle": "Instantly convert chaotic raw meeting notes into structured, professional conclusions and action items.",
+      "rawInput": "Raw Meeting Notes / Transcripts",
+      "rawPlaceholder": "Paste lengthy meeting discussions or voice-to-text transcripts here...",
+      "formatType": "Output Format",
+      "formatDetailed": "Detailed Summary (Includes discussion points)",
+      "formatAction": "Action Items Only",
+      "formatExecutive": "Executive Summary",
+      "generating": "Extracting meeting highlights...",
+      "generateBtn": "Generate Structured Minutes",
+      "resultTitle": "Meeting Minutes",
+      "waiting": "Awaiting meeting notes..."
+    },
     "xml-json": {
       "name": "XML / JSON Converter",
       "description": "Powerful data format converter for seamless two-way conversion between XML and JSON.",

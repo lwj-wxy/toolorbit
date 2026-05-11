@@ -42,7 +42,9 @@ import {
   Radio,
   FileCode,
   Wand2,
-  Languages
+  Languages,
+  Clapperboard,
+  Mic
 } from 'lucide-react';
 
 export type Category = 'AI 工具' | '开发者工具' | '站长工具' | '文本排版' | '生成器' | '电商工具' | 'PDF工具' | '图片处理' | '计算转换' | '娱乐工具';
@@ -87,6 +89,26 @@ export const TOOLS: ToolItem[] = [
     category: 'AI 工具',
     path: '/tools/ai/code-reviewer',
     color: 'green',
+    isPopular: true,
+  },
+  {
+    id: 'ai-video-script',
+    name: '短视频脚本生成',
+    description: 'AI 帮你一键生成爆款短视频脚本，包含分镜头、画面描述、字幕与旁白。',
+    icon: Clapperboard,
+    category: 'AI 工具',
+    path: '/tools/ai/video-script',
+    color: 'rose',
+    isPopular: true,
+  },
+  {
+    id: 'ai-meeting-minutes',
+    name: 'AI 会议纪要生成',
+    description: '自动对冗杂的会议记录、访谈文字进行提取和梳理，生成重点突出、条理清晰的会议纪要。',
+    icon: Mic,
+    category: 'AI 工具',
+    path: '/tools/ai/meeting-minutes',
+    color: 'blue',
     isPopular: true,
   },
   {
