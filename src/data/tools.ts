@@ -44,7 +44,9 @@ import {
   Wand2,
   Languages,
   Clapperboard,
-  Mic
+  Mic,
+  FileSpreadsheet,
+  Terminal
 } from 'lucide-react';
 
 export type Category = 'AI 工具' | '开发者工具' | '站长工具' | '文本排版' | '生成器' | '电商工具' | 'PDF工具' | '图片处理' | '计算转换' | '娱乐工具';
@@ -110,6 +112,26 @@ export const TOOLS: ToolItem[] = [
     path: '/tools/ai/meeting-minutes',
     color: 'blue',
     isPopular: true,
+  },
+  {
+    id: 'ai-excel-formula',
+    name: 'AI Excel 公式助手',
+    description: '用自然语言描述需求，AI 自动为你生成复杂的 Excel 或 Google Sheets 公式，提升办公效率。',
+    icon: FileSpreadsheet,
+    category: 'AI 工具',
+    path: '/tools/ai/excel-formula',
+    color: 'emerald',
+    isPopular: true,
+  },
+  {
+    id: 'ai-regex',
+    name: 'AI 正则生成器',
+    description: '不再为编写复杂的正则表达式发愁。输入匹配要求，AI 给出精准的正则表达式及原理解释。',
+    icon: Terminal,
+    category: 'AI 工具',
+    path: '/tools/ai/regex',
+    color: 'indigo',
+    isPopular: false,
   },
   {
     id: 'ai-xiaohongshu',

@@ -776,6 +776,110 @@ async function startServer() {
     }
   });
 
+  app.post("/api/ai-excel-formula", async (req, res) => {
+    try {
+      const { requirement, formulaType, language } = req.body;
+      const ip = req.ip || (req.headers['x-forwarded-for'] as string) || req.socket.remoteAddress;
+      const now = Date.now();
+      const lastUse = usageMap.get(ip as string);
+
+      if (process.env.NODE_ENV === "production" && lastUse && (now - lastUse < 1000)) {
+        return res.status(429).json({ success: false, error: 'Too many requests' });
+      }
+      res.setHeader('Content-Type', 'text/event-stream');
+      res.setHeader('Cache-Control', 'no-cache');
+      res.setHeader('Connection', 'keep-alive');
+      usageMap.set(ip as string, now);
+
+      const targetLang = language?.startsWith('zh') ? 'Simplified Chinese' : 'English';
+      
+      const typeStr = formulaType === 'google-sheets' ? 'Google Sheets' : 'Microsoft Excel';
+
+      const systemPrompt = `You are an expert Data Analyst and Spreadsheet Master.
+      Your task is to generate complex ${typeStr} formulas based on the user's natural language requirements.
+      
+      Guidelines:
+      1. Provide the exact formula inside a markdown code block (e.g. \`=SUM(A1:A10)\`).
+      2. Briefly explain how the formula works step-by-step.
+      3. Give examples or conditions where they might need to change cell references.
+      4. Output the explanation in ${targetLang}.`;
+
+      const userContent = `Requirement:\n${requirement}`;
+
+      const stream = await deepseek.chat.completions.create({
+        model: "deepseek-chat",
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: userContent }
+        ],
+        stream: true,
+      });
+
+      for await (const chunk of stream) {
+        const chunkText = chunk.choices[0]?.delta?.content || "";
+        if (chunkText) res.write(`data: ${JSON.stringify({ content: chunkText })}\n\n`);
+      }
+      res.write(`data: [DONE]\n\n`);
+      res.end();
+    } catch (error: any) {
+      if (!res.headersSent) res.status(500).json({ error: error.message || 'Error' });
+      else { res.write(`data: {"error": "${error.message || 'Error'}"}\n\n`); res.end(); }
+    }
+  });
+
+  app.post("/api/ai-regex", async (req, res) => {
+    try {
+      const { requirement, flavor, language } = req.body;
+      const ip = req.ip || (req.headers['x-forwarded-for'] as string) || req.socket.remoteAddress;
+      const now = Date.now();
+      const lastUse = usageMap.get(ip as string);
+
+      if (process.env.NODE_ENV === "production" && lastUse && (now - lastUse < 1000)) {
+        return res.status(429).json({ success: false, error: 'Too many requests' });
+      }
+      res.setHeader('Content-Type', 'text/event-stream');
+      res.setHeader('Cache-Control', 'no-cache');
+      res.setHeader('Connection', 'keep-alive');
+      usageMap.set(ip as string, now);
+
+      const targetLang = language?.startsWith('zh') ? 'Simplified Chinese' : 'English';
+      
+      const systemPrompt = `You are a Senior Regex Architect.
+      Your task is to write accurate Regular Expressions based on natural language requirements.
+      
+      Requirements:
+      - Regex Flavor/Language: ${flavor.toUpperCase()}
+      
+      Guidelines:
+      1. Provide the regex pattern within a code block (labeled with the correct language or just 'regex').
+      2. If it's JS or similar, include the delimiters (e.g. \`/pattern/g\`) if helpful.
+      3. Explain the regex breakdown step-by-step.
+      4. Provide 3 matching and 3 non-matching test cases to prove it works.
+      5. Output all explanations in ${targetLang}.`;
+
+      const userContent = `Requirement to match:\n${requirement}`;
+
+      const stream = await deepseek.chat.completions.create({
+        model: "deepseek-chat",
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: userContent }
+        ],
+        stream: true,
+      });
+
+      for await (const chunk of stream) {
+        const chunkText = chunk.choices[0]?.delta?.content || "";
+        if (chunkText) res.write(`data: ${JSON.stringify({ content: chunkText })}\n\n`);
+      }
+      res.write(`data: [DONE]\n\n`);
+      res.end();
+    } catch (error: any) {
+      if (!res.headersSent) res.status(500).json({ error: error.message || 'Error' });
+      else { res.write(`data: {"error": "${error.message || 'Error'}"}\n\n`); res.end(); }
+    }
+  });
+
   app.post("/api/ai-code-reviewer", async (req, res) => {
     try {
       const { code, codeLang, tone, language } = req.body;

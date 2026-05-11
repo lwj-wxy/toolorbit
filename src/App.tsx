@@ -85,6 +85,8 @@ const WeeklyReport = lazy(() => import('./pages/tools/ai/WeeklyReport'));
 const CodeReviewer = lazy(() => import('./pages/tools/ai/CodeReviewer'));
 const VideoScript = lazy(() => import('./pages/tools/ai/VideoScript'));
 const MeetingMinutes = lazy(() => import('./pages/tools/ai/MeetingMinutes'));
+const ExcelFormula = lazy(() => import('./pages/tools/ai/ExcelFormula'));
+const RegexGenerator = lazy(() => import('./pages/tools/ai/RegexGenerator'));
 
 // Calculate & Unit Tools
 const UnitConverter = lazy(() => import('./pages/tools/calculate/UnitConverter'));
@@ -166,6 +168,8 @@ export default function App() {
             <Route path="/tools/ai/code-reviewer" element={<CodeReviewer />} />
             <Route path="/tools/ai/video-script" element={<VideoScript />} />
             <Route path="/tools/ai/meeting-minutes" element={<MeetingMinutes />} />
+            <Route path="/tools/ai/excel-formula" element={<ExcelFormula />} />
+            <Route path="/tools/ai/regex" element={<RegexGenerator />} />
             <Route path="/tools/ai/xiaohongshu" element={<Xiaohongshu />} />
             <Route path="/tools/dev/timestamp-converter" element={<TimestampConverter />} />
             <Route path="/tools/dev/base-converter" element={<BaseConverter />} />
