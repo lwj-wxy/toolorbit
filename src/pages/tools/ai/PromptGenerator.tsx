@@ -11,7 +11,7 @@ export default function PromptGenerator() {
   const [result, setResult] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [copied, setCopied] = useState(false);
+  const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
   
   const styles = [
     'Photorealistic / 真实感摄影',
@@ -85,10 +85,78 @@ export default function PromptGenerator() {
     }
   };
 
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(result);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const copySpecificPrompt = (text: string, index: number) => {
+    navigator.clipboard.writeText(text);
+    setCopiedIndex(index);
+    setTimeout(() => setCopiedIndex(null), 2000);
+  };
+
+  const renderPrompts = () => {
+    if (!result) return null;
+
+    const sections = result.split(/==========+/).filter(s => s.trim() !== '');
+    
+    return sections.map((section, index) => {
+      const lines = section.trim().split('\n');
+      let title = `Prompt ${index + 1}`;
+      let promptText = '';
+      let translationText = '';
+      let currentPart = 'prompt'; 
+      
+      for (const line of lines) {
+        if (line.startsWith('### ')) {
+          title = line.replace('### ', '').trim();
+          title = title.replace(/^\*\*(.*?)\*\*$/, '$1');
+        } else if (line.startsWith('---')) {
+          currentPart = 'translation';
+        } else {
+          if (currentPart === 'prompt') {
+            promptText += line + '\n';
+          } else {
+            translationText += line + '\n';
+          }
+        }
+      }
+
+      promptText = promptText.trim();
+      translationText = translationText.trim();
+
+      if (!promptText && !translationText) {
+         promptText = section.trim(); 
+      }
+
+      return (
+        <motion.div 
+          key={index} 
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-white dark:bg-slate-800 rounded-xl p-4 border border-fuchsia-100 dark:border-fuchsia-900/30 mb-4 whitespace-normal shadow-sm"
+        >
+          <div className="flex justify-between items-center mb-3">
+            <h3 className="font-bold text-slate-800 dark:text-slate-200">{title}</h3>
+            {promptText && (
+              <button
+                onClick={() => copySpecificPrompt(promptText, index)}
+                className="flex items-center gap-1.5 text-xs text-fuchsia-600 dark:text-fuchsia-400 hover:text-fuchsia-700 font-medium px-2 py-1.5 rounded-md hover:bg-fuchsia-50 dark:hover:bg-fuchsia-900/20 transition-colors"
+              >
+                {copiedIndex === index ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                {copiedIndex === index ? (t('common.copied') || 'Copied') : (t('common.copy') || 'Copy')}
+              </button>
+            )}
+          </div>
+          {promptText && (
+            <div className="bg-slate-50 dark:bg-slate-900/50 rounded-lg p-3 text-sm font-mono text-slate-700 dark:text-slate-300 mb-3 break-words">
+              {promptText}
+            </div>
+          )}
+          {translationText && (
+            <div className="text-sm text-slate-500 dark:text-slate-400 border-t border-slate-100 dark:border-slate-700/50 pt-3 mt-1 text-justify">
+              {translationText}
+            </div>
+          )}
+        </motion.div>
+      );
+    });
   };
 
   return (
@@ -165,36 +233,23 @@ export default function PromptGenerator() {
                     <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
                       {t('tools.ai-prompt-generator.result') || 'Generated Prompts'}
                     </label>
-                    {result && (
-                      <button
-                        onClick={copyToClipboard}
-                        className="flex items-center gap-1.5 text-sm text-fuchsia-600 dark:text-fuchsia-400 hover:text-fuchsia-700 font-medium px-3 py-1.5 rounded-lg hover:bg-fuchsia-50 dark:hover:bg-fuchsia-900/20 transition-colors"
-                      >
-                        {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-                        {copied ? (t('common.copied') || 'Copied') : (t('common.copy') || 'Copy')}
-                      </button>
-                    )}
                  </div>
                  
                  <div className="relative">
-                    <div className={`w-full h-[400px] p-5 rounded-xl border transition-all overflow-y-auto whitespace-pre-wrap
+                    <div className={`w-full h-[400px] p-2 sm:p-5 rounded-xl border transition-all overflow-y-auto whitespace-pre-wrap
                       ${result 
-                        ? 'bg-fuchsia-50/50 dark:bg-fuchsia-900/10 border-fuchsia-100 dark:border-fuchsia-900/30 text-slate-800 dark:text-slate-200' 
+                        ? 'bg-fuchsia-50/30 dark:bg-fuchsia-900/5 border-fuchsia-100 dark:border-fuchsia-900/30' 
                         : 'bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500 flex items-center justify-center'}`}
                     >
                       {error ? (
-                        <div className="text-red-500 dark:text-red-400 flex flex-col items-center gap-2">
+                        <div className="text-red-500 dark:text-red-400 flex flex-col items-center justify-center gap-2 h-full">
                           <RotateCcw className="w-8 h-8" />
                           <p>{error}</p>
                         </div>
                       ) : result ? (
-                        <motion.div
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          className="prose dark:prose-invert max-w-none text-sm leading-relaxed"
-                        >
-                          {result}
-                        </motion.div>
+                        <div className="flex flex-col">
+                          {renderPrompts()}
+                        </div>
                       ) : (
                         <div className="text-center">
                           <ImageIcon className="w-8 h-8 mx-auto mb-3 opacity-20" />

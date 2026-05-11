@@ -581,9 +581,20 @@ async function startServer() {
       Guidelines:
       1. Structure each prompt clearly. Use comma-separated tags and descriptive phrases.
       2. Include subjects, lighting, environment, camera angles, color palette, and rendering details.
-      3. Provide the prompt in English (as it is best for AI image models), but add a matching ${targetLang} translation or explanation if possible, clearly separated.
-      4. If the style is specific (e.g., Cyberpunk), heavily emphasize keywords associated with that style.
-      5. Only output the 4 prompts, separated by double newlines or clear headings.`;
+      3. If the style is specific (e.g., Cyberpunk), heavily emphasize keywords associated with that style.
+      4. You MUST output EXACTLY 4 prompts. Format EACH prompt exactly like this, separated by "==========":
+      
+      ### Prompt 1: [Short Title]
+      [English Prompt]
+      ---
+      [${targetLang} Translation]
+      ==========
+      ### Prompt 2: [Short Title]
+      [English Prompt]
+      ---
+      [${targetLang} Translation]
+      
+      Do NOT include any other text, introductory or concluding remarks.`;
 
       const stream = await deepseek.chat.completions.create({
         model: "deepseek-chat",
