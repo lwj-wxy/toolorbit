@@ -244,10 +244,12 @@ export default function Xiaohongshu() {
                 ) : (
                   <div className="prose prose-red dark:prose-invert max-w-none text-slate-700 dark:text-slate-300 
                                   prose-p:leading-relaxed prose-headings:font-bold prose-a:text-red-600
-                                  whitespace-pre-wrap font-sans text-[15px]">
-                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                      {result}
-                    </ReactMarkdown>
+                                  font-sans text-[15px]">
+                    <div className="markdown-body">
+                      <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                        {result}
+                      </ReactMarkdown>
+                    </div>
                     {isGenerating && (
                       <span className="inline-block w-2 h-5 bg-red-500 ml-1 animate-pulse align-middle" />
                     )}

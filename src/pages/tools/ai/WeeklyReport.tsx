@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FileText, Loader2, Copy, Check, RotateCcw } from 'lucide-react';
 import { motion } from 'motion/react';
+import Markdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function WeeklyReport() {
@@ -201,7 +203,7 @@ export default function WeeklyReport() {
                  </div>
                  
                  <div className="relative flex-1 min-h-[400px]">
-                    <div className={`absolute inset-0 p-5 rounded-xl border transition-all overflow-y-auto whitespace-pre-wrap
+                    <div className={`absolute inset-0 p-5 rounded-xl border transition-all overflow-y-auto
                       ${result 
                         ? 'bg-blue-50/50 dark:bg-blue-900/10 border-blue-100 dark:border-blue-900/30 text-slate-800 dark:text-slate-200' 
                         : 'bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500 flex items-center justify-center'}`}
@@ -217,7 +219,9 @@ export default function WeeklyReport() {
                           animate={{ opacity: 1 }}
                           className="prose dark:prose-invert max-w-none text-sm leading-relaxed"
                         >
-                          {result}
+                          <div className="markdown-body">
+                            <Markdown remarkPlugins={[remarkGfm]}>{result}</Markdown>
+                          </div>
                         </motion.div>
                       ) : (
                         <div className="text-center">
