@@ -48,7 +48,9 @@
     "why_item4_desc": "Access premium-quality tools with no accounts, no subscriptions, and no limits.",
     "viewMore": "View More",
     "prevPage": "Previous",
-    "nextPage": "Next"
+    "nextPage": "Next",
+    "copy": "Copy",
+    "copied": "Copied"
   },
   "blog": {
     "nav": "Blog",
@@ -2116,6 +2118,47 @@
       "description": "Acquire platform-specific market research reports, trends, and category dynamics.",
       "title": "Market Insights",
       "subtitle": "Acquire platform-specific market research reports, trends, and category dynamics."
+    },
+    "ai-prompt-generator": {
+      "name": "AI Prompt Generator",
+      "description": "Midjourney/SD prompt engineer, one-click high-quality prompts.",
+      "title": "AI Prompt Generator",
+      "topic": "What do you want to draw?",
+      "placeholder": "E.g., A cute cat drinking coffee in Paris",
+      "style": "Art Style",
+      "generating": "Generating...",
+      "generateBtn": "Generate Prompts",
+      "result": "Generated Prompts",
+      "waiting": "Awaiting input..."
+    },
+    "ai-weekly-report": {
+      "name": "AI Weekly Report",
+      "description": "Automatically transform scattered work records into professional reports.",
+      "title": "AI Weekly Report Generator",
+      "done": "Done this week",
+      "donePlaceholder": "e.g. fixed login bug, wrote API doc",
+      "todo": "Plans for next week",
+      "todoPlaceholder": "e.g. setup database, meeting",
+      "problems": "Problems / Risks",
+      "problemsPlaceholder": "e.g. waiting for API keys",
+      "tone": "Tone",
+      "generating": "Generating...",
+      "generateBtn": "Generate Report",
+      "result": "Generated Report",
+      "waiting": "Awaiting input..."
+    },
+    "ai-code-reviewer": {
+      "name": "AI Code Reviewer",
+      "description": "Senior AI architect performs Code Review, finds bugs and gives advice.",
+      "title": "AI Code Reviewer",
+      "codeLang": "Language",
+      "tone": "Review Focus",
+      "code": "Your Code",
+      "placeholder": "Paste your code here...",
+      "analyzing": "Analyzing...",
+      "analyzeBtn": "Start Review",
+      "result": "Review Report",
+      "waiting": "Awaiting code input..."
     }
   },
   "nav": {

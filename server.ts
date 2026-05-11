@@ -556,6 +556,151 @@ async function startServer() {
     }
   });
 
+  app.post("/api/ai-prompt-generator", async (req, res) => {
+    try {
+      const { topic, style, language } = req.body;
+      const ip = req.ip || (req.headers['x-forwarded-for'] as string) || req.socket.remoteAddress;
+      const now = Date.now();
+      const lastUse = usageMap.get(ip as string);
+
+      if (process.env.NODE_ENV === "production" && lastUse && (now - lastUse < 1000)) {
+        return res.status(429).json({ success: false, error: 'Too many requests' });
+      }
+      
+      res.setHeader('Content-Type', 'text/event-stream');
+      res.setHeader('Cache-Control', 'no-cache');
+      res.setHeader('Connection', 'keep-alive');
+      usageMap.set(ip as string, now);
+
+      const isChinese = language?.startsWith('zh');
+      const targetLang = isChinese ? 'Simplified Chinese' : 'English';
+      
+      const systemPrompt = `You are an expert AI image generation prompt engineer (Midjourney, Stable Diffusion, DALL-E).
+      Your task is to create 4 distinct, highly detailed prompts based on the user's topic and requested style.
+      
+      Guidelines:
+      1. Structure each prompt clearly. Use comma-separated tags and descriptive phrases.
+      2. Include subjects, lighting, environment, camera angles, color palette, and rendering details.
+      3. Provide the prompt in English (as it is best for AI image models), but add a matching ${targetLang} translation or explanation if possible, clearly separated.
+      4. If the style is specific (e.g., Cyberpunk), heavily emphasize keywords associated with that style.
+      5. Only output the 4 prompts, separated by double newlines or clear headings.`;
+
+      const stream = await deepseek.chat.completions.create({
+        model: "deepseek-chat",
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: `Topic: ${topic}\nStyle: ${style}` }
+        ],
+        stream: true,
+      });
+
+      for await (const chunk of stream) {
+        const chunkText = chunk.choices[0]?.delta?.content || "";
+        if (chunkText) res.write(`data: ${JSON.stringify({ content: chunkText })}\n\n`);
+      }
+      res.write(`data: [DONE]\n\n`);
+      res.end();
+    } catch (error: any) {
+      if (!res.headersSent) res.status(500).json({ error: error.message || 'Error' });
+      else { res.write(`data: {"error": "${error.message || 'Error'}"}\n\n`); res.end(); }
+    }
+  });
+
+  app.post("/api/ai-weekly-report", async (req, res) => {
+    try {
+      const { done, todo, problems, tone, language } = req.body;
+      const ip = req.ip || (req.headers['x-forwarded-for'] as string) || req.socket.remoteAddress;
+      const now = Date.now();
+      const lastUse = usageMap.get(ip as string);
+
+      if (process.env.NODE_ENV === "production" && lastUse && (now - lastUse < 1000)) {
+        return res.status(429).json({ success: false, error: 'Too many requests' });
+      }
+      res.setHeader('Content-Type', 'text/event-stream');
+      res.setHeader('Cache-Control', 'no-cache');
+      res.setHeader('Connection', 'keep-alive');
+      usageMap.set(ip as string, now);
+
+      const targetLang = language?.startsWith('zh') ? 'Simplified Chinese' : 'English';
+      
+      const systemPrompt = `You are a professional project manager and executive assistant. Your task is to generate a well-structured, professional weekly work report.
+      
+      Guidelines:
+      1. Synthesize the provided raw notes into a cohesive, polished report.
+      2. Use clear headings: "Done This Week", "Plans for Next Week", "Issues & Support Needed" (or their equivalents in ${targetLang}).
+      3. Adapt the tone to: ${tone}.
+      4. Ensure bullet points are concise, professional, and emphasize business value or completion.
+      5. Output ONLY the report body in ${targetLang}. No introductory pleasantries.`;
+
+      const userContent = `Done:\n${done}\n\nTodo:\n${todo}\n\nProblems/Risks:\n${problems}`;
+
+      const stream = await deepseek.chat.completions.create({
+        model: "deepseek-chat",
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: userContent }
+        ],
+        stream: true,
+      });
+
+      for await (const chunk of stream) {
+        const chunkText = chunk.choices[0]?.delta?.content || "";
+        if (chunkText) res.write(`data: ${JSON.stringify({ content: chunkText })}\n\n`);
+      }
+      res.write(`data: [DONE]\n\n`);
+      res.end();
+    } catch (error: any) {
+      if (!res.headersSent) res.status(500).json({ error: error.message || 'Error' });
+      else { res.write(`data: {"error": "${error.message || 'Error'}"}\n\n`); res.end(); }
+    }
+  });
+
+  app.post("/api/ai-code-reviewer", async (req, res) => {
+    try {
+      const { code, codeLang, tone, language } = req.body;
+      const ip = req.ip || (req.headers['x-forwarded-for'] as string) || req.socket.remoteAddress;
+      const now = Date.now();
+      const lastUse = usageMap.get(ip as string);
+
+      if (process.env.NODE_ENV === "production" && lastUse && (now - lastUse < 1000)) {
+        return res.status(429).json({ success: false, error: 'Too many requests' });
+      }
+      res.setHeader('Content-Type', 'text/event-stream');
+      res.setHeader('Cache-Control', 'no-cache');
+      res.setHeader('Connection', 'keep-alive');
+      usageMap.set(ip as string, now);
+
+      const targetLang = language?.startsWith('zh') ? 'Simplified Chinese' : 'English';
+      
+      const systemPrompt = `You are a senior software engineer conducting a code review.
+      
+      Guidelines:
+      1. Analyze the provided ${codeLang} code for bugs, performance issues, security vulnerabilities, and code smells.
+      2. Provide constructive feedback with a ${tone} tone.
+      3. Format the review clearly with Markdown (e.g., Summary, Issues found, Suggestions, and Refactored Code with explanations).
+      4. Provide output in ${targetLang}.`;
+
+      const stream = await deepseek.chat.completions.create({
+        model: "deepseek-coder",
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: `Code:\n\`\`\`${codeLang}\n${code}\n\`\`\`` }
+        ],
+        stream: true,
+      });
+
+      for await (const chunk of stream) {
+        const chunkText = chunk.choices[0]?.delta?.content || "";
+        if (chunkText) res.write(`data: ${JSON.stringify({ content: chunkText })}\n\n`);
+      }
+      res.write(`data: [DONE]\n\n`);
+      res.end();
+    } catch (error: any) {
+      if (!res.headersSent) res.status(500).json({ error: error.message || 'Error' });
+      else { res.write(`data: {"error": "${error.message || 'Error'}"}\n\n`); res.end(); }
+    }
+  });
+
   // Vite middleware for development
   if (process.env.NODE_ENV !== "production") {
     const vite = await createViteServer({

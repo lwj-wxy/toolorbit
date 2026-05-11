@@ -60,6 +60,36 @@ export interface ToolItem {
 
 export const TOOLS: ToolItem[] = [
   {
+    id: 'ai-prompt-generator',
+    name: 'AI 绘画提示词生成',
+    description: 'Midjourney/SD 专属提示词工程师，一键生成高质量、细节丰富的作图 Prompt。',
+    icon: ImageIcon,
+    category: 'AI 工具',
+    path: '/tools/ai/prompt-generator',
+    color: 'fuchsia',
+    isPopular: true,
+  },
+  {
+    id: 'ai-weekly-report',
+    name: 'AI 周报生成器',
+    description: '告别周报内耗！将零散的工作记录自动转化为格式规范、专业精炼的汇报总结。',
+    icon: FileText,
+    category: 'AI 工具',
+    path: '/tools/ai/weekly-report',
+    color: 'blue',
+    isPopular: true,
+  },
+  {
+    id: 'ai-code-reviewer',
+    name: 'AI 代码审查 (Code Review)',
+    description: '资深 AI 架构师为您进行 Code Review，发现潜在 Bug、安全隐患并提供重构建议。',
+    icon: FileCode2,
+    category: 'AI 工具',
+    path: '/tools/ai/code-reviewer',
+    color: 'green',
+    isPopular: true,
+  },
+  {
     id: 'ai-xiaohongshu',
     name: '小红书文案生成',
     description: '深谙爆款逻辑，一键生成自带网感、包含 Emoji 和话题标签的小红书图文笔记文案。',

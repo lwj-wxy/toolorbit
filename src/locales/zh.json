@@ -42,7 +42,9 @@
     "why_item4_desc": "打破传统工具站的繁琐订阅制，我们承诺所有核心功能永久免费且无使用频率限制，让创意不再受阻。",
     "viewMore": "查看更多",
     "prevPage": "上一页",
-    "nextPage": "下一页"
+    "nextPage": "下一页",
+    "copy": "复制",
+    "copied": "已复制"
   },
   "search": {
     "results": "搜索结果: \"{{query}}\"",
@@ -2033,6 +2035,47 @@
       "description": "获取指定平台的市场调研报告、趋势和类目动态。",
       "title": "市场洞察",
       "subtitle": "获取指定平台的市场调研报告、趋势和类目动态。"
+    },
+    "ai-prompt-generator": {
+      "name": "AI 绘画提示词生成",
+      "description": "Midjourney/SD 专属提示词工程师，一键生成高质量、细节丰富的作图 Prompt。",
+      "title": "AI 绘画提示词生成器",
+      "topic": "你想画什么？",
+      "placeholder": "例如：一只在巴黎喝咖啡的可爱猫咪",
+      "style": "艺术风格",
+      "generating": "正在生成...",
+      "generateBtn": "生成提示词",
+      "result": "生成的提示词",
+      "waiting": "等待输入..."
+    },
+    "ai-weekly-report": {
+      "name": "AI 周报生成器",
+      "description": "告别周报内耗！将零散的工作记录自动转化为格式规范、专业精炼的汇报总结。",
+      "title": "AI 周报生成器",
+      "done": "本周已完成",
+      "donePlaceholder": "例如：修复登录Bug，编写API文档",
+      "todo": "下周计划",
+      "todoPlaceholder": "例如：搭建数据库，跟进客户",
+      "problems": "存在问题/风险",
+      "problemsPlaceholder": "例如：第三方API接口暂未申请下来",
+      "tone": "语气风格",
+      "generating": "正在生成...",
+      "generateBtn": "生成周报",
+      "result": "生成的周报",
+      "waiting": "等待输入..."
+    },
+    "ai-code-reviewer": {
+      "name": "AI 代码审查 (Code Review)",
+      "description": "资深 AI 架构师为您进行 Code Review，发现潜在 Bug、安全隐患并提供重构建议。",
+      "title": "AI 代码审查",
+      "codeLang": "编程语言",
+      "tone": "审查侧重点",
+      "code": "你的代码",
+      "placeholder": "在此粘贴你的代码...",
+      "analyzing": "正在审查...",
+      "analyzeBtn": "开始 Code Review",
+      "result": "审查报告",
+      "waiting": "等待代码输入..."
     }
   },
   "blog": {

@@ -80,6 +80,9 @@ const CompetitorTracker = lazy(() => import('./pages/tools/ai/CompetitorTracker'
 const MarketInsights = lazy(() => import('./pages/tools/ai/MarketInsights'));
 const TextPolisher = lazy(() => import('./pages/tools/ai/TextPolisher'));
 const Translator = lazy(() => import('./pages/tools/ai/Translator'));
+const PromptGenerator = lazy(() => import('./pages/tools/ai/PromptGenerator'));
+const WeeklyReport = lazy(() => import('./pages/tools/ai/WeeklyReport'));
+const CodeReviewer = lazy(() => import('./pages/tools/ai/CodeReviewer'));
 
 // Calculate & Unit Tools
 const UnitConverter = lazy(() => import('./pages/tools/calculate/UnitConverter'));
@@ -156,6 +159,9 @@ export default function App() {
             <Route path="/tools/ai/market-insights" element={<MarketInsights />} />
             <Route path="/tools/ai/text-polisher" element={<TextPolisher />} />
             <Route path="/tools/ai/translator" element={<Translator />} />
+            <Route path="/tools/ai/prompt-generator" element={<PromptGenerator />} />
+            <Route path="/tools/ai/weekly-report" element={<WeeklyReport />} />
+            <Route path="/tools/ai/code-reviewer" element={<CodeReviewer />} />
             <Route path="/tools/ai/xiaohongshu" element={<Xiaohongshu />} />
             <Route path="/tools/dev/timestamp-converter" element={<TimestampConverter />} />
             <Route path="/tools/dev/base-converter" element={<BaseConverter />} />
