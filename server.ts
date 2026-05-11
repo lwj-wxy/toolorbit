@@ -980,7 +980,7 @@ async function startServer() {
 
       res.json({ imageUrl, prompt: finalPrompt });
     } catch (error: any) {
-      res.status(500).json({ error: error.message || 'Error' });
+      res.status(500).json({ error: error.response?.data?.error?.message || error.message || 'Error' });
     }
   });
 

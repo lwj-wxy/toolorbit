@@ -1,6 +1,7 @@
 import { 
   Palette,
   Pipette, 
+  Hexagon,
   Code2, 
   Hash, 
   Link, 
@@ -133,6 +134,16 @@ export const TOOLS: ToolItem[] = [
     path: '/tools/ai/regex',
     color: 'indigo',
     isPopular: false,
+  },
+  {
+    id: 'logo-generator',
+    name: 'AI 头像/Logo 设计师',
+    description: '根据品牌名称和行业诉求，生成简约、扁平或者极简风格的 Logo、网站 Icon 或个性头像。',
+    icon: Hexagon,
+    category: 'AI 工具',
+    path: '/tools/ai/logo-generator',
+    color: 'indigo',
+    isPopular: true,
   },
   {
     id: 'ai-image-generator',
