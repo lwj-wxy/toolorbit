@@ -45,7 +45,9 @@
     "nextPage": "下一页",
     "copy": "复制",
     "copied": "已复制",
-    "download": "下载"
+    "download": "下载",
+    "error": "发生错误",
+    "errorCatcher": "服务异常，请稍后重试"
   },
   "search": {
     "results": "搜索结果: \"{{query}}\"",
@@ -98,6 +100,31 @@
       "highlight3Title": "逻辑拆解",
       "highlight3Desc": "提供正则逻辑的详细说明，让你不仅能用，还能看懂背后的机理。",
       "disclaimer": "正则表达式可能存在性能瓶颈（如灾难性回溯），请在用于生产环境前使用代表性的数据进行验证。"
+    },
+    "ai-image-generator": {
+      "name": "AI 万能图像生成",
+      "description": "通过文字描述生成高质量的真实图片或艺术画作，支持多种比例和风格。",
+      "seoTitle": "AI 绘画 | 免费 AI 图像生成器 | ToolOrbit",
+      "seoDesc": "输入文字描述，AI 立刻作画。提供真实感、动漫、赛博朋克等多种绘画风格，并支持横屏竖屏切换，完全免费、快速的 AI 图像生成工具。",
+      "title": "AI 万能图像生成",
+      "subtitle": "只需一段文字描述，AI 会立刻将你的想象具象化",
+      "prompt": "画面描述 (支持中文)",
+      "promptPlaceholder": "例如：一座充满霓虹灯的赛博朋克城市，正在下着大雨，电影级质感...",
+      "ratio": "图片比例",
+      "style": "艺术风格",
+      "generating": "AI 正在绘制您的画作...",
+      "generateBtn": "生成图片",
+      "resultTitle": "生成结果",
+      "waiting": "等待输入画面描述...",
+      "failed": "图片生成失败，可能是包含不支持的词汇，请更换描述重试",
+      "highlightsTitle": "为什么使用 AI 图像生成器？",
+      "highlight1Title": "快速且无需部署",
+      "highlight1Desc": "基于顶尖的大模型底座，只需几秒钟即可出图，无需显卡，无需在本地部署庞大的模型库。",
+      "highlight2Title": "丰富的风格切换",
+      "highlight2Desc": "无论你需要商业级的真实摄影、精美的二次元动漫，还是充满未来感的赛博朋克，全都不在话下。",
+      "highlight3Title": "多比例适应多场景",
+      "highlight3Desc": "提供 1:1、16:9、9:16，轻松应对朋友圈、电脑壁纸、抖音短视频和小红书的配图需求。",
+      "disclaimer": "AI 绘画具有随机性，建议你在描述中尽可能包含主体、背景、环境光和镜头风格，以获得更精确的结果。"
     },
     "ai-svg-generator": {
       "name": "AI SVG 矢量图生成",

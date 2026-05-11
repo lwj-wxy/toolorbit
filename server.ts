@@ -4,6 +4,7 @@ import { createServer as createViteServer } from "vite";
 import path from "path";
 import fs from "fs";
 import OpenAI from "openai";
+import { GoogleGenAI } from "@google/genai";
 
 import axios from "axios";
 
@@ -917,6 +918,67 @@ async function startServer() {
 
       const content = response.choices[0]?.message?.content || "";
       res.json({ content });
+    } catch (error: any) {
+      res.status(500).json({ error: error.message || 'Error' });
+    }
+  });
+
+  app.post("/api/ai-image-generator", async (req, res) => {
+    try {
+      const { prompt, style, ratio } = req.body;
+      const ip = req.ip || (req.headers['x-forwarded-for'] as string) || req.socket.remoteAddress;
+      const now = Date.now();
+      const lastUse = usageMap.get(ip as string);
+
+      if (process.env.NODE_ENV === "production" && lastUse && (now - lastUse < 1000)) {
+        return res.status(429).json({ success: false, error: 'Too many requests' });
+      }
+      usageMap.set(ip as string, now);
+
+      const zhipuApiKey = process.env.ZHIPU_API_KEY;
+      if (!zhipuApiKey) {
+        throw new Error("Missing ZHIPU_API_KEY.");
+      }
+
+      // Default sizes for glm-image: 1280x1280, 1440x960, 960x1440 are supported, but we try common standard sizes
+      let sizeStr = "1280x1280";
+      if (ratio === "16:9") sizeStr = "1344x768"; // typical 16:9 approx
+      if (ratio === "9:16") sizeStr = "768x1344";
+
+      // Append style context if needed, but since glm-image is Chinese, 
+      // let's just append the style requirement directly safely.
+      let finalPrompt = prompt;
+      if (style) {
+        finalPrompt = `${prompt} (艺术风格要求/Art Style: ${style})`;
+      }
+
+      const zhipuResponse = await axios.post(
+        "https://open.bigmodel.cn/api/paas/v4/images/generations",
+        {
+          model: "glm-image",
+          prompt: finalPrompt,
+          size: sizeStr,
+        },
+        {
+          headers: {
+            'Authorization': `Bearer ${zhipuApiKey}`,
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+
+      const fetchUrl = zhipuResponse.data?.data?.[0]?.url;
+      if (!fetchUrl) {
+        throw new Error("Failed to generate image from GLM.");
+      }
+
+      // Fetch the actual image into a buffer to bypass CORS issues on the frontend
+      const imgRes = await axios.get(fetchUrl, { responseType: 'arraybuffer', timeout: 30000 });
+      const base64Image = Buffer.from(imgRes.data, 'binary').toString('base64');
+      const contentType = imgRes.headers['content-type'] || 'image/png';
+      const imageUrl = `data:${contentType};base64,${base64Image}`;
+
+      res.json({ imageUrl, prompt: finalPrompt });
     } catch (error: any) {
       res.status(500).json({ error: error.message || 'Error' });
     }

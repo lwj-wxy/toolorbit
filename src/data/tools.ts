@@ -135,6 +135,16 @@ export const TOOLS: ToolItem[] = [
     isPopular: false,
   },
   {
+    id: 'ai-image-generator',
+    name: 'AI 万能图像生成',
+    description: '通过文字描述生成高质量的真实图片或艺术画作，支持多种比例和风格。',
+    icon: Image,
+    category: 'AI 工具',
+    path: '/tools/ai/image-generator',
+    color: 'amber',
+    isPopular: true,
+  },
+  {
     id: 'ai-svg-generator',
     name: 'AI SVG 矢量图生成',
     description: '通过文字描述直接生成可伸缩、高质量的 SVG 矢量插画或图标代码。',

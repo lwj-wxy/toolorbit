@@ -51,7 +51,9 @@
     "nextPage": "Next",
     "copy": "Copy",
     "copied": "Copied",
-    "download": "Download"
+    "download": "Download",
+    "error": "An error occurred",
+    "errorCatcher": "Service unavailable, please try again later"
   },
   "blog": {
     "nav": "Blog",
@@ -213,6 +215,31 @@
       "highlight3Title": "Built-in Explanations",
       "highlight3Desc": "Every generated RegEx includes a plain-text breakdown of why it works.",
       "disclaimer": "Always test the generated RegEx against your specific production data to prevent edge-case bugs."
+    },
+    "ai-image-generator": {
+      "name": "AI Image Generator",
+      "description": "Generate high-quality photorealistic images or artwork from text descriptions with multiple aspect ratios and styles.",
+      "seoTitle": "AI Image Generator | Text to Image | ToolOrbit",
+      "seoDesc": "Use AI to generate stunning images from text prompts. Support for 16:9, 1:1, 9:16 aspect ratios and various art styles like photorealistic, anime, and cyberpunk.",
+      "title": "Universal AI Image Generator",
+      "subtitle": "Describe what you want to see, and AI will instantly draw it for you.",
+      "prompt": "Description",
+      "promptPlaceholder": "e.g. A futuristic city bathed in neon lights during heavy rain...",
+      "ratio": "Aspect Ratio",
+      "style": "Art Style",
+      "generating": "AI is painting your image...",
+      "generateBtn": "Generate Image",
+      "resultTitle": "Generated Image",
+      "waiting": "Awaiting description...",
+      "failed": "Image generation failed. This might be due to unsupported keywords. Please try a different prompt.",
+      "highlightsTitle": "Why Use AI Image Generator?",
+      "highlight1Title": "Fast & Free",
+      "highlight1Desc": "Generate images within seconds. Powered by state-of-the-art diffusion models.",
+      "highlight2Title": "Multiple Styles",
+      "highlight2Desc": "From photorealistic photography to anime and cyberpunk styles, cover all your visual needs.",
+      "highlight3Title": "No Limits",
+      "highlight3Desc": "Use your imagination to create unlimited visuals for presentations, social media, or personal projects.",
+      "disclaimer": "AI generations are unpredictable. Be specific with your descriptions for the best results."
     },
     "ai-svg-generator": {
       "name": "AI SVG Generator",

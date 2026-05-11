@@ -88,6 +88,7 @@ const MeetingMinutes = lazy(() => import('./pages/tools/ai/MeetingMinutes'));
 const ExcelFormula = lazy(() => import('./pages/tools/ai/ExcelFormula'));
 const RegexGenerator = lazy(() => import('./pages/tools/ai/RegexGenerator'));
 const SvgGenerator = lazy(() => import('./pages/tools/ai/SvgGenerator'));
+const ImageGenerator = lazy(() => import('./pages/tools/ai/ImageGenerator'));
 
 // Calculate & Unit Tools
 const UnitConverter = lazy(() => import('./pages/tools/calculate/UnitConverter'));
@@ -172,6 +173,7 @@ export default function App() {
             <Route path="/tools/ai/excel-formula" element={<ExcelFormula />} />
             <Route path="/tools/ai/regex" element={<RegexGenerator />} />
             <Route path="/tools/ai/svg-generator" element={<SvgGenerator />} />
+            <Route path="/tools/ai/image-generator" element={<ImageGenerator />} />
             <Route path="/tools/ai/xiaohongshu" element={<Xiaohongshu />} />
             <Route path="/tools/dev/timestamp-converter" element={<TimestampConverter />} />
             <Route path="/tools/dev/base-converter" element={<BaseConverter />} />
