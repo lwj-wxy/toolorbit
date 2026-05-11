@@ -182,7 +182,15 @@
       "generating": "Crafting the script...",
       "generateBtn": "Generate Script",
       "resultTitle": "Generated Video Script",
-      "waiting": "Awaiting video topic input..."
+      "waiting": "Awaiting video topic input...",
+      "highlightsTitle": "Why Use Our Video Script Generator?",
+      "highlight1Title": "Platform Optimized",
+      "highlight1Desc": "Tailored pacing and formats for TikTok, YouTube Shorts, and Instagram Reels to maximize retention.",
+      "highlight2Title": "Professional Storyboards",
+      "highlight2Desc": "Includes detailed visual descriptions, action cues, and voiceover scripts for easy filming.",
+      "highlight3Title": "Creative Sparks",
+      "highlight3Desc": "Helps you overcome writer's block with catchy hooks and engaging calls to action.",
+      "disclaimer": "This tool generates creative suggestions; please adapt them to fit your specific audience and brand voice."
     },
     "ai-meeting-minutes": {
       "name": "AI Meeting Minutes",
@@ -200,7 +208,15 @@
       "generating": "Extracting meeting highlights...",
       "generateBtn": "Generate Structured Minutes",
       "resultTitle": "Meeting Minutes",
-      "waiting": "Awaiting meeting notes..."
+      "waiting": "Awaiting meeting notes...",
+      "highlightsTitle": "Why Use AI for Meeting Minutes?",
+      "highlight1Title": "Time Saving",
+      "highlight1Desc": "Instantly condense hours of meeting transcripts into clear, readable summaries.",
+      "highlight2Title": "Action-Oriented",
+      "highlight2Desc": "Automatically identifies and extracts action items with assignees and deadlines.",
+      "highlight3Title": "Flexible Formats",
+      "highlight3Desc": "Choose between detailed points, executive summaries, or pure action lists depending on your needs.",
+      "disclaimer": "Ensure you comply with your organization's privacy policies when processing sensitive meeting transcripts."
     },
     "xml-json": {
       "name": "XML / JSON Converter",
