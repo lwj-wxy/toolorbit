@@ -1,20 +1,21 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Loader2, Download, Hexagon, RotateCcw } from 'lucide-react';
+import { Loader2, Download, Hexagon, RotateCcw, Upload, Image as ImageIcon } from 'lucide-react';
 import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function LogoGenerator() {
   const { t, i18n } = useTranslation();
   
-  const [brandName, setBrandName] = useState('');
-  const [industry, setIndustry] = useState('');
   const [description, setDescription] = useState('');
   const [color, setColor] = useState('');
   const [style, setStyle] = useState('minimalist');
   
   const [resultUrl, setResultUrl] = useState('');
   const [loading, setLoading] = useState(false);
+  const [analyzingImage, setAnalyzingImage] = useState(false);
   const [error, setError] = useState('');
+  
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const styles = [
     { value: 'minimalist', label: 'Minimalist / 极简风' },
@@ -27,8 +28,9 @@ export default function LogoGenerator() {
     { value: 'watercolor', label: 'Watercolor / 水彩风' }
   ];
 
-  const handleGenerate = async () => {
-    if (!description.trim() && !brandName.trim()) return;
+  const handleGenerate = async (overrideDescription?: string, imageBase64?: string) => {
+    const finalDescription = overrideDescription || description;
+    if (!finalDescription.trim()) return;
     
     setLoading(true);
     setError('');
@@ -39,7 +41,7 @@ export default function LogoGenerator() {
     setResultUrl('');
     
     // Construct Prompt
-    const basePrompt = `Design a high-quality logo. ${brandName ? `Brand Name: "${brandName}".` : ''} ${industry ? `Industry: ${industry}.` : ''} ${color ? `Primary colors: ${color}.` : ''} Description: ${description}. The background should be clean (solid white or transparent), and the logo must be clear, professional, and suitable for app icons or website avatars.`;
+    const basePrompt = `Design a high-quality logo. ${color ? `Primary colors: ${color}.` : ''} Description: ${finalDescription}. The background should be clean (solid white or transparent), and the logo must be clear, professional, and suitable for app icons or website avatars.`;
 
     try {
       const response = await fetch('/api/ai-image-generator', {
@@ -49,7 +51,8 @@ export default function LogoGenerator() {
           prompt: basePrompt,
           ratio: '1:1',
           style: style,
-          language: i18n.language
+          language: i18n.language,
+          imageBase64: imageBase64
         })
       });
       
@@ -67,13 +70,60 @@ export default function LogoGenerator() {
     }
   };
 
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (file.size > 5 * 1024 * 1024) {
+      setError(i18n.language.startsWith('zh') ? '图片太大，请上传5MB以内的图片' : 'Image too large. Please upload an image under 5MB.');
+      return;
+    }
+
+    setAnalyzingImage(true);
+    setError('');
+
+    try {
+      const reader = new FileReader();
+      reader.onloadend = async () => {
+        const base64String = reader.result as string;
+        try {
+          const response = await fetch('/api/ai-vision-describe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+              imageBase64: base64String,
+              language: i18n.language
+            })
+          });
+          const data = await response.json();
+          if (!response.ok) {
+            throw new Error(data.error || 'Failed to analyze image.');
+          }
+          const newDesc = data.description;
+          setDescription(newDesc);
+          
+          // Wait a tick to let state settle if needed, or just manually pass newDesc
+          setAnalyzingImage(false);
+          await handleGenerate(newDesc, base64String);
+        } catch (err: any) {
+          setError(err.message || 'Failed to analyze image.');
+          setAnalyzingImage(false);
+        }
+      };
+      reader.readAsDataURL(file);
+    } catch (e: any) {
+      setError(e.message);
+      setAnalyzingImage(false);
+    }
+  };
+
   const downloadImage = async () => {
     if (!resultUrl) return;
     try {
       if (resultUrl.startsWith('data:')) {
         const a = document.createElement('a');
         a.href = resultUrl;
-        a.download = `logo-${brandName || 'ai'}-${Date.now()}.png`;
+        a.download = `logo-ai-${Date.now()}.png`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
@@ -84,7 +134,7 @@ export default function LogoGenerator() {
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `logo-${brandName || 'ai'}-${Date.now()}.png`;
+      a.download = `logo-ai-${Date.now()}.png`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -116,34 +166,6 @@ export default function LogoGenerator() {
             
             {/* Input Section */}
             <div className="space-y-5">
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                     {t('tools.logo-generator.brandName') || 'Brand Name / Text'} 
-                     <span className="text-xs text-slate-400 font-normal ml-1">(Optional)</span>
-                  </label>
-                  <input
-                    type="text"
-                    value={brandName}
-                    onChange={(e) => setBrandName(e.target.value)}
-                    placeholder={t('tools.logo-generator.brandPlaceholder') || 'e.g. Acme Corp'}
-                    className="w-full p-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none text-slate-700 dark:text-slate-300"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                     {t('tools.logo-generator.industry') || 'Industry'}
-                  </label>
-                  <input
-                    type="text"
-                    value={industry}
-                    onChange={(e) => setIndustry(e.target.value)}
-                    placeholder={t('tools.logo-generator.industryPlaceholder') || 'e.g. Technology, Coffee'}
-                    className="w-full p-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none text-slate-700 dark:text-slate-300"
-                  />
-                </div>
-              </div>
-
               <div>
                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                    {t('tools.logo-generator.color') || 'Color Palette'}
@@ -158,14 +180,35 @@ export default function LogoGenerator() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                   {t('tools.logo-generator.description') || 'Core Concept / Symbol'}
-                </label>
+                <div className="flex items-center justify-between mb-2">
+                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
+                     {t('tools.logo-generator.description') || 'Core Concept / Symbol'}
+                  </label>
+                  <button
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={analyzingImage || loading}
+                    className="flex items-center gap-1.5 text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 bg-indigo-50 dark:bg-indigo-900/30 px-2.5 py-1.5 rounded-lg transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                    title={i18n.language.startsWith('zh') ? '上传参考图片，AI自动提取视觉概念' : 'Upload reference image, AI will extract visual concepts'}
+                  >
+                    {analyzingImage ? <Loader2 className="w-3.5 h-3.5 animate-spin"/> : <ImageIcon className="w-3.5 h-3.5" />}
+                    {i18n.language.startsWith('zh') ? '传图识别 (GLM-4V)' : 'Upload Ref Image (GLM-4V)'}
+                  </button>
+                  <input 
+                    type="file" 
+                    ref={fileInputRef} 
+                    className="hidden" 
+                    accept="image/png, image/jpeg, image/webp" 
+                    onChange={handleImageUpload} 
+                  />
+                </div>
                 <textarea
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                  placeholder={t('tools.logo-generator.descPlaceholder') || 'e.g. A cute cat holding a coffee cup'}
-                  className="w-full h-24 p-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none resize-none transition-all placeholder:text-slate-400 dark:text-white"
+                  placeholder={analyzingImage 
+                    ? (i18n.language.startsWith('zh') ? '正在使用 GLM-4V-Flash 分析图片...' : 'Analyzing image with GLM-4V-Flash...')
+                    : (t('tools.logo-generator.descPlaceholder') || 'e.g. A cute cat holding a coffee cup')}
+                  disabled={analyzingImage || loading}
+                  className="w-full h-24 p-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none resize-none transition-all placeholder:text-slate-400 dark:text-white disabled:opacity-70"
                 />
               </div>
 
@@ -185,8 +228,8 @@ export default function LogoGenerator() {
               </div>
 
               <button
-                onClick={handleGenerate}
-                disabled={(!description.trim() && !brandName.trim()) || loading}
+                onClick={() => handleGenerate()}
+                disabled={!description.trim() || loading || analyzingImage}
                 className="w-full py-4 bg-indigo-600 hover:bg-indigo-700 disabled:bg-slate-300 dark:disabled:bg-slate-800 disabled:cursor-not-allowed text-white rounded-xl font-medium transition-all shadow-sm hover:shadow-md flex items-center justify-center gap-2 group"
               >
                 {loading ? (

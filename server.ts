@@ -59,7 +59,8 @@ async function startServer() {
   const PORT = 3000;
 
   app.use(compression());
-  app.use(express.json());
+  app.use(express.json({ limit: '10mb' }));
+  app.use(express.urlencoded({ limit: '10mb', extended: true }));
   app.set('trust proxy', 1);
 
   const usageMap = new Map<string, number>();
@@ -923,10 +924,60 @@ async function startServer() {
     }
   });
 
+  app.post("/api/ai-vision-describe", async (req, res) => {
+    try {
+      const { imageBase64, language } = req.body;
+      const ip = req.ip || (req.headers['x-forwarded-for'] as string) || req.socket.remoteAddress;
+      const now = Date.now();
+      const lastUse = usageMap.get(ip as string);
+
+      if (process.env.NODE_ENV === "production" && lastUse && (now - lastUse < 1000)) {
+        return res.status(429).json({ success: false, error: 'Too many requests' });
+      }
+      usageMap.set(ip as string, now);
+
+      const zhipuApiKey = process.env.ZHIPU_API_KEY;
+      if (!zhipuApiKey) {
+        throw new Error('Zhipu API key is missing.');
+      }
+
+      const prompt = language?.startsWith('zh') 
+        ? "请分析这张图片中的核心主体和构图。提取出它的视觉概念，并将其主体核心轮廓转化为一段基础但具有结构性的SVG代码。最后，请将视觉描述和该SVG代码构造成一段英文提示词（Prompt），要求接下来的AI图像模型严格按照提供的SVG结构和视觉描述来生成一个新的Logo或头像。你只需直接输出这段英文的Prompt，不要输出任何其他的解释说明或回答语气词。" 
+        : "Analyze the core subject and composition of this picture. Extract its visual concepts and convert its main contour into an explicit but basic structural SVG code snippet. Finally, output an English prompt intended for an AI image generation model, instructing it to strictly follow the provided SVG structure and visual description to generate a new logo or avatar. Output ONLY the English prompt text, without any additional explanations.";
+
+      const response = await axios.post(
+        "https://open.bigmodel.cn/api/paas/v4/chat/completions",
+        {
+          model: "glm-4v-flash",
+          messages: [
+            {
+              role: "user",
+              content: [
+                { type: "text", text: prompt },
+                { type: "image_url", image_url: { url: imageBase64 } }
+              ]
+            }
+          ]
+        },
+        {
+          headers: {
+            'Authorization': `Bearer ${zhipuApiKey}`
+          }
+        }
+      );
+
+      const content = response.data.choices[0]?.message?.content || "";
+      res.json({ description: content.trim() });
+    } catch (error: any) {
+      res.status(500).json({ error: error.response?.data?.error?.message || error.message || 'Error' });
+    }
+  });
+
   app.post("/api/ai-image-generator", async (req, res) => {
     try {
-      const { prompt, style, ratio } = req.body;
+      const { prompt, style, ratio, imageBase64, language } = req.body;
       const ip = req.ip || (req.headers['x-forwarded-for'] as string) || req.socket.remoteAddress;
+
       const now = Date.now();
       const lastUse = usageMap.get(ip as string);
 
@@ -940,25 +991,58 @@ async function startServer() {
         throw new Error("Missing ZHIPU_API_KEY.");
       }
 
-      // Default sizes for glm-image: 1280x1280, 1440x960, 960x1440 are supported, but we try common standard sizes
       let sizeStr = "1280x1280";
-      if (ratio === "16:9") sizeStr = "1344x768"; // typical 16:9 approx
-      if (ratio === "9:16") sizeStr = "768x1344";
+      if (ratio === "16:9") sizeStr = "1440x960"; // Supported by glm-image
+      if (ratio === "9:16") sizeStr = "960x1440";
 
-      // Append style context if needed, but since glm-image is Chinese, 
-      // let's just append the style requirement directly safely.
+      // Optimize prompt using DeepSeek LLM
       let finalPrompt = prompt;
-      if (style) {
-        finalPrompt = `${prompt} (艺术风格要求/Art Style: ${style})`;
+      try {
+        const sysMsg = language?.startsWith('zh') 
+          ? "你是一个专业的AI图像提示词生成大师。你的任务是将用户的描述扩写并优化成适合通过AI图像生成模型（如CogView）生成高质量Logo或头像的英文提示词（Prompt）。提示词应该包含主体详细描述、构图、光影、材质、艺术风格和背景等。注意：如果用户输入中包含了SVG代码片段，你必须原封不动地保留所有SVG代码在你的输出末尾，它是指导生图模型构成形状的关键。不要输出任何解释说明，直接输出纯英文文本。"
+          : "You are a professional AI image prompt master. Your task is to expand and optimize the user's description into a high-quality English prompt suitable for AI image generation models (like CogView) to generate logos or avatars. Include detailed subject description, composition, lighting, material, art style, background, etc. VERY IMPORTANT: If the user input contains any SVG code snippet, you MUST preserve the entire SVG code exactly as is at the end of your output, as it guides the model's structural generation. Output ONLY the English prompt text + SVG, no explanations.";
+        
+        let userReq = finalPrompt;
+        if (style) {
+          userReq += `\nRequired Style: ${style}`;
+        }
+        
+        const llmRes = await deepseek.chat.completions.create({
+          model: "deepseek-chat",
+          messages: [
+            { role: "system", content: sysMsg },
+            { role: "user", content: userReq }
+          ],
+          temperature: 0.7,
+          max_tokens: 1500,
+        });
+        
+        const optPrompt = llmRes.choices[0]?.message?.content?.trim();
+        if (optPrompt) {
+          finalPrompt = optPrompt;
+        }
+      } catch (err: any) {
+        console.warn('Failed to optimize prompt with LLM, using original prompt instead:', err.message);
+        if (style) {
+          finalPrompt = `${prompt} (艺术风格要求/Art Style: ${style})`;
+        }
+      }
+
+      const payload: any = {
+        model: "glm-image",
+        prompt: finalPrompt,
+        size: sizeStr,
+      };
+
+      if (imageBase64) {
+        // Strip out the data URL prefix if it exists to properly send base64
+        const base64Data = imageBase64.replace(/^data:image\/(png|jpeg|webp|jpg);base64,/, '');
+        payload.image_base64 = base64Data;
       }
 
       const zhipuResponse = await axios.post(
         "https://open.bigmodel.cn/api/paas/v4/images/generations",
-        {
-          model: "glm-image",
-          prompt: finalPrompt,
-          size: sizeStr,
-        },
+        payload,
         {
           headers: {
             'Authorization': `Bearer ${zhipuApiKey}`,
