@@ -1,8 +1,4 @@
-'use client';
-
-import dynamic from 'next/dynamic';
-
-const ClientApp = dynamic(() => import('../../next/ClientApp'), { ssr: false });
+import ClientApp from '../../next/ClientApp';
 
 export default function Page() {
   return <ClientApp />;
