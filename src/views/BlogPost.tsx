@@ -7,10 +7,14 @@ import SEO from '../components/SEO';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
-const BlogPost: React.FC = () => {
+interface BlogPostProps {
+  initialMarkdown?: string;
+}
+
+const BlogPost: React.FC<BlogPostProps> = ({ initialMarkdown = '' }) => {
   const { slug } = useParams<{ slug: string }>();
   const { t, i18n } = useTranslation();
-  const [markdown, setMarkdown] = useState<string>('');
+  const [markdown, setMarkdown] = useState<string>(initialMarkdown);
   
   const post = BLOG_POSTS.find(p => p.slug === slug);
 
