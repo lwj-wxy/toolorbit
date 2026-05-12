@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { Sparkles, FileText, Send, Copy, Loader2, Tag, BookOpen } from 'lucide-react';
 import toast from 'react-hot-toast';
@@ -110,11 +109,6 @@ export default function Xiaohongshu() {
 
   return (
     <>
-      <Helmet>
-        <title>{t('tools.ai-xiaohongshu.seoTitle', '小红书文案生存器 | AI 种草文案 | ToolOrbit')}</title>
-        <meta name="description" content={t('tools.ai-xiaohongshu.seoDesc', '利用 AI 自动生成自带网感、包含 Emoji 和话题标签的小红书爆款文案。支持种草测评、干货教程等多种热门风格。')} />
-      </Helmet>
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
         <div className="mb-8">
           <div className="inline-flex items-center justify-center p-2 bg-gradient-to-br from-red-100 to-rose-100 dark:from-red-900/30 dark:to-rose-900/30 rounded-xl mb-4">

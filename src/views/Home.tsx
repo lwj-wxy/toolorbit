@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useClientSearchParams } from '../next/navigation';
 import { useTranslation } from 'react-i18next';
 import { TOOLS, Category, ToolItem } from '../data/tools';
 import { Star, Clock, ChevronRight, Sparkles } from 'lucide-react';
@@ -176,7 +176,7 @@ const ToolCard = ({ tool, isPinned, togglePin, index }: { tool: ToolItem, isPinn
 
 export default function Home() {
   const { t } = useTranslation();
-  const [searchParams] = useSearchParams();
+  const [searchParams] = useClientSearchParams();
   const { recentTools } = useRecentTools();
   const categoryFilter = searchParams.get('category') as Category | null;
   const searchQuery = searchParams.get('search')?.toLowerCase() || '';

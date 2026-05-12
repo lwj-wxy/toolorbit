@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { FileDown, RefreshCw, Copy, Trash2, ArrowRightLeft } from 'lucide-react';
 import toast from 'react-hot-toast';
@@ -66,11 +65,6 @@ export default function XmlToJson() {
 
   return (
     <>
-      <Helmet>
-        <title>{t('tools.xml-json.seoTitle', 'XML/JSON 在线互转工具 | 高效无损转换格式 | ToolOrbit')}</title>
-        <meta name="description" content={t('tools.xml-json.seoDesc', '快速在 XML 和 JSON 格式之间进行双向无损互转，支持代码高亮与错误捕捉，前端数据联调与配置解析必备利器。')} />
-      </Helmet>
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">

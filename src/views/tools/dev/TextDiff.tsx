@@ -1,5 +1,4 @@
 import React, { useState, useMemo } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { diffWordsWithSpace, diffLines, Change } from 'diff';
 import { FileText, ArrowRightLeft, AlignLeft, RefreshCw, XCircle } from 'lucide-react';
@@ -29,11 +28,6 @@ export default function TextDiff() {
 
   return (
     <>
-      <Helmet>
-        <title>{t('tools.text-diff.seoTitle', '文本对比 Diff 工具 | ToolOrbit')}</title>
-        <meta name="description" content={t('tools.text-diff.seoDesc', '在线纯前端文本对比工具，支持逐行和逐词比对代码或文案差异，精准高亮改动，本地处理绝对安全。')} />
-      </Helmet>
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">

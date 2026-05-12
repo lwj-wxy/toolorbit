@@ -60,8 +60,7 @@ npm run build
 ```
 
 ## 🛡️ 技术栈概览
-- **核心框架**: [React 18](https://reactjs.org/) (Hooks & 纯函数式渲染)
-- **极速构建**: [Vite](https://vitejs.dev/)
+- **核心框架**: [Next.js](https://nextjs.org/) + [React 19](https://react.dev/) (App Router & SSR/SSG)
 - **类型系统**: TypeScript 静态检查增强
 - **视觉底层**: [Tailwind CSS](https://tailwindcss.com/) (实用至上，拒绝臃肿层叠)
 - **图形徽章**: [Lucide React](https://lucide.dev/)

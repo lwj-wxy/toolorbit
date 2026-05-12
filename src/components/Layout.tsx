@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useCurrentLocation } from '../next/navigation';
 import { Search, Menu, X, ChevronDown, ChevronRight, Home, Sun, Moon, Sparkles } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../context/ThemeContext';
@@ -19,7 +19,7 @@ export default function Layout({ children }: LayoutProps) {
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [isWideDesktop, setIsWideDesktop] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
-  const location = useLocation();
+  const location = useCurrentLocation();
 
   useEffect(() => {
     const updateViewport = () => setIsWideDesktop(window.innerWidth > 1280);
@@ -241,7 +241,7 @@ export default function Layout({ children }: LayoutProps) {
                 placeholder={isSearchFocused || isWideDesktop ? t('common.searchPlaceholder') : ""}
                 type="search"
                 name="search"
-                defaultValue={new URLSearchParams(useLocation().search).get('search') || ''}
+                defaultValue={new URLSearchParams(location.search).get('search') || ''}
               />
               {!isSearchFocused && (
                 <div className="absolute right-3 top-1/2 -translate-y-1/2 hidden xl:flex items-center pointer-events-none">
@@ -304,7 +304,7 @@ export default function Layout({ children }: LayoutProps) {
                   placeholder={t('common.searchPlaceholder')}
                   type="search"
                   name="search"
-                  defaultValue={new URLSearchParams(useLocation().search).get('search') || ''}
+                  defaultValue={new URLSearchParams(location.search).get('search') || ''}
                 />
               </form>
 

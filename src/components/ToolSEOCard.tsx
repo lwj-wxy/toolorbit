@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation } from 'react-router-dom';
+import { useCurrentLocation } from '../next/navigation';
 import SEO from './SEO';
 
 interface ToolSEOCardProps {
@@ -9,7 +9,7 @@ interface ToolSEOCardProps {
 
 const ToolSEOCard: React.FC<ToolSEOCardProps> = ({ toolKey }) => {
   const { t } = useTranslation();
-  const location = useLocation();
+  const location = useCurrentLocation();
 
   const title = t(`tools.${toolKey}.seoTitle`);
   const description = t(`tools.${toolKey}.seoDesc`);

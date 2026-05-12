@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useCurrentLocation } from '../next/navigation';
 import { ChevronRight, Home } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
@@ -9,7 +9,7 @@ interface BreadcrumbsProps {
 
 const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items }) => {
   const { t } = useTranslation();
-  const location = useLocation();
+  const location = useCurrentLocation();
 
   // If no items provided, try to generate from path
   const pathItems = items || location.pathname.split('/').filter(Boolean).map((part, index, array) => {

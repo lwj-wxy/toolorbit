@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { Upload, FileCode2, Copy, Trash2, CheckCircle2, Image as ImageIcon, ArrowRightLeft } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '../../../next/navigation';
 import { useTranslation } from 'react-i18next';
 
 export default function ImageToBase64() {
@@ -220,7 +220,7 @@ export default function ImageToBase64() {
         {/* Related Link matching user screenshot */}
         <div className="mt-8 bg-amber-50 rounded-xl p-4 text-center border border-amber-100 flex items-center justify-center gap-2">
           <span className="text-amber-800 text-sm">{t('tools.image-to-base64.relatedRecommend')}</span>
-          <Link to="/tools/base64" className="text-amber-600 hover:text-amber-700 font-bold underline flex items-center gap-1 text-sm">
+          <Link to="/tools/dev/base64" className="text-amber-600 hover:text-amber-700 font-bold underline flex items-center gap-1 text-sm">
             {t('tools.image-to-base64.relatedLink')} <ArrowRightLeft className="w-3.5 h-3.5" />
           </Link>
         </div>

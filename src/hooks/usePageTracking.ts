@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useCurrentLocation } from '../next/navigation';
 import { analytics } from '../services/analytics';
 
 export const usePageTracking = () => {
-  const location = useLocation();
+  const location = useCurrentLocation();
 
   useEffect(() => {
     // Track page view on route change

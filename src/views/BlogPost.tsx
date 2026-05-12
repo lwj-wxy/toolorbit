@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { Link } from '../next/navigation';
 import { useTranslation } from 'react-i18next';
 import { Calendar, Clock, Tag, FileText } from 'lucide-react';
 import { BLOG_POSTS } from '../constants/blogData';
@@ -8,11 +8,11 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
 interface BlogPostProps {
+  slug: string;
   initialMarkdown?: string;
 }
 
-const BlogPost: React.FC<BlogPostProps> = ({ initialMarkdown = '' }) => {
-  const { slug } = useParams<{ slug: string }>();
+const BlogPost: React.FC<BlogPostProps> = ({ slug, initialMarkdown = '' }) => {
   const { t, i18n } = useTranslation();
   const [markdown, setMarkdown] = useState<string>(initialMarkdown);
   

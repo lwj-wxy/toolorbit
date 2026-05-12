@@ -1,8 +1,7 @@
 const fs = require('fs');
-const path = require('path');
 
-const appTsx = fs.readFileSync('src/App.tsx', 'utf8');
-const routes = [...appTsx.matchAll(/<Route path="(\/tools\/.*?)"/g)].map(m => m[1]);
+const toolsData = fs.readFileSync('src/data/tools.ts', 'utf8');
+const routes = [...toolsData.matchAll(/path:\s*['"](\/tools\/[^'"]+)['"]/g)].map(m => m[1]);
 const blogJson = JSON.parse(fs.readFileSync('src/locales/zh.json', 'utf8'));
 const blogPaths = Object.keys(blogJson.blog.posts).map(slug => '/blog/' + slug);
 

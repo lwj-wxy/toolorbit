@@ -3,10 +3,16 @@
 import BlogPost from '../../views/BlogPost';
 import SiteShell from '../SiteShell';
 
-export default function BlogPostRoute({ initialMarkdown }: { initialMarkdown?: string }) {
+export default function BlogPostRoute({
+  slug,
+  initialMarkdown,
+}: {
+  slug: string;
+  initialMarkdown?: string;
+}) {
   return (
     <SiteShell>
-      <BlogPost initialMarkdown={initialMarkdown} />
+      <BlogPost slug={slug} initialMarkdown={initialMarkdown} />
     </SiteShell>
   );
 }

@@ -16,9 +16,6 @@
     "allowJs": true,
     "jsx": "react-jsx",
     "paths": {
-      "react-router-dom": [
-        "./src/lib/router-compat.tsx"
-      ],
       "@/*": [
         "./*"
       ]

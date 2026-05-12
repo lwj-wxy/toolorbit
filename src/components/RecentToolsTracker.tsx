@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useCurrentLocation } from '../next/navigation';
 import { useRecentTools } from '../hooks/useRecentTools';
 import { TOOLS } from '../data/tools';
 
 export default function RecentToolsTracker() {
-  const { pathname } = useLocation();
+  const { pathname } = useCurrentLocation();
   const { addRecentTool } = useRecentTools();
 
   useEffect(() => {

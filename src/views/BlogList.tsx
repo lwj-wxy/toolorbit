@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link } from '../next/navigation';
 import { Calendar, ChevronRight, ChevronLeft } from 'lucide-react';
 import { BLOG_POSTS, BlogPost } from '../constants/blogData';
 
