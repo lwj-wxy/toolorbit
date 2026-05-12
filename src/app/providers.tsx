@@ -2,7 +2,6 @@
 
 import '../i18n';
 import { Toaster } from 'react-hot-toast';
-import Layout from '../components/Layout';
 import RecentToolsTracker from '../components/RecentToolsTracker';
 import ScrollToTop from '../components/ScrollToTop';
 import { ThemeProvider } from '../context/ThemeContext';
@@ -13,14 +12,14 @@ function AnalyticsTracker() {
   return null;
 }
 
-export default function SiteShell({ children }: { children: React.ReactNode }) {
+export default function Providers({ children }: { children: React.ReactNode }) {
   return (
     <ThemeProvider>
       <ScrollToTop />
       <RecentToolsTracker />
       <Toaster position="top-right" toastOptions={{ className: 'text-sm font-medium' }} />
       <AnalyticsTracker />
-      <Layout>{children}</Layout>
+      {children}
     </ThemeProvider>
   );
 }

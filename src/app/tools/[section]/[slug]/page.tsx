@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { TOOLS } from '../../../../data/tools';
 import { toolMetadata } from '../../../../lib/metadata';
-import ToolRoute from '../../../../next/routes/ToolRoute';
+import ToolPageClient from '../../../../components/ToolPageClient';
 
 export function generateStaticParams() {
   return TOOLS.map((tool) => {
@@ -24,5 +24,5 @@ export default async function Page({ params }: { params: Promise<{ section: stri
     notFound();
   }
 
-  return <ToolRoute path={path} />;
+  return <ToolPageClient path={path} />;
 }

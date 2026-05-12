@@ -1,7 +1,5 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useCurrentLocation } from '../next/navigation';
-import SEO from './SEO';
 
 interface ToolSEOCardProps {
   toolKey: string;
@@ -9,7 +7,6 @@ interface ToolSEOCardProps {
 
 const ToolSEOCard: React.FC<ToolSEOCardProps> = ({ toolKey }) => {
   const { t } = useTranslation();
-  const location = useCurrentLocation();
 
   const title = t(`tools.${toolKey}.seoTitle`);
   const description = t(`tools.${toolKey}.seoDesc`);
@@ -17,57 +14,7 @@ const ToolSEOCard: React.FC<ToolSEOCardProps> = ({ toolKey }) => {
   // Check if at least the title exists to avoid rendering empty cards
   if (!title || title === `tools.${toolKey}.seoTitle`) return null;
 
-  const toolName = t(`tools.${toolKey}.name`);
-  const pathParts = location.pathname.split('/').filter(Boolean);
-  
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": "https://toolorbit.site"
-      },
-      ...pathParts.map((part, index) => {
-        const url = `https://toolorbit.site/${pathParts.slice(0, index + 1).join('/')}`;
-        let name = part;
-        if (part === 'tools') name = 'Tools';
-        if (index === pathParts.length - 1) name = toolName;
-        
-        return {
-          "@type": "ListItem",
-          "position": index + 2,
-          "name": name,
-          "item": url
-        };
-      })
-    ]
-  };
-
-  const toolSchema = {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": toolName,
-    "url": `https://toolorbit.site${location.pathname}`,
-    "softwareCategory": "UtilitiesApplication",
-    "operatingSystem": "Web",
-    "applicationCategory": "DeveloperApplication",
-    "description": description,
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.9",
-      "ratingCount": "120"
-    },
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    }
-  };
-
-  // Dynamically build FAQ Schema if FAQs exist
+  // Dynamically build FAQ content if FAQs exist
   const faqList = [1, 2, 3].map(i => {
     const question = t(`tools.${toolKey}.faq${i}Q`);
     const answer = t(`tools.${toolKey}.faq${i}A`);
@@ -85,26 +32,8 @@ const ToolSEOCard: React.FC<ToolSEOCardProps> = ({ toolKey }) => {
     return null;
   }).filter(Boolean);
 
-  const faqSchema = faqList.length > 0 ? {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": faqList.map(item => ({
-      "@type": "Question",
-      "name": item?.question,
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": item?.answer
-      }
-    }))
-  } : null;
-
   return (
     <>
-      <SEO 
-        title={title}
-        description={description}
-        schema={faqSchema ? [toolSchema, faqSchema, breadcrumbSchema] : [toolSchema, breadcrumbSchema]}
-      />
       <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-800 p-8 lg:p-12 mt-8 transition-colors duration-300">
         <section className="mb-10">
           <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-6">{title}</h2>

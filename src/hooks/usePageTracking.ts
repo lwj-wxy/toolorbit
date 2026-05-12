@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useCurrentLocation } from '../next/navigation';
+import { useCurrentLocation } from '../lib/navigation';
 import { analytics } from '../services/analytics';
 
 export const usePageTracking = () => {

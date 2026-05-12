@@ -1,12 +1,12 @@
+'use client';
+
 import { useState, useEffect } from 'react';
-import { Link, useClientSearchParams } from '../next/navigation';
+import { Link, useClientSearchParams } from '../lib/navigation';
 import { useTranslation } from 'react-i18next';
 import { TOOLS, Category, ToolItem } from '../data/tools';
 import { Star, Clock, ChevronRight, Sparkles } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 import { useRecentTools } from '../hooks/useRecentTools';
-import SEO from '../components/SEO';
-import { useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 
 const getCategoryStyles = (category: Category) => {
@@ -181,21 +181,6 @@ export default function Home() {
   const categoryFilter = searchParams.get('category') as Category | null;
   const searchQuery = searchParams.get('search')?.toLowerCase() || '';
 
-  const siteDescription = t('common.description') || 'ToolOrbit - A collection of powerful online tools for developers and creators. Helper tools for JSON, Base64, Image, PDF and more.';
-
-  const mainSchema = useMemo(() => ({
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "ToolOrbit",
-    "url": "https://toolorbit.site",
-    "description": siteDescription,
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://toolorbit.site/?search={search_term_string}",
-      "query-input": "required name=search_term_string"
-    }
-  }), [siteDescription]);
-
   const [filteredTools, setFilteredTools] = useState(TOOLS);
   const [pinnedTools, setPinnedTools] = useState<string[]>(() => {
     if (typeof window === 'undefined') return [];
@@ -244,10 +229,6 @@ export default function Home() {
   if (categoryFilter || searchQuery) {
      return (
         <div className="flex flex-col">
-          <SEO 
-            title={categoryFilter ? t(`common.categories.${categoryFilter}`) : t('search.results', { query: searchQuery })}
-            description={siteDescription}
-          />
           <div className="flex items-baseline justify-between mb-8">
             <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-100 tracking-tight transition-colors">
               {categoryFilter ? t(`common.categories.${categoryFilter}`) : t('search.results', { query: searchQuery })}
@@ -296,11 +277,6 @@ export default function Home() {
 
   return (
     <div className="flex flex-col gap-16 pb-16">
-      <SEO 
-        description={siteDescription}
-        schema={mainSchema}
-      />
-      
       {/* Dynamic Hero Section */}
       {!categoryFilter && !searchQuery && (
         <section className="relative pt-8 pb-12 overflow-hidden rounded-[40px] bg-slate-900 border border-slate-800 shadow-2xl">

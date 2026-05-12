@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useCurrentLocation } from '../next/navigation';
+import { useCurrentLocation } from '../lib/navigation';
 
 export default function ScrollToTop() {
   const { pathname } = useCurrentLocation();

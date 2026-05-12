@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import path from 'path';
 import { BLOG_POSTS } from '../../../constants/blogData';
 import { blogPostMetadata } from '../../../lib/metadata';
-import BlogPostRoute from '../../../next/routes/BlogPostRoute';
+import BlogPost from '../../../views/BlogPost';
 
 export function generateStaticParams() {
   return BLOG_POSTS.map((post) => ({ slug: post.slug }));
@@ -35,5 +35,5 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 
   const initialMarkdown = await readInitialMarkdown(slug);
 
-  return <BlogPostRoute slug={slug} initialMarkdown={initialMarkdown} />;
+  return <BlogPost slug={slug} initialMarkdown={initialMarkdown} />;
 }

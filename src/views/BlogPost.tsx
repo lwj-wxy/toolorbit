@@ -1,9 +1,10 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
-import { Link } from '../next/navigation';
+import { Link } from '../lib/navigation';
 import { useTranslation } from 'react-i18next';
 import { Calendar, Clock, Tag, FileText } from 'lucide-react';
 import { BLOG_POSTS } from '../constants/blogData';
-import SEO from '../components/SEO';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
@@ -67,42 +68,11 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, initialMarkdown = '' }) => {
   const title = t(`blog.posts.${post.slug}.title`);
   const summary = t(`blog.posts.${post.slug}.summary`);
 
-  const blogSchema = {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "headline": title,
-    "description": summary,
-    "image": post.image,
-    "datePublished": post.date,
-    "author": {
-      "@type": "Organization",
-      "name": "ToolOrbit"
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "ToolOrbit",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://toolorbit.site/logo.png"
-      }
-    },
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": `https://toolorbit.site/blog/${post.slug}`
-    }
-  };
-
   // Estimate reading time based on markdown length
   const readingTime = Math.max(3, Math.ceil(markdown.length / 800));
 
   return (
     <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <SEO 
-        title={title}
-        description={summary}
-        type="article"
-        schema={blogSchema}
-      />
       <nav className="flex items-center space-x-2 text-sm text-slate-500 mb-8 font-medium whitespace-nowrap overflow-x-auto pb-2">
         <Link to="/" className="hover:text-emerald-600 transition-colors flex items-center gap-1.5 flex-shrink-0">
           {t('common.nav_home') || 'Home'}

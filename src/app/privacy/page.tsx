@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 import { staticPageMetadata } from '../../lib/metadata';
-import StaticPageRoute from '../../next/routes/StaticPageRoute';
+import Privacy from '../../views/Privacy';
 
 export const metadata: Metadata = staticPageMetadata('privacy');
 
 export default function Page() {
-  return <StaticPageRoute page="privacy" />;
+  return <Privacy />;
 }

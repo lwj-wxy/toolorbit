@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { Upload, FileCode2, Copy, Trash2, CheckCircle2, Image as ImageIcon, ArrowRightLeft } from 'lucide-react';
-import { Link } from '../../../next/navigation';
+import { Link } from '../../../lib/navigation';
 import { useTranslation } from 'react-i18next';
 
 export default function ImageToBase64() {

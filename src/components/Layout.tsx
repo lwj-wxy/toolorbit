@@ -1,5 +1,7 @@
+'use client';
+
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useCurrentLocation } from '../next/navigation';
+import { Link, useCurrentLocation } from '../lib/navigation';
 import { Search, Menu, X, ChevronDown, ChevronRight, Home, Sun, Moon, Sparkles } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../context/ThemeContext';

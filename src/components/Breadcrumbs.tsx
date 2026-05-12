@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useCurrentLocation } from '../next/navigation';
+import { Link, useCurrentLocation } from '../lib/navigation';
 import { ChevronRight, Home } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
