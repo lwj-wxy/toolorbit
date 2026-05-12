@@ -12,11 +12,12 @@ function readPath(source: any, path: string): string | undefined {
 }
 
 export function pageMetadata(title?: string, description?: string, path = '/'): Metadata {
-  const fullTitle = title ? `${title} | ${SITE_NAME}` : SITE_NAME;
   const url = `${SITE_URL}${path}`;
+  const metadataTitle = title || SITE_NAME;
+  const socialTitle = title ? `${title} | ${SITE_NAME}` : SITE_NAME;
 
   return {
-    title: fullTitle,
+    title: metadataTitle,
     description,
     alternates: {
       canonical: url,
@@ -27,7 +28,7 @@ export function pageMetadata(title?: string, description?: string, path = '/'): 
       },
     },
     openGraph: {
-      title: fullTitle,
+      title: socialTitle,
       description,
       url,
       siteName: SITE_NAME,
@@ -36,7 +37,7 @@ export function pageMetadata(title?: string, description?: string, path = '/'): 
     },
     twitter: {
       card: 'summary_large_image',
-      title: fullTitle,
+      title: socialTitle,
       description,
       images: ['/og-image.png'],
     },
