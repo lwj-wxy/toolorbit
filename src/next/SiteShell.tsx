@@ -1,7 +1,6 @@
 'use client';
 
 import '../i18n';
-import { Suspense } from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import { Toaster } from 'react-hot-toast';
 import Layout from '../components/Layout';
@@ -15,7 +14,7 @@ function AnalyticsTracker() {
   return null;
 }
 
-function SiteShellContent({ children }: { children: React.ReactNode }) {
+export default function SiteShell({ children }: { children: React.ReactNode }) {
   return (
     <ThemeProvider>
       <HelmetProvider>
@@ -26,13 +25,5 @@ function SiteShellContent({ children }: { children: React.ReactNode }) {
         <Layout>{children}</Layout>
       </HelmetProvider>
     </ThemeProvider>
-  );
-}
-
-export default function SiteShell({ children }: { children: React.ReactNode }) {
-  return (
-    <Suspense fallback={null}>
-      <SiteShellContent>{children}</SiteShellContent>
-    </Suspense>
   );
 }

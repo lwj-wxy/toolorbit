@@ -1,8 +1,8 @@
 'use client';
 
-import React, { Children, isValidElement, useEffect } from 'react';
+import React, { Children, isValidElement, useEffect, useMemo, useState } from 'react';
 import NextLink from 'next/link';
-import { useParams as useNextParams, usePathname, useRouter, useSearchParams as useNextSearchParams } from 'next/navigation';
+import { useParams as useNextParams, usePathname, useRouter } from 'next/navigation';
 
 type LinkProps = Omit<React.ComponentProps<typeof NextLink>, 'href'> & {
   to?: string;
@@ -19,12 +19,15 @@ export function BrowserRouter({ children }: { children: React.ReactNode }) {
 
 export function useLocation() {
   const pathname = usePathname() || '/';
-  const searchParams = useNextSearchParams();
-  const search = searchParams?.toString();
+  const [search, setSearch] = useState('');
+
+  useEffect(() => {
+    setSearch(window.location.search);
+  }, [pathname]);
 
   return {
     pathname,
-    search: search ? `?${search}` : '',
+    search,
     hash: '',
     state: null,
     key: pathname,
@@ -34,8 +37,13 @@ export function useLocation() {
 export function useSearchParams(): [URLSearchParams, (next: URLSearchParams | Record<string, string> | string) => void] {
   const router = useRouter();
   const pathname = usePathname() || '/';
-  const nextSearchParams = useNextSearchParams();
-  const params = new URLSearchParams(nextSearchParams?.toString());
+  const [search, setSearch] = useState('');
+
+  useEffect(() => {
+    setSearch(window.location.search);
+  }, [pathname]);
+
+  const params = useMemo(() => new URLSearchParams(search), [search]);
 
   const setSearchParams = (next: URLSearchParams | Record<string, string> | string) => {
     const value = typeof next === 'string'
@@ -44,6 +52,7 @@ export function useSearchParams(): [URLSearchParams, (next: URLSearchParams | Re
         ? next.toString()
         : new URLSearchParams(next).toString();
 
+    setSearch(value ? `?${value}` : '');
     router.push(value ? `${pathname}?${value}` : pathname);
   };
 

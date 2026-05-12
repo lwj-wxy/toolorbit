@@ -46,7 +46,7 @@ class AnalyticsService {
       console.log(`📊 [Analytics] [Session: ${this.sessionId}] Page View: ${path}`);
     }
 
-    if (typeof window.gtag === 'function') {
+    if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
       window.gtag('config', this.gaId, {
         page_path: path,
         session_id: this.sessionId
@@ -66,7 +66,7 @@ class AnalyticsService {
       });
     }
 
-    if (typeof window.gtag === 'function') {
+    if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
       window.gtag('event', action, {
         event_category: category,
         event_label: label,
@@ -85,7 +85,7 @@ class AnalyticsService {
       console.log('📊 [Analytics] Set User Properties:', properties);
     }
 
-    if (typeof window.gtag === 'function') {
+    if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
       window.gtag('set', 'user_properties', {
         ...properties,
         session_id: this.sessionId
