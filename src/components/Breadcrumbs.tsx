@@ -31,6 +31,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items }) => {
       let lookupPart = part;
       if (part === 'xiaohongshu') lookupPart = 'ai-xiaohongshu';
       else if (part === 'xml-to-json') lookupPart = 'xml-json';
+      else if (part === 'youtube-generator') lookupPart = 'ai-youtube-generator';
       const toolName = t(`tools.${lookupPart}.name`);
       if (toolName && toolName !== `tools.${lookupPart}.name`) {
         label = toolName;

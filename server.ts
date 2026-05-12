@@ -13,7 +13,7 @@ import zhLocale from "./src/locales/zh.json";
 // @ts-ignore
 import enLocale from "./src/locales/en.json";
 
-function injectSEO(html: string, title: string, description: string, url: string, jsonLd: string = "", isZh: boolean = false): string {
+function injectSEO(html: string, title: string, description: string, url: string, jsonLd: string = "", isZh: boolean = false, seoLinksHtml: string = ""): string {
   let injected = html;
   
   // Set html lang
@@ -21,6 +21,10 @@ function injectSEO(html: string, title: string, description: string, url: string
     injected = injected.replace(/<html[^>]*>/, '<html lang="zh-CN">');
   } else {
     injected = injected.replace(/<html[^>]*>/, '<html lang="en">');
+  }
+
+  if (seoLinksHtml) {
+    injected = injected.replace('</body>', `<div id="seo-links-container" style="display:none;" aria-hidden="true">${seoLinksHtml}</div>\n</body>`);
   }
 
   if (title) {
@@ -57,6 +61,18 @@ const deepseek = new OpenAI({
 async function startServer() {
   const app = express();
   const PORT = 3000;
+
+  let seoLinksHtml = "";
+  try {
+    const sitemapPath = path.join(process.cwd(), 'public', 'sitemap.xml');
+    if (fs.existsSync(sitemapPath)) {
+      const sitemapData = fs.readFileSync(sitemapPath, 'utf-8');
+      const urls = [...sitemapData.matchAll(/<loc>(.*?)<\/loc>/g)].map(m => m[1]);
+      seoLinksHtml = `<ul>${urls.map(u => `<li><a href="${u}">${u}</a></li>`).join('')}</ul>`;
+    }
+  } catch (err) {
+    console.warn("Failed to load sitemap for SEO injection.");
+  }
 
   app.use(compression());
   app.use(express.json({ limit: '10mb' }));
@@ -719,6 +735,65 @@ async function startServer() {
     }
   });
 
+  app.post("/api/youtube-generator", async (req, res) => {
+    try {
+      const { topic, tone, targetAudience, language } = req.body;
+      const ip = req.ip || (req.headers['x-forwarded-for'] as string) || req.socket.remoteAddress;
+      const now = Date.now();
+      const lastUse = usageMap.get(ip as string);
+
+      if (process.env.NODE_ENV === "production" && lastUse && (now - lastUse < 1000)) {
+        return res.status(429).json({ success: false, error: 'Too many requests' });
+      }
+      res.setHeader('Content-Type', 'text/event-stream');
+      res.setHeader('Cache-Control', 'no-cache');
+      res.setHeader('Connection', 'keep-alive');
+      usageMap.set(ip as string, now);
+
+      const targetLang = language?.startsWith('zh') ? 'Simplified Chinese' : 'English';
+      
+      const systemPrompt = `You are an expert YouTube SEO specialist and viral content creator.
+      Your task is to generate high-converting YouTube video metadata based on the user's topic.
+      
+      Output exactly this format, using markdown:
+
+      [TITLE]
+      (Provide 5 catchy, high-CTR video title options. Make them irresistible but not clickbait. Consider the target audience: ${targetAudience || 'General'} and tone: ${tone || 'Engaging'})
+
+      [DESCRIPTION]
+      (Write a full SEO-optimized video description. Include: A strong hook in the first 2 lines, a summary of the video, timestamps template, and placeholders for social links.)
+
+      [TAGS]
+      (Provide 20-30 highly relevant, comma-separated YouTube tags starting from broad to specific long-tail keywords.)
+
+      [THUMBNAIL_IDEAS]
+      (Provide 3 creative concepts for the video thumbnail that complement the titles.)
+
+      Output the entire response in ${targetLang}. DO NOT deviate from the section tags [TITLE], [DESCRIPTION], [TAGS], [THUMBNAIL_IDEAS].`;
+
+      const userContent = `Video Topic / Details:\n${topic}`;
+
+      const stream = await deepseek.chat.completions.create({
+        model: "deepseek-chat",
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: userContent }
+        ],
+        stream: true,
+      });
+
+      for await (const chunk of stream) {
+        const chunkText = chunk.choices[0]?.delta?.content || "";
+        if (chunkText) res.write(`data: ${JSON.stringify({ content: chunkText })}\n\n`);
+      }
+      res.write(`data: [DONE]\n\n`);
+      res.end();
+    } catch (error: any) {
+      if (!res.headersSent) res.status(500).json({ error: error.message || 'Error' });
+      else { res.write(`data: {"error": "${error.message || 'Error'}"}\n\n`); res.end(); }
+    }
+  });
+
   app.post("/api/ai-meeting-minutes", async (req, res) => {
     try {
       const { rawInput, formatType, language } = req.body;
@@ -1255,7 +1330,7 @@ async function startServer() {
         }
       }
 
-      html = injectSEO(html, title, desc, url, jsonLd, isZh);
+      html = injectSEO(html, title, desc, url, jsonLd, isZh, seoLinksHtml);
       res.send(html);
     });
   }

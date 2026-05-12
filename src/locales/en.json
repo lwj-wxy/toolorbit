@@ -2274,6 +2274,11 @@
       "title": "Market Insights",
       "subtitle": "Acquire platform-specific market research reports, trends, and category dynamics."
     },
+    "ai-youtube-generator": {
+      "name": "YouTube Metadata Generator",
+      "description": "AI-powered tool to generate catchy, click-worthy titles, descriptions, and tags.",
+      "title": "YouTube Title & Description Generator"
+    },
     "ai-prompt-generator": {
       "name": "AI Prompt Generator",
       "description": "Midjourney/SD prompt engineer, one-click high-quality prompts.",

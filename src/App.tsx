@@ -90,6 +90,7 @@ const RegexGenerator = lazy(() => import('./pages/tools/ai/RegexGenerator'));
 const SvgGenerator = lazy(() => import('./pages/tools/ai/SvgGenerator'));
 const LogoGenerator = lazy(() => import('./pages/tools/ai/LogoGenerator'));
 const ImageGenerator = lazy(() => import('./pages/tools/ai/ImageGenerator'));
+const YoutubeGenerator = lazy(() => import('./pages/tools/ai/YoutubeGenerator'));
 
 // Calculate & Unit Tools
 const UnitConverter = lazy(() => import('./pages/tools/calculate/UnitConverter'));
@@ -176,6 +177,7 @@ export default function App() {
             <Route path="/tools/ai/svg-generator" element={<SvgGenerator />} />
             <Route path="/tools/ai/logo-generator" element={<LogoGenerator />} />
             <Route path="/tools/ai/image-generator" element={<ImageGenerator />} />
+            <Route path="/tools/ai/youtube-generator" element={<YoutubeGenerator />} />
             <Route path="/tools/ai/xiaohongshu" element={<Xiaohongshu />} />
             <Route path="/tools/dev/timestamp-converter" element={<TimestampConverter />} />
             <Route path="/tools/dev/base-converter" element={<BaseConverter />} />

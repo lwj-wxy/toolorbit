@@ -66,6 +66,16 @@ export interface ToolItem {
 
 export const TOOLS: ToolItem[] = [
   {
+    id: 'ai-youtube-generator',
+    name: 'YouTube Title & Description Generator',
+    description: 'AI-powered tool to generate catchy, click-worthy titles, SEO-optimized descriptions, and high-volume tags for your YouTube videos.',
+    icon: Clapperboard,
+    category: 'AI 工具',
+    path: '/tools/ai/youtube-generator',
+    color: 'rose',
+    isPopular: true,
+  },
+  {
     id: 'ai-prompt-generator',
     name: 'AI 绘画提示词生成',
     description: 'Midjourney/SD 专属提示词工程师，一键生成高质量、细节丰富的作图 Prompt。',

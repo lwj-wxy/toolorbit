@@ -2213,6 +2213,11 @@
       "title": "市场洞察",
       "subtitle": "获取指定平台的市场调研报告、趋势和类目动态。"
     },
+    "ai-youtube-generator": {
+      "name": "YouTube 标题简介生成器",
+      "description": "AI强力驱动，一键生成高点击率的视频标题、SEO优化简介及热门标签。",
+      "title": "YouTube 标题与简介生成"
+    },
     "ai-prompt-generator": {
       "name": "AI 绘画提示词生成",
       "description": "Midjourney/SD 专属提示词工程师，一键生成高质量、细节丰富的作图 Prompt。",
