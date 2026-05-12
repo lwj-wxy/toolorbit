@@ -4,12 +4,13 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "tsx server.ts",
-    "build": "node gen_sitemap.cjs && vite build && esbuild server.ts --bundle --platform=node --format=cjs --outfile=dist/server.cjs --external:express --external:vite --external:axios --external:openai --external:compression",
-    "start": "node dist/server.cjs",
-    "preview": "vite preview",
-    "clean": "rm -rf dist",
-    "lint": "tsc --noEmit"
+    "dev": "next dev",
+    "build": "node gen_sitemap.cjs && next build",
+    "start": "next start",
+    "preview": "next dev",
+    "clean": "node -e \"require('fs').rmSync('.next',{recursive:true,force:true})\"",
+    "lint": "tsc --noEmit",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@google/genai": "^2.0.1",
@@ -38,6 +39,7 @@
     "jszip": "^3.10.1",
     "lucide-react": "^0.546.0",
     "motion": "^12.23.24",
+    "next": "^16.2.6",
     "openai": "^6.37.0",
     "pdf-lib": "^1.17.1",
     "pdfjs-dist": "^5.6.205",
@@ -60,6 +62,7 @@
     "xml-js": "^1.6.11"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.0",
     "@types/compression": "^1.8.1",
     "@types/express": "^4.17.21",
     "@types/file-saver": "^2.0.7",

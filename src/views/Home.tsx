@@ -198,6 +198,7 @@ export default function Home() {
 
   const [filteredTools, setFilteredTools] = useState(TOOLS);
   const [pinnedTools, setPinnedTools] = useState<string[]>(() => {
+    if (typeof window === 'undefined') return [];
     try {
       return JSON.parse(localStorage.getItem('toolorbit_pinned_tools') || '[]');
     } catch {
@@ -213,7 +214,9 @@ export default function Home() {
     const next = isPinned ? pinnedTools.filter(id => id !== toolId) : [...pinnedTools, toolId];
     
     setPinnedTools(next);
-    localStorage.setItem('toolorbit_pinned_tools', JSON.stringify(next));
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('toolorbit_pinned_tools', JSON.stringify(next));
+    }
     
     if (isPinned) {
       toast.success(t('common.unpinned') || 'Tool unpinned', { id: `unpin-${toolId}` });

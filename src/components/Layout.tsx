@@ -17,10 +17,15 @@ export default function Layout({ children }: LayoutProps) {
   const { theme, setTheme, isDark } = useTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
+  const [isWideDesktop, setIsWideDesktop] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const location = useLocation();
 
   useEffect(() => {
+    const updateViewport = () => setIsWideDesktop(window.innerWidth > 1280);
+    updateViewport();
+    window.addEventListener('resize', updateViewport);
+
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
@@ -28,7 +33,10 @@ export default function Layout({ children }: LayoutProps) {
       }
     };
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('resize', updateViewport);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
   }, []);
 
   const categories = Array.from(new Set(TOOLS.map(t => t.category)));
@@ -230,7 +238,7 @@ export default function Layout({ children }: LayoutProps) {
                   "w-full py-[8px] pr-[16px] pl-[38px] rounded-full border border-slate-200/80 bg-slate-50 text-[13px] outline-none transition-all placeholder:text-slate-400 text-slate-800",
                   isSearchFocused ? "border-blue-500 bg-white ring-[3px] ring-blue-500/10" : "cursor-pointer hover:bg-slate-100"
                 )}
-                placeholder={isSearchFocused || window.innerWidth > 1280 ? t('common.searchPlaceholder') : ""}
+                placeholder={isSearchFocused || isWideDesktop ? t('common.searchPlaceholder') : ""}
                 type="search"
                 name="search"
                 defaultValue={new URLSearchParams(useLocation().search).get('search') || ''}

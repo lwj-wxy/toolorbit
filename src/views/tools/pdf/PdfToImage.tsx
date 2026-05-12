@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { 
+import {
   FileText, 
   Upload, 
   Image as ImageIcon, 
@@ -13,17 +13,9 @@ import {
   Layers,
   ChevronRight
 } from 'lucide-react';
-import * as pdfjs from 'pdfjs-dist';
-import pdfWorker from 'pdfjs-dist/build/pdf.worker.mjs?url';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
 import { motion, AnimatePresence } from 'motion/react';
-
-// Get version from package
-const PDFJS_VERSION = '4.0.379'; // Stable version matching our package
-
-// Initialize PDF.js worker using local Vite URL
-pdfjs.GlobalWorkerOptions.workerSrc = pdfWorker;
 
 import ToolSEOCard from '../../../components/ToolSEOCard';
 
@@ -51,12 +43,16 @@ export default function PdfToImage() {
     setProgress({ current: 0, total: 0 });
 
     try {
+      const pdfjs = await import('pdfjs-dist');
+      const pdfjsVersion = pdfjs.version;
+      pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsVersion}/build/pdf.worker.mjs`;
+
       const arrayBuffer = await file.arrayBuffer();
       const pdf = await pdfjs.getDocument({ 
         data: arrayBuffer,
-        cMapUrl: `https://unpkg.com/pdfjs-dist@${PDFJS_VERSION}/cmaps/`,
+        cMapUrl: `https://unpkg.com/pdfjs-dist@${pdfjsVersion}/cmaps/`,
         cMapPacked: true,
-        standardFontDataUrl: `https://unpkg.com/pdfjs-dist@${PDFJS_VERSION}/standard_fonts/`,
+        standardFontDataUrl: `https://unpkg.com/pdfjs-dist@${pdfjsVersion}/standard_fonts/`,
       }).promise;
       const totalPages = pdf.numPages;
       setProgress({ current: 0, total: totalPages });

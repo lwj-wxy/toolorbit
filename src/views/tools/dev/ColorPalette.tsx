@@ -10,8 +10,8 @@ export default function ColorPalette() {
 
   const tc = tinycolor(baseColor);
   
-  const tints = [];
-  const shades = [];
+  const tints: string[] = [];
+  const shades: string[] = [];
   
   for(let i=1; i<=9; i++) {
      tints.push(tinycolor(baseColor).lighten(i * 5).toHexString());

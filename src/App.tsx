@@ -14,96 +14,96 @@ import RecentToolsTracker from './components/RecentToolsTracker';
 import Layout from './components/Layout';
 
 // Core Pages
-const Home = lazy(() => import('./pages/Home'));
-const BlogList = lazy(() => import('./pages/BlogList'));
-const BlogPost = lazy(() => import('./pages/BlogPost'));
-const Privacy = lazy(() => import('./pages/Privacy'));
-const Terms = lazy(() => import('./pages/Terms'));
-const About = lazy(() => import('./pages/About'));
+const Home = lazy(() => import('./views/Home'));
+const BlogList = lazy(() => import('./views/BlogList'));
+const BlogPost = lazy(() => import('./views/BlogPost'));
+const Privacy = lazy(() => import('./views/Privacy'));
+const Terms = lazy(() => import('./views/Terms'));
+const About = lazy(() => import('./views/About'));
 
 // Dev Tools
-const JsonFormatter = lazy(() => import('./pages/tools/dev/JsonFormatter'));
-const XmlToJson = lazy(() => import('./pages/tools/dev/XmlToJson'));
-const TextDiff = lazy(() => import('./pages/tools/dev/TextDiff'));
-const Base64 = lazy(() => import('./pages/tools/dev/Base64'));
-const AsciiTable = lazy(() => import('./pages/tools/dev/AsciiTable'));
-const UrlEncoder = lazy(() => import('./pages/tools/dev/UrlEncoder'));
-const HashGenerator = lazy(() => import('./pages/tools/dev/HashGenerator'));
-const UuidGenerator = lazy(() => import('./pages/tools/dev/UuidGenerator'));
-const UnicodeConverter = lazy(() => import('./pages/tools/dev/UnicodeConverter'));
-const ChmodCalculator = lazy(() => import('./pages/tools/dev/ChmodCalculator'));
-const ColorConverter = lazy(() => import('./pages/tools/dev/ColorConverter'));
-const ColorPalette = lazy(() => import('./pages/tools/dev/ColorPalette'));
-const ColorPicker = lazy(() => import('./pages/tools/dev/ColorPicker'));
-const TimestampConverter = lazy(() => import('./pages/tools/dev/TimestampConverter'));
-const BaseConverter = lazy(() => import('./pages/tools/dev/BaseConverter'));
-const PasswordGenerator = lazy(() => import('./pages/tools/dev/PasswordGenerator'));
-const JwtDebugger = lazy(() => import('./pages/tools/dev/JwtDebugger'));
-const JsonToTs = lazy(() => import('./pages/tools/dev/JsonToTs'));
-const RegexTester = lazy(() => import('./pages/tools/dev/RegexTester'));
-const CryptoSymmetric = lazy(() => import('./pages/tools/dev/CryptoSymmetric'));
-const MorseCode = lazy(() => import('./pages/tools/dev/MorseCode'));
-const HexStringConverter = lazy(() => import('./pages/tools/dev/HexStringConverter'));
-const ChineseCrypto = lazy(() => import('./pages/tools/dev/ChineseCrypto'));
+const JsonFormatter = lazy(() => import('./views/tools/dev/JsonFormatter'));
+const XmlToJson = lazy(() => import('./views/tools/dev/XmlToJson'));
+const TextDiff = lazy(() => import('./views/tools/dev/TextDiff'));
+const Base64 = lazy(() => import('./views/tools/dev/Base64'));
+const AsciiTable = lazy(() => import('./views/tools/dev/AsciiTable'));
+const UrlEncoder = lazy(() => import('./views/tools/dev/UrlEncoder'));
+const HashGenerator = lazy(() => import('./views/tools/dev/HashGenerator'));
+const UuidGenerator = lazy(() => import('./views/tools/dev/UuidGenerator'));
+const UnicodeConverter = lazy(() => import('./views/tools/dev/UnicodeConverter'));
+const ChmodCalculator = lazy(() => import('./views/tools/dev/ChmodCalculator'));
+const ColorConverter = lazy(() => import('./views/tools/dev/ColorConverter'));
+const ColorPalette = lazy(() => import('./views/tools/dev/ColorPalette'));
+const ColorPicker = lazy(() => import('./views/tools/dev/ColorPicker'));
+const TimestampConverter = lazy(() => import('./views/tools/dev/TimestampConverter'));
+const BaseConverter = lazy(() => import('./views/tools/dev/BaseConverter'));
+const PasswordGenerator = lazy(() => import('./views/tools/dev/PasswordGenerator'));
+const JwtDebugger = lazy(() => import('./views/tools/dev/JwtDebugger'));
+const JsonToTs = lazy(() => import('./views/tools/dev/JsonToTs'));
+const RegexTester = lazy(() => import('./views/tools/dev/RegexTester'));
+const CryptoSymmetric = lazy(() => import('./views/tools/dev/CryptoSymmetric'));
+const MorseCode = lazy(() => import('./views/tools/dev/MorseCode'));
+const HexStringConverter = lazy(() => import('./views/tools/dev/HexStringConverter'));
+const ChineseCrypto = lazy(() => import('./views/tools/dev/ChineseCrypto'));
 
 // Text Tools
-const TextAnalyzer = lazy(() => import('./pages/tools/text/TextAnalyzer'));
-const TextCleaner = lazy(() => import('./pages/tools/text/TextCleaner'));
-const SymbolLibrary = lazy(() => import('./pages/tools/text/SymbolLibrary'));
+const TextAnalyzer = lazy(() => import('./views/tools/text/TextAnalyzer'));
+const TextCleaner = lazy(() => import('./views/tools/text/TextCleaner'));
+const SymbolLibrary = lazy(() => import('./views/tools/text/SymbolLibrary'));
 
 // Image Tools
-const QrGenerator = lazy(() => import('./pages/tools/image/QrGenerator'));
-const QrScanner = lazy(() => import('./pages/tools/image/QrScanner'));
-const BarcodeGenerator = lazy(() => import('./pages/tools/image/BarcodeGenerator'));
-const ImageToIco = lazy(() => import('./pages/tools/image/ImageToIco'));
-const ImageCompressor = lazy(() => import('./pages/tools/image/ImageCompressor'));
-const ImageConverter = lazy(() => import('./pages/tools/image/ImageConverter'));
-const ImageToBase64 = lazy(() => import('./pages/tools/image/ImageToBase64'));
-const SvgToPng = lazy(() => import('./pages/tools/image/SvgToPng'));
-const ImageCropper = lazy(() => import('./pages/tools/image/ImageCropper'));
+const QrGenerator = lazy(() => import('./views/tools/image/QrGenerator'));
+const QrScanner = lazy(() => import('./views/tools/image/QrScanner'));
+const BarcodeGenerator = lazy(() => import('./views/tools/image/BarcodeGenerator'));
+const ImageToIco = lazy(() => import('./views/tools/image/ImageToIco'));
+const ImageCompressor = lazy(() => import('./views/tools/image/ImageCompressor'));
+const ImageConverter = lazy(() => import('./views/tools/image/ImageConverter'));
+const ImageToBase64 = lazy(() => import('./views/tools/image/ImageToBase64'));
+const SvgToPng = lazy(() => import('./views/tools/image/SvgToPng'));
+const ImageCropper = lazy(() => import('./views/tools/image/ImageCropper'));
 
 // PDF Tools
-const PdfToImage = lazy(() => import('./pages/tools/pdf/PdfToImage'));
-const ImageToPdf = lazy(() => import('./pages/tools/pdf/ImageToPdf'));
-const PdfMerge = lazy(() => import('./pages/tools/pdf/PdfMerge'));
-const PdfSplit = lazy(() => import('./pages/tools/pdf/PdfSplit'));
+const PdfToImage = lazy(() => import('./views/tools/pdf/PdfToImage'));
+const ImageToPdf = lazy(() => import('./views/tools/pdf/ImageToPdf'));
+const PdfMerge = lazy(() => import('./views/tools/pdf/PdfMerge'));
+const PdfSplit = lazy(() => import('./views/tools/pdf/PdfSplit'));
 
 // Ecommerce Tools
-const EtsyFeeCalculator = lazy(() => import('./pages/tools/ecommerce/EtsyFee'));
-const StripeFeeCalculator = lazy(() => import('./pages/tools/ecommerce/StripeFee'));
+const EtsyFeeCalculator = lazy(() => import('./views/tools/ecommerce/EtsyFee'));
+const StripeFeeCalculator = lazy(() => import('./views/tools/ecommerce/StripeFee'));
 
 // AI Tools
-const Xiaohongshu = lazy(() => import('./pages/tools/ai/Xiaohongshu'));
-const ListingGenerator = lazy(() => import('./pages/tools/ai/ListingGenerator'));
-const KeywordAnalyzer = lazy(() => import('./pages/tools/ai/KeywordAnalyzer'));
-const CompetitorTracker = lazy(() => import('./pages/tools/ai/CompetitorTracker'));
-const MarketInsights = lazy(() => import('./pages/tools/ai/MarketInsights'));
-const TextPolisher = lazy(() => import('./pages/tools/ai/TextPolisher'));
-const Translator = lazy(() => import('./pages/tools/ai/Translator'));
-const PromptGenerator = lazy(() => import('./pages/tools/ai/PromptGenerator'));
-const WeeklyReport = lazy(() => import('./pages/tools/ai/WeeklyReport'));
-const CodeReviewer = lazy(() => import('./pages/tools/ai/CodeReviewer'));
-const VideoScript = lazy(() => import('./pages/tools/ai/VideoScript'));
-const MeetingMinutes = lazy(() => import('./pages/tools/ai/MeetingMinutes'));
-const ExcelFormula = lazy(() => import('./pages/tools/ai/ExcelFormula'));
-const RegexGenerator = lazy(() => import('./pages/tools/ai/RegexGenerator'));
-const SvgGenerator = lazy(() => import('./pages/tools/ai/SvgGenerator'));
-const LogoGenerator = lazy(() => import('./pages/tools/ai/LogoGenerator'));
-const ImageGenerator = lazy(() => import('./pages/tools/ai/ImageGenerator'));
-const YoutubeGenerator = lazy(() => import('./pages/tools/ai/YoutubeGenerator'));
+const Xiaohongshu = lazy(() => import('./views/tools/ai/Xiaohongshu'));
+const ListingGenerator = lazy(() => import('./views/tools/ai/ListingGenerator'));
+const KeywordAnalyzer = lazy(() => import('./views/tools/ai/KeywordAnalyzer'));
+const CompetitorTracker = lazy(() => import('./views/tools/ai/CompetitorTracker'));
+const MarketInsights = lazy(() => import('./views/tools/ai/MarketInsights'));
+const TextPolisher = lazy(() => import('./views/tools/ai/TextPolisher'));
+const Translator = lazy(() => import('./views/tools/ai/Translator'));
+const PromptGenerator = lazy(() => import('./views/tools/ai/PromptGenerator'));
+const WeeklyReport = lazy(() => import('./views/tools/ai/WeeklyReport'));
+const CodeReviewer = lazy(() => import('./views/tools/ai/CodeReviewer'));
+const VideoScript = lazy(() => import('./views/tools/ai/VideoScript'));
+const MeetingMinutes = lazy(() => import('./views/tools/ai/MeetingMinutes'));
+const ExcelFormula = lazy(() => import('./views/tools/ai/ExcelFormula'));
+const RegexGenerator = lazy(() => import('./views/tools/ai/RegexGenerator'));
+const SvgGenerator = lazy(() => import('./views/tools/ai/SvgGenerator'));
+const LogoGenerator = lazy(() => import('./views/tools/ai/LogoGenerator'));
+const ImageGenerator = lazy(() => import('./views/tools/ai/ImageGenerator'));
+const YoutubeGenerator = lazy(() => import('./views/tools/ai/YoutubeGenerator'));
 
 // Calculate & Unit Tools
-const UnitConverter = lazy(() => import('./pages/tools/calculate/UnitConverter'));
-const TimeConverter = lazy(() => import('./pages/tools/calculate/TimeConverter'));
-const ArchiveConverter = lazy(() => import('./pages/tools/calculate/ArchiveConverter'));
-const RmbConverter = lazy(() => import('./pages/tools/calculate/RmbConverter'));
-const PpiCalculator = lazy(() => import('./pages/tools/calculate/PpiCalculator'));
+const UnitConverter = lazy(() => import('./views/tools/calculate/UnitConverter'));
+const TimeConverter = lazy(() => import('./views/tools/calculate/TimeConverter'));
+const ArchiveConverter = lazy(() => import('./views/tools/calculate/ArchiveConverter'));
+const RmbConverter = lazy(() => import('./views/tools/calculate/RmbConverter'));
+const PpiCalculator = lazy(() => import('./views/tools/calculate/PpiCalculator'));
 
 // Other Tools
-const ShortUrl = lazy(() => import('./pages/tools/net/ShortUrl'));
-const Game2048 = lazy(() => import('./pages/tools/fun/Game2048'));
-const Minesweeper = lazy(() => import('./pages/tools/fun/Minesweeper'));
-const PlaceholderTool = lazy(() => import('./pages/tools/shared/PlaceholderTool'));
+const ShortUrl = lazy(() => import('./views/tools/net/ShortUrl'));
+const Game2048 = lazy(() => import('./views/tools/fun/Game2048'));
+const Minesweeper = lazy(() => import('./views/tools/fun/Minesweeper'));
+const PlaceholderTool = lazy(() => import('./views/tools/shared/PlaceholderTool'));
 
 function Loading() {
   return (

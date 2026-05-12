@@ -7,7 +7,7 @@ type Grid = number[][];
 const GRID_SIZE = 4;
 
 const getRandomEmptyCell = (grid: Grid) => {
-  const emptyCells = [];
+  const emptyCells: Array<{ r: number; c: number }> = [];
   for (let r = 0; r < GRID_SIZE; r++) {
     for (let c = 0; c < GRID_SIZE; c++) {
       if (grid[r][c] === 0) emptyCells.push({ r, c });
@@ -34,7 +34,10 @@ const Game2048 = () => {
     return initialGrid;
   });
   const [score, setScore] = useState(0);
-  const [bestScore, setBestScore] = useState(() => Number(localStorage.getItem('2048-best-score')) || 0);
+  const [bestScore, setBestScore] = useState(() => {
+    if (typeof window === 'undefined') return 0;
+    return Number(localStorage.getItem('2048-best-score')) || 0;
+  });
   const [gameOver, setGameOver] = useState(false);
 
   const slide = (row: number[]) => {
