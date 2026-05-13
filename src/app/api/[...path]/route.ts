@@ -9,6 +9,8 @@ const deepseek = new OpenAI({
   baseURL: 'https://api.deepseek.com',
 });
 
+const DEEPSEEK_TEXT_MODEL = 'deepseek-v4-flash';
+
 const usageMap: Map<string, number> = (globalThis as any).__toolorbitUsageMap || new Map<string, number>();
 (globalThis as any).__toolorbitUsageMap = usageMap;
 
@@ -129,12 +131,12 @@ Please generate a comprehensive listing including title, bullet points, SEO desc
         ? `You are an expert Linguistic Analyst and Sentiment Architect. Analyze tone, sentiment, themes, structure, and improvements. Always output in ${lang} using Markdown.`
         : `You are an elite E-commerce Copywriting Specialist and SEO Expert. Use the required markers [TITLE], [DESCRIPTION], [TAGS], [SOCIAL]. Output in ${lang}.`;
 
-      return { model: body.isDeepAnalysis ? 'deepseek-reasoner' : 'deepseek-chat', messages: [{ role: 'system', content: system }, { role: 'user', content: prompt }], rateMs: 24 * 60 * 60 * 1000 };
+      return { model: DEEPSEEK_TEXT_MODEL, messages: [{ role: 'system', content: system }, { role: 'user', content: prompt }], rateMs: 24 * 60 * 60 * 1000 };
     }
     case 'keywords': {
       const lang = body.language?.toLowerCase?.() === '中文' || body.language?.toLowerCase?.().startsWith('zh') ? 'Simplified Chinese' : body.language || 'English';
       return {
-        model: 'deepseek-chat',
+        model: DEEPSEEK_TEXT_MODEL,
         messages: [
           { role: 'system', content: `You are a Keyword Research Expert. Generate keyword analysis in JSON only with summary and categories. Output in ${lang}.` },
           { role: 'user', content: `Product: ${body.productName}` },
@@ -144,7 +146,7 @@ Please generate a comprehensive listing including title, bullet points, SEO desc
     case 'competitor': {
       const lang = body.language?.toLowerCase?.() === '中文' || body.language?.toLowerCase?.().startsWith('zh') ? 'Simplified Chinese' : body.language || 'English';
       return {
-        model: 'deepseek-chat',
+        model: DEEPSEEK_TEXT_MODEL,
         messages: [
           { role: 'system', content: `You are a Competitor Analysis AI. Produce JSON only with comparison, swot, and strategies. Output language: ${lang}.` },
           { role: 'user', content: `My Product: ${body.productName}\nCompetitor Info: ${body.competitorInfo}` },
@@ -153,7 +155,7 @@ Please generate a comprehensive listing including title, bullet points, SEO desc
     }
     case 'xiaohongshu':
       return {
-        model: 'deepseek-chat',
+        model: DEEPSEEK_TEXT_MODEL,
         messages: [
           { role: 'system', content: `你是一个深谙小红书爆款逻辑的顶级内容文案写手。生成包含爆款标题、正文结构和话题标签的小红书文案。输出语言：${body.language === '中文' ? 'Simplified Chinese' : body.language || 'Simplified Chinese'}。风格定向：${body.style || '种草测评'}。只输出文案。` },
           { role: 'user', content: `主题: ${body.topic}\n关键词: ${body.keywords}` },
@@ -161,7 +163,7 @@ Please generate a comprehensive listing including title, bullet points, SEO desc
       };
     case 'market-research':
       return {
-        model: 'deepseek-chat',
+        model: DEEPSEEK_TEXT_MODEL,
         messages: [
           { role: 'system', content: `You are a Market Researcher. Output ONLY JSON with lastUpdate, platform, categories, products, and insights. Current date: ${new Date().toISOString().split('T')[0]}. Use unsplash thumbnails. Output in ${body.language === '中文' ? 'Simplified Chinese' : body.language || 'English'}.` },
           { role: 'user', content: `Platform: ${body.platform}\nTimeframe: ${body.timeframe} days` },
@@ -169,7 +171,7 @@ Please generate a comprehensive listing including title, bullet points, SEO desc
       };
     case 'ai-polisher':
       return {
-        model: 'deepseek-chat',
+        model: DEEPSEEK_TEXT_MODEL,
         rateMs: 2 * 60 * 1000,
         rateMessage: body.language?.startsWith('zh') ? '请求过于频繁，请等待 2 分钟后再试。' : 'Too many requests, please wait 2 minutes.',
         messages: [
@@ -179,7 +181,7 @@ Please generate a comprehensive listing including title, bullet points, SEO desc
       };
     case 'ai-translator':
       return {
-        model: 'deepseek-chat',
+        model: DEEPSEEK_TEXT_MODEL,
         rateMs: 2 * 60 * 1000,
         rateMessage: 'Rate limit exceeded. Please wait 2 minutes.',
         messages: [
@@ -189,7 +191,7 @@ Please generate a comprehensive listing including title, bullet points, SEO desc
       };
     case 'ai-prompt-generator':
       return {
-        model: 'deepseek-chat',
+        model: DEEPSEEK_TEXT_MODEL,
         messages: [
           { role: 'system', content: `You are an expert AI image prompt engineer. Create exactly 4 detailed prompts separated by "==========". Include English prompt and ${targetLanguage(body.language)} translation. Do not add extra text.` },
           { role: 'user', content: `Topic: ${body.topic}\nStyle: ${body.style}` },
@@ -197,7 +199,7 @@ Please generate a comprehensive listing including title, bullet points, SEO desc
       };
     case 'ai-weekly-report':
       return {
-        model: 'deepseek-chat',
+        model: DEEPSEEK_TEXT_MODEL,
         messages: [
           { role: 'system', content: `You are a professional project manager. Generate a polished weekly report in ${targetLanguage(body.language)}. Tone: ${body.tone}. Output only the report body.` },
           { role: 'user', content: `Done:\n${body.done}\n\nTodo:\n${body.todo}\n\nProblems/Risks:\n${body.problems}` },
@@ -205,7 +207,7 @@ Please generate a comprehensive listing including title, bullet points, SEO desc
       };
     case 'ai-video-script':
       return {
-        model: 'deepseek-chat',
+        model: DEEPSEEK_TEXT_MODEL,
         messages: [
           { role: 'system', content: `You are a viral short-video director and scriptwriter. Create a script for ${body.platform}, around ${body.duration}, in a ${body.tone} tone. Include hook, scenes, CTA, and BGM suggestions where appropriate. Output in ${targetLanguage(body.language)}.` },
           { role: 'user', content: `Topic/Core Message:\n${body.topic}` },
@@ -213,7 +215,7 @@ Please generate a comprehensive listing including title, bullet points, SEO desc
       };
     case 'youtube-generator':
       return {
-        model: 'deepseek-chat',
+        model: DEEPSEEK_TEXT_MODEL,
         messages: [
           { role: 'system', content: `You are an expert YouTube SEO specialist. Output sections [TITLE], [DESCRIPTION], [TAGS], [THUMBNAIL_IDEAS]. Audience: ${body.targetAudience || 'General'}. Tone: ${body.tone || 'Engaging'}. Output in ${targetLanguage(body.language)}.` },
           { role: 'user', content: `Video Topic / Details:\n${body.topic}` },
@@ -226,7 +228,7 @@ Please generate a comprehensive listing including title, bullet points, SEO desc
           ? 'Provide a very concise executive summary, decisions, and outcome.'
           : 'Provide a detailed summary with discussion points, decisions, and action items.';
       return {
-        model: 'deepseek-chat',
+        model: DEEPSEEK_TEXT_MODEL,
         messages: [
           { role: 'system', content: `You are a professional executive assistant. ${formatInstruction} Use Markdown and output only meeting minutes in ${targetLanguage(body.language)}.` },
           { role: 'user', content: `Raw Meeting Notes:\n${body.rawInput}` },
@@ -235,7 +237,7 @@ Please generate a comprehensive listing including title, bullet points, SEO desc
     }
     case 'ai-excel-formula':
       return {
-        model: 'deepseek-chat',
+        model: DEEPSEEK_TEXT_MODEL,
         messages: [
           { role: 'system', content: `You are an expert spreadsheet analyst. Generate ${body.formulaType === 'google-sheets' ? 'Google Sheets' : 'Microsoft Excel'} formulas, explain briefly, and output in ${targetLanguage(body.language)}.` },
           { role: 'user', content: `Requirement:\n${body.requirement}` },
@@ -243,7 +245,7 @@ Please generate a comprehensive listing including title, bullet points, SEO desc
       };
     case 'ai-regex':
       return {
-        model: 'deepseek-chat',
+        model: DEEPSEEK_TEXT_MODEL,
         messages: [
           { role: 'system', content: `You are a Senior Regex Architect. Regex flavor: ${(body.flavor || 'javascript').toUpperCase()}. Provide regex, breakdown, 3 matching and 3 non-matching cases. Output in ${targetLanguage(body.language)}.` },
           { role: 'user', content: `Requirement to match:\n${body.requirement}` },
@@ -251,7 +253,7 @@ Please generate a comprehensive listing including title, bullet points, SEO desc
       };
     case 'ai-code-reviewer':
       return {
-        model: 'deepseek-coder',
+        model: DEEPSEEK_TEXT_MODEL,
         messages: [
           { role: 'system', content: `You are a senior software engineer conducting a code review. Analyze bugs, performance, security, and code smells. Tone: ${body.tone}. Output in ${targetLanguage(body.language)}.` },
           { role: 'user', content: `Code:\n\`\`\`${body.codeLang}\n${body.code}\n\`\`\`` },
@@ -264,7 +266,7 @@ Please generate a comprehensive listing including title, bullet points, SEO desc
 
 async function svgGenerator(body: any) {
   const response = await deepseek.chat.completions.create({
-    model: 'deepseek-chat',
+    model: DEEPSEEK_TEXT_MODEL,
     messages: [
       { role: 'system', content: `You are an expert SVG designer. Generate complete raw SVG code only. Style: ${body.style}. Use viewBox, include xmlns, and do not wrap in markdown.` },
       { role: 'user', content: `Description:\n${body.prompt}` },
@@ -318,7 +320,7 @@ async function imageGenerator(body: any) {
       : 'You are a professional AI image prompt master. Expand the user description into a high-quality English image prompt. Output only the prompt text.';
     const prompt = body.style ? `${finalPrompt}\nRequired Style: ${body.style}` : finalPrompt;
     const optimized = await deepseek.chat.completions.create({
-      model: 'deepseek-chat',
+      model: DEEPSEEK_TEXT_MODEL,
       messages: [{ role: 'system', content: system }, { role: 'user', content: prompt }],
       temperature: 0.7,
       max_tokens: 1500,
