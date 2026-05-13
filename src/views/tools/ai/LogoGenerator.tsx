@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Loader2, Download, Hexagon, RotateCcw, Upload, Image as ImageIcon } from 'lucide-react';
+import { Loader2, Download, Hexagon, RotateCcw, Image as ImageIcon } from 'lucide-react';
 import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function LogoGenerator() {

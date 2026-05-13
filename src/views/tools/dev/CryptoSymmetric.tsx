@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Lock, Unlock, Copy, CheckCircle2, Shield, RefreshCcw, Trash2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import CryptoJS from 'crypto-js';

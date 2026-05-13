@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   FileText, 
@@ -7,11 +7,6 @@ import {
   Download, 
   Trash2,
   FileArchive,
-  ShieldCheck,
-  Zap,
-  MousePointer2,
-  Layers,
-  ChevronRight
 } from 'lucide-react';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';

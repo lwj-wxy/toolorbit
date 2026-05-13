@@ -33,13 +33,11 @@ export default function TextAnalyzer() {
   const [activeTab, setActiveTab] = useState<'stats' | 'trends'>('stats');
   const [aiAnalysis, setAiAnalysis] = useState('');
   const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const [error, setError] = useState('');
 
   const handleAIAnalysis = async () => {
     if (!text.trim()) return;
     setIsAnalyzing(true);
     setAiAnalysis('');
-    setError('');
 
     try {
       const response = await fetch('/api/listing-craft', {
@@ -75,8 +73,8 @@ export default function TextAnalyzer() {
           }
         }
       }
-    } catch (err) {
-      setError('AI Analysis failed. Please try again.');
+    } catch {
+      setAiAnalysis('AI Analysis failed. Please try again.');
     } finally {
       setIsAnalyzing(false);
     }
@@ -88,8 +86,6 @@ export default function TextAnalyzer() {
     const words = text.trim() ? text.trim().split(/\s+/).length : 0;
     const sentences = text.trim() ? text.split(/[.!?。！？]+/).filter(Boolean).length : 0;
     const paragraphs = text.trim() ? text.split(/\n\s*\n/).filter(Boolean).length : 0;
-    const lines = text.trim() ? text.split('\n').filter(l => l.trim() !== '').length : 0;
-
     // Estimate reading time (avg 200 words per minute for EN, 400 chars for mainland CN)
     const readingTimeSec = Math.ceil((words / 200) * 60) || Math.ceil((chars / 400) * 60);
 

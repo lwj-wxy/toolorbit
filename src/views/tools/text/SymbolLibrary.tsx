@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Type, Copy, Check, Hash } from 'lucide-react';
+import { Type, Check, Hash } from 'lucide-react';
 
 export default function SymbolLibrary() {
   const { t } = useTranslation();
@@ -93,7 +93,7 @@ export default function SymbolLibrary() {
                {t('tools.symbol-library.noResults')}
              </div>
           ) : (
-            filteredCategories.map((category, index) => (
+            filteredCategories.map((category) => (
               <div key={category.id} className="space-y-4">
                 <h3 className="font-bold text-slate-800 flex items-center gap-2">
                   <Hash className="w-4 h-4 text-pink-400" />

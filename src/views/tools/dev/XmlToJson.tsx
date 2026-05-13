@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FileDown, RefreshCw, Copy, Trash2, ArrowRightLeft } from 'lucide-react';
+import { Copy, Trash2, ArrowRightLeft } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { xml2json, json2xml } from 'xml-js';
 import { cn } from '../../../lib/utils';

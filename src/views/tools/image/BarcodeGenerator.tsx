@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Barcode, Download, RefreshCcw } from 'lucide-react';
 import JsBarcode from 'jsbarcode';
 import { useTranslation } from 'react-i18next';

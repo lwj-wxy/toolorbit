@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Target, Loader2 } from 'lucide-react';
 
 export default function CompetitorTracker() {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   
   const [compProduct, setCompProduct] = useState('');
   const [compInfo, setCompInfo] = useState('');

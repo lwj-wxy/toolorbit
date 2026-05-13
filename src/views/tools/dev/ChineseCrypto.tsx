@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { ShieldCheck, Copy, CheckCircle2, Trash2, Info, Lock, Unlock } from 'lucide-react';
+import { useState } from 'react';
+import { ShieldCheck, Copy, CheckCircle2, Info, Lock, Unlock } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import ToolSEOCard from '../../../components/ToolSEOCard';
 // @ts-ignore

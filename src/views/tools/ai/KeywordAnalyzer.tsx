@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Zap, Loader2, Copy, Check } from 'lucide-react';
 
 export default function KeywordAnalyzer() {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   
   const [kwSearch, setKwSearch] = useState('');
   const [kwLanguage, setKwLanguage] = useState(i18n.language === 'zh' ? '中文' : 'English');

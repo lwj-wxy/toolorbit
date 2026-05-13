@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Languages, Loader2, Copy, Check, RotateCcw, ArrowRightLeft } from 'lucide-react';
 import { motion } from 'motion/react';
 import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function Translator() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [input, setInput] = useState('');
   const [targetLang, setTargetLang] = useState('English');
   const [tone, setTone] = useState('Native / 地道母语');

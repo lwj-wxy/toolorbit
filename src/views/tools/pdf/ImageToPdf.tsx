@@ -1,10 +1,8 @@
-import React, { useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { 
-  FileText, 
   Upload, 
   Image as ImageIcon, 
-  Trash2, 
   ArrowUp, 
   ArrowDown, 
   Download, 
@@ -12,10 +10,8 @@ import {
   X,
   FileImage,
   ShieldCheck,
-  Zap,
   MousePointer2,
   MonitorSmartphone,
-  ChevronRight
 } from 'lucide-react';
 import { jsPDF } from 'jspdf';
 import { motion, AnimatePresence } from 'motion/react';

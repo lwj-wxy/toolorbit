@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from '../lib/navigation';
 import { useTranslation } from 'react-i18next';
 import { Calendar, Clock, Tag, FileText } from 'lucide-react';
@@ -66,8 +66,6 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, initialMarkdown = '' }) => {
     .slice(0, 2);
 
   const title = t(`blog.posts.${post.slug}.title`);
-  const summary = t(`blog.posts.${post.slug}.summary`);
-
   // Estimate reading time based on markdown length
   const readingTime = Math.max(3, Math.ceil(markdown.length / 800));
 

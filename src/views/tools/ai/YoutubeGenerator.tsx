@@ -4,7 +4,7 @@ import { Sparkles, Loader2, Copy, Check, Clapperboard } from 'lucide-react';
 import Markdown from 'react-markdown';
 
 export default function YoutubeGenerator() {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   
   const [topic, setTopic] = useState('');
   const [tone, setTone] = useState('engaging');

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pipette, Copy, AlertCircle, Check } from 'lucide-react';
 import tinycolor from 'tinycolor2';

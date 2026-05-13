@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { 
   FileText, 
@@ -6,13 +6,10 @@ import {
   Scissors, 
   Download, 
   CheckCircle2,
-  AlertCircle,
   FileArchive,
-  ArrowRight,
   ShieldCheck,
   Zap,
   Box,
-  MonitorSmartphone,
   RefreshCw
 } from 'lucide-react';
 import { PDFDocument } from 'pdf-lib';

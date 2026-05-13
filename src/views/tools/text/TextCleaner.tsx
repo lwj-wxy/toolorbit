@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { Eraser, Copy, Trash2, Check, Download, ArrowRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 

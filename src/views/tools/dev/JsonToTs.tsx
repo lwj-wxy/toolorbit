@@ -11,7 +11,6 @@ import {
   AlertCircle
 } from 'lucide-react';
 import JsonToTS from 'json-to-ts';
-import { motion, AnimatePresence } from 'motion/react';
 
 const JsonToTs: React.FC = () => {
   const { t } = useTranslation();

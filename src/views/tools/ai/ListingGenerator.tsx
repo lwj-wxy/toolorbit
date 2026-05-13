@@ -4,14 +4,14 @@ import { Sparkles, Loader2, Copy, Check } from 'lucide-react';
 import Markdown from 'react-markdown';
 
 export default function ListingGenerator() {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   
   const [platform, setPlatform] = useState('Etsy');
   const [input, setInput] = useState('');
   const [details, setDetails] = useState('');
-  const [keywords, setKeywords] = useState('');
+  const [keywords] = useState('');
   const [tone, setTone] = useState('persuasive');
-  const [targetAudience, setTargetAudience] = useState('');
+  const [targetAudience] = useState('');
   const [language, setLanguage] = useState(i18n.language === 'zh' ? 'Chinese' : 'English');
   const [result, setResult] = useState('');
   const [loading, setLoading] = useState(false);

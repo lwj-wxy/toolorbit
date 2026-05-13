@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Sparkles, FileText, Send, Copy, Loader2, Tag, BookOpen } from 'lucide-react';
 import toast from 'react-hot-toast';

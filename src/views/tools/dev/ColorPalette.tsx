@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Palette, Copy, Check } from 'lucide-react';
+import { Palette, Check } from 'lucide-react';
 import tinycolor from 'tinycolor2';
 
 export default function ColorPalette() {

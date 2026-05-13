@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { BarChart3, Loader2 } from 'lucide-react';
 
 export default function MarketInsights() {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   
   const [marketPlatform, setMarketPlatform] = useState('Etsy');
   const [marketTimeframe, setMarketTimeframe] = useState('7');

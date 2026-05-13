@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Wand2, Loader2, Copy, Check, RotateCcw, PenTool } from 'lucide-react';
 import { motion } from 'motion/react';

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { DollarSign, Percent, Copy, Check } from 'lucide-react';
+import { DollarSign } from 'lucide-react';
 import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function EtsyFeeCalculator() {

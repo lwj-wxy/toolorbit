@@ -1,6 +1,6 @@
-import React, { useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { diffWordsWithSpace, diffLines, Change } from 'diff';
+import { diffWordsWithSpace, diffLines } from 'diff';
 import { FileText, ArrowRightLeft, AlignLeft, RefreshCw, XCircle } from 'lucide-react';
 import { cn } from '../../../lib/utils';
 

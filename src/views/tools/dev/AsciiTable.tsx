@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Search, Check, Copy, Hash } from 'lucide-react';
+import { Search, Check, Hash } from 'lucide-react';
 import ToolSEOCard from '../../../components/ToolSEOCard';
 
 const CONTROL_CHARS: Record<number, string> = {

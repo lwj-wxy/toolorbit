@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link2, Copy, Check, ExternalLink, Loader2, Globe } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import ToolSEOCard from '../../../components/ToolSEOCard';

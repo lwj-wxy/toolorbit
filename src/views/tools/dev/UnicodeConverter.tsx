@@ -27,7 +27,7 @@ export default function UnicodeConverter() {
     try {
       // Decode unicode string back to native. Replacing all \\u sequences.
       // E.g. \u4e2d\u6587 -> 中文
-      const unescaped = unicodeText.replace(/\\u([0-9a-fA-F]{4})/g, (match, grp) => {
+      const unescaped = unicodeText.replace(/\\u([0-9a-fA-F]{4})/g, (_match, grp) => {
         return String.fromCharCode(parseInt(grp, 16));
       });
       setNativeText(unescaped);
