@@ -10,6 +10,10 @@ export const metadata: Metadata = {
   },
   description: 'A collection of powerful online tools for developers and creators.',
   metadataBase: new URL('https://toolorbit.site'),
+  manifest: '/manifest.json',
+  icons: {
+    icon: '/icon.svg',
+  },
   openGraph: {
     siteName: 'ToolOrbit',
     type: 'website',

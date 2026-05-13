@@ -33,13 +33,13 @@ export function pageMetadata(title?: string, description?: string, path = '/'): 
       url,
       siteName: SITE_NAME,
       type: 'website',
-      images: ['/og-image.png'],
+      images: ['/og-image'],
     },
     twitter: {
       card: 'summary_large_image',
       title: socialTitle,
       description,
-      images: ['/og-image.png'],
+      images: ['/og-image'],
     },
   };
 }
