@@ -3,7 +3,7 @@
 Audit date: 2026-05-13 18:04 Asia/Shanghai  
 Audited URL: https://toolorbit.site/  
 Business type: Free browser-based utility/tool platform for developers, creators, ecommerce, PDF, image, text, and AI workflows  
-SEO health score: 82/100
+SEO health score: 86/100
 
 ## Executive Summary
 
@@ -14,21 +14,19 @@ This refresh crawled the updated live site and ignored prior audit conclusions. 
 
 The site now has a much stronger crawlable baseline. The live HTML includes H1s, meaningful body copy, canonical tags, JSON-LD, and visible tool support content. Unknown URLs still return 404, `/llms.txt` serves as `text/plain`, and security headers remain present.
 
-The remaining SEO work is mostly refinement rather than indexability repair. The largest opportunities are meta description length cleanup, expanding thinner category pages, and getting real performance data once PageSpeed quota is available.
+The remaining SEO work is mostly refinement rather than indexability repair. Since this crawl, the local build has added visible category guide copy to the category pages; the largest remaining opportunities are deploying and re-crawling that content update, adding a tested CSP, and getting real performance data once PageSpeed quota is available.
 
 Top issues:
 
-1. 50/105 meta descriptions are longer than 160 characters, and 6 are under 120 characters.
-2. 14/105 pages are under 300 extracted words, mostly category pages and four AI utility pages.
-3. PageSpeed Insights is still unavailable due API `429`, so Core Web Vitals remain unverified.
-4. No `Content-Security-Policy` header was detected.
+1. Live crawl: 14/105 pages were under 300 extracted words, mostly category pages and four AI utility pages. Local build now lifts sampled category pages above 300 words.
+2. PageSpeed Insights is still unavailable due API `429`, so Core Web Vitals remain unverified.
+3. No `Content-Security-Policy` header was detected.
 
 Top quick wins:
 
-1. Shorten high-priority meta descriptions.
-2. Expand category pages with 100-200 more words of crawlable intro/use-case copy.
-3. Add a tested Content Security Policy.
-4. Re-run Lighthouse/PageSpeed after quota resets.
+1. Deploy and re-crawl the new category guide copy.
+2. Add a tested Content Security Policy.
+3. Re-run Lighthouse/PageSpeed after quota resets.
 
 ## Crawl Evidence
 
@@ -76,15 +74,20 @@ Score: 78/100
 
 The site now exposes useful crawlable content in the initial HTML. Tool pages are no longer app-shell-only, and many priority tools have 400-560+ extracted words. Blog pages generally return 436-939 extracted words.
 
-Remaining content gaps:
+Live crawl content gaps:
 
 - 14 pages are under 300 words.
-- Several category pages are thin: `webmaster-tools`, `text-tools`, `generators`, `ecommerce-tools`, `pdf-tools`, `image-tools`, and `fun-tools`.
+- Several category pages were thin: `webmaster-tools`, `text-tools`, `generators`, `ecommerce-tools`, `pdf-tools`, `image-tools`, and `fun-tools`.
 - Four AI utility pages are just under 300 words: listing generator, keyword analyzer, competitor tracker, and market insights.
+
+Local fix applied after this crawl:
+
+- Added visible bilingual category intro copy and common workflow examples to all 10 category pages.
+- Local verification sampled `webmaster-tools`, `text-tools`, `pdf-tools`, and `ai-tools`; each page included the new guide block and returned roughly 306-561 extracted words.
 
 Recommendations:
 
-- Add short category intros that explain who each category is for and which tools solve which task.
+- Deploy the category content update, then re-crawl the live site to confirm the thin category page count is cleared.
 - Add 100-200 words of useful, visible support copy to the four thin AI utility pages.
 - Continue linking blog posts to the most relevant tools with descriptive anchors.
 
@@ -99,20 +102,11 @@ The previous H1 issue is fixed:
 
 Remaining on-page issues:
 
-- 50 meta descriptions are longer than 160 characters.
-- 6 meta descriptions are under 120 characters.
 - 3 titles are under 30 characters.
 - Local build verification after the latest patch found 0 titles over 60 characters and 0 `Parameters` H1s in generated HTML.
+- Local build verification after the latest patch found 0 meta descriptions over 160 characters and 0 under 120 characters in generated HTML.
 
-Examples needing meta description cleanup:
-
-- `/tools/dev/json-formatter`: title 69 chars, meta description 242 chars.
-- `/tools/ai/text-polisher`: title 81 chars, meta description 211 chars.
-- `/tools/ai/translator`: title 78 chars, meta description 171 chars.
-- `/tools/dev/uuid-generator`: title 69 chars, meta description 228 chars.
-- `/blog/why-text-diff-matters`: title 92 chars.
-
-Recommended meta pattern:
+Recommended meta pattern for future pages:
 
 `Use [tool] to [specific task]. Supports [key formats/features] and runs [locally/in browser/with AI where true].`
 
@@ -183,8 +177,8 @@ Recommendations:
 
 High, fix within 1 week:
 
-1. Shorten long meta descriptions on priority pages.
-2. Expand thin category pages with more crawlable, task-focused copy.
+1. Deploy and re-crawl the category content update.
+2. Add useful, visible support copy to the four thin AI utility pages.
 3. Re-run Lighthouse/PageSpeed once quota is available.
 
 Medium, fix within 1 month:
@@ -207,6 +201,8 @@ Low/backlog:
 - Tool and category pages now include server-rendered H1 tags.
 - Local build now generates no title tags over 60 characters.
 - The four AI utility pages no longer use `Parameters` as their H1.
+- Local build now generates no meta descriptions over 160 characters or under 120 characters.
+- Local build now adds visible bilingual intro and workflow copy to all 10 category pages.
 - Unknown URLs return 404.
 - `/llms.txt` serves as `text/plain`.
 - Security headers are present except CSP.

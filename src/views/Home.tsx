@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link, useClientSearchParamsWithInitialSearch } from '../lib/navigation';
 import { useTranslation } from 'react-i18next';
 import { TOOLS, Category, ToolItem } from '../data/tools';
+import { CATEGORY_GUIDES } from '../data/categoryGuides';
 import { Star, Clock, ChevronRight, Sparkles } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 import { useRecentTools } from '../hooks/useRecentTools';
@@ -180,13 +181,15 @@ type HomeProps = {
 };
 
 export default function Home({ initialSearch = '', initialCategory }: HomeProps) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [searchParams] = useClientSearchParamsWithInitialSearch(initialSearch);
   const { recentTools } = useRecentTools();
   const categoryFilter = initialCategory || (searchParams.get('category') as Category | null);
   const searchQuery = searchParams.get('search')?.toLowerCase() || '';
 
   const [pinnedTools, setPinnedTools] = useState<string[]>([]);
+  const isZh = i18n.language?.startsWith('zh');
+  const categoryGuide = categoryFilter ? CATEGORY_GUIDES[categoryFilter]?.[isZh ? 'zh' : 'en'] : null;
 
   useEffect(() => {
     try {
@@ -234,10 +237,32 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
   if (categoryFilter || searchQuery) {
      return (
         <div className="flex flex-col">
-          <div className="flex items-baseline justify-between mb-8">
-            <h1 className="text-2xl font-bold text-slate-800 dark:text-slate-100 tracking-tight transition-colors">
-              {categoryFilter ? t(`common.categories.${categoryFilter}`) : t('search.results', { query: searchQuery })}
-            </h1>
+          <div className="mb-8 space-y-4">
+            <div className="flex items-baseline justify-between">
+              <h1 className="text-2xl font-bold text-slate-800 dark:text-slate-100 tracking-tight transition-colors">
+                {categoryFilter ? t(`common.categories.${categoryFilter}`) : t('search.results', { query: searchQuery })}
+              </h1>
+            </div>
+            {categoryGuide ? (
+              <div className="max-w-4xl space-y-4 text-sm leading-6 text-slate-600 dark:text-slate-400">
+                <p>{categoryGuide.intro}</p>
+                <div>
+                  <h2 className="mb-2 text-sm font-bold text-slate-800 dark:text-slate-200">
+                    {isZh ? '常见使用场景' : 'Common workflows'}
+                  </h2>
+                  <ul className="grid gap-2 sm:grid-cols-3">
+                    {categoryGuide.workflows.map((workflow) => (
+                      <li
+                        key={workflow}
+                        className="rounded-xl border border-slate-200 bg-white/70 p-3 text-[13px] leading-5 dark:border-slate-800 dark:bg-slate-900/60"
+                      >
+                        {workflow}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            ) : null}
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">

@@ -14,7 +14,8 @@ export const metadata: Metadata = {
     default: 'ToolOrbit',
     template: '%s | ToolOrbit',
   },
-  description: 'A collection of powerful online tools for developers and creators.',
+  description:
+    'Free browser-based tools for developers, creators, ecommerce operators, PDF workflows, image processing, and AI-assisted productivity.',
   metadataBase: new URL('https://toolorbit.site'),
   manifest: '/manifest.json',
   icons: {

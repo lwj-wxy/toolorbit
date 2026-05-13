@@ -25,7 +25,17 @@ Updated from a fresh live crawl on 2026-05-13 18:04 Asia/Shanghai.
      - `/tools/ai/competitor-tracker` -> `Competitor Tracker`
      - `/tools/ai/market-insights` -> `Market Insights`
 
-5. Crawl/indexability basics
+5. Meta description length cleanup
+   - Local build verification: 0 generated HTML meta descriptions over 160 characters.
+   - Local build verification: 0 generated HTML meta descriptions under 120 characters.
+   - Descriptions are now normalized through the shared metadata layer.
+
+6. Thin category page content
+   - Added visible bilingual intro copy and common workflow examples to all 10 category pages.
+   - Local verification sampled `webmaster-tools`, `text-tools`, `pdf-tools`, and `ai-tools`; each page included the guide block and returned roughly 306-561 extracted words.
+   - This is crawlable page content, not hidden SEO text.
+
+7. Crawl/indexability basics
    - Unknown URLs return 404.
    - `/llms.txt` returns `text/plain`.
    - Canonical tags are present on all crawled pages.
@@ -33,15 +43,13 @@ Updated from a fresh live crawl on 2026-05-13 18:04 Asia/Shanghai.
 
 ## High
 
-1. Tighten meta descriptions
-   - Current refreshed crawl: 50 over 160 chars, 6 under 120 chars.
-   - Keep descriptions specific, benefit-led, and accurate about local/browser/AI processing.
-   - Target roughly 120-155 characters for important pages.
+1. Deploy and re-crawl category content update
+   - The live crawl still reflects the pre-fix category content.
+   - After deployment, re-run the crawl and confirm category pages are no longer in the thin-content set.
 
-2. Expand thin category pages
-   - Current refreshed crawl: 14 pages under 300 words.
-   - Most thin pages are category pages.
-   - Add short intros, use cases, and links to recommended tools.
+2. Add support copy to the four thin AI utility pages
+   - Remaining live-crawl thin AI pages: listing generator, keyword analyzer, competitor tracker, and market insights.
+   - Add visible examples, limitations, or workflow notes without padding the interface.
 
 3. Re-run performance validation
    - PageSpeed returned `429` quota errors during the refresh.
@@ -89,6 +97,7 @@ Updated from a fresh live crawl on 2026-05-13 18:04 Asia/Shanghai.
 - `curl -I https://www.toolorbit.site/` returns 301 to apex.
 - `curl -sL https://toolorbit.site/tools/dev/json-formatter | grep -oi "<h1" | wc -l` returns 1.
 - `curl -sL https://toolorbit.site/category/ai-tools | grep -oi "<h1" | wc -l` returns 1.
+- Category pages include visible intro/workflow copy in the initial HTML after deployment.
 - Priority page titles are mostly under ~60 characters.
 - Priority meta descriptions are mostly 120-155 characters.
 - PageSpeed or Lighthouse scores are captured for mobile and desktop.

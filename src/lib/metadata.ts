@@ -9,6 +9,7 @@ export const SITE_NAME = 'ToolOrbit';
 const DEFAULT_DESCRIPTION =
   'Free browser-based tools for developers, creators, ecommerce operators, PDF workflows, image processing, and AI-assisted productivity.';
 const TITLE_TEXT_LIMIT = 48;
+const DESCRIPTION_MIN_LENGTH = 120;
 
 const STATIC_PAGE_DESCRIPTIONS: Record<'about' | 'privacy' | 'terms', string> = {
   about:
@@ -93,8 +94,22 @@ function fitTitle(value: string) {
 }
 
 function expandShortToolDescription(description: string, toolName: string) {
-  if (description.length >= 90) return description;
+  if (description.length >= DESCRIPTION_MIN_LENGTH) return description;
   return `${description} Use ${toolName} online in ToolOrbit with no installation, quick browser access, and a focused workflow for everyday productivity.`;
+}
+
+function expandShortDescription(description: string) {
+  if (description.length >= DESCRIPTION_MIN_LENGTH) return description;
+  return `${description} Explore focused examples and related ToolOrbit browser tools for faster everyday workflows.`;
+}
+
+function conciseToolDescription(toolName: string, category?: Category) {
+  const categoryName = category ? cleanTitle(readPath(en, `common.categories.${category}`), category) : 'online';
+  return `Use ${toolName} for focused ${categoryName.toLowerCase()} workflows in your browser. Get practical controls, clear results, and no installation.`;
+}
+
+function conciseBlogDescription(title: string) {
+  return `Read ${title} for practical workflow guidance, examples, and related ToolOrbit tools you can apply in browser-based tasks.`;
 }
 
 export function pageMetadata(title?: string, description?: string, path = '/'): Metadata {
@@ -174,7 +189,11 @@ export function blogListMetadata(): Metadata {
 export function blogPostMetadata(slug: string): Metadata {
   const post = BLOG_POSTS.find((item) => item.slug === slug);
   const title = BLOG_SEO_TITLE_OVERRIDES[slug] || readPath(en, `blog.posts.${slug}.title`) || slug.replace(/-/g, ' ');
-  const description = readPath(en, `blog.posts.${slug}.summary`) || 'ToolOrbit Blog article.';
+  const rawDescription = cleanDescription(readPath(en, `blog.posts.${slug}.summary`), 'ToolOrbit Blog article.');
+  const description =
+    rawDescription.length > 160
+      ? conciseBlogDescription(title)
+      : expandShortDescription(rawDescription);
   const metadata = pageMetadata(title, description, `/blog/${slug}`);
 
   return {
@@ -210,8 +229,11 @@ export function toolMetadata(path: string): Metadata {
   const fallbackDescription = tool
     ? `Use ${cleanTitle(tool.name)} online for ${tool.description.toLowerCase()} No installation required.`
     : DEFAULT_DESCRIPTION;
+  const cleanedDescription = cleanDescription(rawDescription, fallbackDescription);
   const description = tool
-    ? expandShortToolDescription(cleanDescription(rawDescription, fallbackDescription), cleanedTitle)
+    ? cleanedDescription.length > 160
+      ? conciseToolDescription(toolNameTitle, tool.category)
+      : expandShortToolDescription(cleanedDescription, toolNameTitle)
     : rawDescription;
 
   return pageMetadata(title, description || fallbackDescription, path);
@@ -223,7 +245,7 @@ export function categoryMetadata(category: Category): Metadata {
 
   return pageMetadata(
     `${name} Online Tools`,
-    `Browse ${toolCount} ${name} in ToolOrbit. Find focused online tools for fast browser-based workflows with no installation required.`,
+    `Browse ${toolCount} ${name} tools in ToolOrbit for fast browser-based workflows. Find focused utilities, examples, and no-install productivity helpers.`,
     getCategoryPath(category),
   );
 }
