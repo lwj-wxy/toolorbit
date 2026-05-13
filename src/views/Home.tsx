@@ -176,13 +176,14 @@ const ToolCard = ({ tool, isPinned, togglePin, index }: { tool: ToolItem, isPinn
 
 type HomeProps = {
   initialSearch?: string;
+  initialCategory?: Category;
 };
 
-export default function Home({ initialSearch = '' }: HomeProps) {
+export default function Home({ initialSearch = '', initialCategory }: HomeProps) {
   const { t } = useTranslation();
   const [searchParams] = useClientSearchParamsWithInitialSearch(initialSearch);
   const { recentTools } = useRecentTools();
-  const categoryFilter = searchParams.get('category') as Category | null;
+  const categoryFilter = initialCategory || (searchParams.get('category') as Category | null);
   const searchQuery = searchParams.get('search')?.toLowerCase() || '';
 
   const [pinnedTools, setPinnedTools] = useState<string[]>([]);

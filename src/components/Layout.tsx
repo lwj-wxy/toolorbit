@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { useTheme } from '../context/ThemeContext';
 import { cn } from '../lib/utils';
 import { TOOLS } from '../data/tools';
+import { getCategoryPath } from '../lib/category-paths';
 import LanguageSwitcher from './LanguageSwitcher';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -43,6 +44,12 @@ export default function Layout({ children }: LayoutProps) {
 
   const categories = Array.from(new Set(TOOLS.map(t => t.category)));
   const navCategories = categories.filter(c => c !== '娱乐工具' && c !== 'AI 工具');
+  const aiCategoryPath = getCategoryPath('AI 工具');
+  const isAiSection = location.pathname === aiCategoryPath || location.pathname.startsWith('/tools/ai/');
+  const isToolSection =
+    location.pathname === '/' ||
+    (location.pathname.startsWith('/category/') && location.pathname !== aiCategoryPath) ||
+    (location.pathname.startsWith('/tools/') && !location.pathname.startsWith('/tools/ai/'));
 
   return (
     <div className="flex min-h-screen flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-200 font-sans relative overflow-x-hidden transition-colors duration-300">
@@ -71,7 +78,7 @@ export default function Layout({ children }: LayoutProps) {
                 to="/"
                 className={cn(
                   "px-2 lg:px-3 flex items-center gap-1.5 h-full text-[14px] lg:text-[15px] font-bold transition-all duration-200 border-b-[3px] border-transparent mt-[3px] cursor-pointer whitespace-nowrap",
-                  ((location.pathname === '/' && !location.search.includes('AI')) || (location.search.includes('category') && !location.search.includes('AI')) || (location.pathname.startsWith('/tools/') && !location.pathname.startsWith('/tools/ai/'))) ? "text-blue-600 border-blue-600 dark:text-blue-400 dark:border-blue-400" : "text-slate-600 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-slate-100"
+                  isToolSection ? "text-blue-600 border-blue-600 dark:text-blue-400 dark:border-blue-400" : "text-slate-600 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-slate-100"
                 )}
               >
                 {t('common.navTools')}
@@ -106,7 +113,7 @@ export default function Layout({ children }: LayoutProps) {
                             ))}
                             {categoryTools.length > 6 && (
                               <Link 
-                                to={`/?category=${category}`} 
+                                to={getCategoryPath(category)} 
                                 className="text-[12px] font-bold text-blue-500 hover:text-blue-700 px-2 mt-1"
                               >
                                 {t('common.viewMore')}
@@ -122,12 +129,12 @@ export default function Layout({ children }: LayoutProps) {
             </div>
 
             {/* AI Tools Nav (Highlighted) */}
-            <div className="group flex items-center h-full relative">
+            <div className="group flex items-center h-full">
               <Link
-                to="/?category=AI%20%E5%B7%A5%E5%85%B7"
+                to={getCategoryPath('AI 工具')}
                 className={cn(
                   "px-2 lg:px-3 flex items-center gap-1.5 h-full text-[14px] lg:text-[15px] font-bold transition-all duration-200 border-b-[3px] border-transparent mt-[3px] cursor-pointer whitespace-nowrap",
-                  (location.search.includes('AI') || location.pathname.startsWith('/tools/ai/')) ? "text-violet-600 border-violet-600 dark:text-violet-400 dark:border-violet-400" : "text-slate-600 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-slate-100"
+                  isAiSection ? "text-violet-600 border-violet-600 dark:text-violet-400 dark:border-violet-400" : "text-slate-600 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-slate-100"
                 )}
               >
                 <div className="flex items-center justify-center text-violet-500 dark:text-violet-400 mr-0.5">
@@ -138,9 +145,20 @@ export default function Layout({ children }: LayoutProps) {
               </Link>
 
               {/* AI Dropdown Menu */}
-              <div className="absolute top-[64px] left-[-30px] w-[600px] bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border border-slate-200/80 dark:border-slate-800/80 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.1)] rounded-b-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top -translate-y-1 group-hover:translate-y-0 z-50 overflow-hidden">
-                <div className="p-3">
-                  <div className="grid grid-cols-2 gap-2">
+              <div className="absolute top-[64px] left-0 w-full bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800/80 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.05)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top -translate-y-1 group-hover:translate-y-0 z-50">
+                <div className="max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-10">
+                  <div className="mb-4 flex items-center justify-between gap-4">
+                    <h3 className="text-[13px] font-extrabold text-violet-500 dark:text-violet-400 uppercase tracking-wider">
+                      {t('common.categories.AI 工具') || 'AI Tools'}
+                    </h3>
+                    <Link
+                      to={getCategoryPath('AI 工具')}
+                      className="text-[12px] font-bold text-violet-600 hover:text-violet-700 dark:text-violet-400 dark:hover:text-violet-300"
+                    >
+                      {t('common.viewMore')} &rarr;
+                    </Link>
+                  </div>
+                  <div className="grid grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-x-6 gap-y-1">
                     {TOOLS.filter(t => t.category === 'AI 工具').map(tool => {
                       const color = tool.color || 'violet';
                       const bgClassMap: Record<string, string> = {
@@ -156,10 +174,6 @@ export default function Layout({ children }: LayoutProps) {
                         indigo: 'bg-indigo-100 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400 hover:border-indigo-100 dark:hover:border-indigo-800/50 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 group-hover/item:text-indigo-700 dark:group-hover/item:text-indigo-400'
                       };
                       const classes = bgClassMap[color] || bgClassMap.violet;
-                      const hoverBg = classes.split(' ').find(c => c.startsWith('hover:bg-')) || '';
-                      const hoverDarkBg = classes.split(' ').find(c => c.startsWith('dark:hover:bg-')) || '';
-                      const hoverBorder = classes.split(' ').find(c => c.startsWith('hover:border-')) || '';
-                      const hoverDarkBorder = classes.split(' ').find(c => c.startsWith('dark:hover:border-')) || '';
                       const titleHover = classes.split(' ').find(c => c.startsWith('group-hover/item:text-')) || '';
                       const titleDarkHover = classes.split(' ').find(c => c.startsWith('dark:group-hover/item:text-')) || '';
                       
@@ -172,30 +186,17 @@ export default function Layout({ children }: LayoutProps) {
                         <Link
                           key={tool.id}
                           to={tool.path}
-                          className={`group/item flex items-start gap-3 p-3 rounded-lg ${hoverBg} ${hoverDarkBg} transition-all border border-transparent ${hoverBorder} ${hoverDarkBorder}`}
+                          className="group/item flex items-center gap-2 rounded-lg p-2 transition-all hover:bg-slate-50 dark:hover:bg-slate-800"
                         >
-                          <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${iconBg} ${iconDarkBg} ${iconText} ${iconDarkText} transition-colors`}>
-                            <tool.icon size={16} />
+                          <div className={`w-6 h-6 rounded flex items-center justify-center flex-shrink-0 ${iconBg} ${iconDarkBg} ${iconText} ${iconDarkText} transition-colors`}>
+                            <tool.icon size={15} />
                           </div>
-                          <div className="flex flex-col flex-1 min-w-0">
-                            <span className={`text-[14px] font-bold text-slate-700 dark:text-slate-200 ${titleHover} ${titleDarkHover} truncate transition-colors`}>
+                          <span className={`min-w-0 truncate text-[13px] font-bold text-slate-700 dark:text-slate-300 ${titleHover} ${titleDarkHover} transition-colors`}>
                               {t(`tools.${tool.id}.name`, { defaultValue: tool.name })}
-                            </span>
-                            <span className="text-[12px] text-slate-500 dark:text-slate-400 line-clamp-1 mt-0.5" title={t(`tools.${tool.id}.description`, { defaultValue: tool.description }) as string || ''}>
-                              {t(`tools.${tool.id}.description`, { defaultValue: tool.description })}
-                            </span>
-                          </div>
+                          </span>
                         </Link>
                       );
                     })}
-                  </div>
-                  <div className="mt-2 text-center">
-                    <Link 
-                      to="/?category=AI%20%E5%B7%A5%E5%85%B7" 
-                      className="inline-block text-[13px] font-bold text-violet-600 hover:text-violet-700 dark:text-violet-400 dark:hover:text-violet-300 py-1.5 px-6 bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
-                    >
-                      {t('common.categories.AI 工具')} &rarr;
-                    </Link>
                   </div>
                 </div>
               </div>
@@ -385,7 +386,7 @@ export default function Layout({ children }: LayoutProps) {
                   {t('common.nav_home') || 'Home'}
                 </Link>
                 <ChevronRight className="w-4 h-4 text-slate-300 dark:text-slate-700 flex-shrink-0" />
-                <Link to={`/?category=${currentTool.category}`} className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex-shrink-0">
+                <Link to={getCategoryPath(currentTool.category)} className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex-shrink-0">
                   {t(`common.categories.${currentTool.category}`)}
                 </Link>
                 <ChevronRight className="w-4 h-4 text-slate-300 dark:text-slate-700 flex-shrink-0" />

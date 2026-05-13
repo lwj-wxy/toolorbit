@@ -1,6 +1,18 @@
 const fs = require('fs');
 
 const SITE_URL = 'https://toolorbit.site';
+const CATEGORY_PATHS = [
+  '/category/ai-tools',
+  '/category/developer-tools',
+  '/category/webmaster-tools',
+  '/category/text-tools',
+  '/category/generators',
+  '/category/ecommerce-tools',
+  '/category/pdf-tools',
+  '/category/image-tools',
+  '/category/conversion-tools',
+  '/category/fun-tools',
+];
 
 function escapeXml(value) {
   return String(value)
@@ -77,6 +89,12 @@ const urls = [
   { path: '/about', lastmod: generatedAt, changefreq: 'monthly', priority: '0.7' },
   { path: '/privacy', lastmod: generatedAt, changefreq: 'yearly', priority: '0.4' },
   { path: '/terms', lastmod: generatedAt, changefreq: 'yearly', priority: '0.4' },
+  ...CATEGORY_PATHS.map((path) => ({
+    path,
+    lastmod: generatedAt,
+    changefreq: 'weekly',
+    priority: '0.85',
+  })),
   ...tools.map((tool) => ({
     path: tool.path,
     lastmod: generatedAt,

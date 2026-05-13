@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import { BLOG_POSTS } from '../constants/blogData';
-import { TOOLS } from '../data/tools';
+import { TOOLS, type Category } from '../data/tools';
 import en from '../locales/en.json';
+import { getCategoryPath } from './category-paths';
 
 export const SITE_URL = 'https://toolorbit.site';
 export const SITE_NAME = 'ToolOrbit';
@@ -151,4 +152,15 @@ export function toolMetadata(path: string): Metadata {
     : rawDescription;
 
   return pageMetadata(title, description || fallbackDescription, path);
+}
+
+export function categoryMetadata(category: Category): Metadata {
+  const name = readPath(en, `common.categories.${category}`) || category;
+  const toolCount = TOOLS.filter((tool) => tool.category === category).length;
+
+  return pageMetadata(
+    `${name} Online Tools`,
+    `Browse ${toolCount} ${name} in ToolOrbit. Find focused online tools for fast browser-based workflows with no installation required.`,
+    getCategoryPath(category),
+  );
 }

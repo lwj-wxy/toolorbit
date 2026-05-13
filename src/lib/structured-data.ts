@@ -1,6 +1,7 @@
 import { BLOG_POSTS } from '../constants/blogData';
 import { TOOLS } from '../data/tools';
 import en from '../locales/en.json';
+import { getCategoryPath } from './category-paths';
 import { readPath, SITE_NAME, SITE_URL } from './metadata';
 
 const LOGO_URL = `${SITE_URL}/icon.svg`;
@@ -96,7 +97,7 @@ export function toolJsonLd(path: string) {
   const data: unknown[] = [
     breadcrumb([
       { name: SITE_NAME, url: SITE_URL },
-      { name: tool.category, url: `${SITE_URL}/?category=${encodeURIComponent(tool.category)}` },
+      { name: tool.category, url: `${SITE_URL}${getCategoryPath(tool.category)}` },
       { name, url },
     ]),
     {
