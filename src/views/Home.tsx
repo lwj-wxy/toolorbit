@@ -308,7 +308,7 @@ export default function Home() {
                {[
                  { label: 'PDF 转图片', path: '/tools/pdf/pdf-to-image', icon: '📄' },
                  { label: '图片压缩', path: '/tools/image/image-compressor', icon: '🖼️' },
-                 { label: 'AI 文案', path: '/tools/ecommerce/listing-craft-ai', icon: '✨' },
+                 { label: 'AI 文案', path: '/tools/ai/listing-generator', icon: '✨' },
                  { label: 'JSON 格式化', path: '/tools/dev/json-formatter', icon: '⚡' }
                ].map((fav) => (
                  <Link 

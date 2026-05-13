@@ -10,7 +10,7 @@
 
 declare global {
   interface Window {
-    gtag: (command: string, action: string, params?: any) => void;
+    gtag?: (...args: unknown[]) => void;
   }
 }
 
@@ -26,7 +26,7 @@ class AnalyticsService {
   private isEnabled: boolean = process.env.NODE_ENV === 'production';
   private debug: boolean = process.env.NODE_ENV !== 'production';
   private sessionId: string = '';
-  private gaId: string = 'G-B7N9BGZ2B0';
+  private gaId: string = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || '';
 
   constructor() {
     this.sessionId = Math.random().toString(36).substring(2, 10);
@@ -46,7 +46,7 @@ class AnalyticsService {
       console.log(`📊 [Analytics] [Session: ${this.sessionId}] Page View: ${path}`);
     }
 
-    if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+    if (this.gaId && typeof window !== 'undefined' && typeof window.gtag === 'function') {
       window.gtag('config', this.gaId, {
         page_path: path,
         session_id: this.sessionId

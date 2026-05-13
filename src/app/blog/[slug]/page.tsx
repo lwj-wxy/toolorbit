@@ -4,6 +4,8 @@ import { notFound } from 'next/navigation';
 import path from 'path';
 import { BLOG_POSTS } from '../../../constants/blogData';
 import { blogPostMetadata } from '../../../lib/metadata';
+import { blogPostJsonLd } from '../../../lib/structured-data';
+import JsonLd from '../../../components/JsonLd';
 import BlogPost from '../../../views/BlogPost';
 
 export function generateStaticParams() {
@@ -35,5 +37,10 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 
   const initialMarkdown = await readInitialMarkdown(slug);
 
-  return <BlogPost slug={slug} initialMarkdown={initialMarkdown} />;
+  return (
+    <>
+      <JsonLd id={`structured-data-blog-${slug}`} data={blogPostJsonLd(slug)} />
+      <BlogPost slug={slug} initialMarkdown={initialMarkdown} />
+    </>
+  );
 }

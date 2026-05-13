@@ -2,6 +2,9 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { TOOLS } from '../../../../data/tools';
 import { toolMetadata } from '../../../../lib/metadata';
+import { toolJsonLd } from '../../../../lib/structured-data';
+import JsonLd from '../../../../components/JsonLd';
+import ToolSearchContent from '../../../../components/ToolSearchContent';
 import ToolPageClient from '../../../../components/ToolPageClient';
 
 export function generateStaticParams() {
@@ -24,5 +27,11 @@ export default async function Page({ params }: { params: Promise<{ section: stri
     notFound();
   }
 
-  return <ToolPageClient path={path} />;
+  return (
+    <>
+      <JsonLd id={`structured-data-tool-${slug}`} data={toolJsonLd(path)} />
+      <ToolPageClient path={path} />
+      <ToolSearchContent path={path} />
+    </>
+  );
 }

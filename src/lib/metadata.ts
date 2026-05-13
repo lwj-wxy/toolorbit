@@ -3,10 +3,10 @@ import { BLOG_POSTS } from '../constants/blogData';
 import { TOOLS } from '../data/tools';
 import en from '../locales/en.json';
 
-const SITE_URL = 'https://toolorbit.site';
-const SITE_NAME = 'ToolOrbit';
+export const SITE_URL = 'https://toolorbit.site';
+export const SITE_NAME = 'ToolOrbit';
 
-function readPath(source: any, path: string): string | undefined {
+export function readPath(source: any, path: string): string | undefined {
   const value = path.split('.').reduce((current, key) => current?.[key], source);
   return typeof value === 'string' ? value : undefined;
 }
@@ -19,13 +19,31 @@ export function pageMetadata(title?: string, description?: string, path = '/'): 
   return {
     title: metadataTitle,
     description,
+    applicationName: SITE_NAME,
+    creator: SITE_NAME,
+    publisher: SITE_NAME,
+    keywords: [
+      'online tools',
+      'developer tools',
+      'AI tools',
+      'PDF tools',
+      'image tools',
+      'JSON formatter',
+      'ToolOrbit',
+    ],
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+        'max-video-preview': -1,
+      },
+    },
     alternates: {
       canonical: url,
-      languages: {
-        en: url,
-        zh: url,
-        'x-default': url,
-      },
     },
     openGraph: {
       title: socialTitle,
