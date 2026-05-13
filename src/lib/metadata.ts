@@ -8,6 +8,7 @@ export const SITE_URL = 'https://toolorbit.site';
 export const SITE_NAME = 'ToolOrbit';
 const DEFAULT_DESCRIPTION =
   'Free browser-based tools for developers, creators, ecommerce operators, PDF workflows, image processing, and AI-assisted productivity.';
+const TITLE_TEXT_LIMIT = 48;
 
 const STATIC_PAGE_DESCRIPTIONS: Record<'about' | 'privacy' | 'terms', string> = {
   about:
@@ -16,6 +17,28 @@ const STATIC_PAGE_DESCRIPTIONS: Record<'about' | 'privacy' | 'terms', string> = 
     'Read ToolOrbit privacy practices, including local-first browser processing, analytics, advertising, and contact information handling.',
   terms:
     'Review the ToolOrbit terms of service for using free online tools, generated outputs, external links, and platform limitations.',
+};
+
+const BLOG_SEO_TITLE_OVERRIDES: Record<string, string> = {
+  'xml-json-conversion-guide': 'XML and JSON Converters Guide',
+  'xiaohongshu-copywriting-ai': 'Xiaohongshu AI Copywriting Guide',
+  'why-text-diff-matters': 'Why Text Diff Matters at Work',
+  'modern-pdf-workflow-efficiency': 'Modern PDF Workflow Guide',
+  'ai-ecommerce-marketing-tips': 'AI E-commerce Marketing Tips',
+  'secure-developer-tools-privacy': 'Local Processing for Developer Tools',
+  'why-use-json-formatter': 'Why Developers Need JSON Formatters',
+  'benefits-of-chinese-crypto-sm': 'SM2, SM3, and SM4 Crypto Guide',
+  'morse-code-guide': 'Modern Morse Code Guide',
+  'base64-encoding-deep-dive': 'Complete Base64 Encoding Guide',
+  'color-theory-for-developers': 'Color Theory for Developers',
+  'regex-mastery-guide': 'Regular Expressions Mastery Guide',
+  'http-status-codes-explained': 'HTTP Status Codes Explained',
+  'api-security-best-practices': 'API Security Best Practices',
+  'ai-text-polisher-guide': 'AI Text Polisher Guide',
+  'ai-translator-future': 'Contextual AI Translation Guide',
+  'image-compression-techniques': 'Image Compression Techniques',
+  'svg-to-png-conversion-tips': 'SVG to PNG Conversion Guide',
+  'image-converter-web-formats': 'JPG, PNG, and WebP Formats Guide',
 };
 
 export function readPath(source: any, path: string): string | undefined {
@@ -34,6 +57,39 @@ function cleanTitle(value?: string, fallback = SITE_NAME) {
 function cleanDescription(value?: string, fallback = DEFAULT_DESCRIPTION) {
   const description = (value || fallback).replace(/\s+/g, ' ').trim();
   return description || fallback;
+}
+
+function fitTitle(value: string) {
+  if (value.length <= TITLE_TEXT_LIMIT) return value;
+
+  const compact = value
+    .replace(/^Professional\s+/i, '')
+    .replace(/^Complete\s+/i, '')
+    .replace(/^Universal\s+/i, '')
+    .replace(/^Online\s+/i, '')
+    .replace(/^Free\s+/i, '')
+    .replace(/^Safe\s+/i, '')
+    .replace(/^Secure\s+/i, '')
+    .replace(/^RFC 4122 Standard\s+/i, '')
+    .replace(/^Next-Gen\s+/i, '')
+    .replace(/\s*[-:]\s*(Secure|Safe|Fast|Accurate|Local|Private|Privately|Professional|Lightweight|Global|Custom|Online|Essential).*/i, '')
+    .trim();
+
+  if (compact && compact.length <= TITLE_TEXT_LIMIT) return compact;
+
+  const beforeSeparator = value.split(/\s*[:|-]\s*/)[0]?.trim();
+  if (beforeSeparator && beforeSeparator.length >= 18 && beforeSeparator.length <= TITLE_TEXT_LIMIT) {
+    return beforeSeparator;
+  }
+
+  const words: string[] = [];
+  for (const word of value.split(/\s+/)) {
+    const next = [...words, word].join(' ');
+    if (next.length > TITLE_TEXT_LIMIT) break;
+    words.push(word);
+  }
+
+  return words.join(' ') || value.slice(0, TITLE_TEXT_LIMIT).trim();
 }
 
 function expandShortToolDescription(description: string, toolName: string) {
@@ -117,7 +173,7 @@ export function blogListMetadata(): Metadata {
 
 export function blogPostMetadata(slug: string): Metadata {
   const post = BLOG_POSTS.find((item) => item.slug === slug);
-  const title = readPath(en, `blog.posts.${slug}.title`) || slug.replace(/-/g, ' ');
+  const title = BLOG_SEO_TITLE_OVERRIDES[slug] || readPath(en, `blog.posts.${slug}.title`) || slug.replace(/-/g, ' ');
   const description = readPath(en, `blog.posts.${slug}.summary`) || 'ToolOrbit Blog article.';
   const metadata = pageMetadata(title, description, `/blog/${slug}`);
 
@@ -142,7 +198,14 @@ export function toolMetadata(path: string): Metadata {
     ? readPath(en, `tools.${toolKey}.seoDesc`) || readPath(en, `tools.${toolKey}.description`) || tool?.description
     : undefined;
   const cleanedTitle = cleanTitle(rawTitle, tool?.name || SITE_NAME);
-  const title = tool && cleanedTitle.length < 30 ? `${cleanedTitle} Online Tool` : rawTitle;
+  const toolNameTitle = cleanTitle(
+    toolKey ? readPath(en, `tools.${toolKey}.name`) || tool?.name : tool?.name,
+    tool?.name || SITE_NAME,
+  );
+  const title =
+    tool && cleanedTitle.length < 30
+      ? `${cleanedTitle} Online Tool`
+      : fitTitle(cleanedTitle.length > TITLE_TEXT_LIMIT ? toolNameTitle : cleanedTitle);
 
   const fallbackDescription = tool
     ? `Use ${cleanTitle(tool.name)} online for ${tool.description.toLowerCase()} No installation required.`

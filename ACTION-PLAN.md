@@ -13,7 +13,19 @@ Updated from a fresh live crawl on 2026-05-13 18:04 Asia/Shanghai.
    - Current refreshed crawl: 0/105 pages with multiple H1s.
    - Tool and category pages now expose H1 in the initial HTML.
 
-3. Crawl/indexability basics
+3. Title length cleanup
+   - Local build verification: 0 generated HTML titles over 60 characters.
+   - The metadata layer now prefers compact SEO titles before the global `| ToolOrbit` template is applied.
+
+4. Generic AI tool H1 labels
+   - Local build verification: 0 `Parameters` H1s.
+   - Updated H1s:
+     - `/tools/ai/listing-generator` -> `Listing Generator`
+     - `/tools/ai/keyword-analyzer` -> `Keyword Analyzer`
+     - `/tools/ai/competitor-tracker` -> `Competitor Tracker`
+     - `/tools/ai/market-insights` -> `Market Insights`
+
+5. Crawl/indexability basics
    - Unknown URLs return 404.
    - `/llms.txt` returns `text/plain`.
    - Canonical tags are present on all crawled pages.
@@ -21,30 +33,17 @@ Updated from a fresh live crawl on 2026-05-13 18:04 Asia/Shanghai.
 
 ## High
 
-1. Tighten title tags
-   - Current refreshed crawl: 60/105 titles are longer than 60 characters.
-   - Prioritize high-value tools: JSON Formatter, Base64, UUID, Hash Generator, AI Text Polisher, AI Translator, PDF/Image tools.
-   - Use compact patterns such as `JSON Formatter | Validate and Beautify JSON | ToolOrbit`.
-
-2. Tighten meta descriptions
+1. Tighten meta descriptions
    - Current refreshed crawl: 50 over 160 chars, 6 under 120 chars.
    - Keep descriptions specific, benefit-led, and accurate about local/browser/AI processing.
    - Target roughly 120-155 characters for important pages.
 
-3. Fix generic H1 labels
-   - Four tool pages currently use `Parameters` as H1:
-     - `/tools/ai/listing-generator`
-     - `/tools/ai/keyword-analyzer`
-     - `/tools/ai/competitor-tracker`
-     - `/tools/ai/market-insights`
-   - Replace with descriptive tool names.
-
-4. Expand thin category pages
+2. Expand thin category pages
    - Current refreshed crawl: 14 pages under 300 words.
    - Most thin pages are category pages.
    - Add short intros, use cases, and links to recommended tools.
 
-5. Re-run performance validation
+3. Re-run performance validation
    - PageSpeed returned `429` quota errors during the refresh.
    - Re-test homepage, a category page, a tool page, and a blog post.
    - Track mobile LCP, INP, CLS, total JS, and third-party script impact.

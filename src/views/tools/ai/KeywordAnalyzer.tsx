@@ -94,7 +94,7 @@ export default function KeywordAnalyzer() {
         <div className="bg-white rounded-3xl border border-slate-200 shadow-xl shadow-slate-200/50 p-6 sm:p-7 space-y-6">
           <h1 className="text-xl font-black text-slate-800 tracking-tight flex items-center gap-2">
             <Zap className="text-indigo-500" />
-            {isZh ? '控制台' : 'Parameters'}
+            {isZh ? '关键词分析器' : 'Keyword Analyzer'}
           </h1>
 
           <div className="space-y-4">

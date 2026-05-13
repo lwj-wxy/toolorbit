@@ -3,7 +3,7 @@
 Audit date: 2026-05-13 18:04 Asia/Shanghai  
 Audited URL: https://toolorbit.site/  
 Business type: Free browser-based utility/tool platform for developers, creators, ecommerce, PDF, image, text, and AI workflows  
-SEO health score: 77/100
+SEO health score: 82/100
 
 ## Executive Summary
 
@@ -14,23 +14,21 @@ This refresh crawled the updated live site and ignored prior audit conclusions. 
 
 The site now has a much stronger crawlable baseline. The live HTML includes H1s, meaningful body copy, canonical tags, JSON-LD, and visible tool support content. Unknown URLs still return 404, `/llms.txt` serves as `text/plain`, and security headers remain present.
 
-The remaining SEO work is mostly refinement rather than indexability repair. The largest opportunities are title/meta length cleanup, improving a few generic H1 labels, expanding thinner category pages, and getting real performance data once PageSpeed quota is available.
+The remaining SEO work is mostly refinement rather than indexability repair. The largest opportunities are meta description length cleanup, expanding thinner category pages, and getting real performance data once PageSpeed quota is available.
 
 Top issues:
 
-1. 60/105 title tags are longer than 60 characters.
-2. 50/105 meta descriptions are longer than 160 characters, and 6 are under 120 characters.
-3. 14/105 pages are under 300 extracted words, mostly category pages and four AI utility pages.
-4. Four tool pages use the generic H1 `Parameters` instead of a descriptive tool name.
-5. PageSpeed Insights is still unavailable due API `429`, so Core Web Vitals remain unverified.
+1. 50/105 meta descriptions are longer than 160 characters, and 6 are under 120 characters.
+2. 14/105 pages are under 300 extracted words, mostly category pages and four AI utility pages.
+3. PageSpeed Insights is still unavailable due API `429`, so Core Web Vitals remain unverified.
+4. No `Content-Security-Policy` header was detected.
 
 Top quick wins:
 
-1. Shorten high-priority title tags and meta descriptions.
-2. Replace `Parameters` H1 on listing generator, keyword analyzer, competitor tracker, and market insights.
-3. Expand category pages with 100-200 more words of crawlable intro/use-case copy.
-4. Add a tested Content Security Policy.
-5. Re-run Lighthouse/PageSpeed after quota resets.
+1. Shorten high-priority meta descriptions.
+2. Expand category pages with 100-200 more words of crawlable intro/use-case copy.
+3. Add a tested Content Security Policy.
+4. Re-run Lighthouse/PageSpeed after quota resets.
 
 ## Crawl Evidence
 
@@ -101,23 +99,18 @@ The previous H1 issue is fixed:
 
 Remaining on-page issues:
 
-- 60 titles are longer than 60 characters.
 - 50 meta descriptions are longer than 160 characters.
 - 6 meta descriptions are under 120 characters.
 - 3 titles are under 30 characters.
-- Four tool pages use `Parameters` as the H1.
+- Local build verification after the latest patch found 0 titles over 60 characters and 0 `Parameters` H1s in generated HTML.
 
-Examples needing metadata cleanup:
+Examples needing meta description cleanup:
 
 - `/tools/dev/json-formatter`: title 69 chars, meta description 242 chars.
 - `/tools/ai/text-polisher`: title 81 chars, meta description 211 chars.
 - `/tools/ai/translator`: title 78 chars, meta description 171 chars.
 - `/tools/dev/uuid-generator`: title 69 chars, meta description 228 chars.
 - `/blog/why-text-diff-matters`: title 92 chars.
-
-Recommended title pattern:
-
-`Primary Tool Name | Main Use Case | ToolOrbit`
 
 Recommended meta pattern:
 
@@ -190,10 +183,9 @@ Recommendations:
 
 High, fix within 1 week:
 
-1. Shorten long titles and meta descriptions on priority pages.
-2. Replace generic `Parameters` H1 on four AI utility pages.
-3. Expand thin category pages with more crawlable, task-focused copy.
-4. Re-run Lighthouse/PageSpeed once quota is available.
+1. Shorten long meta descriptions on priority pages.
+2. Expand thin category pages with more crawlable, task-focused copy.
+3. Re-run Lighthouse/PageSpeed once quota is available.
 
 Medium, fix within 1 month:
 
@@ -213,6 +205,8 @@ Low/backlog:
 
 - `www.toolorbit.site` now redirects to the canonical apex domain.
 - Tool and category pages now include server-rendered H1 tags.
+- Local build now generates no title tags over 60 characters.
+- The four AI utility pages no longer use `Parameters` as their H1.
 - Unknown URLs return 404.
 - `/llms.txt` serves as `text/plain`.
 - Security headers are present except CSP.
