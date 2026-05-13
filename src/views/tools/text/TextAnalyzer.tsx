@@ -140,9 +140,9 @@ export default function TextAnalyzer() {
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
         >
-          <h2 className="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+          <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
             {t('tools.text-analyzer.title')}
-          </h2>
+          </h1>
           <p className="mt-2 text-slate-500 dark:text-slate-400 max-w-2xl leading-relaxed">
             {t('tools.text-analyzer.subtitle')}
           </p>

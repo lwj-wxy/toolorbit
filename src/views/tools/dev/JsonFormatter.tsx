@@ -64,9 +64,9 @@ export default function JsonFormatter() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-3xl font-bold tracking-tight text-slate-900">
+          <h1 className="text-3xl font-bold tracking-tight text-slate-900">
             {t('tools.json-formatter.title')}
-          </h2>
+          </h1>
           <p className="mt-1 text-sm text-gray-500">
             {t('tools.json-formatter.subtitle')}
           </p>

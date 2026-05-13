@@ -61,9 +61,9 @@ export default function Base64() {
     <div className="max-w-4xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-3xl font-bold tracking-tight text-slate-900">
+          <h1 className="text-3xl font-bold tracking-tight text-slate-900">
             {t('tools.base64.title', { mode: mode === 'encode' ? t('tools.base64.encode') : t('tools.base64.decode') })}
-          </h2>
+          </h1>
           <p className="mt-1 text-sm text-gray-500">
             {t('tools.base64.subtitle')}
           </p>

@@ -5,20 +5,50 @@ import en from '../locales/en.json';
 
 export const SITE_URL = 'https://toolorbit.site';
 export const SITE_NAME = 'ToolOrbit';
+const DEFAULT_DESCRIPTION =
+  'Free browser-based tools for developers, creators, ecommerce operators, PDF workflows, image processing, and AI-assisted productivity.';
+
+const STATIC_PAGE_DESCRIPTIONS: Record<'about' | 'privacy' | 'terms', string> = {
+  about:
+    'Learn how ToolOrbit builds fast, privacy-conscious online tools for developers, creators, and everyday digital workflows.',
+  privacy:
+    'Read ToolOrbit privacy practices, including local-first browser processing, analytics, advertising, and contact information handling.',
+  terms:
+    'Review the ToolOrbit terms of service for using free online tools, generated outputs, external links, and platform limitations.',
+};
 
 export function readPath(source: any, path: string): string | undefined {
   const value = path.split('.').reduce((current, key) => current?.[key], source);
   return typeof value === 'string' ? value : undefined;
 }
 
+function cleanTitle(value?: string, fallback = SITE_NAME) {
+  const title = (value || fallback)
+    .replace(new RegExp(`\\s*\\|\\s*${SITE_NAME}\\s*`, 'gi'), '')
+    .replace(/\s+/g, ' ')
+    .trim();
+  return title || fallback;
+}
+
+function cleanDescription(value?: string, fallback = DEFAULT_DESCRIPTION) {
+  const description = (value || fallback).replace(/\s+/g, ' ').trim();
+  return description || fallback;
+}
+
+function expandShortToolDescription(description: string, toolName: string) {
+  if (description.length >= 90) return description;
+  return `${description} Use ${toolName} online in ToolOrbit with no installation, quick browser access, and a focused workflow for everyday productivity.`;
+}
+
 export function pageMetadata(title?: string, description?: string, path = '/'): Metadata {
   const url = `${SITE_URL}${path}`;
-  const metadataTitle = title || SITE_NAME;
+  const metadataTitle = cleanTitle(title);
+  const metadataDescription = cleanDescription(description);
   const socialTitle = title ? `${title} | ${SITE_NAME}` : SITE_NAME;
 
   return {
     title: metadataTitle,
-    description,
+    description: metadataDescription,
     applicationName: SITE_NAME,
     creator: SITE_NAME,
     publisher: SITE_NAME,
@@ -46,8 +76,8 @@ export function pageMetadata(title?: string, description?: string, path = '/'): 
       canonical: url,
     },
     openGraph: {
-      title: socialTitle,
-      description,
+      title: cleanTitle(socialTitle) === SITE_NAME ? SITE_NAME : `${metadataTitle} | ${SITE_NAME}`,
+      description: metadataDescription,
       url,
       siteName: SITE_NAME,
       type: 'website',
@@ -55,8 +85,8 @@ export function pageMetadata(title?: string, description?: string, path = '/'): 
     },
     twitter: {
       card: 'summary_large_image',
-      title: socialTitle,
-      description,
+      title: cleanTitle(socialTitle) === SITE_NAME ? SITE_NAME : `${metadataTitle} | ${SITE_NAME}`,
+      description: metadataDescription,
       images: ['/og-image'],
     },
   };
@@ -64,25 +94,22 @@ export function pageMetadata(title?: string, description?: string, path = '/'): 
 
 export function homeMetadata(): Metadata {
   return pageMetadata(
-    readPath(en, 'common.title') || SITE_NAME,
-    readPath(en, 'common.description') || 'A collection of powerful online tools for developers and creators.',
+    'Free Online Tools for Developers and Creators',
+    DEFAULT_DESCRIPTION,
     '/',
   );
 }
 
 export function staticPageMetadata(page: 'about' | 'privacy' | 'terms'): Metadata {
   const title = readPath(en, `${page}.title`);
-  const description = page === 'about'
-    ? readPath(en, 'common.description')
-    : readPath(en, `${page}.lastUpdated`);
 
-  return pageMetadata(title, description, `/${page}`);
+  return pageMetadata(title, STATIC_PAGE_DESCRIPTIONS[page], `/${page}`);
 }
 
 export function blogListMetadata(): Metadata {
   return pageMetadata(
     readPath(en, 'blog.title') || 'Blog',
-    readPath(en, 'blog.subtitle') || 'ToolOrbit Blog',
+    'Practical guides for developer tools, secure workflows, image optimization, PDF productivity, ecommerce operations, and AI-assisted work.',
     '/blog',
   );
 }
@@ -107,12 +134,21 @@ export function blogPostMetadata(slug: string): Metadata {
 export function toolMetadata(path: string): Metadata {
   const tool = TOOLS.find((item) => item.path === path);
   const toolKey = tool?.id;
-  const title = toolKey
+  const rawTitle = toolKey
     ? readPath(en, `tools.${toolKey}.seoTitle`) || readPath(en, `tools.${toolKey}.name`) || tool?.name
     : undefined;
-  const description = toolKey
+  const rawDescription = toolKey
     ? readPath(en, `tools.${toolKey}.seoDesc`) || readPath(en, `tools.${toolKey}.description`) || tool?.description
     : undefined;
+  const cleanedTitle = cleanTitle(rawTitle, tool?.name || SITE_NAME);
+  const title = tool && cleanedTitle.length < 30 ? `${cleanedTitle} Online Tool` : rawTitle;
 
-  return pageMetadata(title, description, path);
+  const fallbackDescription = tool
+    ? `Use ${cleanTitle(tool.name)} online for ${tool.description.toLowerCase()} No installation required.`
+    : DEFAULT_DESCRIPTION;
+  const description = tool
+    ? expandShortToolDescription(cleanDescription(rawDescription, fallbackDescription), cleanedTitle)
+    : rawDescription;
+
+  return pageMetadata(title, description || fallbackDescription, path);
 }

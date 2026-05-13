@@ -27,9 +27,9 @@ export default function EtsyFeeCalculator() {
     <div className="max-w-4xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-[24px] font-bold text-[#1e293b]">
+          <h1 className="text-[24px] font-bold text-[#1e293b]">
             {t('tools.etsy-fee-calculator.title')}
-          </h2>
+          </h1>
           <p className="mt-1 text-sm text-[#94a3b8]">
             {t('tools.etsy-fee-calculator.subtitle')}
           </p>

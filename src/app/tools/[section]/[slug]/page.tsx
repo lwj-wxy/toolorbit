@@ -14,6 +14,8 @@ export function generateStaticParams() {
   });
 }
 
+export const dynamicParams = false;
+
 export async function generateMetadata({ params }: { params: Promise<{ section: string; slug: string }> }): Promise<Metadata> {
   const { section, slug } = await params;
   return toolMetadata(`/tools/${section}/${slug}`);
