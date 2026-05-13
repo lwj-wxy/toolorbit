@@ -7,6 +7,36 @@ import JsonLd from '../../../../components/JsonLd';
 import ToolSearchContent from '../../../../components/ToolSearchContent';
 import ToolPageClient from '../../../../components/ToolPageClient';
 
+const FALLBACK_TOOL_GUIDE_PATHS = new Set([
+  '/tools/ai/youtube-generator',
+  '/tools/ai/xiaohongshu',
+  '/tools/ai/listing-generator',
+  '/tools/ai/keyword-analyzer',
+  '/tools/ai/competitor-tracker',
+  '/tools/ai/market-insights',
+  '/tools/dev/color-converter',
+  '/tools/dev/color-palette',
+  '/tools/dev/crypto-symmetric',
+  '/tools/dev/morse-code',
+  '/tools/dev/text-diff',
+  '/tools/dev/xml-to-json',
+  '/tools/fun/game-2048',
+  '/tools/fun/minesweeper',
+  '/tools/generator/barcode-generator',
+  '/tools/generator/qr-scanner',
+  '/tools/image/image-compressor',
+  '/tools/image/image-cropper',
+  '/tools/image/image-to-base64',
+  '/tools/image/image-to-ico',
+  '/tools/image/svg-to-png',
+  '/tools/pdf/image-to-pdf',
+  '/tools/pdf/pdf-merge',
+  '/tools/shared/placeholder',
+  '/tools/text/symbol-library',
+  '/tools/text/text-analyzer',
+  '/tools/text/text-cleaner',
+]);
+
 export function generateStaticParams() {
   return TOOLS.map((tool) => {
     const [, , section, slug] = tool.path.split('/');
@@ -33,7 +63,7 @@ export default async function Page({ params }: { params: Promise<{ section: stri
     <>
       <JsonLd id={`structured-data-tool-${slug}`} data={toolJsonLd(path)} />
       <ToolPageClient path={path} />
-      <ToolSearchContent path={path} />
+      {FALLBACK_TOOL_GUIDE_PATHS.has(path) ? <ToolSearchContent path={path} /> : null}
     </>
   );
 }

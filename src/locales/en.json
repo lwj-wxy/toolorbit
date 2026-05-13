@@ -55,6 +55,12 @@
     "error": "An error occurred",
     "errorCatcher": "Service unavailable, please try again later"
   },
+  "toolGuide": {
+    "label": "Tool guide",
+    "usageTitle": "How people usually use this tool",
+    "reasonsTitle": "Key reasons to use it",
+    "relatedTools": "Related tools"
+  },
   "blog": {
     "nav": "Blog",
     "title": "Developer Resources",

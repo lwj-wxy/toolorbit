@@ -1,76 +1,126 @@
-import Link from 'next/link';
+'use client';
+
+import { useTranslation } from 'react-i18next';
 import { TOOLS } from '../data/tools';
 import en from '../locales/en.json';
-import { readPath } from '../lib/metadata';
 
 type ToolSearchContentProps = {
   path: string;
 };
 
-function pickToolText(toolId: string, key: string) {
-  return readPath(en, `tools.${toolId}.${key}`);
+function readPath(source: any, path: string): string | undefined {
+  const value = path.split('.').reduce((current, key) => current?.[key], source);
+  return typeof value === 'string' ? value : undefined;
+}
+
+function pickToolText(
+  t: ReturnType<typeof useTranslation>['t'],
+  toolId: string,
+  key: string,
+  fallback = '',
+) {
+  const path = `tools.${toolId}.${key}`;
+  const englishFallback = readPath(en, path) || fallback;
+  const value = t(path, { defaultValue: englishFallback });
+  return typeof value === 'string' && value.trim() ? value : englishFallback;
 }
 
 function compactTitle(title: string) {
   return title.replace(' | ToolOrbit', '').replace(':', '').trim();
 }
 
-function categoryIntent(category: string) {
+function categoryIntent(category: string, isZh: boolean) {
   if (category.includes('AI')) {
-    return 'AI-assisted drafting, rewriting, analysis, and generation workflows where a clear prompt can save time.';
+    return isZh
+      ? 'AI 辅助的起草、改写、分析和生成场景，适合用清晰提示词快速完成内容工作。'
+      : 'AI-assisted drafting, rewriting, analysis, and generation workflows where a clear prompt can save time.';
   }
   if (category.includes('PDF')) {
-    return 'document workflows such as merging, splitting, converting, or preparing files without installing desktop software.';
+    return isZh
+      ? 'PDF 合并、拆分、转换和文档整理等流程，无需安装桌面软件即可完成。'
+      : 'document workflows such as merging, splitting, converting, or preparing files without installing desktop software.';
   }
   if (category.includes('图片')) {
-    return 'image optimization and format conversion tasks for websites, social posts, ecommerce assets, and design handoff.';
+    return isZh
+      ? '网站图片优化、格式转换、社交媒体配图、电商素材和设计交付等图像处理任务。'
+      : 'image optimization and format conversion tasks for websites, social posts, ecommerce assets, and design handoff.';
   }
   if (category.includes('开发者')) {
-    return 'developer debugging, data conversion, encoding, validation, and secure local inspection tasks.';
+    return isZh
+      ? '开发调试、数据转换、编码解码、格式校验和安全的本地检查任务。'
+      : 'developer debugging, data conversion, encoding, validation, and secure local inspection tasks.';
   }
   if (category.includes('电商')) {
-    return 'marketplace planning, fee estimation, listing optimization, and ecommerce operations.';
+    return isZh
+      ? '平台运营、费用估算、商品 Listing 优化和跨境电商日常工作。'
+      : 'marketplace planning, fee estimation, listing optimization, and ecommerce operations.';
   }
-  return 'fast browser-based conversion, calculation, generation, and everyday productivity tasks.';
+  return isZh
+    ? '浏览器内快速完成转换、计算、生成和日常效率处理。'
+    : 'fast browser-based conversion, calculation, generation, and everyday productivity tasks.';
 }
 
 export default function ToolSearchContent({ path }: ToolSearchContentProps) {
+  const { t, i18n } = useTranslation();
   const tool = TOOLS.find((item) => item.path === path);
   if (!tool) return null;
 
-  const title = compactTitle(pickToolText(tool.id, 'seoTitle') || pickToolText(tool.id, 'name') || tool.name);
-  const description = pickToolText(tool.id, 'seoDesc') || pickToolText(tool.id, 'description') || tool.description;
+  const isZh = i18n.language?.startsWith('zh');
+  const title = compactTitle(
+    pickToolText(t, tool.id, 'seoTitle') ||
+      pickToolText(t, tool.id, 'name', tool.name) ||
+      tool.name,
+  );
+  const description =
+    pickToolText(t, tool.id, 'seoDesc') ||
+    pickToolText(t, tool.id, 'description', tool.description) ||
+    tool.description;
+  const guideTitle = pickToolText(
+    t,
+    tool.id,
+    'guideTitle',
+    t('toolGuide.usageTitle', {
+      defaultValue: isZh ? '这个工具通常怎么使用？' : 'How people usually use this tool',
+    }),
+  );
+  const highlightsTitle = pickToolText(
+    t,
+    tool.id,
+    'highlightsTitle',
+    t('toolGuide.reasonsTitle', {
+      defaultValue: isZh ? '为什么使用这个工具？' : 'Key reasons to use it',
+    }),
+  );
   const guide = [1, 2, 3, 4]
-    .map((index) => pickToolText(tool.id, `guide${index}`))
+    .map((index) => pickToolText(t, tool.id, `guide${index}`))
     .filter(Boolean);
   const highlights = [1, 2, 3]
     .map((index) => ({
-      title: pickToolText(tool.id, `highlight${index}Title`),
-      description: pickToolText(tool.id, `highlight${index}Desc`),
+      title: pickToolText(t, tool.id, `highlight${index}Title`),
+      description: pickToolText(t, tool.id, `highlight${index}Desc`),
     }))
     .filter((item) => item.title || item.description);
-  const relatedTools = TOOLS.filter((item) => item.category === tool.category && item.id !== tool.id).slice(0, 4);
-
   return (
     <section className="mt-10 border-t border-slate-200/70 dark:border-slate-800/70 pt-10">
-      <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_320px]">
-        <div className="space-y-6">
+      <div className="max-w-5xl space-y-6">
           <div>
             <p className="mb-3 text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">
-              Tool guide
+              {t('toolGuide.label', { defaultValue: isZh ? '工具指南' : 'Tool guide' })}
             </p>
             <h2 className="text-2xl font-black tracking-tight text-slate-900 dark:text-slate-100">
               {title}
             </h2>
             <p className="mt-4 text-base leading-8 text-slate-600 dark:text-slate-400">
-              {description} This page is designed for {categoryIntent(tool.category)}
+              {description}
+              {isZh ? ' 本页面适用于' : ' This page is designed for '}
+              {categoryIntent(tool.category, isZh)}
             </p>
           </div>
 
           {guide.length > 0 && (
             <div>
               <h3 className="mb-3 text-lg font-bold text-slate-900 dark:text-slate-100">
-                How people usually use this tool
+                {guideTitle}
               </h3>
               <ol className="grid gap-3 text-sm leading-7 text-slate-600 dark:text-slate-400 sm:grid-cols-2">
                 {guide.map((item) => (
@@ -85,7 +135,7 @@ export default function ToolSearchContent({ path }: ToolSearchContentProps) {
           {highlights.length > 0 && (
             <div>
               <h3 className="mb-3 text-lg font-bold text-slate-900 dark:text-slate-100">
-                Key reasons to use it
+                {highlightsTitle}
               </h3>
               <div className="grid gap-3 sm:grid-cols-3">
                 {highlights.map((item) => (
@@ -97,31 +147,6 @@ export default function ToolSearchContent({ path }: ToolSearchContentProps) {
               </div>
             </div>
           )}
-        </div>
-
-        {relatedTools.length > 0 && (
-          <aside className="h-fit rounded-lg border border-slate-200/70 bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
-            <h3 className="text-sm font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">
-              Related tools
-            </h3>
-            <div className="mt-4 space-y-3">
-              {relatedTools.map((related) => (
-                <Link
-                  key={related.id}
-                  href={related.path}
-                  className="block rounded-md border border-slate-100 p-3 transition-colors hover:border-blue-200 hover:bg-blue-50 dark:border-slate-800 dark:hover:border-blue-900 dark:hover:bg-blue-950/30"
-                >
-                  <span className="block text-sm font-bold text-slate-900 dark:text-slate-100">
-                    {pickToolText(related.id, 'name') || related.name}
-                  </span>
-                  <span className="mt-1 line-clamp-2 block text-xs leading-5 text-slate-500 dark:text-slate-400">
-                    {pickToolText(related.id, 'description') || related.description}
-                  </span>
-                </Link>
-              ))}
-            </div>
-          </aside>
-        )}
       </div>
     </section>
   );

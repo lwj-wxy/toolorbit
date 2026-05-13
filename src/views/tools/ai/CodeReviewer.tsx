@@ -119,169 +119,170 @@ export default function CodeReviewer() {
         </p>
       </div>
 
-      <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
-        <div className="p-6 sm:p-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            
-            {/* Input Section */}
-            <div className="space-y-6">
-              <div>
-                <div className="flex gap-4 mb-2">
-                  <div className="flex-1">
-                    <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                      {t('tools.ai-code-reviewer.codeLang') || 'Language'}
-                    </label>
-                    <select
-                      value={codeLang}
-                      onChange={(e) => setCodeLang(e.target.value)}
-                      className="w-full p-2.5 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-green-500 outline-none text-slate-700 dark:text-slate-300"
-                    >
-                      {langs.map(l => (
-                        <option key={l} value={l}>{l}</option>
-                      ))}
-                    </select>
-                  </div>
-                  <div className="flex-1">
-                    <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                      {t('tools.ai-code-reviewer.tone') || 'Review Focus'}
-                    </label>
-                    <select
-                      value={tone}
-                      onChange={(e) => setTone(e.target.value)}
-                      className="w-full p-2.5 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-green-500 outline-none text-slate-700 dark:text-slate-300"
-                    >
-                      {tones.map(tOption => (
-                        <option key={tOption} value={tOption}>{tOption}</option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                   {t('tools.ai-code-reviewer.code') || 'Your Code'}
-                </label>
-                <textarea
-                  value={code}
-                  onChange={(e) => setCode(e.target.value)}
-                  placeholder={t('tools.ai-code-reviewer.placeholder') || 'Paste your code here...'}
-                  className="w-full h-[400px] p-4 bg-slate-900 text-slate-100 font-mono text-sm border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none resize-none transition-all placeholder:text-slate-500"
-                  spellCheck="false"
-                />
-              </div>
-
-              <button
-                onClick={handleGenerate}
-                disabled={!code.trim() || loading}
-                className="w-full py-4 bg-green-600 hover:bg-green-700 disabled:bg-slate-300 dark:disabled:bg-slate-800 disabled:cursor-not-allowed text-white rounded-xl font-medium transition-all shadow-sm hover:shadow-md flex items-center justify-center gap-2 group"
+      <div className="space-y-8">
+        <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:p-8">
+          <div className="grid gap-5 md:grid-cols-2">
+            <div>
+              <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
+                {t('tools.ai-code-reviewer.codeLang') || 'Language'}
+              </label>
+              <select
+                value={codeLang}
+                onChange={(e) => setCodeLang(e.target.value)}
+                className="w-full rounded-xl border border-slate-200 bg-slate-50 p-2.5 text-slate-700 outline-none focus:ring-2 focus:ring-green-500 dark:border-slate-700 dark:bg-slate-800/50 dark:text-slate-300"
               >
-                {loading ? (
-                  <>
-                     <Loader2 className="w-5 h-5 animate-spin" />
-                     {t('tools.ai-code-reviewer.analyzing') || 'Analyzing...'}
-                  </>
-                ) : (
-                  <>
-                     <FileCode2 className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                     {t('tools.ai-code-reviewer.analyzeBtn') || 'Start Review'}
-                  </>
-                )}
-              </button>
+                {langs.map(l => (
+                  <option key={l} value={l}>{l}</option>
+                ))}
+              </select>
             </div>
-
-            {/* Output Section */}
-            <div className="space-y-6 h-full">
-              <div className="h-full flex flex-col">
-                 <div className="flex items-center justify-between mb-2 shrink-0">
-                    <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
-                      {t('tools.ai-code-reviewer.result') || 'Review Report'}
-                    </label>
-                    {result && (
-                      <button
-                        onClick={copyToClipboard}
-                        className="flex items-center gap-1.5 text-sm text-green-600 dark:text-green-400 hover:text-green-700 font-medium px-3 py-1.5 rounded-lg hover:bg-green-50 dark:hover:bg-green-900/20 transition-colors"
-                      >
-                        {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-                        {copied ? (t('common.copied') || 'Copied') : (t('common.copy') || 'Copy')}
-                      </button>
-                    )}
-                 </div>
-                 
-                 <div className="relative flex-1 min-h-[500px]">
-                    <div className={`absolute inset-0 p-5 rounded-xl border transition-all overflow-y-auto
-                      ${result 
-                        ? 'bg-green-50/50 dark:bg-green-900/10 border-green-100 dark:border-green-900/30 text-slate-800 dark:text-slate-200' 
-                        : 'bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500 flex items-center justify-center'}`}
-                    >
-                      {error ? (
-                        <div className="text-red-500 dark:text-red-400 flex flex-col items-center gap-2">
-                          <RotateCcw className="w-8 h-8" />
-                          <p>{error}</p>
-                        </div>
-                      ) : result ? (
-                        <motion.div
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          className="prose prose-green dark:prose-invert max-w-none text-sm leading-relaxed"
-                        >
-                          <div className="markdown-body">
-                            <Markdown 
-                               remarkPlugins={[remarkGfm]}
-                               components={{
-                                 code({ node, inline, className, children, ...props }: any) {
-                                   const match = /language-(\w+)/.exec(className || '');
-                                   const codeText = String(children).replace(/\n$/, '');
-                                   if (!inline && match) {
-                                     return (
-                                       <div className="relative group rounded-md overflow-hidden my-4 border border-slate-700">
-                                         <div className="flex items-center justify-between px-4 py-2 bg-slate-800 text-slate-300 text-xs font-mono">
-                                            <span>{match[1]}</span>
-                                            <button
-                                              onClick={() => copyCodeToClipboard(codeText)}
-                                              className="flex items-center gap-1.5 hover:text-white transition-colors"
-                                            >
-                                              {copiedCode === codeText ? <Check className="w-3.5 h-3.5 text-green-400" /> : <Copy className="w-3.5 h-3.5" />}
-                                              {copiedCode === codeText ? (t('common.copied') || 'Copied') : (t('common.copy') || 'Copy')}
-                                            </button>
-                                         </div>
-                                         <SyntaxHighlighter
-                                           {...props}
-                                           style={vscDarkPlus}
-                                           language={match[1]}
-                                           PreTag="div"
-                                           customStyle={{ margin: 0, border: 'none', borderRadius: 0 }}
-                                         >
-                                           {codeText}
-                                         </SyntaxHighlighter>
-                                       </div>
-                                     );
-                                   }
-                                   return (
-                                     <code {...props} className={className}>
-                                       {children}
-                                     </code>
-                                   );
-                                 }
-                               }}
-                            >
-                               {result}
-                            </Markdown>
-                          </div>
-                        </motion.div>
-                      ) : (
-                        <div className="text-center">
-                          <FileCode2 className="w-8 h-8 mx-auto mb-3 opacity-20" />
-                          <p>{t('tools.ai-code-reviewer.waiting') || 'Awaiting code input...'}</p>
-                        </div>
-                      )}
-                    </div>
-                 </div>
-              </div>
+            <div>
+              <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
+                {t('tools.ai-code-reviewer.tone') || 'Review Focus'}
+              </label>
+              <select
+                value={tone}
+                onChange={(e) => setTone(e.target.value)}
+                className="w-full rounded-xl border border-slate-200 bg-slate-50 p-2.5 text-slate-700 outline-none focus:ring-2 focus:ring-green-500 dark:border-slate-700 dark:bg-slate-800/50 dark:text-slate-300"
+              >
+                {tones.map(tOption => (
+                  <option key={tOption} value={tOption}>{tOption}</option>
+                ))}
+              </select>
             </div>
-
           </div>
-        </div>
+
+          <div className="mt-6">
+            <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
+              {t('tools.ai-code-reviewer.code') || 'Your Code'}
+            </label>
+            <textarea
+              value={code}
+              onChange={(e) => setCode(e.target.value)}
+              placeholder={t('tools.ai-code-reviewer.placeholder') || 'Paste your code here...'}
+              className="h-[420px] w-full resize-y rounded-xl border border-slate-200 bg-slate-950 p-4 font-mono text-sm leading-7 text-slate-100 outline-none transition-all placeholder:text-slate-500 focus:border-transparent focus:ring-2 focus:ring-green-500 dark:border-slate-700"
+              spellCheck="false"
+            />
+          </div>
+
+          <button
+            onClick={handleGenerate}
+            disabled={!code.trim() || loading}
+            className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-green-600 py-4 font-medium text-white shadow-sm transition-all hover:bg-green-700 hover:shadow-md disabled:cursor-not-allowed disabled:bg-slate-300 dark:disabled:bg-slate-800"
+          >
+            {loading ? (
+              <>
+                <Loader2 className="h-5 w-5 animate-spin" />
+                {t('tools.ai-code-reviewer.analyzing') || 'Analyzing...'}
+              </>
+            ) : (
+              <>
+                <FileCode2 className="h-5 w-5" />
+                {t('tools.ai-code-reviewer.analyzeBtn') || 'Start Review'}
+              </>
+            )}
+          </button>
+        </section>
+
+        <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:p-8">
+          <div className="mb-5 flex items-center justify-between gap-4">
+            <div>
+              <h2 className="text-xl font-bold text-slate-900 dark:text-white">
+                {t('tools.ai-code-reviewer.result') || 'Review Report'}
+              </h2>
+              <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+                {result
+                  ? 'Structured review output with separated sections, readable paragraphs, and scrollable code examples.'
+                  : 'The AI review will appear here as a readable report after analysis.'}
+              </p>
+            </div>
+            {result && (
+              <button
+                onClick={copyToClipboard}
+                className="flex shrink-0 items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium text-green-600 transition-colors hover:bg-green-50 hover:text-green-700 dark:text-green-400 dark:hover:bg-green-900/20"
+              >
+                {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                {copied ? (t('common.copied') || 'Copied') : (t('common.copy') || 'Copy')}
+              </button>
+            )}
+          </div>
+
+          <div
+            className={`min-h-[360px] rounded-xl border p-5 transition-all sm:p-7 ${
+              result
+                ? 'border-green-100 bg-green-50/40 text-slate-800 dark:border-green-900/30 dark:bg-green-900/10 dark:text-slate-200'
+                : 'flex items-center justify-center border-slate-200 bg-slate-50 text-slate-400 dark:border-slate-700 dark:bg-slate-800/50 dark:text-slate-500'
+            }`}
+          >
+            {error ? (
+              <div className="flex flex-col items-center gap-2 text-red-500 dark:text-red-400">
+                <RotateCcw className="h-8 w-8" />
+                <p>{error}</p>
+              </div>
+            ) : result ? (
+              <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="prose prose-slate max-w-none text-[15px] leading-7 dark:prose-invert prose-headings:mt-8 prose-headings:font-black prose-h1:text-2xl prose-h2:text-xl prose-h3:text-lg prose-p:my-4 prose-li:my-2 prose-ol:my-5 prose-ul:my-5 prose-strong:text-slate-950 dark:prose-strong:text-white"
+              >
+                <Markdown
+                  remarkPlugins={[remarkGfm]}
+                  components={{
+                    code({ node, inline, className, children, ...props }: any) {
+                      const match = /language-(\w+)/.exec(className || '');
+                      const codeText = String(children).replace(/\n$/, '');
+                      if (!inline && match) {
+                        return (
+                          <div className="my-6 overflow-hidden rounded-xl border border-slate-700 bg-slate-950">
+                            <div className="flex items-center justify-between border-b border-slate-700 bg-slate-800 px-4 py-2 text-xs font-medium text-slate-300">
+                              <span className="font-mono uppercase tracking-wide">{match[1]}</span>
+                              <button
+                                onClick={() => copyCodeToClipboard(codeText)}
+                                className="flex items-center gap-1.5 transition-colors hover:text-white"
+                              >
+                                {copiedCode === codeText ? <Check className="h-3.5 w-3.5 text-green-400" /> : <Copy className="h-3.5 w-3.5" />}
+                                {copiedCode === codeText ? (t('common.copied') || 'Copied') : (t('common.copy') || 'Copy')}
+                              </button>
+                            </div>
+                            <SyntaxHighlighter
+                              {...props}
+                              style={vscDarkPlus}
+                              language={match[1]}
+                              PreTag="div"
+                              customStyle={{
+                                margin: 0,
+                                border: 'none',
+                                borderRadius: 0,
+                                padding: '1rem',
+                                fontSize: '0.86rem',
+                                lineHeight: 1.65,
+                                overflowX: 'auto',
+                              }}
+                            >
+                              {codeText}
+                            </SyntaxHighlighter>
+                          </div>
+                        );
+                      }
+                      return (
+                        <code {...props} className="rounded bg-slate-200/70 px-1.5 py-0.5 text-[0.9em] font-semibold text-slate-900 dark:bg-slate-800 dark:text-slate-100">
+                          {children}
+                        </code>
+                      );
+                    },
+                  }}
+                >
+                  {result}
+                </Markdown>
+              </motion.div>
+            ) : (
+              <div className="text-center">
+                <FileCode2 className="mx-auto mb-3 h-8 w-8 opacity-20" />
+                <p>{t('tools.ai-code-reviewer.waiting') || 'Awaiting code input...'}</p>
+              </div>
+            )}
+          </div>
+        </section>
       </div>
 
       <ToolSEOCard toolKey="ai-code-reviewer" />
