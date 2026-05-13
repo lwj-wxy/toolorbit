@@ -4,7 +4,6 @@ import { FileText, Loader2, Copy, Check, RotateCcw } from 'lucide-react';
 import { motion } from 'motion/react';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function WeeklyReport() {
   const { t, i18n } = useTranslation();
@@ -238,7 +237,6 @@ export default function WeeklyReport() {
         </div>
       </div>
 
-      <ToolSEOCard toolKey="ai-weekly-report" />
     </div>
   );
 }

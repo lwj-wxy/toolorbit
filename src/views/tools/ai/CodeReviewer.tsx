@@ -6,7 +6,6 @@ import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function CodeReviewer() {
   const { t, i18n } = useTranslation();
@@ -285,7 +284,6 @@ export default function CodeReviewer() {
         </section>
       </div>
 
-      <ToolSEOCard toolKey="ai-code-reviewer" />
     </div>
   );
 }

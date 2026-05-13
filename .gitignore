@@ -9,3 +9,4 @@ coverage/
 .env*
 !.env.example
 .seo-cache/
+sitemap.xml

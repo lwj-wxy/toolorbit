@@ -2242,7 +2242,17 @@
     "ai-youtube-generator": {
       "name": "YouTube 标题简介生成器",
       "description": "AI强力驱动，一键生成高点击率的视频标题、SEO优化简介及热门标签。",
-      "title": "YouTube 标题与简介生成"
+      "title": "YouTube 标题与简介生成",
+      "seoTitle": "YouTube 标题简介生成器 | 视频 SEO 文案 | ToolOrbit",
+      "seoDesc": "输入视频主题和目标观众，即可生成高点击率标题、SEO 优化简介、热门标签和封面创意，帮助 YouTube 内容更容易被搜索和点击。",
+      "highlightsTitle": "为什么使用 YouTube 标题简介生成器？",
+      "highlight1Title": "提升点击吸引力",
+      "highlight1Desc": "围绕主题生成更有钩子的标题和封面方向，帮助视频在搜索结果和推荐流里更醒目。",
+      "highlight2Title": "补齐 SEO 信息",
+      "highlight2Desc": "自动生成描述和标签，覆盖核心关键词、受众兴趣和视频内容重点，减少手动整理时间。",
+      "highlight3Title": "适配不同语气",
+      "highlight3Desc": "可按教育、吸引点击、戏剧化等方向调整文案风格，让输出更贴近频道定位。",
+      "disclaimer": "AI 生成的标题、简介和标签仅供参考，发布前请结合真实视频内容、平台规则和频道受众进行调整。"
     },
     "ai-prompt-generator": {
       "name": "AI 绘画提示词生成",
@@ -2254,7 +2264,17 @@
       "generating": "正在生成...",
       "generateBtn": "生成提示词",
       "result": "生成的提示词",
-      "waiting": "等待输入..."
+      "waiting": "等待输入...",
+      "seoTitle": "AI 绘画提示词生成器 | Midjourney/SD Prompt | ToolOrbit",
+      "seoDesc": "输入简单画面想法，即可生成包含主体、构图、光线、风格和氛围细节的高质量绘画提示词，适用于 Midjourney、Stable Diffusion 等图像模型。",
+      "highlightsTitle": "为什么使用 AI 绘画提示词生成器？",
+      "highlight1Title": "细节更完整",
+      "highlight1Desc": "自动补充镜头语言、光影、材质、场景氛围和风格关键词，让图像模型更容易理解画面目标。",
+      "highlight2Title": "创作启动更快",
+      "highlight2Desc": "从一句自然描述开始生成可用 Prompt，减少反复堆关键词和手动组织提示词的时间。",
+      "highlight3Title": "适配多种风格",
+      "highlight3Desc": "可按真实摄影、动漫、电影感、插画等方向输出不同语气的绘画提示词。",
+      "disclaimer": "工具生成的提示词仅供参考，涉及品牌、版权人物或商业交付时请根据实际需求继续调整。"
     },
     "ai-weekly-report": {
       "name": "AI 周报生成器",
@@ -2270,7 +2290,17 @@
       "generating": "正在生成...",
       "generateBtn": "生成周报",
       "result": "生成的周报",
-      "waiting": "等待输入..."
+      "waiting": "等待输入...",
+      "seoTitle": "AI 周报生成器 | 工作总结自动生成 | ToolOrbit",
+      "seoDesc": "将本周完成事项、下周计划和风险问题整理成结构清晰、语气专业的工作周报，适合团队汇报、项目同步和个人复盘。",
+      "highlightsTitle": "为什么使用 AI 周报生成器？",
+      "highlight1Title": "结构更清晰",
+      "highlight1Desc": "把零散工作记录自动整理为完成事项、计划安排和风险问题，方便上级或同事快速浏览。",
+      "highlight2Title": "减少措辞内耗",
+      "highlight2Desc": "只需输入要点，工具会自动润色成正式表达，避免在周报格式和语气上反复修改。",
+      "highlight3Title": "进展更好呈现",
+      "highlight3Desc": "将成果、下一步和阻塞项分开描述，让项目状态更透明，也更容易获得后续支持。",
+      "disclaimer": "AI 生成的周报请在发送前核对项目名称、时间、数据和敏感信息，确保符合团队汇报规范。"
     },
     "ai-code-reviewer": {
       "name": "AI 代码审查 (Code Review)",
@@ -2283,7 +2313,17 @@
       "analyzing": "正在审查...",
       "analyzeBtn": "开始 Code Review",
       "result": "审查报告",
-      "waiting": "等待代码输入..."
+      "waiting": "等待代码输入...",
+      "seoTitle": "AI 代码审查 | Bug 检查与重构建议 | ToolOrbit",
+      "seoDesc": "粘贴代码片段，即可获得面向 Bug、边界条件、安全隐患、可读性和重构方向的 AI 辅助审查反馈。",
+      "highlightsTitle": "为什么使用 AI 代码审查？",
+      "highlight1Title": "提前发现风险",
+      "highlight1Desc": "在提交前快速检查可疑分支、缺失校验、异常处理和常见逻辑错误。",
+      "highlight2Title": "获得重构建议",
+      "highlight2Desc": "从命名、职责拆分、重复逻辑和可维护性角度给出改进方向，帮助代码更易读也更易改。",
+      "highlight3Title": "辅助 PR 准备",
+      "highlight3Desc": "把 AI 审查作为第一轮自检，再结合测试和人工 Review 提升提交质量。",
+      "disclaimer": "AI 代码审查不能替代测试、安全审计或人工判断，所有建议都应结合项目上下文验证后再采用。"
     }
   },
   "blog": {

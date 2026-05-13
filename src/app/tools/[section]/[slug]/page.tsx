@@ -4,11 +4,18 @@ import { TOOLS } from '../../../../data/tools';
 import { toolMetadata } from '../../../../lib/metadata';
 import { toolJsonLd } from '../../../../lib/structured-data';
 import JsonLd from '../../../../components/JsonLd';
+import ToolSEOCard from '../../../../components/ToolSEOCard';
 import ToolSearchContent from '../../../../components/ToolSearchContent';
 import ToolPageClient from '../../../../components/ToolPageClient';
 
+const INFO_CARD_TOOL_KEYS: Record<string, string> = {
+  '/tools/ai/youtube-generator': 'ai-youtube-generator',
+  '/tools/ai/prompt-generator': 'ai-prompt-generator',
+  '/tools/ai/weekly-report': 'ai-weekly-report',
+  '/tools/ai/code-reviewer': 'ai-code-reviewer',
+};
+
 const FALLBACK_TOOL_GUIDE_PATHS = new Set([
-  '/tools/ai/youtube-generator',
   '/tools/ai/xiaohongshu',
   '/tools/ai/listing-generator',
   '/tools/ai/keyword-analyzer',
@@ -63,6 +70,7 @@ export default async function Page({ params }: { params: Promise<{ section: stri
     <>
       <JsonLd id={`structured-data-tool-${slug}`} data={toolJsonLd(path)} />
       <ToolPageClient path={path} />
+      {INFO_CARD_TOOL_KEYS[path] ? <ToolSEOCard toolKey={INFO_CARD_TOOL_KEYS[path]} /> : null}
       {FALLBACK_TOOL_GUIDE_PATHS.has(path) ? <ToolSearchContent path={path} /> : null}
     </>
   );

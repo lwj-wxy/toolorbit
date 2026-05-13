@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Image as ImageIcon, Loader2, Copy, Check, RotateCcw } from 'lucide-react';
 import { motion } from 'motion/react';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function PromptGenerator() {
   const { t, i18n } = useTranslation();
@@ -265,7 +264,6 @@ export default function PromptGenerator() {
         </div>
       </div>
 
-      <ToolSEOCard toolKey="ai-prompt-generator" />
     </div>
   );
 }

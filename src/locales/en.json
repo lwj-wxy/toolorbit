@@ -2283,7 +2283,17 @@
     "ai-youtube-generator": {
       "name": "YouTube Metadata Generator",
       "description": "AI-powered tool to generate catchy, click-worthy titles, descriptions, and tags.",
-      "title": "YouTube Title & Description Generator"
+      "title": "YouTube Title & Description Generator",
+      "seoTitle": "YouTube Title & Description Generator | Video SEO Copy | ToolOrbit",
+      "seoDesc": "Enter a video topic and target audience to generate clickable YouTube titles, SEO-friendly descriptions, tags, and thumbnail ideas for faster publishing.",
+      "highlightsTitle": "Why Use This YouTube Metadata Tool?",
+      "highlight1Title": "Stronger Click Appeal",
+      "highlight1Desc": "Generate title angles and thumbnail ideas that make a video easier to notice in search, recommendations, and channel feeds.",
+      "highlight2Title": "SEO Metadata Support",
+      "highlight2Desc": "Create descriptions and tags around the topic, audience, and keyword intent without organizing every detail manually.",
+      "highlight3Title": "Flexible Tone Control",
+      "highlight3Desc": "Adjust the output toward educational, engaging, or more dramatic copy so it fits your channel style.",
+      "disclaimer": "AI-generated YouTube metadata is a drafting aid. Review it against the real video content, platform policies, and your audience before publishing."
     },
     "ai-prompt-generator": {
       "name": "AI Prompt Generator",
@@ -2295,7 +2305,17 @@
       "generating": "Generating...",
       "generateBtn": "Generate Prompts",
       "result": "Generated Prompts",
-      "waiting": "Awaiting input..."
+      "waiting": "Awaiting input...",
+      "seoTitle": "AI Prompt Generator | Midjourney & Stable Diffusion Prompts | ToolOrbit",
+      "seoDesc": "Turn a simple image idea into a richer Midjourney, Stable Diffusion, or image-model prompt with visual details, composition cues, lighting, and style direction.",
+      "highlightsTitle": "Why Use This Prompt Tool?",
+      "highlight1Title": "Richer Visual Detail",
+      "highlight1Desc": "The tool expands short ideas into prompts with camera, lighting, style, and environment cues that image models can follow more clearly.",
+      "highlight2Title": "Faster Creative Iteration",
+      "highlight2Desc": "Generate a usable first draft quickly, then adjust subject, tone, or style instead of starting from a blank prompt.",
+      "highlight3Title": "Beginner Friendly",
+      "highlight3Desc": "You can write naturally without memorizing prompt-engineering formulas or long modifier lists.",
+      "disclaimer": "AI-generated prompts may still need manual refinement for brand accuracy, copyrighted subjects, or strict production requirements."
     },
     "ai-weekly-report": {
       "name": "AI Weekly Report",
@@ -2311,7 +2331,17 @@
       "generating": "Generating...",
       "generateBtn": "Generate Report",
       "result": "Generated Report",
-      "waiting": "Awaiting input..."
+      "waiting": "Awaiting input...",
+      "seoTitle": "AI Weekly Report Generator | Work Summary Writer | ToolOrbit",
+      "seoDesc": "Convert scattered weekly tasks, next-week plans, and blockers into a polished work report that is clear, structured, and ready to share.",
+      "highlightsTitle": "Why Use This Weekly Report Tool?",
+      "highlight1Title": "Cleaner Structure",
+      "highlight1Desc": "The generator turns rough notes into sections that are easier for managers, clients, and teammates to scan.",
+      "highlight2Title": "Less Rewriting",
+      "highlight2Desc": "Start from bullet points instead of polishing every sentence manually at the end of the week.",
+      "highlight3Title": "Better Status Visibility",
+      "highlight3Desc": "Completed work, next steps, and risks stay separated, which helps readers understand progress quickly.",
+      "disclaimer": "Always review AI-generated reports for accuracy, confidential details, and company-specific reporting rules before sharing."
     },
     "ai-code-reviewer": {
       "name": "AI Code Reviewer",
@@ -2324,7 +2354,17 @@
       "analyzing": "Analyzing...",
       "analyzeBtn": "Start Review",
       "result": "Review Report",
-      "waiting": "Awaiting code input..."
+      "waiting": "Awaiting code input...",
+      "seoTitle": "AI Code Reviewer | Bug & Refactor Feedback | ToolOrbit",
+      "seoDesc": "Paste a code snippet and get AI-assisted review feedback for bugs, security risks, readability issues, and refactoring opportunities.",
+      "highlightsTitle": "Why Use This Code Review Tool?",
+      "highlight1Title": "Early Bug Detection",
+      "highlight1Desc": "AI review can surface suspicious branches, missing validation, unsafe assumptions, and common logic mistakes before a human review.",
+      "highlight2Title": "Practical Refactoring Ideas",
+      "highlight2Desc": "The report highlights readability and maintainability improvements that can make code easier to change later.",
+      "highlight3Title": "Review Preparation",
+      "highlight3Desc": "Use the feedback as a first pass before opening a pull request or asking teammates for a deeper review.",
+      "disclaimer": "AI code review is not a replacement for tests, security review, or human engineering judgment. Validate every suggestion before shipping."
     }
   },
   "nav": {
