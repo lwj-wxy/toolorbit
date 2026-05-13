@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { Link, useClientSearchParams } from '../lib/navigation';
+import { useEffect, useMemo, useState } from 'react';
+import { Link, useClientSearchParamsWithInitialSearch } from '../lib/navigation';
 import { useTranslation } from 'react-i18next';
 import { TOOLS, Category, ToolItem } from '../data/tools';
 import { Star, Clock, ChevronRight, Sparkles } from 'lucide-react';
@@ -174,22 +174,26 @@ const ToolCard = ({ tool, isPinned, togglePin, index }: { tool: ToolItem, isPinn
   );
 };
 
-export default function Home() {
+type HomeProps = {
+  initialSearch?: string;
+};
+
+export default function Home({ initialSearch = '' }: HomeProps) {
   const { t } = useTranslation();
-  const [searchParams] = useClientSearchParams();
+  const [searchParams] = useClientSearchParamsWithInitialSearch(initialSearch);
   const { recentTools } = useRecentTools();
   const categoryFilter = searchParams.get('category') as Category | null;
   const searchQuery = searchParams.get('search')?.toLowerCase() || '';
 
-  const [filteredTools, setFilteredTools] = useState(TOOLS);
-  const [pinnedTools, setPinnedTools] = useState<string[]>(() => {
-    if (typeof window === 'undefined') return [];
+  const [pinnedTools, setPinnedTools] = useState<string[]>([]);
+
+  useEffect(() => {
     try {
-      return JSON.parse(localStorage.getItem('toolorbit_pinned_tools') || '[]');
+      setPinnedTools(JSON.parse(localStorage.getItem('toolorbit_pinned_tools') || '[]'));
     } catch {
-      return [];
+      setPinnedTools([]);
     }
-  });
+  }, []);
 
   const togglePin = (e: React.MouseEvent, toolId: string) => {
     e.preventDefault();
@@ -210,7 +214,7 @@ export default function Home() {
     }
   };
 
-  useEffect(() => {
+  const filteredTools = useMemo(() => {
     let result = TOOLS;
     if (categoryFilter) {
       result = result.filter(t => t.category === categoryFilter);
@@ -222,7 +226,7 @@ export default function Home() {
         return name.includes(searchQuery) || description.includes(searchQuery);
       });
     }
-    setFilteredTools(result);
+    return result;
   }, [categoryFilter, searchQuery, t]);
 
   // If there's a search or filter

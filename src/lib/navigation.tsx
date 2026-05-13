@@ -14,13 +14,30 @@ export function Link({ href, to, ...props }: LinkProps) {
   return <NextLink href={href ?? to ?? '/'} {...props} />;
 }
 
-export function useCurrentLocation() {
+export function useCurrentLocation(initialSearch = '') {
   const pathname = usePathname() || '/';
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState(initialSearch);
 
   useEffect(() => {
     setSearch(window.location.search);
   }, [pathname]);
+
+  useEffect(() => {
+    const syncSearch = (event?: Event) => {
+      if (event instanceof CustomEvent && typeof event.detail === 'string') {
+        setSearch(event.detail);
+        return;
+      }
+      setSearch(window.location.search);
+    };
+
+    window.addEventListener('popstate', syncSearch);
+    window.addEventListener('toolorbit:searchchange', syncSearch);
+    return () => {
+      window.removeEventListener('popstate', syncSearch);
+      window.removeEventListener('toolorbit:searchchange', syncSearch);
+    };
+  }, []);
 
   return useMemo(() => ({ pathname, search, hash: '' }), [pathname, search]);
 }
@@ -29,8 +46,15 @@ export function useClientSearchParams(): [
   URLSearchParams,
   (next: URLSearchParams | Record<string, string> | string) => void,
 ] {
+  return useClientSearchParamsWithInitialSearch('');
+}
+
+export function useClientSearchParamsWithInitialSearch(initialSearch: string): [
+  URLSearchParams,
+  (next: URLSearchParams | Record<string, string> | string) => void,
+] {
   const router = useRouter();
-  const { pathname, search } = useCurrentLocation();
+  const { pathname, search } = useCurrentLocation(initialSearch);
   const params = useMemo(() => new URLSearchParams(search), [search]);
 
   const setParams = (next: URLSearchParams | Record<string, string> | string) => {
@@ -41,7 +65,9 @@ export function useClientSearchParams(): [
           ? next
           : new URLSearchParams(next);
     const query = nextParams.toString();
+    const nextSearch = query ? `?${query}` : '';
     router.push(query ? `${pathname}?${query}` : pathname);
+    window.dispatchEvent(new CustomEvent('toolorbit:searchchange', { detail: nextSearch }));
   };
 
   return [params, setParams];
