@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Sparkles, Loader2, Copy, Check } from 'lucide-react';
 import Markdown from 'react-markdown';
+import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function ListingGenerator() {
   const { i18n } = useTranslation();
@@ -197,6 +198,7 @@ export default function ListingGenerator() {
           </div>
         </div>
       </div>
+      <ToolSEOCard toolKey="listing-generator" />
     </div>
   );
 }

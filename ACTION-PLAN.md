@@ -35,7 +35,16 @@ Updated from a fresh live crawl on 2026-05-13 18:04 Asia/Shanghai.
    - Local verification sampled `webmaster-tools`, `text-tools`, `pdf-tools`, and `ai-tools`; each page included the guide block and returned roughly 306-561 extracted words.
    - This is crawlable page content, not hidden SEO text.
 
-7. Crawl/indexability basics
+7. Thin AI tool page content
+   - Added visible bilingual SEO support sections, quick usage guidance, highlights, FAQ content, and disclaimers to the four thin AI utility pages.
+   - Local build verification:
+     - `/tools/ai/listing-generator`: roughly 777 extracted words.
+     - `/tools/ai/keyword-analyzer`: roughly 733 extracted words.
+     - `/tools/ai/competitor-tracker`: roughly 704 extracted words.
+     - `/tools/ai/market-insights`: roughly 753 extracted words.
+   - These pages now also provide richer structured data fields through their completed locale content.
+
+8. Crawl/indexability basics
    - Unknown URLs return 404.
    - `/llms.txt` returns `text/plain`.
    - Canonical tags are present on all crawled pages.
@@ -47,11 +56,7 @@ Updated from a fresh live crawl on 2026-05-13 18:04 Asia/Shanghai.
    - The live crawl still reflects the pre-fix category content.
    - After deployment, re-run the crawl and confirm category pages are no longer in the thin-content set.
 
-2. Add support copy to the four thin AI utility pages
-   - Remaining live-crawl thin AI pages: listing generator, keyword analyzer, competitor tracker, and market insights.
-   - Add visible examples, limitations, or workflow notes without padding the interface.
-
-3. Re-run performance validation
+2. Re-run performance validation
    - PageSpeed returned `429` quota errors during the refresh.
    - Re-test homepage, a category page, a tool page, and a blog post.
    - Track mobile LCP, INP, CLS, total JS, and third-party script impact.
@@ -98,6 +103,7 @@ Updated from a fresh live crawl on 2026-05-13 18:04 Asia/Shanghai.
 - `curl -sL https://toolorbit.site/tools/dev/json-formatter | grep -oi "<h1" | wc -l` returns 1.
 - `curl -sL https://toolorbit.site/category/ai-tools | grep -oi "<h1" | wc -l` returns 1.
 - Category pages include visible intro/workflow copy in the initial HTML after deployment.
+- The four previously thin AI utility pages include visible guide/highlight/FAQ support copy in the initial HTML after deployment.
 - Priority page titles are mostly under ~60 characters.
 - Priority meta descriptions are mostly 120-155 characters.
 - PageSpeed or Lighthouse scores are captured for mobile and desktop.

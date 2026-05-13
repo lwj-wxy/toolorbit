@@ -14,17 +14,17 @@ This refresh crawled the updated live site and ignored prior audit conclusions. 
 
 The site now has a much stronger crawlable baseline. The live HTML includes H1s, meaningful body copy, canonical tags, JSON-LD, and visible tool support content. Unknown URLs still return 404, `/llms.txt` serves as `text/plain`, and security headers remain present.
 
-The remaining SEO work is mostly refinement rather than indexability repair. Since this crawl, the local build has added visible category guide copy to the category pages; the largest remaining opportunities are deploying and re-crawling that content update, adding a tested CSP, and getting real performance data once PageSpeed quota is available.
+The remaining SEO work is mostly refinement rather than indexability repair. Since this crawl, the local build has added visible category guide copy to the category pages and deeper support content to the four flagged AI utility pages; the largest remaining opportunities are deploying and re-crawling those content updates, adding a tested CSP, and getting real performance data once PageSpeed quota is available.
 
 Top issues:
 
-1. Live crawl: 14/105 pages were under 300 extracted words, mostly category pages and four AI utility pages. Local build now lifts sampled category pages above 300 words.
+1. Live crawl: 14/105 pages were under 300 extracted words, mostly category pages and four AI utility pages. Local build now lifts sampled category pages and all four flagged AI utility pages above 300 words.
 2. PageSpeed Insights is still unavailable due API `429`, so Core Web Vitals remain unverified.
 3. No `Content-Security-Policy` header was detected.
 
 Top quick wins:
 
-1. Deploy and re-crawl the new category guide copy.
+1. Deploy and re-crawl the new category and AI tool support copy.
 2. Add a tested Content Security Policy.
 3. Re-run Lighthouse/PageSpeed after quota resets.
 
@@ -84,11 +84,12 @@ Local fix applied after this crawl:
 
 - Added visible bilingual category intro copy and common workflow examples to all 10 category pages.
 - Local verification sampled `webmaster-tools`, `text-tools`, `pdf-tools`, and `ai-tools`; each page included the new guide block and returned roughly 306-561 extracted words.
+- Added visible bilingual guide, highlight, FAQ, and disclaimer sections to the four thin AI utility pages.
+- Local build verification found roughly 704-777 extracted words across those four AI utility pages.
 
 Recommendations:
 
-- Deploy the category content update, then re-crawl the live site to confirm the thin category page count is cleared.
-- Add 100-200 words of useful, visible support copy to the four thin AI utility pages.
+- Deploy the category and AI utility content updates, then re-crawl the live site to confirm the thin-content set is cleared.
 - Continue linking blog posts to the most relevant tools with descriptive anchors.
 
 ## On-Page SEO
@@ -177,9 +178,8 @@ Recommendations:
 
 High, fix within 1 week:
 
-1. Deploy and re-crawl the category content update.
-2. Add useful, visible support copy to the four thin AI utility pages.
-3. Re-run Lighthouse/PageSpeed once quota is available.
+1. Deploy and re-crawl the category and AI tool content updates.
+2. Re-run Lighthouse/PageSpeed once quota is available.
 
 Medium, fix within 1 month:
 
@@ -203,6 +203,7 @@ Low/backlog:
 - The four AI utility pages no longer use `Parameters` as their H1.
 - Local build now generates no meta descriptions over 160 characters or under 120 characters.
 - Local build now adds visible bilingual intro and workflow copy to all 10 category pages.
+- Local build now adds visible bilingual guide, highlight, FAQ, and disclaimer content to the four previously thin AI utility pages.
 - Unknown URLs return 404.
 - `/llms.txt` serves as `text/plain`.
 - Security headers are present except CSP.
