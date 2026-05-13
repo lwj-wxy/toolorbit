@@ -1,45 +1,52 @@
 # ToolOrbit.site Full SEO Audit
 
-Audit date: 2026-05-13 17:16 Asia/Shanghai  
+Audit date: 2026-05-13 18:04 Asia/Shanghai  
 Audited URL: https://toolorbit.site/  
 Business type: Free browser-based utility/tool platform for developers, creators, ecommerce, PDF, image, text, and AI workflows  
-SEO health score: 73/100
+SEO health score: 77/100
 
 ## Executive Summary
 
-This refresh ignored the older cache and re-crawled the live site. ToolOrbit is now in much stronger shape than the earlier cached audit suggested: invalid URLs return real 404 responses, `/llms.txt` serves as `text/plain`, security headers are present, all crawled pages have canonical tags, and all pages now expose at least global `Organization` and `WebSite` JSON-LD.
+This refresh crawled the updated live site and ignored prior audit conclusions. The two previous high-priority fixes are now confirmed:
 
-The remaining SEO work is mostly on-page quality and crawl clarity. The biggest issue is that 77 of 105 crawled pages still have no server-rendered H1. This affects all 67 tool pages and all 10 category pages in the crawl. Tool pages do have crawlable body copy now, but 52 pages are still under 300 extracted words, and many titles/descriptions are outside typical SERP-friendly length ranges.
+- `https://www.toolorbit.site/` now returns `301` to `https://toolorbit.site/`.
+- Server-rendered H1 coverage is now complete: 0/105 crawled HTML pages are missing H1.
+
+The site now has a much stronger crawlable baseline. The live HTML includes H1s, meaningful body copy, canonical tags, JSON-LD, and visible tool support content. Unknown URLs still return 404, `/llms.txt` serves as `text/plain`, and security headers remain present.
+
+The remaining SEO work is mostly refinement rather than indexability repair. The largest opportunities are title/meta length cleanup, improving a few generic H1 labels, expanding thinner category pages, and getting real performance data once PageSpeed quota is available.
 
 Top issues:
 
-1. `https://www.toolorbit.site/` returns `200 OK` instead of a 301 redirect to the canonical apex host.
-2. 77/105 pages have no server-rendered H1, including every tool page and category page.
-3. 60/105 titles are longer than 60 characters, and 50/105 meta descriptions are longer than 160 characters.
-4. 52/105 pages have under 300 extracted words, mostly tool pages that could use more descriptive support copy.
-5. PageSpeed Insights was unavailable because the API quota returned `429`, so Core Web Vitals remain unverified.
+1. 60/105 title tags are longer than 60 characters.
+2. 50/105 meta descriptions are longer than 160 characters, and 6 are under 120 characters.
+3. 14/105 pages are under 300 extracted words, mostly category pages and four AI utility pages.
+4. Four tool pages use the generic H1 `Parameters` instead of a descriptive tool name.
+5. PageSpeed Insights is still unavailable due API `429`, so Core Web Vitals remain unverified.
 
-Quick wins:
+Top quick wins:
 
-1. Add one unique H1 to every tool and category page.
-2. 301 redirect `www.toolorbit.site` to `toolorbit.site`.
-3. Shorten title tags and meta descriptions for high-priority tools.
-4. Add 2-4 concise FAQ/use-case sections to thin tool pages.
-5. Re-run Lighthouse or PageSpeed once quota is available.
+1. Shorten high-priority title tags and meta descriptions.
+2. Replace `Parameters` H1 on listing generator, keyword analyzer, competitor tracker, and market insights.
+3. Expand category pages with 100-200 more words of crawlable intro/use-case copy.
+4. Add a tested Content Security Policy.
+5. Re-run Lighthouse/PageSpeed after quota resets.
 
 ## Crawl Evidence
 
-- Refreshed crawl timestamp: 2026-05-13T09:16:18.932Z
+- Refreshed crawl timestamp: 2026-05-13T10:04:57.323Z
 - Crawled HTML pages: 105
+- Approximate unique URLs: 104
 - HTTP 200 pages in crawl: 105
 - Sitemap status: 200
 - Sitemap URL count: 104
 - Robots status: 200
 - Robots policy: `Allow: /`
 - Canonical tags missing: 0
-- Pages missing H1: 77/105
+- Pages missing H1: 0/105
+- Pages with multiple H1s: 0/105
 - Pages under 150 extracted words: 0/105
-- Pages under 300 extracted words: 52/105
+- Pages under 300 extracted words: 14/105
 - Pages without detected schema: 0/105
 - Images detected in server HTML: 78
 - Images missing alt text: 0
@@ -47,54 +54,60 @@ Quick wins:
 
 ## Technical SEO
 
-Score: 78/100
+Score: 88/100
 
 Strengths:
 
 - `https://toolorbit.site/robots.txt` is reachable and allows crawling.
-- `https://toolorbit.site/sitemap.xml` is reachable and lists 104 canonical URLs.
+- `https://toolorbit.site/sitemap.xml` is reachable and lists 104 URLs.
 - `http://toolorbit.site/` redirects to `https://toolorbit.site/` with `301`.
-- Unknown URLs such as `/not-a-real-seo-audit-page-xyz` and `/tools/not-real` now return `404`.
+- `https://www.toolorbit.site/` redirects to `https://toolorbit.site/` with `301`.
+- Unknown URLs such as `/not-a-real-seo-audit-page-xyz` and `/tools/not-real` return `404`.
 - Canonical tags are present on all crawled pages.
-- `/llms.txt` now returns `200` with `content-type: text/plain; charset=utf-8`.
-- Security headers are now present: HSTS, `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, and `Permissions-Policy`.
+- `/llms.txt` returns `200` with `content-type: text/plain; charset=utf-8`.
+- Security headers are present: HSTS, `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, and `Permissions-Policy`.
 
 Issues:
 
-- High: `https://www.toolorbit.site/` returns `200 OK` with duplicate homepage HTML. It should permanently redirect to the apex domain.
-- Medium: no `Content-Security-Policy` header was detected. This is not a direct ranking factor, but it is a trust and hardening gap.
-- Medium: PageSpeed/CWV could not be validated in this refresh because the PageSpeed API quota was exceeded.
+- Medium: no `Content-Security-Policy` header was detected.
+- Medium: PageSpeed/CWV could not be validated because PageSpeed API quota was exceeded.
 
 ## Content Quality
 
-Score: 72/100
+Score: 78/100
 
-The site no longer looks like a thin JavaScript shell in the raw HTML. The homepage returned 1,350 extracted words, the blog index returned 645 words, static pages returned 390-434 words, and blog posts generally returned 436-939 words.
+The site now exposes useful crawlable content in the initial HTML. Tool pages are no longer app-shell-only, and many priority tools have 400-560+ extracted words. Blog pages generally return 436-939 extracted words.
 
-The main content gap is now at the tool-page level. Tool pages commonly return about 200-400 words, which is enough for basic crawl understanding but still light for competitive keywords such as JSON formatter, Base64 encoder, PDF merge, image compression, and AI translator.
+Remaining content gaps:
+
+- 14 pages are under 300 words.
+- Several category pages are thin: `webmaster-tools`, `text-tools`, `generators`, `ecommerce-tools`, `pdf-tools`, `image-tools`, and `fun-tools`.
+- Four AI utility pages are just under 300 words: listing generator, keyword analyzer, competitor tracker, and market insights.
 
 Recommendations:
 
-- Add server-rendered H1s to all tool pages and category pages.
-- Expand priority tool pages to 400-700 words of useful support content: what it does, accepted inputs, outputs, privacy behavior, limitations, and examples.
-- Add visible FAQs where the page already has FAQ schema.
-- Add internal links from blog posts to matching tools with descriptive anchors.
+- Add short category intros that explain who each category is for and which tools solve which task.
+- Add 100-200 words of useful, visible support copy to the four thin AI utility pages.
+- Continue linking blog posts to the most relevant tools with descriptive anchors.
 
 ## On-Page SEO
 
-Score: 56/100
+Score: 64/100
 
-On-page metadata improved substantially: only one duplicate title pair was detected, caused by both `https://toolorbit.site` and `https://toolorbit.site/` being crawled. The old generic `© 2026 ToolOrbit.site` title issue was not present in the refreshed crawl.
+The previous H1 issue is fixed:
 
-Remaining issues:
+- Missing H1: 0/105
+- Multiple H1: 0/105
 
-- 77 pages have no H1.
+Remaining on-page issues:
+
 - 60 titles are longer than 60 characters.
 - 50 meta descriptions are longer than 160 characters.
 - 6 meta descriptions are under 120 characters.
 - 3 titles are under 30 characters.
+- Four tool pages use `Parameters` as the H1.
 
-Examples with long metadata:
+Examples needing metadata cleanup:
 
 - `/tools/dev/json-formatter`: title 69 chars, meta description 242 chars.
 - `/tools/ai/text-polisher`: title 81 chars, meta description 211 chars.
@@ -126,16 +139,16 @@ Detected schema coverage:
 
 Strengths:
 
-- Global organization and website schema are now present everywhere.
+- Global organization and website schema are present everywhere.
 - Tool pages include application schema.
 - Blog posts use `BlogPosting`.
 - FAQ schema is present on many tool pages.
 
 Recommendations:
 
-- Confirm that every `FAQPage` block matches visible FAQ text on the page.
-- Add `dateModified` to blog schema if not already included in rendered JSON-LD.
-- Keep `SoftwareApplication` fields consistent: `applicationCategory`, `operatingSystem`, `offers.price: 0`, and canonical `url`.
+- Confirm every `FAQPage` block matches visible FAQ content.
+- Add or verify `dateModified` on blog schema.
+- Keep `SoftwareApplication` fields consistent across tools.
 
 ## Performance
 
@@ -143,57 +156,49 @@ Score: provisional 50/100
 
 PageSpeed Insights returned `429` quota errors for both mobile and desktop, so no Lighthouse or field Core Web Vitals scores were available.
 
-Observed risks:
-
-- The site uses analytics/ads-related third-party scripts, which can affect INP and main-thread time.
-- Many pages are tool-heavy and may ship route-specific JavaScript.
-- Image/blog routes now include crawlable images, so image sizing and lazy loading should be verified in Lighthouse.
-
 Next measurement:
 
 - Re-run PageSpeed when quota is available.
-- Run local Lighthouse for homepage, one category page, one popular tool page, and one blog post.
+- Run local Lighthouse for homepage, one category page, one priority tool page, and one blog post.
 - Track mobile LCP, INP, CLS, total JS transfer, and third-party script impact.
 
 ## Images
 
 Score: 95/100
 
-The refreshed crawl detected 78 images and 0 missing alt attributes. This is a strong baseline.
+The crawl detected 78 images and 0 missing alt attributes.
 
 Recommendations:
 
-- Confirm images include explicit width/height or stable layout sizing to prevent CLS.
+- Confirm images have explicit width/height or stable layout sizing to prevent CLS.
 - Ensure social preview images exist for priority routes.
 - Keep blog images descriptive and relevant to the article topic.
 
 ## AI Search Readiness
 
-Score: 78/100
+Score: 82/100
 
-`https://toolorbit.site/llms.txt` now serves the intended text file as `text/plain`, which is a good improvement for AI crawlers and agents. The site also exposes crawlable descriptions, schema, and blog content.
+`/llms.txt` is live as plain text, schema coverage is broad, and tool pages now expose crawlable descriptions in the initial HTML. This is a good baseline for AI crawlers and search assistants.
 
 Recommendations:
 
-- Add concise, quotable summaries near the top of every tool page.
-- Include verifiable privacy claims such as "runs in your browser" only where technically true.
+- Add concise, quotable summaries near the top of category pages.
+- Make privacy and local-processing claims precise and verifiable.
 - Add examples and limitations in plain HTML, not only inside interactive UI state.
-- Keep author/date/update signals visible on blog pages.
 
 ## Priority Action Plan
 
 High, fix within 1 week:
 
-1. Redirect `www.toolorbit.site` to `toolorbit.site` with a permanent 301.
-2. Add unique H1s to every tool and category page.
-3. Tighten long titles and meta descriptions on priority pages.
-4. Expand thin tool pages with useful crawlable support copy and visible FAQs.
-5. Re-run Lighthouse/PageSpeed once quota is available.
+1. Shorten long titles and meta descriptions on priority pages.
+2. Replace generic `Parameters` H1 on four AI utility pages.
+3. Expand thin category pages with more crawlable, task-focused copy.
+4. Re-run Lighthouse/PageSpeed once quota is available.
 
 Medium, fix within 1 month:
 
 1. Add a tested Content Security Policy.
-2. Improve category page copy and headings.
+2. Improve category H1 wording where labels are too broad, such as `Image`, `Games`, and `Typography`.
 3. Strengthen blog internal links to matching tools.
 4. Validate FAQ schema against visible FAQ content.
 5. Add route-specific OG images for top landing pages.
@@ -202,7 +207,16 @@ Low/backlog:
 
 1. Add hreflang only if multilingual routes become indexable.
 2. Build topic clusters around high-intent tool categories.
-3. Add comparison/alternatives pages after core on-page cleanup.
+3. Add comparison/alternatives pages after core metadata cleanup.
+
+## Fixed Since Prior Audit
+
+- `www.toolorbit.site` now redirects to the canonical apex domain.
+- Tool and category pages now include server-rendered H1 tags.
+- Unknown URLs return 404.
+- `/llms.txt` serves as `text/plain`.
+- Security headers are present except CSP.
+- All crawled pages had canonical tags and schema.
 
 ## Limitations
 
