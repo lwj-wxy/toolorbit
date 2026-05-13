@@ -26,6 +26,7 @@ export default function LanguageSwitcher() {
   }, []);
 
   const toggleLanguage = (code: string) => {
+    localStorage.setItem('toolorbit_language', code);
     i18n.changeLanguage(code);
     setIsOpen(false);
   };
