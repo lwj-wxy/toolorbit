@@ -235,9 +235,9 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
      return (
         <div className="flex flex-col">
           <div className="flex items-baseline justify-between mb-8">
-            <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-100 tracking-tight transition-colors">
+            <h1 className="text-2xl font-bold text-slate-800 dark:text-slate-100 tracking-tight transition-colors">
               {categoryFilter ? t(`common.categories.${categoryFilter}`) : t('search.results', { query: searchQuery })}
-            </h2>
+            </h1>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">

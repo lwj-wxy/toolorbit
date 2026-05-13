@@ -1,82 +1,86 @@
 # ToolOrbit.site SEO Action Plan
 
-## Critical
-
-1. Fix soft 404s
-   - Ensure unknown URLs return HTTP 404.
-   - Add a real Next `not-found.tsx` or equivalent host rewrite.
-   - Verify `/not-a-real-seo-audit-page-xyz` returns 404 after deploy.
-
-2. Redirect `www` to apex
-   - 301 redirect `https://www.toolorbit.site/*` to `https://toolorbit.site/*`.
-   - Keep canonical tags on apex URLs.
-
-3. Server-render indexable content
-   - Every tool and blog page should include crawlable HTML content before client hydration.
-   - Minimum target: one unique H1, 150-300 words of useful intro/supporting copy for tool pages, fuller body content for blog posts.
-
-4. Fix generic metadata
-   - Replace `© 2026 ToolOrbit.site` titles.
-   - Replace repeated `One-stop professional efficiency tool aggregation platform.` descriptions.
-   - Audit static pages, AI tool routes, `/blog`, and unfinished tools first.
-
-5. Fix `/llms.txt`
-   - Serve the existing `public/llms.txt` as `text/plain`.
-   - Verify `https://toolorbit.site/llms.txt` returns the markdown-like text file, not app HTML.
+Updated from a fresh live crawl on 2026-05-13 17:16 Asia/Shanghai.
 
 ## High
 
-1. Add H1 coverage
-   - Add one unique H1 per indexable route.
-   - Match H1 to user intent, not just brand/category labels.
+1. Redirect `www` to apex
+   - 301 redirect `https://www.toolorbit.site/*` to `https://toolorbit.site/*`.
+   - Keep canonical tags on apex URLs.
+   - Verify `https://www.toolorbit.site/` no longer returns `200 OK`.
 
-2. Improve tool page copy
-   - Include purpose, input/output, privacy behavior, supported formats, example use cases, and limitations.
-   - Prioritize JSON formatter, PDF tools, image tools, Base64, QR/barcode tools, and AI utilities.
+2. Add H1 coverage
+   - Add one unique server-rendered H1 per tool page.
+   - Add one unique server-rendered H1 per category page.
+   - Current refreshed crawl: 77/105 pages missing H1, including 67 tool pages and 10 category pages.
 
-3. Add security headers
-   - Add `Strict-Transport-Security`.
-   - Add `X-Content-Type-Options: nosniff`.
-   - Add `Referrer-Policy`.
-   - Add `Content-Security-Policy` after testing scripts/AdSense compatibility.
-   - Add `Permissions-Policy` for camera/microphone/geolocation where appropriate.
+3. Tighten title tags
+   - Prioritize titles over 60 characters.
+   - Current refreshed crawl: 60/105 titles are longer than 60 characters.
+   - Use a compact pattern such as `JSON Formatter | Validate and Beautify JSON | ToolOrbit`.
 
-4. Clean sitemap quality
-   - Remove incomplete placeholder routes.
-   - Use accurate `lastmod` values.
-   - Keep only canonical indexable URLs.
+4. Tighten meta descriptions
+   - Prioritize descriptions over 160 characters and under 120 characters.
+   - Current refreshed crawl: 50 over 160 chars, 6 under 120 chars.
+   - Keep descriptions specific, benefit-led, and accurate about local/browser/AI processing.
 
-5. Tighten titles/descriptions
-   - Titles: usually 35-60 characters.
-   - Descriptions: usually 120-160 characters.
-   - Avoid duplicate `| ToolOrbit | ToolOrbit` patterns.
+5. Re-run performance validation
+   - PageSpeed returned `429` quota errors during the refresh.
+   - Re-test homepage, a category page, a tool page, and a blog post.
+   - Track mobile LCP, INP, CLS, total JS, and third-party script impact.
 
 ## Medium
 
-1. Improve schema
-   - Add/verify global `Organization`.
-   - Enrich `SoftwareApplication` on tool pages.
-   - Use FAQ schema only for visible FAQ content.
+1. Expand tool page copy
+   - Raise priority tool pages to roughly 400-700 words of useful crawlable support content.
+   - Include purpose, supported inputs, outputs, privacy behavior, limitations, examples, and common use cases.
 
-2. Strengthen blog SEO
-   - Expand articles beyond thin summaries.
-   - Add author/date/update signals.
-   - Link each article to relevant tools and related posts.
+2. Improve category pages
+   - Add H1s and short intros.
+   - Describe the category, who it helps, and which tools to use for common tasks.
+   - Link to the most important tools first.
 
-3. Measure performance
-   - Re-run PageSpeed when quota is available.
-   - Track mobile LCP, INP, CLS, JS payload, and third-party impact.
+3. Add Content Security Policy
+   - Current headers include HSTS, `nosniff`, `SAMEORIGIN`, referrer policy, and permissions policy.
+   - Add CSP after testing analytics/AdSense/tool functionality.
 
-4. Improve AI citability
-   - Add compact definitions and examples near the top of pages.
-   - Make privacy claims precise and verifiable.
-   - Add visible "runs locally" notes only where true.
+4. Validate schema
+   - Confirm each `FAQPage` schema matches visible FAQ content.
+   - Keep `SoftwareApplication` fields consistent across tool pages.
+   - Add or verify blog `dateModified`.
+
+5. Strengthen internal linking
+   - Link each blog article to related tools.
+   - Add contextual links between related tool pages.
+   - Use descriptive anchor text instead of generic labels.
+
+## Low
+
+1. Add route-specific social images
+   - Prioritize homepage, top tools, category pages, and blog posts.
+   - Keep dimensions and alt text stable.
+
+2. Improve AI citability
+   - Add concise definitions and examples near the top of tool pages.
+   - Make privacy and processing claims precise.
+   - Keep `/llms.txt` updated as the tool inventory changes.
+
+3. Build topic clusters
+   - Start with developer tools, PDF workflows, image tools, and AI productivity tools.
+   - Add supporting blog posts only after core tool pages have strong H1/content/meta coverage.
+
+## Fixed In Refresh
+
+- Unknown URLs now return 404 instead of soft 200.
+- `/llms.txt` now serves as `text/plain`.
+- Security headers are present except CSP.
+- Generic `© 2026 ToolOrbit.site` titles were not found in the refreshed crawl.
+- All crawled pages had canonical tags and schema.
 
 ## Verification Checklist
 
-- `curl -I https://toolorbit.site/not-a-real-seo-audit-page-xyz` returns 404.
-- `curl -I https://www.toolorbit.site/` returns 301 to apex.
-- `curl https://toolorbit.site/llms.txt` returns the intended text file.
-- A no-JavaScript HTML fetch of a priority tool page contains the H1 and useful body copy.
+- `https://www.toolorbit.site/` returns 301 to apex.
+- A no-JavaScript HTML fetch of each priority tool page contains one H1.
+- `https://toolorbit.site/tools/dev/json-formatter` has a title under ~60 characters and a meta description under ~160 characters.
 - Sitemap contains only canonical, complete, indexable URLs.
-- Search Console validates fixed soft 404 and duplicate host issues.
+- PageSpeed or Lighthouse scores are captured for mobile and desktop.

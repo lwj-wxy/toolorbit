@@ -18,7 +18,6 @@ const ToolLoading = () => (
 
 const lazyTool = (loader: ToolLoader) =>
   dynamic(loader, {
-    ssr: false,
     loading: ToolLoading,
   }) as ToolComponent;
 
