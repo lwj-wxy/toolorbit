@@ -1,11 +1,23 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
+  compress: true,
+  poweredByHeader: false,
+  productionBrowserSourceMaps: false,
   turbopack: {
     root: __dirname,
   },
   async headers() {
     return [
+      {
+        source: '/:path*.(ico|svg|png|jpg|jpeg|gif|webp|avif|woff|woff2)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
       {
         source: '/:path*',
         headers: [
