@@ -171,6 +171,26 @@
       "ai-video-script-guide": {
         "title": "AI Video Script Generator: Scale Your Content Pipeline Without Burnout",
         "summary": "Content creation doesn't scale linearly — unless you use AI. Learn how AI script generators eliminate blank-page syndrome and accelerate your publishing cadence."
+      },
+      "ai-excel-formula-guide": {
+        "title": "AI Excel Formula Generator: Speak Spreadsheet, Not Syntax",
+        "summary": "Stop memorizing 500 function signatures. Discover how AI formula generators turn plain-language descriptions into precise Excel and Google Sheets formulas."
+      },
+      "how-qr-codes-work": {
+        "title": "How QR Codes Actually Work: The Mathematics in Your Pocket",
+        "summary": "QR codes pack encoding efficiency, error correction, and omnidirectional readability into a stamp-sized square. Unpack the engineering behind the pixels."
+      },
+      "password-entropy-explained": {
+        "title": "Password Entropy Explained: Why Length Always Beats Complexity",
+        "summary": "The math behind password strength is clear: length matters exponentially more than special characters. Learn what entropy actually means for your security."
+      },
+      "timezone-unix-timestamp-guide": {
+        "title": "Timezones & Unix Timestamps: Why Time Is the Hardest Problem in Programming",
+        "summary": "From leap seconds to DST transitions, handling time correctly is deceptively hard. Learn the principles that prevent time-related bugs."
+      },
+      "uuid-demystified": {
+        "title": "UUID Demystified: The Math Behind Those 36-Character Identifiers",
+        "summary": "How do you generate globally unique IDs without a central authority? Explore UUID versions, collision math, and when to use each one."
       }
     },
     "categories": {

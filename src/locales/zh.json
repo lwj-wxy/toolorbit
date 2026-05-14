@@ -2529,6 +2529,26 @@
       "ai-video-script-guide": {
         "title": "AI 视频脚本生成器：无惧职业倦怠，规模化你的内容管线",
         "summary": "内容创作无法线性扩张——除非你借助 AI。了解 AI 脚本生成器如何消除空白页恐惧症，加速你的发布节奏。"
+      },
+      "ai-excel-formula-guide": {
+        "title": "AI Excel 公式助手：说人话，让 AI 去写天书公式",
+        "summary": "不再死记硬背 500 个函数签名。探索 AI 公式生成器如何将大白话描述转化为精确的 Excel 和 Google Sheets 公式。"
+      },
+      "how-qr-codes-work": {
+        "title": "二维码到底是怎么扫出来的：你兜里揣着的信息论奇迹",
+        "summary": "二维码将编码效率、纠错能力和全向可读性塞进邮票大的方块中。逐一拆解像素背后的工程学原理。"
+      },
+      "password-entropy-explained": {
+        "title": "密码熵解密：为什么长度永远碾压复杂度",
+        "summary": "密码强度的数学原理一清二楚：长度的权重指数级碾压特殊符号。了解信息熵对你的安全到底意味着什么。"
+      },
+      "timezone-unix-timestamp-guide": {
+        "title": "时区与 Unix 时间戳：为什么时间是编程世界最反直觉的噩梦",
+        "summary": "从闰秒到夏令时跳变，正确驾驭时间比看上去难太多。掌握防止时间相关 Bug 的核心原则。"
+      },
+      "uuid-demystified": {
+        "title": "UUID 大揭秘：藏在 36 个字符背后的分布式系统数学哲学",
+        "summary": "如何在不依赖中央极权的前提下生成全球唯一 ID？深入 UUID 各版本、碰撞概率的底层数学，以及各场景选型指南。"
       }
     },
     "categories": {

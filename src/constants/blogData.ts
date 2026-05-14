@@ -189,5 +189,40 @@ export const BLOG_POSTS: BlogPost[] = [
     date: '2026-05-14',
     category: 'AI',
     image: 'https://picsum.photos/seed/videoscript/800/400'
+  },
+  {
+    id: '27',
+    slug: 'ai-excel-formula-guide',
+    date: '2026-05-14',
+    category: 'AI',
+    image: 'https://picsum.photos/seed/excelai/800/400'
+  },
+  {
+    id: '28',
+    slug: 'how-qr-codes-work',
+    date: '2026-05-14',
+    category: 'Science',
+    image: 'https://picsum.photos/seed/qrcode/800/400'
+  },
+  {
+    id: '29',
+    slug: 'password-entropy-explained',
+    date: '2026-05-14',
+    category: 'Security',
+    image: 'https://picsum.photos/seed/password/800/400'
+  },
+  {
+    id: '30',
+    slug: 'timezone-unix-timestamp-guide',
+    date: '2026-05-14',
+    category: 'Development',
+    image: 'https://picsum.photos/seed/timezone/800/400'
+  },
+  {
+    id: '31',
+    slug: 'uuid-demystified',
+    date: '2026-05-14',
+    category: 'Development',
+    image: 'https://picsum.photos/seed/uuid/800/400'
   }
 ];
