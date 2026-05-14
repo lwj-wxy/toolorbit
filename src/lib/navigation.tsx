@@ -4,6 +4,7 @@ import NextLink from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import type { ComponentProps } from 'react';
 import { useEffect, useMemo, useState } from 'react';
+import { detectLocaleFromPathname, localizedPath, shouldLocalizeHref } from './i18n-routing';
 
 type LinkProps = Omit<ComponentProps<typeof NextLink>, 'href'> & {
   href?: ComponentProps<typeof NextLink>['href'];
@@ -11,19 +12,24 @@ type LinkProps = Omit<ComponentProps<typeof NextLink>, 'href'> & {
 };
 
 export function Link({ href, to, onClick, ...props }: LinkProps) {
+  const pathname = usePathname() || '/';
   const target = href ?? to ?? '/';
+  const targetHref =
+    typeof target === 'string' && shouldLocalizeHref(target)
+      ? localizedPath(target, detectLocaleFromPathname(pathname))
+      : target;
 
   const handleClick: NonNullable<LinkProps['onClick']> = (event) => {
     onClick?.(event);
     if (event.defaultPrevented || typeof window === 'undefined') return;
 
-    if (typeof target === 'string' || target instanceof URL) {
-      const nextUrl = new URL(String(target), window.location.origin);
+    if (typeof targetHref === 'string' || targetHref instanceof URL) {
+      const nextUrl = new URL(String(targetHref), window.location.origin);
       window.dispatchEvent(new CustomEvent('toolorbit:searchchange', { detail: nextUrl.search }));
     }
   };
 
-  return <NextLink href={target} onClick={handleClick} {...props} />;
+  return <NextLink href={targetHref} onClick={handleClick} {...props} />;
 }
 
 export function useCurrentLocation(initialSearch = '') {

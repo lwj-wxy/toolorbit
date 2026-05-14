@@ -1,10 +1,16 @@
+'use client';
+
 import { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { usePathname, useRouter } from 'next/navigation';
 import { Languages, Check, ChevronDown } from 'lucide-react';
+import { i18nLanguageToLocale, localizedPath } from '../lib/i18n-routing';
 import { cn } from '../lib/utils';
 
 export default function LanguageSwitcher() {
   const { i18n } = useTranslation();
+  const pathname = usePathname() || '/';
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -26,8 +32,14 @@ export default function LanguageSwitcher() {
   }, []);
 
   const toggleLanguage = (code: string) => {
+    const locale = i18nLanguageToLocale(code);
+    const query = typeof window === 'undefined' ? '' : window.location.search.replace(/^\?/, '');
+    const nextPath = localizedPath(pathname, locale);
+
     localStorage.setItem('toolorbit_language', code);
     i18n.changeLanguage(code);
+    document.documentElement.lang = code === 'zh' ? 'zh-CN' : 'en';
+    router.push(query ? `${nextPath}?${query}` : nextPath);
     setIsOpen(false);
   };
 

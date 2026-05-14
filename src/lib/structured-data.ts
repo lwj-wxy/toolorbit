@@ -1,30 +1,38 @@
 import { BLOG_POSTS } from '../constants/blogData';
 import { TOOLS } from '../data/tools';
 import en from '../locales/en.json';
+import zh from '../locales/zh.json';
 import { getCategoryPath } from './category-paths';
+import { localizedPath, type Locale } from './i18n-routing';
 import { readPath, SITE_NAME, SITE_URL } from './metadata';
 
 const LOGO_URL = `${SITE_URL}/icon.svg`;
 
-function absoluteUrl(path: string) {
-  return `${SITE_URL}${path}`;
+function absoluteUrl(path: string, locale: Locale = 'en') {
+  return `${SITE_URL}${localizedPath(path, locale)}`;
 }
 
 function text(value: unknown, fallback = '') {
   return typeof value === 'string' && value.trim() ? value.trim() : fallback;
 }
 
-function toolCopy(toolId: string) {
-  return (en as any).tools?.[toolId] || {};
+function localeSource(locale: Locale) {
+  return locale === 'zh-CN' ? zh : en;
 }
 
-function toolName(toolId: string, fallback: string) {
-  return text(readPath(en, `tools.${toolId}.seoTitle`) || readPath(en, `tools.${toolId}.name`), fallback)
+function toolCopy(toolId: string, locale: Locale = 'en') {
+  return (localeSource(locale) as any).tools?.[toolId] || {};
+}
+
+function toolName(toolId: string, fallback: string, locale: Locale = 'en') {
+  const source = localeSource(locale);
+  return text(readPath(source, `tools.${toolId}.seoTitle`) || readPath(source, `tools.${toolId}.name`), fallback)
     .replace(` | ${SITE_NAME}`, '');
 }
 
-function toolDescription(toolId: string, fallback: string) {
-  return text(readPath(en, `tools.${toolId}.seoDesc`) || readPath(en, `tools.${toolId}.description`), fallback);
+function toolDescription(toolId: string, fallback: string, locale: Locale = 'en') {
+  const source = localeSource(locale);
+  return text(readPath(source, `tools.${toolId}.seoDesc`) || readPath(source, `tools.${toolId}.description`), fallback);
 }
 
 function toolApplicationCategory(category: string) {
@@ -74,14 +82,14 @@ export function websiteJsonLd() {
   };
 }
 
-export function toolJsonLd(path: string) {
+export function toolJsonLd(path: string, locale: Locale = 'en') {
   const tool = TOOLS.find((item) => item.path === path);
   if (!tool) return [];
 
-  const copy = toolCopy(tool.id);
-  const name = toolName(tool.id, tool.name);
-  const description = toolDescription(tool.id, tool.description);
-  const url = absoluteUrl(tool.path);
+  const copy = toolCopy(tool.id, locale);
+  const name = toolName(tool.id, tool.name, locale);
+  const description = toolDescription(tool.id, tool.description, locale);
+  const url = absoluteUrl(tool.path, locale);
 
   const highlights = [1, 2, 3]
     .map((index) => text(copy[`highlight${index}Title`]))
@@ -97,7 +105,7 @@ export function toolJsonLd(path: string) {
   const data: unknown[] = [
     breadcrumb([
       { name: SITE_NAME, url: SITE_URL },
-      { name: tool.category, url: `${SITE_URL}${getCategoryPath(tool.category)}` },
+      { name: tool.category, url: absoluteUrl(getCategoryPath(tool.category), locale) },
       { name, url },
     ]),
     {
@@ -142,18 +150,19 @@ export function toolJsonLd(path: string) {
   return data;
 }
 
-export function blogPostJsonLd(slug: string) {
+export function blogPostJsonLd(slug: string, locale: Locale = 'en') {
   const post = BLOG_POSTS.find((item) => item.slug === slug);
   if (!post) return [];
 
-  const title = readPath(en, `blog.posts.${slug}.title`) || slug.replace(/-/g, ' ');
-  const description = readPath(en, `blog.posts.${slug}.summary`) || `${SITE_NAME} article.`;
-  const url = absoluteUrl(`/blog/${slug}`);
+  const source = localeSource(locale);
+  const title = readPath(source, `blog.posts.${slug}.title`) || slug.replace(/-/g, ' ');
+  const description = readPath(source, `blog.posts.${slug}.summary`) || `${SITE_NAME} article.`;
+  const url = absoluteUrl(`/blog/${slug}`, locale);
 
   return [
     breadcrumb([
       { name: SITE_NAME, url: SITE_URL },
-      { name: 'Blog', url: `${SITE_URL}/blog` },
+      { name: locale === 'zh-CN' ? '博客' : 'Blog', url: absoluteUrl('/blog', locale) },
       { name: title, url },
     ]),
     {

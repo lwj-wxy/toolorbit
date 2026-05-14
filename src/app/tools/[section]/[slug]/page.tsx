@@ -7,42 +7,7 @@ import JsonLd from '../../../../components/JsonLd';
 import ToolSEOCard from '../../../../components/ToolSEOCard';
 import ToolSearchContent from '../../../../components/ToolSearchContent';
 import ToolPageClient from '../../../../components/ToolPageClient';
-
-const INFO_CARD_TOOL_KEYS: Record<string, string> = {
-  '/tools/ai/youtube-generator': 'ai-youtube-generator',
-  '/tools/ai/prompt-generator': 'ai-prompt-generator',
-  '/tools/ai/weekly-report': 'ai-weekly-report',
-  '/tools/ai/code-reviewer': 'ai-code-reviewer',
-};
-
-const FALLBACK_TOOL_GUIDE_PATHS = new Set([
-  '/tools/ai/xiaohongshu',
-  '/tools/ai/listing-generator',
-  '/tools/ai/keyword-analyzer',
-  '/tools/ai/competitor-tracker',
-  '/tools/ai/market-insights',
-  '/tools/dev/color-converter',
-  '/tools/dev/color-palette',
-  '/tools/dev/crypto-symmetric',
-  '/tools/dev/morse-code',
-  '/tools/dev/text-diff',
-  '/tools/dev/xml-to-json',
-  '/tools/fun/game-2048',
-  '/tools/fun/minesweeper',
-  '/tools/generator/barcode-generator',
-  '/tools/generator/qr-scanner',
-  '/tools/image/image-compressor',
-  '/tools/image/image-cropper',
-  '/tools/image/image-to-base64',
-  '/tools/image/image-to-ico',
-  '/tools/image/svg-to-png',
-  '/tools/pdf/image-to-pdf',
-  '/tools/pdf/pdf-merge',
-  '/tools/shared/placeholder',
-  '/tools/text/symbol-library',
-  '/tools/text/text-analyzer',
-  '/tools/text/text-cleaner',
-]);
+import { FALLBACK_TOOL_GUIDE_PATHS, INFO_CARD_TOOL_KEYS } from '../../../../lib/tool-page-content';
 
 export function generateStaticParams() {
   return TOOLS.map((tool) => {

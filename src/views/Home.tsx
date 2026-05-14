@@ -323,10 +323,10 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full max-w-2xl">
                {[
-                 { label: 'PDF 转图片', path: '/tools/pdf/pdf-to-image', icon: '📄' },
-                 { label: '图片压缩', path: '/tools/image/image-compressor', icon: '🖼️' },
-                 { label: 'AI 文案', path: '/tools/ai/listing-generator', icon: '✨' },
-                 { label: 'JSON 格式化', path: '/tools/dev/json-formatter', icon: '⚡' }
+                 { id: 'pdf-to-image', path: '/tools/pdf/pdf-to-image', icon: '📄' },
+                 { id: 'image-compressor', path: '/tools/image/image-compressor', icon: '🖼️' },
+                 { id: 'listing-generator', path: '/tools/ai/listing-generator', icon: '✨' },
+                 { id: 'json-formatter', path: '/tools/dev/json-formatter', icon: '⚡' }
                ].map((fav) => (
                  <Link 
                    key={fav.path} 
@@ -334,7 +334,9 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
                    className="flex items-center gap-2 px-4 py-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl transition-all group"
                  >
                    <span className="text-lg">{fav.icon}</span>
-                   <span className="text-xs font-bold text-white group-hover:text-white transition-colors">{fav.label}</span>
+                   <span className="text-xs font-bold text-white group-hover:text-white transition-colors">
+                     {t(`tools.${fav.id}.name`)}
+                   </span>
                  </Link>
                ))}
             </div>
