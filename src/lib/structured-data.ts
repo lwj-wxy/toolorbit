@@ -1,8 +1,11 @@
 import { BLOG_POSTS } from '../constants/blogData';
 import { TOOLS } from '../data/tools';
+import type { Category } from '../data/tools';
+import { BLOG_RELATED_TOOLS } from '../data/blogRelatedTools';
 import en from '../locales/en.json';
 import zh from '../locales/zh.json';
 import { getCategoryPath } from './category-paths';
+import { POSTS_PER_PAGE, sortedBlogPosts } from './blog-pagination';
 import { localizedPath, type Locale } from './i18n-routing';
 import { readPath, SITE_NAME, SITE_URL } from './metadata';
 
@@ -35,6 +38,21 @@ function toolDescription(toolId: string, fallback: string, locale: Locale = 'en'
   return text(readPath(source, `tools.${toolId}.seoDesc`) || readPath(source, `tools.${toolId}.description`), fallback);
 }
 
+function categoryName(category: Category, locale: Locale = 'en') {
+  const source = localeSource(locale);
+  return text(readPath(source, `common.categories.${category}`), category);
+}
+
+function blogTitle(slug: string, locale: Locale = 'en') {
+  const source = localeSource(locale);
+  return text(readPath(source, `blog.posts.${slug}.title`), slug.replace(/-/g, ' '));
+}
+
+function blogDescription(slug: string, locale: Locale = 'en') {
+  const source = localeSource(locale);
+  return text(readPath(source, `blog.posts.${slug}.summary`), `${SITE_NAME} article.`);
+}
+
 function toolApplicationCategory(category: string) {
   if (category.includes('开发者')) return 'DeveloperApplication';
   if (category.includes('图片')) return 'DesignApplication';
@@ -54,6 +72,20 @@ function breadcrumb(items: Array<{ name: string; url: string }>) {
       position: index + 1,
       name: item.name,
       item: item.url,
+    })),
+  };
+}
+
+function itemList(items: Array<{ name: string; url: string; description?: string }>) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    itemListElement: items.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      url: item.url,
+      name: item.name,
+      description: item.description,
     })),
   };
 }
@@ -82,6 +114,130 @@ export function websiteJsonLd() {
   };
 }
 
+export function homePageJsonLd(locale: Locale = 'en') {
+  const popularTools = TOOLS.filter((tool) => tool.isPopular).slice(0, 12);
+  const url = absoluteUrl('/', locale);
+
+  return [
+    breadcrumb([{ name: SITE_NAME, url }]),
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      name: locale === 'zh-CN' ? '面向开发者与创作者的免费在线工具' : 'Free Online Tools for Developers and Creators',
+      description:
+        locale === 'zh-CN'
+          ? 'ToolOrbit 提供面向开发者、创作者、电商运营、PDF 工作流、图片处理和 AI 生产力的免费浏览器在线工具。'
+          : 'Free browser-based tools for developers, creators, ecommerce operators, PDF workflows, image processing, and AI-assisted productivity.',
+      url,
+      isPartOf: {
+        '@type': 'WebSite',
+        name: SITE_NAME,
+        url: SITE_URL,
+      },
+    },
+    itemList(
+      popularTools.map((tool) => ({
+        name: toolName(tool.id, tool.name, locale),
+        description: toolDescription(tool.id, tool.description, locale),
+        url: absoluteUrl(tool.path, locale),
+      })),
+    ),
+  ];
+}
+
+export function blogListJsonLd(locale: Locale = 'en', page = 1) {
+  const normalizedPage = Math.max(1, page);
+  const path = normalizedPage > 1 ? `/blog/page/${normalizedPage}` : '/blog';
+  const posts = sortedBlogPosts().slice((normalizedPage - 1) * POSTS_PER_PAGE, normalizedPage * POSTS_PER_PAGE);
+  const url = absoluteUrl(path, locale);
+  const blogName = locale === 'zh-CN' ? '博客' : 'Blog';
+
+  return [
+    breadcrumb([
+      { name: SITE_NAME, url: absoluteUrl('/', locale) },
+      { name: blogName, url },
+    ]),
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Blog',
+      name: normalizedPage > 1 ? `${blogName} - Page ${normalizedPage}` : blogName,
+      url,
+      isPartOf: {
+        '@type': 'WebSite',
+        name: SITE_NAME,
+        url: SITE_URL,
+      },
+    },
+    itemList(
+      posts.map((post) => ({
+        name: blogTitle(post.slug, locale),
+        description: blogDescription(post.slug, locale),
+        url: absoluteUrl(`/blog/${post.slug}`, locale),
+      })),
+    ),
+  ];
+}
+
+export function categoryPageJsonLd(category: Category, locale: Locale = 'en') {
+  const tools = TOOLS.filter((tool) => tool.category === category);
+  const name = categoryName(category, locale);
+  const url = absoluteUrl(getCategoryPath(category), locale);
+
+  return [
+    breadcrumb([
+      { name: SITE_NAME, url: absoluteUrl('/', locale) },
+      { name, url },
+    ]),
+    {
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      name: locale === 'zh-CN' ? `${name}在线工具` : `${name} Online Tools`,
+      description:
+        locale === 'zh-CN'
+          ? `浏览 ToolOrbit 的 ${tools.length} 个${name}，用于快速浏览器工作流、实用示例和无需安装的效率任务。`
+          : `Browse ${tools.length} ${name} tools in ToolOrbit for fast browser-based workflows, examples, and no-install productivity helpers.`,
+      url,
+      isPartOf: {
+        '@type': 'WebSite',
+        name: SITE_NAME,
+        url: SITE_URL,
+      },
+    },
+    itemList(
+      tools.map((tool) => ({
+        name: toolName(tool.id, tool.name, locale),
+        description: toolDescription(tool.id, tool.description, locale),
+        url: absoluteUrl(tool.path, locale),
+      })),
+    ),
+  ];
+}
+
+export function staticPageJsonLd(page: 'about' | 'privacy' | 'terms', locale: Locale = 'en') {
+  const source = localeSource(locale);
+  const title = readPath(source, `${page}.title`) || page;
+  const url = absoluteUrl(`/${page}`, locale);
+  const pageType = page === 'about' ? 'AboutPage' : 'WebPage';
+
+  return [
+    breadcrumb([
+      { name: SITE_NAME, url: absoluteUrl('/', locale) },
+      { name: title, url },
+    ]),
+    {
+      '@context': 'https://schema.org',
+      '@type': pageType,
+      name: title,
+      url,
+      isPartOf: {
+        '@type': 'WebSite',
+        name: SITE_NAME,
+        url: SITE_URL,
+      },
+    },
+  ];
+}
+
 export function toolJsonLd(path: string, locale: Locale = 'en') {
   const tool = TOOLS.find((item) => item.path === path);
   if (!tool) return [];
@@ -104,8 +260,8 @@ export function toolJsonLd(path: string, locale: Locale = 'en') {
 
   const data: unknown[] = [
     breadcrumb([
-      { name: SITE_NAME, url: SITE_URL },
-      { name: tool.category, url: absoluteUrl(getCategoryPath(tool.category), locale) },
+      { name: SITE_NAME, url: absoluteUrl('/', locale) },
+      { name: categoryName(tool.category, locale), url: absoluteUrl(getCategoryPath(tool.category), locale) },
       { name, url },
     ]),
     {
@@ -154,10 +310,12 @@ export function blogPostJsonLd(slug: string, locale: Locale = 'en') {
   const post = BLOG_POSTS.find((item) => item.slug === slug);
   if (!post) return [];
 
-  const source = localeSource(locale);
-  const title = readPath(source, `blog.posts.${slug}.title`) || slug.replace(/-/g, ' ');
-  const description = readPath(source, `blog.posts.${slug}.summary`) || `${SITE_NAME} article.`;
+  const title = blogTitle(slug, locale);
+  const description = blogDescription(slug, locale);
   const url = absoluteUrl(`/blog/${slug}`, locale);
+  const relatedTools = (BLOG_RELATED_TOOLS[slug] || [])
+    .map((path) => TOOLS.find((tool) => tool.path === path))
+    .filter(Boolean) as typeof TOOLS;
 
   return [
     breadcrumb([
@@ -188,6 +346,11 @@ export function blogPostJsonLd(slug: string, locale: Locale = 'en') {
           url: LOGO_URL,
         },
       },
+      about: relatedTools.map((tool) => ({
+        '@type': 'WebApplication',
+        name: toolName(tool.id, tool.name, locale),
+        url: absoluteUrl(tool.path, locale),
+      })),
     },
   ];
 }

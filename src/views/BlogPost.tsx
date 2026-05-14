@@ -3,8 +3,10 @@
 import { useState, useEffect } from 'react';
 import { Link } from '../lib/navigation';
 import { useTranslation } from 'react-i18next';
-import { Calendar, Clock, Tag, FileText } from 'lucide-react';
+import { Calendar, Clock, Tag, FileText, Wrench } from 'lucide-react';
 import { BLOG_POSTS } from '../constants/blogData';
+import { BLOG_RELATED_TOOLS } from '../data/blogRelatedTools';
+import { TOOLS } from '../data/tools';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
@@ -64,6 +66,9 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, initialMarkdown = '' }) => {
       return 0;
     })
     .slice(0, 2);
+  const relatedTools = (BLOG_RELATED_TOOLS[slug] || [])
+    .map((path) => TOOLS.find((tool) => tool.path === path))
+    .filter(Boolean) as typeof TOOLS;
 
   const title = t(`blog.posts.${post.slug}.title`);
   // Estimate reading time based on markdown length
@@ -145,6 +150,50 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, initialMarkdown = '' }) => {
           </div>
         )}
       </div>
+
+      {relatedTools.length > 0 && (
+        <div className="mt-16 rounded-3xl border border-emerald-100 bg-emerald-50/60 p-6 sm:p-8">
+          <div className="mb-6 flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white text-emerald-600 shadow-sm">
+              <Wrench size={20} />
+            </div>
+            <div>
+              <h2 className="text-xl font-bold text-slate-900">
+                {t('blog.related_tools', { defaultValue: 'Related tools' })}
+              </h2>
+              <p className="text-sm text-slate-600">
+                {t('blog.related_tools_desc', {
+                  defaultValue: 'Use these ToolOrbit utilities to apply the workflow from this article.',
+                })}
+              </p>
+            </div>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-3">
+            {relatedTools.map((tool) => {
+              const Icon = tool.icon;
+              return (
+                <Link
+                  key={tool.id}
+                  to={tool.path}
+                  className="group rounded-2xl border border-white bg-white p-4 shadow-sm transition-all hover:-translate-y-1 hover:border-emerald-200 hover:shadow-md"
+                >
+                  <div className="mb-3 flex items-center gap-3">
+                    <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
+                      <Icon size={18} />
+                    </div>
+                    <span className="text-sm font-bold text-slate-900 group-hover:text-emerald-700">
+                      {t(`tools.${tool.id}.name`, { defaultValue: tool.name })}
+                    </span>
+                  </div>
+                  <p className="line-clamp-2 text-xs leading-5 text-slate-500">
+                    {t(`tools.${tool.id}.description`, { defaultValue: tool.description })}
+                  </p>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       <div className="border-t border-slate-100 pt-12 mt-12 text-center">
         <h3 className="text-xl font-bold text-slate-900 mb-4">{t('blog.shareTitle') || 'Share this article'}</h3>

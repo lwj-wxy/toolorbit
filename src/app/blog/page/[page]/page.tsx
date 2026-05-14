@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
 import { notFound, redirect } from 'next/navigation';
+import JsonLd from '../../../../components/JsonLd';
 import { getTotalBlogPages, normalizeBlogPage } from '../../../../lib/blog-pagination';
 import { blogListMetadata } from '../../../../lib/metadata';
+import { blogListJsonLd } from '../../../../lib/structured-data';
 import BlogList from '../../../../views/BlogList';
 
 type PageProps = {
@@ -38,5 +40,10 @@ export default async function Page({ params }: PageProps) {
     notFound();
   }
 
-  return <BlogList initialPage={page} />;
+  return (
+    <>
+      <JsonLd id={`structured-data-blog-list-page-${page}`} data={blogListJsonLd('en', page)} />
+      <BlogList initialPage={page} />
+    </>
+  );
 }

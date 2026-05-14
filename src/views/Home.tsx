@@ -458,9 +458,12 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
           return (
             <section key={category} className="space-y-8">
               <div className="flex items-center gap-4">
-                <div className={`px-4 py-1.5 rounded-full ${styles.bg} ${styles.title.replace('-600', '-700')} text-xs font-bold uppercase tracking-wider border ${styles.border.replace('border-', 'border-').split(' ')[0]}/20`}>
+                <Link
+                  to={getCategoryPath(category)}
+                  className={`px-4 py-1.5 rounded-full ${styles.bg} ${styles.title.replace('-600', '-700')} text-xs font-bold uppercase tracking-wider border ${styles.border.replace('border-', 'border-').split(' ')[0]}/20 transition-transform hover:-translate-y-0.5`}
+                >
                   {t(`common.categories.${category}`)}
-                </div>
+                </Link>
                 <div className="flex-1 h-[1px] bg-slate-100 dark:bg-slate-800" />
                 {remainingCount > 0 && (
                   <Link

@@ -20,7 +20,14 @@ import {
   staticPageMetadata,
   toolMetadata,
 } from '../../../lib/metadata';
-import { blogPostJsonLd, toolJsonLd } from '../../../lib/structured-data';
+import {
+  blogListJsonLd,
+  blogPostJsonLd,
+  categoryPageJsonLd,
+  homePageJsonLd,
+  staticPageJsonLd,
+  toolJsonLd,
+} from '../../../lib/structured-data';
 import { FALLBACK_TOOL_GUIDE_PATHS, INFO_CARD_TOOL_KEYS } from '../../../lib/tool-page-content';
 import About from '../../../views/About';
 import BlogList from '../../../views/BlogList';
@@ -112,23 +119,48 @@ export default async function Page({ params }: PageProps) {
   const basePath = basePathFromSegments(segments);
 
   if (basePath === '/') {
-    return zhPage(<Home />);
+    return zhPage(
+      <>
+        <JsonLd id="structured-data-home-zh" data={homePageJsonLd(LOCALE)} />
+        <Home />
+      </>,
+    );
   }
 
   if (basePath === '/blog') {
-    return zhPage(<BlogList />);
+    return zhPage(
+      <>
+        <JsonLd id="structured-data-blog-list-zh" data={blogListJsonLd(LOCALE)} />
+        <BlogList />
+      </>,
+    );
   }
 
   if (basePath === '/about') {
-    return zhPage(<About />);
+    return zhPage(
+      <>
+        <JsonLd id="structured-data-about-zh" data={staticPageJsonLd('about', LOCALE)} />
+        <About />
+      </>,
+    );
   }
 
   if (basePath === '/privacy') {
-    return zhPage(<Privacy />);
+    return zhPage(
+      <>
+        <JsonLd id="structured-data-privacy-zh" data={staticPageJsonLd('privacy', LOCALE)} />
+        <Privacy />
+      </>,
+    );
   }
 
   if (basePath === '/terms') {
-    return zhPage(<Terms />);
+    return zhPage(
+      <>
+        <JsonLd id="structured-data-terms-zh" data={staticPageJsonLd('terms', LOCALE)} />
+        <Terms />
+      </>,
+    );
   }
 
   if (segments[0] === 'blog' && segments[1] === 'page' && segments[2]) {
@@ -142,7 +174,12 @@ export default async function Page({ params }: PageProps) {
       notFound();
     }
 
-    return zhPage(<BlogList initialPage={page} />);
+    return zhPage(
+      <>
+        <JsonLd id={`structured-data-blog-list-page-${page}-zh`} data={blogListJsonLd(LOCALE, page)} />
+        <BlogList initialPage={page} />
+      </>,
+    );
   }
 
   if (segments[0] === 'blog' && segments[1]) {
@@ -169,7 +206,12 @@ export default async function Page({ params }: PageProps) {
       notFound();
     }
 
-    return zhPage(<Home initialCategory={category} />);
+    return zhPage(
+      <>
+        <JsonLd id={`structured-data-category-${segments[1]}-zh`} data={categoryPageJsonLd(category, LOCALE)} />
+        <Home initialCategory={category} />
+      </>,
+    );
   }
 
   if (segments[0] === 'tools' && segments[1] && segments[2]) {

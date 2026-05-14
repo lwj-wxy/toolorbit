@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import JsonLd from '../../../components/JsonLd';
 import { categoryMetadata } from '../../../lib/metadata';
 import { CATEGORY_BY_SLUG, CATEGORY_SLUGS } from '../../../lib/category-paths';
+import { categoryPageJsonLd } from '../../../lib/structured-data';
 import Home from '../../../views/Home';
 
 type PageProps = {
@@ -34,6 +36,11 @@ export default async function Page({ params }: PageProps) {
     notFound();
   }
 
-  return <Home initialCategory={category} />;
+  return (
+    <>
+      <JsonLd id={`structured-data-category-${slug}`} data={categoryPageJsonLd(category)} />
+      <Home initialCategory={category} />
+    </>
+  );
 }
 
