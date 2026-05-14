@@ -45,9 +45,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <>
             <Script
               src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`}
-              strategy="afterInteractive"
+              strategy="lazyOnload"
             />
-            <Script id="google-analytics" strategy="afterInteractive">
+            <Script id="google-analytics" strategy="lazyOnload">
               {`
                 window.dataLayer = window.dataLayer || [];
                 function gtag(){dataLayer.push(arguments);}
@@ -61,7 +61,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           async
           src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${googleAdsenseClient}`}
           crossOrigin="anonymous"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
         <Providers>
           <Layout>{children}</Layout>

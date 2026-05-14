@@ -8,7 +8,9 @@ import { CATEGORY_GUIDES } from '../data/categoryGuides';
 import { Star, Clock, ChevronRight, Sparkles } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 import { useRecentTools } from '../hooks/useRecentTools';
-import { motion, AnimatePresence } from 'motion/react';
+
+const HOME_CATEGORY_PREVIEW_LIMIT = 4;
+const HOME_POPULAR_PREVIEW_LIMIT = 6;
 
 const getCategoryStyles = (category: Category) => {
   switch(category) {
@@ -60,13 +62,7 @@ const PopularToolCard = ({ tool, isPinned, togglePin, index }: { tool: ToolItem,
   const currentAccent = accents[color] || accents.blue;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: (index || 0) * 0.1 }}
-      whileHover={{ y: -8 }}
-      className="relative group h-48 sm:h-56"
-    >
+    <div className="relative group h-48 sm:h-56 transition-transform duration-300 hover:-translate-y-2">
       <Link
         to={tool.path}
         className={`block h-full w-full rounded-[32px] p-6 bg-gradient-to-br ${currentBg} border backdrop-blur-sm shadow-xl shadow-slate-200/40 dark:shadow-none overflow-hidden relative transition-all duration-500 group-hover:border-opacity-50`}
@@ -77,6 +73,8 @@ const PopularToolCard = ({ tool, isPinned, togglePin, index }: { tool: ToolItem,
               <Icon size={24} strokeWidth={2.5} />
             </div>
             <button 
+              type="button"
+              aria-label={isPinned ? t('common.unpinned') || 'Unpin tool' : t('common.pinned') || 'Pin tool'}
               onClick={(e) => togglePin(e, tool.id)}
               className={`p-2 rounded-xl transition-all ${isPinned ? 'text-amber-500 bg-amber-500/10' : 'text-slate-400 hover:text-slate-600'}`}
             >
@@ -108,7 +106,7 @@ const PopularToolCard = ({ tool, isPinned, togglePin, index }: { tool: ToolItem,
            <ChevronRight className="text-slate-300" />
         </div>
       </Link>
-    </motion.div>
+    </div>
   );
 };
 
@@ -132,13 +130,7 @@ const ToolCard = ({ tool, isPinned, togglePin, index }: { tool: ToolItem, isPinn
   const styles = styleMap[color] || styleMap.blue;
   
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3, delay: (index || 0) * 0.05 }}
-      whileHover={{ y: -4 }}
-      className="group h-full"
-    >
+    <div className="group h-full transition-transform duration-200 hover:-translate-y-1">
       <Link
         to={tool.path}
         className={`block h-full border rounded-2xl p-5 transition-all duration-300 hover:shadow-xl hover:shadow-slate-200/50 dark:hover:shadow-none relative overflow-hidden bg-white dark:bg-slate-900 ${styles.border.replace('border-', 'border-').split(' ')[0]}/10 hover:${styles.border}`}
@@ -149,6 +141,8 @@ const ToolCard = ({ tool, isPinned, togglePin, index }: { tool: ToolItem, isPinn
               <Icon size={20} strokeWidth={2.5} />
             </div>
             <button 
+              type="button"
+              aria-label={isPinned ? t('common.unpinned') || 'Unpin tool' : t('common.pinned') || 'Pin tool'}
               onClick={(e) => togglePin(e, tool.id)}
               className={`p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-200 ${isPinned ? 'text-amber-500' : 'text-slate-300 dark:text-slate-600'}`}
             >
@@ -171,7 +165,7 @@ const ToolCard = ({ tool, isPinned, togglePin, index }: { tool: ToolItem, isPinn
            <Icon size={100} strokeWidth={1} />
         </div>
       </Link>
-    </motion.div>
+    </div>
   );
 };
 
@@ -303,28 +297,20 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
 
   const categoriesOrder = Array.from(new Set(TOOLS.map(t => t.category)));
   const pinnedToolObjects = pinnedTools.map(id => TOOLS.find(t => t.id === id)).filter(Boolean) as typeof TOOLS;
-  const popularTools = TOOLS.filter(t => t.isPopular);
+  const popularTools = TOOLS.filter(t => t.isPopular).slice(0, HOME_POPULAR_PREVIEW_LIMIT);
 
   return (
     <div className="flex flex-col gap-16 pb-16">
       {/* Dynamic Hero Section */}
       {!categoryFilter && !searchQuery && (
-        <section className="relative pt-8 pb-12 overflow-hidden rounded-[40px] bg-slate-900 border border-slate-800 shadow-2xl">
-          <div className="absolute inset-0 opacity-20">
-             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600 blur-[120px] rounded-full mix-blend-screen -translate-y-1/2 translate-x-1/2" />
-             <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-indigo-600 blur-[100px] rounded-full mix-blend-screen translate-y-1/3 -translate-x-1/4" />
-          </div>
+        <section className="relative pt-8 pb-12 overflow-hidden rounded-[40px] bg-slate-950 border border-slate-800 shadow-2xl">
+          <div className="absolute inset-0 bg-blue-600/10 pointer-events-none" />
           
           <div className="relative z-10 px-8 sm:px-12 flex flex-col items-center text-center">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, type: 'spring' }}
-              className="flex items-center gap-3 px-4 py-1.5 bg-blue-500/10 border border-blue-500/20 rounded-full text-blue-400 text-xs font-black uppercase tracking-widest mb-6"
-            >
+            <div className="flex items-center gap-3 px-4 py-1.5 bg-white/10 border border-white/15 rounded-full text-white text-xs font-black uppercase tracking-widest mb-6">
               <Sparkles size={14} className="fill-blue-400" />
               {t('common.hero_badge') || 'Pro Efficiency Suite'}
-            </motion.div>
+            </div>
             
             <h1 className="text-4xl sm:text-6xl font-black text-white tracking-tight mb-6 leading-[1.1] max-w-4xl">
                {t('common.hero_title') || 'Simple Tools for Big Ideas'}
@@ -347,7 +333,7 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
                    className="flex items-center gap-2 px-4 py-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl transition-all group"
                  >
                    <span className="text-lg">{fav.icon}</span>
-                   <span className="text-xs font-bold text-slate-300 group-hover:text-white transition-colors">{fav.label}</span>
+                   <span className="text-xs font-bold text-white group-hover:text-white transition-colors">{fav.label}</span>
                  </Link>
                ))}
             </div>
@@ -412,14 +398,8 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
       
       {/* Pinned & Recent Split Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-        <AnimatePresence mode="popLayout">
           {pinnedToolObjects.length > 0 && (
-            <motion.section 
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              className="space-y-6"
-            >
+            <section className="space-y-6">
               <div className="flex items-center gap-3">
                 <div className="w-1.5 h-6 bg-amber-500 rounded-full" />
                 <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 tracking-tight flex items-center gap-2">
@@ -437,9 +417,8 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
                   />
                 ))}
               </div>
-            </motion.section>
+            </section>
           )}
-        </AnimatePresence>
 
         {recentTools.length > 0 && (
           <section className="space-y-6">
@@ -470,18 +449,28 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
           if (!toolsInCategory || toolsInCategory.length === 0) return null;
           
           const styles = getCategoryStyles(category);
+          const previewTools = toolsInCategory.slice(0, HOME_CATEGORY_PREVIEW_LIMIT);
+          const remainingCount = toolsInCategory.length - previewTools.length;
 
           return (
             <section key={category} className="space-y-8">
               <div className="flex items-center gap-4">
-                <div className={`px-4 py-1.5 rounded-full ${styles.bg} ${styles.title} text-xs font-bold uppercase tracking-wider border ${styles.border.replace('border-', 'border-').split(' ')[0]}/20`}>
+                <div className={`px-4 py-1.5 rounded-full ${styles.bg} ${styles.title.replace('-600', '-700')} text-xs font-bold uppercase tracking-wider border ${styles.border.replace('border-', 'border-').split(' ')[0]}/20`}>
                   {t(`common.categories.${category}`)}
                 </div>
                 <div className="flex-1 h-[1px] bg-slate-100 dark:bg-slate-800" />
+                {remainingCount > 0 && (
+                  <Link
+                    to={`/?category=${encodeURIComponent(category)}`}
+                    className="text-sm font-semibold text-slate-600 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-300 transition-colors"
+                  >
+                    {t('common.viewMore')}
+                  </Link>
+                )}
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {toolsInCategory.map((tool, idx) => (
+                {previewTools.map((tool, idx) => (
                   <ToolCard 
                     key={tool.id} 
                     tool={tool} 

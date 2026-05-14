@@ -268,6 +268,7 @@ export default function Layout({ children }: LayoutProps) {
 
           <button
             type="button"
+            aria-label={t('common.mobileMenu')}
             className="md:hidden p-2 text-slate-500 hover:bg-slate-100 rounded-md transition-colors"
             onClick={() => setMobileMenuOpen(true)}
           >
@@ -285,7 +286,12 @@ export default function Layout({ children }: LayoutProps) {
               <span className="font-bold text-[18px] text-slate-900 dark:text-slate-100">{t('common.mobileMenu')}</span>
               <div className="flex items-center gap-2">
                 <LanguageSwitcher />
-                <button onClick={() => setMobileMenuOpen(false)} className="p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-md">
+                <button
+                  type="button"
+                  aria-label="Close navigation"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-md"
+                >
                   <X className="h-5 w-5" />
                 </button>
               </div>
@@ -442,7 +448,7 @@ export default function Layout({ children }: LayoutProps) {
         )}
       </div>
 
-      <footer className="bg-transparent pt-8 pb-12 flex flex-col items-center justify-center text-[13px] text-slate-400 dark:text-slate-500 mt-auto relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-200/50 dark:border-slate-800/50">
+      <footer className="bg-transparent pt-8 pb-12 flex flex-col items-center justify-center text-[13px] text-slate-600 dark:text-slate-400 mt-auto relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-200/50 dark:border-slate-800/50">
         <div className="flex gap-6 mb-4 font-medium">
           <Link to="/about" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors uppercase tracking-wider">{t('common.nav_about')}</Link>
           <Link to="/privacy" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors uppercase tracking-wider">{t('common.nav_privacy')}</Link>
