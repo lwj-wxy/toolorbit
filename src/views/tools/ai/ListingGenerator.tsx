@@ -3,9 +3,10 @@ import { useTranslation } from 'react-i18next';
 import { Sparkles, Loader2, Copy, Check } from 'lucide-react';
 import Markdown from 'react-markdown';
 import ToolSEOCard from '../../../components/ToolSEOCard';
+import ToolPageHero from '../../../components/ToolPageHero';
 
 export default function ListingGenerator() {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   
   const [platform, setPlatform] = useState('Etsy');
   const [input, setInput] = useState('');
@@ -106,13 +107,24 @@ export default function ListingGenerator() {
 
   return (
     <div className="max-w-7xl mx-auto space-y-8 pb-20">
+      <ToolPageHero
+        icon={Sparkles}
+        title={t('tools.listing-generator.title', isZh ? 'Listing 生成器' : 'Listing Generator')}
+        description={t(
+          'tools.listing-generator.subtitle',
+          isZh
+            ? 'AI 驱动的电商商品文案生成器。秒级生成标题、描述和标签。'
+            : 'AI-driven e-commerce listing generator. Creates titles, descriptions and tags in seconds.',
+        )}
+      />
+
       <div className="grid grid-cols-1 lg:grid-cols-[400px,1fr] gap-8 items-start">
         {/* Left Input Sidebar */}
         <div className="bg-white rounded-3xl border border-slate-200 shadow-xl shadow-slate-200/50 p-6 sm:p-7 space-y-6">
-          <h1 className="text-xl font-black text-slate-800 tracking-tight flex items-center gap-2">
+          <h2 className="text-xl font-black text-slate-800 tracking-tight flex items-center gap-2">
             <Sparkles className="text-indigo-500" />
             {isZh ? '商品文案生成器' : 'Listing Generator'}
-          </h1>
+          </h2>
 
           <div className="space-y-4">
             <div>

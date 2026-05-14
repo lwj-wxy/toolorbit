@@ -10,6 +10,7 @@ const DEFAULT_DESCRIPTION =
   'Free browser-based tools for developers, creators, ecommerce operators, PDF workflows, image processing, and AI-assisted productivity.';
 const TITLE_TEXT_LIMIT = 48;
 const DESCRIPTION_MIN_LENGTH = 120;
+const DESCRIPTION_MAX_LENGTH = 160;
 
 const STATIC_PAGE_DESCRIPTIONS: Record<'about' | 'privacy' | 'terms', string> = {
   about:
@@ -103,9 +104,8 @@ function expandShortDescription(description: string) {
   return `${description} Explore focused examples and related ToolOrbit browser tools for faster everyday workflows.`;
 }
 
-function conciseToolDescription(toolName: string, category?: Category) {
-  const categoryName = category ? cleanTitle(readPath(en, `common.categories.${category}`), category) : 'online';
-  return `Use ${toolName} for focused ${categoryName.toLowerCase()} workflows in your browser. Get practical controls, clear results, and no installation.`;
+function conciseToolDescription(toolName: string) {
+  return `Use ${toolName} online in your browser. Get practical controls, clear results, privacy-friendly processing, and no installation.`;
 }
 
 function conciseBlogDescription(title: string) {
@@ -191,10 +191,12 @@ export function blogPostMetadata(slug: string): Metadata {
   const title = BLOG_SEO_TITLE_OVERRIDES[slug] || readPath(en, `blog.posts.${slug}.title`) || slug.replace(/-/g, ' ');
   const rawDescription = cleanDescription(readPath(en, `blog.posts.${slug}.summary`), 'ToolOrbit Blog article.');
   const description =
-    rawDescription.length > 160
+    rawDescription.length > DESCRIPTION_MAX_LENGTH
       ? conciseBlogDescription(title)
       : expandShortDescription(rawDescription);
-  const metadata = pageMetadata(title, description, `/blog/${slug}`);
+  const metadataDescription =
+    description.length > DESCRIPTION_MAX_LENGTH ? conciseBlogDescription(title) : description;
+  const metadata = pageMetadata(title, metadataDescription, `/blog/${slug}`);
 
   return {
     ...metadata,
@@ -230,10 +232,13 @@ export function toolMetadata(path: string): Metadata {
     ? `Use ${cleanTitle(tool.name)} online for ${tool.description.toLowerCase()} No installation required.`
     : DEFAULT_DESCRIPTION;
   const cleanedDescription = cleanDescription(rawDescription, fallbackDescription);
+  const expandedDescription = tool
+    ? expandShortToolDescription(cleanedDescription, toolNameTitle)
+    : rawDescription || fallbackDescription;
   const description = tool
-    ? cleanedDescription.length > 160
-      ? conciseToolDescription(toolNameTitle, tool.category)
-      : expandShortToolDescription(cleanedDescription, toolNameTitle)
+    ? expandedDescription.length > DESCRIPTION_MAX_LENGTH
+      ? conciseToolDescription(toolNameTitle)
+      : expandedDescription
     : rawDescription;
 
   return pageMetadata(title, description || fallbackDescription, path);

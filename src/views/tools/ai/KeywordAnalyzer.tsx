@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Zap, Loader2, Copy, Check } from 'lucide-react';
 import ToolSEOCard from '../../../components/ToolSEOCard';
+import ToolPageHero from '../../../components/ToolPageHero';
 
 export default function KeywordAnalyzer() {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   
   const [kwSearch, setKwSearch] = useState('');
   const [kwLanguage, setKwLanguage] = useState(i18n.language === 'zh' ? '中文' : 'English');
@@ -90,13 +91,24 @@ export default function KeywordAnalyzer() {
 
   return (
     <div className="max-w-7xl mx-auto space-y-8 pb-20">
+      <ToolPageHero
+        icon={Zap}
+        title={t('tools.keyword-analyzer.title', isZh ? '关键词分析器' : 'Keyword Analyzer')}
+        description={t(
+          'tools.keyword-analyzer.subtitle',
+          isZh
+            ? '深入挖掘电商长尾关键词，发现隐藏的高利润利基市场。'
+            : 'Deep-dive into e-commerce long-tail keywords, discovering hidden profitable niches.',
+        )}
+      />
+
       <div className="grid grid-cols-1 lg:grid-cols-[400px,1fr] gap-8 items-start">
         {/* Left Input Sidebar */}
         <div className="bg-white rounded-3xl border border-slate-200 shadow-xl shadow-slate-200/50 p-6 sm:p-7 space-y-6">
-          <h1 className="text-xl font-black text-slate-800 tracking-tight flex items-center gap-2">
+          <h2 className="text-xl font-black text-slate-800 tracking-tight flex items-center gap-2">
             <Zap className="text-indigo-500" />
             {isZh ? '关键词分析器' : 'Keyword Analyzer'}
-          </h1>
+          </h2>
 
           <div className="space-y-4">
             <div>

@@ -2,9 +2,10 @@ import { useState, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BarChart3, Loader2 } from 'lucide-react';
 import ToolSEOCard from '../../../components/ToolSEOCard';
+import ToolPageHero from '../../../components/ToolPageHero';
 
 export default function MarketInsights() {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   
   const [marketPlatform, setMarketPlatform] = useState('Etsy');
   const [marketTimeframe, setMarketTimeframe] = useState('7');
@@ -91,13 +92,24 @@ export default function MarketInsights() {
 
   return (
     <div className="max-w-7xl mx-auto space-y-8 pb-20">
+      <ToolPageHero
+        icon={BarChart3}
+        title={t('tools.market-insights.title', isZh ? '市场洞察' : 'Market Insights')}
+        description={t(
+          'tools.market-insights.subtitle',
+          isZh
+            ? '获取指定平台的市场调研报告、趋势和类目动态。'
+            : 'Acquire platform-specific market research reports, trends, and category dynamics.',
+        )}
+      />
+
       <div className="grid grid-cols-1 lg:grid-cols-[400px,1fr] gap-8 items-start">
         {/* Left Input Sidebar */}
         <div className="bg-white rounded-3xl border border-slate-200 shadow-xl shadow-slate-200/50 p-6 sm:p-7 space-y-6">
-          <h1 className="text-xl font-black text-slate-800 tracking-tight flex items-center gap-2">
+          <h2 className="text-xl font-black text-slate-800 tracking-tight flex items-center gap-2">
             <BarChart3 className="text-indigo-500" />
             {isZh ? '市场洞察' : 'Market Insights'}
-          </h1>
+          </h2>
 
           <div className="space-y-4">
             <div>

@@ -5,6 +5,7 @@ import { Link, useClientSearchParamsWithInitialSearch } from '../lib/navigation'
 import { useTranslation } from 'react-i18next';
 import { TOOLS, Category, ToolItem } from '../data/tools';
 import { CATEGORY_GUIDES } from '../data/categoryGuides';
+import { getCategoryPath } from '../lib/category-paths';
 import { Star, Clock, ChevronRight, Sparkles } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 import { useRecentTools } from '../hooks/useRecentTools';
@@ -461,7 +462,7 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
                 <div className="flex-1 h-[1px] bg-slate-100 dark:bg-slate-800" />
                 {remainingCount > 0 && (
                   <Link
-                    to={`/?category=${encodeURIComponent(category)}`}
+                    to={getCategoryPath(category)}
                     className="text-sm font-semibold text-slate-600 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-300 transition-colors"
                   >
                     {t('common.viewMore')}

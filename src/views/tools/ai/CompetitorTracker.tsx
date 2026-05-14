@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Target, Loader2 } from 'lucide-react';
 import ToolSEOCard from '../../../components/ToolSEOCard';
+import ToolPageHero from '../../../components/ToolPageHero';
 
 export default function CompetitorTracker() {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   
   const [compProduct, setCompProduct] = useState('');
   const [compInfo, setCompInfo] = useState('');
@@ -84,13 +85,24 @@ export default function CompetitorTracker() {
 
   return (
     <div className="max-w-7xl mx-auto space-y-8 pb-20">
+      <ToolPageHero
+        icon={Target}
+        title={t('tools.competitor-tracker.title', isZh ? '竞品分析器' : 'Competitor Tracker')}
+        description={t(
+          'tools.competitor-tracker.subtitle',
+          isZh
+            ? '分析竞争对手，找出弱点，为你的产品寻找新机会。'
+            : 'Analyze competitors, find weaknesses, and identify opportunities for your products.',
+        )}
+      />
+
       <div className="grid grid-cols-1 lg:grid-cols-[400px,1fr] gap-8 items-start">
         {/* Left Input Sidebar */}
         <div className="bg-white rounded-3xl border border-slate-200 shadow-xl shadow-slate-200/50 p-6 sm:p-7 space-y-6">
-          <h1 className="text-xl font-black text-slate-800 tracking-tight flex items-center gap-2">
+          <h2 className="text-xl font-black text-slate-800 tracking-tight flex items-center gap-2">
             <Target className="text-indigo-500" />
             {isZh ? '竞品分析器' : 'Competitor Tracker'}
-          </h1>
+          </h2>
 
           <div className="space-y-4">
             <div>

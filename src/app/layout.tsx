@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Script from 'next/script';
 import '../index.css';
 import JsonLd from '../components/JsonLd';
+import DelayedAdSenseScript from '../components/DelayedAdSenseScript';
 import Layout from '../components/Layout';
 import Providers from './providers';
 import { organizationJsonLd, websiteJsonLd } from '../lib/structured-data';
@@ -57,12 +58,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </Script>
           </>
         ) : null}
-        <Script
-          async
-          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${googleAdsenseClient}`}
-          crossOrigin="anonymous"
-          strategy="lazyOnload"
-        />
+        <DelayedAdSenseScript client={googleAdsenseClient} />
         <Providers>
           <Layout>{children}</Layout>
         </Providers>
