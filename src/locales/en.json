@@ -1206,7 +1206,7 @@
       "faq3Q": "Can I calculate for multiple transactions?",
       "faq3A": "This tool is designed for individual transaction auditing. For bulk data, refer to your Stripe dashboard.",
       "seoTitle": "Stripe Fee Online Calculator - Global Credit Card Processing Costs",
-      "seoDesc": "Whether you're an e-commerce expert or a freelancer, Stripe is great for payments. But its 'percentage + fixed cents' model can be hard to calculate instantly.",
+      "seoDesc": "Calculate Stripe fees and net payouts for online payments, including reverse invoice amounts, using standard 2.9% + $0.30 pricing.",
       "highlightsTitle": "Key highlights for optimizing payment strategies:",
       "highlight1Title": "1. Reverse Invoice Calculation:",
       "highlight1Desc": "Instead of just knowing what you'll lose, find out exactly how much to invoice so you receive the full intended amount.",
