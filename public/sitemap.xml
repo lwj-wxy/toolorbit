@@ -2006,4 +2006,100 @@
       <image:loc>https://picsum.photos/seed/converter/800/400</image:loc>
     </image:image>
   </url>
+  <url>
+    <loc>https://toolorbit.site/blog/ai-code-reviewer-guide</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/blog/ai-code-reviewer-guide" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://toolorbit.site/zh-CN/blog/ai-code-reviewer-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolorbit.site/blog/ai-code-reviewer-guide" />
+    <lastmod>2026-05-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://picsum.photos/seed/codereview/800/400</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://toolorbit.site/zh-CN/blog/ai-code-reviewer-guide</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/blog/ai-code-reviewer-guide" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://toolorbit.site/zh-CN/blog/ai-code-reviewer-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolorbit.site/blog/ai-code-reviewer-guide" />
+    <lastmod>2026-05-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://picsum.photos/seed/codereview/800/400</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://toolorbit.site/blog/ai-regex-generator-guide</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/blog/ai-regex-generator-guide" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://toolorbit.site/zh-CN/blog/ai-regex-generator-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolorbit.site/blog/ai-regex-generator-guide" />
+    <lastmod>2026-05-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://picsum.photos/seed/regexai/800/400</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://toolorbit.site/zh-CN/blog/ai-regex-generator-guide</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/blog/ai-regex-generator-guide" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://toolorbit.site/zh-CN/blog/ai-regex-generator-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolorbit.site/blog/ai-regex-generator-guide" />
+    <lastmod>2026-05-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://picsum.photos/seed/regexai/800/400</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://toolorbit.site/blog/ai-meeting-minutes-guide</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/blog/ai-meeting-minutes-guide" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://toolorbit.site/zh-CN/blog/ai-meeting-minutes-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolorbit.site/blog/ai-meeting-minutes-guide" />
+    <lastmod>2026-05-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://picsum.photos/seed/meetingai/800/400</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://toolorbit.site/zh-CN/blog/ai-meeting-minutes-guide</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/blog/ai-meeting-minutes-guide" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://toolorbit.site/zh-CN/blog/ai-meeting-minutes-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolorbit.site/blog/ai-meeting-minutes-guide" />
+    <lastmod>2026-05-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://picsum.photos/seed/meetingai/800/400</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://toolorbit.site/blog/ai-video-script-guide</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/blog/ai-video-script-guide" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://toolorbit.site/zh-CN/blog/ai-video-script-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolorbit.site/blog/ai-video-script-guide" />
+    <lastmod>2026-05-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://picsum.photos/seed/videoscript/800/400</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://toolorbit.site/zh-CN/blog/ai-video-script-guide</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/blog/ai-video-script-guide" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://toolorbit.site/zh-CN/blog/ai-video-script-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolorbit.site/blog/ai-video-script-guide" />
+    <lastmod>2026-05-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://picsum.photos/seed/videoscript/800/400</image:loc>
+    </image:image>
+  </url>
 </urlset>

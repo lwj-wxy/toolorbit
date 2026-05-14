@@ -2513,9 +2513,27 @@
       "image-converter-web-formats": {
         "title": "导航网页图像格式：JPG，PNG 和 WebP 详解",
         "summary": "为网络选择正确的图像格式对于性能至关重要。探索 JPG，PNG 和 WebP 的优势以及何时使用它们。"
+      },
+      "ai-code-reviewer-guide": {
+        "title": "AI 代码审查：你的全天候结对编程伙伴",
+        "summary": "代码审查是工程团队最大的瓶颈。探索 AI 代码审查器如何提供即时、一致的反馈——以及人类判断力依然不可替代的领域。"
+      },
+      "ai-regex-generator-guide": {
+        "title": "AI 正则生成器：从数小时的反复试错到毫秒级精准匹配",
+        "summary": "不再与晦涩的正则语法死磕。了解 AI 驱动的正则生成器如何将大白话描述转化为精准、方言感知的正则表达式。"
+      },
+      "ai-meeting-minutes-guide": {
+        "title": "AI 会议纪要：再也不会错过任何关键细节",
+        "summary": "会议消耗了每周 35% 的工作时间。看看 AI 纪要工具如何将对话综合成带有行动项和责任人归属的结构化摘要。"
+      },
+      "ai-video-script-guide": {
+        "title": "AI 视频脚本生成器：无惧职业倦怠，规模化你的内容管线",
+        "summary": "内容创作无法线性扩张——除非你借助 AI。了解 AI 脚本生成器如何消除空白页恐惧症，加速你的发布节奏。"
       }
     },
     "categories": {
+      "all": "全部",
+      "ai": "AI",
       "tech": "技术动态",
       "science": "百科知识",
       "education": "教育资源",
@@ -2525,6 +2543,7 @@
       "design": "视觉设计",
       "lifestyle": "生活方式"
     },
+    "noPosts": "该分类暂无文章。",
     "shareTitle": "分享这篇文章",
     "shareTwitter": "分享到 Twitter",
     "related_posts": "相关文章推荐"

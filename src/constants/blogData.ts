@@ -161,5 +161,33 @@ export const BLOG_POSTS: BlogPost[] = [
     date: '2026-05-14',
     category: 'Development',
     image: 'https://picsum.photos/seed/converter/800/400'
+  },
+  {
+    id: '23',
+    slug: 'ai-code-reviewer-guide',
+    date: '2026-05-14',
+    category: 'AI',
+    image: 'https://picsum.photos/seed/codereview/800/400'
+  },
+  {
+    id: '24',
+    slug: 'ai-regex-generator-guide',
+    date: '2026-05-14',
+    category: 'AI',
+    image: 'https://picsum.photos/seed/regexai/800/400'
+  },
+  {
+    id: '25',
+    slug: 'ai-meeting-minutes-guide',
+    date: '2026-05-14',
+    category: 'AI',
+    image: 'https://picsum.photos/seed/meetingai/800/400'
+  },
+  {
+    id: '26',
+    slug: 'ai-video-script-guide',
+    date: '2026-05-14',
+    category: 'AI',
+    image: 'https://picsum.photos/seed/videoscript/800/400'
   }
 ];

@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(node -e \"JSON.parse\\(require\\('fs'\\).readFileSync\\('src/locales/en.json','utf8'\\)\\); JSON.parse\\(require\\('fs'\\).readFileSync\\('src/locales/zh.json','utf8'\\)\\); console.log\\('Both locale files are valid JSON'\\)\")",
+      "Bash(node -e ' *)",
+      "Bash(npx next *)",
+      "Bash(curl -s http://localhost:3000/blog)",
+      "Bash(node -e \"const {BLOG_POSTS} = require\\('./src/constants/blogData.ts'.replace\\('.ts',''\\)\\);\")",
+      "Read(//\" src/constants/**)"
+    ]
+  }
+}

@@ -8,27 +8,50 @@ import { BLOG_POSTS, BlogPost } from '../constants/blogData';
 
 const POSTS_PER_PAGE = 12;
 
+const ALL_CATEGORIES = [
+  'All',
+  'AI',
+  'Development',
+  'Security',
+  'Network',
+  'Design',
+  'Lifestyle',
+  'Education',
+  'Science',
+  'Tech',
+] as const;
+
 const BlogList: React.FC = () => {
   const { t } = useTranslation();
   const [currentPage, setCurrentPage] = useState(1);
+  const [activeCategory, setActiveCategory] = useState<string>('All');
 
-  // Sorting posts by date descending ensures the newest posts are first
   const sortedPosts = useMemo(() => {
     return [...BLOG_POSTS].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   }, []);
 
-  const totalPages = Math.ceil(sortedPosts.length / POSTS_PER_PAGE);
+  const filteredPosts = useMemo(() => {
+    if (activeCategory === 'All') return sortedPosts;
+    return sortedPosts.filter((p) => p.category === activeCategory);
+  }, [sortedPosts, activeCategory]);
+
+  const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
 
   const currentPosts = useMemo(() => {
     const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
-    return sortedPosts.slice(startIndex, startIndex + POSTS_PER_PAGE);
-  }, [sortedPosts, currentPage]);
+    return filteredPosts.slice(startIndex, startIndex + POSTS_PER_PAGE);
+  }, [filteredPosts, currentPage]);
 
   const handlePageChange = (newPage: number) => {
     if (newPage >= 1 && newPage <= totalPages) {
       setCurrentPage(newPage);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+  };
+
+  const handleCategoryChange = (category: string) => {
+    setActiveCategory(category);
+    setCurrentPage(1);
   };
 
   const renderPostCard = (post: BlogPost) => (
@@ -77,21 +100,50 @@ const BlogList: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div className="text-center mb-12">
+      <div className="text-center mb-8">
         <h1 className="text-4xl font-extrabold text-slate-900 tracking-tight mb-4">
           {t('blog.title')}
         </h1>
-        <p className="text-lg text-slate-600 max-w-2xl mx-auto mb-10">
+        <p className="text-lg text-slate-600 max-w-2xl mx-auto mb-8">
           {t('blog.subtitle')}
         </p>
+
+        {/* Category Filter Tabs */}
+        <div className="flex flex-wrap justify-center gap-2 px-4">
+          {ALL_CATEGORIES.map((cat) => {
+            const isActive = activeCategory === cat;
+            const label = cat === 'All'
+              ? (t('blog.categories.all', { defaultValue: 'All' }))
+              : t(`blog.categories.${cat.toLowerCase()}`, { defaultValue: cat });
+            return (
+              <button
+                key={cat}
+                onClick={() => handleCategoryChange(cat)}
+                className={`px-4 py-2 rounded-full text-sm font-bold transition-all duration-200 ${
+                  isActive
+                    ? 'bg-emerald-600 text-white shadow-md'
+                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-emerald-600'
+                }`}
+              >
+                {label}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       <div className="space-y-12">
-        <section>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {currentPosts.map(renderPostCard)}
+        {filteredPosts.length === 0 ? (
+          <div className="text-center py-20">
+            <p className="text-slate-400 text-lg">{t('blog.noPosts', { defaultValue: 'No articles in this category yet.' })}</p>
           </div>
-        </section>
+        ) : (
+          <section>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {currentPosts.map(renderPostCard)}
+            </div>
+          </section>
+        )}
 
         {/* Pagination Controls */}
         {totalPages > 1 && (
