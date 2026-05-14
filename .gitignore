@@ -10,3 +10,13 @@ coverage/
 !.env.example
 .seo-cache/
 sitemap.xml
+
+# SEO audit temporary artifacts
+screenshots/
+claude-seo/
+SEO-OPTIMIZATION-PRD.md
+scripts/capture_screenshot.py
+scripts/detail_audit.py
+scripts/page_check.py
+scripts/seo_check.py
+scripts/visual_analysis.py

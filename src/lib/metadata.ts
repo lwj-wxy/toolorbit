@@ -220,19 +220,39 @@ export function staticPageMetadata(page: 'about' | 'privacy' | 'terms', locale: 
   const source = localeSource(locale);
   const title = readPath(source, `${page}.title`);
   const description = locale === 'zh-CN' ? STATIC_PAGE_DESCRIPTIONS_ZH[page] : STATIC_PAGE_DESCRIPTIONS[page];
+  const metadata = pageMetadata(title, description, `/${page}`, locale);
 
-  return pageMetadata(title, description, `/${page}`, locale);
+  if (page === 'privacy' || page === 'terms') {
+    return {
+      ...metadata,
+      robots: {
+        index: false,
+        follow: true,
+        googleBot: {
+          index: false,
+          follow: true,
+          'max-image-preview': 'large',
+          'max-snippet': -1,
+          'max-video-preview': -1,
+        },
+      },
+    };
+  }
+
+  return metadata;
 }
 
-export function blogListMetadata(locale: Locale = 'en'): Metadata {
+export function blogListMetadata(locale: Locale = 'en', page = 1): Metadata {
   const source = localeSource(locale);
+  const pageSuffix = page > 1 ? ` - Page ${page}` : '';
+  const path = page > 1 ? `/blog/page/${page}` : '/blog';
 
   return pageMetadata(
-    readPath(source, 'blog.title') || 'Blog',
+    `${readPath(source, 'blog.title') || 'Blog'}${pageSuffix}`,
     locale === 'zh-CN'
       ? '阅读 ToolOrbit 实用指南，覆盖开发工具、安全工作流、图片优化、PDF 效率、电商运营和 AI 辅助工作。'
       : 'Practical guides for developer tools, secure workflows, image optimization, PDF productivity, ecommerce operations, and AI-assisted work.',
-    '/blog',
+    path,
     locale,
   );
 }

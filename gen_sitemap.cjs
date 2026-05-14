@@ -1,6 +1,7 @@
 const fs = require('fs');
 
 const SITE_URL = 'https://toolorbit.site';
+const POSTS_PER_PAGE = 12;
 const CATEGORY_PATHS = [
   '/category/ai-tools',
   '/category/developer-tools',
@@ -113,13 +114,18 @@ ${hreflangXml(path)}
 const generatedAt = today();
 const tools = readTools();
 const blogPosts = readBlogPosts();
+const blogPageCount = Math.max(1, Math.ceil(blogPosts.length / POSTS_PER_PAGE));
 
 const baseUrls = [
   { path: '/', lastmod: generatedAt, changefreq: 'daily', priority: '1.0' },
   { path: '/blog', lastmod: generatedAt, changefreq: 'daily', priority: '0.9' },
   { path: '/about', lastmod: generatedAt, changefreq: 'monthly', priority: '0.7' },
-  { path: '/privacy', lastmod: generatedAt, changefreq: 'yearly', priority: '0.4' },
-  { path: '/terms', lastmod: generatedAt, changefreq: 'yearly', priority: '0.4' },
+  ...Array.from({ length: blogPageCount - 1 }, (_, index) => ({
+    path: `/blog/page/${index + 2}`,
+    lastmod: generatedAt,
+    changefreq: 'weekly',
+    priority: '0.6',
+  })),
   ...CATEGORY_PATHS.map((path) => ({
     path,
     lastmod: generatedAt,

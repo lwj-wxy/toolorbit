@@ -57,40 +57,40 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://toolorbit.site/privacy</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/privacy" />
-    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://toolorbit.site/zh-CN/privacy" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolorbit.site/privacy" />
+    <loc>https://toolorbit.site/blog/page/2</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/blog/page/2" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://toolorbit.site/zh-CN/blog/page/2" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolorbit.site/blog/page/2" />
     <lastmod>2026-05-14</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.4</priority>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://toolorbit.site/zh-CN/privacy</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/privacy" />
-    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://toolorbit.site/zh-CN/privacy" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolorbit.site/privacy" />
+    <loc>https://toolorbit.site/zh-CN/blog/page/2</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/blog/page/2" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://toolorbit.site/zh-CN/blog/page/2" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolorbit.site/blog/page/2" />
     <lastmod>2026-05-14</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.4</priority>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://toolorbit.site/terms</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/terms" />
-    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://toolorbit.site/zh-CN/terms" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolorbit.site/terms" />
+    <loc>https://toolorbit.site/blog/page/3</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/blog/page/3" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://toolorbit.site/zh-CN/blog/page/3" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolorbit.site/blog/page/3" />
     <lastmod>2026-05-14</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.4</priority>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://toolorbit.site/zh-CN/terms</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/terms" />
-    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://toolorbit.site/zh-CN/terms" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolorbit.site/terms" />
+    <loc>https://toolorbit.site/zh-CN/blog/page/3</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/blog/page/3" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://toolorbit.site/zh-CN/blog/page/3" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolorbit.site/blog/page/3" />
     <lastmod>2026-05-14</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.4</priority>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://toolorbit.site/category/ai-tools</loc>

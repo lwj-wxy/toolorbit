@@ -18,7 +18,32 @@
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000/blog/timezone-unix-timestamp-guide)",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000/blog/uuid-demystified)",
       "Bash(powershell -Command \"Stop-Process -Id 33420 -Force -ErrorAction SilentlyContinue\")",
-      "Bash(rm -rf .next)"
+      "Bash(rm -rf .next)",
+      "WebFetch(domain:github.com)",
+      "Bash(git *)",
+      "Bash(powershell -ExecutionPolicy Bypass -File install.ps1)",
+      "Bash(python *)",
+      "WebFetch(domain:toolorbit.site)",
+      "Bash(curl *)",
+      "Bash(curl -s -L \"https://toolorbit.site/\" -o /tmp/toolorbit_homepage.html)",
+      "Read(//tmp/**)",
+      "WebSearch",
+      "Bash(pip list *)",
+      "WebFetch(domain:en.wikipedia.org)",
+      "Bash(python3 -m json.tool)",
+      "WebFetch(domain:www.google.com)",
+      "Bash(python3 *)",
+      "WebFetch(domain:www.reddit.com)",
+      "Bash(node *)",
+      "Bash(export LANG=C)",
+      "Bash(dir *)",
+      "Bash(cd C:\\\\Users\\\\StandardSoftware\\\\Desktop\\\\my-project\\\\toolorbit *)",
+      "Bash(grep -oB1 'image:image')",
+      "Bash(playwright install *)",
+      "Bash(nslookup toolorbit.site)",
+      "Bash(grep -oE '\\(toolorbit[^<]*|[Bb]acklink|[Rr]eferring|[Ll]ink|//[^\"]*toolorbit\\)')",
+      "Bash(grep -v '^\\\\s*$')",
+      "Bash(pip install *)"
     ]
   }
 }

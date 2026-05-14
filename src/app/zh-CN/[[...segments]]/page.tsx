@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import fs from 'fs/promises';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import path from 'path';
 import JsonLd from '../../../components/JsonLd';
 import ScopedI18nProvider from '../../../components/ScopedI18nProvider';
@@ -10,6 +10,7 @@ import ToolSEOCard from '../../../components/ToolSEOCard';
 import ToolSearchContent from '../../../components/ToolSearchContent';
 import { BLOG_POSTS } from '../../../constants/blogData';
 import { TOOLS } from '../../../data/tools';
+import { getTotalBlogPages, normalizeBlogPage } from '../../../lib/blog-pagination';
 import { CATEGORY_BY_SLUG, CATEGORY_SLUGS } from '../../../lib/category-paths';
 import {
   blogListMetadata,
@@ -67,6 +68,7 @@ function allChineseSegments() {
     ['about'],
     ['privacy'],
     ['terms'],
+    ...Array.from({ length: getTotalBlogPages() - 1 }, (_, index) => ['blog', 'page', String(index + 2)]),
     ...Object.values(CATEGORY_SLUGS).map((slug) => ['category', slug]),
     ...TOOLS.map((tool) => tool.path.split('/').filter(Boolean)),
     ...BLOG_POSTS.map((post) => ['blog', post.slug]),
@@ -88,6 +90,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (basePath === '/about') return staticPageMetadata('about', LOCALE);
   if (basePath === '/privacy') return staticPageMetadata('privacy', LOCALE);
   if (basePath === '/terms') return staticPageMetadata('terms', LOCALE);
+
+  if (segments[0] === 'blog' && segments[1] === 'page' && segments[2]) {
+    const page = normalizeBlogPage(segments[2]);
+    return page && page <= getTotalBlogPages() ? blogListMetadata(LOCALE, page) : {};
+  }
 
   if (segments[0] === 'blog' && segments[1]) {
     return BLOG_POSTS.some((post) => post.slug === segments[1])
@@ -140,6 +147,20 @@ export default async function Page({ params, searchParams }: PageProps) {
 
   if (basePath === '/terms') {
     return zhPage(<Terms />);
+  }
+
+  if (segments[0] === 'blog' && segments[1] === 'page' && segments[2]) {
+    const page = normalizeBlogPage(segments[2]);
+
+    if (page === 1) {
+      redirect('/zh-CN/blog');
+    }
+
+    if (!page || page > getTotalBlogPages()) {
+      notFound();
+    }
+
+    return zhPage(<BlogList initialPage={page} />);
   }
 
   if (segments[0] === 'blog' && segments[1]) {
