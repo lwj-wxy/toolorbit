@@ -1,7 +1,5 @@
 import { useState, useRef } from 'react';
 import { Archive, UploadCloud, Download, X } from 'lucide-react';
-import JSZip from 'jszip';
-import { saveAs } from 'file-saver';
 import { useTranslation } from 'react-i18next';
 import { analytics } from '../../../services/analytics';
 import ToolSEOCard from '../../../components/ToolSEOCard';
@@ -60,6 +58,7 @@ export default function ArchiveConverter() {
     });
 
     try {
+      const { default: JSZip } = await import('jszip');
       const newFiles: FileItem[] = [];
 
       for (const file of uploadedFiles) {
@@ -118,12 +117,13 @@ export default function ArchiveConverter() {
     setFiles([]);
   };
 
-  const downloadSingle = (file: FileItem) => {
+  const downloadSingle = async (file: FileItem) => {
     analytics.trackEvent({
       category: 'Archive Tools',
       action: 'Download Single File',
       label: file.name
     });
+    const { saveAs } = await import('file-saver');
     saveAs(file.content, file.name.split('/').pop() || 'download');
   };
 
@@ -137,6 +137,10 @@ export default function ArchiveConverter() {
     });
 
     try {
+      const [{ default: JSZip }, { saveAs }] = await Promise.all([
+        import('jszip'),
+        import('file-saver'),
+      ]);
       const zip = new JSZip();
       files.forEach((file) => {
         zip.file(file.name, file.content);

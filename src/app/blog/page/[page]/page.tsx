@@ -8,6 +8,9 @@ type PageProps = {
   params: Promise<{ page: string }>;
 };
 
+export const dynamicParams = false;
+export const revalidate = 3600;
+
 export function generateStaticParams() {
   return Array.from({ length: getTotalBlogPages() - 1 }, (_, index) => ({
     page: String(index + 2),

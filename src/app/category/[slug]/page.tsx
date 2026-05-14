@@ -6,12 +6,14 @@ import Home from '../../../views/Home';
 
 type PageProps = {
   params: Promise<{ slug: string }>;
-  searchParams?: Promise<Record<string, string | string[] | undefined>>;
 };
 
 export function generateStaticParams() {
   return Object.values(CATEGORY_SLUGS).map((slug) => ({ slug }));
 }
+
+export const dynamicParams = false;
+export const revalidate = 86400;
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
@@ -24,7 +26,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return categoryMetadata(category);
 }
 
-export default async function Page({ params, searchParams }: PageProps) {
+export default async function Page({ params }: PageProps) {
   const { slug } = await params;
   const category = CATEGORY_BY_SLUG[slug];
 
@@ -32,20 +34,6 @@ export default async function Page({ params, searchParams }: PageProps) {
     notFound();
   }
 
-  const paramsValue = await searchParams;
-  const initialSearchParams = new URLSearchParams();
-
-  Object.entries(paramsValue || {}).forEach(([key, value]) => {
-    if (typeof value === 'string') {
-      initialSearchParams.set(key, value);
-      return;
-    }
-
-    value?.forEach((item) => {
-      initialSearchParams.append(key, item);
-    });
-  });
-
-  return <Home initialSearch={initialSearchParams.toString()} initialCategory={category} />;
+  return <Home initialCategory={category} />;
 }
 

@@ -16,7 +16,6 @@ import {
   MousePointer2
 } from 'lucide-react';
 import { PDFDocument } from 'pdf-lib';
-import { saveAs } from 'file-saver';
 import { motion, AnimatePresence } from 'motion/react';
 
 interface PdfMetadata {
@@ -83,6 +82,7 @@ export default function PdfMerge() {
 
     setIsMerging(true);
     try {
+      const { saveAs } = await import('file-saver');
       const mergedPdf = await PDFDocument.create();
       
       for (const pdfMetadata of pdfs) {

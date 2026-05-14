@@ -13,8 +13,6 @@ import {
   RefreshCw
 } from 'lucide-react';
 import { PDFDocument } from 'pdf-lib';
-import JSZip from 'jszip';
-import { saveAs } from 'file-saver';
 import { motion, AnimatePresence } from 'motion/react';
 import ToolSEOCard from '../../../components/ToolSEOCard';
 
@@ -59,6 +57,10 @@ export default function PdfSplit() {
 
     setIsProcessing(true);
     try {
+      const [{ default: JSZip }, { saveAs }] = await Promise.all([
+        import('jszip'),
+        import('file-saver'),
+      ]);
       const zip = new JSZip();
       const arrayBuffer = await pdf.file.arrayBuffer();
       const originalDoc = await PDFDocument.load(arrayBuffer);

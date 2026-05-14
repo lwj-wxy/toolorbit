@@ -8,8 +8,6 @@ import {
   Trash2,
   FileArchive,
 } from 'lucide-react';
-import JSZip from 'jszip';
-import { saveAs } from 'file-saver';
 import { motion, AnimatePresence } from 'motion/react';
 
 import ToolSEOCard from '../../../components/ToolSEOCard';
@@ -85,6 +83,10 @@ export default function PdfToImage() {
   const downloadAllAsZip = async () => {
     if (images.length === 0 || !file) return;
 
+    const [{ default: JSZip }, { saveAs }] = await Promise.all([
+      import('jszip'),
+      import('file-saver'),
+    ]);
     const zip = new JSZip();
     const folder = zip.folder("pdf_images");
     
@@ -95,6 +97,11 @@ export default function PdfToImage() {
 
     const content = await zip.generateAsync({ type: "blob" });
     saveAs(content, `${file.name.replace('.pdf', '')}_images.zip`);
+  };
+
+  const downloadImage = async (dataUrl: string, fileName: string) => {
+    const { saveAs } = await import('file-saver');
+    saveAs(dataUrl, fileName);
   };
 
   const clearAll = () => {
@@ -212,7 +219,7 @@ export default function PdfToImage() {
                       />
                       <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                         <button
-                          onClick={() => saveAs(img.dataUrl, `page_${img.pageNumber}.jpg`)}
+                          onClick={() => downloadImage(img.dataUrl, `page_${img.pageNumber}.jpg`)}
                           className="bg-white text-gray-900 p-3 rounded-full hover:scale-110 transition-transform"
                         >
                           <Download className="w-6 h-6" />
@@ -222,7 +229,7 @@ export default function PdfToImage() {
                     <div className="p-3 border-t border-gray-100 flex items-center justify-between">
                       <span className="text-sm font-bold text-gray-600">{t('tools.pdf-to-image.pageLabel', { count: img.pageNumber })}</span>
                       <button
-                        onClick={() => saveAs(img.dataUrl, `page_${img.pageNumber}.jpg`)}
+                        onClick={() => downloadImage(img.dataUrl, `page_${img.pageNumber}.jpg`)}
                         className="text-emerald-600 text-sm font-bold hover:underline"
                       >
                         {t('tools.pdf-to-image.downloadSingleBtn')}

@@ -13,7 +13,6 @@ import {
   MousePointer2,
   MonitorSmartphone,
 } from 'lucide-react';
-import { jsPDF } from 'jspdf';
 import { motion, AnimatePresence } from 'motion/react';
 
 interface ImageMetadata {
@@ -68,6 +67,7 @@ export default function ImageToPdf() {
     setIsGenerating(true);
 
     try {
+      const { jsPDF } = await import('jspdf');
       const pdf = new jsPDF({
         orientation: 'p',
         unit: 'mm',

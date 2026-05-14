@@ -31,27 +31,9 @@ import Terms from '../../../views/Terms';
 
 type PageProps = {
   params: Promise<{ segments?: string[] }>;
-  searchParams?: Promise<Record<string, string | string[] | undefined>>;
 };
 
 const LOCALE = 'zh-CN' as const;
-
-function searchParamsToString(paramsValue?: Record<string, string | string[] | undefined>) {
-  const initialSearchParams = new URLSearchParams();
-
-  Object.entries(paramsValue || {}).forEach(([key, value]) => {
-    if (typeof value === 'string') {
-      initialSearchParams.set(key, value);
-      return;
-    }
-
-    value?.forEach((item) => {
-      initialSearchParams.append(key, item);
-    });
-  });
-
-  return initialSearchParams.toString();
-}
 
 function basePathFromSegments(segments: string[] = []) {
   return segments.length ? `/${segments.join('/')}` : '/';
@@ -80,6 +62,7 @@ export function generateStaticParams() {
 }
 
 export const dynamicParams = false;
+export const revalidate = 3600;
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { segments = [] } = await params;
@@ -124,13 +107,12 @@ async function readInitialMarkdown(slug: string) {
   }
 }
 
-export default async function Page({ params, searchParams }: PageProps) {
+export default async function Page({ params }: PageProps) {
   const { segments = [] } = await params;
   const basePath = basePathFromSegments(segments);
-  const initialSearch = searchParamsToString(await searchParams);
 
   if (basePath === '/') {
-    return zhPage(<Home initialSearch={initialSearch} />);
+    return zhPage(<Home />);
   }
 
   if (basePath === '/blog') {
@@ -187,7 +169,7 @@ export default async function Page({ params, searchParams }: PageProps) {
       notFound();
     }
 
-    return zhPage(<Home initialSearch={initialSearch} initialCategory={category} />);
+    return zhPage(<Home initialCategory={category} />);
   }
 
   if (segments[0] === 'tools' && segments[1] && segments[2]) {
