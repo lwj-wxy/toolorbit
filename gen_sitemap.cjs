@@ -69,7 +69,7 @@ function hreflangXml(path) {
 }
 
 function readTools() {
-  const source = fs.readFileSync('src/data/tools.ts', 'utf8');
+  const source = fs.readFileSync('src/data/tools-meta.ts', 'utf8');
   const blocks = source.match(/\{\s*id:\s*['"][\s\S]*?\n\s*\}/g) || [];
 
   return blocks

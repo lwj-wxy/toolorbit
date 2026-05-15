@@ -1,15 +1,14 @@
 import { useEffect } from 'react';
 import { useCurrentLocation } from '../lib/navigation';
-import { useRecentTools } from '../hooks/useRecentTools';
-import { TOOLS } from '../data/tools';
+import { useRecentToolIds } from '../hooks/useRecentToolIds';
+import { TOOLS_META } from '../data/tools-meta';
 
 export default function RecentToolsTracker() {
   const { pathname } = useCurrentLocation();
-  const { addRecentTool } = useRecentTools();
+  const { addRecentTool } = useRecentToolIds();
 
   useEffect(() => {
-    // Find if current path matches any tool
-    const currentTool = TOOLS.find(tool => tool.path === pathname);
+    const currentTool = TOOLS_META.find(tool => tool.path === pathname);
     if (currentTool) {
       addRecentTool(currentTool.id);
     }

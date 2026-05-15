@@ -37,15 +37,18 @@ import {
   toolJsonLd,
 } from '../../../lib/structured-data';
 import { FALLBACK_TOOL_GUIDE_PATHS, INFO_CARD_TOOL_KEYS } from '../../../lib/tool-page-content';
-import About from '../../../views/About';
-import BlogList from '../../../views/BlogList';
-import BlogPost from '../../../views/BlogPost';
-import Home from '../../../views/Home';
-import Privacy from '../../../views/Privacy';
-import Terms from '../../../views/Terms';
-import AllToolsPage from '../../../views/AllToolsPage';
-import AuthorPage from '../../../views/AuthorPage';
-import SeoContentPageView from '../../../views/SeoContentPage';
+import { ComponentType } from 'react';
+import dynamic from 'next/dynamic';
+
+const Home = dynamic(() => import('../../../views/Home')) as ComponentType<{ initialCategory?: string }>;
+const BlogList = dynamic(() => import('../../../views/BlogList')) as ComponentType<{ initialPage?: number }>;
+const BlogPost = dynamic(() => import('../../../views/BlogPost')) as ComponentType<{ slug: string; initialMarkdown: string }>;
+const About = dynamic(() => import('../../../views/About')) as ComponentType;
+const Privacy = dynamic(() => import('../../../views/Privacy')) as ComponentType;
+const Terms = dynamic(() => import('../../../views/Terms')) as ComponentType;
+const AllToolsPage = dynamic(() => import('../../../views/AllToolsPage')) as ComponentType<{ locale: string }>;
+const AuthorPage = dynamic(() => import('../../../views/AuthorPage')) as ComponentType;
+const SeoContentPageView = dynamic(() => import('../../../views/SeoContentPage')) as ComponentType<{ page: unknown; locale: string }>;
 
 type PageProps = {
   params: Promise<{ segments?: string[] }>;

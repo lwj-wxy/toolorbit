@@ -26,7 +26,14 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   productionBrowserSourceMaps: false,
   experimental: {
-    optimizePackageImports: ['lucide-react', 'recharts'],
+    optimizePackageImports: [
+      'lucide-react',
+      'recharts',
+      'motion',
+      'react-i18next',
+      'react-markdown',
+      'react-syntax-highlighter',
+    ],
   },
   turbopack: {
     root: __dirname,
@@ -83,6 +90,15 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/:path*.(ico|svg|png|jpg|jpeg|gif|webp|avif|woff|woff2)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/_next/static/:path*',
         headers: [
           {
             key: 'Cache-Control',
