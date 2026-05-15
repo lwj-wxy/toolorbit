@@ -11,7 +11,7 @@ type LinkProps = Omit<ComponentProps<typeof NextLink>, 'href'> & {
   to?: ComponentProps<typeof NextLink>['href'];
 };
 
-export function Link({ href, to, onClick, ...props }: LinkProps) {
+export function Link({ href, to, onClick, prefetch = false, ...props }: LinkProps) {
   const pathname = usePathname() || '/';
   const target = href ?? to ?? '/';
   const targetHref =
@@ -29,7 +29,7 @@ export function Link({ href, to, onClick, ...props }: LinkProps) {
     }
   };
 
-  return <NextLink href={targetHref} onClick={handleClick} {...props} />;
+  return <NextLink href={targetHref} onClick={handleClick} prefetch={prefetch} {...props} />;
 }
 
 export function useCurrentLocation(initialSearch = '') {

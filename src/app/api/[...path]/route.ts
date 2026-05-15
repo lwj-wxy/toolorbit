@@ -34,7 +34,11 @@ function rateLimit(ip: string, windowMs = 1000, message = 'Too many requests') {
   const now = Date.now();
   const lastUse = usageMap.get(ip);
   if (lastUse && now - lastUse < windowMs) {
-    return Response.json({ success: false, error: message }, { status: 429 });
+    const retryAfterSeconds = Math.max(1, Math.ceil((windowMs - (now - lastUse)) / 1000));
+    return Response.json(
+      { success: false, error: message, retryAfter: retryAfterSeconds },
+      { status: 429, headers: { 'Retry-After': String(retryAfterSeconds) } },
+    );
   }
 
   usageMap.set(ip, now);
@@ -391,9 +395,11 @@ export async function POST(request: Request) {
     const config = streamConfig(path, body);
     if (!config) return Response.json({ error: 'Not found' }, { status: 404 });
 
-    const limited = rateLimit(rateLimitKey, config.rateMs || 1000, config.rateMessage || 'Too many requests');
-    if (limited) return limited;
-    markUsage(rateLimitKey);
+    if (config.rateMs) {
+      const limited = rateLimit(rateLimitKey, config.rateMs, config.rateMessage || 'Too many requests');
+      if (limited) return limited;
+      markUsage(rateLimitKey);
+    }
 
     return streamChat(config.model, config.messages, config.options);
   } catch (error: any) {
