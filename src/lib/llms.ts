@@ -2,14 +2,10 @@ import { BRAND_CONTACT_EMAIL, BRAND_PRIVACY_SUMMARY } from '../data/brand';
 import { TOOLS, type Category } from '../data/tools';
 import en from '../locales/en.json';
 import { CATEGORY_SLUGS } from './category-paths';
+import { readPath } from './locale-utils';
 
 const SITE_URL = 'https://toolorbit.site';
 const CATEGORY_ORDER = Object.keys(CATEGORY_SLUGS) as Category[];
-
-function readPath(source: any, path: string): string | undefined {
-  const value = path.split('.').reduce((current, key) => current?.[key], source);
-  return typeof value === 'string' ? value : undefined;
-}
 
 function cleanTitle(value: string) {
   return value.replace(' | ToolOrbit', '').trim();

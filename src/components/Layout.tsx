@@ -63,7 +63,15 @@ export default function Layout({ children }: LayoutProps) {
 
   return (
     <div className="flex min-h-screen flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-200 font-sans relative overflow-x-hidden transition-colors duration-300">
-      
+
+      {/* Skip to content link for keyboard users */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[999] focus:px-4 focus:py-2 focus:bg-blue-600 focus:text-white focus:rounded-lg focus:shadow-lg focus:outline-none focus:font-bold"
+      >
+        Skip to main content
+      </a>
+
       {/* Subtle Background Elements */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
         {/* Soft radial glow */}
@@ -176,7 +184,7 @@ export default function Layout({ children }: LayoutProps) {
           <button
             onClick={() => setTheme(isDark ? 'light' : 'dark')}
             className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 transition-colors"
-            title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
+            aria-label={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
           >
             {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
           </button>
@@ -184,6 +192,7 @@ export default function Layout({ children }: LayoutProps) {
           <button
             type="button"
             aria-label={t('common.mobileMenu')}
+            aria-expanded={mobileMenuOpen}
             className="md:hidden p-2 text-slate-500 hover:bg-slate-100 rounded-md transition-colors"
             onClick={() => setMobileMenuOpen(true)}
           >
@@ -203,7 +212,7 @@ export default function Layout({ children }: LayoutProps) {
 
       {/* Main Content Layout */}
       <div className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 flex flex-col min-w-0 relative z-10">
-        <main className="w-full min-w-0">
+        <main id="main-content" className="w-full min-w-0">
           
           {/* Breadcrumbs for Tools */}
           {location.pathname.startsWith('/tools/') && (() => {

@@ -8,6 +8,7 @@ import en from '../locales/en.json';
 import zh from '../locales/zh.json';
 import { getCategoryPath } from './category-paths';
 import { HREFLANG_CODES, localizedPath, type Locale } from './i18n-routing';
+import { readPath } from './locale-utils';
 
 export const SITE_URL = 'https://toolorbit.site';
 export const SITE_NAME = 'ToolOrbit';
@@ -56,10 +57,7 @@ const BLOG_SEO_TITLE_OVERRIDES: Record<string, string> = {
   'image-converter-web-formats': 'JPG, PNG, and WebP Formats Guide',
 };
 
-export function readPath(source: any, path: string): string | undefined {
-  const value = path.split('.').reduce((current, key) => current?.[key], source);
-  return typeof value === 'string' ? value : undefined;
-}
+export { readPath };
 
 function cleanTitle(value?: string, fallback = SITE_NAME) {
   const title = (value || fallback)

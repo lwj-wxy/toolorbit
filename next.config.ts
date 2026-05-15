@@ -9,7 +9,7 @@ const contentCacheHeaders = [
 
 const contentSecurityPolicy = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://pagead2.googlesyndication.com https://partner.googleadservices.com https://adservice.google.com https://googleads.g.doubleclick.net",
+  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://pagead2.googlesyndication.com https://partner.googleadservices.com https://adservice.google.com https://googleads.g.doubleclick.net",
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' https: data: blob:",
   "font-src 'self' data:",
@@ -34,9 +34,6 @@ const nextConfig: NextConfig = {
       'react-markdown',
       'react-syntax-highlighter',
     ],
-  },
-  turbopack: {
-    root: __dirname,
   },
   async headers() {
     return [

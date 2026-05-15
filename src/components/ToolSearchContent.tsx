@@ -3,15 +3,11 @@
 import { useTranslation } from 'react-i18next';
 import { TOOLS } from '../data/tools';
 import en from '../locales/en.json';
+import { readPath } from '../lib/locale-utils';
 
 type ToolSearchContentProps = {
   path: string;
 };
-
-function readPath(source: any, path: string): string | undefined {
-  const value = path.split('.').reduce((current, key) => current?.[key], source);
-  return typeof value === 'string' ? value : undefined;
-}
 
 function pickToolText(
   t: ReturnType<typeof useTranslation>['t'],

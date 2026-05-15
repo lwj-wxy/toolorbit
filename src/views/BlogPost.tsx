@@ -23,30 +23,41 @@ const MarkdownContent = dynamic(() => import('../components/MarkdownContent'), {
   ),
 });
 
+const markdownCache = new Map<string, string>();
+
 const BlogPost: React.FC<BlogPostProps> = ({ slug, initialMarkdown = '' }) => {
   const { t, i18n } = useTranslation();
   const [markdown, setMarkdown] = useState<string>(initialMarkdown);
-  
+
   const post = BLOG_POSTS.find(p => p.slug === slug);
 
   useEffect(() => {
     if (!slug) return;
     const lang = i18n.language && i18n.language.startsWith('zh') ? 'zh' : 'en';
-    
-    // Attempt to fetch from public/articles/ first
-    fetch(`/articles/${lang}/${slug}.md`)
+    const cacheKey = `${lang}/${slug}`;
+
+    // Cache the server-provided initial markdown
+    if (initialMarkdown) {
+      markdownCache.set(cacheKey, initialMarkdown);
+    }
+
+    if (markdownCache.has(cacheKey)) {
+      setMarkdown(markdownCache.get(cacheKey)!);
+      return;
+    }
+
+    fetch(`/articles/${cacheKey}.md`)
       .then(res => {
         if (!res.ok) {
-          // Fallback to json if MD not found
           return t(`blog.posts.${slug}.content`);
         }
         return res.text();
       })
       .then(text => {
-        // If the translation returns the key itself, it means it's missing in JSON
         if (text === `blog.posts.${slug}.content`) {
           setMarkdown('');
         } else {
+          markdownCache.set(cacheKey, text);
           setMarkdown(text);
         }
       })
