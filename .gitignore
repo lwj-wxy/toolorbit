@@ -10,6 +10,8 @@ coverage/
 !.env.example
 .seo-cache/
 sitemap.xml
+public/**/*.gz
+public/**/*.br
 
 # SEO audit temporary artifacts
 screenshots/
