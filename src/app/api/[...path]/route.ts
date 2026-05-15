@@ -4,12 +4,8 @@ import OpenAI from 'openai';
 export const runtime = 'nodejs';
 export const maxDuration = 60;
 
-const deepseek = new OpenAI({
-  apiKey: process.env.DEEPSEEK_API_KEY || 'missing-key',
-  baseURL: 'https://api.deepseek.com',
-});
-
 const DEEPSEEK_TEXT_MODEL = 'deepseek-v4-pro';
+const DEEPSEEK_BASE_URL = 'https://api.deepseek.com';
 
 const usageMap: Map<string, number> = (globalThis as any).__toolorbitUsageMap || new Map<string, number>();
 (globalThis as any).__toolorbitUsageMap = usageMap;
@@ -18,6 +14,18 @@ type ChatMessage = {
   role: 'system' | 'user';
   content: string;
 };
+
+function getDeepseekClient() {
+  const apiKey = process.env.DEEPSEEK_API_KEY?.trim();
+  if (!apiKey || apiKey === 'missing-key') {
+    throw new Error('DEEPSEEK_API_KEY is not configured on the server.');
+  }
+
+  return new OpenAI({
+    apiKey,
+    baseURL: DEEPSEEK_BASE_URL,
+  });
+}
 
 function clientIp(request: Request) {
   const forwardedFor = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim();
@@ -56,6 +64,7 @@ function streamChat(model: string, messages: ChatMessage[], options: Record<stri
     new ReadableStream({
       async start(controller) {
         try {
+          const deepseek = getDeepseekClient();
           const stream = await deepseek.chat.completions.create({
             model,
             messages,
@@ -274,6 +283,7 @@ Please generate a comprehensive listing including title, bullet points, SEO desc
 }
 
 async function svgGenerator(body: any) {
+  const deepseek = getDeepseekClient();
   const response = await deepseek.chat.completions.create({
     model: DEEPSEEK_TEXT_MODEL,
     messages: [
@@ -324,6 +334,7 @@ async function imageGenerator(body: any) {
 
   let finalPrompt = body.prompt;
   try {
+    const deepseek = getDeepseekClient();
     const system = body.language?.startsWith('zh')
       ? '你是专业 AI 图像提示词生成大师。将用户描述扩写成英文高质量生图 Prompt。只输出英文文本。'
       : 'You are a professional AI image prompt master. Expand the user description into a high-quality English image prompt. Output only the prompt text.';
