@@ -10,9 +10,12 @@
 
 declare global {
   interface Window {
-    gtag?: (...args: unknown[]) => void;
+    dataLayer?: GtagCommand[];
+    gtag?: (...args: GtagCommand) => void;
   }
 }
+
+type GtagCommand = [string, ...unknown[]];
 
 type AnalyticsEvent = {
   category: string;
@@ -32,6 +35,20 @@ class AnalyticsService {
     this.sessionId = Math.random().toString(36).substring(2, 10);
   }
 
+  private sendGtag(command: string, ...args: unknown[]) {
+    if (!this.gaId || typeof window === 'undefined') return;
+
+    const gtagCommand = [command, ...args] as GtagCommand;
+
+    if (typeof window.gtag === 'function') {
+      window.gtag(...gtagCommand);
+      return;
+    }
+
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push(gtagCommand);
+  }
+
   init() {
     if (this.debug) {
       console.log(`📊 [Analytics] Initialized (Session: ${this.sessionId})`);
@@ -46,12 +63,10 @@ class AnalyticsService {
       console.log(`📊 [Analytics] [Session: ${this.sessionId}] Page View: ${path}`);
     }
 
-    if (this.gaId && typeof window !== 'undefined' && typeof window.gtag === 'function') {
-      window.gtag('config', this.gaId, {
-        page_path: path,
-        session_id: this.sessionId
-      });
-    }
+    this.sendGtag('config', this.gaId, {
+      page_path: path,
+      session_id: this.sessionId
+    });
   }
 
   // Track Custom Events
@@ -66,15 +81,13 @@ class AnalyticsService {
       });
     }
 
-    if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
-      window.gtag('event', action, {
-        event_category: category,
-        event_label: label,
-        value: value,
-        session_id: this.sessionId,
-        ...metadata,
-      });
-    }
+    this.sendGtag('event', action, {
+      event_category: category,
+      event_label: label,
+      value: value,
+      session_id: this.sessionId,
+      ...metadata,
+    });
   }
 
   // Set User Properties
@@ -85,12 +98,10 @@ class AnalyticsService {
       console.log('📊 [Analytics] Set User Properties:', properties);
     }
 
-    if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
-      window.gtag('set', 'user_properties', {
-        ...properties,
-        session_id: this.sessionId
-      });
-    }
+    this.sendGtag('set', 'user_properties', {
+      ...properties,
+      session_id: this.sessionId
+    });
   }
 
   disable() {

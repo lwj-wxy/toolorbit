@@ -53,14 +53,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <JsonLd id="structured-data-website" data={websiteJsonLd()} />
         {gaMeasurementId ? (
           <>
+            <Script id="google-analytics-stub" strategy="beforeInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                window.gtag = window.gtag || function(){window.dataLayer.push(arguments);}
+              `}
+            </Script>
             <Script
               src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`}
               strategy="lazyOnload"
             />
             <Script id="google-analytics" strategy="lazyOnload">
               {`
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
                 gtag('js', new Date());
                 gtag('config', '${gaMeasurementId}', { send_page_view: false });
               `}
