@@ -67,7 +67,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Script id="google-analytics" strategy="afterInteractive">
               {`
                 gtag('js', new Date());
-                gtag('config', '${gaMeasurementId}', { send_page_view: false });
+                gtag('config', '${gaMeasurementId}');
               `}
             </Script>
           </>
