@@ -208,7 +208,7 @@ export default async function Page({ params }: PageProps) {
     return zhPage(
       <>
         <JsonLd id={`structured-data-seo-content-${segments.join('-')}-zh`} data={seoContentPageJsonLd(basePath, LOCALE)} />
-        <SeoContentPageView page={page} />
+        <SeoContentPageView page={page} locale="zh" />
       </>,
     );
   }

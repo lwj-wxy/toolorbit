@@ -43,7 +43,8 @@
       "Bash(nslookup toolorbit.site)",
       "Bash(grep -oE '\\(toolorbit[^<]*|[Bb]acklink|[Rr]eferring|[Ll]ink|//[^\"]*toolorbit\\)')",
       "Bash(grep -v '^\\\\s*$')",
-      "Bash(pip install *)"
+      "Bash(pip install *)",
+      "Bash(npx tsc *)"
     ]
   }
 }

@@ -2,31 +2,80 @@ import NextLink from 'next/link';
 import { ArrowRight, CalendarCheck, CheckCircle2, ExternalLink, Layers, Wrench } from 'lucide-react';
 import { BLOG_POSTS } from '../constants/blogData';
 import en from '../locales/en.json';
+import zh from '../locales/zh.json';
 import { blogBySlug, toolByPath, type SeoContentPage } from '../data/seoContent';
 import { readPath } from '../lib/metadata';
 
-function toolName(path: string) {
+function localeData(locale?: string) {
+  if (locale === 'zh') return zh;
+  return en;
+}
+
+function t(pathStr: string, locale?: string) {
+  return readPath(localeData(locale), pathStr);
+}
+
+function toolName(path: string, locale?: string) {
   const tool = toolByPath(path);
   if (!tool) return path;
-  return readPath(en, `tools.${tool.id}.name`) || tool.name;
+  return t(`tools.${tool.id}.name`, locale) || tool.name;
 }
 
-function toolDescription(path: string) {
+function toolDescription(path: string, locale?: string) {
   const tool = toolByPath(path);
   if (!tool) return '';
-  return readPath(en, `tools.${tool.id}.description`) || tool.description;
+  return t(`tools.${tool.id}.description`, locale) || tool.description;
 }
 
-function blogTitle(slug: string) {
-  return readPath(en, `blog.posts.${slug}.title`) || slug.replace(/-/g, ' ');
+function blogTitle(slug: string, locale?: string) {
+  return t(`blog.posts.${slug}.title`, locale) || slug.replace(/-/g, ' ');
 }
 
-function blogSummary(slug: string) {
-  return readPath(en, `blog.posts.${slug}.summary`) || 'ToolOrbit practical guide.';
+function blogSummary(slug: string, locale?: string) {
+  return t(`blog.posts.${slug}.summary`, locale) || 'ToolOrbit practical guide.';
 }
 
-export default function SeoContentPageView({ page }: { page: SeoContentPage }) {
+function pageString(field: string, page: SeoContentPage, locale?: string) {
+  const translated = t(`seoContent.${page.path}.${field}`, locale);
+  if (typeof translated === 'string') return translated;
+  return (page as Record<string, unknown>)[field] as string;
+}
+
+function pageArray(field: string, page: SeoContentPage, locale?: string) {
+  const translated = t(`seoContent.${page.path}.${field}`, locale);
+  if (Array.isArray(translated)) return translated as string[];
+  return (page as Record<string, unknown>)[field] as string[];
+}
+
+function pageTable(page: SeoContentPage, locale?: string) {
+  const translated = t(`seoContent.${page.path}.table`, locale);
+  if (Array.isArray(translated)) return translated as Array<{ label: string; bestFor: string; tools: string; note: string }>;
+  return page.table;
+}
+
+function pageSections(page: SeoContentPage, locale?: string) {
+  const translated = t(`seoContent.${page.path}.sections`, locale);
+  if (Array.isArray(translated)) return translated as Array<{ heading: string; body: string[] }>;
+  return page.sections;
+}
+
+function pageFaqs(page: SeoContentPage, locale?: string) {
+  const translated = t(`seoContent.${page.path}.faqs`, locale);
+  if (Array.isArray(translated)) return translated as Array<{ question: string; answer: string }>;
+  return page.faqs;
+}
+
+export default function SeoContentPageView({ page, locale }: { page: SeoContentPage; locale?: string }) {
   const visibleBlogs = page.blogSlugs.filter((slug) => BLOG_POSTS.some((post) => post.slug === slug));
+
+  const title = pageString('title', page, locale);
+  const description = pageString('description', page, locale);
+  const eyebrow = pageString('eyebrow', page, locale);
+  const audience = pageString('audience', page, locale);
+  const summary = pageArray('summary', page, locale);
+  const table = pageTable(page, locale);
+  const sections = pageSections(page, locale);
+  const faqs = pageFaqs(page, locale);
 
   return (
     <main className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
@@ -34,12 +83,12 @@ export default function SeoContentPageView({ page }: { page: SeoContentPage }) {
         <header className="mb-10 border-b border-slate-200 pb-10 dark:border-slate-800">
           <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-sm font-semibold text-emerald-700 dark:border-emerald-900/60 dark:bg-emerald-950/40 dark:text-emerald-200">
             <Layers className="h-4 w-4" aria-hidden="true" />
-            {page.eyebrow}
+            {eyebrow}
           </div>
           <h1 className="max-w-4xl text-4xl font-extrabold tracking-normal text-slate-950 dark:text-white sm:text-5xl">
-            {page.title}
+            {title}
           </h1>
-          <p className="mt-5 max-w-4xl text-lg leading-8 text-slate-600 dark:text-slate-300">{page.description}</p>
+          <p className="mt-5 max-w-4xl text-lg leading-8 text-slate-600 dark:text-slate-300">{description}</p>
           <div className="mt-6 flex flex-wrap gap-3 text-sm text-slate-600 dark:text-slate-300">
             <span className="inline-flex min-h-10 items-center gap-2 rounded-md bg-slate-100 px-3 dark:bg-slate-900">
               <CalendarCheck className="h-4 w-4" aria-hidden="true" />
@@ -53,9 +102,9 @@ export default function SeoContentPageView({ page }: { page: SeoContentPage }) {
 
         <section className="mb-10 rounded-lg border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
           <h2 className="text-2xl font-bold text-slate-950 dark:text-white">Who This Page Is For</h2>
-          <p className="mt-3 leading-7 text-slate-700 dark:text-slate-300">{page.audience}</p>
+          <p className="mt-3 leading-7 text-slate-700 dark:text-slate-300">{audience}</p>
           <div className="mt-5 grid gap-4 md:grid-cols-2">
-            {page.summary.map((item) => (
+            {summary.map((item) => (
               <p key={item} className="rounded-md bg-slate-50 p-4 leading-7 text-slate-700 dark:bg-slate-950 dark:text-slate-300">
                 {item}
               </p>
@@ -80,7 +129,7 @@ export default function SeoContentPageView({ page }: { page: SeoContentPage }) {
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-200 dark:divide-slate-800">
-                {page.table.map((row) => (
+                {table.map((row) => (
                   <tr key={row.label}>
                     <td className="px-5 py-4 font-semibold text-slate-950 dark:text-white">{row.label}</td>
                     <td className="px-5 py-4 text-slate-700 dark:text-slate-300">{row.bestFor}</td>
@@ -94,7 +143,7 @@ export default function SeoContentPageView({ page }: { page: SeoContentPage }) {
         </section>
 
         <div className="prose prose-slate max-w-none dark:prose-invert prose-h2:text-3xl prose-h2:tracking-normal prose-p:leading-8 prose-a:text-emerald-700">
-          {page.sections.map((section) => (
+          {sections.map((section) => (
             <section key={section.heading} className="mb-10">
               <h2>{section.heading}</h2>
               {section.body.map((paragraph) => (
@@ -122,9 +171,9 @@ export default function SeoContentPageView({ page }: { page: SeoContentPage }) {
                 className="group flex min-h-24 flex-col justify-between rounded-md border border-white bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:border-emerald-200 hover:shadow-md dark:border-slate-800 dark:bg-slate-900"
               >
                 <span className="font-semibold text-slate-950 group-hover:text-emerald-700 dark:text-white dark:group-hover:text-emerald-300">
-                  {toolName(path)}
+                  {toolName(path, locale)}
                 </span>
-                <span className="mt-2 line-clamp-2 text-sm leading-6 text-slate-600 dark:text-slate-300">{toolDescription(path)}</span>
+                <span className="mt-2 line-clamp-2 text-sm leading-6 text-slate-600 dark:text-slate-300">{toolDescription(path, locale)}</span>
               </NextLink>
             ))}
           </div>
@@ -144,9 +193,9 @@ export default function SeoContentPageView({ page }: { page: SeoContentPage }) {
                   >
                     <span className="text-xs font-bold uppercase tracking-wide text-emerald-700 dark:text-emerald-300">{blog?.category || 'Guide'}</span>
                     <h3 className="mt-2 text-lg font-bold text-slate-950 group-hover:text-emerald-700 dark:text-white dark:group-hover:text-emerald-300">
-                      {blogTitle(slug)}
+                      {blogTitle(slug, locale)}
                     </h3>
-                    <p className="mt-2 line-clamp-2 text-sm leading-6 text-slate-600 dark:text-slate-300">{blogSummary(slug)}</p>
+                    <p className="mt-2 line-clamp-2 text-sm leading-6 text-slate-600 dark:text-slate-300">{blogSummary(slug, locale)}</p>
                     <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-emerald-700 dark:text-emerald-300">
                       Read guide <ArrowRight className="h-4 w-4" aria-hidden="true" />
                     </span>
@@ -160,7 +209,7 @@ export default function SeoContentPageView({ page }: { page: SeoContentPage }) {
         <section className="mb-12">
           <h2 className="mb-5 text-2xl font-bold text-slate-950 dark:text-white">FAQ</h2>
           <div className="space-y-3">
-            {page.faqs.map((faq) => (
+            {faqs.map((faq) => (
               <details key={faq.question} className="rounded-lg border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
                 <summary className="cursor-pointer text-base font-semibold text-slate-950 dark:text-white">{faq.question}</summary>
                 <p className="mt-3 leading-7 text-slate-700 dark:text-slate-300">{faq.answer}</p>
