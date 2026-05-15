@@ -1,3 +1,5 @@
+import { getGaMeasurementId } from '../lib/analytics-config';
+
 /**
  * Simple Analytics Service
  * 
@@ -29,7 +31,7 @@ class AnalyticsService {
   private isEnabled: boolean = process.env.NODE_ENV === 'production';
   private debug: boolean = process.env.NODE_ENV !== 'production';
   private sessionId: string = '';
-  private gaId: string = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || '';
+  private gaId: string = getGaMeasurementId();
 
   constructor() {
     this.sessionId = Math.random().toString(36).substring(2, 10);

@@ -79,7 +79,9 @@ function allChineseSegments() {
 }
 
 export function generateStaticParams() {
-  return allChineseSegments().map((segments) => ({ segments }));
+  return allChineseSegments()
+    .filter((segments) => segments.length > 0)
+    .map((segments) => ({ segments }));
 }
 
 export const dynamicParams = false;

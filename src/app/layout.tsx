@@ -6,6 +6,7 @@ import DelayedAdSenseScript from '../components/DelayedAdSenseScript';
 import Layout from '../components/Layout';
 import Providers from './providers';
 import { BRAND_DESCRIPTION } from '../data/brand';
+import { getGaMeasurementId } from '../lib/analytics-config';
 import { organizationJsonLd, websiteJsonLd } from '../lib/structured-data';
 
 const googleAdsenseClient =
@@ -44,7 +45,7 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+  const gaMeasurementId = getGaMeasurementId();
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -61,9 +62,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </Script>
             <Script
               src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`}
-              strategy="lazyOnload"
+              strategy="afterInteractive"
             />
-            <Script id="google-analytics" strategy="lazyOnload">
+            <Script id="google-analytics" strategy="afterInteractive">
               {`
                 gtag('js', new Date());
                 gtag('config', '${gaMeasurementId}', { send_page_view: false });

@@ -30,10 +30,15 @@ export default function YoutubeGenerator() {
   const parseCopyResult = (text: string) => {
     const sections = { title: '', description: '', tags: '', thumbnails: '' };
     if (!text) return sections;
-    const titleMatch = text.match(/\[TITLE\]([\s\S]*?)(?=\[|$)/);
-    const descMatch = text.match(/\[DESCRIPTION\]([\s\S]*?)(?=\[|$)/);
-    const tagsMatch = text.match(/\[TAGS\]([\s\S]*?)(?=\[|$)/);
-    const thumbMatch = text.match(/\[THUMBNAIL_IDEAS\]([\s\S]*?)(?=\[|$)/);
+
+    const sectionPattern = (marker: string) =>
+      new RegExp(`\\[${marker}\\]\\s*:?\\s*([\\s\\S]*?)(?=\\n?\\[[A-Z_]+\\]|$)`, 'i');
+
+    const titleMatch = text.match(sectionPattern('TITLE'));
+    const descMatch = text.match(sectionPattern('DESCRIPTION'));
+    const tagsMatch = text.match(sectionPattern('TAGS'));
+    const thumbMatch = text.match(sectionPattern('THUMBNAIL_IDEAS'));
+
     if (titleMatch) sections.title = titleMatch[1].trim();
     if (descMatch) sections.description = descMatch[1].trim();
     if (tagsMatch) sections.tags = tagsMatch[1].trim();
@@ -42,6 +47,7 @@ export default function YoutubeGenerator() {
   };
 
   const currentSections = parseCopyResult(result);
+  const hasStructuredResult = Object.values(currentSections).some(Boolean);
 
   const requestStream = async () => {
     if (!topic.trim()) return;
@@ -68,24 +74,34 @@ export default function YoutubeGenerator() {
       const reader = res.body?.getReader();
       const decoder = new TextDecoder();
       if (!reader) throw new Error('Reader empty');
+      let pending = '';
       
       while (true) {
         const { value, done } = await reader.read();
         if (done) break;
         if (value) {
-          const chunk = decoder.decode(value, { stream: true });
-          const lines = chunk.split('\n');
+          pending += decoder.decode(value, { stream: true });
+          const lines = pending.split('\n');
+          pending = lines.pop() || '';
+
           for (const line of lines) {
             const tline = line.trim();
             if (tline.startsWith('data: ') && !tline.includes('[DONE]')) {
+              const payload = tline.substring(6);
               try {
-                const data = JSON.parse(tline.substring(6));
-                if (data.error) throw new Error(data.error);
+                const data = JSON.parse(payload);
+                if (data.error) {
+                  setError(data.error);
+                  continue;
+                }
                 if (data.content) {
                   currentText += data.content;
                   setResult(currentText);
                 }
-              } catch (e) {}
+              } catch {
+                pending = `${line}\n${pending}`;
+                break;
+              }
             }
           }
         }
@@ -173,7 +189,7 @@ export default function YoutubeGenerator() {
                 <Loader2 className="animate-spin text-rose-500 opacity-60" size={48} />
               </div>
             )}
-            {result && (
+            {result && hasStructuredResult && (
               <div className="space-y-6">
                 {['title', 'description', 'tags', 'thumbnails'].map(field => {
                   const content = (currentSections as any)[field];
@@ -193,6 +209,19 @@ export default function YoutubeGenerator() {
                     </div>
                   );
                 })}
+              </div>
+            )}
+            {result && !hasStructuredResult && (
+              <div className="relative group p-5 bg-slate-50 border border-slate-100 rounded-2xl">
+                <span className="text-xs font-bold text-slate-400 uppercase mb-3 block">
+                  {isZh ? '生成结果' : 'Generated Result'}
+                </span>
+                <div className="prose prose-slate prose-sm max-w-none">
+                  <Markdown>{result}</Markdown>
+                </div>
+                <button onClick={() => copyToClipboard(result, 'raw')} className="absolute top-3 right-3 p-2 bg-white rounded-lg shadow-sm border border-slate-200 opacity-0 group-hover:opacity-100 hover:text-rose-600 transition-all">
+                  {copiedField === 'raw' ? <Check size={14} className="text-emerald-500" /> : <Copy size={14} />}
+                </button>
               </div>
             )}
           </div>

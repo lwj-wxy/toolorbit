@@ -9,7 +9,7 @@ const deepseek = new OpenAI({
   baseURL: 'https://api.deepseek.com',
 });
 
-const DEEPSEEK_TEXT_MODEL = 'deepseek-v4-flash';
+const DEEPSEEK_TEXT_MODEL = 'deepseek-v4-pro';
 
 const usageMap: Map<string, number> = (globalThis as any).__toolorbitUsageMap || new Map<string, number>();
 (globalThis as any).__toolorbitUsageMap = usageMap;
@@ -217,7 +217,7 @@ Please generate a comprehensive listing including title, bullet points, SEO desc
       return {
         model: DEEPSEEK_TEXT_MODEL,
         messages: [
-          { role: 'system', content: `You are an expert YouTube SEO specialist. Output sections [TITLE], [DESCRIPTION], [TAGS], [THUMBNAIL_IDEAS]. Audience: ${body.targetAudience || 'General'}. Tone: ${body.tone || 'Engaging'}. Output in ${targetLanguage(body.language)}.` },
+          { role: 'system', content: `You are an expert YouTube SEO specialist. Output exactly these four labeled sections, in this order, with no extra preface: [TITLE], [DESCRIPTION], [TAGS], [THUMBNAIL_IDEAS]. Keep the bracket labels exactly as written. Audience: ${body.targetAudience || 'General'}. Tone: ${body.tone || 'Engaging'}. Output section content in ${targetLanguage(body.language)}.` },
           { role: 'user', content: `Video Topic / Details:\n${body.topic}` },
         ],
       };
