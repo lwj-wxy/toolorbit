@@ -19,6 +19,7 @@ const ToolLoading = () => (
 const lazyTool = (loader: ToolLoader) =>
   dynamic(loader, {
     loading: ToolLoading,
+    ssr: false,
   }) as ToolComponent;
 
 export const toolComponentMap: Record<string, ToolComponent> = {

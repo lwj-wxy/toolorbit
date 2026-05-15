@@ -9,24 +9,30 @@ import ToolPageClient from '../../../components/ToolPageClient';
 import ToolSEOCard from '../../../components/ToolSEOCard';
 import ToolSearchContent from '../../../components/ToolSearchContent';
 import { BLOG_POSTS } from '../../../constants/blogData';
+import { TOOL_ORBIT_EDITORIAL_TEAM } from '../../../data/authors';
+import { SEO_CONTENT_PATHS, getSeoContentPage } from '../../../data/seoContent';
 import { TOOLS } from '../../../data/tools';
 import { getTotalBlogPages, normalizeBlogPage } from '../../../lib/blog-pagination';
 import { CATEGORY_BY_SLUG, CATEGORY_SLUGS } from '../../../lib/category-paths';
 import {
   allToolsMetadata,
+  authorMetadata,
   blogListMetadata,
   blogPostMetadata,
   categoryMetadata,
   homeMetadata,
   staticPageMetadata,
+  seoContentMetadata,
   toolMetadata,
 } from '../../../lib/metadata';
 import {
   allToolsPageJsonLd,
+  authorPageJsonLd,
   blogListJsonLd,
   blogPostJsonLd,
   categoryPageJsonLd,
   homePageJsonLd,
+  seoContentPageJsonLd,
   staticPageJsonLd,
   toolJsonLd,
 } from '../../../lib/structured-data';
@@ -38,6 +44,8 @@ import Home from '../../../views/Home';
 import Privacy from '../../../views/Privacy';
 import Terms from '../../../views/Terms';
 import AllToolsPage from '../../../views/AllToolsPage';
+import AuthorPage from '../../../views/AuthorPage';
+import SeoContentPageView from '../../../views/SeoContentPage';
 
 type PageProps = {
   params: Promise<{ segments?: string[] }>;
@@ -61,6 +69,8 @@ function allChineseSegments() {
     ['about'],
     ['privacy'],
     ['terms'],
+    TOOL_ORBIT_EDITORIAL_TEAM.url.split('/').filter(Boolean),
+    ...SEO_CONTENT_PATHS.map((seoPath) => seoPath.split('/').filter(Boolean)),
     ...Array.from({ length: getTotalBlogPages() - 1 }, (_, index) => ['blog', 'page', String(index + 2)]),
     ...Object.values(CATEGORY_SLUGS).map((slug) => ['category', slug]),
     ...TOOLS.map((tool) => tool.path.split('/').filter(Boolean)),
@@ -85,6 +95,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (basePath === '/about') return staticPageMetadata('about', LOCALE);
   if (basePath === '/privacy') return staticPageMetadata('privacy', LOCALE);
   if (basePath === '/terms') return staticPageMetadata('terms', LOCALE);
+  if (basePath === TOOL_ORBIT_EDITORIAL_TEAM.url) return authorMetadata(LOCALE);
+  if (SEO_CONTENT_PATHS.includes(basePath)) return seoContentMetadata(basePath, LOCALE);
 
   if (segments[0] === 'blog' && segments[1] === 'page' && segments[2]) {
     const page = normalizeBlogPage(segments[2]);
@@ -173,6 +185,30 @@ export default async function Page({ params }: PageProps) {
       <>
         <JsonLd id="structured-data-terms-zh" data={staticPageJsonLd('terms', LOCALE)} />
         <Terms />
+      </>,
+    );
+  }
+
+  if (basePath === TOOL_ORBIT_EDITORIAL_TEAM.url) {
+    return zhPage(
+      <>
+        <JsonLd id="structured-data-author-toolorbit-editorial-team-zh" data={authorPageJsonLd(LOCALE)} />
+        <AuthorPage />
+      </>,
+    );
+  }
+
+  if (SEO_CONTENT_PATHS.includes(basePath)) {
+    const page = getSeoContentPage(basePath);
+
+    if (!page) {
+      notFound();
+    }
+
+    return zhPage(
+      <>
+        <JsonLd id={`structured-data-seo-content-${segments.join('-')}-zh`} data={seoContentPageJsonLd(basePath, LOCALE)} />
+        <SeoContentPageView page={page} />
       </>,
     );
   }

@@ -75,6 +75,150 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://toolorbit.site/developer-tools</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/developer-tools" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://toolorbit.site/zh-CN/developer-tools" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolorbit.site/developer-tools" />
+    <lastmod>2026-05-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://toolorbit.site/zh-CN/developer-tools</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/developer-tools" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://toolorbit.site/zh-CN/developer-tools" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolorbit.site/developer-tools" />
+    <lastmod>2026-05-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://toolorbit.site/ai-tools</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/ai-tools" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://toolorbit.site/zh-CN/ai-tools" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolorbit.site/ai-tools" />
+    <lastmod>2026-05-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://toolorbit.site/zh-CN/ai-tools</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/ai-tools" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://toolorbit.site/zh-CN/ai-tools" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolorbit.site/ai-tools" />
+    <lastmod>2026-05-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://toolorbit.site/pdf-image-tools</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/pdf-image-tools" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://toolorbit.site/zh-CN/pdf-image-tools" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolorbit.site/pdf-image-tools" />
+    <lastmod>2026-05-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://toolorbit.site/zh-CN/pdf-image-tools</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/pdf-image-tools" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://toolorbit.site/zh-CN/pdf-image-tools" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolorbit.site/pdf-image-tools" />
+    <lastmod>2026-05-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://toolorbit.site/webmaster-toolkit</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/webmaster-toolkit" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://toolorbit.site/zh-CN/webmaster-toolkit" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolorbit.site/webmaster-toolkit" />
+    <lastmod>2026-05-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://toolorbit.site/zh-CN/webmaster-toolkit</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/webmaster-toolkit" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://toolorbit.site/zh-CN/webmaster-toolkit" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolorbit.site/webmaster-toolkit" />
+    <lastmod>2026-05-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://toolorbit.site/best-json-formatters</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/best-json-formatters" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://toolorbit.site/zh-CN/best-json-formatters" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolorbit.site/best-json-formatters" />
+    <lastmod>2026-05-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://toolorbit.site/zh-CN/best-json-formatters</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/best-json-formatters" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://toolorbit.site/zh-CN/best-json-formatters" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolorbit.site/best-json-formatters" />
+    <lastmod>2026-05-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://toolorbit.site/best-free-pdf-tools</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/best-free-pdf-tools" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://toolorbit.site/zh-CN/best-free-pdf-tools" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolorbit.site/best-free-pdf-tools" />
+    <lastmod>2026-05-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://toolorbit.site/zh-CN/best-free-pdf-tools</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/best-free-pdf-tools" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://toolorbit.site/zh-CN/best-free-pdf-tools" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolorbit.site/best-free-pdf-tools" />
+    <lastmod>2026-05-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://toolorbit.site/best-ai-tools-for-content-creators</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/best-ai-tools-for-content-creators" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://toolorbit.site/zh-CN/best-ai-tools-for-content-creators" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolorbit.site/best-ai-tools-for-content-creators" />
+    <lastmod>2026-05-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://toolorbit.site/zh-CN/best-ai-tools-for-content-creators</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/best-ai-tools-for-content-creators" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://toolorbit.site/zh-CN/best-ai-tools-for-content-creators" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolorbit.site/best-ai-tools-for-content-creators" />
+    <lastmod>2026-05-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://toolorbit.site/authors/toolorbit-editorial-team</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/authors/toolorbit-editorial-team" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://toolorbit.site/zh-CN/authors/toolorbit-editorial-team" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolorbit.site/authors/toolorbit-editorial-team" />
+    <lastmod>2026-05-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://toolorbit.site/zh-CN/authors/toolorbit-editorial-team</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/authors/toolorbit-editorial-team" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://toolorbit.site/zh-CN/authors/toolorbit-editorial-team" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolorbit.site/authors/toolorbit-editorial-team" />
+    <lastmod>2026-05-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://toolorbit.site/blog/page/2</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/blog/page/2" />
     <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://toolorbit.site/zh-CN/blog/page/2" />

@@ -14,6 +14,16 @@ const CATEGORY_PATHS = [
   '/category/conversion-tools',
   '/category/fun-tools',
 ];
+const SEO_CONTENT_PATHS = [
+  '/developer-tools',
+  '/ai-tools',
+  '/pdf-image-tools',
+  '/webmaster-toolkit',
+  '/best-json-formatters',
+  '/best-free-pdf-tools',
+  '/best-ai-tools-for-content-creators',
+  '/authors/toolorbit-editorial-team',
+];
 
 function escapeXml(value) {
   return String(value)
@@ -121,6 +131,12 @@ const baseUrls = [
   { path: '/tools', lastmod: generatedAt, changefreq: 'weekly', priority: '0.95' },
   { path: '/blog', lastmod: generatedAt, changefreq: 'daily', priority: '0.9' },
   { path: '/about', lastmod: generatedAt, changefreq: 'monthly', priority: '0.7' },
+  ...SEO_CONTENT_PATHS.map((path) => ({
+    path,
+    lastmod: generatedAt,
+    changefreq: path.startsWith('/best-') ? 'monthly' : 'weekly',
+    priority: path.startsWith('/authors/') ? '0.7' : path.startsWith('/best-') ? '0.82' : '0.88',
+  })),
   ...Array.from({ length: blogPageCount - 1 }, (_, index) => ({
     path: `/blog/page/${index + 2}`,
     lastmod: generatedAt,

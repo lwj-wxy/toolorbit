@@ -6,6 +6,8 @@ import {
   BRAND_PRIVACY_SUMMARY,
   BRAND_PUBLISHING_PRINCIPLES_PATH,
 } from '../data/brand';
+import { TOOL_ORBIT_EDITORIAL_TEAM } from '../data/authors';
+import { getSeoContentPage, toolByPath } from '../data/seoContent';
 import { TOOLS } from '../data/tools';
 import type { Category } from '../data/tools';
 import { BLOG_RELATED_TOOLS } from '../data/blogRelatedTools';
@@ -117,6 +119,18 @@ function itemList(items: Array<{ name: string; url: string; description?: string
       name: item.name,
       description: item.description,
     })),
+  };
+}
+
+function editorialTeamEntity(locale: Locale = 'en') {
+  return {
+    '@type': 'Organization',
+    '@id': `${SITE_URL}${localizedPath(TOOL_ORBIT_EDITORIAL_TEAM.url, locale)}#author`,
+    name: TOOL_ORBIT_EDITORIAL_TEAM.name,
+    url: absoluteUrl(TOOL_ORBIT_EDITORIAL_TEAM.url, locale),
+    description: TOOL_ORBIT_EDITORIAL_TEAM.bio,
+    knowsAbout: TOOL_ORBIT_EDITORIAL_TEAM.role,
+    parentOrganization: organizationEntity(),
   };
 }
 
@@ -289,6 +303,81 @@ export function allToolsPageJsonLd(locale: Locale = 'en') {
   ];
 }
 
+export function seoContentPageJsonLd(path: string, locale: Locale = 'en') {
+  const page = getSeoContentPage(path);
+  if (!page) return [];
+
+  const url = absoluteUrl(page.path, locale);
+  const tools = page.toolPaths
+    .map((toolPath) => toolByPath(toolPath))
+    .filter(Boolean) as typeof TOOLS;
+
+  return [
+    breadcrumb([
+      { name: SITE_NAME, url: absoluteUrl('/', locale) },
+      { name: page.title, url },
+    ]),
+    {
+      '@context': 'https://schema.org',
+      '@type': page.type === 'comparison' ? 'WebPage' : 'CollectionPage',
+      name: page.title,
+      description: page.description,
+      url,
+      dateModified: page.updated,
+      author: editorialTeamEntity(locale),
+      publisher: organizationEntity(),
+      reviewedBy: organizationEntity(),
+      isPartOf: {
+        '@type': 'WebSite',
+        '@id': `${SITE_URL}/#website`,
+        name: SITE_NAME,
+        url: SITE_URL,
+      },
+      about: page.targetKeyword,
+      mainEntity: page.faqs.length
+        ? {
+            '@type': 'FAQPage',
+            mainEntity: page.faqs.map((faq) => ({
+              '@type': 'Question',
+              name: faq.question,
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: faq.answer,
+              },
+            })),
+          }
+        : undefined,
+    },
+    itemList(
+      tools.map((tool) => ({
+        name: toolName(tool.id, tool.name, locale),
+        description: toolDescription(tool.id, tool.description, locale),
+        url: absoluteUrl(tool.path, locale),
+      })),
+    ),
+  ];
+}
+
+export function authorPageJsonLd(locale: Locale = 'en') {
+  const url = absoluteUrl(TOOL_ORBIT_EDITORIAL_TEAM.url, locale);
+
+  return [
+    breadcrumb([
+      { name: SITE_NAME, url: absoluteUrl('/', locale) },
+      { name: TOOL_ORBIT_EDITORIAL_TEAM.name, url },
+    ]),
+    {
+      '@context': 'https://schema.org',
+      '@type': 'ProfilePage',
+      name: TOOL_ORBIT_EDITORIAL_TEAM.name,
+      url,
+      dateModified: '2026-05-15',
+      mainEntity: editorialTeamEntity(locale),
+      publisher: organizationEntity(),
+    },
+  ];
+}
+
 export function staticPageJsonLd(page: 'about' | 'privacy' | 'terms', locale: Locale = 'en') {
   const source = localeSource(locale);
   const title = readPath(source, `${page}.title`) || page;
@@ -413,10 +502,7 @@ export function blogPostJsonLd(slug: string, locale: Locale = 'en') {
       datePublished: post.date,
       dateModified: post.date,
       author: {
-        '@type': 'Organization',
-        '@id': `${SITE_URL}/#editorial-team`,
-        name: `${SITE_NAME} Editorial Team`,
-        url: absoluteUrl('/about', locale),
+        ...editorialTeamEntity(locale),
       },
       publisher: organizationEntity(),
       reviewedBy: organizationEntity(),

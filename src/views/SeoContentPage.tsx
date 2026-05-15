@@ -1,0 +1,185 @@
+import NextLink from 'next/link';
+import { ArrowRight, CalendarCheck, CheckCircle2, ExternalLink, Layers, Wrench } from 'lucide-react';
+import { BLOG_POSTS } from '../constants/blogData';
+import en from '../locales/en.json';
+import { blogBySlug, toolByPath, type SeoContentPage } from '../data/seoContent';
+import { readPath } from '../lib/metadata';
+
+function toolName(path: string) {
+  const tool = toolByPath(path);
+  if (!tool) return path;
+  return readPath(en, `tools.${tool.id}.name`) || tool.name;
+}
+
+function toolDescription(path: string) {
+  const tool = toolByPath(path);
+  if (!tool) return '';
+  return readPath(en, `tools.${tool.id}.description`) || tool.description;
+}
+
+function blogTitle(slug: string) {
+  return readPath(en, `blog.posts.${slug}.title`) || slug.replace(/-/g, ' ');
+}
+
+function blogSummary(slug: string) {
+  return readPath(en, `blog.posts.${slug}.summary`) || 'ToolOrbit practical guide.';
+}
+
+export default function SeoContentPageView({ page }: { page: SeoContentPage }) {
+  const visibleBlogs = page.blogSlugs.filter((slug) => BLOG_POSTS.some((post) => post.slug === slug));
+
+  return (
+    <main className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
+      <article>
+        <header className="mb-10 border-b border-slate-200 pb-10 dark:border-slate-800">
+          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-sm font-semibold text-emerald-700 dark:border-emerald-900/60 dark:bg-emerald-950/40 dark:text-emerald-200">
+            <Layers className="h-4 w-4" aria-hidden="true" />
+            {page.eyebrow}
+          </div>
+          <h1 className="max-w-4xl text-4xl font-extrabold tracking-normal text-slate-950 dark:text-white sm:text-5xl">
+            {page.title}
+          </h1>
+          <p className="mt-5 max-w-4xl text-lg leading-8 text-slate-600 dark:text-slate-300">{page.description}</p>
+          <div className="mt-6 flex flex-wrap gap-3 text-sm text-slate-600 dark:text-slate-300">
+            <span className="inline-flex min-h-10 items-center gap-2 rounded-md bg-slate-100 px-3 dark:bg-slate-900">
+              <CalendarCheck className="h-4 w-4" aria-hidden="true" />
+              Last reviewed {page.updated}
+            </span>
+            <span className="inline-flex min-h-10 items-center rounded-md bg-slate-100 px-3 dark:bg-slate-900">
+              Target: {page.targetKeyword}
+            </span>
+          </div>
+        </header>
+
+        <section className="mb-10 rounded-lg border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+          <h2 className="text-2xl font-bold text-slate-950 dark:text-white">Who This Page Is For</h2>
+          <p className="mt-3 leading-7 text-slate-700 dark:text-slate-300">{page.audience}</p>
+          <div className="mt-5 grid gap-4 md:grid-cols-2">
+            {page.summary.map((item) => (
+              <p key={item} className="rounded-md bg-slate-50 p-4 leading-7 text-slate-700 dark:bg-slate-950 dark:text-slate-300">
+                {item}
+              </p>
+            ))}
+          </div>
+        </section>
+
+        <section className="mb-12 overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
+          <div className="border-b border-slate-200 p-5 dark:border-slate-800">
+            <h2 className="text-2xl font-bold text-slate-950 dark:text-white">
+              {page.type === 'comparison' ? 'Comparison Matrix' : 'Category Comparison'}
+            </h2>
+          </div>
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[720px] text-left text-sm">
+              <thead className="bg-slate-50 text-slate-700 dark:bg-slate-950 dark:text-slate-200">
+                <tr>
+                  <th className="px-5 py-3 font-semibold">Area</th>
+                  <th className="px-5 py-3 font-semibold">Best For</th>
+                  <th className="px-5 py-3 font-semibold">Relevant Tools</th>
+                  <th className="px-5 py-3 font-semibold">Practical Note</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-200 dark:divide-slate-800">
+                {page.table.map((row) => (
+                  <tr key={row.label}>
+                    <td className="px-5 py-4 font-semibold text-slate-950 dark:text-white">{row.label}</td>
+                    <td className="px-5 py-4 text-slate-700 dark:text-slate-300">{row.bestFor}</td>
+                    <td className="px-5 py-4 text-slate-700 dark:text-slate-300">{row.tools}</td>
+                    <td className="px-5 py-4 text-slate-700 dark:text-slate-300">{row.note}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <div className="prose prose-slate max-w-none dark:prose-invert prose-h2:text-3xl prose-h2:tracking-normal prose-p:leading-8 prose-a:text-emerald-700">
+          {page.sections.map((section) => (
+            <section key={section.heading} className="mb-10">
+              <h2>{section.heading}</h2>
+              {section.body.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </section>
+          ))}
+        </div>
+
+        <section className="mb-12 rounded-lg border border-emerald-100 bg-emerald-50/70 p-6 dark:border-emerald-900/60 dark:bg-emerald-950/20">
+          <div className="mb-5 flex items-center gap-3">
+            <span className="flex h-10 w-10 items-center justify-center rounded-md bg-white text-emerald-700 shadow-sm dark:bg-slate-900 dark:text-emerald-300">
+              <Wrench className="h-5 w-5" aria-hidden="true" />
+            </span>
+            <div>
+              <h2 className="text-2xl font-bold text-slate-950 dark:text-white">Related ToolOrbit Tools</h2>
+              <p className="text-sm text-slate-600 dark:text-slate-300">Open the specific utility when you are ready to apply the workflow.</p>
+            </div>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {page.toolPaths.map((path) => (
+              <NextLink
+                key={path}
+                href={path}
+                className="group flex min-h-24 flex-col justify-between rounded-md border border-white bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:border-emerald-200 hover:shadow-md dark:border-slate-800 dark:bg-slate-900"
+              >
+                <span className="font-semibold text-slate-950 group-hover:text-emerald-700 dark:text-white dark:group-hover:text-emerald-300">
+                  {toolName(path)}
+                </span>
+                <span className="mt-2 line-clamp-2 text-sm leading-6 text-slate-600 dark:text-slate-300">{toolDescription(path)}</span>
+              </NextLink>
+            ))}
+          </div>
+        </section>
+
+        {visibleBlogs.length > 0 ? (
+          <section className="mb-12">
+            <h2 className="mb-5 text-2xl font-bold text-slate-950 dark:text-white">Related Guides</h2>
+            <div className="grid gap-4 md:grid-cols-2">
+              {visibleBlogs.map((slug) => {
+                const blog = blogBySlug(slug);
+                return (
+                  <NextLink
+                    key={slug}
+                    href={`/blog/${slug}`}
+                    className="group rounded-lg border border-slate-200 bg-white p-5 shadow-sm transition hover:border-emerald-200 hover:shadow-md dark:border-slate-800 dark:bg-slate-900"
+                  >
+                    <span className="text-xs font-bold uppercase tracking-wide text-emerald-700 dark:text-emerald-300">{blog?.category || 'Guide'}</span>
+                    <h3 className="mt-2 text-lg font-bold text-slate-950 group-hover:text-emerald-700 dark:text-white dark:group-hover:text-emerald-300">
+                      {blogTitle(slug)}
+                    </h3>
+                    <p className="mt-2 line-clamp-2 text-sm leading-6 text-slate-600 dark:text-slate-300">{blogSummary(slug)}</p>
+                    <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-emerald-700 dark:text-emerald-300">
+                      Read guide <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                    </span>
+                  </NextLink>
+                );
+              })}
+            </div>
+          </section>
+        ) : null}
+
+        <section className="mb-12">
+          <h2 className="mb-5 text-2xl font-bold text-slate-950 dark:text-white">FAQ</h2>
+          <div className="space-y-3">
+            {page.faqs.map((faq) => (
+              <details key={faq.question} className="rounded-lg border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
+                <summary className="cursor-pointer text-base font-semibold text-slate-950 dark:text-white">{faq.question}</summary>
+                <p className="mt-3 leading-7 text-slate-700 dark:text-slate-300">{faq.answer}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+
+        <footer className="rounded-lg border border-slate-200 bg-slate-50 p-5 text-sm leading-6 text-slate-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300">
+          <p className="flex items-start gap-2">
+            <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" aria-hidden="true" />
+            Maintained by the ToolOrbit Editorial Team. This page links to practical tools and supporting guides so readers can verify the workflow rather than relying on broad claims.
+          </p>
+          <NextLink href="/authors/toolorbit-editorial-team" className="mt-3 inline-flex items-center gap-2 font-semibold text-emerald-700 dark:text-emerald-300">
+            Editorial team profile <ExternalLink className="h-4 w-4" aria-hidden="true" />
+          </NextLink>
+        </footer>
+      </article>
+    </main>
+  );
+}
+

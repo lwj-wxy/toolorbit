@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { BLOG_POSTS } from '../constants/blogData';
 import { BRAND_DESCRIPTION } from '../data/brand';
+import { TOOL_ORBIT_EDITORIAL_TEAM } from '../data/authors';
+import { getSeoContentPage } from '../data/seoContent';
 import { TOOLS, type Category } from '../data/tools';
 import en from '../locales/en.json';
 import zh from '../locales/zh.json';
@@ -342,6 +344,25 @@ export function categoryMetadata(category: Category, locale: Locale = 'en'): Met
       ? `浏览 ToolOrbit 的 ${toolCount} 个${name}，用于快速浏览器工作流、实用示例和无需安装的效率任务。`
       : `Browse ${toolCount} ${name} tools in ToolOrbit for fast browser-based workflows. Find focused utilities, examples, and no-install productivity helpers.`,
     getCategoryPath(category),
+    locale,
+  );
+}
+
+export function seoContentMetadata(path: string, locale: Locale = 'en'): Metadata {
+  const page = getSeoContentPage(path);
+
+  if (!page) {
+    return pageMetadata(undefined, undefined, path, locale);
+  }
+
+  return pageMetadata(page.title, page.description, path, locale);
+}
+
+export function authorMetadata(locale: Locale = 'en'): Metadata {
+  return pageMetadata(
+    TOOL_ORBIT_EDITORIAL_TEAM.name,
+    TOOL_ORBIT_EDITORIAL_TEAM.bio,
+    TOOL_ORBIT_EDITORIAL_TEAM.url,
     locale,
   );
 }

@@ -1,19 +1,27 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import { Link } from '../lib/navigation';
 import { useTranslation } from 'react-i18next';
 import { Calendar, Clock, Tag, FileText, Wrench, ShieldCheck, UserCheck } from 'lucide-react';
 import { BLOG_POSTS } from '../constants/blogData';
 import { BLOG_RELATED_TOOLS } from '../data/blogRelatedTools';
 import { TOOLS } from '../data/tools';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
+import { TOOL_ORBIT_EDITORIAL_TEAM } from '../data/authors';
 
 interface BlogPostProps {
   slug: string;
   initialMarkdown?: string;
 }
+
+const MarkdownContent = dynamic(() => import('../components/MarkdownContent'), {
+  loading: () => (
+    <div className="flex justify-center py-10 text-sm font-medium text-slate-400">
+      Rendering article...
+    </div>
+  ),
+});
 
 const BlogPost: React.FC<BlogPostProps> = ({ slug, initialMarkdown = '' }) => {
   const { t, i18n } = useTranslation();
@@ -122,22 +130,22 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, initialMarkdown = '' }) => {
               </div>
               <div>
                 <p className="font-bold text-slate-900">
-                  {t('blog.editorial_byline', { defaultValue: 'Written and maintained by the ToolOrbit Editorial Team' })}
+                  {t('blog.editorial_byline', { defaultValue: `Written and maintained by the ${TOOL_ORBIT_EDITORIAL_TEAM.name}` })}
                 </p>
                 <p className="mt-1 leading-6">
                   {t('blog.editorial_note', {
                     defaultValue:
-                      'Each guide is reviewed for practical workflow accuracy and connected to the browser tools that help you apply it.',
+                      TOOL_ORBIT_EDITORIAL_TEAM.bio,
                   })}
                 </p>
               </div>
             </div>
             <Link
-              to="/about"
+              to={TOOL_ORBIT_EDITORIAL_TEAM.url}
               className="inline-flex flex-shrink-0 items-center justify-center gap-2 rounded-lg border border-emerald-200 bg-white px-3 py-2 font-bold text-emerald-700 transition-colors hover:bg-emerald-50"
             >
               <ShieldCheck size={16} />
-              {t('blog.editorial_policy', { defaultValue: 'Editorial standards' })}
+              {t('blog.editorial_policy', { defaultValue: 'Author profile' })}
             </Link>
           </div>
         </div>
@@ -163,9 +171,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, initialMarkdown = '' }) => {
             prose-blockquote:border-l-4 prose-blockquote:border-emerald-500 prose-blockquote:bg-slate-50 prose-blockquote:py-2 prose-blockquote:px-6 prose-blockquote:rounded-r-lg prose-blockquote:italic
             prose-code:text-emerald-600 prose-code:bg-emerald-50 prose-code:px-1 prose-code:py-0.5 prose-code:rounded
             prose-pre:bg-slate-900 prose-pre:text-slate-50">
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>
-              {markdown}
-            </ReactMarkdown>
+            <MarkdownContent markdown={markdown} />
           </div>
         ) : (
           <div className="flex justify-center py-20">
