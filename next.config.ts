@@ -25,6 +25,9 @@ const nextConfig: NextConfig = {
   compress: true,
   poweredByHeader: false,
   productionBrowserSourceMaps: false,
+  experimental: {
+    optimizePackageImports: ['lucide-react', 'recharts'],
+  },
   turbopack: {
     root: __dirname,
   },
