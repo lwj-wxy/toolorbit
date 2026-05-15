@@ -20,7 +20,12 @@ type ChatMessage = {
 };
 
 function clientIp(request: Request) {
-  return request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'anonymous';
+  const forwardedFor = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim();
+  const realIp = request.headers.get('x-real-ip')?.trim();
+  const cfIp = request.headers.get('cf-connecting-ip')?.trim();
+  const trueClientIp = request.headers.get('true-client-ip')?.trim();
+
+  return forwardedFor || realIp || cfIp || trueClientIp || 'anonymous';
 }
 
 function rateLimit(ip: string, windowMs = 1000, message = 'Too many requests') {
@@ -360,33 +365,35 @@ async function imageGenerator(body: any) {
 export async function POST(request: Request) {
   const path = new URL(request.url).pathname.replace(/^\/api\/?/, '');
   const ip = clientIp(request);
+  const userAgent = request.headers.get('user-agent') || 'unknown';
+  const rateLimitKey = `${path}:${ip}:${userAgent}`;
   const body = await request.json().catch(() => ({}));
 
   try {
     if (path === 'shorten') return await shorten(body);
 
-    const jsonRateLimit = rateLimit(ip);
+    const jsonRateLimit = rateLimit(rateLimitKey);
     if (jsonRateLimit && ['ai-svg-generator', 'ai-vision-describe', 'ai-image-generator'].includes(path)) return jsonRateLimit;
 
     if (path === 'ai-svg-generator') {
-      markUsage(ip);
+      markUsage(rateLimitKey);
       return await svgGenerator(body);
     }
     if (path === 'ai-vision-describe') {
-      markUsage(ip);
+      markUsage(rateLimitKey);
       return await visionDescribe(body);
     }
     if (path === 'ai-image-generator') {
-      markUsage(ip);
+      markUsage(rateLimitKey);
       return await imageGenerator(body);
     }
 
     const config = streamConfig(path, body);
     if (!config) return Response.json({ error: 'Not found' }, { status: 404 });
 
-    const limited = rateLimit(ip, config.rateMs || 1000, config.rateMessage || 'Too many requests');
+    const limited = rateLimit(rateLimitKey, config.rateMs || 1000, config.rateMessage || 'Too many requests');
     if (limited) return limited;
-    markUsage(ip);
+    markUsage(rateLimitKey);
 
     return streamChat(config.model, config.messages, config.options);
   } catch (error: any) {
