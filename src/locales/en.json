@@ -26,6 +26,7 @@
     "nav_terms": "Terms of Service",
     "nav_about": "About Us",
     "footer_desc": "One-stop professional efficiency tool aggregation platform.",
+    "footer_trust": "Most ToolOrbit utilities run directly in your browser so files, text, and developer data stay on your device unless an AI-powered feature explicitly needs a model request.",
     "related_tools": "Related Tools",
     "faqTitle": "Frequently Asked Questions",
     "nav_home": "Home",
@@ -47,6 +48,12 @@
     "why_item3_desc": "Professional grade tools available instantly without bulky software or browser plugins.",
     "why_item4_title": "Free & Unrestricted",
     "why_item4_desc": "Access premium-quality tools with no accounts, no subscriptions, and no limits.",
+    "trust_privacy_title": "Local-first by default",
+    "trust_privacy_desc": "Most tools process files and text in your browser, keeping sensitive work on your device.",
+    "trust_review_title": "Workflow-tested tools",
+    "trust_review_desc": "Utilities are shaped around real developer, document, image, and ecommerce tasks.",
+    "trust_maintained_title": "Maintained content",
+    "trust_maintained_desc": "Tool copy, guides, schema, and internal links are kept aligned as the site grows.",
     "viewMore": "View More",
     "prevPage": "Previous",
     "nextPage": "Next",
@@ -67,6 +74,9 @@
     "title": "Developer Resources",
     "subtitle": "Deep dive into tool mechanics and explore efficient workflows.",
     "readMore": "Read More",
+    "editorial_byline": "Written and maintained by the ToolOrbit Editorial Team",
+    "editorial_note": "Each guide is reviewed for practical workflow accuracy and connected to the browser tools that help you apply it.",
+    "editorial_policy": "Editorial standards",
     "posts": {
       "why-use-json-formatter": {
         "title": "In-depth Analysis: Why Developers Need Efficient JSON Formatting Tools",
@@ -2554,6 +2564,28 @@
   },
   "about": {
     "title": "About ToolOrbit",
-    "content": "<p className='mb-6'>ToolOrbit was born from a passionate group of developers' pursuit of clean, high-performance web utilities. In our daily coding, writing, and design workflows, we often felt frustrated: many online small tools are cluttered with intrusive ads, pop-ups, and forced uploads of sensitive data to unknown backends. This not only hampers efficiency but also poses significant privacy risks.</p><h3>Our Vision: Privacy as a Right</h3><p>We are dedicated to building a <strong>Client-Side First</strong> online tool matrix. This means: your data, every line of code, and every private photo are processed within your own browser's sandbox. <strong>Data never crosses the network; privacy is never compromised.</strong></p><h3>Professionalism & Sincerity</h3><p>Every tool on ToolOrbit is carefully crafted using modern web technologies (like WebAssembly, Canvas, and DeepSeek AI) to ensure maximum speed and precision. We are not just 'moving code'; we are redefining the online tool experience.</p><h3>Why Trust Us?</h3><ul><li><strong>100% Free & No Pop-ups</strong>: We insist on an optimal user experience without ads blocking your view.</li><li><strong>Technical Transparency</strong>: Core logic is clearly visible locally; you can audit our network requests anytime via DevTools.</li><li><strong>Continuous Evolution</strong>: We launch new tools weekly based on community feedback, striving to be your digital 'Swiss Army Knife'.</li></ul><h3>Contact Us</h3><p>This project is evolving. If you have suggestions, business inquiries, or need a custom-built tool, please reach out:</p><p>Business & Inquiry: <a href=\"mailto:luowj1998@outlook.com\" style=\"color: #0ea5e9; font-weight: 600;\">luowj1998@outlook.com</a></p>"
+    "contact_title": "Feedback and corrections",
+    "contact_desc": "Found an outdated instruction, broken workflow, or unclear tool result? Send the details and we will review it.",
+    "trust": {
+      "title": "How ToolOrbit earns trust",
+      "intro": "Trust is built through small engineering choices: local processing, clear limitations, practical testing, and a reachable maintainer.",
+      "privacy": {
+        "title": "Local-first privacy",
+        "description": "Wherever possible, tools process files, text, and code in your browser instead of uploading them to ToolOrbit servers."
+      },
+      "technical": {
+        "title": "Practical technical review",
+        "description": "Tool pages and guides are written around real workflows, tested with common edge cases, and updated when browser APIs or tool behavior changes."
+      },
+      "boundaries": {
+        "title": "Clear AI boundaries",
+        "description": "AI-assisted tools are labeled through the interface and should be reviewed by users before professional, legal, financial, or security decisions."
+      },
+      "maintenance": {
+        "title": "Maintained content",
+        "description": "We keep core tools, metadata, structured data, and documentation aligned so users and crawlers can understand what each page is for."
+      }
+    },
+    "content": "<p className='mb-6'>ToolOrbit was born from a passionate group of developers' pursuit of clean, high-performance web utilities. In our daily coding, writing, and design workflows, we often felt frustrated: many online small tools are cluttered with intrusive ads, pop-ups, and forced uploads of sensitive data to unknown backends. This not only hampers efficiency but also poses significant privacy risks.</p><h3>Our Vision: Privacy as a Right</h3><p>We are dedicated to building a <strong>Client-Side First</strong> online tool matrix. For file, formatting, conversion, and many developer utilities, processing happens inside your browser sandbox. <strong>When a feature needs AI generation, the interface makes that workflow clear so you can decide what to submit.</strong></p><h3>Professionalism & Sincerity</h3><p>Every tool on ToolOrbit is carefully crafted using modern web technologies (such as Web APIs, Canvas, WebAssembly where appropriate, and configured AI model APIs) to ensure speed, clarity, and practical usefulness. We are not just 'moving code'; we are refining the online tool experience around real workflows.</p><h3>Why Trust Us?</h3><ul><li><strong>100% Free & No Pop-ups</strong>: We insist on an optimal user experience without ads blocking your view.</li><li><strong>Technical Transparency</strong>: Core logic is clearly visible locally; you can audit our network requests anytime via DevTools.</li><li><strong>Continuous Evolution</strong>: We update tools and guides based on community feedback, striving to be your digital 'Swiss Army Knife'.</li></ul><h3>Contact Us</h3><p>This project is evolving. If you have suggestions, business inquiries, or need a custom-built tool, please reach out:</p><p>Business & Inquiry: <a href=\"mailto:luowj1998@outlook.com\" style=\"color: #0ea5e9; font-weight: 600;\">luowj1998@outlook.com</a></p>"
   }
 }

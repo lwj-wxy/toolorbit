@@ -1,4 +1,11 @@
 import { BLOG_POSTS } from '../constants/blogData';
+import {
+  BRAND_CONTACT_EMAIL,
+  BRAND_DESCRIPTION,
+  BRAND_KNOWS_ABOUT,
+  BRAND_PRIVACY_SUMMARY,
+  BRAND_PUBLISHING_PRINCIPLES_PATH,
+} from '../data/brand';
 import { TOOLS } from '../data/tools';
 import type { Category } from '../data/tools';
 import { BLOG_RELATED_TOOLS } from '../data/blogRelatedTools';
@@ -10,6 +17,29 @@ import { localizedPath, type Locale } from './i18n-routing';
 import { readPath, SITE_NAME, SITE_URL } from './metadata';
 
 const LOGO_URL = `${SITE_URL}/icon.svg`;
+
+function organizationEntity() {
+  return {
+    '@type': 'Organization',
+    '@id': `${SITE_URL}/#organization`,
+    name: SITE_NAME,
+    url: SITE_URL,
+    logo: {
+      '@type': 'ImageObject',
+      url: LOGO_URL,
+    },
+    email: BRAND_CONTACT_EMAIL,
+    description: BRAND_DESCRIPTION,
+    knowsAbout: BRAND_KNOWS_ABOUT,
+    contactPoint: {
+      '@type': 'ContactPoint',
+      email: BRAND_CONTACT_EMAIL,
+      contactType: 'customer support',
+      availableLanguage: ['English', 'Chinese'],
+    },
+    publishingPrinciples: `${SITE_URL}${BRAND_PUBLISHING_PRINCIPLES_PATH}`,
+  };
+}
 
 function absoluteUrl(path: string, locale: Locale = 'en') {
   return `${SITE_URL}${localizedPath(path, locale)}`;
@@ -93,10 +123,7 @@ function itemList(items: Array<{ name: string; url: string; description?: string
 export function organizationJsonLd() {
   return {
     '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: SITE_NAME,
-    url: SITE_URL,
-    logo: LOGO_URL,
+    ...organizationEntity(),
   };
 }
 
@@ -104,8 +131,11 @@ export function websiteJsonLd() {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
+    '@id': `${SITE_URL}/#website`,
     name: SITE_NAME,
     url: SITE_URL,
+    description: BRAND_DESCRIPTION,
+    publisher: organizationEntity(),
     potentialAction: {
       '@type': 'SearchAction',
       target: `${SITE_URL}/?search={search_term_string}`,
@@ -131,9 +161,13 @@ export function homePageJsonLd(locale: Locale = 'en') {
       url,
       isPartOf: {
         '@type': 'WebSite',
+        '@id': `${SITE_URL}/#website`,
         name: SITE_NAME,
         url: SITE_URL,
       },
+      reviewedBy: organizationEntity(),
+      publisher: organizationEntity(),
+      about: BRAND_PRIVACY_SUMMARY,
     },
     itemList(
       popularTools.map((tool) => ({
@@ -164,9 +198,11 @@ export function blogListJsonLd(locale: Locale = 'en', page = 1) {
       url,
       isPartOf: {
         '@type': 'WebSite',
+        '@id': `${SITE_URL}/#website`,
         name: SITE_NAME,
         url: SITE_URL,
       },
+      publisher: organizationEntity(),
     },
     itemList(
       posts.map((post) => ({
@@ -199,9 +235,12 @@ export function categoryPageJsonLd(category: Category, locale: Locale = 'en') {
       url,
       isPartOf: {
         '@type': 'WebSite',
+        '@id': `${SITE_URL}/#website`,
         name: SITE_NAME,
         url: SITE_URL,
       },
+      publisher: organizationEntity(),
+      reviewedBy: organizationEntity(),
     },
     itemList(
       tools.map((tool) => ({
@@ -231,9 +270,12 @@ export function staticPageJsonLd(page: 'about' | 'privacy' | 'terms', locale: Lo
       url,
       isPartOf: {
         '@type': 'WebSite',
+        '@id': `${SITE_URL}/#website`,
         name: SITE_NAME,
         url: SITE_URL,
       },
+      publisher: organizationEntity(),
+      reviewedBy: page === 'about' ? organizationEntity() : undefined,
     },
   ];
 }
@@ -281,10 +323,10 @@ export function toolJsonLd(path: string, locale: Locale = 'en') {
       },
       featureList: highlights.length ? highlights : undefined,
       publisher: {
-        '@type': 'Organization',
-        name: SITE_NAME,
-        url: SITE_URL,
+        ...organizationEntity(),
       },
+      reviewedBy: organizationEntity(),
+      inLanguage: locale === 'zh-CN' ? 'zh-CN' : 'en',
     },
   ];
 
@@ -335,17 +377,14 @@ export function blogPostJsonLd(slug: string, locale: Locale = 'en') {
       dateModified: post.date,
       author: {
         '@type': 'Organization',
-        name: SITE_NAME,
-        url: SITE_URL,
+        '@id': `${SITE_URL}/#editorial-team`,
+        name: `${SITE_NAME} Editorial Team`,
+        url: absoluteUrl('/about', locale),
       },
-      publisher: {
-        '@type': 'Organization',
-        name: SITE_NAME,
-        logo: {
-          '@type': 'ImageObject',
-          url: LOGO_URL,
-        },
-      },
+      publisher: organizationEntity(),
+      reviewedBy: organizationEntity(),
+      inLanguage: locale === 'zh-CN' ? 'zh-CN' : 'en',
+      publishingPrinciples: absoluteUrl('/about', locale),
       about: relatedTools.map((tool) => ({
         '@type': 'WebApplication',
         name: toolName(tool.id, tool.name, locale),

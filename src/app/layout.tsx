@@ -5,6 +5,7 @@ import JsonLd from '../components/JsonLd';
 import DelayedAdSenseScript from '../components/DelayedAdSenseScript';
 import Layout from '../components/Layout';
 import Providers from './providers';
+import { BRAND_DESCRIPTION } from '../data/brand';
 import { organizationJsonLd, websiteJsonLd } from '../lib/structured-data';
 
 const googleAdsenseClient =
@@ -15,9 +16,11 @@ export const metadata: Metadata = {
     default: 'ToolOrbit',
     template: '%s | ToolOrbit',
   },
-  description:
-    'Free browser-based tools for developers, creators, ecommerce operators, PDF workflows, image processing, and AI-assisted productivity.',
+  description: BRAND_DESCRIPTION,
   metadataBase: new URL('https://toolorbit.site'),
+  authors: [{ name: 'ToolOrbit Editorial Team', url: 'https://toolorbit.site/about' }],
+  creator: 'ToolOrbit',
+  publisher: 'ToolOrbit',
   manifest: '/manifest.json',
   icons: {
     icon: '/icon.svg',

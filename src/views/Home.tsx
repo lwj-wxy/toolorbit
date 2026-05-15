@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { TOOLS, Category, ToolItem } from '../data/tools';
 import { CATEGORY_GUIDES } from '../data/categoryGuides';
 import { getCategoryPath } from '../lib/category-paths';
-import { Star, Clock, ChevronRight, Sparkles } from 'lucide-react';
+import { Star, Clock, ChevronRight, Sparkles, ShieldCheck, Code2, RefreshCw } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 import { useRecentTools } from '../hooks/useRecentTools';
 
@@ -365,6 +365,47 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
               />
             ))}
           </div>
+        </section>
+      )}
+
+      {!categoryFilter && !searchQuery && (
+        <section className="grid gap-4 border-y border-slate-200/70 py-6 dark:border-slate-800/70 md:grid-cols-3">
+          {[
+            {
+              icon: ShieldCheck,
+              title: t('common.trust_privacy_title', { defaultValue: 'Local-first by default' }),
+              description: t('common.trust_privacy_desc', {
+                defaultValue: 'Most tools process files and text in your browser, keeping sensitive work on your device.',
+              }),
+            },
+            {
+              icon: Code2,
+              title: t('common.trust_review_title', { defaultValue: 'Workflow-tested tools' }),
+              description: t('common.trust_review_desc', {
+                defaultValue: 'Utilities are shaped around real developer, document, image, and ecommerce tasks.',
+              }),
+            },
+            {
+              icon: RefreshCw,
+              title: t('common.trust_maintained_title', { defaultValue: 'Maintained content' }),
+              description: t('common.trust_maintained_desc', {
+                defaultValue: 'Tool copy, guides, schema, and internal links are kept aligned as the site grows.',
+              }),
+            },
+          ].map((item) => {
+            const Icon = item.icon;
+            return (
+              <div key={item.title} className="flex gap-4">
+                <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-white text-indigo-600 shadow-sm ring-1 ring-slate-200 dark:bg-slate-900 dark:text-indigo-400 dark:ring-slate-800">
+                  <Icon size={19} />
+                </div>
+                <div>
+                  <h2 className="text-sm font-bold text-slate-900 dark:text-slate-100">{item.title}</h2>
+                  <p className="mt-1 text-xs leading-5 text-slate-500 dark:text-slate-400">{item.description}</p>
+                </div>
+              </div>
+            );
+          })}
         </section>
       )}
 

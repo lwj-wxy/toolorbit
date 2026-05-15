@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { BLOG_POSTS } from '../constants/blogData';
+import { BRAND_DESCRIPTION } from '../data/brand';
 import { TOOLS, type Category } from '../data/tools';
 import en from '../locales/en.json';
 import zh from '../locales/zh.json';
@@ -8,15 +9,14 @@ import { HREFLANG_CODES, localizedPath, type Locale } from './i18n-routing';
 
 export const SITE_URL = 'https://toolorbit.site';
 export const SITE_NAME = 'ToolOrbit';
-const DEFAULT_DESCRIPTION =
-  'Free browser-based tools for developers, creators, ecommerce operators, PDF workflows, image processing, and AI-assisted productivity.';
+const DEFAULT_DESCRIPTION = BRAND_DESCRIPTION;
 const TITLE_TEXT_LIMIT = 48;
 const DESCRIPTION_MIN_LENGTH = 120;
 const DESCRIPTION_MAX_LENGTH = 160;
 
 const STATIC_PAGE_DESCRIPTIONS: Record<'about' | 'privacy' | 'terms', string> = {
   about:
-    'Learn how ToolOrbit builds fast, privacy-conscious online tools for developers, creators, and everyday digital workflows.',
+    'Learn how ToolOrbit builds fast, privacy-conscious online tools with local-first processing, practical review, and clear content standards.',
   privacy:
     'Read ToolOrbit privacy practices, including local-first browser processing, analytics, advertising, and contact information handling.',
   terms:
@@ -25,7 +25,7 @@ const STATIC_PAGE_DESCRIPTIONS: Record<'about' | 'privacy' | 'terms', string> = 
 
 const STATIC_PAGE_DESCRIPTIONS_ZH: Record<'about' | 'privacy' | 'terms', string> = {
   about:
-    '了解 ToolOrbit 如何构建快速、注重隐私的在线工具，服务开发者、创作者和日常数字工作流。',
+    '了解 ToolOrbit 如何通过本地优先处理、实用复核和清晰内容标准，构建快速且注重隐私的在线工具。',
   privacy:
     '阅读 ToolOrbit 隐私实践，了解本地优先的浏览器处理、分析、广告以及联系信息处理方式。',
   terms:
@@ -210,7 +210,7 @@ export function homeMetadata(locale: Locale = 'en'): Metadata {
     locale === 'zh-CN' ? '面向开发者与创作者的免费在线工具' : 'Free Online Tools for Developers and Creators',
     locale === 'zh-CN'
       ? 'ToolOrbit 提供面向开发者、创作者、电商运营、PDF 工作流、图片处理和 AI 生产力的免费浏览器在线工具。'
-      : DEFAULT_DESCRIPTION,
+      : 'Free browser-based tools for developer, PDF, image, ecommerce, and AI workflows, with local-first processing for privacy-sensitive tasks.',
     '/',
     locale,
   );

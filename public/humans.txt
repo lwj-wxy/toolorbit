@@ -1,0 +1,16 @@
+/* TEAM */
+Brand: ToolOrbit
+Contact: luowj1998@outlook.com
+Site: https://toolorbit.site/
+
+/* PURPOSE */
+ToolOrbit builds browser-first online tools for developers, creators, ecommerce operators, PDF workflows, image processing, and AI-assisted productivity.
+
+/* TRUST */
+Most utilities run locally in the browser so files, text, and developer data stay on the user device. AI-assisted tools may use configured model APIs and should be reviewed before professional use.
+
+/* REFERENCES */
+About: https://toolorbit.site/about
+Privacy: https://toolorbit.site/privacy
+Terms: https://toolorbit.site/terms
+Sitemap: https://toolorbit.site/sitemap.xml

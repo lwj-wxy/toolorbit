@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { useTheme } from '../context/ThemeContext';
 import { cn } from '../lib/utils';
 import { TOOLS } from '../data/tools';
+import { BRAND_PRIVACY_SUMMARY } from '../data/brand';
 import { getCategoryPath } from '../lib/category-paths';
 import LanguageSwitcher from './LanguageSwitcher';
 import { motion, AnimatePresence } from 'motion/react';
@@ -456,6 +457,9 @@ export default function Layout({ children }: LayoutProps) {
         </div>
         <div className="text-center">
           <p>{t('common.footer_desc')}</p>
+          <p className="mt-2 max-w-2xl text-xs leading-5 text-slate-500 dark:text-slate-500">
+            {t('common.footer_trust', { defaultValue: BRAND_PRIVACY_SUMMARY })}
+          </p>
           <p>{t('common.footerText')}</p>
         </div>
       </footer>

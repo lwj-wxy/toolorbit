@@ -1,3 +1,5 @@
+import { BRAND_CONTACT_EMAIL, BRAND_PRIVACY_SUMMARY } from '../data/brand';
+
 export const LLMS_TXT = `# ToolOrbit
 
 ToolOrbit is a browser-first collection of free online tools for developers, creators, ecommerce operators, PDF workflows, image processing, text utilities, and practical AI-assisted work.
@@ -8,6 +10,9 @@ ToolOrbit is a browser-first collection of free online tools for developers, cre
 - Sitemap: https://toolorbit.site/sitemap.xml
 - Robots: https://toolorbit.site/robots.txt
 - Blog: https://toolorbit.site/blog
+- About and editorial standards: https://toolorbit.site/about
+- Privacy policy: https://toolorbit.site/privacy
+- Contact: ${BRAND_CONTACT_EMAIL}
 
 ## Core Tool Areas
 
@@ -39,5 +44,7 @@ ToolOrbit is a browser-first collection of free online tools for developers, cre
 
 ## Content Notes
 
-ToolOrbit emphasizes client-side processing for privacy-sensitive utilities. Many tools run directly in the browser without uploading user files or text to ToolOrbit servers. AI-powered tools may call configured model APIs for generation tasks.
+${BRAND_PRIVACY_SUMMARY}
+
+ToolOrbit guides are maintained by the ToolOrbit Editorial Team and are written around practical browser workflows. Content should be interpreted as implementation guidance, not legal, financial, medical, or security certification. AI-powered tools may call configured model APIs for generation tasks, and users should review generated outputs before professional use.
 `;
