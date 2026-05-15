@@ -10,7 +10,6 @@ import { TOOLS } from '../data/tools';
 import { BRAND_PRIVACY_SUMMARY } from '../data/brand';
 import { getCategoryPath } from '../lib/category-paths';
 import LanguageSwitcher from './LanguageSwitcher';
-import { motion, AnimatePresence } from 'motion/react';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -404,17 +403,7 @@ export default function Layout({ children }: LayoutProps) {
             );
           })()}
 
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={location.pathname}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
-            >
-              {children}
-            </motion.div>
-          </AnimatePresence>
+          <div key={location.pathname}>{children}</div>
         </main>
         
         {/* Related Tools for Internal Linking / SEO */}

@@ -5,7 +5,8 @@ import { homePageJsonLd } from '../lib/structured-data';
 import Home from '../views/Home';
 
 export const metadata: Metadata = homeMetadata();
-export const revalidate = 3600;
+export const dynamic = 'force-static';
+export const revalidate = false;
 
 export default function Page() {
   return (

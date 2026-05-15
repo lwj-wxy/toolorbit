@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "build": "node gen_sitemap.cjs && next build",
+    "build": "node gen_sitemap.cjs && next build --webpack",
     "start": "next start",
     "preview": "next dev",
     "clean": "node -e \"require('fs').rmSync('.next',{recursive:true,force:true})\"",

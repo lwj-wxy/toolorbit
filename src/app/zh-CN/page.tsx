@@ -8,7 +8,8 @@ import Home from '../../views/Home';
 const LOCALE = 'zh-CN' as const;
 
 export const metadata: Metadata = homeMetadata(LOCALE);
-export const revalidate = 3600;
+export const dynamic = 'force-static';
+export const revalidate = false;
 
 export default function ChineseHomePage() {
   return (
