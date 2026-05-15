@@ -13,6 +13,7 @@ import { TOOLS } from '../../../data/tools';
 import { getTotalBlogPages, normalizeBlogPage } from '../../../lib/blog-pagination';
 import { CATEGORY_BY_SLUG, CATEGORY_SLUGS } from '../../../lib/category-paths';
 import {
+  allToolsMetadata,
   blogListMetadata,
   blogPostMetadata,
   categoryMetadata,
@@ -21,6 +22,7 @@ import {
   toolMetadata,
 } from '../../../lib/metadata';
 import {
+  allToolsPageJsonLd,
   blogListJsonLd,
   blogPostJsonLd,
   categoryPageJsonLd,
@@ -35,6 +37,7 @@ import BlogPost from '../../../views/BlogPost';
 import Home from '../../../views/Home';
 import Privacy from '../../../views/Privacy';
 import Terms from '../../../views/Terms';
+import AllToolsPage from '../../../views/AllToolsPage';
 
 type PageProps = {
   params: Promise<{ segments?: string[] }>;
@@ -54,6 +57,7 @@ function allChineseSegments() {
   return [
     [],
     ['blog'],
+    ['tools'],
     ['about'],
     ['privacy'],
     ['terms'],
@@ -77,6 +81,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (basePath === '/') return homeMetadata(LOCALE);
   if (basePath === '/blog') return blogListMetadata(LOCALE);
+  if (basePath === '/tools') return allToolsMetadata(LOCALE);
   if (basePath === '/about') return staticPageMetadata('about', LOCALE);
   if (basePath === '/privacy') return staticPageMetadata('privacy', LOCALE);
   if (basePath === '/terms') return staticPageMetadata('terms', LOCALE);
@@ -132,6 +137,15 @@ export default async function Page({ params }: PageProps) {
       <>
         <JsonLd id="structured-data-blog-list-zh" data={blogListJsonLd(LOCALE)} />
         <BlogList />
+      </>,
+    );
+  }
+
+  if (basePath === '/tools') {
+    return zhPage(
+      <>
+        <JsonLd id="structured-data-all-tools-zh" data={allToolsPageJsonLd(LOCALE)} />
+        <AllToolsPage locale={LOCALE} />
       </>,
     );
   }

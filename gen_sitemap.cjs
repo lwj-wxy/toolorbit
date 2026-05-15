@@ -118,6 +118,7 @@ const blogPageCount = Math.max(1, Math.ceil(blogPosts.length / POSTS_PER_PAGE));
 
 const baseUrls = [
   { path: '/', lastmod: generatedAt, changefreq: 'daily', priority: '1.0' },
+  { path: '/tools', lastmod: generatedAt, changefreq: 'weekly', priority: '0.95' },
   { path: '/blog', lastmod: generatedAt, changefreq: 'daily', priority: '0.9' },
   { path: '/about', lastmod: generatedAt, changefreq: 'monthly', priority: '0.7' },
   ...Array.from({ length: blogPageCount - 1 }, (_, index) => ({

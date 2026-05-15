@@ -257,6 +257,17 @@ export function blogListMetadata(locale: Locale = 'en', page = 1): Metadata {
   );
 }
 
+export function allToolsMetadata(locale: Locale = 'en'): Metadata {
+  return pageMetadata(
+    locale === 'zh-CN' ? '所有免费在线工具' : 'All Free Online Tools',
+    locale === 'zh-CN'
+      ? `浏览 ToolOrbit 的 ${TOOLS.length} 个免费在线工具，覆盖开发者、AI、PDF、图片、电商、文本、生成器和计算转换工作流。`
+      : `Browse all ${TOOLS.length} free ToolOrbit online tools for developer, AI, PDF, image, ecommerce, text, generator, and conversion workflows.`,
+    '/tools',
+    locale,
+  );
+}
+
 export function blogPostMetadata(slug: string, locale: Locale = 'en'): Metadata {
   const post = BLOG_POSTS.find((item) => item.slug === slug);
   const source = localeSource(locale);

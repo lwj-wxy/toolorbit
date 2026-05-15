@@ -21,6 +21,24 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://toolorbit.site/tools</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/tools" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://toolorbit.site/zh-CN/tools" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolorbit.site/tools" />
+    <lastmod>2026-05-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://toolorbit.site/zh-CN/tools</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/tools" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://toolorbit.site/zh-CN/tools" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolorbit.site/tools" />
+    <lastmod>2026-05-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
     <loc>https://toolorbit.site/blog</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/blog" />
     <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://toolorbit.site/zh-CN/blog" />

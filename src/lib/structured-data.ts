@@ -252,6 +252,43 @@ export function categoryPageJsonLd(category: Category, locale: Locale = 'en') {
   ];
 }
 
+export function allToolsPageJsonLd(locale: Locale = 'en') {
+  const url = absoluteUrl('/tools', locale);
+  const pageName = locale === 'zh-CN' ? '所有免费在线工具' : 'All Free Online Tools';
+
+  return [
+    breadcrumb([
+      { name: SITE_NAME, url: absoluteUrl('/', locale) },
+      { name: pageName, url },
+    ]),
+    {
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      name: pageName,
+      description:
+        locale === 'zh-CN'
+          ? `浏览 ToolOrbit 的 ${TOOLS.length} 个免费浏览器工具，覆盖开发者、AI、PDF、图片、电商、文本、生成器和计算转换工作流。`
+          : `Browse all ${TOOLS.length} free ToolOrbit browser tools across developer, AI, PDF, image, ecommerce, text, generator, and conversion workflows.`,
+      url,
+      isPartOf: {
+        '@type': 'WebSite',
+        '@id': `${SITE_URL}/#website`,
+        name: SITE_NAME,
+        url: SITE_URL,
+      },
+      publisher: organizationEntity(),
+      reviewedBy: organizationEntity(),
+    },
+    itemList(
+      TOOLS.map((tool) => ({
+        name: toolName(tool.id, tool.name, locale),
+        description: toolDescription(tool.id, tool.description, locale),
+        url: absoluteUrl(tool.path, locale),
+      })),
+    ),
+  ];
+}
+
 export function staticPageJsonLd(page: 'about' | 'privacy' | 'terms', locale: Locale = 'en') {
   const source = localeSource(locale);
   const title = readPath(source, `${page}.title`) || page;
