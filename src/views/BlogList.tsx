@@ -17,12 +17,9 @@ const ALL_CATEGORIES = [
   'AI',
   'Development',
   'Security',
-  'Network',
   'Design',
-  'Lifestyle',
-  'Education',
-  'Science',
-  'Tech',
+  'Business',
+  'Productivity',
 ] as const;
 
 const BlogList: React.FC<BlogListProps> = ({ initialPage = 1 }) => {

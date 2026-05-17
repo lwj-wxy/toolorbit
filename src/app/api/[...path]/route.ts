@@ -1,5 +1,6 @@
 import axios from 'axios';
 import OpenAI from 'openai';
+import { getNavigationMenuData } from '../../../lib/navigation-menu';
 
 export const runtime = 'nodejs';
 export const maxDuration = 60;
@@ -9,6 +10,20 @@ const DEEPSEEK_BASE_URL = 'https://api.deepseek.com';
 
 const usageMap: Map<string, number> = (globalThis as any).__toolorbitUsageMap || new Map<string, number>();
 (globalThis as any).__toolorbitUsageMap = usageMap;
+
+export async function GET(request: Request) {
+  const path = new URL(request.url).pathname.replace(/^\/api\/?/, '');
+
+  if (path === 'navigation-menu') {
+    return Response.json(getNavigationMenuData(), {
+      headers: {
+        'Cache-Control': 'public, max-age=0, s-maxage=3600, stale-while-revalidate=86400',
+      },
+    });
+  }
+
+  return Response.json({ error: 'Not found' }, { status: 404 });
+}
 
 type ChatMessage = {
   role: 'system' | 'user';

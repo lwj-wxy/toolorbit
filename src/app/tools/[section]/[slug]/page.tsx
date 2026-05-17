@@ -7,7 +7,7 @@ import JsonLd from '../../../../components/JsonLd';
 import ToolSEOCard from '../../../../components/ToolSEOCard';
 import ToolSearchContent from '../../../../components/ToolSearchContent';
 import ToolPageClient from '../../../../components/ToolPageClient';
-import { FALLBACK_TOOL_GUIDE_PATHS, INFO_CARD_TOOL_KEYS } from '../../../../lib/tool-page-content';
+import { INFO_CARD_TOOL_KEYS } from '../../../../lib/tool-page-content';
 
 export function generateStaticParams() {
   return TOOLS.map((tool) => {
@@ -37,7 +37,7 @@ export default async function Page({ params }: { params: Promise<{ section: stri
       <JsonLd id={`structured-data-tool-${slug}`} data={toolJsonLd(path)} />
       <ToolPageClient path={path} />
       {INFO_CARD_TOOL_KEYS[path] ? <ToolSEOCard toolKey={INFO_CARD_TOOL_KEYS[path]} /> : null}
-      {FALLBACK_TOOL_GUIDE_PATHS.has(path) ? <ToolSearchContent path={path} /> : null}
+      {!INFO_CARD_TOOL_KEYS[path] ? <ToolSearchContent path={path} /> : null}
     </>
   );
 }

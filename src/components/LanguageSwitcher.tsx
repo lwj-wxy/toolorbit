@@ -37,6 +37,7 @@ export default function LanguageSwitcher() {
     const nextPath = localizedPath(pathname, locale);
 
     localStorage.setItem('toolorbit_language', code);
+    document.cookie = `toolorbit_language=${code}; Path=/; Max-Age=31536000; SameSite=Lax`;
     i18n.changeLanguage(code);
     document.documentElement.lang = code === 'zh' ? 'zh-CN' : 'en';
     router.push(query ? `${nextPath}?${query}` : nextPath);

@@ -175,15 +175,6 @@ export function pageMetadata(title?: string, description?: string, path = '/', l
     applicationName: SITE_NAME,
     creator: SITE_NAME,
     publisher: SITE_NAME,
-    keywords: [
-      'online tools',
-      'developer tools',
-      'AI tools',
-      'PDF tools',
-      'image tools',
-      'JSON formatter',
-      'ToolOrbit',
-    ],
     robots: {
       index: true,
       follow: true,

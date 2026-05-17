@@ -114,7 +114,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, initialMarkdown = '' }) => {
         <div className="flex items-center gap-4 text-sm text-slate-500 mb-6 flex-wrap">
           <span className="flex items-center gap-1.5 px-3 py-1 bg-slate-100 rounded-full text-slate-700 font-medium">
             <Tag size={14} />
-            {post.category}
+            {t(`blog.categories.${post.category.toLowerCase()}`, { defaultValue: post.category })}
           </span>
           <span className="flex items-center gap-1.5 bg-slate-50 px-3 py-1 rounded-full">
             <Calendar size={14} />
@@ -285,7 +285,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, initialMarkdown = '' }) => {
               </div>
               <div className="p-6 flex flex-col flex-1">
                 <span className="text-xs font-bold text-emerald-600 tracking-wider uppercase mb-2">
-                  {t(`blog.categories.${related.category}`)}
+                  {t(`blog.categories.${related.category.toLowerCase()}`, { defaultValue: related.category })}
                 </span>
                 <h4 className="text-xl font-bold text-slate-900 mb-2 line-clamp-2 group-hover:text-emerald-600 transition-colors">
                   {t(`blog.posts.${related.slug}.title`)}

@@ -2571,7 +2571,9 @@
       "security": "安全防护",
       "network": "网络技术",
       "design": "视觉设计",
-      "lifestyle": "生活方式"
+      "lifestyle": "生活方式",
+      "business": "商业运营",
+      "productivity": "效率知识"
     },
     "noPosts": "该分类暂无文章。",
     "shareTitle": "分享这篇文章",

@@ -14,6 +14,7 @@ import { SEO_CONTENT_PATHS, getSeoContentPage } from '../../../data/seoContent';
 import { TOOLS } from '../../../data/tools';
 import { getTotalBlogPages, normalizeBlogPage } from '../../../lib/blog-pagination';
 import { CATEGORY_BY_SLUG, CATEGORY_SLUGS } from '../../../lib/category-paths';
+import { getToolSectionCategoryPath, toolSectionStaticParams } from '../../../lib/tool-section-paths';
 import {
   allToolsMetadata,
   authorMetadata,
@@ -76,6 +77,7 @@ function allChineseSegments() {
     ...SEO_CONTENT_PATHS.map((seoPath) => seoPath.split('/').filter(Boolean)),
     ...Array.from({ length: getTotalBlogPages() - 1 }, (_, index) => ['blog', 'page', String(index + 2)]),
     ...Object.values(CATEGORY_SLUGS).map((slug) => ['category', slug]),
+    ...toolSectionStaticParams().map(({ section }) => ['tools', section]),
     ...TOOLS.map((tool) => tool.path.split('/').filter(Boolean)),
     ...BLOG_POSTS.map((post) => ['blog', post.slug]),
   ];
@@ -117,6 +119,16 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (segments[0] === 'category' && segments[1]) {
     const category = CATEGORY_BY_SLUG[segments[1]];
     return category ? categoryMetadata(category, LOCALE) : {};
+  }
+
+  if (segments[0] === 'tools' && segments[1] && !segments[2]) {
+    const categoryPath = getToolSectionCategoryPath(segments[1]);
+
+    if (!categoryPath) {
+      notFound();
+    }
+
+    redirect(`/zh-CN${categoryPath}`);
   }
 
   if (segments[0] === 'tools' && segments[1] && segments[2]) {

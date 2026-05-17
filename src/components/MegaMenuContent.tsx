@@ -1,46 +1,176 @@
 'use client';
 
+import type { ComponentType } from 'react';
+import {
+  Barcode,
+  Banknote,
+  Binary,
+  Bomb,
+  Calculator,
+  Clapperboard,
+  Code,
+  Code2,
+  CreditCard,
+  Crop,
+  Eraser,
+  FileCode,
+  FileCode2,
+  FileImage,
+  FileJson,
+  FileKey,
+  FileSpreadsheet,
+  FileText,
+  Files,
+  Fingerprint,
+  Gamepad2,
+  Hash,
+  Hexagon,
+  Image,
+  ImageIcon,
+  ImageMinus,
+  Keyboard,
+  Languages,
+  Layers,
+  Link as LinkIcon,
+  Link2,
+  Lock,
+  Mic,
+  MonitorSmartphone,
+  Palette,
+  Pipette,
+  QrCode,
+  Radio,
+  RefreshCcw,
+  Regex,
+  ScanLine,
+  ShieldCheck,
+  ShoppingCart,
+  Sparkles,
+  Target,
+  Terminal,
+  Type,
+  Wand2,
+  Zap,
+  BarChart3,
+} from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Link } from '../lib/navigation';
-import { TOOLS } from '../data/tools';
-import { getCategoryPath } from '../lib/category-paths';
+import type { NavCategory, NavTool } from '../lib/navigation-menu';
 
-const navCategories = Array.from(new Set(TOOLS.map(t => t.category))).filter(
-  c => c !== '娱乐工具' && c !== 'AI 工具'
-);
+const iconMap: Record<string, ComponentType<{ size?: number; className?: string }>> = {
+  'ai-youtube-generator': Clapperboard,
+  'ai-prompt-generator': ImageIcon,
+  'ai-weekly-report': FileText,
+  'ai-code-reviewer': FileCode2,
+  'ai-video-script': Clapperboard,
+  'ai-meeting-minutes': Mic,
+  'ai-excel-formula': FileSpreadsheet,
+  'ai-regex': Terminal,
+  'logo-generator': Hexagon,
+  'ai-image-generator': Image,
+  'ai-svg-generator': Image,
+  'ai-xiaohongshu': Sparkles,
+  'ai-text-polisher': Wand2,
+  'ai-translator': Languages,
+  'json-formatter': Code2,
+  'xml-json': RefreshCcw,
+  'text-diff': Layers,
+  base64: Binary,
+  'ascii-table': Hash,
+  'url-encoder': LinkIcon,
+  'hash-generator': Hash,
+  'uuid-generator': Fingerprint,
+  'unicode-converter': Code,
+  'chmod-calculator': FileKey,
+  'text-analyzer': Type,
+  'text-cleaner': Eraser,
+  'symbol-library': Keyboard,
+  'qr-generator': QrCode,
+  'qr-scanner': ScanLine,
+  'barcode-generator': Barcode,
+  'etsy-fee-calculator': ShoppingCart,
+  'stripe-fee-calculator': CreditCard,
+  'listing-generator': Sparkles,
+  'keyword-analyzer': Zap,
+  'competitor-tracker': Target,
+  'market-insights': BarChart3,
+  'pdf-merge': Files,
+  'pdf-split': FileText,
+  'pdf-to-image': FileImage,
+  'image-to-pdf': ImageIcon,
+  'image-compressor': ImageMinus,
+  'image-converter': RefreshCcw,
+  'svg-to-png': FileImage,
+  'image-to-base64': FileCode2,
+  'image-cropper': Crop,
+  'timestamp-converter': Calculator,
+  'base-converter': Calculator,
+  'unit-converter': Calculator,
+  'time-converter': Calculator,
+  'archive-converter': RefreshCcw,
+  'rmb-converter': Banknote,
+  'ppi-calculator': MonitorSmartphone,
+  'color-converter': Palette,
+  'color-palette': Palette,
+  'color-picker': Pipette,
+  'image-to-ico': ImageIcon,
+  'short-url': Link2,
+  'game-2048': Gamepad2,
+  'password-generator': ShieldCheck,
+  'jwt-debugger': Layers,
+  'regex-tester': Regex,
+  'json-to-ts': FileJson,
+  'crypto-symmetric': Lock,
+  'morse-code': Radio,
+  'hex-string-converter': FileCode,
+  'chinese-crypto': ShieldCheck,
+  minesweeper: Bomb,
+};
 
-export function ToolsMegaDropdown() {
+export function ToolNavIcon({
+  id,
+  size = 16,
+  className,
+}: {
+  id: string;
+  size?: number;
+  className?: string;
+}) {
+  const Icon = iconMap[id] || Sparkles;
+  return <Icon size={size} className={className} />;
+}
+
+export function ToolsMegaDropdown({ categories }: { categories: NavCategory[] }) {
   const { t } = useTranslation();
 
   return (
     <div className="absolute top-[64px] left-0 w-full bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800/80 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.05)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top -translate-y-1 group-hover:translate-y-0 z-50">
       <div className="max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-10">
         <div className="grid grid-cols-4 lg:grid-cols-5 xl:grid-cols-8 gap-6">
-          {navCategories.map(category => {
-            const categoryTools = TOOLS.filter(t => t.category === category);
+          {categories.map(({ category, path, tools }) => {
             return (
               <div key={category} className="flex flex-col gap-3">
                 <h3 className="text-[13px] font-extrabold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2 px-2">
                   {t(`common.categories.${category}`)}
                 </h3>
                 <div className="flex flex-col gap-1">
-                  {categoryTools.slice(0, 6).map(tool => (
+                  {tools.slice(0, 6).map(tool => (
                     <Link
                       key={tool.id}
                       to={tool.path}
                       className="group/item flex items-center gap-2 p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-all"
                     >
                       <div className="w-6 h-6 rounded flex items-center justify-center text-slate-400 group-hover/item:text-blue-600 dark:group-hover/item:text-blue-400 transition-colors">
-                        <tool.icon size={16} />
+                        <ToolNavIcon id={tool.id} size={16} />
                       </div>
                       <span className="text-[13px] font-bold text-slate-700 dark:text-slate-300 group-hover/item:text-blue-600 dark:group-hover/item:text-blue-400 truncate">
                         {t(`tools.${tool.id}.name`, { defaultValue: tool.name })}
                       </span>
                     </Link>
                   ))}
-                  {categoryTools.length > 6 && (
+                  {tools.length > 6 && (
                     <Link
-                      to={getCategoryPath(category)}
+                      to={path}
                       className="text-[12px] font-bold text-blue-500 hover:text-blue-700 px-2 mt-1"
                     >
                       {t('common.viewMore')}
@@ -69,10 +199,8 @@ const bgClassMap: Record<string, string> = {
   indigo: 'bg-indigo-100 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400 hover:border-indigo-100 dark:hover:border-indigo-800/50 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 group-hover/item:text-indigo-700 dark:group-hover/item:text-indigo-400',
 };
 
-export function AiMegaDropdown() {
+export function AiMegaDropdown({ aiCategoryPath, aiTools }: { aiCategoryPath: string; aiTools: NavTool[] }) {
   const { t } = useTranslation();
-  const aiCategoryPath = getCategoryPath('AI 工具');
-  const aiTools = TOOLS.filter(t => t.category === 'AI 工具');
 
   return (
     <div className="absolute top-[64px] left-0 w-full bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800/80 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.05)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top -translate-y-1 group-hover:translate-y-0 z-50">
@@ -96,8 +224,6 @@ export function AiMegaDropdown() {
             const titleDarkHover = classes.split(' ').find(c => c.startsWith('dark:group-hover/item:text-')) || '';
             const iconBg = classes.split(' ').find(c => c.startsWith('bg-')) || '';
             const iconDarkBg = classes.split(' ').find(c => c.startsWith('dark:bg-')) || '';
-            const iconText = classes.split(' ').find(c => c.startsWith('text-')) || '';
-            const iconDarkText = classes.split(' ').find(c => c.startsWith('dark:text-')) || '';
 
             return (
               <Link
@@ -105,8 +231,8 @@ export function AiMegaDropdown() {
                 to={tool.path}
                 className="group/item flex items-center gap-2 rounded-lg p-2 transition-all hover:bg-slate-50 dark:hover:bg-slate-800"
               >
-                <div className={`w-6 h-6 rounded flex items-center justify-center flex-shrink-0 ${iconBg} ${iconDarkBg} ${iconText} ${iconDarkText} transition-colors`}>
-                  <tool.icon size={15} />
+                <div className={`w-6 h-6 rounded flex items-center justify-center flex-shrink-0 ${iconBg} ${iconDarkBg} transition-colors`}>
+                  <ToolNavIcon id={tool.id} size={15} />
                 </div>
                 <span className={`min-w-0 truncate text-[13px] font-bold text-slate-700 dark:text-slate-300 ${titleHover} ${titleDarkHover} transition-colors`}>
                   {t(`tools.${tool.id}.name`, { defaultValue: tool.name })}

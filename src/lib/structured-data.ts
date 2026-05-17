@@ -1,4 +1,6 @@
 import { BLOG_POSTS } from '../constants/blogData';
+import fs from 'fs';
+import path from 'path';
 import {
   BRAND_CONTACT_EMAIL,
   BRAND_DESCRIPTION,
@@ -87,6 +89,24 @@ function blogTitle(slug: string, locale: Locale = 'en') {
 function blogDescription(slug: string, locale: Locale = 'en') {
   const source = localeSource(locale);
   return text(readPath(source, `blog.posts.${slug}.summary`), `${SITE_NAME} article.`);
+}
+
+function blogWordCount(slug: string, locale: Locale = 'en') {
+  const languageDir = locale === 'zh-CN' ? 'zh' : 'en';
+  const articlePath = path.join(process.cwd(), 'public', 'articles', languageDir, `${slug}.md`);
+
+  try {
+    const markdown = fs.readFileSync(articlePath, 'utf8');
+    const words = markdown
+      .replace(/```[\s\S]*?```/g, ' ')
+      .replace(/[#>*_`[\]()~-]/g, ' ')
+      .trim()
+      .split(/\s+/)
+      .filter(Boolean);
+    return Math.max(words.length, 1);
+  } catch {
+    return undefined;
+  }
 }
 
 function toolApplicationCategory(category: string) {
@@ -485,6 +505,7 @@ export function blogPostJsonLd(slug: string, locale: Locale = 'en') {
   const title = blogTitle(slug, locale);
   const description = blogDescription(slug, locale);
   const url = absoluteUrl(`/blog/${slug}`, locale);
+  const wordCount = blogWordCount(slug, locale);
   const relatedTools = (BLOG_RELATED_TOOLS[slug] || [])
     .map((path) => TOOLS.find((tool) => tool.path === path))
     .filter(Boolean) as typeof TOOLS;
@@ -500,6 +521,8 @@ export function blogPostJsonLd(slug: string, locale: Locale = 'en') {
       '@type': 'BlogPosting',
       headline: title,
       description,
+      articleSection: post.category,
+      wordCount,
       image: assetUrl(post.image),
       thumbnailUrl: assetUrl(post.image),
       url,

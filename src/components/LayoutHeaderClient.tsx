@@ -6,9 +6,9 @@ import { FormEvent, useEffect, useRef, useState } from 'react';
 import { ChevronDown, Menu, Moon, Search, Sparkles, Sun } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../context/ThemeContext';
-import { getCategoryPath } from '../lib/category-paths';
 import { detectLocaleFromPathname, localizedPath } from '../lib/i18n-routing';
 import { Link, useCurrentLocation } from '../lib/navigation';
+import type { NavigationMenuData } from '../lib/navigation-menu';
 import { cn } from '../lib/utils';
 import LanguageSwitcher from './LanguageSwitcher';
 
@@ -29,6 +29,7 @@ export default function LayoutHeaderClient() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [isWideDesktop, setIsWideDesktop] = useState(false);
+  const [navigationMenu, setNavigationMenu] = useState<NavigationMenuData | null>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const location = useCurrentLocation();
 
@@ -51,7 +52,22 @@ export default function LayoutHeaderClient() {
     };
   }, []);
 
-  const aiCategoryPath = getCategoryPath('AI 工具');
+  useEffect(() => {
+    let cancelled = false;
+
+    fetch('/api/navigation-menu')
+      .then((response) => (response.ok ? response.json() : null))
+      .then((data: NavigationMenuData | null) => {
+        if (!cancelled && data) setNavigationMenu(data);
+      })
+      .catch(() => {});
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const aiCategoryPath = navigationMenu?.aiCategoryPath || '/category/ai-tools';
   const isAiSection = location.pathname === aiCategoryPath || location.pathname.startsWith('/tools/ai/');
   const isToolSection =
     location.pathname === '/' ||
@@ -102,7 +118,7 @@ export default function LayoutHeaderClient() {
                 {t('common.navTools')}
                 <ChevronDown className="h-3.5 w-3.5 text-slate-400 transition-transform duration-200 group-hover:rotate-180 lg:h-4 lg:w-4" />
               </Link>
-              <ToolsMegaDropdown />
+              <ToolsMegaDropdown categories={navigationMenu?.categories || []} />
             </div>
 
             <div className="group flex h-full items-center">
@@ -121,7 +137,7 @@ export default function LayoutHeaderClient() {
                 {t('common.categories.AI 工具') || 'AI Tools'}
                 <ChevronDown className="h-3.5 w-3.5 text-slate-400 transition-transform duration-200 group-hover:rotate-180 lg:h-4 lg:w-4" />
               </Link>
-              <AiMegaDropdown />
+              <AiMegaDropdown aiCategoryPath={aiCategoryPath} aiTools={navigationMenu?.aiTools || []} />
             </div>
 
             <Link
@@ -206,6 +222,7 @@ export default function LayoutHeaderClient() {
           onClose={() => setMobileMenuOpen(false)}
           pathname={location.pathname}
           searchParams={location.search}
+          navigationMenu={navigationMenu}
         />
       )}
     </>

@@ -7,6 +7,7 @@ import Layout from '../components/Layout';
 import Providers from './providers';
 import { BRAND_DESCRIPTION } from '../data/brand';
 import { getGaMeasurementId } from '../lib/analytics-config';
+import { getToolTrackingData } from '../lib/navigation-menu';
 import { organizationJsonLd, websiteJsonLd } from '../lib/structured-data';
 
 const googleAdsenseClient =
@@ -46,6 +47,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const gaMeasurementId = getGaMeasurementId();
+  const toolTrackingData = getToolTrackingData();
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -87,14 +89,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             />
             <Script id="google-analytics" strategy="afterInteractive">
               {`
-                gtag('js', new Date());
-                gtag('config', '${gaMeasurementId}');
+                window.dataLayer = window.dataLayer || [];
+                window.gtag = window.gtag || function(){window.dataLayer.push(arguments);}
+                window.gtag('js', new Date());
+                window.gtag('config', '${gaMeasurementId}');
               `}
             </Script>
           </>
         ) : null}
         <DelayedAdSenseScript client={googleAdsenseClient} />
-        <Providers>
+        <Providers toolTrackingData={toolTrackingData}>
           <Layout>{children}</Layout>
         </Providers>
       </body>

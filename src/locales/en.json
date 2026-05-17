@@ -213,7 +213,9 @@
       "security": "Security",
       "network": "Network",
       "design": "Design",
-      "lifestyle": "Lifestyle"
+      "lifestyle": "Lifestyle",
+      "business": "Business",
+      "productivity": "Productivity"
     },
     "noPosts": "No articles in this category yet.",
     "shareTitle": "Share this post",

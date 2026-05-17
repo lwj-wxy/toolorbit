@@ -29,7 +29,7 @@ export const BLOG_POSTS: BlogPost[] = [
   {
     slug: 'how-qr-codes-work',
     date: '2026-05-13',
-    category: 'Science',
+    category: 'Productivity',
     image: blogImage('how-qr-codes-work'),
   },
   {
@@ -83,13 +83,13 @@ export const BLOG_POSTS: BlogPost[] = [
   {
     slug: 'ai-translator-future',
     date: '2026-05-04',
-    category: 'Tech',
+    category: 'AI',
     image: blogImage('ai-translator-future'),
   },
   {
     slug: 'ai-text-polisher-guide',
     date: '2026-05-03',
-    category: 'Tech',
+    category: 'AI',
     image: blogImage('ai-text-polisher-guide'),
   },
   {
@@ -118,7 +118,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: 'ai-ecommerce-marketing-tips',
-    category: 'Lifestyle',
+    category: 'Business',
     image: blogImage('ai-ecommerce-marketing-tips'),
     date: '2026-04-28',
   },
@@ -143,13 +143,13 @@ export const BLOG_POSTS: BlogPost[] = [
   {
     slug: 'morse-code-guide',
     date: '2026-04-24',
-    category: 'Education',
+    category: 'Productivity',
     image: blogImage('morse-code-guide'),
   },
   {
     slug: 'base64-encoding-deep-dive',
     date: '2026-04-23',
-    category: 'Network',
+    category: 'Development',
     image: blogImage('base64-encoding-deep-dive'),
   },
   {
@@ -167,7 +167,7 @@ export const BLOG_POSTS: BlogPost[] = [
   {
     slug: 'http-status-codes-explained',
     date: '2026-04-20',
-    category: 'Network',
+    category: 'Development',
     image: blogImage('http-status-codes-explained'),
   },
   {
@@ -179,19 +179,19 @@ export const BLOG_POSTS: BlogPost[] = [
   {
     slug: 'sugar-content-rankings',
     date: '2026-04-18',
-    category: 'Science',
+    category: 'Productivity',
     image: blogImage('sugar-content-rankings'),
   },
   {
     slug: 'coffee-caffeine-guide',
     date: '2026-04-17',
-    category: 'Science',
+    category: 'Productivity',
     image: blogImage('coffee-caffeine-guide'),
   },
   {
     slug: 'remote-work-ergonomics',
     date: '2026-04-16',
-    category: 'Lifestyle',
+    category: 'Productivity',
     image: blogImage('remote-work-ergonomics'),
   },
 ];

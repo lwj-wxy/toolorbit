@@ -12,7 +12,8 @@ interface LayoutPathEnhancementsProps {
 
 export default function LayoutPathEnhancements({ slot }: LayoutPathEnhancementsProps) {
   const { pathname } = useCurrentLocation();
-  const isToolPage = pathname.startsWith('/tools/');
+  const normalizedPathname = pathname.replace(/^\/zh-CN(?=\/|$)/i, '') || '/';
+  const isToolPage = normalizedPathname.startsWith('/tools/');
 
   if (!isToolPage) return null;
 

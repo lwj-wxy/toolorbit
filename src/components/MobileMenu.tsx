@@ -4,22 +4,20 @@ import { useRouter } from 'next/navigation';
 import { Search, X, Sparkles } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Link } from '../lib/navigation';
-import { TOOLS } from '../data/tools';
 import { cn } from '../lib/utils';
 import LanguageSwitcher from './LanguageSwitcher';
 import { detectLocaleFromPathname, localizedPath } from '../lib/i18n-routing';
-
-const navCategories = Array.from(new Set(TOOLS.map(t => t.category))).filter(
-  c => c !== '娱乐工具' && c !== 'AI 工具'
-);
+import type { NavigationMenuData } from '../lib/navigation-menu';
+import { ToolNavIcon } from './MegaMenuContent';
 
 interface MobileMenuProps {
   onClose: () => void;
   pathname: string;
   searchParams: string;
+  navigationMenu: NavigationMenuData | null;
 }
 
-export default function MobileMenu({ onClose, pathname, searchParams }: MobileMenuProps) {
+export default function MobileMenu({ onClose, pathname, searchParams, navigationMenu }: MobileMenuProps) {
   const router = useRouter();
   const { t } = useTranslation();
 
@@ -68,20 +66,19 @@ export default function MobileMenu({ onClose, pathname, searchParams }: MobileMe
             />
           </form>
 
-          {navCategories.map((category) => {
-            const categoryTools = TOOLS.filter(t => t.category === category);
+          {(navigationMenu?.categories || []).map(({ category, tools }) => {
             return (
               <div key={category} className="flex flex-col gap-3">
                 <h4 className="font-bold text-slate-900 dark:text-slate-100 text-[15px] border-b border-slate-200 dark:border-slate-800 pb-2">{t(`common.categories.${category}`)}</h4>
                 <div className="flex flex-col gap-2">
-                  {categoryTools.map(tool => (
+                  {tools.map(tool => (
                     <Link
                       key={tool.id}
                       to={tool.path}
                       onClick={onClose}
                       className="flex items-center gap-3 py-2 px-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                     >
-                      <tool.icon size={16} />
+                      <ToolNavIcon id={tool.id} size={16} />
                       <span className="text-[14px] font-medium">{t(`tools.${tool.id}.name`, { defaultValue: tool.name })}</span>
                     </Link>
                   ))}
@@ -97,14 +94,14 @@ export default function MobileMenu({ onClose, pathname, searchParams }: MobileMe
               {t('common.categories.AI 工具') || 'AI Tools'}
             </h4>
             <div className="flex flex-col gap-2">
-              {TOOLS.filter(t => t.category === 'AI 工具').map(tool => (
+              {(navigationMenu?.aiTools || []).map(tool => (
                 <Link
                   key={tool.id}
                   to={tool.path}
                   onClick={onClose}
                   className="flex items-center gap-3 py-2 px-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-violet-50 dark:hover:bg-violet-900/20 hover:text-violet-600 dark:hover:text-violet-400 transition-colors"
                 >
-                  <tool.icon size={16} />
+                  <ToolNavIcon id={tool.id} size={16} />
                   <span className="text-[14px] font-medium">{t(`tools.${tool.id}.name`, { defaultValue: tool.name })}</span>
                 </Link>
               ))}

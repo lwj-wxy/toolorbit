@@ -1,4 +1,6 @@
 const fs = require('fs');
+const path = require('path');
+const ts = require('typescript');
 
 const SITE_URL = 'https://toolorbit.site';
 const POSTS_PER_PAGE = 12;
@@ -24,6 +26,19 @@ const SEO_CONTENT_PATHS = [
   '/best-ai-tools-for-content-creators',
   '/authors/toolorbit-editorial-team',
 ];
+
+require.extensions['.ts'] = function loadTypeScript(module, filename) {
+  const source = fs.readFileSync(filename, 'utf8');
+  const output = ts.transpileModule(source, {
+    compilerOptions: {
+      esModuleInterop: true,
+      module: ts.ModuleKind.CommonJS,
+      target: ts.ScriptTarget.ES2022,
+    },
+    fileName: filename,
+  }).outputText;
+  module._compile(output, filename);
+};
 
 function escapeXml(value) {
   return String(value)
@@ -69,38 +84,20 @@ function hreflangXml(path) {
 }
 
 function readTools() {
-  const source = fs.readFileSync('src/data/tools-meta.ts', 'utf8');
-  const blocks = source.match(/\{\s*id:\s*['"][\s\S]*?\n\s*\}/g) || [];
-
-  return blocks
-    .map((block) => {
-      const path = block.match(/path:\s*['"]([^'"]+)['"]/)?.[1];
-      if (!path) return null;
-
-      return {
-        path,
-        isPopular: /isPopular:\s*true/.test(block),
-      };
-    })
-    .filter(Boolean);
+  const { TOOLS_META } = require(path.join(process.cwd(), 'src/data/tools-meta.ts'));
+  return TOOLS_META.map((tool) => ({
+    path: tool.path,
+    isPopular: Boolean(tool.isPopular),
+  }));
 }
 
 function readBlogPosts() {
-  const source = fs.readFileSync('src/constants/blogData.ts', 'utf8');
-  const blocks = source.match(/\{\s*id:\s*['"][\s\S]*?\n\s*\}/g) || [];
-
-  return blocks
-    .map((block) => {
-      const slug = block.match(/slug:\s*['"]([^'"]+)['"]/)?.[1];
-      if (!slug) return null;
-
-      return {
-        path: `/blog/${slug}`,
-        date: block.match(/date:\s*['"]([^'"]+)['"]/)?.[1] || today(),
-        image: block.match(/image:\s*['"]([^'"]+)['"]/)?.[1] || '',
-      };
-    })
-    .filter(Boolean);
+  const { BLOG_POSTS } = require(path.join(process.cwd(), 'src/constants/blogData.ts'));
+  return BLOG_POSTS.map((post) => ({
+    path: `/blog/${post.slug}`,
+    date: post.date || today(),
+    image: post.image || '',
+  }));
 }
 
 function urlEntry({ path, lastmod, changefreq, priority, image, locale = 'en' }) {
@@ -108,7 +105,7 @@ function urlEntry({ path, lastmod, changefreq, priority, image, locale = 'en' })
   const imageXml = image
     ? `
     <image:image>
-      <image:loc>${escapeXml(image)}</image:loc>
+      <image:loc>${escapeXml(image.startsWith('http') ? image : `${SITE_URL}${image}`)}</image:loc>
     </image:image>`
     : '';
 

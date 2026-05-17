@@ -4,44 +4,85 @@ import React from 'react';
 import { Link, useCurrentLocation } from '../lib/navigation';
 import { ChevronRight, Home } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { CATEGORY_BY_SLUG, getCategoryPath } from '../lib/category-paths';
+import { getToolSectionCategory } from '../lib/tool-section-paths';
 
 interface BreadcrumbsProps {
   items?: { label: string; path: string }[];
+}
+
+const TOOL_ID_BY_SLUG: Record<string, string> = {
+  xiaohongshu: 'ai-xiaohongshu',
+  'xml-to-json': 'xml-json',
+  'youtube-generator': 'ai-youtube-generator',
+  'prompt-generator': 'ai-prompt-generator',
+  'weekly-report': 'ai-weekly-report',
+  'code-reviewer': 'ai-code-reviewer',
+  'video-script': 'ai-video-script',
+  'meeting-minutes': 'ai-meeting-minutes',
+  'excel-formula': 'ai-excel-formula',
+  regex: 'ai-regex',
+  'image-generator': 'ai-image-generator',
+  'svg-generator': 'ai-svg-generator',
+  'text-polisher': 'ai-text-polisher',
+  translator: 'ai-translator',
+};
+
+function normalizePathname(pathname: string) {
+  return pathname.replace(/^\/zh-CN(?=\/|$)/i, '') || '/';
+}
+
+function titleFromSlug(slug: string) {
+  return slug
+    .split('-')
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(' ');
 }
 
 const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items }) => {
   const { t } = useTranslation();
   const location = useCurrentLocation();
 
-  // If no items provided, try to generate from path
-  const pathItems = items || location.pathname.split('/').filter(Boolean).map((part, index, array) => {
-    const path = '/' + array.slice(0, index + 1).join('/');
-    
-    // Check if it's a category or a tool
-    let label = part;
-    if (part === 'tools') label = t('common.navTools');
-    else if (part === 'dev') label = t('common.categories.开发者工具');
-    else if (part === 'image') label = t('common.categories.图片处理');
-    else if (part === 'pdf') label = t('common.categories.PDF工具');
-    else if (part === 'ecommerce') label = t('common.categories.电商工具');
-    else if (part === 'text') label = t('common.categories.文本排版');
-    else if (part === 'calculate') label = t('common.categories.计算转换');
-    else if (part === 'net') label = t('common.categories.站长工具');
-    else if (part === 'fun') label = t('common.categories.娱乐工具');
-    else {
-      // Try to get tool name from i18n
-      let lookupPart = part;
-      if (part === 'xiaohongshu') lookupPart = 'ai-xiaohongshu';
-      else if (part === 'xml-to-json') lookupPart = 'xml-json';
-      else if (part === 'youtube-generator') lookupPart = 'ai-youtube-generator';
-      const toolName = t(`tools.${lookupPart}.name`);
-      if (toolName && toolName !== `tools.${lookupPart}.name`) {
-        label = toolName;
-      }
+  const pathItems = React.useMemo(() => {
+    if (items) return items;
+
+    const normalizedPathname = normalizePathname(location.pathname);
+    const parts = normalizedPathname.split('/').filter(Boolean);
+
+    if (parts[0] === 'tools' && parts[1] && parts[2]) {
+      const category = getToolSectionCategory(parts[1]);
+      const toolId = TOOL_ID_BY_SLUG[parts[2]] || parts[2];
+      const toolName = t(`tools.${toolId}.name`, { defaultValue: titleFromSlug(parts[2]) });
+
+      return [
+        ...(category
+          ? [
+              {
+                label: t(`common.categories.${category}`, { defaultValue: category }),
+                path: getCategoryPath(category),
+              },
+            ]
+          : []),
+        { label: toolName, path: normalizedPathname },
+      ];
     }
 
-    return { label, path };
-  });
+    if (parts[0] === 'category' && parts[1]) {
+      const category = CATEGORY_BY_SLUG[parts[1]];
+      return [
+        {
+          label: category ? t(`common.categories.${category}`, { defaultValue: category }) : titleFromSlug(parts[1]),
+          path: normalizedPathname,
+        },
+      ];
+    }
+
+    return parts.map((part, index, array) => {
+      const path = '/' + array.slice(0, index + 1).join('/');
+      return { label: titleFromSlug(part), path };
+    });
+  }, [items, location.pathname, t]);
 
   return (
     <nav className="flex mb-6 overflow-hidden" aria-label="Breadcrumb">
