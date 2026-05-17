@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { Link, useCurrentLocation } from '../lib/navigation';
 import { ChevronRight, Home } from 'lucide-react';

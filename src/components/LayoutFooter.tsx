@@ -16,7 +16,7 @@ export default function LayoutFooter() {
       </div>
       <div className="text-center">
         <p>{t('common.footer_desc')}</p>
-        <p className="mt-2 max-w-2xl text-xs leading-5 text-slate-500 dark:text-slate-500">
+        <p className="mt-2 max-w-2xl text-xs leading-5 text-slate-500 dark:text-slate-400">
           {t('common.footer_trust', { defaultValue: BRAND_PRIVACY_SUMMARY })}
         </p>
         <p>{t('common.footerText')}</p>

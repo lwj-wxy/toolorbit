@@ -47,6 +47,10 @@ function absoluteUrl(path: string, locale: Locale = 'en') {
   return `${SITE_URL}${localizedPath(path, locale)}`;
 }
 
+function assetUrl(path: string) {
+  return path.startsWith('http') ? path : `${SITE_URL}${path}`;
+}
+
 function text(value: unknown, fallback = '') {
   return typeof value === 'string' && value.trim() ? value.trim() : fallback;
 }
@@ -496,7 +500,8 @@ export function blogPostJsonLd(slug: string, locale: Locale = 'en') {
       '@type': 'BlogPosting',
       headline: title,
       description,
-      image: post.image,
+      image: assetUrl(post.image),
+      thumbnailUrl: assetUrl(post.image),
       url,
       mainEntityOfPage: url,
       datePublished: post.date,

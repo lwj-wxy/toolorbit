@@ -8,7 +8,7 @@ const LOCALE_PREFIX_PATTERN = /^\/(?:zh-CN)(?=\/|$)/i;
 
 export const HREFLANG_CODES: Record<Locale, string> = {
   en: 'en',
-  'zh-CN': 'zh-Hans',
+  'zh-CN': 'zh-CN',
 };
 
 export function normalizePathname(pathname = '/') {

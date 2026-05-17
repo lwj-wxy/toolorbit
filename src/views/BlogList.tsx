@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
+import Image from 'next/image';
 import { useTranslation } from 'react-i18next';
 import { Link } from '../lib/navigation';
 import { Calendar, ChevronRight, ChevronLeft } from 'lucide-react';
@@ -55,19 +56,17 @@ const BlogList: React.FC<BlogListProps> = ({ initialPage = 1 }) => {
 
   const renderPostCard = (post: BlogPost) => (
     <Link 
-      key={post.id} 
+      key={post.slug} 
       to={`/blog/${post.slug}`}
-      className="group flex flex-col bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full"
+      className="group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:border-slate-800 dark:bg-slate-900"
     >
       <div className="relative aspect-[16/9] overflow-hidden bg-slate-100">
-        <img 
+        <Image
           src={post.image} 
           alt={t(`blog.posts.${post.slug}.title`)}
-          referrerPolicy="no-referrer"
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-          onError={(e) => {
-            (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&q=80&w=800';
-          }}
+          fill
+          sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+          className="object-cover transition-transform duration-500 group-hover:scale-110"
         />
         <div className="absolute top-4 left-4 z-10">
           <span className="px-3 py-1 bg-white/90 backdrop-blur-sm text-[10px] uppercase tracking-wider font-extrabold text-slate-700 rounded-lg shadow-sm border border-white/20">
@@ -82,11 +81,11 @@ const BlogList: React.FC<BlogListProps> = ({ initialPage = 1 }) => {
           <span>{post.date}</span>
         </div>
         
-        <h2 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-emerald-600 transition-colors line-clamp-2 leading-snug">
+        <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2 group-hover:text-emerald-600 transition-colors line-clamp-2 leading-snug">
           {t(`blog.posts.${post.slug}.title`, { defaultValue: post.slug.replace(/-/g, ' ') })}
         </h2>
         
-        <p className="text-slate-500 text-[13px] mb-6 line-clamp-2 leading-relaxed">
+        <p className="text-slate-500 dark:text-slate-400 text-[13px] mb-6 line-clamp-2 leading-relaxed">
           {t(`blog.posts.${post.slug}.summary`, { defaultValue: '' })}
         </p>
         

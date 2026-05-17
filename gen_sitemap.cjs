@@ -56,7 +56,7 @@ function absoluteLocalizedUrl(path, locale) {
 function hreflangXml(path) {
   const alternates = [
     ['en', absoluteLocalizedUrl(path, 'en')],
-    ['zh-Hans', absoluteLocalizedUrl(path, 'zh-CN')],
+    ['zh-CN', absoluteLocalizedUrl(path, 'zh-CN')],
     ['x-default', absoluteLocalizedUrl(path, 'en')],
   ];
 

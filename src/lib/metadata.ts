@@ -150,11 +150,24 @@ function alternateLanguages(path: string) {
   };
 }
 
+function ogImage(title: string, description: string) {
+  const params = new URLSearchParams({ title, description });
+  return [
+    {
+      url: `/og-image?${params.toString()}`,
+      width: 1200,
+      height: 630,
+      alt: title,
+    },
+  ];
+}
+
 export function pageMetadata(title?: string, description?: string, path = '/', locale: Locale = 'en'): Metadata {
   const url = absoluteLocalizedUrl(path, locale);
   const metadataTitle = cleanTitle(title);
   const metadataDescription = cleanDescription(description);
   const socialTitle = title ? `${title} | ${SITE_NAME}` : SITE_NAME;
+  const socialImage = ogImage(metadataTitle, metadataDescription);
 
   return {
     title: metadataTitle,
@@ -194,13 +207,13 @@ export function pageMetadata(title?: string, description?: string, path = '/', l
       type: 'website',
       locale: locale === 'zh-CN' ? 'zh_CN' : 'en_US',
       alternateLocale: locale === 'zh-CN' ? ['en_US'] : ['zh_CN'],
-      images: ['/og-image'],
+      images: socialImage,
     },
     twitter: {
       card: 'summary_large_image',
       title: cleanTitle(socialTitle) === SITE_NAME ? SITE_NAME : `${metadataTitle} | ${SITE_NAME}`,
       description: metadataDescription,
-      images: ['/og-image'],
+      images: socialImage,
     },
   };
 }
@@ -287,7 +300,6 @@ export function blogPostMetadata(slug: string, locale: Locale = 'en'): Metadata 
     openGraph: {
       ...metadata.openGraph,
       type: 'article',
-      images: post?.image ? [post.image] : metadata.openGraph?.images,
       publishedTime: post?.date,
     },
   };

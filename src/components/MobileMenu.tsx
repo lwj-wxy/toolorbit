@@ -1,11 +1,13 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { Search, X, Sparkles } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Link } from '../lib/navigation';
 import { TOOLS } from '../data/tools';
 import { cn } from '../lib/utils';
 import LanguageSwitcher from './LanguageSwitcher';
+import { detectLocaleFromPathname, localizedPath } from '../lib/i18n-routing';
 
 const navCategories = Array.from(new Set(TOOLS.map(t => t.category))).filter(
   c => c !== '娱乐工具' && c !== 'AI 工具'
@@ -18,6 +20,7 @@ interface MobileMenuProps {
 }
 
 export default function MobileMenu({ onClose, pathname, searchParams }: MobileMenuProps) {
+  const router = useRouter();
   const { t } = useTranslation();
 
   return (
@@ -43,9 +46,15 @@ export default function MobileMenu({ onClose, pathname, searchParams }: MobileMe
             onSubmit={(e) => {
               e.preventDefault();
               const formData = new FormData(e.currentTarget);
-              const query = formData.get('search');
+              const query = String(formData.get('search') || '').trim();
+              const params = new URLSearchParams();
+              if (query) params.set('search', query);
+              const homePath = localizedPath('/', detectLocaleFromPathname(pathname));
+              const nextUrl = params.size ? `${homePath}?${params.toString()}` : homePath;
+              const nextSearch = params.size ? `?${params.toString()}` : '';
               onClose();
-              window.location.href = `/?search=${query}`;
+              router.push(nextUrl);
+              window.dispatchEvent(new CustomEvent('toolorbit:searchchange', { detail: nextSearch }));
             }}
             className="relative md:hidden"
           >

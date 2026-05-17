@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
 import { Link } from '../lib/navigation';
 import { useTranslation } from 'react-i18next';
 import { Calendar, Clock, Tag, FileText, Wrench, ShieldCheck, UserCheck } from 'lucide-react';
@@ -161,12 +162,16 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, initialMarkdown = '' }) => {
           </div>
         </div>
 
-        <img 
+        <div className="relative mb-12 h-[400px] overflow-hidden rounded-3xl shadow-lg md:h-[500px]">
+          <Image
           src={post.image} 
           alt={title}
-          referrerPolicy="no-referrer"
-          className="w-full h-[400px] md:h-[500px] object-cover rounded-3xl shadow-lg mb-12"
-        />
+            fill
+            priority
+            sizes="(min-width: 1024px) 896px, 100vw"
+            className="object-cover"
+          />
+        </div>
 
         {markdown ? (
           <div className="prose prose-slate prose-lg md:prose-xl max-w-none 
@@ -265,16 +270,17 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, initialMarkdown = '' }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {relatedPosts.map(related => (
             <Link 
-              key={related.id} 
+              key={related.slug}
               to={`/blog/${related.slug}`}
               className="group flex flex-col bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
             >
               <div className="relative h-48 overflow-hidden bg-slate-100">
-                <img 
+                <Image
                   src={related.image} 
                   alt={t(`blog.posts.${related.slug}.title`)}
-                  referrerPolicy="no-referrer"
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  fill
+                  sizes="(min-width: 768px) 50vw, 100vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-110"
                 />
               </div>
               <div className="p-6 flex flex-col flex-1">

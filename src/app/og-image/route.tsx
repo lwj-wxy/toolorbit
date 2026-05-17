@@ -1,4 +1,5 @@
 import { ImageResponse } from 'next/og';
+import type { NextRequest } from 'next/server';
 
 export const runtime = 'edge';
 const size = {
@@ -6,7 +7,21 @@ const size = {
   height: 630,
 };
 
-export function GET() {
+function textParam(value: string | null, fallback: string, maxLength: number) {
+  const cleaned = (value || fallback).replace(/\s+/g, ' ').trim();
+  if (cleaned.length <= maxLength) return cleaned;
+  return `${cleaned.slice(0, maxLength - 3).trim()}...`;
+}
+
+export function GET(request: NextRequest) {
+  const { searchParams } = request.nextUrl;
+  const title = textParam(searchParams.get('title'), 'Modern Toolbox for Modern Creators', 88);
+  const description = textParam(
+    searchParams.get('description'),
+    'Fast online tools for developers, creators, and everyday workflows.',
+    150,
+  );
+
   return new ImageResponse(
     (
       <div
@@ -48,15 +63,15 @@ export function GET() {
                 width: '88px',
               }}
             >
-              Ω
+              TO
             </div>
             <div style={{ fontSize: '48px', fontWeight: 800 }}>ToolOrbit</div>
           </div>
           <div style={{ fontSize: '88px', fontWeight: 900, letterSpacing: '-2px', lineHeight: 1.02 }}>
-            Modern Toolbox for Modern Creators
+            {title}
           </div>
           <div style={{ color: '#bfdbfe', fontSize: '34px', lineHeight: 1.35, marginTop: '36px' }}>
-            Fast online tools for developers, creators, and everyday workflows.
+            {description}
           </div>
         </div>
       </div>

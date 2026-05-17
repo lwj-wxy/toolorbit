@@ -1,228 +1,197 @@
-
 export interface BlogPost {
-  id: string;
   slug: string;
   date: string;
   category: string;
   image: string;
 }
 
+const blogImage = (slug: string) => `/images/blog/${slug}.jpg`;
+
 export const BLOG_POSTS: BlogPost[] = [
   {
-    id: '15',
-    slug: 'xml-json-conversion-guide',
+    slug: 'uuid-demystified',
+    date: '2026-05-16',
     category: 'Development',
-    image: 'https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&q=80&w=800',
-    date: '2026-05-09',
+    image: blogImage('uuid-demystified'),
   },
   {
-    id: '16',
-    slug: 'xiaohongshu-copywriting-ai',
-    category: 'Design',
-    image: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&q=80&w=800',
-    date: '2026-05-09',
-  },
-  {
-    id: '17',
-    slug: 'why-text-diff-matters',
+    slug: 'timezone-unix-timestamp-guide',
+    date: '2026-05-15',
     category: 'Development',
-    image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800',
-    date: '2026-05-09',
+    image: blogImage('timezone-unix-timestamp-guide'),
   },
   {
-    id: '12',
-    slug: 'modern-pdf-workflow-efficiency',
-    category: 'Development',
-    image: 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&q=80&w=800',
-    date: '2026-05-06',
-  },
-  {
-    id: '13',
-    slug: 'ai-ecommerce-marketing-tips',
-    category: 'Lifestyle',
-    image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=800',
-    date: '2026-05-05',
-  },
-  {
-    id: '14',
-    slug: 'secure-developer-tools-privacy',
-    category: 'Security',
-    image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=800',
-    date: '2026-05-04',
-  },
-  {
-    id: '1',
-    slug: 'why-use-json-formatter',
-    date: '2026-05-06',
-    category: 'Development',
-    image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=800'
-  },
-  {
-    id: '2',
-    slug: 'benefits-of-chinese-crypto-sm',
-    date: '2026-05-05',
-    category: 'Security',
-    image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800'
-  },
-  {
-    id: '3',
-    slug: 'morse-code-guide',
-    date: '2026-05-04',
-    category: 'Education',
-    image: 'https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&q=80&w=800'
-  },
-  {
-    id: '4',
-    slug: 'base64-encoding-deep-dive',
-    date: '2026-05-03',
-    category: 'Network',
-    image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc51?auto=format&fit=crop&q=80&w=800'
-  },
-  {
-    id: '5',
-    slug: 'color-theory-for-developers',
-    date: '2026-05-02',
-    category: 'Design',
-    image: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&q=80&w=800'
-  },
-  {
-    id: '6',
-    slug: 'regex-mastery-guide',
-    date: '2026-05-01',
-    category: 'Development',
-    image: 'https://images.unsplash.com/photo-1504639725590-34d0984388bd?auto=format&fit=crop&q=80&w=800'
-  },
-  {
-    id: '7',
-    slug: 'http-status-codes-explained',
-    date: '2026-04-30',
-    category: 'Network',
-    image: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&q=80&w=800'
-  },
-  {
-    id: '8',
-    slug: 'api-security-best-practices',
-    date: '2026-04-29',
-    category: 'Security',
-    image: 'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&q=80&w=800'
-  },
-  {
-    id: '9',
-    slug: 'sugar-content-rankings',
-    date: '2026-04-28',
-    category: 'Science',
-    image: 'https://images.unsplash.com/photo-1546241072-48010ad2862c?auto=format&fit=crop&q=80&w=800'
-  },
-  {
-    id: '10',
-    slug: 'coffee-caffeine-guide',
-    date: '2026-04-27',
-    category: 'Science',
-    image: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&q=80&w=800'
-  },
-  {
-    id: '11',
-    slug: 'remote-work-ergonomics',
-    date: '2026-04-26',
-    category: 'Lifestyle',
-    image: 'https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&q=80&w=800'
-  },
-  {
-    id: '18',
-    slug: 'ai-text-polisher-guide',
-    date: '2026-05-10',
-    category: 'Tech',
-    image: 'https://picsum.photos/seed/polisher/800/400'
-  },
-  {
-    id: '19',
-    slug: 'ai-translator-future',
-    date: '2026-05-11',
-    category: 'Tech',
-    image: 'https://picsum.photos/seed/translator/800/400'
-  },
-  {
-    id: '20',
-    slug: 'image-compression-techniques',
-    date: '2026-05-12',
-    category: 'Design',
-    image: 'https://picsum.photos/seed/compression/800/400'
-  },
-  {
-    id: '21',
-    slug: 'svg-to-png-conversion-tips',
-    date: '2026-05-13',
-    category: 'Design',
-    image: 'https://picsum.photos/seed/svgpng/800/400'
-  },
-  {
-    id: '22',
-    slug: 'image-converter-web-formats',
-    date: '2026-05-14',
-    category: 'Development',
-    image: 'https://picsum.photos/seed/converter/800/400'
-  },
-  {
-    id: '23',
-    slug: 'ai-code-reviewer-guide',
-    date: '2026-05-14',
-    category: 'AI',
-    image: 'https://picsum.photos/seed/codereview/800/400'
-  },
-  {
-    id: '24',
-    slug: 'ai-regex-generator-guide',
-    date: '2026-05-14',
-    category: 'AI',
-    image: 'https://picsum.photos/seed/regexai/800/400'
-  },
-  {
-    id: '25',
-    slug: 'ai-meeting-minutes-guide',
-    date: '2026-05-14',
-    category: 'AI',
-    image: 'https://picsum.photos/seed/meetingai/800/400'
-  },
-  {
-    id: '26',
-    slug: 'ai-video-script-guide',
-    date: '2026-05-14',
-    category: 'AI',
-    image: 'https://picsum.photos/seed/videoscript/800/400'
-  },
-  {
-    id: '27',
-    slug: 'ai-excel-formula-guide',
-    date: '2026-05-14',
-    category: 'AI',
-    image: 'https://picsum.photos/seed/excelai/800/400'
-  },
-  {
-    id: '28',
-    slug: 'how-qr-codes-work',
-    date: '2026-05-14',
-    category: 'Science',
-    image: 'https://picsum.photos/seed/qrcode/800/400'
-  },
-  {
-    id: '29',
     slug: 'password-entropy-explained',
     date: '2026-05-14',
     category: 'Security',
-    image: 'https://picsum.photos/seed/password/800/400'
+    image: blogImage('password-entropy-explained'),
   },
   {
-    id: '30',
-    slug: 'timezone-unix-timestamp-guide',
-    date: '2026-05-14',
-    category: 'Development',
-    image: 'https://picsum.photos/seed/timezone/800/400'
+    slug: 'how-qr-codes-work',
+    date: '2026-05-13',
+    category: 'Science',
+    image: blogImage('how-qr-codes-work'),
   },
   {
-    id: '31',
-    slug: 'uuid-demystified',
-    date: '2026-05-14',
+    slug: 'ai-excel-formula-guide',
+    date: '2026-05-12',
+    category: 'AI',
+    image: blogImage('ai-excel-formula-guide'),
+  },
+  {
+    slug: 'ai-video-script-guide',
+    date: '2026-05-11',
+    category: 'AI',
+    image: blogImage('ai-video-script-guide'),
+  },
+  {
+    slug: 'ai-meeting-minutes-guide',
+    date: '2026-05-10',
+    category: 'AI',
+    image: blogImage('ai-meeting-minutes-guide'),
+  },
+  {
+    slug: 'ai-regex-generator-guide',
+    date: '2026-05-09',
+    category: 'AI',
+    image: blogImage('ai-regex-generator-guide'),
+  },
+  {
+    slug: 'ai-code-reviewer-guide',
+    date: '2026-05-08',
+    category: 'AI',
+    image: blogImage('ai-code-reviewer-guide'),
+  },
+  {
+    slug: 'image-converter-web-formats',
+    date: '2026-05-07',
     category: 'Development',
-    image: 'https://picsum.photos/seed/uuid/800/400'
-  }
+    image: blogImage('image-converter-web-formats'),
+  },
+  {
+    slug: 'svg-to-png-conversion-tips',
+    date: '2026-05-06',
+    category: 'Design',
+    image: blogImage('svg-to-png-conversion-tips'),
+  },
+  {
+    slug: 'image-compression-techniques',
+    date: '2026-05-05',
+    category: 'Design',
+    image: blogImage('image-compression-techniques'),
+  },
+  {
+    slug: 'ai-translator-future',
+    date: '2026-05-04',
+    category: 'Tech',
+    image: blogImage('ai-translator-future'),
+  },
+  {
+    slug: 'ai-text-polisher-guide',
+    date: '2026-05-03',
+    category: 'Tech',
+    image: blogImage('ai-text-polisher-guide'),
+  },
+  {
+    slug: 'xml-json-conversion-guide',
+    category: 'Development',
+    image: blogImage('xml-json-conversion-guide'),
+    date: '2026-05-02',
+  },
+  {
+    slug: 'xiaohongshu-copywriting-ai',
+    category: 'Design',
+    image: blogImage('xiaohongshu-copywriting-ai'),
+    date: '2026-05-01',
+  },
+  {
+    slug: 'why-text-diff-matters',
+    category: 'Development',
+    image: blogImage('why-text-diff-matters'),
+    date: '2026-04-30',
+  },
+  {
+    slug: 'modern-pdf-workflow-efficiency',
+    category: 'Development',
+    image: blogImage('modern-pdf-workflow-efficiency'),
+    date: '2026-04-29',
+  },
+  {
+    slug: 'ai-ecommerce-marketing-tips',
+    category: 'Lifestyle',
+    image: blogImage('ai-ecommerce-marketing-tips'),
+    date: '2026-04-28',
+  },
+  {
+    slug: 'secure-developer-tools-privacy',
+    category: 'Security',
+    image: blogImage('secure-developer-tools-privacy'),
+    date: '2026-04-27',
+  },
+  {
+    slug: 'why-use-json-formatter',
+    date: '2026-04-26',
+    category: 'Development',
+    image: blogImage('why-use-json-formatter'),
+  },
+  {
+    slug: 'benefits-of-chinese-crypto-sm',
+    date: '2026-04-25',
+    category: 'Security',
+    image: blogImage('benefits-of-chinese-crypto-sm'),
+  },
+  {
+    slug: 'morse-code-guide',
+    date: '2026-04-24',
+    category: 'Education',
+    image: blogImage('morse-code-guide'),
+  },
+  {
+    slug: 'base64-encoding-deep-dive',
+    date: '2026-04-23',
+    category: 'Network',
+    image: blogImage('base64-encoding-deep-dive'),
+  },
+  {
+    slug: 'color-theory-for-developers',
+    date: '2026-04-22',
+    category: 'Design',
+    image: blogImage('color-theory-for-developers'),
+  },
+  {
+    slug: 'regex-mastery-guide',
+    date: '2026-04-21',
+    category: 'Development',
+    image: blogImage('regex-mastery-guide'),
+  },
+  {
+    slug: 'http-status-codes-explained',
+    date: '2026-04-20',
+    category: 'Network',
+    image: blogImage('http-status-codes-explained'),
+  },
+  {
+    slug: 'api-security-best-practices',
+    date: '2026-04-19',
+    category: 'Security',
+    image: blogImage('api-security-best-practices'),
+  },
+  {
+    slug: 'sugar-content-rankings',
+    date: '2026-04-18',
+    category: 'Science',
+    image: blogImage('sugar-content-rankings'),
+  },
+  {
+    slug: 'coffee-caffeine-guide',
+    date: '2026-04-17',
+    category: 'Science',
+    image: blogImage('coffee-caffeine-guide'),
+  },
+  {
+    slug: 'remote-work-ergonomics',
+    date: '2026-04-16',
+    category: 'Lifestyle',
+    image: blogImage('remote-work-ergonomics'),
+  },
 ];
