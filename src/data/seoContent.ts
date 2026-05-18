@@ -342,7 +342,6 @@ export const SEO_CONTENT_PAGES: SeoContentPage[] = [
       'ai-text-polisher-guide',
       'ai-translator-future',
       'ai-video-script-guide',
-      'ai-ecommerce-marketing-tips',
       'ai-meeting-minutes-guide',
       'ai-regex-generator-guide',
       'ai-excel-formula-guide',
@@ -1012,7 +1011,6 @@ export const SEO_CONTENT_PAGES: SeoContentPage[] = [
       'ai-text-polisher-guide',
       'ai-translator-future',
       'ai-video-script-guide',
-      'ai-ecommerce-marketing-tips',
       'ai-meeting-minutes-guide',
     ],
     faqs: [
@@ -1048,4 +1046,3 @@ export function toolByPath(path: string) {
 export function blogBySlug(slug: string) {
   return BLOG_POSTS.find((post) => post.slug === slug);
 }
-

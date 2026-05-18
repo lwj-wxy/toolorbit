@@ -71,8 +71,6 @@ export const toolComponentMap: Record<string, ToolComponent> = {
   '/tools/dev/xml-to-json': lazyTool(() => import('../views/tools/dev/XmlToJson')),
   '/tools/ecommerce/etsy-fee-calculator': lazyTool(() => import('../views/tools/ecommerce/EtsyFee')),
   '/tools/ecommerce/stripe-fee-calculator': lazyTool(() => import('../views/tools/ecommerce/StripeFee')),
-  '/tools/fun/game-2048': lazyTool(() => import('../views/tools/fun/Game2048')),
-  '/tools/fun/minesweeper': lazyTool(() => import('../views/tools/fun/Minesweeper')),
   '/tools/generator/barcode-generator': lazyTool(() => import('../views/tools/image/BarcodeGenerator')),
   '/tools/generator/qr-generator': lazyTool(() => import('../views/tools/image/QrGenerator')),
   '/tools/generator/qr-scanner': lazyTool(() => import('../views/tools/image/QrScanner')),
@@ -87,11 +85,6 @@ export const toolComponentMap: Record<string, ToolComponent> = {
   '/tools/pdf/pdf-merge': lazyTool(() => import('../views/tools/pdf/PdfMerge')),
   '/tools/pdf/pdf-split': lazyTool(() => import('../views/tools/pdf/PdfSplit')),
   '/tools/pdf/pdf-to-image': lazyTool(() => import('../views/tools/pdf/PdfToImage')),
-  '/tools/shared/placeholder': lazyTool(() =>
-    import('../views/tools/shared/PlaceholderTool').then((mod) => ({
-      default: () => <mod.default title="Tool Coming Soon" />,
-    }))
-  ),
   '/tools/text/symbol-library': lazyTool(() => import('../views/tools/text/SymbolLibrary')),
   '/tools/text/text-analyzer': lazyTool(() => import('../views/tools/text/TextAnalyzer')),
   '/tools/text/text-cleaner': lazyTool(() => import('../views/tools/text/TextCleaner')),

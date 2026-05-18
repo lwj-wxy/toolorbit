@@ -1,7 +1,9 @@
 'use client';
 
-import { CheckCircle2, Code2, Mail, RefreshCw, ShieldCheck } from 'lucide-react';
+import { CheckCircle2, Code2, Mail, RefreshCw, ShieldCheck, UserCheck } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { Link } from '../lib/navigation';
+import { TOOL_ORBIT_EDITORIAL_TEAM } from '../data/authors';
 import { BRAND_CONTACT_EMAIL } from '../data/brand';
 
 export default function About() {
@@ -50,6 +52,35 @@ export default function About() {
             className="prose prose-slate max-w-none prose-headings:text-slate-800"
             dangerouslySetInnerHTML={{ __html: t('about.content') }} 
           />
+          <section className="mt-10 rounded-xl border border-emerald-100 bg-emerald-50/70 p-5 text-sm leading-6 text-slate-700">
+            <div className="flex flex-col gap-5 sm:flex-row sm:items-start">
+              <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl bg-white text-lg font-black text-emerald-700 shadow-sm">
+                {TOOL_ORBIT_EDITORIAL_TEAM.avatarInitials}
+              </div>
+              <div className="flex-1">
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                  <div>
+                    <p className="font-bold text-slate-900">
+                      {TOOL_ORBIT_EDITORIAL_TEAM.name}
+                    </p>
+                    <p className="mt-1 font-medium text-emerald-800">
+                      {TOOL_ORBIT_EDITORIAL_TEAM.role}
+                    </p>
+                  </div>
+                  <Link
+                    to={TOOL_ORBIT_EDITORIAL_TEAM.url}
+                    className="inline-flex items-center justify-center gap-2 rounded-lg border border-emerald-200 bg-white px-3 py-2 font-bold text-emerald-700 transition-colors hover:bg-emerald-50"
+                  >
+                    <UserCheck size={16} />
+                    {t('blog.editorial_policy', { defaultValue: 'Author profile' })}
+                  </Link>
+                </div>
+                <p className="mt-3">
+                  {TOOL_ORBIT_EDITORIAL_TEAM.bio}
+                </p>
+              </div>
+            </div>
+          </section>
           <section className="mt-10 border-t border-slate-100 pt-10">
             <h2 className="text-2xl font-extrabold text-slate-900">
               {t('about.trust.title', { defaultValue: 'How ToolOrbit earns trust' })}

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import Image from 'next/image';
 import { useTranslation } from 'react-i18next';
 import { Link } from '../lib/navigation';
@@ -12,8 +12,7 @@ type BlogListProps = {
   initialPage?: number;
 };
 
-const ALL_CATEGORIES = [
-  'All',
+const CATEGORY_ORDER = [
   'AI',
   'Development',
   'Security',
@@ -27,8 +26,20 @@ const BlogList: React.FC<BlogListProps> = ({ initialPage = 1 }) => {
   const [currentPage, setCurrentPage] = useState(initialPage);
   const [activeCategory, setActiveCategory] = useState<string>('All');
 
+  useEffect(() => {
+    setCurrentPage(initialPage);
+  }, [initialPage]);
+
   const sortedPosts = useMemo(() => {
     return [...BLOG_POSTS].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  }, []);
+
+  const visibleCategories = useMemo(() => {
+    const categoriesWithPosts = new Set(BLOG_POSTS.map((post) => post.category));
+    return [
+      'All',
+      ...CATEGORY_ORDER.filter((category) => categoriesWithPosts.has(category)),
+    ];
   }, []);
 
   const filteredPosts = useMemo(() => {
@@ -105,7 +116,7 @@ const BlogList: React.FC<BlogListProps> = ({ initialPage = 1 }) => {
 
         {/* Category Filter Tabs */}
         <div className="flex flex-wrap justify-center gap-2 px-4">
-          {ALL_CATEGORIES.map((cat) => {
+          {visibleCategories.map((cat) => {
             const isActive = activeCategory === cat;
             const label = cat === 'All'
               ? (t('blog.categories.all', { defaultValue: 'All' }))

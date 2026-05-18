@@ -117,11 +117,19 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   if (segments[0] === 'category' && segments[1]) {
+    if (segments[1] === 'fun-tools') {
+      return {};
+    }
+
     const category = CATEGORY_BY_SLUG[segments[1]];
     return category ? categoryMetadata(category, LOCALE) : {};
   }
 
   if (segments[0] === 'tools' && segments[1] && !segments[2]) {
+    if (segments[1] === 'fun') {
+      return {};
+    }
+
     const categoryPath = getToolSectionCategoryPath(segments[1]);
 
     if (!categoryPath) {
@@ -131,7 +139,17 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     redirect(`/zh-CN${categoryPath}`);
   }
 
+  if (segments[0] === 'tools' && segments[1] && !segments[2]) {
+    if (segments[1] === 'fun') {
+      redirect('/zh-CN/tools');
+    }
+  }
+
   if (segments[0] === 'tools' && segments[1] && segments[2]) {
+    if (segments[1] === 'fun') {
+      return {};
+    }
+
     return TOOLS.some((tool) => tool.path === basePath) ? toolMetadata(basePath, LOCALE) : {};
   }
 
@@ -267,6 +285,10 @@ export default async function Page({ params }: PageProps) {
   }
 
   if (segments[0] === 'category' && segments[1]) {
+    if (segments[1] === 'fun-tools') {
+      redirect('/zh-CN/tools');
+    }
+
     const category = CATEGORY_BY_SLUG[segments[1]];
 
     if (!category) {
@@ -282,6 +304,10 @@ export default async function Page({ params }: PageProps) {
   }
 
   if (segments[0] === 'tools' && segments[1] && segments[2]) {
+    if (segments[1] === 'fun') {
+      redirect('/zh-CN/tools');
+    }
+
     if (!TOOLS.some((tool) => tool.path === basePath)) {
       notFound();
     }

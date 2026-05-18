@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Upload, FileCode2, Copy, Trash2, CheckCircle2, Image as ImageIcon, ArrowRightLeft } from 'lucide-react';
+import { Upload, FileCode2, Copy, Trash2, CheckCircle2, Image as ImageIcon, ArrowRightLeft, AlertTriangle } from 'lucide-react';
 import { Link } from '../../../lib/navigation';
 import { useTranslation } from 'react-i18next';
 
@@ -139,8 +139,9 @@ export default function ImageToBase64() {
             </div>
 
             {file.size > 2 * 1024 * 1024 && (
-               <div className="bg-amber-50 border border-amber-200 text-amber-700 px-4 py-3 rounded-lg text-sm mb-4">
-                 <span className="font-bold">⚠️ {t('tools.image-to-base64.sizeWarning', { size: formatSize(file.size) })}</span>
+               <div className="flex items-center gap-2 bg-amber-50 border border-amber-200 text-amber-700 px-4 py-3 rounded-lg text-sm mb-4">
+                 <AlertTriangle className="h-4 w-4 shrink-0" aria-hidden="true" />
+                 <span className="font-bold">{t('tools.image-to-base64.sizeWarning', { size: formatSize(file.size) })}</span>
                </div>
             )}
 

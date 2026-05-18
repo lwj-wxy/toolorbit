@@ -94,7 +94,7 @@ const ToolSEOCard: React.FC<ToolSEOCardProps> = ({ toolKey }) => {
           </section>
         )}
         
-        <p className="text-slate-500 dark:text-slate-500 text-sm mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 italic">
+        <p className="text-slate-500 dark:text-slate-400 text-sm mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 italic">
           {t(`tools.${toolKey}.disclaimer`)}
         </p>
       </div>

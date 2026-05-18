@@ -5,7 +5,6 @@ import {
   Barcode,
   Banknote,
   Binary,
-  Bomb,
   Calculator,
   Clapperboard,
   Code,
@@ -22,7 +21,6 @@ import {
   FileText,
   Files,
   Fingerprint,
-  Gamepad2,
   Hash,
   Hexagon,
   Image,
@@ -115,7 +113,6 @@ const iconMap: Record<string, ComponentType<{ size?: number; className?: string 
   'color-picker': Pipette,
   'image-to-ico': ImageIcon,
   'short-url': Link2,
-  'game-2048': Gamepad2,
   'password-generator': ShieldCheck,
   'jwt-debugger': Layers,
   'regex-tester': Regex,
@@ -124,7 +121,6 @@ const iconMap: Record<string, ComponentType<{ size?: number; className?: string 
   'morse-code': Radio,
   'hex-string-converter': FileCode,
   'chinese-crypto': ShieldCheck,
-  minesweeper: Bomb,
 };
 
 export function ToolNavIcon({

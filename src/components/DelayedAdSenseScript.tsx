@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Script from 'next/script';
 
 type DelayedAdSenseScriptProps = {
   client: string;
@@ -11,6 +10,21 @@ export default function DelayedAdSenseScript({ client }: DelayedAdSenseScriptPro
   const [shouldLoad, setShouldLoad] = useState(false);
 
   useEffect(() => {
+    if (process.env.NODE_ENV !== 'production') return;
+    if (!client || !shouldLoad) return;
+
+    if (document.querySelector(`script[data-toolorbit-adsense="${client}"]`)) return;
+
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${encodeURIComponent(client)}`;
+    script.crossOrigin = 'anonymous';
+    script.dataset.toolorbitAdsense = client;
+    document.head.appendChild(script);
+  }, [client, shouldLoad]);
+
+  useEffect(() => {
+    if (process.env.NODE_ENV !== 'production') return;
     if (!client) return;
 
     const load = () => setShouldLoad(true);
@@ -28,14 +42,5 @@ export default function DelayedAdSenseScript({ client }: DelayedAdSenseScriptPro
     };
   }, [client]);
 
-  if (!shouldLoad) return null;
-
-  return (
-    <Script
-      async
-      src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${client}`}
-      crossOrigin="anonymous"
-      strategy="afterInteractive"
-    />
-  );
+  return null;
 }

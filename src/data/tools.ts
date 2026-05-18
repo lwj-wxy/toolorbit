@@ -55,6 +55,9 @@ import { TOOLS_META, type Category, type ToolMeta } from './tools-meta';
 
 export type { Category, ToolMeta };
 
+// Keep removed game icon modules available while Turbopack/browser caches expire.
+void [Gamepad2, Bomb];
+
 const iconMap: Record<string, ComponentType<any>> = {
   'ai-youtube-generator': Clapperboard,
   'ai-prompt-generator': ImageIcon,
@@ -113,7 +116,6 @@ const iconMap: Record<string, ComponentType<any>> = {
   'color-picker': Pipette,
   'image-to-ico': ImageIcon,
   'short-url': Link2,
-  'game-2048': Gamepad2,
   'password-generator': ShieldCheck,
   'jwt-debugger': Layers,
   'regex-tester': Regex,
@@ -122,7 +124,6 @@ const iconMap: Record<string, ComponentType<any>> = {
   'morse-code': Radio,
   'hex-string-converter': FileCode,
   'chinese-crypto': ShieldCheck,
-  'minesweeper': Bomb,
 };
 
 export interface ToolItem extends ToolMeta {
@@ -131,7 +132,7 @@ export interface ToolItem extends ToolMeta {
 
 export const TOOLS: ToolItem[] = TOOLS_META.map((tool) => ({
   ...tool,
-  icon: iconMap[tool.id],
+  icon: iconMap[tool.id] || Sparkles,
 }));
 
 export { TOOLS_META };

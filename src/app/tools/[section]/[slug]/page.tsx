@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { TOOLS } from '../../../../data/tools';
 import { toolMetadata } from '../../../../lib/metadata';
 import { toolJsonLd } from '../../../../lib/structured-data';
@@ -21,12 +21,19 @@ export const revalidate = 86400;
 
 export async function generateMetadata({ params }: { params: Promise<{ section: string; slug: string }> }): Promise<Metadata> {
   const { section, slug } = await params;
+  if (section === 'fun') {
+    return {};
+  }
   return toolMetadata(`/tools/${section}/${slug}`);
 }
 
 export default async function Page({ params }: { params: Promise<{ section: string; slug: string }> }) {
   const { section, slug } = await params;
   const path = `/tools/${section}/${slug}`;
+
+  if (section === 'fun') {
+    redirect('/tools');
+  }
 
   if (!TOOLS.some((tool) => tool.path === path)) {
     notFound();

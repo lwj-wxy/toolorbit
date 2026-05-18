@@ -88,7 +88,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, initialMarkdown = '' }) => {
     .slice(0, 2);
   const relatedTools = (BLOG_RELATED_TOOLS[slug] || [])
     .map((path) => TOOLS.find((tool) => tool.path === path))
-    .filter(Boolean) as typeof TOOLS;
+    .filter((tool) => tool && !tool.isNoIndex) as typeof TOOLS;
 
   const title = t(`blog.posts.${post.slug}.title`);
   // Estimate reading time based on markdown length

@@ -99,12 +99,6 @@ export const BLOG_POSTS: BlogPost[] = [
     date: '2026-05-02',
   },
   {
-    slug: 'xiaohongshu-copywriting-ai',
-    category: 'Design',
-    image: blogImage('xiaohongshu-copywriting-ai'),
-    date: '2026-05-01',
-  },
-  {
     slug: 'why-text-diff-matters',
     category: 'Development',
     image: blogImage('why-text-diff-matters'),
@@ -115,12 +109,6 @@ export const BLOG_POSTS: BlogPost[] = [
     category: 'Development',
     image: blogImage('modern-pdf-workflow-efficiency'),
     date: '2026-04-29',
-  },
-  {
-    slug: 'ai-ecommerce-marketing-tips',
-    category: 'Business',
-    image: blogImage('ai-ecommerce-marketing-tips'),
-    date: '2026-04-28',
   },
   {
     slug: 'secure-developer-tools-privacy',
@@ -175,23 +163,5 @@ export const BLOG_POSTS: BlogPost[] = [
     date: '2026-04-19',
     category: 'Security',
     image: blogImage('api-security-best-practices'),
-  },
-  {
-    slug: 'sugar-content-rankings',
-    date: '2026-04-18',
-    category: 'Productivity',
-    image: blogImage('sugar-content-rankings'),
-  },
-  {
-    slug: 'coffee-caffeine-guide',
-    date: '2026-04-17',
-    category: 'Productivity',
-    image: blogImage('coffee-caffeine-guide'),
-  },
-  {
-    slug: 'remote-work-ergonomics',
-    date: '2026-04-16',
-    category: 'Productivity',
-    image: blogImage('remote-work-ergonomics'),
   },
 ];

@@ -9,6 +9,11 @@ export const dynamicParams = false;
 
 export default async function Page({ params }: { params: Promise<{ section: string }> }) {
   const { section } = await params;
+
+  if (section === 'fun') {
+    redirect('/tools');
+  }
+
   const categoryPath = getToolSectionCategoryPath(section);
 
   if (!categoryPath) {

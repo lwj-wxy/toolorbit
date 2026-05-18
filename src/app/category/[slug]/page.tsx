@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import JsonLd from '../../../components/JsonLd';
 import { categoryMetadata } from '../../../lib/metadata';
 import { CATEGORY_BY_SLUG, CATEGORY_SLUGS } from '../../../lib/category-paths';
@@ -19,6 +19,11 @@ export const revalidate = 86400;
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
+
+  if (slug === 'fun-tools') {
+    return {};
+  }
+
   const category = CATEGORY_BY_SLUG[slug];
 
   if (!category) {
@@ -30,6 +35,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function Page({ params }: PageProps) {
   const { slug } = await params;
+
+  if (slug === 'fun-tools') {
+    redirect('/tools');
+  }
+
   const category = CATEGORY_BY_SLUG[slug];
 
   if (!category) {

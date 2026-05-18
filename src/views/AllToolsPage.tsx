@@ -37,7 +37,8 @@ function categoryName(category: Category, locale: Locale) {
 
 export default function AllToolsPage({ locale = 'en' }: AllToolsPageProps) {
   const isZh = locale === 'zh-CN';
-  const totalTools = TOOLS.length;
+  const visibleTools = TOOLS.filter((tool) => !tool.isNoIndex);
+  const totalTools = visibleTools.length;
 
   return (
     <main className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
@@ -73,7 +74,7 @@ export default function AllToolsPage({ locale = 'en' }: AllToolsPageProps) {
 
       <div className="space-y-12">
         {CATEGORY_ORDER.map((category) => {
-          const tools = TOOLS.filter((tool) => tool.category === category);
+          const tools = visibleTools.filter((tool) => tool.category === category);
           const categoryPath = localizedPath(getCategoryPath(category), locale);
 
           return (

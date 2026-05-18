@@ -14,7 +14,6 @@ const CATEGORY_PATHS = [
   '/category/pdf-tools',
   '/category/image-tools',
   '/category/conversion-tools',
-  '/category/fun-tools',
 ];
 const SEO_CONTENT_PATHS = [
   '/developer-tools',
@@ -88,7 +87,8 @@ function readTools() {
   return TOOLS_META.map((tool) => ({
     path: tool.path,
     isPopular: Boolean(tool.isPopular),
-  }));
+    isNoIndex: Boolean(tool.isNoIndex),
+  })).filter((tool) => !tool.isNoIndex);
 }
 
 function readBlogPosts() {
@@ -161,7 +161,11 @@ const baseUrls = [
   })),
 ];
 
-const urls = baseUrls.flatMap((entry) => [
+const uniqueBaseUrls = Array.from(
+  new Map(baseUrls.map((entry) => [entry.path, entry])).values(),
+);
+
+const urls = uniqueBaseUrls.flatMap((entry) => [
   { ...entry, locale: 'en' },
   { ...entry, locale: 'zh-CN' },
 ]);

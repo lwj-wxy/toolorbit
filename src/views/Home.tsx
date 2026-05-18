@@ -6,12 +6,24 @@ import { useTranslation } from 'react-i18next';
 import { TOOLS, Category, ToolItem } from '../data/tools';
 import { CATEGORY_GUIDES } from '../data/categoryGuides';
 import { getCategoryPath } from '../lib/category-paths';
-import { Star, Clock, ChevronRight, Sparkles, ShieldCheck, Code2, RefreshCw } from 'lucide-react';
+import {
+  Star,
+  Clock,
+  ChevronRight,
+  Sparkles,
+  ShieldCheck,
+  Code2,
+  RefreshCw,
+  FileImage,
+  ImageMinus,
+} from 'lucide-react';
 import { toast } from 'react-hot-toast';
 import { useRecentTools } from '../hooks/useRecentTools';
 
 const HOME_CATEGORY_PREVIEW_LIMIT = 4;
-const HOME_POPULAR_PREVIEW_LIMIT = 6;
+
+// Keep removed home icon modules available while Turbopack/browser caches expire.
+void [ShieldCheck, Code2, RefreshCw, FileImage, ImageMinus];
 
 const getCategoryStyles = (category: Category) => {
   switch(category) {
@@ -23,7 +35,6 @@ const getCategoryStyles = (category: Category) => {
     case 'PDF工具': return { border: 'border-rose-500', title: 'text-rose-600', icon: 'text-rose-500', bg: 'bg-rose-50' };
     case '图片处理': return { border: 'border-fuchsia-500', title: 'text-fuchsia-600', icon: 'text-fuchsia-500', bg: 'bg-fuchsia-50' };
     case '计算转换': return { border: 'border-amber-500', title: 'text-amber-600', icon: 'text-amber-500', bg: 'bg-amber-50' };
-    case '娱乐工具': return { border: 'border-pink-500', title: 'text-pink-600', icon: 'text-pink-500', bg: 'bg-pink-50' };
     default: return { border: 'border-slate-500', title: 'text-slate-600', icon: 'text-slate-500', bg: 'bg-slate-50' };
   }
 };
@@ -185,6 +196,7 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
   const [pinnedTools, setPinnedTools] = useState<string[]>([]);
   const isZh = i18n.language?.startsWith('zh');
   const categoryGuide = categoryFilter ? CATEGORY_GUIDES[categoryFilter]?.[isZh ? 'zh' : 'en'] : null;
+  const visibleTools = useMemo(() => TOOLS.filter((tool) => !tool.isNoIndex), []);
 
   useEffect(() => {
     try {
@@ -214,7 +226,7 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
   };
 
   const filteredTools = useMemo(() => {
-    let result = TOOLS;
+    let result = visibleTools;
     if (categoryFilter) {
       result = result.filter(t => t.category === categoryFilter);
     }
@@ -226,7 +238,7 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
       });
     }
     return result;
-  }, [categoryFilter, searchQuery, t]);
+  }, [categoryFilter, searchQuery, t, visibleTools]);
 
   // If there's a search or filter
   if (categoryFilter || searchQuery) {
@@ -288,7 +300,7 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
   }
 
   // Otherwise, group by categories (Default View)
-  const groupedTools = TOOLS.reduce((acc, tool) => {
+  const groupedTools = visibleTools.reduce((acc, tool) => {
     if (!acc[tool.category]) {
       acc[tool.category] = [];
     }
@@ -296,10 +308,8 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
     return acc;
   }, {} as Record<Category, typeof TOOLS>);
 
-  const categoriesOrder = Array.from(new Set(TOOLS.map(t => t.category)));
-  const pinnedToolObjects = pinnedTools.map(id => TOOLS.find(t => t.id === id)).filter(Boolean) as typeof TOOLS;
-  const popularTools = TOOLS.filter(t => t.isPopular).slice(0, HOME_POPULAR_PREVIEW_LIMIT);
-
+  const categoriesOrder = Array.from(new Set(visibleTools.map(t => t.category)));
+  const pinnedToolObjects = pinnedTools.map(id => visibleTools.find(t => t.id === id)).filter(Boolean) as typeof TOOLS;
   return (
     <div className="flex flex-col gap-16 pb-16">
       {/* Dynamic Hero Section */}
@@ -323,17 +333,19 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full max-w-2xl">
                {[
-                 { id: 'pdf-to-image', path: '/tools/pdf/pdf-to-image', icon: '📄' },
-                 { id: 'image-compressor', path: '/tools/image/image-compressor', icon: '🖼️' },
-                 { id: 'listing-generator', path: '/tools/ai/listing-generator', icon: '✨' },
-                 { id: 'json-formatter', path: '/tools/dev/json-formatter', icon: '⚡' }
+                 { id: 'pdf-to-image', path: '/tools/pdf/pdf-to-image', mark: '📄' },
+                 { id: 'image-compressor', path: '/tools/image/image-compressor', mark: '🖼️' },
+                 { id: 'listing-generator', path: '/tools/ai/listing-generator', mark: '✨' },
+                 { id: 'json-formatter', path: '/tools/dev/json-formatter', mark: '⚡' }
                ].map((fav) => (
                  <Link 
                    key={fav.path} 
                    to={fav.path}
                    className="flex items-center gap-2 px-4 py-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl transition-all group"
                  >
-                   <span className="text-lg">{fav.icon}</span>
+                   <span className="text-lg" aria-hidden="true">
+                     {fav.mark}
+                   </span>
                    <span className="text-xs font-bold text-white group-hover:text-white transition-colors">
                      {t(`tools.${fav.id}.name`)}
                    </span>
@@ -344,68 +356,41 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
         </section>
       )}
 
-      {/* Popular Tools Visual Banner */}
-      {!categoryFilter && !searchQuery && (
-        <section className="space-y-8">
-          <div className="flex items-center gap-3">
-             <div className="w-1.5 h-6 bg-indigo-600 rounded-full" />
-             <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 tracking-tight flex items-center gap-2">
-               {t('common.popular_tools') || '热门推荐'}
-               <Sparkles className="text-amber-500 fill-amber-500" size={16} />
-             </h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {popularTools.map((tool, idx) => (
-              <PopularToolCard 
-                key={`pop-${tool.id}`}
-                tool={tool}
-                isPinned={pinnedTools.includes(tool.id)}
-                togglePin={togglePin}
-                index={idx}
-              />
-            ))}
-          </div>
-        </section>
-      )}
-
       {!categoryFilter && !searchQuery && (
         <section className="grid gap-4 border-y border-slate-200/70 py-6 dark:border-slate-800/70 md:grid-cols-3">
           {[
             {
-              icon: ShieldCheck,
+              mark: '✓',
               title: t('common.trust_privacy_title', { defaultValue: 'Local-first by default' }),
               description: t('common.trust_privacy_desc', {
                 defaultValue: 'Most tools process files and text in your browser, keeping sensitive work on your device.',
               }),
             },
             {
-              icon: Code2,
+              mark: '</>',
               title: t('common.trust_review_title', { defaultValue: 'Workflow-tested tools' }),
               description: t('common.trust_review_desc', {
                 defaultValue: 'Utilities are shaped around real developer, document, image, and ecommerce tasks.',
               }),
             },
             {
-              icon: RefreshCw,
+              mark: '↻',
               title: t('common.trust_maintained_title', { defaultValue: 'Maintained content' }),
               description: t('common.trust_maintained_desc', {
                 defaultValue: 'Tool copy, guides, schema, and internal links are kept aligned as the site grows.',
               }),
             },
-          ].map((item) => {
-            const Icon = item.icon;
-            return (
+          ].map((item) => (
               <div key={item.title} className="flex gap-4">
                 <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-white text-indigo-600 shadow-sm ring-1 ring-slate-200 dark:bg-slate-900 dark:text-indigo-400 dark:ring-slate-800">
-                  <Icon size={19} />
+                  <span className="text-lg">{item.mark}</span>
                 </div>
                 <div>
                   <h2 className="text-sm font-bold text-slate-900 dark:text-slate-100">{item.title}</h2>
                   <p className="mt-1 text-xs leading-5 text-slate-500 dark:text-slate-400">{item.description}</p>
                 </div>
               </div>
-            );
-          })}
+          ))}
         </section>
       )}
 

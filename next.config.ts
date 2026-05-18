@@ -8,6 +8,13 @@ const contentCacheHeaders = [
 ];
 
 const isProduction = process.env.NODE_ENV === 'production';
+const REMOVED_BLOG_SLUGS = [
+  'coffee-caffeine-guide',
+  'sugar-content-rankings',
+  'remote-work-ergonomics',
+  'ai-ecommerce-marketing-tips',
+  'xiaohongshu-copywriting-ai',
+];
 
 const scriptSrc = [
   "'self'",
@@ -50,6 +57,72 @@ const nextConfig: NextConfig = {
       'react-markdown',
       'react-syntax-highlighter',
     ],
+  },
+  async redirects() {
+    return [
+      ...REMOVED_BLOG_SLUGS.flatMap((slug) => [
+        {
+          source: `/blog/${slug}`,
+          destination: '/blog',
+          permanent: true,
+        },
+        {
+          source: `/zh-CN/blog/${slug}`,
+          destination: '/zh-CN/blog',
+          permanent: true,
+        },
+      ]),
+      {
+        source: '/tools/shared/placeholder',
+        destination: '/tools',
+        permanent: true,
+      },
+      {
+        source: '/zh-CN/tools/shared/placeholder',
+        destination: '/zh-CN/tools',
+        permanent: true,
+      },
+      {
+        source: '/tools/dev/chinese-crypto',
+        destination: '/tools/dev/crypto-symmetric',
+        permanent: true,
+      },
+      {
+        source: '/zh-CN/tools/dev/chinese-crypto',
+        destination: '/zh-CN/tools/dev/crypto-symmetric',
+        permanent: true,
+      },
+      {
+        source: '/tools/fun/game-2048',
+        destination: '/tools',
+        permanent: true,
+      },
+      {
+        source: '/zh-CN/tools/fun/game-2048',
+        destination: '/zh-CN/tools',
+        permanent: true,
+      },
+      {
+        source: '/tools/fun/minesweeper',
+        destination: '/tools',
+        permanent: true,
+      },
+      {
+        source: '/zh-CN/tools/fun/minesweeper',
+        destination: '/zh-CN/tools',
+        permanent: true,
+      },
+      {
+        source: '/category/fun-tools',
+        destination: '/tools',
+        permanent: true,
+      },
+      {
+        source: '/zh-CN/category/fun-tools',
+        destination: '/zh-CN/tools',
+        permanent: true,
+      },
+    ];
   },
   async headers() {
     return [
@@ -103,15 +176,6 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/:path*.(ico|svg|png|jpg|jpeg|gif|webp|avif|woff|woff2)',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
-          },
-        ],
-      },
-      {
-        source: '/_next/static/:path*',
         headers: [
           {
             key: 'Cache-Control',

@@ -186,24 +186,4 @@ export const CATEGORY_GUIDES: Record<Category, { en: CategoryGuideCopy; zh: Cate
       ],
     },
   },
-  '娱乐工具': {
-    en: {
-      intro:
-        'Game tools provide lightweight browser-based puzzles for short breaks, testing logic, and sharing simple interactive pages. This category currently includes classic number and mine-clearing games that work well for quick focus resets without installing anything. While these pages are more playful than operational, they still follow the same ToolOrbit pattern: fast loading, clear controls, and simple browser access.',
-      workflows: [
-        'Play quick logic puzzles during short breaks or focus resets.',
-        'Use familiar games to test keyboard, touch, and browser interaction behavior.',
-        'Share lightweight entertainment pages without requiring downloads or accounts.',
-      ],
-    },
-    zh: {
-      intro:
-        '娱乐工具提供轻量的浏览器小游戏，适合短暂休息、逻辑练习或分享简单互动页面。当前分类包含经典数字与扫雷类游戏，不需要安装即可快速开始。虽然这些页面更偏轻松场景，但仍然延续 ToolOrbit 的方式：加载快、控制清楚、浏览器直接访问。',
-      workflows: [
-        '在短暂休息或需要重置注意力时玩一局轻量逻辑游戏。',
-        '用熟悉的小游戏测试键盘、触控和浏览器交互表现。',
-        '分享无需下载、无需账号的轻量娱乐页面。',
-      ],
-    },
-  },
 };

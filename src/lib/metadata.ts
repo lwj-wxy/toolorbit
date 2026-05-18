@@ -37,10 +37,8 @@ const STATIC_PAGE_DESCRIPTIONS_ZH: Record<'about' | 'privacy' | 'terms', string>
 
 const BLOG_SEO_TITLE_OVERRIDES: Record<string, string> = {
   'xml-json-conversion-guide': 'XML and JSON Converters Guide',
-  'xiaohongshu-copywriting-ai': 'Xiaohongshu AI Copywriting Guide',
   'why-text-diff-matters': 'Why Text Diff Matters at Work',
   'modern-pdf-workflow-efficiency': 'Modern PDF Workflow Guide',
-  'ai-ecommerce-marketing-tips': 'AI E-commerce Marketing Tips',
   'secure-developer-tools-privacy': 'Local Processing for Developer Tools',
   'why-use-json-formatter': 'Why Developers Need JSON Formatters',
   'benefits-of-chinese-crypto-sm': 'SM2, SM3, and SM4 Crypto Guide',
@@ -58,6 +56,23 @@ const BLOG_SEO_TITLE_OVERRIDES: Record<string, string> = {
 };
 
 export { readPath };
+
+function withNoIndex(metadata: Metadata): Metadata {
+  return {
+    ...metadata,
+    robots: {
+      index: false,
+      follow: true,
+      googleBot: {
+        index: false,
+        follow: true,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+        'max-video-preview': -1,
+      },
+    },
+  };
+}
 
 function cleanTitle(value?: string, fallback = SITE_NAME) {
   const title = (value || fallback)
@@ -227,20 +242,7 @@ export function staticPageMetadata(page: 'about' | 'privacy' | 'terms', locale: 
   const metadata = pageMetadata(title, description, `/${page}`, locale);
 
   if (page === 'privacy' || page === 'terms') {
-    return {
-      ...metadata,
-      robots: {
-        index: false,
-        follow: true,
-        googleBot: {
-          index: false,
-          follow: true,
-          'max-image-preview': 'large',
-          'max-snippet': -1,
-          'max-video-preview': -1,
-        },
-      },
-    };
+    return withNoIndex(metadata);
   }
 
   return metadata;
@@ -262,11 +264,13 @@ export function blogListMetadata(locale: Locale = 'en', page = 1): Metadata {
 }
 
 export function allToolsMetadata(locale: Locale = 'en'): Metadata {
+  const visibleToolCount = TOOLS.filter((tool) => !tool.isNoIndex).length;
+
   return pageMetadata(
     locale === 'zh-CN' ? '所有免费在线工具' : 'All Free Online Tools',
     locale === 'zh-CN'
-      ? `浏览 ToolOrbit 的 ${TOOLS.length} 个免费在线工具，覆盖开发者、AI、PDF、图片、电商、文本、生成器和计算转换工作流。`
-      : `Browse all ${TOOLS.length} free ToolOrbit online tools for developer, AI, PDF, image, ecommerce, text, generator, and conversion workflows.`,
+      ? `浏览 ToolOrbit 的 ${visibleToolCount} 个免费在线工具，覆盖开发者、AI、PDF、图片、电商、文本、生成器和计算转换工作流。`
+      : `Browse all ${visibleToolCount} free ToolOrbit online tools for developer, AI, PDF, image, ecommerce, text, generator, and conversion workflows.`,
     '/tools',
     locale,
   );
@@ -331,15 +335,17 @@ export function toolMetadata(path: string, locale: Locale = 'en'): Metadata {
       : expandedDescription
     : rawDescription;
 
-  return pageMetadata(title, description || fallbackDescription, path, locale);
+  const metadata = pageMetadata(title, description || fallbackDescription, path, locale);
+
+  return tool?.isNoIndex ? withNoIndex(metadata) : metadata;
 }
 
 export function categoryMetadata(category: Category, locale: Locale = 'en'): Metadata {
   const source = localeSource(locale);
   const name = readPath(source, `common.categories.${category}`) || category;
-  const toolCount = TOOLS.filter((tool) => tool.category === category).length;
+  const toolCount = TOOLS.filter((tool) => tool.category === category && !tool.isNoIndex).length;
 
-  return pageMetadata(
+  const metadata = pageMetadata(
     locale === 'zh-CN' ? `${name}在线工具` : `${name} Online Tools`,
     locale === 'zh-CN'
       ? `浏览 ToolOrbit 的 ${toolCount} 个${name}，用于快速浏览器工作流、实用示例和无需安装的效率任务。`
@@ -347,6 +353,8 @@ export function categoryMetadata(category: Category, locale: Locale = 'en'): Met
     getCategoryPath(category),
     locale,
   );
+
+  return metadata;
 }
 
 export function seoContentMetadata(path: string, locale: Locale = 'en'): Metadata {

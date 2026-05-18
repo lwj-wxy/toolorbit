@@ -19,8 +19,7 @@
       "电商工具": "E-commerce",
       "PDF工具": "PDF Tools",
       "图片处理": "Image",
-      "计算转换": "Converters",
-      "娱乐工具": "Games"
+      "计算转换": "Converters"
     },
     "nav_privacy": "Privacy Policy",
     "nav_terms": "Terms of Service",
@@ -110,25 +109,9 @@
         "title": "API Security in Practice: From JWT Leaks to SSRF Protection",
         "summary": "The internet is a dangerous place. Here are five golden rules for API security in modern web applications to protect your data."
       },
-      "sugar-content-rankings": {
-        "title": "Sugar Content Rankings in Popular Drinks",
-        "summary": "Uncovering hidden sugar in daily drinks and how to manage sugar intake safely."
-      },
-      "coffee-caffeine-guide": {
-        "title": "The Ultimate Caffeine Guide for Professionals",
-        "summary": "Americano, Latte, or Cold Brew - which keeps you most alert? Understand how caffeine works."
-      },
-      "remote-work-ergonomics": {
-        "title": "Remote Work Ergonomics Guide",
-        "summary": "Say goodbye to back pain! Build a healthy and efficient home office environment."
-      },
       "modern-pdf-workflow-efficiency": {
         "title": "Modern PDF Workflows: Boosting Efficiency with Merge, Split, and Encryption",
         "summary": "PDF is a cornerstone of business. Learn how to optimize your PDF process using modern tools to ensure security and speed."
-      },
-      "ai-ecommerce-marketing-tips": {
-        "title": "AI in E-commerce: 5 Tips for High-Converting Listings and Marketing Copy",
-        "summary": "How can Amazon or Shopee sellers save 80% of their operational time with AI? Learn to write standout E-commerce listings."
       },
       "secure-developer-tools-privacy": {
         "title": "Why 'Local Processing' is the Future of Developer Tools",
@@ -137,10 +120,6 @@
       "xml-json-conversion-guide": {
         "title": "The Data Bridge: Why We Need Powerful XML and JSON Converters",
         "summary": "With REST and SOAP alternating over the years, JSON and XML are unavoidable data carriers. Mastering seamless conversion between them greatly enhances API integration efficiency."
-      },
-      "xiaohongshu-copywriting-ai": {
-        "title": "The Traffic Code: Using AI to Write High-Performing Xiaohongshu Copy",
-        "summary": "Say goodbye to writer's block and layout anxiety! Deconstruct Xiaohongshu algorithm preferences and use LLMs to automate generating high-quality posts with emojis."
       },
       "why-text-diff-matters": {
         "title": "More Than Code: The Importance of Text Diff in Daily Office and Development Work",
@@ -276,7 +255,7 @@
     },
     "logo-generator": {
       "name": "AI Logo & Avatar Designer",
-      "description": "Generate minimalist, flat, or unique style logos, website icons, or personal avatars based on brand name and industry.",
+      "description": "Core Concept / Symbol",
       "seoTitle": "AI Logo & Avatar Generator | ToolOrbit",
       "seoDesc": "Use AI to design professional logos, avatars, and website icons instantly.",
       "title": "AI Logo & Avatar Generator",
@@ -287,7 +266,6 @@
       "industryPlaceholder": "e.g. Technology, Coffee Shop",
       "color": "Color Palette",
       "colorPlaceholder": "e.g. Blue and White, Vibrant",
-      "description": "Core Concept / Symbol",
       "descPlaceholder": "e.g. A cute cat holding a coffee cup, minimalist design",
       "style": "Design Style",
       "generating": "AI is designing...",
@@ -408,7 +386,25 @@
       "seoTitle": "Online XML to JSON Converter | Fast & Lossless Format Conversion | ToolOrbit",
       "seoDesc": "Quickly convert between XML and JSON securely. Supports deep nesting, attribute mapping, code highlighting and instant error catching.",
       "title": "XML ↔ JSON Converter",
-      "subtitle": "Convert instantly between the two most popular API data structures with deep nesting support."
+      "subtitle": "Convert instantly between the two most popular API data structures with deep nesting support.",
+      "guideTitle": "How to convert XML and JSON safely",
+      "guide1": "Paste the source payload into the editor and confirm whether you are converting XML to JSON or JSON to XML before running the conversion.",
+      "guide2": "Keep sample data representative of the real API response, including nested objects, arrays, attributes, and empty values, so the output structure is useful for implementation.",
+      "guide3": "After conversion, inspect attributes, repeated nodes, and numeric-looking strings. XML and JSON model data differently, so some structures need a human check before production use.",
+      "guide4": "Copy the result into your API docs, tests, or migration notes, then validate it again with the receiving system if strict schemas are involved.",
+      "faq1Q": "Why do XML attributes look different after conversion?",
+      "faq1A": "XML allows attributes and child nodes on the same element, while JSON only has key-value structures. Converters usually map attributes to special keys or nested properties, so review attribute-heavy XML carefully.",
+      "faq2Q": "Can this converter handle deeply nested payloads?",
+      "faq2A": "It is designed for practical API payloads and configuration snippets with nested objects and arrays. Extremely large files may slow the browser, so split huge exports into smaller samples when possible.",
+      "faq3Q": "Is converted data uploaded to a server?",
+      "faq3A": "No. The conversion runs in the browser, which is useful for private API examples, internal test fixtures, and draft integration notes.",
+      "highlightsTitle": "Why use this XML JSON converter?",
+      "highlight1Title": "Two-way conversion",
+      "highlight1Desc": "Move between XML and JSON when documenting APIs, building adapters, or preparing test fixtures.",
+      "highlight2Title": "Nested data support",
+      "highlight2Desc": "Preserve useful structure for common arrays, objects, repeated nodes, and attribute-style data.",
+      "highlight3Title": "Developer review friendly",
+      "highlight3Desc": "Immediate output makes it easy to inspect schema assumptions before putting converted data into code."
     },
     "ai-xiaohongshu": {
       "name": "Xiaohongshu AI Copywriter",
@@ -431,7 +427,25 @@
       "generateBtn": "Generate Viral Note",
       "resultTitle": "AI Draft Result",
       "errorEmpty": "Please enter a core topic",
-      "emptyTip": "Witness the birth of viral copy here"
+      "emptyTip": "Witness the birth of viral copy here",
+      "guideTitle": "How to generate better Xiaohongshu copy",
+      "guide1": "Start with a specific topic, product, or experience instead of a broad keyword. Include the audience, use case, and emotional angle when you already know them.",
+      "guide2": "Add two to five keywords that must appear in the note, such as material, price range, scene, brand tone, or problem solved. Keep them natural rather than stuffing tags.",
+      "guide3": "Choose the closest content style, then generate a draft and edit the first hook, claims, and call to action so they match your real product or personal experience.",
+      "guide4": "Review the output for compliance, exaggeration, and unsupported claims before publishing. AI copy should be treated as a draft, not a final campaign approval.",
+      "faq1Q": "Can this tool write a complete Xiaohongshu post?",
+      "faq1A": "It can produce a structured draft with a hook, body copy, emoji rhythm, and hashtags. You should still edit details, add real photos or proof, and remove anything that does not match your product or experience.",
+      "faq2Q": "What inputs make the AI result better?",
+      "faq2A": "Specific inputs work best: target user, product benefit, usage scene, price point, tone, and required keywords. A vague topic usually leads to generic copy that needs more editing.",
+      "faq3Q": "Is the generated copy safe to publish directly?",
+      "faq3A": "No AI marketing draft should be published without review. Check platform rules, factual claims, brand voice, and any regulated topics such as health, finance, or cosmetics.",
+      "highlightsTitle": "Why use this Xiaohongshu copywriter?",
+      "highlight1Title": "Structured social draft",
+      "highlight1Desc": "Generate hooks, body copy, emoji pacing, and hashtags in a format that is easy to revise for RED-style posts.",
+      "highlight2Title": "Multiple content angles",
+      "highlight2Desc": "Switch between review, tutorial, emotional, list, and store-visit styles to match the post objective.",
+      "highlight3Title": "Editing-first workflow",
+      "highlight3Desc": "The output is designed as a starting draft so marketers and creators can add real evidence and brand details quickly."
     },
     "text-diff": {
       "name": "Text Diff Tool",
@@ -447,7 +461,25 @@
       "modifiedText": "Modified (New)",
       "placeholderModified": "Paste modified text here...",
       "resultTitle": "Diff Result",
-      "emptyTip": "Waiting for input to show differences..."
+      "emptyTip": "Waiting for input to show differences...",
+      "guideTitle": "How to compare text without missing changes",
+      "guide1": "Paste the original version into the left input and the revised version into the right input. Keep surrounding context when reviewing code, legal copy, or release notes.",
+      "guide2": "Use line comparison for structured content such as JSON, Markdown, configuration, or code. Use word comparison when checking prose, titles, translations, or subtle copy edits.",
+      "guide3": "Scan additions, removals, and unchanged context before copying results into a review comment. Pay special attention to punctuation, whitespace, and reordered sentences.",
+      "guide4": "For sensitive documents, run the comparison locally in the browser and clear the fields after review. The tool is designed for quick private checks rather than permanent storage.",
+      "faq1Q": "Can I compare source code with this tool?",
+      "faq1A": "Yes. The text diff works well for small code snippets, configuration blocks, SQL queries, and API payloads. For a whole repository, use Git or your IDE, then use this page for focused review snippets.",
+      "faq2Q": "What is the difference between word diff and line diff?",
+      "faq2A": "Line diff highlights changed lines and is easier for structured files. Word diff highlights smaller text edits inside a sentence, making it better for copywriting, documentation, and translation review.",
+      "faq3Q": "Does ToolOrbit store the text I compare?",
+      "faq3A": "No. The comparison is performed in the browser session and is not saved by ToolOrbit. Avoid pasting secrets into any web tool unless your organization permits browser-based review.",
+      "highlightsTitle": "Why use ToolOrbit Text Diff?",
+      "highlight1Title": "Local private comparison",
+      "highlight1Desc": "Review drafts, snippets, and payload changes without sending content to a remote diff service.",
+      "highlight2Title": "Line and word modes",
+      "highlight2Desc": "Switch between structural review and fine-grained copy review depending on the kind of change you need to inspect.",
+      "highlight3Title": "Fast review workflow",
+      "highlight3Desc": "The split layout helps editors, developers, and support teams verify changes before publishing or replying."
     },
     "ai-text-polisher": {
       "name": "AI Text Polisher",
@@ -827,7 +859,14 @@
       "faq3Q": "Is there a limit to text length?",
       "faq3A": "The tool handles several thousand words smoothly, though extremely long books might cause slight browser lag.",
       "seoTitle": "Text Analyzer: Real-time Word & Character Counter",
-      "seoDesc": "Professional text statistics tool. Get deep insights into your content structure, from basic word counts to advanced character frequency analysis. Perfect for writers and editors."
+      "seoDesc": "Professional text statistics tool. Get deep insights into your content structure, from basic word counts to advanced character frequency analysis. Perfect for writers and editors.",
+      "highlightsTitle": "Why use this text analyzer?",
+      "highlight1Title": "Instant content metrics",
+      "highlight1Desc": "Get word, character, sentence, paragraph, and line counts while editing without switching to a document editor.",
+      "highlight2Title": "Useful for publishing limits",
+      "highlight2Desc": "Check descriptions, bios, ad copy, titles, and snippets against platform or CMS length requirements.",
+      "highlight3Title": "Pattern visibility",
+      "highlight3Desc": "Frequency analysis helps reveal repeated letters or terms that may matter in editorial review and data cleanup."
     },
     "text-cleaner": {
       "name": "Text Cleaner",
@@ -862,7 +901,14 @@
       "faq3Q": "Is there a way to remove empty lines?",
       "faq3A": "Yes, use the 'Remove empty lines' filter to collapse multiple newlines and clean up vertical spacing.",
       "seoTitle": "Online Text Cleaner: Batch Remove Spaces & Punctuation",
-      "seoDesc": "Powerful utility to sanitize your text. Strip newlines, remove extra spaces, and filter out punctuation instantly. Essential for data cleanup and formatting."
+      "seoDesc": "Powerful utility to sanitize your text. Strip newlines, remove extra spaces, and filter out punctuation instantly. Essential for data cleanup and formatting.",
+      "highlightsTitle": "Why use this text cleaner?",
+      "highlight1Title": "Rule-based cleanup",
+      "highlight1Desc": "Remove spaces, tabs, blank lines, punctuation, or newlines with explicit toggles instead of destructive one-click formatting.",
+      "highlight2Title": "Real-time preview",
+      "highlight2Desc": "See the cleaned output immediately so you can adjust rules before copying or downloading the result.",
+      "highlight3Title": "Practical data prep",
+      "highlight3Desc": "Prepare scraped text, copied spreadsheet cells, product copy, and imported notes for downstream tools."
     },
     "symbol-library": {
       "name": "Symbol Library",
@@ -883,7 +929,7 @@
         "brackets": "Brackets"
       },
       "seoTitle": "Symbols & Emoji Library: One-Click Web Copy & Paste",
-      "seoDesc": "When writing social media copy or designing UI, finding the right special symbol or emoji often requires scrolling through dozens of pages. This categorized library streamlines your workflow.",
+      "seoDesc": "When writing social media copy, product descriptions, documentation, comments, or UI mockups, finding the right special symbol often means jumping between input methods, search results, and operating-system emoji panels. This Symbol Library keeps frequently used Unicode characters in one searchable workspace: emoji, arrows, mathematical operators, currency marks, copyright symbols, decorative stars, brackets, and punctuation. Type a keyword, browse by category, then click any symbol to copy it directly to your clipboard. Because the entries are native Unicode characters rather than images, they remain selectable, lightweight, and easy to paste into HTML, Markdown, spreadsheets, design notes, chat messages, and plain text files. The library is especially useful for developers checking UI placeholders, content editors polishing headlines, students writing formulas, and ecommerce teams preparing compact listing copy.",
       "seoHighlightsTitle": "Why use this symbol library?",
       "highlight1Title": "1. Keyboard-Free Accessibility:",
       "highlight1Desc": "System emoji boards are often slow and poorly categorized. This web-based library provides a large, persistent matrix of symbols for heavy-duty text editing.",
@@ -962,7 +1008,19 @@
       "highlight2Desc": "Our internal recognition engine has excellent capture and noise reduction capabilities for codes embedded in advertisements, screenshots, or filtered images.",
       "highlight3Title": "3. Total Offline Isolation:",
       "highlight3Desc": "All decoding happens in your browser's memory. This cuts off any network eavesdropping and ensures 'viral images' can't track your origin.",
-      "seoFooter": "Advanced Tip: If the image is extremely blurry or distorted, try sharpening or cropping it before uploading to increase the success rate."
+      "seoFooter": "Advanced Tip: If the image is extremely blurry or distorted, try sharpening or cropping it before uploading to increase the success rate.",
+      "guideTitle": "How to scan a QR code image safely",
+      "guide1": "Save or screenshot the QR code image instead of opening it directly. Uploading the image lets you inspect the encoded text before visiting any destination.",
+      "guide2": "Choose a clear image with the full code visible. If the scan fails, crop excess background, increase contrast, or use a higher resolution screenshot.",
+      "guide3": "Read the decoded result carefully before copying or opening it. Watch for shortened URLs, misspelled domains, unexpected payment links, or app deep links.",
+      "guide4": "Use the copied result in a separate security check when the QR code comes from a poster, email, package insert, or unknown sender.",
+      "faq1Q": "Can this scan QR codes from screenshots?",
+      "faq1A": "Yes. Screenshots usually work well as long as the QR code is not blurred, cropped, or heavily compressed. A high-contrast image with quiet space around the code gives the best result.",
+      "faq2Q": "Does the scanner open links automatically?",
+      "faq2A": "No. It decodes the text and shows it first, which is safer than immediately launching a URL. You can decide whether to copy, inspect, or ignore the result.",
+      "faq3Q": "Are uploaded QR images private?",
+      "faq3A": "The decoding runs in your browser, so ToolOrbit does not need to upload the image to a server. This is useful when checking internal labels, event tickets, or suspicious codes.",
+      "highlightsTitle": "Why use this QR scanner?"
     },
     "pdf-merge": {
       "name": "PDF Merge",
@@ -1194,7 +1252,8 @@
       "highlight2Desc": "Fine-tune bar width, height, and colors. Output high-quality PNGs suitable for thermal printers and packaging designs.",
       "highlight3Title": "3. Instant Pre-Validation:",
       "highlight3Desc": "Strict validation for digit counts and checksums. Anti-mistake detection prevents invalid labels from being sent to production.",
-      "seoFooter": "Disclaimer & Extensions: Some shipping labels use long CODE_128 formats. We suggest increasing the 'Bar Width' for long codes to ensure scanners can reliably decode them."
+      "seoFooter": "Disclaimer & Extensions: Some shipping labels use long CODE_128 formats. We suggest increasing the 'Bar Width' for long codes to ensure scanners can reliably decode them.",
+      "highlightsTitle": "Why use this barcode generator?"
     },
     "etsy-fee-calculator": {
       "name": "Etsy Fee Calculator",
@@ -1448,7 +1507,8 @@
       "highlight2Desc": "PNG files exported through our engine preserve the alpha channel transparency of your original SVG.",
       "highlight3Title": "Developer Friendly:",
       "highlight3Desc": "Directly paste SVG code from your IDE to immediately see the render and grab a PNG variant for your presentation or documentation.",
-      "seoFooter": "Optimized for Chrome, Edge, and Safari. High-resolution exports may consume more CPU memory during the canvas generation phase."
+      "seoFooter": "Optimized for Chrome, Edge, and Safari. High-resolution exports may consume more CPU memory during the canvas generation phase.",
+      "highlightsTitle": "Why use this SVG to PNG converter?"
     },
     "image-to-base64": {
       "name": "Image to Base64",
@@ -1483,7 +1543,18 @@
       "highlight2Desc": "Since the resource is in your code, you'll never face 404s from missing image files or expired hosts.",
       "highlight3Title": "3. Ready to Paste:",
       "highlight3Desc": "Export to CSS url() format or HTML img src instantly with pre-made templates.",
-      "seoFooter": "Best for UI accents under 10KB. Balance inline vs. external for best performance."
+      "seoFooter": "Best for UI accents under 10KB. Balance inline vs. external for best performance.",
+      "guideTitle": "How to use Image to Base64 effectively",
+      "guide1": "Start with a small UI asset such as an icon, logo mark, placeholder, or tracking pixel. Base64 is most useful when the original file is small enough to inline without bloating your HTML or CSS.",
+      "guide2": "Upload the image and review the original file size before copying. If the file is larger than a few dozen KB, keep it as a normal image file or compress it first.",
+      "guide3": "Copy the full Data URL for img src, CSS url(), Markdown previews, or no-build prototypes. Copy the raw Base64 string only when an API or database field asks for the payload without the MIME prefix.",
+      "guide4": "After pasting the output into a project, test page weight and caching behavior. Inline assets cannot be cached separately, so use this workflow selectively for critical or tiny assets.",
+      "faq1Q": "When should I convert an image to Base64?",
+      "faq1A": "Base64 is best for very small images that need to travel inside a single HTML, CSS, JSON, or email template file. It can reduce extra network requests, but it also increases the encoded size, so large photos and product images should normally stay as separate files.",
+      "faq2Q": "Is the uploaded image sent to ToolOrbit?",
+      "faq2A": "No. The conversion runs in your browser using local file APIs, so the image content is not uploaded to ToolOrbit servers. This makes it suitable for private UI assets, internal screenshots, and draft prototypes.",
+      "faq3Q": "What is the difference between Data URL and raw Base64?",
+      "faq3A": "A Data URL includes the MIME type and prefix, such as data:image/png;base64, before the encoded content. Raw Base64 contains only the encoded bytes and is useful when another system already knows the file type."
     },
     "image-cropper": {
       "name": "Image Cropper",
@@ -1869,7 +1940,14 @@
       "clickToCopy": "CLICK TO COPY",
       "baseColorLabel": "BASE COLOR",
       "tints": "Tints",
-      "shades": "Shades"
+      "shades": "Shades",
+      "highlightsTitle": "Why use this color palette generator?",
+      "highlight1Title": "Consistent UI ramps",
+      "highlight1Desc": "Generate lighter and darker steps from one brand color so borders, backgrounds, hover states, and badges feel related.",
+      "highlight2Title": "Copy-ready colors",
+      "highlight2Desc": "Click a swatch to copy the color value and move quickly from exploration into CSS, design tokens, or documentation.",
+      "highlight3Title": "Useful for design systems",
+      "highlight3Desc": "Palette steps help teams define practical color roles instead of choosing random variations by eye."
     },
     "color-picker": {
       "name": "Color Picker",
@@ -1930,7 +2008,14 @@
       "exportBtn": "Export as .ico",
       "seoTitle": "ICO Icon Wrapper: Generate Browser-Standard Favicon.ico",
       "seoDesc": "Build authentic cross-platform *.ico binary blobs. Wraps resized PNGs inside true MS Windows ICON structure blocks for maximum compatibility.",
-      "seoFooter": "Uses native JS Blob and ArrayBuffer to write valid ICO headers locally."
+      "seoFooter": "Uses native JS Blob and ArrayBuffer to write valid ICO headers locally.",
+      "highlightsTitle": "Why create ICO files in the browser?",
+      "highlight1Title": "True icon container output",
+      "highlight1Desc": "The converter writes a valid ICO structure instead of only renaming a PNG file, which improves compatibility with browsers, Windows shortcuts, and legacy favicon consumers.",
+      "highlight2Title": "Local resizing workflow",
+      "highlight2Desc": "Source images are resized in your browser before export, so draft logos and app icons do not need to be uploaded to a separate conversion service.",
+      "highlight3Title": "Favicon-ready dimensions",
+      "highlight3Desc": "Choose practical icon sizes for favicons, desktop apps, and prototypes, then download a file that can be dropped into a project quickly."
     },
     "password-generator": {
       "name": "Password Generator",
@@ -2097,7 +2182,14 @@
       "errorNoKey": "Please enter a key",
       "errorNoInput": "Please enter input text",
       "errorDecryptFailed": "Decryption failed. Check your key/iv/mode.",
-      "errorErrorOccurred": "Error rror ccurred"
+      "errorErrorOccurred": "Error rror ccurred",
+      "highlightsTitle": "Why use this symmetric crypto tool?",
+      "highlight1Title": "Browser-side experimentation",
+      "highlight1Desc": "Test AES-style encryption settings locally while learning how keys, modes, padding, and IV values affect the output.",
+      "highlight2Title": "Multiple algorithms",
+      "highlight2Desc": "Compare modern and legacy symmetric algorithms for education, migration checks, or compatibility testing.",
+      "highlight3Title": "Clear security boundaries",
+      "highlight3Desc": "The interface separates plaintext, ciphertext, keys, and parameters so reviewers can spot mistakes before reusing values."
     },
     "morse-code": {
       "name": "Morse Code",
@@ -2233,72 +2325,6 @@
       "flagSinglelineDesc": ". matches newline character.",
       "flagUnicodeLabel": "Unicode (u)",
       "flagUnicodeDesc": "Enable full unicode support."
-    },
-    "game-2048": {
-      "name": "2048 Game",
-      "description": "Classic numbers puzzle game to relax and focus.",
-      "title": "2048 Challenge",
-      "subtitle": "Join the numbers and get to the 2048 tile!",
-      "score": "Score",
-      "best": "Best",
-      "newGame": "New Game",
-      "gameOver": "Game Over!",
-      "tryAgain": "Try Again",
-      "win": "You Win!",
-      "guideTitle": "How to Play 2048?",
-      "guide1": "1. Use your arrow keys (or swipe on mobile) to move the tiles.",
-      "guide2": "2. When two tiles with the same number touch, they merge into one with double the value.",
-      "guide3": "3. After every move, a new tile (2 or 4) randomly appears in an empty spot.",
-      "guide4": "4. Your goal is to combine tiles until you reach the 2048 tile and get the highest score possible.",
-      "faq1Q": "What is the best strategy for 2048?",
-      "faq1A": "A popular technique is keeping your highest-value tile in a corner and keeping the rows populated so new tiles don't disrupt the flow.",
-      "faq2Q": "When does the game end?",
-      "faq2A": "The game ends when the 4x4 grid is full and there are no adjacent tiles with the same value that can be merged.",
-      "faq3Q": "Can I continue after hitting 2048?",
-      "faq3A": "Yes! Once you reach the 2048 tile, you can choose to keep playing to reach even higher numbers like 4096 or 8192.",
-      "seoTitle": "Classic 2048 Puzzle Game: Online Logic Challenge",
-      "seoDesc": "Join the tiles and get to the 2048 tile! A fun and addictive numbers game for relaxing and keeping your brain sharp. Support for keyboard and touch gestures.",
-      "highlightsTitle": "Why play our version of 2048?",
-      "highlight1Title": "1. 100% Ad-Free:",
-      "highlight1Desc": "Enjoy an uninterrupted gaming experience without annoying pop-ups or banners blocking your tiles.",
-      "highlight2Title": "2. High Performance:",
-      "highlight2Desc": "Optimized for both desktop and mobile, ensuring smooth animations and zero input lag.",
-      "highlight3Title": "3. Local State Saving:",
-      "highlight3Desc": "Your progress is saved locally in your browser, so you can pick up where you left off anytime."
-    },
-    "minesweeper": {
-      "name": "Minesweeper",
-      "description": "Classic logic game. Clear the grid and avoid mines.",
-      "title": "Classic Minesweeper (Remake)",
-      "subtitle": "A modernized version of the classic Windows logic puzzle.",
-      "mines": "Mines",
-      "time": "Time",
-      "reset": "New Game",
-      "levelEasy": "Easy (9x9)",
-      "levelMedium": "Medium (16x16)",
-      "levelHard": "Expert (30x16)",
-      "gameOver": "Boom! Game Over.",
-      "win": "You won! The field is clear.",
-      "guideTitle": "How to Play Minesweeper?",
-      "guide1": "1. Left-click a square to reveal it. If it's a mine, the game is over.",
-      "guide2": "2. The number on a revealed square shows how many mines are adjacent to it.",
-      "guide3": "3. Right-click (or long-press) to place a flag on squares you suspect contain mines.",
-      "guide4": "4. Clear all non-mine squares to win the game as quickly as possible.",
-      "faq1Q": "What do the numbers mean?",
-      "faq1A": "They represent the count of mines in the 8 surrounding squares. Use this logic to deduce safe spots.",
-      "faq2Q": "Is the first click always safe?",
-      "faq2A": "Yes, in our version, we ensure the first square you click is never a mine to give you a fair start.",
-      "faq3Q": "How do I win?",
-      "faq3A": "You win when all squares that do not contain a mine have been revealed. Flagging is helpful but not strictly required to win.",
-      "seoTitle": "Professional Online Minesweeper: Classic Retro Logic",
-      "seoDesc": "The classic Minesweeper puzzle game reimagined for the web. Test your deduction skills, flag the mines, and clear the field on Easy, Medium, or Expert levels.",
-      "highlightsTitle": "The perfect Minesweeper experience:",
-      "highlight1Title": "1. Modern Retouching:",
-      "highlight1Desc": "Smooth performance with a clean, retro-modern interface that works perfectly on high-resolution screens.",
-      "highlight2Title": "2. Multiple Difficulty Levels:",
-      "highlight2Desc": "From quick 9x9 grids to expert-level 30x16 minefields for the hardcore logic enthusiast.",
-      "highlight3Title": "3. Pure Logic, No Ads:",
-      "highlight3Desc": "We provide a clean workspace for your brain. Focus on deducing mine locations without distractions."
     },
     "short-url": {
       "name": "Short URL",
@@ -2588,6 +2614,6 @@
         "description": "We keep core tools, metadata, structured data, and documentation aligned so users and crawlers can understand what each page is for."
       }
     },
-    "content": "<p className='mb-6'>ToolOrbit was born from a passionate group of developers' pursuit of clean, high-performance web utilities. In our daily coding, writing, and design workflows, we often felt frustrated: many online small tools are cluttered with intrusive ads, pop-ups, and forced uploads of sensitive data to unknown backends. This not only hampers efficiency but also poses significant privacy risks.</p><h3>Our Vision: Privacy as a Right</h3><p>We are dedicated to building a <strong>Client-Side First</strong> online tool matrix. For file, formatting, conversion, and many developer utilities, processing happens inside your browser sandbox. <strong>When a feature needs AI generation, the interface makes that workflow clear so you can decide what to submit.</strong></p><h3>Professionalism & Sincerity</h3><p>Every tool on ToolOrbit is carefully crafted using modern web technologies (such as Web APIs, Canvas, WebAssembly where appropriate, and configured AI model APIs) to ensure speed, clarity, and practical usefulness. We are not just 'moving code'; we are refining the online tool experience around real workflows.</p><h3>Why Trust Us?</h3><ul><li><strong>100% Free & No Pop-ups</strong>: We insist on an optimal user experience without ads blocking your view.</li><li><strong>Technical Transparency</strong>: Core logic is clearly visible locally; you can audit our network requests anytime via DevTools.</li><li><strong>Continuous Evolution</strong>: We update tools and guides based on community feedback, striving to be your digital 'Swiss Army Knife'.</li></ul><h3>Contact Us</h3><p>This project is evolving. If you have suggestions, business inquiries, or need a custom-built tool, please reach out:</p><p>Business & Inquiry: <a href=\"mailto:luowj1998@outlook.com\" style=\"color: #0ea5e9; font-weight: 600;\">luowj1998@outlook.com</a></p>"
+    "content": "<p class='mb-6'>ToolOrbit is created and maintained by the ToolOrbit Editorial Team, an independent developer-led project focused on practical browser utilities for developers, creators, ecommerce operators, and document workflows. The public contact for the project is <a href=\"mailto:luowj1998@outlook.com\" style=\"color: #0ea5e9; font-weight: 600;\">luowj1998@outlook.com</a>. We keep this contact visible because users should be able to report a broken tool, question a result, or request a correction without searching through anonymous pages.</p><h3>Why ToolOrbit Exists</h3><p>ToolOrbit started from a recurring problem in daily technical work: small online utilities were useful, but many were cluttered, unclear about privacy, or too thin to explain when a workflow was safe. Formatting JSON, comparing text, compressing images, merging PDFs, checking QR codes, or drafting AI-assisted copy should not require installing heavy desktop software or uploading private material to unknown backends. Our goal is to make those everyday tasks fast, understandable, and transparent.</p><h3>How Tools Are Selected and Built</h3><p>We prioritize tools that solve repeatable work: developer debugging, format conversion, image optimization, PDF preparation, text cleanup, ecommerce writing, and AI-assisted drafting. Before a tool is kept on the site, we check whether it has a clear use case, a stable interface, useful failure messages, and enough surrounding guidance for a user to understand the tradeoffs. We avoid adding pages that exist only as thin placeholders, games, or unrelated content because they do not help the audience ToolOrbit is built for.</p><h3>Quality Assurance Process</h3><p>Each core page is reviewed across three layers. First, the tool behavior is tested with ordinary samples and edge cases, such as invalid JSON, oversized images, unusual characters, empty files, and malformed input. Second, the page content is checked for a practical guide, FAQs, metadata, and related internal links. Third, build output, sitemap inclusion, and noindex decisions are reviewed so search engines receive a clear map of the site. Last reviewed: May 18, 2026.</p><h3>Privacy Commitment</h3><p>ToolOrbit is local-first wherever browser APIs make that possible. Many tools process text, files, images, and code in your own browser session instead of uploading the input to ToolOrbit servers. When a feature needs AI generation, network access, analytics, or advertising scripts, the workflow is treated differently and should be reviewed by the user before submitting sensitive material. We do not ask users to create an account for the free utility pages, and we design tools so results can be copied, downloaded, or cleared quickly.</p><h3>Corrections and Feedback</h3><p>If you find an outdated instruction, inaccurate explanation, accessibility issue, or unexpected tool result, send the page URL, the sample input if it is safe to share, your browser version, and what you expected to happen. We use those reports to improve tools, guides, structured data, and privacy notes over time.</p>"
   }
 }

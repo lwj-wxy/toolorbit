@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
-import Script from 'next/script';
 import '../index.css';
 import JsonLd from '../components/JsonLd';
 import DelayedAdSenseScript from '../components/DelayedAdSenseScript';
+import GoogleAnalyticsScript from '../components/GoogleAnalyticsScript';
 import Layout from '../components/Layout';
 import Providers from './providers';
 import { BRAND_DESCRIPTION } from '../data/brand';
@@ -52,20 +52,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  var theme = localStorage.getItem('toolorbit_theme') || 'system';
-                  var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                  var isDark = theme === 'dark' || (theme === 'system' && prefersDark);
-                  document.documentElement.classList.toggle('dark', isDark);
-                } catch (error) {}
-              })();
-            `,
-          }}
-        />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
@@ -75,28 +61,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body suppressHydrationWarning>
         <JsonLd id="structured-data-organization" data={organizationJsonLd()} />
         <JsonLd id="structured-data-website" data={websiteJsonLd()} />
-        {gaMeasurementId ? (
-          <>
-            <Script id="google-analytics-stub" strategy="beforeInteractive">
-              {`
-                window.dataLayer = window.dataLayer || [];
-                window.gtag = window.gtag || function(){window.dataLayer.push(arguments);}
-              `}
-            </Script>
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`}
-              strategy="afterInteractive"
-            />
-            <Script id="google-analytics" strategy="afterInteractive">
-              {`
-                window.dataLayer = window.dataLayer || [];
-                window.gtag = window.gtag || function(){window.dataLayer.push(arguments);}
-                window.gtag('js', new Date());
-                window.gtag('config', '${gaMeasurementId}');
-              `}
-            </Script>
-          </>
-        ) : null}
+        <GoogleAnalyticsScript measurementId={gaMeasurementId} />
         <DelayedAdSenseScript client={googleAdsenseClient} />
         <Providers toolTrackingData={toolTrackingData}>
           <Layout>{children}</Layout>

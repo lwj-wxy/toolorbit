@@ -1,4 +1,4 @@
-export type Category = 'AI 工具' | '开发者工具' | '站长工具' | '文本排版' | '生成器' | '电商工具' | 'PDF工具' | '图片处理' | '计算转换' | '娱乐工具';
+export type Category = 'AI 工具' | '开发者工具' | '站长工具' | '文本排版' | '生成器' | '电商工具' | 'PDF工具' | '图片处理' | '计算转换';
 
 export interface ToolMeta {
   id: string;
@@ -8,6 +8,7 @@ export interface ToolMeta {
   path: string;
   color?: string;
   isPopular?: boolean;
+  isNoIndex?: boolean;
 }
 
 function expandDescription(tool: ToolMeta): ToolMeta {
@@ -503,14 +504,6 @@ const RAW_TOOLS_META = [
     color: "blue"
   },
   {
-    id: "game-2048",
-    name: "2048 经典游戏",
-    description: "经典的 2048 益智数字合并小游戏，解压、益智、防无聊。",
-    category: "娱乐工具",
-    path: "/tools/fun/game-2048",
-    color: "pink"
-  },
-  {
     id: "password-generator",
     name: "强密码生成器",
     description: "本地随机生成高强度复杂密码，保护您的账户隐私安全。",
@@ -554,9 +547,9 @@ const RAW_TOOLS_META = [
     id: "morse-code",
     name: "摩斯密码转换",
     description: "在线将文本编码为摩斯电码，或将电码解码为可读文本。",
-    category: "娱乐工具",
+    category: "开发者工具",
     path: "/tools/dev/morse-code",
-    color: "pink"
+    color: "green"
   },
   {
     id: "hex-string-converter",
@@ -572,15 +565,8 @@ const RAW_TOOLS_META = [
     description: "中国国家密码管理局发布的国产加密算法在线工具，包含 SM2, SM3, SM4。",
     category: "开发者工具",
     path: "/tools/dev/chinese-crypto",
-    color: "green"
-  },
-  {
-    id: "minesweeper",
-    name: "经典扫雷",
-    description: "Windows 经典扫雷小游戏，挑战逻辑思维 with luck 及逻辑。",
-    category: "娱乐工具",
-    path: "/tools/fun/minesweeper",
-    color: "pink"
+    color: "green",
+    isNoIndex: true
   }
 ] satisfies ToolMeta[];
 
