@@ -11,6 +11,7 @@ export default function ImageGenerator() {
   const [resultUrl, setResultUrl] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [aiMeta, setAiMeta] = useState<{ model?: string; fallbackUsed?: boolean; elapsedMs?: number } | null>(null);
 
   const styles = [
     { value: 'photorealistic', label: 'Photorealistic / 真实感' },
@@ -32,6 +33,7 @@ export default function ImageGenerator() {
     
     setLoading(true);
     setError('');
+    setAiMeta(null);
     
     if (resultUrl && resultUrl.startsWith('blob:')) {
       URL.revokeObjectURL(resultUrl);
@@ -56,6 +58,7 @@ export default function ImageGenerator() {
       }
 
       setResultUrl(data.imageUrl);
+      setAiMeta({ model: data.model, fallbackUsed: data.fallbackUsed, elapsedMs: data.elapsedMs });
       setLoading(false);
 
     } catch (err: any) {
@@ -189,15 +192,22 @@ export default function ImageGenerator() {
                     <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
                       {t('tools.ai-image-generator.resultTitle') || 'Result'}
                     </label>
-                    {resultUrl && !loading && (
-                      <button
-                        onClick={downloadImage}
-                        className="flex items-center gap-1.5 text-sm text-amber-600 dark:text-amber-400 hover:text-amber-700 font-medium px-3 py-1.5 rounded-lg hover:bg-amber-50 dark:hover:bg-amber-900/20 transition-colors"
-                      >
-                        <Download className="w-4 h-4" />
-                        {t('common.download') || 'Download'}
-                      </button>
-                    )}
+                    <div className="flex items-center gap-2">
+                      {aiMeta?.model && (
+                        <span className="text-xs text-slate-500 dark:text-slate-400">
+                          {aiMeta.model}{aiMeta.fallbackUsed ? ' fallback' : ''}
+                        </span>
+                      )}
+                      {resultUrl && !loading && (
+                        <button
+                          onClick={downloadImage}
+                          className="flex items-center gap-1.5 text-sm text-amber-600 dark:text-amber-400 hover:text-amber-700 font-medium px-3 py-1.5 rounded-lg hover:bg-amber-50 dark:hover:bg-amber-900/20 transition-colors"
+                        >
+                          <Download className="w-4 h-4" />
+                          {t('common.download') || 'Download'}
+                        </button>
+                      )}
+                    </div>
                  </div>
                  
                  <div className="relative flex-1 min-h-[400px]">

@@ -11,6 +11,7 @@ export default function SvgGenerator() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [copied, setCopied] = useState(false);
+  const [aiMeta, setAiMeta] = useState<{ model?: string; fallbackUsed?: boolean; elapsedMs?: number } | null>(null);
   
   const styles = [
     { value: 'flat', label: 'Flat Design / 扁平化' },
@@ -25,6 +26,7 @@ export default function SvgGenerator() {
     setLoading(true);
     setResult('');
     setError('');
+    setAiMeta(null);
     
     try {
       const response = await fetch('/api/ai-svg-generator', {
@@ -43,6 +45,7 @@ export default function SvgGenerator() {
       }
 
       setResult(data.content);
+      setAiMeta({ model: data.model, fallbackUsed: data.fallbackUsed, elapsedMs: data.elapsedMs });
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -173,8 +176,14 @@ export default function SvgGenerator() {
                     <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
                       {t('tools.ai-svg-generator.resultTitle') || 'Result'}
                     </label>
-                    {result && (
-                      <div className="flex gap-2">
+                    <div className="flex items-center gap-2">
+                      {aiMeta?.model && (
+                        <span className="text-xs text-slate-500 dark:text-slate-400">
+                          {aiMeta.model}{aiMeta.fallbackUsed ? ' fallback' : ''}
+                        </span>
+                      )}
+                      {result && (
+                        <>
                         <button
                           onClick={downloadSvg}
                           className="flex items-center gap-1.5 text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-amber-400 font-medium px-3 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
@@ -189,8 +198,9 @@ export default function SvgGenerator() {
                           {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                           {copied ? (t('common.copied') || 'Copied') : (t('common.copy') || 'Copy code')}
                         </button>
-                      </div>
-                    )}
+                        </>
+                      )}
+                    </div>
                  </div>
                  
                  <div className="relative flex-1 min-h-[400px]">

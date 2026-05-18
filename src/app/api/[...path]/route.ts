@@ -7,6 +7,37 @@ export const maxDuration = 60;
 
 const DEEPSEEK_TEXT_MODEL = 'deepseek-v4-pro';
 const DEEPSEEK_BASE_URL = 'https://api.deepseek.com';
+const ZHIPU_IMAGE_MODEL = process.env.ZHIPU_IMAGE_MODEL || 'glm-image';
+const ZHIPU_IMAGE_FALLBACK_MODEL = process.env.ZHIPU_IMAGE_FALLBACK_MODEL || 'cogview-3-flash';
+const ZHIPU_IMAGE_BASE_URL = 'https://open.bigmodel.cn/api/paas/v4/images/generations';
+const ZHIPU_VISION_MODEL = process.env.ZHIPU_VISION_MODEL || 'glm-4v-flash';
+const IMAGE_GENERATION_TIMEOUT_MS = 45_000;
+
+type AiToolCategory = 'copy' | 'document' | 'code' | 'image' | 'vision';
+
+const AI_TOOL_CATEGORIES: Record<string, AiToolCategory> = {
+  'listing-craft': 'copy',
+  'market-research': 'document',
+  'ai-polisher': 'copy',
+  'ai-translator': 'copy',
+  'ai-prompt-generator': 'copy',
+  'ai-weekly-report': 'document',
+  'ai-video-script': 'copy',
+  'youtube-generator': 'copy',
+  'ai-meeting-minutes': 'document',
+  'ai-excel-formula': 'document',
+  'ai-regex': 'code',
+  'ai-code-reviewer': 'code',
+  'ai-image-generator': 'image',
+  'ai-svg-generator': 'image',
+  'ai-vision-describe': 'vision',
+};
+
+const TEXT_AI_CATEGORIES = new Set<AiToolCategory>(['copy', 'document', 'code']);
+
+function getAiToolCategory(path: string) {
+  return AI_TOOL_CATEGORIES[path] || null;
+}
 
 const usageMap: Map<string, number> = (globalThis as any).__toolorbitUsageMap || new Map<string, number>();
 (globalThis as any).__toolorbitUsageMap = usageMap;
@@ -30,6 +61,14 @@ type ChatMessage = {
   content: string;
 };
 
+function escapeSvgText(value: string) {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
 function getDeepseekClient() {
   const apiKey = process.env.DEEPSEEK_API_KEY?.trim();
   if (!apiKey || apiKey === 'missing-key') {
@@ -40,6 +79,87 @@ function getDeepseekClient() {
     apiKey,
     baseURL: DEEPSEEK_BASE_URL,
   });
+}
+
+function getZhipuApiKey() {
+  const apiKey = process.env.ZHIPU_API_KEY?.trim();
+  if (!apiKey) {
+    throw new Error('ZHIPU_API_KEY is not configured on the server.');
+  }
+  return apiKey;
+}
+
+function buildImagePrompt(body: any, mode: 'image' | 'svg' = 'image') {
+  const prompt = String(body.prompt || '').trim();
+  const style = String(body.style || '').trim();
+  const base = style ? `${prompt}\nRequired style: ${style}` : prompt;
+
+  if (mode === 'svg') {
+    return [
+      'Create a clean vector-style illustration suitable for SVG export.',
+      'Use a centered, recognizable subject with clear silhouette, simple background, crisp edges, and minimal text.',
+      'Avoid abstract placeholder symbols unless explicitly requested.',
+      base,
+    ].join('\n');
+  }
+
+  return base;
+}
+
+function imageUrlToSvg(imageUrl: string, prompt: string) {
+  const title = escapeSvgText(prompt || 'Generated SVG graphic');
+  const href = escapeSvgText(imageUrl);
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-labelledby="title">
+  <title id="title">${title}</title>
+  <rect width="1024" height="1024" rx="64" fill="#f8fafc"/>
+  <image href="${href}" x="0" y="0" width="1024" height="1024" preserveAspectRatio="xMidYMid meet"/>
+</svg>`;
+}
+
+async function requestZhipuImage(prompt: string, size: string, imageBase64?: string) {
+  const zhipuApiKey = getZhipuApiKey();
+
+  const createPayload = (model: string) => {
+    const payload: any = { model, prompt, size };
+
+    if (imageBase64) {
+      payload.image_base64 = imageBase64.replace(/^data:image\/(png|jpeg|webp|jpg);base64,/, '');
+    }
+
+    return payload;
+  };
+
+  const requestImage = (model: string) =>
+    axios.post(ZHIPU_IMAGE_BASE_URL, createPayload(model), {
+      headers: {
+        Authorization: `Bearer ${zhipuApiKey}`,
+        'Content-Type': 'application/json',
+      },
+      timeout: IMAGE_GENERATION_TIMEOUT_MS,
+    });
+
+  let usedModel = ZHIPU_IMAGE_MODEL;
+  let zhipuResponse;
+
+  try {
+    zhipuResponse = await requestImage(ZHIPU_IMAGE_MODEL);
+  } catch (primaryError) {
+    if (ZHIPU_IMAGE_FALLBACK_MODEL === ZHIPU_IMAGE_MODEL) {
+      throw primaryError;
+    }
+    usedModel = ZHIPU_IMAGE_FALLBACK_MODEL;
+    zhipuResponse = await requestImage(ZHIPU_IMAGE_FALLBACK_MODEL);
+  }
+
+  const imageUrl = zhipuResponse.data?.data?.[0]?.url;
+  if (!imageUrl) throw new Error(`Failed to generate image from ${usedModel}.`);
+
+  return {
+    imageUrl,
+    model: usedModel,
+    fallbackUsed: usedModel !== ZHIPU_IMAGE_MODEL,
+  };
 }
 
 function clientIp(request: Request) {
@@ -148,6 +268,9 @@ async function shorten(body: any) {
 }
 
 function streamConfig(path: string, body: any): { model: string; messages: ChatMessage[]; options?: Record<string, unknown>; rateMs?: number; rateMessage?: string } | null {
+  const category = getAiToolCategory(path);
+  if (category && !TEXT_AI_CATEGORIES.has(category)) return null;
+
   switch (path) {
     case 'listing-craft': {
       const lang = targetLanguage(body.language);
@@ -298,22 +421,31 @@ Please generate a comprehensive listing including title, bullet points, SEO desc
 }
 
 async function svgGenerator(body: any) {
-  const deepseek = getDeepseekClient();
-  const response = await deepseek.chat.completions.create({
-    model: DEEPSEEK_TEXT_MODEL,
-    messages: [
-      { role: 'system', content: `You are an expert SVG designer. Generate complete raw SVG code only. Style: ${body.style}. Use viewBox, include xmlns, and do not wrap in markdown.` },
-      { role: 'user', content: `Description:\n${body.prompt}` },
-    ],
-    stream: false,
-  });
+  const startedAt = Date.now();
+  const prompt = buildImagePrompt(body, 'svg');
+  const imageResult = await requestZhipuImage(prompt, '1280x1280', body.imageBase64);
+  const response = imageUrlToSvg(imageResult.imageUrl, body.prompt || 'Generated SVG graphic');
 
-  return Response.json({ content: response.choices[0]?.message?.content || '' });
+  return Response.json(
+    {
+      content: response,
+      imageUrl: imageResult.imageUrl,
+      elapsedMs: Date.now() - startedAt,
+      model: imageResult.model,
+      fallbackUsed: imageResult.fallbackUsed,
+      category: getAiToolCategory('ai-svg-generator'),
+      provider: 'zhipu-image',
+    },
+    {
+      headers: {
+        'Server-Timing': `svg;dur=${Date.now() - startedAt}`,
+      },
+    },
+  );
 }
 
 async function visionDescribe(body: any) {
-  const zhipuApiKey = process.env.ZHIPU_API_KEY;
-  if (!zhipuApiKey) throw new Error('Zhipu API key is missing.');
+  const zhipuApiKey = getZhipuApiKey();
 
   const prompt = body.language?.startsWith('zh')
     ? '请分析这张图片中的核心主体和构图。提取视觉概念并转化为英文生图提示词。只输出英文 Prompt，不要解释。'
@@ -322,7 +454,7 @@ async function visionDescribe(body: any) {
   const response = await axios.post(
     'https://open.bigmodel.cn/api/paas/v4/chat/completions',
     {
-      model: 'glm-4v-flash',
+      model: ZHIPU_VISION_MODEL,
       messages: [
         {
           role: 'user',
@@ -340,56 +472,31 @@ async function visionDescribe(body: any) {
 }
 
 async function imageGenerator(body: any) {
-  const zhipuApiKey = process.env.ZHIPU_API_KEY;
-  if (!zhipuApiKey) throw new Error('Missing ZHIPU_API_KEY.');
+  const startedAt = Date.now();
 
   let size = '1280x1280';
   if (body.ratio === '16:9') size = '1440x960';
   if (body.ratio === '9:16') size = '960x1440';
 
-  let finalPrompt = body.prompt;
-  try {
-    const deepseek = getDeepseekClient();
-    const system = body.language?.startsWith('zh')
-      ? '你是专业 AI 图像提示词生成大师。将用户描述扩写成英文高质量生图 Prompt。只输出英文文本。'
-      : 'You are a professional AI image prompt master. Expand the user description into a high-quality English image prompt. Output only the prompt text.';
-    const prompt = body.style ? `${finalPrompt}\nRequired Style: ${body.style}` : finalPrompt;
-    const optimized = await deepseek.chat.completions.create({
-      model: DEEPSEEK_TEXT_MODEL,
-      messages: [{ role: 'system', content: system }, { role: 'user', content: prompt }],
-      temperature: 0.7,
-      max_tokens: 1500,
-    });
-    finalPrompt = optimized.choices[0]?.message?.content?.trim() || finalPrompt;
-  } catch {
-    if (body.style) finalPrompt = `${body.prompt} (Art Style: ${body.style})`;
-  }
+  const finalPrompt = buildImagePrompt(body, 'image');
+  const imageResult = await requestZhipuImage(finalPrompt, size, body.imageBase64);
 
-  const payload: any = {
-    model: 'glm-image',
-    prompt: finalPrompt,
-    size,
-  };
-
-  if (body.imageBase64) {
-    payload.image_base64 = body.imageBase64.replace(/^data:image\/(png|jpeg|webp|jpg);base64,/, '');
-  }
-
-  const zhipuResponse = await axios.post('https://open.bigmodel.cn/api/paas/v4/images/generations', payload, {
-    headers: {
-      Authorization: `Bearer ${zhipuApiKey}`,
-      'Content-Type': 'application/json',
+  return Response.json(
+    {
+      imageUrl: imageResult.imageUrl,
+      prompt: finalPrompt,
+      elapsedMs: Date.now() - startedAt,
+      model: imageResult.model,
+      fallbackUsed: imageResult.fallbackUsed,
+      category: getAiToolCategory('ai-image-generator'),
+      provider: 'zhipu-image',
     },
-  });
-
-  const fetchUrl = zhipuResponse.data?.data?.[0]?.url;
-  if (!fetchUrl) throw new Error('Failed to generate image from GLM.');
-
-  const imgRes = await axios.get(fetchUrl, { responseType: 'arraybuffer', timeout: 30000 });
-  const base64Image = Buffer.from(imgRes.data).toString('base64');
-  const contentType = imgRes.headers['content-type'] || 'image/png';
-
-  return Response.json({ imageUrl: `data:${contentType};base64,${base64Image}`, prompt: finalPrompt });
+    {
+      headers: {
+        'Server-Timing': `image;dur=${Date.now() - startedAt}`,
+      },
+    },
+  );
 }
 
 export async function POST(request: Request) {
@@ -398,24 +505,23 @@ export async function POST(request: Request) {
   const userAgent = request.headers.get('user-agent') || 'unknown';
   const rateLimitKey = `${path}:${ip}:${userAgent}`;
   const body = await request.json().catch(() => ({}));
+  const category = getAiToolCategory(path);
 
   try {
     if (path === 'shorten') return await shorten(body);
 
     const jsonRateLimit = rateLimit(rateLimitKey);
-    if (jsonRateLimit && ['ai-svg-generator', 'ai-vision-describe', 'ai-image-generator'].includes(path)) return jsonRateLimit;
+    if (jsonRateLimit && (category === 'image' || category === 'vision')) return jsonRateLimit;
 
-    if (path === 'ai-svg-generator') {
+    if (category === 'image') {
       markUsage(rateLimitKey);
-      return await svgGenerator(body);
+      if (path === 'ai-svg-generator') return await svgGenerator(body);
+      if (path === 'ai-image-generator') return await imageGenerator(body);
     }
-    if (path === 'ai-vision-describe') {
+
+    if (category === 'vision') {
       markUsage(rateLimitKey);
-      return await visionDescribe(body);
-    }
-    if (path === 'ai-image-generator') {
-      markUsage(rateLimitKey);
-      return await imageGenerator(body);
+      if (path === 'ai-vision-describe') return await visionDescribe(body);
     }
 
     const config = streamConfig(path, body);
