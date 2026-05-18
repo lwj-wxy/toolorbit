@@ -1,7 +1,7 @@
 import NextLink from 'next/link';
 import { BookOpen, CheckCircle2, ShieldCheck, UserCheck } from 'lucide-react';
 import { BLOG_POSTS } from '../constants/blogData';
-import { TOOL_ORBIT_EDITORIAL_TEAM } from '../data/authors';
+import { getAuthorById } from '../data/authors';
 import en from '../locales/en.json';
 import { readPath } from '../lib/metadata';
 
@@ -13,24 +13,40 @@ function blogSummary(slug: string) {
   return readPath(en, `blog.posts.${slug}.summary`) || 'ToolOrbit practical guide.';
 }
 
-export default function AuthorPage() {
-  const featuredPosts = BLOG_POSTS.filter((post) =>
-    [
+type AuthorPageProps = {
+  authorId?: string;
+};
+
+export default function AuthorPage({ authorId }: AuthorPageProps) {
+  const author = getAuthorById(authorId);
+  const authoredPosts = BLOG_POSTS.filter((post) => getAuthorById(post.authorId).id === author.id);
+  const candidatePosts = authoredPosts.length ? authoredPosts : BLOG_POSTS;
+  const preferredSlugs = [
       'why-use-json-formatter',
       'base64-encoding-deep-dive',
       'image-compression-techniques',
       'modern-pdf-workflow-efficiency',
       'ai-code-reviewer-guide',
       'secure-developer-tools-privacy',
-    ].includes(post.slug),
-  );
+  ];
+  const featuredPosts = candidatePosts
+    .sort((a, b) => {
+      const aIndex = preferredSlugs.indexOf(a.slug);
+      const bIndex = preferredSlugs.indexOf(b.slug);
+
+      if (aIndex !== -1 && bIndex !== -1) return aIndex - bIndex;
+      if (aIndex !== -1) return -1;
+      if (bIndex !== -1) return 1;
+      return new Date(b.date).getTime() - new Date(a.date).getTime();
+    })
+    .slice(0, 8);
 
   return (
     <main className="mx-auto w-full max-w-5xl px-4 py-12 sm:px-6 lg:px-8">
       <header className="mb-10 rounded-lg border border-slate-200 bg-white p-8 shadow-sm dark:border-slate-800 dark:bg-slate-900">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-start">
           <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-emerald-100 text-2xl font-black text-emerald-800 dark:bg-emerald-950 dark:text-emerald-200">
-            {TOOL_ORBIT_EDITORIAL_TEAM.avatarInitials}
+            {author.avatarInitials}
           </div>
           <div>
             <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1 text-sm font-semibold text-emerald-700 dark:bg-emerald-950 dark:text-emerald-200">
@@ -38,10 +54,10 @@ export default function AuthorPage() {
               Editorial profile
             </div>
             <h1 className="text-4xl font-extrabold tracking-normal text-slate-950 dark:text-white">
-              {TOOL_ORBIT_EDITORIAL_TEAM.name}
+              {author.name}
             </h1>
-            <p className="mt-3 text-base font-semibold text-slate-700 dark:text-slate-200">{TOOL_ORBIT_EDITORIAL_TEAM.role}</p>
-            <p className="mt-4 max-w-3xl leading-8 text-slate-600 dark:text-slate-300">{TOOL_ORBIT_EDITORIAL_TEAM.bio}</p>
+            <p className="mt-3 text-base font-semibold text-slate-700 dark:text-slate-200">{author.role}</p>
+            <p className="mt-4 max-w-3xl leading-8 text-slate-600 dark:text-slate-300">{author.bio}</p>
           </div>
         </div>
       </header>
@@ -99,4 +115,3 @@ export default function AuthorPage() {
     </main>
   );
 }
-

@@ -8,7 +8,8 @@ import {
   BRAND_PRIVACY_SUMMARY,
   BRAND_PUBLISHING_PRINCIPLES_PATH,
 } from '../data/brand';
-import { TOOL_ORBIT_EDITORIAL_TEAM } from '../data/authors';
+import { TOOL_ORBIT_EDITORIAL_TEAM, getAuthorById } from '../data/authors';
+import type { Author } from '../data/authors';
 import { getSeoContentPage, toolByPath } from '../data/seoContent';
 import { TOOLS } from '../data/tools';
 import type { Category } from '../data/tools';
@@ -155,6 +156,23 @@ function editorialTeamEntity(locale: Locale = 'en') {
     description: TOOL_ORBIT_EDITORIAL_TEAM.bio,
     knowsAbout: TOOL_ORBIT_EDITORIAL_TEAM.role,
     parentOrganization: organizationEntity(),
+  };
+}
+
+function authorEntity(author: Author, locale: Locale = 'en') {
+  if (author.id === TOOL_ORBIT_EDITORIAL_TEAM.id) {
+    return editorialTeamEntity(locale);
+  }
+
+  return {
+    '@type': 'Person',
+    '@id': `${SITE_URL}${localizedPath(author.url, locale)}#author`,
+    name: author.name,
+    url: absoluteUrl(author.url, locale),
+    description: author.bio,
+    jobTitle: author.role,
+    worksFor: organizationEntity(),
+    knowsAbout: BRAND_KNOWS_ABOUT,
   };
 }
 
@@ -382,21 +400,22 @@ export function seoContentPageJsonLd(path: string, locale: Locale = 'en') {
   ];
 }
 
-export function authorPageJsonLd(locale: Locale = 'en') {
-  const url = absoluteUrl(TOOL_ORBIT_EDITORIAL_TEAM.url, locale);
+export function authorPageJsonLd(authorId?: string, locale: Locale = 'en') {
+  const author = getAuthorById(authorId);
+  const url = absoluteUrl(author.url, locale);
 
   return [
     breadcrumb([
       { name: SITE_NAME, url: absoluteUrl('/', locale) },
-      { name: TOOL_ORBIT_EDITORIAL_TEAM.name, url },
+      { name: author.name, url },
     ]),
     {
       '@context': 'https://schema.org',
       '@type': 'ProfilePage',
-      name: TOOL_ORBIT_EDITORIAL_TEAM.name,
+      name: author.name,
       url,
-      dateModified: '2026-05-15',
-      mainEntity: editorialTeamEntity(locale),
+      dateModified: '2026-05-18',
+      mainEntity: authorEntity(author, locale),
       publisher: organizationEntity(),
     },
   ];
@@ -506,6 +525,7 @@ export function blogPostJsonLd(slug: string, locale: Locale = 'en') {
   const description = blogDescription(slug, locale);
   const url = absoluteUrl(`/blog/${slug}`, locale);
   const wordCount = blogWordCount(slug, locale);
+  const author = getAuthorById(post.authorId);
   const relatedTools = (BLOG_RELATED_TOOLS[slug] || [])
     .map((path) => TOOLS.find((tool) => tool.path === path))
     .filter(Boolean) as typeof TOOLS;
@@ -529,9 +549,7 @@ export function blogPostJsonLd(slug: string, locale: Locale = 'en') {
       mainEntityOfPage: url,
       datePublished: post.date,
       dateModified: post.date,
-      author: {
-        ...editorialTeamEntity(locale),
-      },
+      author: authorEntity(author, locale),
       publisher: organizationEntity(),
       reviewedBy: organizationEntity(),
       inLanguage: locale === 'zh-CN' ? 'zh-CN' : 'en',

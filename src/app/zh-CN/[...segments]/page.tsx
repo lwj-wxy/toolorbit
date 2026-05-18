@@ -9,7 +9,7 @@ import ToolPageClient from '../../../components/ToolPageClient';
 import ToolSEOCard from '../../../components/ToolSEOCard';
 import ToolSearchContent from '../../../components/ToolSearchContent';
 import { BLOG_POSTS } from '../../../constants/blogData';
-import { TOOL_ORBIT_EDITORIAL_TEAM } from '../../../data/authors';
+import { AUTHORS, getAuthorByPath } from '../../../data/authors';
 import { SEO_CONTENT_PATHS, getSeoContentPage } from '../../../data/seoContent';
 import { TOOLS } from '../../../data/tools';
 import { getTotalBlogPages, normalizeBlogPage } from '../../../lib/blog-pagination';
@@ -48,7 +48,7 @@ const About = dynamic(() => import('../../../views/About')) as ComponentType;
 const Privacy = dynamic(() => import('../../../views/Privacy')) as ComponentType;
 const Terms = dynamic(() => import('../../../views/Terms')) as ComponentType;
 const AllToolsPage = dynamic(() => import('../../../views/AllToolsPage')) as ComponentType<{ locale: string }>;
-const AuthorPage = dynamic(() => import('../../../views/AuthorPage')) as ComponentType;
+const AuthorPage = dynamic(() => import('../../../views/AuthorPage')) as ComponentType<{ authorId?: string }>;
 const SeoContentPageView = dynamic(() => import('../../../views/SeoContentPage')) as ComponentType<{ page: unknown; locale: string }>;
 
 type PageProps = {
@@ -73,7 +73,7 @@ function allChineseSegments() {
     ['about'],
     ['privacy'],
     ['terms'],
-    TOOL_ORBIT_EDITORIAL_TEAM.url.split('/').filter(Boolean),
+    ...AUTHORS.map((author) => author.url.split('/').filter(Boolean)),
     ...SEO_CONTENT_PATHS.map((seoPath) => seoPath.split('/').filter(Boolean)),
     ...Array.from({ length: getTotalBlogPages() - 1 }, (_, index) => ['blog', 'page', String(index + 2)]),
     ...Object.values(CATEGORY_SLUGS).map((slug) => ['category', slug]),
@@ -102,7 +102,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (basePath === '/about') return staticPageMetadata('about', LOCALE);
   if (basePath === '/privacy') return staticPageMetadata('privacy', LOCALE);
   if (basePath === '/terms') return staticPageMetadata('terms', LOCALE);
-  if (basePath === TOOL_ORBIT_EDITORIAL_TEAM.url) return authorMetadata(LOCALE);
+  const author = getAuthorByPath(basePath);
+  if (author) return authorMetadata(author.id, LOCALE);
   if (SEO_CONTENT_PATHS.includes(basePath)) return seoContentMetadata(basePath, LOCALE);
 
   if (segments[0] === 'blog' && segments[1] === 'page' && segments[2]) {
@@ -224,11 +225,12 @@ export default async function Page({ params }: PageProps) {
     );
   }
 
-  if (basePath === TOOL_ORBIT_EDITORIAL_TEAM.url) {
+  const author = getAuthorByPath(basePath);
+  if (author) {
     return zhPage(
       <>
-        <JsonLd id="structured-data-author-toolorbit-editorial-team-zh" data={authorPageJsonLd(LOCALE)} />
-        <AuthorPage />
+        <JsonLd id={`structured-data-author-${author.id}-zh`} data={authorPageJsonLd(author.id, LOCALE)} />
+        <AuthorPage authorId={author.id} />
       </>,
     );
   }

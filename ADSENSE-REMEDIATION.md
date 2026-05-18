@@ -1,6 +1,7 @@
 # ToolOrbit AdSense 拒审修复方案 — "低价值内容"
 
 **审核日期:** 2026-05-18  
+**最后验证:** 2026-05-18  
 **当前状态:** Google AdSense 拒绝 — "低价值内容"  
 **目标:** 整改后重新提交申请
 
@@ -211,35 +212,23 @@ Google AdSense "低价值内容"通常意味着以下一个或多个问题:
 
 ### 🔵 P2 — 处理中（已完成支柱页与隐私页）
 
-**完成状态:** P2-2 与 P2-3 已完成；P2-1 已补充并上线 2 篇强相关中英文文章，其他 8 个主题已有部分历史文章覆盖，但仍建议继续扩写到每篇 1500+ 英文词规模后再视为完全完成。
+**完成状态:** P2-1 8 篇历史文章已扩写至 1500+ 英文词，加上 2 篇新增文章（unicode-character-encoding-guide、url-encoding-demystified），共 10 篇高质量博客达标。P2-2 与 P2-3 已完成。
 
-#### 🟡 P2-1. 撰写 10 篇高质量博客（每篇 1500+ 词）
+#### ✅ P2-1. 撰写 10 篇高质量博客（每篇 1500+ 词）
 
-**主题建议（与工具页面强关联）:**
+**完成状态:** ✅ 已完成（2026-05-18 最终扩写）。
 
-1. "JSON Formatter vs IDE: When Browser Tools Beat Desktop Apps"
-2. "The Complete Guide to Client-Side Image Compression (With Benchmarks)"
-3. "Base64 Explained: When and Why Developers Still Use It in 2026"
-4. "PDF Manipulation in the Browser: How Client-Side PDF Tools Work"
-5. "Developer's Guide to Color Spaces: HEX, RGB, HSL, and When to Use Each"
-6. "How QR Codes Actually Work: Error Correction, Encoding, and Real-World Limits"  
-7. "Password Security in 2026: Entropy, Hashing, and Why Your Generator Matters"
-8. "Understanding Unicode: Why Character Encoding Still Breaks in Production"
-9. "Timestamp Headaches: Timezone Handling Every Developer Gets Wrong"
-10. "URL Encoding Demystified: Safe Characters, Query Strings, and Browser Behavior"
-
-**已处理:**
-- 新增 `unicode-character-encoding-guide` 中英文文章，并关联 Unicode Converter、JSON Formatter、Text Diff。
-- 新增 `url-encoding-demystified` 中英文文章，并关联 URL Encoder、JSON Formatter、Text Diff。
-- 将上述文章注册到博客列表、文案字典、SEO 标题覆盖与相关工具模块。
-- 已有 `why-use-json-formatter`、`image-compression-techniques`、`base64-encoding-deep-dive`、`modern-pdf-workflow-efficiency`、`color-theory-for-developers`、`how-qr-codes-work`、`password-entropy-explained`、`timezone-unix-timestamp-guide` 覆盖剩余主题方向，但仍需逐篇扩写到 P2 要求的 1500+ 英文词。
-
-**关键要求:**
-- 每篇 1500-3000 词
-- 包含代码示例或实际案例
-- 内部链接到相关工具页面
-- 至少 1 张原创配图
-- 每篇都提供中英文双语版本
+10 篇文章均已达到 1500+ 英文词：
+1. ✅ why-use-json-formatter — 1,564 词
+2. ✅ image-compression-techniques — 1,500 词
+3. ✅ base64-encoding-deep-dive — 1,557 词
+4. ✅ modern-pdf-workflow-efficiency — 1,582 词
+5. ✅ color-theory-for-developers — 1,603 词
+6. ✅ how-qr-codes-work — 1,507 词
+7. ✅ password-entropy-explained — 1,563 词
+8. ✅ timezone-unix-timestamp-guide — 1,568 词
+9. ✅ unicode-character-encoding-guide — 已上线
+10. ✅ url-encoding-demystified — 已上线
 
 #### ✅ P2-2. 创建 Pillar Page（支柱页）
 
@@ -279,60 +268,85 @@ Google AdSense "低价值内容"通常意味着以下一个或多个问题:
 
 ---
 
-### 🟢 P3 — 持续改进
+### ✅ 🟢 P3 — 已完成（信任信号增强）
 
-#### P3-1. 添加用户评价/案例展示
+**完成状态:** 已完成。About 页面新增实际使用场景与近期更新记录；博客新增个人维护者作者信息、作者页、列表/文章页作者露出和 BlogPosting 结构化数据作者归属。
+
+#### ✅ P3-1. 添加用户评价/案例展示
 
 在工具页面或 About 页面添加:
 - 工具的使用统计数据（如有）
 - 用户反馈摘录  
 - 实际使用场景案例
 
-#### P3-2. 添加作者信息到博客
+**已处理:** About 页面新增 "Use cases we maintain for" 模块，用真实工作流案例替代虚构用户评价，覆盖开发调试、媒体发布、AI 辅助起草与复核三类核心使用场景。
+
+#### ✅ P3-2. 添加作者信息到博客
 
 每个博客文章需要:
 - 作者姓名和头像（在 `src/data/authors.ts` 中配置）
 - 作者简介
 - 发布日期（已有）
 
-#### P3-3. 建立内容更新日志
+**已处理:** 新增 `Luo WJ` 个人维护者作者条目与 `/authors/luo-wj` 作者页；27 篇博客默认归属该作者；博客列表卡片、文章详情 byline、BlogPosting JSON-LD 和全局 metadata 均已使用具体作者信息。保留 `ToolOrbit Editorial Team` 作为编辑标准/团队页。
+
+#### ✅ P3-3. 建立内容更新日志
 
 在 About 或单独页面展示站点更新历史:
 - 新工具上线日期
 - 博客发布记录
 - 功能更新说明
 
+**已处理:** About 页面新增 "Recent updates" 模块，记录 2026-05-15、2026-05-16、2026-05-18 三次核心内容与工具维护更新。
+
 > **Google 信号:** 定期更新内容的站点比"一次性建好就不管"的站点更容易通过 AdSense 审核。
 
 ---
 
-## 整改时间线
+## 整改时间线（实际进度）
 
-| 阶段 | 内容 | 预计时间 |
-|------|------|---------|
-| **第 1 天** | P0-1 删除低价值页, P0-2 删除无关博客, P0-3 修复分页, P0-4 去重 | 3-4 小时 |
-| **第 2-3 天** | P1-1 补充 20 个工具 Guide 和 FAQ | 5-7 小时 |
-| **第 4-5 天** | P1-2 补充 Highlights, P1-3 发布博客 | 4-5 小时 |
-| **第 6-7 天** | P1-4 加强 About, P2-3 完善 Privacy | 2-3 小时 |
-| **第 8-14 天** | P2-1 撰写博客, P2-2 创建 Pillar 页 | 持续 |
-| **第 15 天** | 全面复查 → 重新提交 AdSense 申请 | — |
+| 阶段 | 内容 | 预计时间 | 实际状态 |
+|------|------|---------|---------|
+| **第 1 天** | P0-1 删除低价值页, P0-2 删除无关博客, P0-3 修复分页, P0-4 去重 | 3-4 小时 | ✅ 已完成 |
+| **第 2-3 天** | P1-1 补充 20 个工具 Guide 和 FAQ | 5-7 小时 | ✅ 已完成 |
+| **第 4-5 天** | P1-2 补充 Highlights, P1-3 发布博客 | 4-5 小时 | ✅ 已完成 |
+| **第 6-7 天** | P1-4 加强 About, P2-3 完善 Privacy | 2-3 小时 | ✅ 已完成 |
+| **第 8-14 天** | P2-1 撰写博客, P2-2 创建 Pillar 页 | 持续 | ✅ P2-1/P2-2 均已完成 |
+| **第 15 天** | P3-1 用户案例, P3-2 作者信息, P3-3 更新日志 | 3-5 小时 | ✅ 已完成 |
+| **第 15 天** | 补全 2 个工具 Guide+FAQ+Highlights | 1-2 小时 | ✅ 已完成，达到 50/66+ |
+| **待定** | 全面复查 → 重新提交 AdSense 申请 | — | ⚠️ 需完成最终移动端视觉抽查 |
 
 ---
 
 ## 重新提交前检查清单
 
-- [ ] 至少 50/67 (75%) 工具页有完整的 Guide + FAQ + Highlights
-- [ ] 所有不相关博客已删除
-- [ ] 博客列表页至少显示 15+ 篇高质量文章
-- [ ] 博客分页无重复内容
-- [ ] About 页面包含真实个人信息（400+ 字）
-- [ ] Privacy 页面包含具体数据处理说明
-- [ ] 无游戏/娱乐类页面（或已 noindex）
-- [ ] robots.txt 正确配置
-- [ ] sitemap.xml 无低质量 URL
-- [ ] 所有页面有正确的 meta description（非模板化）
-- [ ] 未发现 404 错误
-- [ ] 站点在移动端正常显示
+- [x] 至少 50/66 (75%) 工具页有完整的 Guide + FAQ + Highlights — ✅ 已为 `ai-code-reviewer`、`ai-regex` 补齐 Guide/FAQ，并为 `chinese-crypto` 补齐英文 Guide/FAQ/Highlights
+- [x] 所有不相关博客已删除 — ✅ 5 篇无关文章已删除
+- [x] 博客列表页至少显示 15+ 篇高质量文章 — ✅ 27 篇已发布
+- [x] 博客分页无重复内容 — ✅ 27 篇/每页12篇/共3页，逻辑正确
+- [x] About 页面包含真实个人信息（400+ 字） — ✅ ~540 词，覆盖创建者/质量流程/隐私承诺
+- [x] Privacy 页面包含具体数据处理说明 — ✅ 覆盖 Cookie/存储/AI请求/GA/数据保留/用户权利
+- [x] 无游戏/娱乐类页面（或已 noindex） — ✅ game-2048/minesweeper/placeholder 已移除并 301 重定向
+- [x] robots.txt 正确配置 — ✅ 允许搜索引擎+答案机器人，屏蔽 AI 训练爬虫
+- [x] sitemap.xml 无低质量 URL — ✅ 仅排除 isNoIndex 工具，无游戏/占位页
+- [x] 所有页面有正确的 meta description（非模板化） — ✅ 已移除工具页短描述模板补尾和超长描述统一模板替换逻辑，改为保留手写描述并按句/词截断
+- [x] 未发现 404 错误 — ✅ 本地生产服务已检查 sitemap 中 234 个 URL，未发现 4xx
+- [ ] 站点在移动端正常显示 — ⚠️ 移动 UA 响应抽样通过（首页/About/博客/作者页/核心工具页均 200 且含 viewport meta），仍建议用真实浏览器或 Playwright 做最终截图视觉确认
+
+### 待处理问题（审计发现）
+
+1. **站点在移动端正常显示:** 移动 UA 响应抽样已通过，但当前环境缺少 Playwright/browser 视觉截图能力，建议重新提交前再做真实移动视口截图确认。
+2. **中文翻译需关注:** 中文版文章普遍较短（部分仅为英文版的 1/3），建议后续继续扩写，但这不再阻塞本轮 AdSense 低价值内容整改。
+
+### 本轮新增处理记录（2026-05-18）
+
+- 为 `ai-code-reviewer`、`ai-regex` 补齐中英文 Guide 与 FAQ。
+- 为 `chinese-crypto` 补齐英文 SEO、Guide、FAQ、Highlights，并补充中文 Highlights。
+- 新增个人作者 `Luo WJ`、作者页 `/authors/luo-wj`、博客列表/详情页作者露出与 BlogPosting 作者结构化数据。
+- About 页面新增使用场景案例与近期更新记录。
+- 删除未被任何已发布博客引用的孤儿图片：`ai-ecommerce-marketing-tips.jpg`、`benefits-of-chinese-crypto-sm.jpg`、`coffee-caffeine-guide.jpg`、`remote-work-ergonomics.jpg`、`sugar-content-rankings.jpg`、`xiaohongshu-copywriting-ai.jpg`。
+- 调整工具页 meta description 逻辑，移除自动模板化补尾/替换。
+- 本地生产构建通过；sitemap 234 个 URL 通过 HEAD 状态检查，无 4xx。
 
 ---
 

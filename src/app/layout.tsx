@@ -6,6 +6,7 @@ import GoogleAnalyticsScript from '../components/GoogleAnalyticsScript';
 import Layout from '../components/Layout';
 import Providers from './providers';
 import { BRAND_DESCRIPTION } from '../data/brand';
+import { DEFAULT_BLOG_AUTHOR } from '../data/authors';
 import { getGaMeasurementId } from '../lib/analytics-config';
 import { getToolTrackingData } from '../lib/navigation-menu';
 import { organizationJsonLd, websiteJsonLd } from '../lib/structured-data';
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
   },
   description: BRAND_DESCRIPTION,
   metadataBase: new URL('https://toolorbit.site'),
-  authors: [{ name: 'ToolOrbit Editorial Team', url: 'https://toolorbit.site/about' }],
+  authors: [{ name: DEFAULT_BLOG_AUTHOR.name, url: `https://toolorbit.site${DEFAULT_BLOG_AUTHOR.url}` }],
   creator: 'ToolOrbit',
   publisher: 'ToolOrbit',
   manifest: '/manifest.json',

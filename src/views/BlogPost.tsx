@@ -5,11 +5,11 @@ import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { Link } from '../lib/navigation';
 import { useTranslation } from 'react-i18next';
-import { Calendar, Clock, Tag, FileText, Wrench, ShieldCheck, UserCheck } from 'lucide-react';
+import { Calendar, Clock, Tag, FileText, Wrench, ShieldCheck } from 'lucide-react';
 import { BLOG_POSTS } from '../constants/blogData';
 import { BLOG_RELATED_TOOLS } from '../data/blogRelatedTools';
 import { TOOLS } from '../data/tools';
-import { TOOL_ORBIT_EDITORIAL_TEAM } from '../data/authors';
+import { getAuthorById } from '../data/authors';
 
 interface BlogPostProps {
   slug: string;
@@ -31,6 +31,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, initialMarkdown = '' }) => {
   const [markdown, setMarkdown] = useState<string>(initialMarkdown);
 
   const post = BLOG_POSTS.find(p => p.slug === slug);
+  const author = getAuthorById(post?.authorId);
 
   useEffect(() => {
     if (!slug) return;
@@ -137,23 +138,26 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, initialMarkdown = '' }) => {
         <div className="mb-8 rounded-2xl border border-slate-200 bg-slate-50/80 p-5 text-sm text-slate-600">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div className="flex items-start gap-3">
-              <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl bg-white text-emerald-600 shadow-sm">
-                <UserCheck size={18} />
+              <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-white text-sm font-black text-emerald-700 shadow-sm">
+                {author.avatarInitials}
               </div>
               <div>
                 <p className="font-bold text-slate-900">
-                  {t('blog.editorial_byline', { defaultValue: `Written and maintained by the ${TOOL_ORBIT_EDITORIAL_TEAM.name}` })}
+                  {t('blog.editorial_byline', {
+                    authorName: author.name,
+                    defaultValue: `Written and maintained by ${author.name}`,
+                  })}
                 </p>
                 <p className="mt-1 leading-6">
                   {t('blog.editorial_note', {
                     defaultValue:
-                      TOOL_ORBIT_EDITORIAL_TEAM.bio,
+                      author.bio,
                   })}
                 </p>
               </div>
             </div>
             <Link
-              to={TOOL_ORBIT_EDITORIAL_TEAM.url}
+              to={author.url}
               className="inline-flex flex-shrink-0 items-center justify-center gap-2 rounded-lg border border-emerald-200 bg-white px-3 py-2 font-bold text-emerald-700 transition-colors hover:bg-emerald-50"
             >
               <ShieldCheck size={16} />

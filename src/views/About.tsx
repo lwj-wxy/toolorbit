@@ -1,6 +1,6 @@
 'use client';
 
-import { CheckCircle2, Code2, Mail, RefreshCw, ShieldCheck, UserCheck } from 'lucide-react';
+import { BookOpenCheck, CheckCircle2, Code2, History, Mail, RefreshCw, ShieldCheck, UserCheck } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Link } from '../lib/navigation';
 import { TOOL_ORBIT_EDITORIAL_TEAM } from '../data/authors';
@@ -41,6 +41,43 @@ export default function About() {
           'We keep core tools, metadata, structured data, and documentation aligned so users and crawlers can understand what each page is for.',
       }),
     },
+  ];
+  const caseItems = [
+    {
+      title: t('about.cases.case1.title', { defaultValue: 'Developer debugging sessions' }),
+      description: t('about.cases.case1.description', {
+        defaultValue:
+          'Readers use JSON formatting, text diff, URL encoding, timestamps, and regex tools together when checking API payloads, pull requests, and support logs.',
+      }),
+    },
+    {
+      title: t('about.cases.case2.title', { defaultValue: 'Publishing and media preparation' }),
+      description: t('about.cases.case2.description', {
+        defaultValue:
+          'Image compression, SVG export, PDF conversion, and QR/barcode workflows are maintained for lightweight publishing tasks that should not require desktop software.',
+      }),
+    },
+    {
+      title: t('about.cases.case3.title', { defaultValue: 'AI-assisted drafting with review' }),
+      description: t('about.cases.case3.description', {
+        defaultValue:
+          'AI pages are designed as draft helpers for code review, translation, meeting notes, listings, and scripts, with visible reminders to review generated output before use.',
+      }),
+    },
+  ];
+  const updateItems = [
+    t('about.updates.item1', {
+      defaultValue:
+        'May 18, 2026: Expanded About, Privacy, pillar pages, tool guides, FAQs, and structured data for AdSense remediation.',
+    }),
+    t('about.updates.item2', {
+      defaultValue:
+        'May 16, 2026: Published Unicode, URL encoding, UUID, password entropy, QR code, and timestamp guides.',
+    }),
+    t('about.updates.item3', {
+      defaultValue:
+        'May 15, 2026: Reviewed core local-first workflows for JSON, Base64, image compression, and PDF processing.',
+    }),
   ];
 
   return (
@@ -104,6 +141,45 @@ export default function About() {
                   </div>
                 );
               })}
+            </div>
+          </section>
+          <section className="mt-10 border-t border-slate-100 pt-10">
+            <div className="grid gap-8 lg:grid-cols-[1.3fr_1fr]">
+              <div>
+                <div className="mb-5 flex items-center gap-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-50 text-blue-600">
+                    <BookOpenCheck size={20} />
+                  </div>
+                  <h2 className="text-2xl font-extrabold text-slate-900">
+                    {t('about.cases.title', { defaultValue: 'Use cases we maintain for' })}
+                  </h2>
+                </div>
+                <div className="space-y-4">
+                  {caseItems.map((item) => (
+                    <div key={item.title} className="border-l-4 border-blue-200 pl-4">
+                      <h3 className="font-bold text-slate-900">{item.title}</h3>
+                      <p className="mt-1 text-sm leading-6 text-slate-600">{item.description}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <div className="mb-5 flex items-center gap-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-50 text-emerald-600">
+                    <History size={20} />
+                  </div>
+                  <h2 className="text-2xl font-extrabold text-slate-900">
+                    {t('about.updates.title', { defaultValue: 'Recent updates' })}
+                  </h2>
+                </div>
+                <ol className="space-y-3 text-sm leading-6 text-slate-600">
+                  {updateItems.map((item) => (
+                    <li key={item} className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
+                      {item}
+                    </li>
+                  ))}
+                </ol>
+              </div>
             </div>
           </section>
           <section className="mt-10 rounded-xl border border-blue-100 bg-blue-50/70 p-5 text-sm leading-6 text-slate-700">

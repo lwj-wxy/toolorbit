@@ -248,6 +248,17 @@
       "generateBtn": "Generate RegEx",
       "resultTitle": "Generated RegEx & Explanation",
       "waiting": "Awaiting your pattern description...",
+      "guideTitle": "How to Generate a Reliable Regex",
+      "guide1": "1. Describe the text you want to match and include at least two examples that should match.",
+      "guide2": "2. Add negative examples, such as similar strings that must be rejected, so the pattern is less overbroad.",
+      "guide3": "3. Choose the regex flavor used by your target runtime because JavaScript, Python, Go, and PCRE do not support every feature in the same way.",
+      "guide4": "4. Copy the generated expression into the Regex Tester and validate it against real sample data before shipping.",
+      "faq1Q": "Can AI generate a perfect regular expression?",
+      "faq1A": "AI can produce a strong first draft, but regex behavior depends on the engine, flags, input encoding, and edge cases in your data. Treat the output as a starting point and test it with positive and negative examples.",
+      "faq2Q": "What should I include in my prompt?",
+      "faq2A": "Include the target format, allowed characters, length rules, whether the match should cover the full string, and examples of valid and invalid input. Specific constraints help prevent patterns that accidentally match too much.",
+      "faq3Q": "How do I avoid slow or unsafe regex patterns?",
+      "faq3A": "Avoid nested greedy quantifiers on ambiguous input and test long strings that almost match. If the regex will run on user-controlled data, review it for catastrophic backtracking before using it in production.",
       "highlightsTitle": "Why Use AI RegEx Generator?",
       "highlight1Title": "Eliminates Guesswork",
       "highlight1Desc": "No need to look up lookaheads, capture groups, or escape characters.",
@@ -2264,6 +2275,8 @@
       "description": "Chinese national standard encryption algorithms including SM2, SM3, and SM4.",
       "title": "SM Crypto Tools (SM2/3/4)",
       "subtitle": "Online tools for SM2, SM3, and SM4 algorithms defined by OSCCA.",
+      "seoTitle": "SM2 SM3 SM4 Crypto Tool | Chinese Encryption Algorithms",
+      "seoDesc": "Test SM2, SM3, and SM4 algorithm workflows for development checks, hashing experiments, and compatibility review with clear browser-based guidance.",
       "inputLabel": "Input",
       "inputPlaceholder": "Enter text to process here...",
       "keyLabelSM4": "16-byte Key (32 Hex Chars)",
@@ -2283,6 +2296,24 @@
       "introSm2": "SM2: Public key cryptography based on ECC, providing higher security than RSA at same key lengths.",
       "introSm3": "SM3: Message digest algorithm for digital signatures, producing a 256-bit hash.",
       "introSm4": "SM4: Block symmetric encryption for replacing DES/AES, using 128-bit blocks and keys.",
+      "guideTitle": "How to Use SM Crypto Tools Safely",
+      "guide1": "1. Choose SM3 for hashing, SM4 for symmetric encryption tests, or SM2 when you need public/private key behavior.",
+      "guide2": "2. Use synthetic sample text and test keys instead of production secrets, customer data, or regulated records.",
+      "guide3": "3. Confirm key length, encoding, padding, and block mode before comparing output with another library.",
+      "guide4": "4. Treat the result as a development compatibility check, then validate production integrations with your approved security stack.",
+      "faq1Q": "What are SM2, SM3, and SM4?",
+      "faq1A": "SM2 is an elliptic-curve public key algorithm, SM3 is a 256-bit hash algorithm, and SM4 is a block cipher with 128-bit blocks and keys. They are commonly discussed in Chinese national cryptography and compatibility workflows.",
+      "faq2Q": "Can I paste production keys here?",
+      "faq2A": "No. Use test keys and sample payloads only. Even when a tool is convenient for debugging, production keys and confidential data should stay inside approved internal systems.",
+      "faq3Q": "Why does my SM4 output differ from another tool?",
+      "faq3A": "Different libraries may use different padding, modes, IV handling, text encoding, or output formats. Match every parameter before assuming one implementation is incorrect.",
+      "highlightsTitle": "Why use this SM crypto reference?",
+      "highlight1Title": "Algorithm Comparison",
+      "highlight1Desc": "Keep SM2, SM3, and SM4 workflows on one page so you can understand which algorithm fits hashing, symmetric encryption, or public key scenarios.",
+      "highlight2Title": "Compatibility Checks",
+      "highlight2Desc": "Use simple test vectors to compare encoding, key length, and output format before wiring a library into a larger system.",
+      "highlight3Title": "Clear Safety Boundaries",
+      "highlight3Desc": "The page explains when the tool is suitable for learning and debugging, and when production security review is still required.",
       "errorSm4Key": "SM4 key must be a 32-character hex string (16 bytes)",
       "errorNoInput": "Please enter input content",
       "errorOperationFailed": "Operation failed",
@@ -2553,6 +2584,17 @@
       "waiting": "Awaiting code input...",
       "seoTitle": "AI Code Reviewer | Bug & Refactor Feedback | ToolOrbit",
       "seoDesc": "Paste a code snippet and get AI-assisted review feedback for bugs, security risks, readability issues, and refactoring opportunities.",
+      "guideTitle": "How to Use AI Code Review Effectively",
+      "guide1": "1. Paste a focused code snippet with enough surrounding context for the reviewer to understand inputs, outputs, and dependencies.",
+      "guide2": "2. Choose the language and review focus that match your goal, such as bugs, security, readability, or refactoring.",
+      "guide3": "3. Read the report as a checklist, then verify each suggestion with tests, type checks, and your project conventions.",
+      "guide4": "4. Use the final notes to prepare a clearer pull request description or a smaller follow-up refactor.",
+      "faq1Q": "Can this replace human code review?",
+      "faq1A": "No. AI review is useful for a first pass, but it cannot fully understand your roadmap, production incidents, team conventions, or security obligations. Use it before human review, not instead of human review.",
+      "faq2Q": "What code should I avoid pasting?",
+      "faq2A": "Do not paste secrets, private customer data, production credentials, proprietary code that your policy forbids sharing, or regulated information. If you need help with sensitive code, reduce it to a sanitized example first.",
+      "faq3Q": "How should I handle incorrect suggestions?",
+      "faq3A": "Reject suggestions that do not match the actual codebase or tests. The best use of AI feedback is to surface questions and possible risks, then let the developer validate them with evidence.",
       "highlightsTitle": "Why Use This Code Review Tool?",
       "highlight1Title": "Early Bug Detection",
       "highlight1Desc": "AI review can surface suspicious branches, missing validation, unsafe assumptions, and common logic mistakes before a human review.",
@@ -2617,6 +2659,27 @@
         "title": "Maintained content",
         "description": "We keep core tools, metadata, structured data, and documentation aligned so users and crawlers can understand what each page is for."
       }
+    },
+    "cases": {
+      "title": "Use cases we maintain for",
+      "case1": {
+        "title": "Developer debugging sessions",
+        "description": "Readers use JSON formatting, text diff, URL encoding, timestamps, and regex tools together when checking API payloads, pull requests, and support logs."
+      },
+      "case2": {
+        "title": "Publishing and media preparation",
+        "description": "Image compression, SVG export, PDF conversion, and QR/barcode workflows are maintained for lightweight publishing tasks that should not require desktop software."
+      },
+      "case3": {
+        "title": "AI-assisted drafting with review",
+        "description": "AI pages are designed as draft helpers for code review, translation, meeting notes, listings, and scripts, with visible reminders to review generated output before use."
+      }
+    },
+    "updates": {
+      "title": "Recent updates",
+      "item1": "May 18, 2026: Expanded About, Privacy, pillar pages, tool guides, FAQs, and structured data for AdSense remediation.",
+      "item2": "May 16, 2026: Published Unicode, URL encoding, UUID, password entropy, QR code, and timestamp guides.",
+      "item3": "May 15, 2026: Reviewed core local-first workflows for JSON, Base64, image compression, and PDF processing."
     },
     "content": "<p class='mb-6'>ToolOrbit is created and maintained by the ToolOrbit Editorial Team, an independent developer-led project focused on practical browser utilities for developers, creators, ecommerce operators, and document workflows. The public contact for the project is <a href=\"mailto:luowj1998@outlook.com\" style=\"color: #0ea5e9; font-weight: 600;\">luowj1998@outlook.com</a>. We keep this contact visible because users should be able to report a broken tool, question a result, or request a correction without searching through anonymous pages.</p><h3>Why ToolOrbit Exists</h3><p>ToolOrbit started from a recurring problem in daily technical work: small online utilities were useful, but many were cluttered, unclear about privacy, or too thin to explain when a workflow was safe. Formatting JSON, comparing text, compressing images, merging PDFs, checking QR codes, or drafting AI-assisted copy should not require installing heavy desktop software or uploading private material to unknown backends. Our goal is to make those everyday tasks fast, understandable, and transparent.</p><h3>How Tools Are Selected and Built</h3><p>We prioritize tools that solve repeatable work: developer debugging, format conversion, image optimization, PDF preparation, text cleanup, ecommerce writing, and AI-assisted drafting. Before a tool is kept on the site, we check whether it has a clear use case, a stable interface, useful failure messages, and enough surrounding guidance for a user to understand the tradeoffs. We avoid adding pages that exist only as thin placeholders, games, or unrelated content because they do not help the audience ToolOrbit is built for.</p><h3>Quality Assurance Process</h3><p>Each core page is reviewed across three layers. First, the tool behavior is tested with ordinary samples and edge cases, such as invalid JSON, oversized images, unusual characters, empty files, and malformed input. Second, the page content is checked for a practical guide, FAQs, metadata, and related internal links. Third, build output, sitemap inclusion, and noindex decisions are reviewed so search engines receive a clear map of the site. Last reviewed: May 18, 2026.</p><h3>Privacy Commitment</h3><p>ToolOrbit is local-first wherever browser APIs make that possible. Many tools process text, files, images, and code in your own browser session instead of uploading the input to ToolOrbit servers. When a feature needs AI generation, network access, analytics, or advertising scripts, the workflow is treated differently and should be reviewed by the user before submitting sensitive material. We do not ask users to create an account for the free utility pages, and we design tools so results can be copied, downloaded, or cleared quickly.</p><h3>Corrections and Feedback</h3><p>If you find an outdated instruction, inaccurate explanation, accessibility issue, or unexpected tool result, send the page URL, the sample input if it is safe to share, your browser version, and what you expected to happen. We use those reports to improve tools, guides, structured data, and privacy notes over time.</p>"
   }

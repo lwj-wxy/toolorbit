@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { BLOG_POSTS } from '../constants/blogData';
 import { BRAND_DESCRIPTION } from '../data/brand';
-import { TOOL_ORBIT_EDITORIAL_TEAM } from '../data/authors';
+import { getAuthorById } from '../data/authors';
 import { getSeoContentPage } from '../data/seoContent';
 import { TOOLS, type Category } from '../data/tools';
 import en from '../locales/en.json';
@@ -121,14 +121,6 @@ function fitTitle(value: string) {
   return words.join(' ') || value.slice(0, TITLE_TEXT_LIMIT).trim();
 }
 
-function expandShortToolDescription(description: string, toolName: string, locale: Locale = 'en') {
-  if (description.length >= DESCRIPTION_MIN_LENGTH) return description;
-  if (locale === 'zh-CN') {
-    return `${description} 在 ToolOrbit 浏览器中直接使用 ${toolName}，无需安装，适合日常工作流快速处理。`;
-  }
-  return `${description} Use ${toolName} online in ToolOrbit with no installation, quick browser access, and a focused workflow for everyday productivity.`;
-}
-
 function expandShortDescription(description: string, locale: Locale = 'en') {
   if (description.length >= DESCRIPTION_MIN_LENGTH) return description;
   if (locale === 'zh-CN') {
@@ -137,10 +129,20 @@ function expandShortDescription(description: string, locale: Locale = 'en') {
   return `${description} Explore focused examples and related ToolOrbit browser tools for faster everyday workflows.`;
 }
 
-function conciseToolDescription(toolName: string, locale: Locale = 'en') {
-  return locale === 'zh-CN'
-    ? `在浏览器中使用 ${toolName}，获得实用控件、清晰结果和注重隐私的无需安装工作流。`
-    : `Use ${toolName} online in your browser. Get practical controls, clear results, privacy-friendly processing, and no installation.`;
+function fitToolDescription(description: string) {
+  if (description.length <= DESCRIPTION_MAX_LENGTH) return description;
+
+  const sentence = description.match(/^.{80,155}[.!?。！？]/)?.[0]?.trim();
+  if (sentence && sentence.length <= DESCRIPTION_MAX_LENGTH) return sentence;
+
+  const words: string[] = [];
+  for (const word of description.split(/\s+/)) {
+    const next = [...words, word].join(' ');
+    if (next.length > DESCRIPTION_MAX_LENGTH - 1) break;
+    words.push(word);
+  }
+
+  return `${words.join(' ').replace(/[,:;，：；]$/, '').trim()}…`;
 }
 
 function conciseBlogDescription(title: string, locale: Locale = 'en') {
@@ -327,13 +329,8 @@ export function toolMetadata(path: string, locale: Locale = 'en'): Metadata {
     ? `Use ${cleanTitle(tool.name)} online for ${tool.description.toLowerCase()} No installation required.`
     : DEFAULT_DESCRIPTION;
   const cleanedDescription = cleanDescription(rawDescription, fallbackDescription);
-  const expandedDescription = tool
-    ? expandShortToolDescription(cleanedDescription, toolNameTitle, locale)
-    : rawDescription || fallbackDescription;
   const description = tool
-    ? expandedDescription.length > DESCRIPTION_MAX_LENGTH
-      ? conciseToolDescription(toolNameTitle, locale)
-      : expandedDescription
+    ? fitToolDescription(cleanedDescription)
     : rawDescription;
 
   const metadata = pageMetadata(title, description || fallbackDescription, path, locale);
@@ -368,11 +365,13 @@ export function seoContentMetadata(path: string, locale: Locale = 'en'): Metadat
   return pageMetadata(page.title, page.description, path, locale);
 }
 
-export function authorMetadata(locale: Locale = 'en'): Metadata {
+export function authorMetadata(authorId?: string, locale: Locale = 'en'): Metadata {
+  const author = getAuthorById(authorId);
+
   return pageMetadata(
-    TOOL_ORBIT_EDITORIAL_TEAM.name,
-    TOOL_ORBIT_EDITORIAL_TEAM.bio,
-    TOOL_ORBIT_EDITORIAL_TEAM.url,
+    author.name,
+    author.bio,
+    author.url,
     locale,
   );
 }

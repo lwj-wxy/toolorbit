@@ -4,9 +4,10 @@ import React, { useEffect, useState, useMemo } from 'react';
 import Image from 'next/image';
 import { useTranslation } from 'react-i18next';
 import { Link } from '../lib/navigation';
-import { Calendar, ChevronRight, ChevronLeft } from 'lucide-react';
+import { Calendar, ChevronRight, ChevronLeft, UserCheck } from 'lucide-react';
 import { BLOG_POSTS, BlogPost } from '../constants/blogData';
 import { POSTS_PER_PAGE } from '../lib/blog-pagination';
+import { getAuthorById } from '../data/authors';
 
 type BlogListProps = {
   initialPage?: number;
@@ -62,12 +63,15 @@ const BlogList: React.FC<BlogListProps> = ({ initialPage = 1 }) => {
     setCurrentPage(1);
   };
 
-  const renderPostCard = (post: BlogPost) => (
-    <Link 
-      key={post.slug} 
-      to={`/blog/${post.slug}`}
-      className="group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:border-slate-800 dark:bg-slate-900"
-    >
+  const renderPostCard = (post: BlogPost) => {
+    const author = getAuthorById(post.authorId);
+
+    return (
+      <Link 
+        key={post.slug} 
+        to={`/blog/${post.slug}`}
+        className="group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:border-slate-800 dark:bg-slate-900"
+      >
       <div className="relative aspect-[16/9] overflow-hidden bg-slate-100">
         <Image
           src={post.image} 
@@ -84,9 +88,15 @@ const BlogList: React.FC<BlogListProps> = ({ initialPage = 1 }) => {
       </div>
       
       <div className="p-6 flex-1 flex flex-col min-h-0">
-        <div className="flex items-center gap-2 text-slate-400 text-[11px] font-bold mb-3 uppercase tracking-tight">
-          <Calendar size={12} className="text-emerald-500" />
-          <span>{post.date}</span>
+        <div className="mb-3 flex flex-wrap items-center gap-x-3 gap-y-2 text-[11px] font-bold uppercase tracking-tight text-slate-400">
+          <span className="flex items-center gap-2">
+            <Calendar size={12} className="text-emerald-500" />
+            {post.date}
+          </span>
+          <span className="flex items-center gap-2">
+            <UserCheck size={12} className="text-emerald-500" />
+            {author.name}
+          </span>
         </div>
         
         <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2 group-hover:text-emerald-600 transition-colors line-clamp-2 leading-snug">
@@ -101,8 +111,9 @@ const BlogList: React.FC<BlogListProps> = ({ initialPage = 1 }) => {
           {t('blog.readMore', { defaultValue: 'Read More' })} <ChevronRight size={16} />
         </div>
       </div>
-    </Link>
-  );
+      </Link>
+    );
+  };
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

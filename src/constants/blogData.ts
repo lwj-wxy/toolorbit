@@ -3,11 +3,13 @@ export interface BlogPost {
   date: string;
   category: string;
   image: string;
+  authorId?: string;
 }
 
 const blogImage = (slug: string) => `/images/blog/${slug}.jpg`;
+const defaultAuthorId = 'luo-wj';
 
-export const BLOG_POSTS: BlogPost[] = [
+const posts: BlogPost[] = [
   {
     slug: 'uuid-demystified',
     date: '2026-05-16',
@@ -171,3 +173,8 @@ export const BLOG_POSTS: BlogPost[] = [
     image: blogImage('api-security-best-practices'),
   },
 ];
+
+export const BLOG_POSTS: BlogPost[] = posts.map((post) => ({
+  authorId: defaultAuthorId,
+  ...post,
+}));
