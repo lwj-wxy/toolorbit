@@ -14,6 +14,7 @@ const REMOVED_BLOG_SLUGS = [
   'remote-work-ergonomics',
   'ai-ecommerce-marketing-tips',
   'xiaohongshu-copywriting-ai',
+  'benefits-of-chinese-crypto-sm',
 ];
 
 const scriptSrc = [

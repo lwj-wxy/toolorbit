@@ -37,11 +37,13 @@ Google AdSense "低价值内容"通常意味着以下一个或多个问题:
 
 ## 优先级修复清单
 
-### 🔴 P0 — 立即处理（1-3 天）
+### ✅ 🔴 P0 — 已完成（原计划 1-3 天）
 
 这些问题是 AdSense 直接拒审的主要原因。
 
-#### P0-1. 删除或整并"低价值"工具页
+**完成状态:** 已完成。低价值游戏/占位页已删除或重定向，无关博客已删除并 301，博客分页已修复，重复分类/入口已清理，`chinese-crypto` 工具与旧博客入口已从公开索引移除并重定向到更通用的内容。
+
+#### ✅ P0-1. 删除或整并"低价值"工具页
 
 **问题:** 以下工具页面内容极薄 — 仅有基础 UI，无教学文字，无独特价值：
 
@@ -60,7 +62,7 @@ Google AdSense "低价值内容"通常意味着以下一个或多个问题:
 
 > **重要:** 如果你的页面中超过 30% 是"游戏/娱乐"类且内容极薄，AdSense 会直接判定为低价值。建议不收录游戏页，或至少添加 `noindex`。
 
-#### P0-2. 删除/重定向不相关的博客文章
+#### ✅ P0-2. 删除/重定向不相关的博客文章
 
 **问题:** `public/articles/en/` 中存在与"开发者工具/效率工具"完全无关的文章：
 
@@ -79,13 +81,13 @@ Google AdSense "低价值内容"通常意味着以下一个或多个问题:
 
 > **为什么这是致命的:** Google 抓取到咖啡、糖分等与工具站点主题完全无关的内容时，会立即判定此网站"没有明确的主题聚焦"，属于低价值内容聚合站。
 
-#### P0-3. 修复博客分页重复内容
+#### ✅ P0-3. 修复博客分页重复内容
 
 **问题:** 当前博客分页逻辑有 bug — 第 1、2、3 页显示相同的文章列表。Google 视为重复内容。
 
 **行动:** 检查 `src/app/blog/page/[page]/page.tsx` 的分页逻辑，确保每页显示不同文章。
 
-#### P0-4. 删除/合并重复工具
+#### ✅ P0-4. 删除/合并重复工具
 
 **问题:** sitemap 中 `qr-scanner` 和 `barcode-generator` 同时属于"生成器"和"图片处理"，造成重复 URL。Home 页 AI 工具同时出现在"Popular Tools"和"AI Tools"两个板块。
 
@@ -95,11 +97,13 @@ Google AdSense "低价值内容"通常意味着以下一个或多个问题:
 
 ---
 
-### 🟡 P1 — 本周处理（3-7 天）
+### ✅ 🟡 P1 — 已完成（原计划 3-7 天）
 
 这些直接决定你的内容是否被 Google 视为"有深度"。
 
-#### P1-1. 为 20 个缺 Guide 的工具补充分步指南
+**完成状态:** 已完成。P1 核心工具 Guide/FAQ 缺口为 0，完整 Highlights 工具数已超过目标；9 篇相关文章已注册并配图，短文已扩写；About 页面已补充维护团队、联系方式、工具选择标准、QA 流程和隐私承诺。
+
+#### ✅ P1-1. 为 20 个缺 Guide 的工具补充分步指南
 
 **当前 FALLBACK_TOOL_GUIDE_PATHS 中的工具 (35 个):**
 
@@ -146,7 +150,7 @@ Google AdSense "低价值内容"通常意味着以下一个或多个问题:
 
 **工作量:** 每页约 15-20 分钟，共约 5-7 小时。
 
-#### P1-2. 为核心工具补充 Highlights 内容
+#### ✅ P1-2. 为核心工具补充 Highlights 内容
 
 当前只有 18 个工具有 Highlights (高亮特性卡片)。需要为核心工具补充：
 
@@ -165,7 +169,7 @@ Google AdSense "低价值内容"通常意味着以下一个或多个问题:
 }
 ```
 
-#### P1-3. 发布未上线的博客文章
+#### ✅ P1-3. 发布未上线的博客文章
 
 **当前状态:** 32 篇 markdown 草稿，仅 12 篇在 BLOG_POSTS 中注册
 
@@ -187,7 +191,7 @@ Google AdSense "低价值内容"通常意味着以下一个或多个问题:
 2. 对少于 2000 字节的文章补充到 3000+ 字节
 3. 确保每篇有至少 1 张配图
 
-#### P1-4. 加强 About 页面
+#### ✅ P1-4. 加强 About 页面
 
 **当前问题:** About 页面只有 4 个 trust items，缺少:
 - 站点创建者的真实信息（姓名/照片/背景）
@@ -205,9 +209,11 @@ Google AdSense "低价值内容"通常意味着以下一个或多个问题:
 
 ---
 
-### 🔵 P2 — 两周内处理
+### 🔵 P2 — 处理中（已完成支柱页与隐私页）
 
-#### P2-1. 撰写 10 篇高质量博客（每篇 1500+ 词）
+**完成状态:** P2-2 与 P2-3 已完成；P2-1 已补充并上线 2 篇强相关中英文文章，其他 8 个主题已有部分历史文章覆盖，但仍建议继续扩写到每篇 1500+ 英文词规模后再视为完全完成。
+
+#### 🟡 P2-1. 撰写 10 篇高质量博客（每篇 1500+ 词）
 
 **主题建议（与工具页面强关联）:**
 
@@ -222,6 +228,12 @@ Google AdSense "低价值内容"通常意味着以下一个或多个问题:
 9. "Timestamp Headaches: Timezone Handling Every Developer Gets Wrong"
 10. "URL Encoding Demystified: Safe Characters, Query Strings, and Browser Behavior"
 
+**已处理:**
+- 新增 `unicode-character-encoding-guide` 中英文文章，并关联 Unicode Converter、JSON Formatter、Text Diff。
+- 新增 `url-encoding-demystified` 中英文文章，并关联 URL Encoder、JSON Formatter、Text Diff。
+- 将上述文章注册到博客列表、文案字典、SEO 标题覆盖与相关工具模块。
+- 已有 `why-use-json-formatter`、`image-compression-techniques`、`base64-encoding-deep-dive`、`modern-pdf-workflow-efficiency`、`color-theory-for-developers`、`how-qr-codes-work`、`password-entropy-explained`、`timezone-unix-timestamp-guide` 覆盖剩余主题方向，但仍需逐篇扩写到 P2 要求的 1500+ 英文词。
+
 **关键要求:**
 - 每篇 1500-3000 词
 - 包含代码示例或实际案例
@@ -229,7 +241,7 @@ Google AdSense "低价值内容"通常意味着以下一个或多个问题:
 - 至少 1 张原创配图
 - 每篇都提供中英文双语版本
 
-#### P2-2. 创建 Pillar Page（支柱页）
+#### ✅ P2-2. 创建 Pillar Page（支柱页）
 
 **当前已有的 pillar 页:** `/developer-tools` (在 seoContent.ts 中)
 
@@ -238,6 +250,8 @@ Google AdSense "低价值内容"通常意味着以下一个或多个问题:
 2. `/ai-tools` — AI 工具总览  
 3. `/pdf-tools` — PDF 工具总览
 4. `/text-tools` — 文本排版工具总览
+
+**已处理:** `/image-tools`、`/pdf-tools`、`/text-tools` 已新增页面路由、sitemap 入口和 `seoContent.ts` 支柱页内容；`/ai-tools` 已存在并继续保留。
 
 **每个 Pillar 页面内容结构:**
 ```
@@ -250,7 +264,7 @@ Google AdSense "低价值内容"通常意味着以下一个或多个问题:
 - Internal links to all tools in category
 ```
 
-#### P2-3. 完善 Privacy Policy 页面
+#### ✅ P2-3. 完善 Privacy Policy 页面
 
 **当前问题:** Privacy 页面内容可能过于简短或模板化。
 
@@ -260,6 +274,8 @@ Google AdSense "低价值内容"通常意味着以下一个或多个问题:
 - Google Analytics 使用声明
 - 数据保留政策
 - 用户权利说明
+
+**已处理:** Privacy Policy 已补充本地优先处理、AI/短链接等服务端请求说明、Cookie/localStorage、Google Analytics、Google AdSense、联系信息、数据保留、用户选择与权利说明，并同步中英文版本。
 
 ---
 

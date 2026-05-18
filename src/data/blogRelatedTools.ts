@@ -4,7 +4,6 @@ export const BLOG_RELATED_TOOLS: Record<string, string[]> = {
   'modern-pdf-workflow-efficiency': ['/tools/pdf/pdf-merge', '/tools/pdf/pdf-split', '/tools/pdf/pdf-to-image'],
   'secure-developer-tools-privacy': ['/tools/dev/json-formatter', '/tools/dev/base64', '/tools/dev/jwt-debugger'],
   'why-use-json-formatter': ['/tools/dev/json-formatter', '/tools/dev/json-to-ts', '/tools/dev/xml-to-json'],
-  'benefits-of-chinese-crypto-sm': ['/tools/dev/chinese-crypto', '/tools/dev/crypto-symmetric', '/tools/dev/hash-generator'],
   'morse-code-guide': ['/tools/dev/morse-code', '/tools/text/symbol-library', '/tools/text/text-analyzer'],
   'base64-encoding-deep-dive': ['/tools/dev/base64', '/tools/image/image-to-base64', '/tools/dev/url-encoder'],
   'color-theory-for-developers': ['/tools/dev/color-converter', '/tools/dev/color-palette', '/tools/dev/color-picker'],
@@ -24,5 +23,7 @@ export const BLOG_RELATED_TOOLS: Record<string, string[]> = {
   'how-qr-codes-work': ['/tools/generator/qr-generator', '/tools/generator/qr-scanner', '/tools/generator/barcode-generator'],
   'password-entropy-explained': ['/tools/dev/password-generator', '/tools/dev/hash-generator', '/tools/dev/crypto-symmetric'],
   'timezone-unix-timestamp-guide': ['/tools/dev/timestamp-converter', '/tools/calculate/time-converter', '/tools/calculate/unit-converter'],
+  'url-encoding-demystified': ['/tools/dev/url-encoder', '/tools/dev/json-formatter', '/tools/dev/text-diff'],
+  'unicode-character-encoding-guide': ['/tools/dev/unicode-converter', '/tools/dev/json-formatter', '/tools/dev/text-diff'],
   'uuid-demystified': ['/tools/dev/uuid-generator', '/tools/dev/timestamp-converter', '/tools/dev/json-formatter'],
 };

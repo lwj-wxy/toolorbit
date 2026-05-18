@@ -15,6 +15,18 @@ export const BLOG_POSTS: BlogPost[] = [
     image: blogImage('uuid-demystified'),
   },
   {
+    slug: 'url-encoding-demystified',
+    date: '2026-05-16',
+    category: 'Development',
+    image: blogImage('url-encoding-demystified'),
+  },
+  {
+    slug: 'unicode-character-encoding-guide',
+    date: '2026-05-16',
+    category: 'Development',
+    image: blogImage('unicode-character-encoding-guide'),
+  },
+  {
     slug: 'timezone-unix-timestamp-guide',
     date: '2026-05-15',
     category: 'Development',
@@ -121,12 +133,6 @@ export const BLOG_POSTS: BlogPost[] = [
     date: '2026-04-26',
     category: 'Development',
     image: blogImage('why-use-json-formatter'),
-  },
-  {
-    slug: 'benefits-of-chinese-crypto-sm',
-    date: '2026-04-25',
-    category: 'Security',
-    image: blogImage('benefits-of-chinese-crypto-sm'),
   },
   {
     slug: 'morse-code-guide',

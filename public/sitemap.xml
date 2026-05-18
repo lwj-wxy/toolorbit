@@ -111,6 +111,60 @@
     <priority>0.88</priority>
   </url>
   <url>
+    <loc>https://toolorbit.site/image-tools</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/image-tools" />
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://toolorbit.site/zh-CN/image-tools" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolorbit.site/image-tools" />
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://toolorbit.site/zh-CN/image-tools</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/image-tools" />
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://toolorbit.site/zh-CN/image-tools" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolorbit.site/image-tools" />
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://toolorbit.site/pdf-tools</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/pdf-tools" />
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://toolorbit.site/zh-CN/pdf-tools" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolorbit.site/pdf-tools" />
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://toolorbit.site/zh-CN/pdf-tools</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/pdf-tools" />
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://toolorbit.site/zh-CN/pdf-tools" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolorbit.site/pdf-tools" />
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://toolorbit.site/text-tools</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/text-tools" />
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://toolorbit.site/zh-CN/text-tools" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolorbit.site/text-tools" />
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://toolorbit.site/zh-CN/text-tools</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/text-tools" />
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://toolorbit.site/zh-CN/text-tools" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolorbit.site/text-tools" />
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
     <loc>https://toolorbit.site/pdf-image-tools</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/pdf-image-tools" />
     <xhtml:link rel="alternate" hreflang="zh-CN" href="https://toolorbit.site/zh-CN/pdf-image-tools" />
@@ -1593,6 +1647,54 @@
     </image:image>
   </url>
   <url>
+    <loc>https://toolorbit.site/blog/url-encoding-demystified</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/blog/url-encoding-demystified" />
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://toolorbit.site/zh-CN/blog/url-encoding-demystified" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolorbit.site/blog/url-encoding-demystified" />
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://toolorbit.site/images/blog/url-encoding-demystified.jpg</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://toolorbit.site/zh-CN/blog/url-encoding-demystified</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/blog/url-encoding-demystified" />
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://toolorbit.site/zh-CN/blog/url-encoding-demystified" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolorbit.site/blog/url-encoding-demystified" />
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://toolorbit.site/images/blog/url-encoding-demystified.jpg</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://toolorbit.site/blog/unicode-character-encoding-guide</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/blog/unicode-character-encoding-guide" />
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://toolorbit.site/zh-CN/blog/unicode-character-encoding-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolorbit.site/blog/unicode-character-encoding-guide" />
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://toolorbit.site/images/blog/unicode-character-encoding-guide.jpg</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://toolorbit.site/zh-CN/blog/unicode-character-encoding-guide</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/blog/unicode-character-encoding-guide" />
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://toolorbit.site/zh-CN/blog/unicode-character-encoding-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolorbit.site/blog/unicode-character-encoding-guide" />
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://toolorbit.site/images/blog/unicode-character-encoding-guide.jpg</image:loc>
+    </image:image>
+  </url>
+  <url>
     <loc>https://toolorbit.site/blog/timezone-unix-timestamp-guide</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/blog/timezone-unix-timestamp-guide" />
     <xhtml:link rel="alternate" hreflang="zh-CN" href="https://toolorbit.site/zh-CN/blog/timezone-unix-timestamp-guide" />
@@ -2022,30 +2124,6 @@
     <priority>0.7</priority>
     <image:image>
       <image:loc>https://toolorbit.site/images/blog/why-use-json-formatter.jpg</image:loc>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://toolorbit.site/blog/benefits-of-chinese-crypto-sm</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/blog/benefits-of-chinese-crypto-sm" />
-    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://toolorbit.site/zh-CN/blog/benefits-of-chinese-crypto-sm" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolorbit.site/blog/benefits-of-chinese-crypto-sm" />
-    <lastmod>2026-04-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <image:image>
-      <image:loc>https://toolorbit.site/images/blog/benefits-of-chinese-crypto-sm.jpg</image:loc>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://toolorbit.site/zh-CN/blog/benefits-of-chinese-crypto-sm</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://toolorbit.site/blog/benefits-of-chinese-crypto-sm" />
-    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://toolorbit.site/zh-CN/blog/benefits-of-chinese-crypto-sm" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolorbit.site/blog/benefits-of-chinese-crypto-sm" />
-    <lastmod>2026-04-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <image:image>
-      <image:loc>https://toolorbit.site/images/blog/benefits-of-chinese-crypto-sm.jpg</image:loc>
     </image:image>
   </url>
   <url>

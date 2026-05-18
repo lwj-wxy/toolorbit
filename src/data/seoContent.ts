@@ -51,7 +51,7 @@ export const SEO_CONTENT_PAGES: SeoContentPage[] = [
       {
         label: 'Security helpers',
         bestFor: 'Local checks before sharing snippets or configs',
-        tools: 'Hash generator, password generator, symmetric crypto, Chinese crypto',
+        tools: 'Hash generator, password generator, symmetric crypto',
         note: 'Prefer local-first workflows when data may contain secrets.',
       },
       {
@@ -169,6 +169,8 @@ export const SEO_CONTENT_PAGES: SeoContentPage[] = [
       'api-security-best-practices',
       'uuid-demystified',
       'timezone-unix-timestamp-guide',
+      'url-encoding-demystified',
+      'unicode-character-encoding-guide',
       'secure-developer-tools-privacy',
       'why-text-diff-matters',
       'xml-json-conversion-guide',
@@ -521,6 +523,7 @@ export const SEO_CONTENT_PAGES: SeoContentPage[] = [
     blogSlugs: [
       'modern-pdf-workflow-efficiency',
       'image-compression-techniques',
+      'url-encoding-demystified',
       'svg-to-png-conversion-tips',
       'image-converter-web-formats',
       'how-qr-codes-work',
@@ -1028,6 +1031,355 @@ export const SEO_CONTENT_PAGES: SeoContentPage[] = [
         question: 'How can AI tools improve SEO content?',
         answer:
           'They can speed up outlines, examples, rewrites, and metadata drafts, but strong SEO still requires useful information, real expertise, internal links, and clear structure.',
+      },
+    ],
+  },
+  {
+    path: '/image-tools',
+    title: 'Free Online Image Tools',
+    description:
+      'A focused hub for browser-based image tools: compress images, convert formats, crop visuals, export SVG to PNG, create ICO favicons, and encode small assets as Base64.',
+    eyebrow: 'Image Tools Hub',
+    audience:
+      'Built for developers, designers, ecommerce operators, bloggers, support teams, and solo creators who need practical image handling without installing a desktop editor.',
+    updated: '2026-05-18',
+    type: 'pillar',
+    targetKeyword: 'free online image tools',
+    summary: [
+      'Image work affects performance, SEO, publishing quality, and user trust. A page that loads a 4 MB product photo, a blurry converted logo, or a stretched screenshot creates friction long before a visitor reads the copy.',
+      'ToolOrbit image tools focus on the small but frequent tasks that happen before publishing: compressing large files, converting between PNG/JPEG/WebP, cropping to the right frame, exporting SVG artwork, generating favicons, and deciding whether a tiny image should be embedded as Base64.',
+      'Most of these workflows run in the browser, which keeps draft visuals, screenshots, and design assets under user control while still giving teams a fast no-install workflow.',
+    ],
+    table: [
+      {
+        label: 'Compression',
+        bestFor: 'Reducing page weight before publishing',
+        tools: 'Image compressor, image converter',
+        note: 'Resize and crop first, then compress a copy of the file.',
+      },
+      {
+        label: 'Format conversion',
+        bestFor: 'Choosing PNG, JPEG, WebP, SVG, ICO, or Base64 for the job',
+        tools: 'Image converter, SVG to PNG, image to ICO, image to Base64',
+        note: 'Format choice should follow content type and delivery channel.',
+      },
+      {
+        label: 'Cropping and framing',
+        bestFor: 'Preparing thumbnails, support screenshots, social previews, and product crops',
+        tools: 'Image cropper, image compressor',
+        note: 'Stable dimensions reduce layout shift and make galleries look intentional.',
+      },
+      {
+        label: 'Developer assets',
+        bestFor: 'Favicons, inline icons, UI placeholders, and design handoff',
+        tools: 'SVG to PNG, image to ICO, image to Base64',
+        note: 'Base64 is best for tiny assets, not large photos.',
+      },
+    ],
+    sections: [
+      {
+        heading: 'Workflow 1: prepare images for a fast website',
+        body: [
+          'Start with the final display size. A 3000-pixel-wide image displayed at 720 pixels wastes bandwidth even if it is visually acceptable. Crop the image to the useful subject, resize it to the layout size, then compress it at a quality level that keeps important detail intact.',
+          'Use the image compressor for screenshots, product photos, and blog illustrations. Use the converter when a file is in the wrong format for delivery. WebP is often a good web default, PNG is useful for transparency and crisp UI captures, JPEG remains practical for photography, and SVG should stay vector whenever the publishing target supports it.',
+        ],
+      },
+      {
+        heading: 'Workflow 2: convert design assets for real platforms',
+        body: [
+          'Design tools often export clean SVG artwork, but social platforms, email clients, older CMS fields, and app stores may require raster images. Export SVG to PNG at the largest required size, inspect transparency, then generate smaller derivatives for the actual placements.',
+          'For favicons and desktop-style icons, convert a clean square image into ICO and test it in the browser tab, bookmark UI, and operating system shortcut. For tiny UI assets that must live inside a self-contained snippet, convert the image to Base64 only after checking that the encoded string will not bloat the page.',
+        ],
+      },
+      {
+        heading: 'Workflow 3: clean ecommerce and support visuals',
+        body: [
+          'Ecommerce and support teams often work with messy source images: screenshots with extra desktop chrome, product photos with too much margin, and supplier files in inconsistent formats. Crop first so the subject is clear, convert to the required format, and compress a delivery copy while keeping the original untouched.',
+          'A repeatable workflow matters more than a single compression number. Teams should document target dimensions, allowed formats, naming conventions, and maximum file sizes so every product image, help article screenshot, and campaign asset follows the same standard.',
+        ],
+      },
+      {
+        heading: 'Best practices for image SEO and performance',
+        body: [
+          'Image optimization is not only compression. Use descriptive filenames, meaningful alt text where the image conveys content, stable width and height values, and appropriately sized responsive images. The file should be small, but it should also be understandable to users, crawlers, and assistive technologies.',
+          'Keep originals, export delivery copies, and verify the output visually. A compressed image that damages product detail or a PNG export with the wrong background can cost more trust than the kilobytes saved. The best image workflow balances size, clarity, accessibility, and maintainability.',
+        ],
+      },
+    ],
+    toolPaths: [
+      '/tools/image/image-compressor',
+      '/tools/image/image-converter',
+      '/tools/image/image-cropper',
+      '/tools/image/svg-to-png',
+      '/tools/image/image-to-base64',
+      '/tools/image/image-to-ico',
+      '/tools/pdf/pdf-to-image',
+      '/tools/pdf/image-to-pdf',
+    ],
+    blogSlugs: [
+      'image-compression-techniques',
+      'image-converter-web-formats',
+      'svg-to-png-conversion-tips',
+      'secure-developer-tools-privacy',
+    ],
+    faqs: [
+      {
+        question: 'What is the best image format for websites?',
+        answer:
+          'Use WebP for many web photos and illustrations, SVG for logos and icons, PNG for transparency or crisp screenshots, and JPEG when broad compatibility for photography matters. The best format depends on the content and where it will be displayed.',
+      },
+      {
+        question: 'Should I crop before compressing?',
+        answer:
+          'Yes. Cropping and resizing remove unnecessary pixels before compression, which usually produces a smaller and cleaner output than compressing first.',
+      },
+      {
+        question: 'When should I use Base64 images?',
+        answer:
+          'Use Base64 only for tiny assets where avoiding an additional request matters more than separate caching. Large images should remain normal files.',
+      },
+      {
+        question: 'Are ToolOrbit image tools local-first?',
+        answer:
+          'The core image utilities are designed around browser processing where possible. Users should still verify sensitive workflows with the browser Network tab before processing confidential images.',
+      },
+      {
+        question: 'Can image optimization improve AdSense approval quality?',
+        answer:
+          'It can support quality signals by improving page speed, visual polish, and content usefulness. It does not replace original written content, but it helps pages feel maintained and user-focused.',
+      },
+    ],
+  },
+  {
+    path: '/pdf-tools',
+    title: 'Free Online PDF Tools',
+    description:
+      'A practical hub for browser-based PDF workflows: merge PDFs, split pages, convert PDF pages to images, and turn image files into clean PDF documents.',
+    eyebrow: 'PDF Tools Hub',
+    audience:
+      'Built for students, office workers, support teams, freelancers, agencies, and small businesses that need quick document operations without installing a full PDF editor.',
+    updated: '2026-05-18',
+    type: 'pillar',
+    targetKeyword: 'free online PDF tools',
+    summary: [
+      'PDF tasks are often simple but urgent: combine invoices, extract selected pages, convert a page into an image for review, or package screenshots into a document that can be emailed. ToolOrbit keeps these document jobs in a focused PDF hub.',
+      'The goal is predictable document handling. Users should know which file goes in, what transformation happens, how to verify the result, and when a browser tool is enough versus when a full editor is required.',
+      'PDF workflows also carry privacy concerns because documents may include contracts, invoices, IDs, internal screenshots, or client reports. Local-first processing and clear verification steps are central to a trustworthy PDF tool page.',
+    ],
+    table: [
+      {
+        label: 'Merge',
+        bestFor: 'Combining related PDFs into one deliverable',
+        tools: 'PDF merge',
+        note: 'Verify order, page count, and orientation before sending.',
+      },
+      {
+        label: 'Split',
+        bestFor: 'Extracting only the needed pages',
+        tools: 'PDF split',
+        note: 'Share fewer pages when recipients do not need the full file.',
+      },
+      {
+        label: 'PDF to image',
+        bestFor: 'Review screenshots, thumbnails, previews, and documentation',
+        tools: 'PDF to image, image compressor',
+        note: 'Export at a useful resolution, then compress if publishing online.',
+      },
+      {
+        label: 'Image to PDF',
+        bestFor: 'Packaging scans, receipts, product images, or screenshots',
+        tools: 'Image to PDF, image cropper',
+        note: 'Crop and order images before generating the final PDF.',
+      },
+    ],
+    sections: [
+      {
+        heading: 'Workflow 1: assemble a clean PDF packet',
+        body: [
+          'Before merging PDFs, open each source file and confirm it belongs in the packet. Rename files in the intended order, remove duplicates, and check page orientation. A merge tool can combine files quickly, but it cannot decide whether an appendix should appear before a signature page.',
+          'After merging, open the output and verify page count, reading order, and visual quality. This final check is especially important for contracts, invoices, client reports, and school submissions where a missing page creates follow-up work.',
+        ],
+      },
+      {
+        heading: 'Workflow 2: extract only the useful pages',
+        body: [
+          'Splitting is often better than sending a full PDF. If a recipient needs pages 3-5 from a 40-page report, extract those pages and share a smaller, clearer document. The result is easier to read, easier to attach, and less likely to expose unrelated information.',
+          'Keep the source file unchanged and export a new file for the extracted pages. Use clear filenames that include the page range or purpose so recipients understand what they received.',
+        ],
+      },
+      {
+        heading: 'Workflow 3: move between PDFs and images',
+        body: [
+          'PDF-to-image conversion is useful for support articles, design reviews, thumbnails, and documentation. Choose a resolution that matches the target use: smaller for web previews, larger for print or detailed review.',
+          'Image-to-PDF is useful when scans, receipts, whiteboard photos, or screenshots need to become a single shareable document. Put images in the right order before exporting, and check the final PDF on both desktop and mobile viewers.',
+        ],
+      },
+      {
+        heading: 'Best practices for private PDF handling',
+        body: [
+          'Treat PDFs as sensitive by default. They may contain hidden metadata, signatures, personal information, or business context. Prefer local-first browser tools when possible and avoid uploading confidential documents to unknown services.',
+          'Verify outputs before deleting originals. PDF transformations can change page dimensions, image quality, bookmarks, or embedded fonts. A short review step prevents accidental data loss and embarrassing resend requests.',
+        ],
+      },
+    ],
+    toolPaths: [
+      '/tools/pdf/pdf-merge',
+      '/tools/pdf/pdf-split',
+      '/tools/pdf/pdf-to-image',
+      '/tools/pdf/image-to-pdf',
+      '/tools/image/image-compressor',
+      '/tools/image/image-cropper',
+      '/tools/image/image-converter',
+    ],
+    blogSlugs: [
+      'modern-pdf-workflow-efficiency',
+      'secure-developer-tools-privacy',
+      'image-compression-techniques',
+    ],
+    faqs: [
+      {
+        question: 'Can I merge PDFs with different page sizes?',
+        answer:
+          'Yes, but the output may mix orientations and dimensions. Review the merged result before sending and standardize source files when presentation matters.',
+      },
+      {
+        question: 'Is splitting a PDF safer than sharing the full file?',
+        answer:
+          'Often yes. Extracting only the needed pages reduces file size and lowers the chance of exposing unrelated information.',
+      },
+      {
+        question: 'When should I convert PDF pages to images?',
+        answer:
+          'Convert pages to images when you need thumbnails, documentation screenshots, design review previews, or page-level visuals for a website.',
+      },
+      {
+        question: 'Can images be turned into a single PDF?',
+        answer:
+          'Yes. Use image-to-PDF when scans, receipts, screenshots, or product images need to be shared as one document.',
+      },
+      {
+        question: 'Do browser PDF tools replace professional PDF editors?',
+        answer:
+          'No. Browser tools are best for fast merging, splitting, and conversion. Use a professional editor for redaction, signatures, OCR, forms, and legal production workflows.',
+      },
+    ],
+  },
+  {
+    path: '/text-tools',
+    title: 'Free Online Text Tools',
+    description:
+      'A practical hub for browser-based text workflows: analyze word counts, clean copied text, compare revisions, copy symbols, polish drafts, and prepare content for publishing.',
+    eyebrow: 'Text Tools Hub',
+    audience:
+      'Built for writers, editors, developers, marketers, translators, students, support teams, and ecommerce operators who handle messy text every day.',
+    updated: '2026-05-18',
+    type: 'pillar',
+    targetKeyword: 'free online text tools',
+    summary: [
+      'Text tools look simple, but they support real work: cleaning copied spreadsheet cells, comparing contract revisions, measuring product descriptions, finding special symbols, preparing Markdown, and polishing drafts before publication.',
+      'ToolOrbit groups text utilities around practical workflows rather than generic counters. Each tool helps users move from messy input to cleaner, more publishable output without installing a writing suite.',
+      'Text workflows also overlap with developer tasks and AI tasks. A clean draft may go into an AI polisher, a diff may verify a code review change, and a symbol library may support UI copy or ecommerce listings.',
+    ],
+    table: [
+      {
+        label: 'Analysis',
+        bestFor: 'Word count, character count, paragraphs, and quick editorial checks',
+        tools: 'Text analyzer',
+        note: 'Use before publishing descriptions, bios, ad copy, and metadata.',
+      },
+      {
+        label: 'Cleanup',
+        bestFor: 'Removing blank lines, tabs, excess spaces, and punctuation',
+        tools: 'Text cleaner',
+        note: 'Choose explicit cleanup rules so useful formatting is not destroyed.',
+      },
+      {
+        label: 'Comparison',
+        bestFor: 'Reviewing copy edits, translations, code snippets, and policy updates',
+        tools: 'Text diff',
+        note: 'Use line mode for structure and word mode for prose.',
+      },
+      {
+        label: 'Publishing polish',
+        bestFor: 'Improving drafts and adding useful characters',
+        tools: 'AI text polisher, translator, symbol library',
+        note: 'Review AI output for meaning, tone, and factual accuracy.',
+      },
+    ],
+    sections: [
+      {
+        heading: 'Workflow 1: clean copied text before reuse',
+        body: [
+          'Copied text often carries hidden formatting: tabs from spreadsheets, double spaces from PDFs, broken line wraps from emails, and punctuation that does not fit the target system. Use the text cleaner to remove only the problems you can name.',
+          'Do not blindly strip everything. Removing all punctuation may damage product titles, URLs, code snippets, or legal text. Apply one rule at a time, preview the output, then copy or download the cleaned result.',
+        ],
+      },
+      {
+        heading: 'Workflow 2: compare revisions before publishing',
+        body: [
+          'Diff tools prevent subtle mistakes. Paste the original version and revised version, then inspect additions, removals, and reordered content. This is useful for release notes, policy updates, translations, documentation, and support macros.',
+          'Line diff works best for structured content such as Markdown, JSON snippets, or lists. Word diff is better when the change is inside a sentence and the review depends on tone, punctuation, or exact phrasing.',
+        ],
+      },
+      {
+        heading: 'Workflow 3: prepare text for AI and publishing',
+        body: [
+          'AI tools perform better with clean input. Before polishing or translating a draft, remove accidental line breaks, normalize spacing, and check length constraints. After AI output is generated, use the analyzer and diff tools to review what changed.',
+          'For publishing workflows, combine the symbol library with text analysis. Symbols can improve compact labels, documentation, and ecommerce copy, but they should be used intentionally and tested on the target platform.',
+        ],
+      },
+      {
+        heading: 'Best practices for trustworthy text tools',
+        body: [
+          'A useful text tool should make transformations visible. Users should understand whether a tool is counting, cleaning, comparing, rewriting, or translating. Hidden transformations create mistrust, especially when text has legal, technical, or customer-facing consequences.',
+          'Keep sensitive text local when possible. Draft contracts, customer messages, code snippets, and internal documentation may contain private information. Browser-based text utilities are valuable because many counting, cleaning, and diff tasks can happen without sending the text to a remote service.',
+        ],
+      },
+    ],
+    toolPaths: [
+      '/tools/text/text-analyzer',
+      '/tools/text/text-cleaner',
+      '/tools/text/symbol-library',
+      '/tools/dev/text-diff',
+      '/tools/ai/text-polisher',
+      '/tools/ai/translator',
+      '/tools/dev/unicode-converter',
+      '/tools/dev/regex-tester',
+    ],
+    blogSlugs: [
+      'why-text-diff-matters',
+      'unicode-character-encoding-guide',
+      'url-encoding-demystified',
+      'ai-text-polisher-guide',
+      'ai-translator-future',
+      'regex-mastery-guide',
+      'secure-developer-tools-privacy',
+    ],
+    faqs: [
+      {
+        question: 'What is the difference between text cleaning and text polishing?',
+        answer:
+          'Cleaning applies mechanical rules such as removing spaces or blank lines. Polishing changes wording, tone, or structure and should be reviewed before publishing.',
+      },
+      {
+        question: 'Can text tools handle code snippets?',
+        answer:
+          'Some can. Text diff, regex tester, Unicode converter, and text analyzer are useful for snippets, but destructive cleaning rules should be used carefully on code.',
+      },
+      {
+        question: 'Why use a text diff tool for writing?',
+        answer:
+          'Diffs reveal exactly what changed between drafts, which helps editors, translators, and reviewers avoid accidental meaning changes.',
+      },
+      {
+        question: 'Are symbol libraries useful for professional content?',
+        answer:
+          'Yes, when used sparingly. Symbols can clarify UI labels, compact notes, formulas, and product copy, but overuse can make content harder to read.',
+      },
+      {
+        question: 'Should I paste confidential text into AI tools?',
+        answer:
+          'Only if your policy allows it. Counting, cleaning, and diffing can often run locally; AI rewriting usually requires a model request and should be treated differently.',
       },
     ],
   },

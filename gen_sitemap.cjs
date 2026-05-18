@@ -18,6 +18,9 @@ const CATEGORY_PATHS = [
 const SEO_CONTENT_PATHS = [
   '/developer-tools',
   '/ai-tools',
+  '/image-tools',
+  '/pdf-tools',
+  '/text-tools',
   '/pdf-image-tools',
   '/webmaster-toolkit',
   '/best-json-formatters',
