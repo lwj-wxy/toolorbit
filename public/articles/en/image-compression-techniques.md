@@ -72,6 +72,33 @@ Teams should also save originals separately from web-ready derivatives. That way
 
 Manual compression is fine for occasional publishing, but repeat workflows should be automated. Developers can enforce maximum dimensions, generate responsive variants, convert formats, and warn when assets exceed a chosen budget. The [Next.js image optimization documentation](https://nextjs.org/docs/app/getting-started/images) is a useful reference for teams using the Next.js stack.
 
+### Responsive Images: srcset, Sizes, and Picture
+
+Compression alone is not enough if the browser downloads the same 2000-pixel image for both a 4K desktop monitor and a 375-pixel-wide phone screen. Responsive images solve this by letting the browser choose the best variant for the viewport:
+
+```html
+<img
+  src="photo-800w.jpg"
+  srcset="photo-400w.jpg 400w, photo-800w.jpg 800w, photo-1200w.jpg 1200w"
+  sizes="(max-width: 600px) 100vw, 50vw"
+  alt="Product photo"
+/>
+```
+
+The `srcset` attribute lists candidate images with their intrinsic widths. The `sizes` attribute tells the browser how much of the viewport the image will occupy at different breakpoints. The browser then picks the smallest image that still looks sharp — saving bandwidth on small screens without compromising quality on large ones.
+
+For art direction (different crops at different sizes, not just different resolutions), use the `<picture>` element with `<source>` media queries. This is especially useful for product photography where a tight crop works on mobile but a wider composition works on desktop.
+
+### CDN Image Transformation
+
+For teams managing many images, CDN-level transformation services (Cloudinary, imgix, Cloudflare Images, Netlify Image CDN) automate format selection, resizing, compression, and responsive delivery. Instead of pre-generating every variant, you upload one high-quality original and request transformations via URL parameters:
+
+```
+/cdn/photo.jpg?w=800&format=webp&quality=80
+```
+
+The CDN caches the transformed result, so subsequent requests for the same variant are served instantly. This architecture removes the manual resize-and-compress loop from the publishing workflow entirely. For smaller sites, manual compression with browser tools and a responsive image build step (Next.js Image, Astro Image, or Gatsby Image) provides most of the benefit without the CDN dependency, and keeps the publishing pipeline simple enough that contributors will actually follow it.
+
 Automation should not remove human review. It should catch obvious problems and create good defaults. A designer or publisher still needs to inspect important images before launch, especially when the image contains faces, product details, text, or brand-critical visuals.
 
 ## How does image optimization support SEO?

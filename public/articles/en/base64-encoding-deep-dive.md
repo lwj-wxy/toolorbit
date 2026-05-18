@@ -26,6 +26,53 @@ If the input length is not divisible by three, padding fills the final block. Th
 
 Because three bytes become four characters, Base64 increases size by roughly one third before compression. That overhead matters when teams inline large images, logs, or files into JSON.
 
+### Base64 Variants: Standard, URL-Safe, and MIME
+
+RFC 4648 defines multiple Base64 alphabets for different contexts. The standard alphabet uses `A-Z`, `a-z`, `0-9`, `+`, and `/`, with `=` for padding. This works for general data, but the `+` and `/` characters have special meanings in URLs (where `+` represents a space and `/` is a path separator).
+
+The **URL-safe variant** (Base64url) replaces `+` with `-` and `/` with `_`, and often omits padding. This produces strings that can be embedded in URL paths, query parameters, and filenames without percent-encoding. JWTs use Base64url for exactly this reason — the encoded header, payload, and signature segments are concatenated with dots and must be URL-safe.
+
+**MIME Base64**, used in email attachments, wraps output at 76 characters per line and uses `\r\n` line endings. This is the variant you see in raw email source and is distinct from the continuous-string variant used in data URLs and API tokens.
+
+### Code Examples: Encoding and Decoding
+
+In browser JavaScript, the `btoa()` and `atob()` functions handle standard Base64:
+
+```javascript
+const encoded = btoa('Hello, World!');          // "SGVsbG8sIFdvcmxkIQ=="
+const decoded = atob(encoded);                   // "Hello, World!"
+
+// For Unicode, use TextEncoder first
+const utf8Encoded = btoa(
+  String.fromCharCode(...new TextEncoder().encode('Hello 世界'))
+);
+```
+
+In Node.js, use `Buffer`:
+
+```javascript
+const encoded = Buffer.from('Hello, World!').toString('base64');
+const decoded = Buffer.from(encoded, 'base64').toString('utf-8');
+```
+
+In Python:
+
+```python
+import base64
+
+encoded = base64.b64encode(b'Hello, World!').decode()   # standard
+url_safe = base64.urlsafe_b64encode(b'Hello').decode()  # URL-safe
+decoded = base64.b64decode(encoded)
+```
+
+The distinction between standard and URL-safe encoding is a common source of bugs. A JWT segment decoded with standard Base64 (which expects `+` and `/`) will fail silently or produce garbage if the token uses `-` and `_`. Always match the variant to the context, and prefer libraries that handle JWT decoding rather than writing Base64 decode logic by hand.
+
+### Base64 vs. Other Encodings
+
+Compared to hexadecimal (Base16), which encodes each byte as two characters and produces a 100% size increase, Base64's 33% overhead is substantially more efficient. Base32 (used in some cryptographic contexts and for human-readable license keys) produces a 60% size increase but uses a case-insensitive alphabet that is easier to type and less prone to transcription errors.
+
+For most web use cases — data URLs, API payloads, token segments — Base64 is the right tradeoff between size overhead and compatibility. Use hex when the output must be human-auditable byte-by-byte (debugging binary protocols, comparing hashes). Use Base32 when case-insensitivity matters.
+
 ## Is Base64 encryption?
 
 No. Base64 is reversible without a key. Anyone can decode it with a browser tool, command-line utility, or a few lines of code. If you encode `password123`, you have not protected the password; you have only changed its representation.
