@@ -6,6 +6,7 @@ import zh from '../locales/zh.json';
 import { CATEGORY_SLUGS, getCategoryPath } from '../lib/category-paths';
 import { localizedPath, type Locale } from '../lib/i18n-routing';
 import { readPath, SITE_NAME } from '../lib/metadata';
+import { getToolCoverPath, hasGeneratedToolCover } from '../lib/tool-covers';
 
 type AllToolsPageProps = {
   locale?: Locale;
@@ -107,22 +108,33 @@ export default function AllToolsPage({ locale = 'en' }: AllToolsPageProps) {
                         href={localizedPath(tool.path, locale)}
                         className="group flex h-full min-h-[232px] flex-col gap-3 rounded-lg border border-slate-200 bg-white p-3 shadow-sm transition-colors hover:border-cyan-300 hover:bg-cyan-50/20 dark:border-slate-800 dark:bg-[#282c34] dark:hover:border-cyan-700 dark:hover:bg-cyan-950/10"
                       >
-                        <span className="relative flex aspect-[16/10] overflow-hidden rounded-lg border border-cyan-100 bg-gradient-to-br from-cyan-50 via-white to-sky-50 p-3 text-cyan-700 shadow-inner dark:border-white/10 dark:from-cyan-950/40 dark:via-slate-900 dark:to-sky-950/20 dark:text-cyan-200">
-                          <span className="absolute -right-6 -top-6 h-20 w-20 rounded-full bg-white/70 blur-2xl dark:bg-white/10" />
-                          <span className="relative flex h-full w-full flex-col justify-between">
-                            <span className="w-fit rounded-full bg-white/80 px-2 py-1 text-[11px] font-semibold text-slate-600 shadow-sm dark:bg-slate-950/50 dark:text-slate-300">
-                              {categoryName(tool.category, locale)}
-                            </span>
-                            <span className="flex items-end justify-between gap-3">
-                              <span className="line-clamp-2 text-[13px] font-semibold leading-5 text-slate-900 dark:text-white">
-                                {toolName(tool, locale)}
+                        {hasGeneratedToolCover(tool.id) ? (
+                          <span className="relative aspect-[16/10] overflow-hidden rounded-lg border border-slate-100 bg-slate-50 dark:border-white/10 dark:bg-slate-900">
+                            <img
+                              src={getToolCoverPath(tool.id)}
+                              alt={toolName(tool, locale)}
+                              className="h-full w-full object-cover"
+                              loading="lazy"
+                            />
+                          </span>
+                        ) : (
+                          <span className="relative flex aspect-[16/10] overflow-hidden rounded-lg border border-cyan-100 bg-gradient-to-br from-cyan-50 via-white to-sky-50 p-3 text-cyan-700 shadow-inner dark:border-white/10 dark:from-cyan-950/40 dark:via-slate-900 dark:to-sky-950/20 dark:text-cyan-200">
+                            <span className="absolute -right-6 -top-6 h-20 w-20 rounded-full bg-white/70 blur-2xl dark:bg-white/10" />
+                            <span className="relative flex h-full w-full flex-col justify-between">
+                              <span className="w-fit rounded-full bg-white/80 px-2 py-1 text-[11px] font-semibold text-slate-600 shadow-sm dark:bg-slate-950/50 dark:text-slate-300">
+                                {categoryName(tool.category, locale)}
                               </span>
-                              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/90 shadow-sm dark:bg-slate-950/70">
-                                <Icon className="h-5 w-5" aria-hidden="true" />
+                              <span className="flex items-end justify-between gap-3">
+                                <span className="line-clamp-2 text-[13px] font-semibold leading-5 text-slate-900 dark:text-white">
+                                  {toolName(tool, locale)}
+                                </span>
+                                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/90 shadow-sm dark:bg-slate-950/70">
+                                  <Icon className="h-5 w-5" aria-hidden="true" />
+                                </span>
                               </span>
                             </span>
                           </span>
-                        </span>
+                        )}
                         <span className="min-w-0">
                           <span className="flex items-center gap-2 text-[15px] font-semibold text-slate-950 transition-colors group-hover:text-cyan-700 dark:text-white dark:group-hover:text-cyan-300">
                             <span>{toolName(tool, locale)}</span>

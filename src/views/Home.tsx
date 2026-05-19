@@ -12,6 +12,7 @@ import { Category, ToolItem, TOOLS } from '../data/tools';
 import { useRecentTools } from '../hooks/useRecentTools';
 import { getCategoryPath } from '../lib/category-paths';
 import { Link, useClientSearchParamsWithInitialSearch } from '../lib/navigation';
+import { getToolCoverPath, hasGeneratedToolCover } from '../lib/tool-covers';
 import { cn } from '../lib/utils';
 
 const HOME_CATEGORY_PREVIEW_LIMIT = 6;
@@ -38,23 +39,36 @@ function ToolCover({ tool }: { tool: ToolItem }) {
   const Icon = tool.icon;
   const styles = getCategoryStyles(tool.category);
 
-  return (
-    <div className={cn('relative flex aspect-[16/10] overflow-hidden rounded-lg border border-white/70 bg-gradient-to-br p-3 shadow-inner dark:border-white/10', styles.cover)}>
-      <div className="absolute inset-x-0 top-0 h-px bg-white/80 dark:bg-white/10" />
-      <div className="absolute -right-6 -top-6 h-20 w-20 rounded-full bg-white/60 blur-2xl dark:bg-white/10" />
-      <div className="relative flex h-full w-full flex-col justify-between">
-        <span className="inline-flex w-fit items-center rounded-full bg-white/80 px-2 py-1 text-[11px] font-semibold text-slate-600 shadow-sm dark:bg-slate-950/50 dark:text-slate-300">
-          {t(`common.categories.${tool.category}`)}
-        </span>
-        <div className="flex items-end justify-between gap-3">
-          <span className="min-w-0 text-[13px] font-semibold leading-5 text-slate-900 dark:text-white">
-            {t(`tools.${tool.id}.name`, { defaultValue: tool.name })}
+  if (!hasGeneratedToolCover(tool.id)) {
+    return (
+      <div className={cn('relative flex aspect-[16/10] overflow-hidden rounded-lg border border-white/70 bg-gradient-to-br p-3 shadow-inner dark:border-white/10', styles.cover)}>
+        <div className="absolute inset-x-0 top-0 h-px bg-white/80 dark:bg-white/10" />
+        <div className="absolute -right-6 -top-6 h-20 w-20 rounded-full bg-white/60 blur-2xl dark:bg-white/10" />
+        <div className="relative flex h-full w-full flex-col justify-between">
+          <span className="inline-flex w-fit items-center rounded-full bg-white/80 px-2 py-1 text-[11px] font-semibold text-slate-600 shadow-sm dark:bg-slate-950/50 dark:text-slate-300">
+            {t(`common.categories.${tool.category}`)}
           </span>
-          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/90 shadow-sm dark:bg-slate-950/70">
-            <Icon size={20} strokeWidth={2.2} />
-          </span>
+          <div className="flex items-end justify-between gap-3">
+            <span className="min-w-0 text-[13px] font-semibold leading-5 text-slate-900 dark:text-white">
+              {t(`tools.${tool.id}.name`, { defaultValue: tool.name })}
+            </span>
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/90 shadow-sm dark:bg-slate-950/70">
+              <Icon size={20} strokeWidth={2.2} />
+            </span>
+          </div>
         </div>
       </div>
+    );
+  }
+
+  return (
+    <div className="relative aspect-[16/10] overflow-hidden rounded-lg border border-slate-100 bg-slate-50 dark:border-white/10 dark:bg-slate-900">
+      <img
+        src={getToolCoverPath(tool.id)}
+        alt={t(`tools.${tool.id}.name`, { defaultValue: tool.name })}
+        className="h-full w-full object-cover"
+        loading="lazy"
+      />
     </div>
   );
 }
