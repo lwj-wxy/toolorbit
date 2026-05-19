@@ -140,13 +140,13 @@ export function ToolsMegaDropdown({ categories }: { categories: NavCategory[] })
   const { t } = useTranslation();
 
   return (
-    <div className="absolute top-[64px] left-0 w-full bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800/80 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.05)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top -translate-y-1 group-hover:translate-y-0 z-50">
-      <div className="max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-10">
+    <div className="absolute left-0 top-[58px] z-50 invisible w-full -translate-y-1 border-b border-slate-200/80 bg-[#f7f8fb]/95 opacity-0 backdrop-blur-md transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 dark:border-slate-800/80 dark:bg-slate-950/95">
+      <div className="mx-auto max-w-[1536px] px-4 py-7 sm:px-6 lg:px-8">
         <div className="grid grid-cols-4 lg:grid-cols-5 xl:grid-cols-8 gap-6">
           {categories.map(({ category, path, tools }) => {
             return (
               <div key={category} className="flex flex-col gap-3">
-                <h3 className="text-[13px] font-extrabold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2 px-2">
+                <h3 className="mb-2 px-2 text-[12px] font-bold uppercase tracking-wide text-slate-500 dark:text-slate-500">
                   {t(`common.categories.${category}`)}
                 </h3>
                 <div className="flex flex-col gap-1">
@@ -154,12 +154,12 @@ export function ToolsMegaDropdown({ categories }: { categories: NavCategory[] })
                     <Link
                       key={tool.id}
                       to={tool.path}
-                      className="group/item flex items-center gap-2 p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-all"
+                      className="group/item flex items-center gap-2 rounded-md p-2 transition-colors hover:bg-white dark:hover:bg-slate-900"
                     >
                       <div className="w-6 h-6 rounded flex items-center justify-center text-slate-400 group-hover/item:text-blue-600 dark:group-hover/item:text-blue-400 transition-colors">
                         <ToolNavIcon id={tool.id} size={16} />
                       </div>
-                      <span className="text-[13px] font-bold text-slate-700 dark:text-slate-300 group-hover/item:text-blue-600 dark:group-hover/item:text-blue-400 truncate">
+                      <span className="truncate text-[13px] font-medium text-slate-700 transition-colors group-hover/item:text-blue-600 dark:text-slate-300 dark:group-hover/item:text-blue-400">
                         {t(`tools.${tool.id}.name`, { defaultValue: tool.name })}
                       </span>
                     </Link>
@@ -167,7 +167,7 @@ export function ToolsMegaDropdown({ categories }: { categories: NavCategory[] })
                   {tools.length > 6 && (
                     <Link
                       to={path}
-                      className="text-[12px] font-bold text-blue-500 hover:text-blue-700 px-2 mt-1"
+                      className="mt-1 px-2 text-[12px] font-semibold text-blue-600 hover:text-blue-700 dark:text-blue-400"
                     >
                       {t('common.viewMore')}
                     </Link>
@@ -199,15 +199,15 @@ export function AiMegaDropdown({ aiCategoryPath, aiTools }: { aiCategoryPath: st
   const { t } = useTranslation();
 
   return (
-    <div className="absolute top-[64px] left-0 w-full bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800/80 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.05)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top -translate-y-1 group-hover:translate-y-0 z-50">
-      <div className="max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-10">
+    <div className="absolute left-0 top-[58px] z-50 invisible w-full -translate-y-1 border-b border-slate-200/80 bg-[#f7f8fb]/95 opacity-0 backdrop-blur-md transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 dark:border-slate-800/80 dark:bg-slate-950/95">
+      <div className="mx-auto max-w-[1536px] px-4 py-7 sm:px-6 lg:px-8">
         <div className="mb-4 flex items-center justify-between gap-4">
           <h3 className="text-[13px] font-extrabold text-violet-500 dark:text-violet-400 uppercase tracking-wider">
             {t('common.categories.AI 工具') || 'AI Tools'}
           </h3>
           <Link
             to={aiCategoryPath}
-            className="text-[12px] font-bold text-violet-600 hover:text-violet-700 dark:text-violet-400 dark:hover:text-violet-300"
+            className="text-[12px] font-semibold text-violet-600 hover:text-violet-700 dark:text-violet-400 dark:hover:text-violet-300"
           >
             {t('common.viewMore')} &rarr;
           </Link>
@@ -225,12 +225,12 @@ export function AiMegaDropdown({ aiCategoryPath, aiTools }: { aiCategoryPath: st
               <Link
                 key={tool.id}
                 to={tool.path}
-                className="group/item flex items-center gap-2 rounded-lg p-2 transition-all hover:bg-slate-50 dark:hover:bg-slate-800"
+                className="group/item flex items-center gap-2 rounded-md p-2 transition-colors hover:bg-white dark:hover:bg-slate-900"
               >
                 <div className={`w-6 h-6 rounded flex items-center justify-center flex-shrink-0 ${iconBg} ${iconDarkBg} transition-colors`}>
                   <ToolNavIcon id={tool.id} size={15} />
                 </div>
-                <span className={`min-w-0 truncate text-[13px] font-bold text-slate-700 dark:text-slate-300 ${titleHover} ${titleDarkHover} transition-colors`}>
+                <span className={`min-w-0 truncate text-[13px] font-medium text-slate-700 dark:text-slate-300 ${titleHover} ${titleDarkHover} transition-colors`}>
                   {t(`tools.${tool.id}.name`, { defaultValue: tool.name })}
                 </span>
               </Link>

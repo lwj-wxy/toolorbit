@@ -44,7 +44,12 @@
       "Bash(grep -oE '\\(toolorbit[^<]*|[Bb]acklink|[Rr]eferring|[Ll]ink|//[^\"]*toolorbit\\)')",
       "Bash(grep -v '^\\\\s*$')",
       "Bash(pip install *)",
-      "Bash(npx tsc *)"
+      "Bash(npx tsc *)",
+      "WebFetch(domain:okmiku.com)",
+      "WebFetch(domain:www.cnblogs.com)",
+      "WebFetch(domain:juejin.cn)",
+      "Bash(grep -oP '\\(#[0-9a-fA-F]{3,8}|--[a-zA-Z-]+|class=\"[^\"]*\"\\)')",
+      "WebFetch(domain:raw.githubusercontent.com)"
     ]
   }
 }

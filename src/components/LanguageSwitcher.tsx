@@ -48,7 +48,7 @@ export default function LanguageSwitcher() {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-1.5 px-3 py-2 rounded-full border border-slate-200/80 bg-slate-50 hover:bg-white hover:border-blue-500/50 hover:ring-[3px] hover:ring-blue-500/10 transition-all duration-200 text-slate-600 hover:text-slate-900 group whitespace-nowrap min-w-[100px] justify-center"
+        className="group flex min-w-[100px] items-center justify-center gap-1.5 whitespace-nowrap rounded-md border border-slate-200/80 bg-white/80 px-3 py-2 text-slate-600 transition-all duration-200 hover:border-blue-500/50 hover:bg-white hover:text-slate-900 hover:ring-[3px] hover:ring-blue-500/10 dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-300"
       >
         <Languages className="w-4 h-4 text-slate-400 group-hover:text-blue-500 shrink-0" />
         <span className="text-[13px] font-bold">{currentLanguage.name}</span>
@@ -56,17 +56,17 @@ export default function LanguageSwitcher() {
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-48 bg-white/95 backdrop-blur-md border border-slate-200/80 rounded-2xl shadow-[0_10px_30px_-10px_rgba(0,0,0,0.1)] overflow-hidden z-[100] animate-in fade-in zoom-in-95 duration-200">
+        <div className="absolute right-0 z-[100] mt-2 w-48 overflow-hidden rounded-lg border border-slate-200/80 bg-white/95 shadow-sm backdrop-blur-md duration-200 animate-in fade-in zoom-in-95 dark:border-slate-800 dark:bg-slate-900/95">
           <div className="p-1.5">
             {languages.map((lang) => (
               <button
                 key={lang.code}
                 onClick={() => toggleLanguage(lang.code)}
                 className={cn(
-                  "w-full flex items-center justify-between px-3 py-2 rounded-xl text-[14px] font-medium transition-colors",
+                  "w-full flex items-center justify-between rounded-md px-3 py-2 text-[14px] font-medium transition-colors",
                   i18n.language.startsWith(lang.code) 
-                    ? "bg-blue-50 text-blue-600" 
-                    : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                    ? "bg-blue-50 text-blue-600 dark:bg-blue-950/40 dark:text-blue-300" 
+                    : "text-slate-600 hover:bg-slate-50 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
                 )}
               >
                 {lang.name}

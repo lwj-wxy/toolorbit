@@ -11,18 +11,17 @@ export default function ToolPageHero({
   icon: Icon,
   title,
   description,
-  accentClassName = 'bg-indigo-100 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-400',
+  accentClassName = 'bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-300',
 }: ToolPageHeroProps) {
   return (
-    <div className="text-center mb-10">
-      <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-6 relative group ${accentClassName}`}>
-        <div className="absolute inset-0 rounded-full bg-current opacity-20 blur-xl group-hover:opacity-30 transition-opacity" />
-        <Icon className="w-8 h-8 relative z-10" />
+    <div className="mb-7 border-b border-slate-200 pb-7 text-left dark:border-slate-800">
+      <div className={`mb-4 inline-flex h-10 w-10 items-center justify-center rounded-md ${accentClassName}`}>
+        <Icon className="h-5 w-5" />
       </div>
-      <h1 className="text-4xl font-bold text-slate-900 dark:text-white mb-4">
+      <h1 className="text-2xl font-semibold tracking-tight text-slate-950 dark:text-white sm:text-3xl">
         {title}
       </h1>
-      <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+      <p className="mt-3 max-w-3xl text-[15px] leading-7 text-slate-600 dark:text-slate-400">
         {description}
       </p>
     </div>

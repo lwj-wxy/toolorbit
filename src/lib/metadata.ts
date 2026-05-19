@@ -231,8 +231,8 @@ export function homeMetadata(locale: Locale = 'en'): Metadata {
   return pageMetadata(
     locale === 'zh-CN' ? '面向开发者与创作者的免费在线工具' : 'Free Online Tools for Developers and Creators',
     locale === 'zh-CN'
-      ? 'ToolOrbit 提供面向开发者、创作者、电商运营、PDF 工作流、图片处理和 AI 生产力的免费浏览器在线工具。'
-      : 'Free browser-based tools for developer, PDF, image, ecommerce, and AI workflows, with local-first processing for privacy-sensitive tasks.',
+      ? 'ToolOrbit 提供免费的浏览器在线工具，覆盖开发者、PDF、图片、电商和 AI 工作流。快速打开即用，常见任务优先在本地处理。'
+      : 'Free browser-based tools for developers, creators, PDF, image, ecommerce, and AI workflows. Fast online utilities with privacy-friendly local processing.',
     '/',
     locale,
   );

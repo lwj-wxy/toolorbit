@@ -97,16 +97,16 @@ export default function ToolSearchContent({ path }: ToolSearchContentProps) {
     }))
     .filter((item) => item.title || item.description);
   return (
-    <section className="mt-10 border-t border-slate-200/70 dark:border-slate-800/70 pt-10">
+    <section className="mt-10 border-t border-slate-200/70 pt-10 dark:border-slate-800/70">
       <div className="max-w-5xl space-y-6">
           <div>
-            <p className="mb-3 text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">
+            <p className="mb-3 text-[12px] font-semibold uppercase tracking-wide text-blue-700 dark:text-blue-300">
               {t('toolGuide.label', { defaultValue: isZh ? '工具指南' : 'Tool guide' })}
             </p>
-            <h2 className="text-2xl font-black tracking-tight text-slate-900 dark:text-slate-100">
+            <h2 className="text-2xl font-semibold tracking-tight text-slate-950 dark:text-white">
               {title}
             </h2>
-            <p className="mt-4 text-base leading-8 text-slate-600 dark:text-slate-400">
+            <p className="mt-4 text-[15px] leading-7 text-slate-600 dark:text-slate-400">
               {description}
               {isZh ? ' 本页面适用于' : ' This page is designed for '}
               {categoryIntent(tool.category, isZh)}
@@ -115,13 +115,18 @@ export default function ToolSearchContent({ path }: ToolSearchContentProps) {
 
           {guide.length > 0 && (
             <div>
-              <h3 className="mb-3 text-lg font-bold text-slate-900 dark:text-slate-100">
+              <h3 className="mb-3 text-lg font-semibold text-slate-950 dark:text-white">
                 {guideTitle}
               </h3>
-              <ol className="grid gap-3 text-sm leading-7 text-slate-600 dark:text-slate-400 sm:grid-cols-2">
-                {guide.map((item) => (
-                  <li key={item} className="rounded-lg border border-slate-200/70 bg-white p-4 dark:border-slate-800 dark:bg-slate-900">
+              <ol className="grid gap-4 text-sm leading-7 text-slate-600 dark:text-slate-400 sm:grid-cols-2">
+                {guide.map((item, index) => (
+                  <li key={item} className="grid grid-cols-[26px_minmax(0,1fr)] gap-3">
+                    <span className="flex h-6 w-6 items-center justify-center rounded-md bg-blue-600 text-xs font-semibold text-white">
+                      {index + 1}
+                    </span>
+                    <span>
                     {item}
+                    </span>
                   </li>
                 ))}
               </ol>
@@ -130,13 +135,13 @@ export default function ToolSearchContent({ path }: ToolSearchContentProps) {
 
           {highlights.length > 0 && (
             <div>
-              <h3 className="mb-3 text-lg font-bold text-slate-900 dark:text-slate-100">
+              <h3 className="mb-3 text-lg font-semibold text-slate-950 dark:text-white">
                 {highlightsTitle}
               </h3>
               <div className="grid gap-3 sm:grid-cols-3">
                 {highlights.map((item) => (
-                  <div key={`${item.title}-${item.description}`} className="rounded-lg border border-slate-200/70 bg-white p-4 dark:border-slate-800 dark:bg-slate-900">
-                    {item.title ? <h4 className="font-bold text-slate-900 dark:text-slate-100">{item.title}</h4> : null}
+                  <div key={`${item.title}-${item.description}`} className="border-l-2 border-slate-200 pl-4 dark:border-slate-800">
+                    {item.title ? <h4 className="font-semibold text-slate-950 dark:text-white">{item.title}</h4> : null}
                     {item.description ? <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-400">{item.description}</p> : null}
                   </div>
                 ))}

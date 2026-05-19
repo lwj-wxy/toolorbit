@@ -6,13 +6,13 @@ export default function Terms() {
   const { t } = useTranslation();
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-        <div className="p-8 md:p-12">
-          <h1 className="text-3xl font-extrabold text-slate-900 mb-2">{t('terms.title')}</h1>
-          <p className="text-slate-500 mb-8 pb-8 border-b border-slate-100">{t('terms.lastUpdated')}</p>
+    <div className="mx-auto max-w-4xl py-4">
+      <div>
+        <div>
+          <h1 className="mb-2 text-3xl font-semibold tracking-tight text-slate-950 dark:text-white">{t('terms.title')}</h1>
+          <p className="mb-8 border-b border-slate-200 pb-8 text-slate-500 dark:border-slate-800 dark:text-slate-400">{t('terms.lastUpdated')}</p>
           <div 
-            className="prose prose-slate max-w-none prose-headings:text-slate-800"
+            className="prose prose-slate max-w-none prose-headings:text-slate-950 prose-headings:font-semibold prose-p:leading-7 prose-a:text-blue-600 dark:prose-invert dark:prose-headings:text-white"
             dangerouslySetInnerHTML={{ __html: t('terms.content') }} 
           />
         </div>

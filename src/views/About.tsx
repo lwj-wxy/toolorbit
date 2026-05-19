@@ -81,32 +81,32 @@ export default function About() {
   ];
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-        <div className="p-8 md:p-12">
-          <h1 className="text-3xl font-extrabold text-slate-900 mb-8 pb-8 border-b border-slate-100">{t('about.title')}</h1>
+    <div className="mx-auto max-w-4xl py-4">
+      <div>
+        <div>
+          <h1 className="mb-8 border-b border-slate-200 pb-8 text-3xl font-semibold tracking-tight text-slate-950 dark:border-slate-800 dark:text-white">{t('about.title')}</h1>
           <div 
-            className="prose prose-slate max-w-none prose-headings:text-slate-800"
+            className="prose prose-slate max-w-none prose-headings:text-slate-950 prose-headings:font-semibold prose-p:leading-7 dark:prose-invert dark:prose-headings:text-white"
             dangerouslySetInnerHTML={{ __html: t('about.content') }} 
           />
-          <section className="mt-10 rounded-xl border border-emerald-100 bg-emerald-50/70 p-5 text-sm leading-6 text-slate-700">
+          <section className="mt-10 border-y border-blue-100 bg-blue-50/40 py-5 text-sm leading-6 text-slate-700 dark:border-blue-950 dark:bg-blue-950/20 dark:text-slate-300">
             <div className="flex flex-col gap-5 sm:flex-row sm:items-start">
-              <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl bg-white text-lg font-black text-emerald-700 shadow-sm">
+              <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-md bg-blue-600 text-base font-semibold text-white">
                 {TOOL_ORBIT_EDITORIAL_TEAM.avatarInitials}
               </div>
               <div className="flex-1">
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                   <div>
-                    <p className="font-bold text-slate-900">
+                    <p className="font-semibold text-slate-950 dark:text-white">
                       {TOOL_ORBIT_EDITORIAL_TEAM.name}
                     </p>
-                    <p className="mt-1 font-medium text-emerald-800">
+                    <p className="mt-1 font-medium text-blue-800 dark:text-blue-300">
                       {TOOL_ORBIT_EDITORIAL_TEAM.role}
                     </p>
                   </div>
                   <Link
                     to={TOOL_ORBIT_EDITORIAL_TEAM.url}
-                    className="inline-flex items-center justify-center gap-2 rounded-lg border border-emerald-200 bg-white px-3 py-2 font-bold text-emerald-700 transition-colors hover:bg-emerald-50"
+                    className="inline-flex items-center justify-center gap-2 rounded-md border border-blue-200 bg-white px-3 py-2 font-semibold text-blue-700 transition-colors hover:border-blue-300 hover:bg-blue-50 dark:border-blue-900 dark:bg-slate-900 dark:text-blue-300"
                   >
                     <UserCheck size={16} />
                     {t('blog.editorial_policy', { defaultValue: 'Author profile' })}
@@ -118,11 +118,11 @@ export default function About() {
               </div>
             </div>
           </section>
-          <section className="mt-10 border-t border-slate-100 pt-10">
-            <h2 className="text-2xl font-extrabold text-slate-900">
+          <section className="mt-10 border-t border-slate-200 pt-10 dark:border-slate-800">
+            <h2 className="text-xl font-semibold text-slate-950 dark:text-white">
               {t('about.trust.title', { defaultValue: 'How ToolOrbit earns trust' })}
             </h2>
-            <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-600">
+            <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-400">
               {t('about.trust.intro', {
                 defaultValue:
                   'Trust is built through small engineering choices: local processing, clear limitations, practical testing, and a reachable maintainer.',
@@ -132,33 +132,33 @@ export default function About() {
               {trustItems.map((item) => {
                 const Icon = item.icon;
                 return (
-                  <div key={item.title} className="rounded-xl border border-slate-200 bg-slate-50/70 p-5">
-                    <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-white text-blue-600 shadow-sm">
+                  <div key={item.title} className="border-l-2 border-slate-200 pl-4 dark:border-slate-800">
+                    <div className="mb-4 flex h-9 w-9 items-center justify-center rounded-md bg-blue-50 text-blue-600 dark:bg-blue-950/40 dark:text-blue-300">
                       <Icon size={20} />
                     </div>
-                    <h3 className="text-base font-bold text-slate-900">{item.title}</h3>
-                    <p className="mt-2 text-sm leading-6 text-slate-600">{item.description}</p>
+                    <h3 className="text-base font-semibold text-slate-950 dark:text-white">{item.title}</h3>
+                    <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-400">{item.description}</p>
                   </div>
                 );
               })}
             </div>
           </section>
-          <section className="mt-10 border-t border-slate-100 pt-10">
+          <section className="mt-10 border-t border-slate-200 pt-10 dark:border-slate-800">
             <div className="grid gap-8 lg:grid-cols-[1.3fr_1fr]">
               <div>
                 <div className="mb-5 flex items-center gap-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-50 text-blue-600">
                     <BookOpenCheck size={20} />
                   </div>
-                  <h2 className="text-2xl font-extrabold text-slate-900">
+                  <h2 className="text-xl font-semibold text-slate-950 dark:text-white">
                     {t('about.cases.title', { defaultValue: 'Use cases we maintain for' })}
                   </h2>
                 </div>
                 <div className="space-y-4">
                   {caseItems.map((item) => (
                     <div key={item.title} className="border-l-4 border-blue-200 pl-4">
-                      <h3 className="font-bold text-slate-900">{item.title}</h3>
-                      <p className="mt-1 text-sm leading-6 text-slate-600">{item.description}</p>
+                      <h3 className="font-semibold text-slate-950 dark:text-white">{item.title}</h3>
+                      <p className="mt-1 text-sm leading-6 text-slate-600 dark:text-slate-400">{item.description}</p>
                     </div>
                   ))}
                 </div>
@@ -168,13 +168,13 @@ export default function About() {
                   <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-50 text-emerald-600">
                     <History size={20} />
                   </div>
-                  <h2 className="text-2xl font-extrabold text-slate-900">
+                  <h2 className="text-xl font-semibold text-slate-950 dark:text-white">
                     {t('about.updates.title', { defaultValue: 'Recent updates' })}
                   </h2>
                 </div>
-                <ol className="space-y-3 text-sm leading-6 text-slate-600">
+                <ol className="space-y-3 text-sm leading-6 text-slate-600 dark:text-slate-400">
                   {updateItems.map((item) => (
-                    <li key={item} className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
+                    <li key={item} className="border-l-2 border-slate-200 pl-4 dark:border-slate-800">
                       {item}
                     </li>
                   ))}
@@ -182,10 +182,10 @@ export default function About() {
               </div>
             </div>
           </section>
-          <section className="mt-10 rounded-xl border border-blue-100 bg-blue-50/70 p-5 text-sm leading-6 text-slate-700">
+          <section className="mt-10 border-y border-blue-100 bg-blue-50/40 py-5 text-sm leading-6 text-slate-700 dark:border-blue-950 dark:bg-blue-950/20 dark:text-slate-300">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <div>
-                <h2 className="font-bold text-slate-900">
+                <h2 className="font-semibold text-slate-950 dark:text-white">
                   {t('about.contact_title', { defaultValue: 'Feedback and corrections' })}
                 </h2>
                 <p className="mt-1">
@@ -197,7 +197,7 @@ export default function About() {
               </div>
               <a
                 href={`mailto:${BRAND_CONTACT_EMAIL}`}
-                className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-2 font-bold text-white transition-colors hover:bg-blue-700"
+                className="inline-flex items-center justify-center gap-2 rounded-md bg-blue-600 px-4 py-2 font-semibold text-white transition-colors hover:bg-blue-700"
               >
                 <Mail size={16} />
                 {BRAND_CONTACT_EMAIL}

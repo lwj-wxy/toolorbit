@@ -27,26 +27,24 @@ export default function TextDiff() {
   const hasChanges = diffResult.some(part => part.added || part.removed);
 
   return (
-    <>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">
+    <div className="mx-auto max-w-7xl">
+      <div className="mb-7 border-b border-slate-200 pb-7 dark:border-slate-800">
+        <h1 className="text-2xl font-semibold tracking-tight text-slate-950 dark:text-white sm:text-3xl">
             {t('tools.text-diff.title', '文本内容比对 (Diff)')}
-          </h1>
-          <p className="text-lg text-slate-600 dark:text-slate-400">
+        </h1>
+        <p className="mt-3 max-w-3xl text-[15px] leading-7 text-slate-600 dark:text-slate-400">
             {t('tools.text-diff.subtitle', '快速找出两段代码或文案的差异，支持逐行与逐词模式，纯前端离线对比。')}
-          </p>
-        </div>
+        </p>
+      </div>
 
-        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden">
-          {/* Toolbar */}
-          <div className="flex flex-wrap items-center justify-between p-4 border-b border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 gap-4">
-            <div className="flex items-center space-x-2 bg-slate-200 dark:bg-slate-900 p-1 rounded-lg">
+      <div className="space-y-4">
+          <div className="flex flex-wrap items-center justify-between gap-4 rounded-lg border border-slate-200 bg-white p-3 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+            <div className="flex items-center gap-1 rounded-md bg-slate-100 p-1 dark:bg-slate-800">
               <button
                 onClick={() => setMode('words')}
                 className={cn(
-                  "px-4 py-1.5 rounded-md text-sm font-medium transition-colors flex items-center gap-2",
-                  mode === 'words' ? "bg-white dark:bg-slate-700 text-blue-600 dark:text-blue-400 shadow-sm" : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                  "flex items-center gap-2 rounded px-3 py-1.5 text-sm font-medium transition-colors",
+                  mode === 'words' ? "bg-white text-blue-700 shadow-sm dark:bg-slate-950 dark:text-blue-300" : "text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
                 )}
               >
                 <AlignLeft className="w-4 h-4" />
@@ -55,8 +53,8 @@ export default function TextDiff() {
               <button
                 onClick={() => setMode('lines')}
                 className={cn(
-                  "px-4 py-1.5 rounded-md text-sm font-medium transition-colors flex items-center gap-2",
-                  mode === 'lines' ? "bg-white dark:bg-slate-700 text-blue-600 dark:text-blue-400 shadow-sm" : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                  "flex items-center gap-2 rounded px-3 py-1.5 text-sm font-medium transition-colors",
+                  mode === 'lines' ? "bg-white text-blue-700 shadow-sm dark:bg-slate-950 dark:text-blue-300" : "text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
                 )}
               >
                 <AlignLeft className="w-4 h-4" />
@@ -66,7 +64,7 @@ export default function TextDiff() {
             {(original || modified) && (
               <button
                 onClick={handleClear}
-                className="flex items-center gap-2 px-3 py-1.5 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-400/10 rounded-lg transition-colors border border-transparent hover:border-red-200 dark:hover:border-red-400/20"
+                className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-red-600 transition-colors hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-400/10"
               >
                 <XCircle className="w-4 h-4" />
                 {t('common.clear', '清空内容')}
@@ -74,10 +72,9 @@ export default function TextDiff() {
             )}
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-200 dark:divide-slate-700">
-            {/* Original Input */}
-            <div className="flex flex-col h-[400px]">
-              <div className="px-4 py-2 bg-slate-50 dark:bg-slate-900/50 border-b border-slate-200 dark:border-slate-700 flex items-center gap-2 font-medium text-slate-700 dark:text-slate-300 text-sm">
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+            <section className="flex h-[400px] flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
+              <div className="flex items-center gap-2 border-b border-slate-200 px-4 py-3 text-sm font-semibold text-slate-950 dark:border-slate-800 dark:text-white">
                 <FileText className="w-4 h-4 text-slate-400" />
                 {t('tools.text-diff.originalText', '原文 (Old)')}
               </div>
@@ -85,14 +82,13 @@ export default function TextDiff() {
                 value={original}
                 onChange={(e) => setOriginal(e.target.value)}
                 placeholder={t('tools.text-diff.placeholderOriginal', '在此粘贴原始文本...')}
-                className="flex-1 w-full p-4 bg-transparent border-none focus:ring-0 resize-none font-mono text-sm text-slate-900 dark:text-slate-100"
+                className="min-h-0 flex-1 resize-none border-0 bg-white p-4 font-mono text-sm leading-7 text-slate-900 dark:bg-slate-900 dark:text-slate-100"
                 spellCheck={false}
               />
-            </div>
+            </section>
 
-            {/* Modified Input */}
-            <div className="flex flex-col h-[400px]">
-              <div className="px-4 py-2 bg-slate-50 dark:bg-slate-900/50 border-b border-slate-200 dark:border-slate-700 flex items-center gap-2 font-medium text-slate-700 dark:text-slate-300 text-sm">
+            <section className="flex h-[400px] flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
+              <div className="flex items-center gap-2 border-b border-slate-200 px-4 py-3 text-sm font-semibold text-slate-950 dark:border-slate-800 dark:text-white">
                 <RefreshCw className="w-4 h-4 text-slate-400" />
                 {t('tools.text-diff.modifiedText', '修改后 (New)')}
               </div>
@@ -100,16 +96,15 @@ export default function TextDiff() {
                 value={modified}
                 onChange={(e) => setModified(e.target.value)}
                 placeholder={t('tools.text-diff.placeholderModified', '在此粘贴修改后的文本...')}
-                className="flex-1 w-full p-4 bg-transparent border-none focus:ring-0 resize-none font-mono text-sm text-slate-900 dark:text-slate-100"
+                className="min-h-0 flex-1 resize-none border-0 bg-white p-4 font-mono text-sm leading-7 text-slate-900 dark:bg-slate-900 dark:text-slate-100"
                 spellCheck={false}
               />
-            </div>
+            </section>
           </div>
 
-          {/* Diff Result */}
-          <div className="border-t border-slate-200 dark:border-slate-700">
-            <div className="px-4 py-3 bg-slate-50 dark:bg-slate-900/50 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between">
-              <div className="flex items-center gap-2 font-medium text-slate-700 dark:text-slate-300 text-sm">
+          <section className="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
+            <div className="flex items-center justify-between border-b border-slate-200 px-4 py-3 dark:border-slate-800">
+              <div className="flex items-center gap-2 text-sm font-semibold text-slate-950 dark:text-white">
                 <ArrowRightLeft className="w-4 h-4 text-blue-500" />
                 {t('tools.text-diff.resultTitle', '对比结果')}
               </div>
@@ -121,7 +116,7 @@ export default function TextDiff() {
               )}
             </div>
             
-            <div className="p-4 bg-white dark:bg-slate-950 font-mono text-sm overflow-x-auto whitespace-pre-wrap leading-relaxed min-h-[200px]">
+            <div className="min-h-[200px] overflow-x-auto whitespace-pre-wrap bg-white p-4 font-mono text-sm leading-relaxed dark:bg-slate-950">
               {!original && !modified ? (
                 <p className="text-slate-400 dark:text-slate-500 italic text-center mt-12">
                   {t('tools.text-diff.emptyTip', '等待输入文本以展示差异...')}
@@ -147,10 +142,8 @@ export default function TextDiff() {
                 );
               })}
             </div>
-          </div>
-
-        </div>
+          </section>
       </div>
-    </>
+    </div>
   );
 }

@@ -92,13 +92,13 @@ export default function LayoutHeaderClient() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 flex h-[64px] items-center justify-between border-b border-slate-200/80 bg-white/80 px-4 shadow-sm backdrop-blur-md dark:border-slate-800/80 dark:bg-slate-900/80 sm:px-6 lg:px-8">
+      <header className="sticky top-0 z-50 flex h-[58px] items-center justify-between border-b border-slate-200/80 bg-[#f7f8fb]/90 px-4 backdrop-blur-md dark:border-slate-800/80 dark:bg-slate-950/88 sm:px-6 lg:px-8">
         <div className="flex min-w-0 items-center gap-4 lg:gap-6 xl:gap-8">
           <Link
             to="/"
-            className="flex shrink-0 items-center gap-2 text-[18px] font-extrabold tracking-tight text-blue-600 dark:text-blue-400 lg:gap-[10px] lg:text-[20px]"
+            className="flex shrink-0 items-center gap-2 text-[16px] font-bold tracking-tight text-slate-950 transition-colors hover:text-blue-700 dark:text-white dark:hover:text-blue-300 lg:gap-[10px]"
           >
-            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 text-[14px] text-white shadow-sm lg:h-8 lg:w-8 lg:text-[16px]">
+            <div className="flex h-7 w-7 items-center justify-center rounded-md bg-blue-600 text-[11px] font-bold text-white lg:h-8 lg:w-8">
               TO
             </div>
             <span className="hidden sm:inline">{t('common.logoName')}</span>
@@ -109,7 +109,7 @@ export default function LayoutHeaderClient() {
               <Link
                 to="/"
                 className={cn(
-                  'mt-[3px] flex h-full cursor-pointer items-center gap-1.5 whitespace-nowrap border-b-[3px] border-transparent px-2 text-[14px] font-bold transition-all duration-200 lg:px-3 lg:text-[15px]',
+                  'mt-[3px] flex h-full cursor-pointer items-center gap-1.5 whitespace-nowrap border-b-2 border-transparent px-2 text-[13px] font-semibold transition-colors duration-200 lg:px-3',
                   isToolSection
                     ? 'border-blue-600 text-blue-600 dark:border-blue-400 dark:text-blue-400'
                     : 'text-slate-600 group-hover:text-slate-900 dark:text-slate-400 dark:group-hover:text-slate-100',
@@ -125,7 +125,7 @@ export default function LayoutHeaderClient() {
               <Link
                 to={aiCategoryPath}
                 className={cn(
-                  'mt-[3px] flex h-full cursor-pointer items-center gap-1.5 whitespace-nowrap border-b-[3px] border-transparent px-2 text-[14px] font-bold transition-all duration-200 lg:px-3 lg:text-[15px]',
+                  'mt-[3px] flex h-full cursor-pointer items-center gap-1.5 whitespace-nowrap border-b-2 border-transparent px-2 text-[13px] font-semibold transition-colors duration-200 lg:px-3',
                   isAiSection
                     ? 'border-violet-600 text-violet-600 dark:border-violet-400 dark:text-violet-400'
                     : 'text-slate-600 group-hover:text-slate-900 dark:text-slate-400 dark:group-hover:text-slate-100',
@@ -143,13 +143,12 @@ export default function LayoutHeaderClient() {
             <Link
               to="/blog"
               className={cn(
-                'mt-[3px] flex h-full cursor-pointer items-center gap-1.5 whitespace-nowrap border-b-[3px] border-transparent px-2 text-[14px] font-bold transition-all duration-200 lg:px-3 lg:text-[15px]',
+                'mt-[3px] flex h-full cursor-pointer items-center gap-1.5 whitespace-nowrap border-b-2 border-transparent px-2 text-[13px] font-semibold transition-colors duration-200 lg:px-3',
                 location.pathname.startsWith('/blog')
                   ? 'border-blue-600 text-blue-600 dark:border-blue-400 dark:text-blue-400'
                   : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100',
               )}
             >
-              <Sparkles size={15} className="text-emerald-500" />
               {t('blog.nav')}
             </Link>
           </nav>
@@ -158,8 +157,8 @@ export default function LayoutHeaderClient() {
         <div className="ml-4 flex shrink-0 items-center gap-2 lg:gap-4">
           <div
             className={cn(
-              'group relative hidden transition-all duration-300 ease-in-out lg:block',
-              isSearchFocused ? 'w-[240px] xl:w-[300px]' : 'w-[40px] xl:w-[150px]',
+                  'group relative hidden transition-all duration-300 ease-in-out lg:block',
+              isSearchFocused ? 'w-[240px] xl:w-[300px]' : 'w-[40px] xl:w-[160px]',
             )}
           >
             <form onSubmit={handleSearchSubmit}>
@@ -173,10 +172,10 @@ export default function LayoutHeaderClient() {
                 onFocus={() => setIsSearchFocused(true)}
                 onBlur={() => setIsSearchFocused(false)}
                 className={cn(
-                  'w-full rounded-full border border-slate-200/80 bg-slate-50 py-[8px] pl-[38px] pr-[16px] text-[13px] text-slate-800 outline-none transition-all placeholder:text-slate-400 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:placeholder:text-slate-500',
+                  'w-full rounded-md border border-slate-200/80 bg-white/80 py-[8px] pl-[38px] pr-[16px] text-[13px] text-slate-800 outline-none transition-all placeholder:text-slate-400 dark:border-slate-700 dark:bg-slate-900/70 dark:text-slate-100 dark:placeholder:text-slate-500',
                   isSearchFocused
                     ? 'border-blue-500 bg-white ring-[3px] ring-blue-500/10 dark:bg-slate-900'
-                    : 'cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-700',
+                    : 'cursor-pointer hover:border-slate-300 dark:hover:border-slate-600',
                 )}
                 placeholder={isSearchFocused || isWideDesktop ? t('common.searchPlaceholder') : ''}
                 type="search"
@@ -199,7 +198,7 @@ export default function LayoutHeaderClient() {
 
           <button
             onClick={() => setTheme(isDark ? 'light' : 'dark')}
-            className="rounded-full p-2 text-slate-500 transition-colors hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800"
+            className="rounded-md p-2 text-slate-500 transition-colors hover:bg-slate-200/70 dark:text-slate-400 dark:hover:bg-slate-800"
             aria-label={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
           >
             {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
@@ -209,7 +208,7 @@ export default function LayoutHeaderClient() {
             type="button"
             aria-label={t('common.mobileMenu')}
             aria-expanded={mobileMenuOpen}
-            className="rounded-md p-2 text-slate-500 transition-colors hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800 md:hidden"
+            className="rounded-md p-2 text-slate-500 transition-colors hover:bg-slate-200/70 dark:text-slate-400 dark:hover:bg-slate-800 md:hidden"
             onClick={() => setMobileMenuOpen(true)}
           >
             <Menu className="h-6 w-6" />

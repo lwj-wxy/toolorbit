@@ -64,92 +64,94 @@ export default function XmlToJson() {
   };
 
   return (
-    <>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">
+    <div className="mx-auto max-w-7xl">
+      <div className="mb-7 border-b border-slate-200 pb-7 dark:border-slate-800">
+        <h1 className="text-2xl font-semibold tracking-tight text-slate-950 dark:text-white sm:text-3xl">
             {t('tools.xml-json.title', 'XML ↔ JSON 互转器')}
-          </h1>
-          <p className="text-lg text-slate-600 dark:text-slate-400">
+        </h1>
+        <p className="mt-3 max-w-3xl text-[15px] leading-7 text-slate-600 dark:text-slate-400">
             {t('tools.xml-json.subtitle', '在两种最流行的 API 数据结构间即时互转，支持深层嵌套与属性映射。')}
-          </p>
+        </p>
+      </div>
+
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-3 rounded-lg border border-slate-200 bg-white p-3 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+        <div className="flex items-center gap-2 rounded-md bg-slate-100 p-1 dark:bg-slate-800">
+          <span className={cn("rounded px-3 py-1.5 text-sm font-medium transition-colors", mode === 'xml2json' ? "bg-white text-slate-950 shadow-sm dark:bg-slate-950 dark:text-white" : "text-slate-500 dark:text-slate-400")}>
+            XML
+          </span>
+          <button
+            onClick={toggleMode}
+            className="rounded p-1.5 text-blue-600 transition-colors hover:bg-white dark:text-blue-300 dark:hover:bg-slate-950"
+            title="切换方向"
+          >
+            <ArrowRightLeft className="h-4 w-4" />
+          </button>
+          <span className={cn("rounded px-3 py-1.5 text-sm font-medium transition-colors", mode === 'json2xml' ? "bg-white text-slate-950 shadow-sm dark:bg-slate-950 dark:text-white" : "text-slate-500 dark:text-slate-400")}>
+            JSON
+          </span>
         </div>
 
-        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col">
-          {/* Action Bar */}
-          <div className="p-4 border-b border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 flex flex-wrap items-center justify-between gap-4">
-            <div className="flex items-center space-x-3 bg-white dark:bg-slate-800 p-1 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm">
-              <span className={cn("px-4 py-1.5 rounded-md text-sm font-medium transition-colors", mode === 'xml2json' ? "bg-slate-100 dark:bg-slate-700 text-slate-900 dark:text-white" : "text-slate-500")}>
-                XML
-              </span>
-              <button 
-                onClick={toggleMode}
-                className="p-1.5 text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-full transition-colors"
-                title="切换方向"
-              >
-                <ArrowRightLeft className="w-5 h-5" />
-              </button>
-              <span className={cn("px-4 py-1.5 rounded-md text-sm font-medium transition-colors", mode === 'json2xml' ? "bg-slate-100 dark:bg-slate-700 text-slate-900 dark:text-white" : "text-slate-500")}>
-                JSON
-              </span>
-            </div>
-
-            <div className="flex items-center space-x-2">
-              <button
-                onClick={handleClear}
-                className="flex items-center gap-2 px-3 py-1.5 text-sm text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors border border-transparent"
-              >
-                <Trash2 className="w-4 h-4" />
-                {t('common.clear', '清空')}
-              </button>
-              <button
-                onClick={handleCopy}
-                disabled={!resultCode || !!error}
-                className="flex items-center gap-2 px-4 py-1.5 text-sm bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors disabled:opacity-50"
-              >
-                <Copy className="w-4 h-4" />
-                {t('common.copy', '复制结果')}
-              </button>
-            </div>
-          </div>
-
-          {/* Editor Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-200 dark:divide-slate-700 h-[600px]">
-            {/* Input */}
-            <div className="flex flex-col relative">
-               <div className="absolute top-2 right-4 text-xs font-mono text-slate-400 bg-white/80 dark:bg-slate-800/80 px-2 py-1 rounded">
-                 {mode === 'xml2json' ? 'Input: XML' : 'Input: JSON'}
-               </div>
-               <textarea
-                 value={sourceCode}
-                 onChange={(e) => setSourceCode(e.target.value)}
-                 placeholder={mode === 'xml2json' ? '<root>\n  <item>Hello</item>\n</root>' : '{\n  "root": {\n    "item": "Hello"\n  }\n}'}
-                 className="flex-1 w-full p-4 bg-transparent border-none focus:ring-0 resize-none font-mono text-sm leading-relaxed text-slate-800 dark:text-slate-200"
-                 spellCheck={false}
-               />
-               {error && sourceCode && (
-                 <div className="p-3 bg-red-50 dark:bg-red-900/20 border-t border-red-200 dark:border-red-900/50 text-red-600 dark:text-red-400 text-sm font-mono overflow-auto max-h-32">
-                   {error}
-                 </div>
-               )}
-            </div>
-
-            {/* Output */}
-            <div className="flex flex-col relative bg-slate-50 dark:bg-[rgb(13,17,23)]">
-               <div className="absolute top-2 right-4 text-xs font-mono text-slate-400 px-2 py-1 bg-slate-50/80 dark:bg-[rgb(13,17,23)]/80 rounded z-10">
-                 {mode === 'xml2json' ? 'Output: JSON' : 'Output: XML'}
-               </div>
-               <textarea
-                 readOnly
-                 value={resultCode}
-                 placeholder="Output..."
-                 className="flex-1 w-full p-4 bg-transparent border-none focus:ring-0 resize-none font-mono text-sm leading-relaxed text-slate-800 dark:text-slate-300"
-                 spellCheck={false}
-               />
-            </div>
-          </div>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={handleClear}
+            className="inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800"
+          >
+            <Trash2 className="h-4 w-4" />
+            {t('common.clear', '清空')}
+          </button>
+          <button
+            onClick={handleCopy}
+            disabled={!resultCode || !!error}
+            className="inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            <Copy className="h-4 w-4" />
+            {t('common.copy', '复制结果')}
+          </button>
         </div>
       </div>
-    </>
+
+      <div className="grid min-h-[600px] grid-cols-1 gap-4 lg:grid-cols-2">
+        <section className="flex min-h-[420px] flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900 lg:min-h-[600px]">
+          <div className="flex items-center justify-between border-b border-slate-200 px-4 py-3 dark:border-slate-800">
+            <h2 className="text-sm font-semibold text-slate-950 dark:text-white">
+              {mode === 'xml2json' ? 'Input XML' : 'Input JSON'}
+            </h2>
+            <span className="font-mono text-[12px] text-slate-400">
+              {mode === 'xml2json' ? 'XML' : 'JSON'}
+            </span>
+          </div>
+          <textarea
+            value={sourceCode}
+            onChange={(e) => setSourceCode(e.target.value)}
+            placeholder={mode === 'xml2json' ? '<root>\n  <item>Hello</item>\n</root>' : '{\n  "root": {\n    "item": "Hello"\n  }\n}'}
+            className="min-h-0 flex-1 resize-none border-0 bg-white p-4 font-mono text-sm leading-7 text-slate-800 placeholder:text-slate-400 dark:bg-slate-900 dark:text-slate-200"
+            spellCheck={false}
+          />
+          {error && sourceCode && (
+            <div className="max-h-32 overflow-auto border-t border-red-200 bg-red-50 p-3 font-mono text-sm text-red-600 dark:border-red-900/50 dark:bg-red-950/30 dark:text-red-300">
+              {error}
+            </div>
+          )}
+        </section>
+
+        <section className="flex min-h-[420px] flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900 lg:min-h-[600px]">
+          <div className="flex items-center justify-between border-b border-slate-200 px-4 py-3 dark:border-slate-800">
+            <h2 className="text-sm font-semibold text-slate-950 dark:text-white">
+              {mode === 'xml2json' ? 'Output JSON' : 'Output XML'}
+            </h2>
+            <span className="font-mono text-[12px] text-slate-400">
+              {mode === 'xml2json' ? 'JSON' : 'XML'}
+            </span>
+          </div>
+          <textarea
+            readOnly
+            value={resultCode}
+            placeholder="Output..."
+            className="min-h-0 flex-1 resize-none border-0 bg-slate-50 p-4 font-mono text-sm leading-7 text-slate-800 placeholder:text-slate-400 dark:bg-slate-950 dark:text-slate-300"
+            spellCheck={false}
+          />
+        </section>
+      </div>
+    </div>
   );
 }

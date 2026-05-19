@@ -19,26 +19,26 @@ export default function RelatedTools({ currentPath }: RelatedToolsProps) {
   ).slice(0, 4);
 
   return (
-    <div className="mt-16 pt-12 border-t border-slate-200/60 dark:border-slate-800/60">
-      <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-6">
+    <div className="mt-14 border-t border-slate-200/80 pt-9 dark:border-slate-800/80">
+      <h3 className="mb-5 text-lg font-semibold text-slate-950 dark:text-white">
         {t('common.related_tools') || 'Related Tools'}
       </h3>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {related.map(tool => (
           <Link
             key={tool.id}
             to={tool.path}
-            className="flex flex-col p-4 bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all"
+            className="flex min-h-[132px] flex-col rounded-lg border border-slate-200 bg-white p-4 shadow-sm transition-colors hover:border-blue-300 hover:bg-blue-50/20 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-blue-700 dark:hover:bg-blue-950/20"
           >
-            <div className="flex items-center gap-3 mb-2">
-              <div className="p-2 rounded-xl bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400">
+            <div className="mb-2 flex items-center gap-3">
+              <div className="rounded-md bg-blue-50 p-2 text-blue-600 dark:bg-blue-950/40 dark:text-blue-300">
                 <tool.icon size={20} />
               </div>
-              <h4 className="font-bold text-slate-800 dark:text-slate-200">
+              <h4 className="line-clamp-1 font-semibold text-slate-950 dark:text-white">
                 {t(`tools.${tool.id}.name`, { defaultValue: tool.name })}
               </h4>
             </div>
-            <p className="text-sm text-slate-500 dark:text-slate-400 line-clamp-2 mt-auto">
+            <p className="mt-auto line-clamp-2 text-sm leading-6 text-slate-500 dark:text-slate-400">
               {t(`tools.${tool.id}.description`, { defaultValue: tool.description })}
             </p>
           </Link>
