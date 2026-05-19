@@ -1,52 +1,53 @@
-import { useState } from 'react';
-import { Copy, Check } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Check, Copy, ShieldCheck } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { analytics } from '../../../services/analytics';
 import ToolSEOCard from '../../../components/ToolSEOCard';
-import { LoadingButton } from '../../../components/ui/LoadingButton';
+import { cn } from '../../../lib/utils';
 
 export default function JsonFormatter() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const [isFormatting, setIsFormatting] = useState(false);
+  const [spaces, setSpaces] = useState<2 | 4>(2);
+  const isZh = i18n.language?.startsWith('zh');
 
-  const formatJson = async (spaces: number) => {
-    setIsFormatting(true);
-    // Add artificial delay to make it feel like "work" is being done
-    await new Promise(resolve => setTimeout(resolve, 600));
-    
+  const runFormat = (value: string, indent: number) => {
     try {
-      if (!input.trim()) {
+      if (!value.trim()) {
         setOutput('');
         setError(null);
-        setIsFormatting(false);
         return;
       }
-      const parsed = JSON.parse(input);
-      setOutput(JSON.stringify(parsed, null, spaces));
+      const parsed = JSON.parse(value);
+      setOutput(JSON.stringify(parsed, null, indent));
       setError(null);
-
-      analytics.trackEvent({
-        category: 'Dev Tools',
-        action: 'Format JSON',
-        label: `spaces-${spaces}`,
-        metadata: { inputLength: input.length }
-      });
     } catch (e) {
       const errorMsg = e instanceof Error ? e.message : 'Invalid JSON';
       setError(errorMsg);
-      analytics.trackEvent({
-        category: 'Dev Tools',
-        action: 'Format JSON Error',
-        label: errorMsg.substring(0, 50)
-      });
-    } finally {
-      setIsFormatting(false);
+      setOutput('');
     }
   };
+
+  useEffect(() => {
+    if (!input.trim()) {
+      setOutput('');
+      setError(null);
+      setIsFormatting(false);
+      return;
+    }
+
+    setIsFormatting(true);
+    const timer = window.setTimeout(() => {
+      runFormat(input, spaces);
+      setIsFormatting(false);
+    }, 300);
+
+    return () => window.clearTimeout(timer);
+  }, [input, spaces]);
 
   const copyToClipboard = () => {
     if (!output) return;
@@ -60,50 +61,68 @@ export default function JsonFormatter() {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const switchSpaces = (nextSpaces: 2 | 4) => {
+    setSpaces(nextSpaces);
+    analytics.trackEvent({
+      category: 'Dev Tools',
+      action: 'Format JSON',
+      label: `spaces-${nextSpaces}`,
+      metadata: { inputLength: input.length },
+    });
+  };
+
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-4 border-b border-slate-200 pb-6 dark:border-slate-800 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-slate-900">
+          <h1 className="text-3xl font-semibold tracking-tight text-slate-950 dark:text-white">
             {t('tools.json-formatter.title')}
           </h1>
-          <p className="mt-1 text-sm text-gray-500">
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-400">
             {t('tools.json-formatter.subtitle')}
           </p>
         </div>
+        <div className="inline-flex items-center gap-2 rounded-md border border-emerald-200 bg-emerald-50 px-3 py-2 text-[12px] font-semibold text-emerald-700 dark:border-emerald-900/60 dark:bg-emerald-950/30 dark:text-emerald-200">
+          <ShieldCheck className="h-4 w-4" aria-hidden="true" />
+          {isZh ? '浏览器本地处理，不上传 JSON' : 'Runs locally. JSON is not uploaded.'}
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         {/* Input */}
         <div className="flex flex-col space-y-3">
           <div className="flex items-center justify-between">
-            <label className="block text-sm font-medium leading-6 text-gray-900">
+            <label className="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
               {t('tools.json-formatter.inputLabel')}
             </label>
-            <div className="space-x-2 flex">
-              <LoadingButton 
-                isLoading={isFormatting} 
-                onClick={() => formatJson(2)} 
-                className="text-xs bg-indigo-50 text-indigo-700 px-3 py-1.5 rounded-md font-medium hover:bg-indigo-100 transition-colors"
-                loadingText={t('tools.json-formatter.formatting') || 'Formatting...'}
+            <div className="flex rounded-lg bg-slate-100 p-1 dark:bg-slate-800">
+              <button
+                type="button"
+                onClick={() => switchSpaces(2)}
+                className={cn(
+                  'rounded-md px-3 py-1.5 text-xs font-semibold transition-colors duration-200',
+                  spaces === 2 ? 'bg-white text-cyan-700 shadow-sm dark:bg-slate-950 dark:text-cyan-300' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white',
+                )}
               >
                 {t('tools.json-formatter.btnFormat2')}
-              </LoadingButton>
-              <LoadingButton 
-                isLoading={isFormatting} 
-                onClick={() => formatJson(4)} 
-                className="text-xs bg-indigo-50 text-indigo-700 px-3 py-1.5 rounded-md font-medium hover:bg-indigo-100 transition-colors"
-                loadingText={t('tools.json-formatter.formatting') || 'Formatting...'}
+              </button>
+              <button
+                type="button"
+                onClick={() => switchSpaces(4)}
+                className={cn(
+                  'rounded-md px-3 py-1.5 text-xs font-semibold transition-colors duration-200',
+                  spaces === 4 ? 'bg-white text-cyan-700 shadow-sm dark:bg-slate-950 dark:text-cyan-300' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white',
+                )}
               >
                 {t('tools.json-formatter.btnFormat4')}
-              </LoadingButton>
+              </button>
             </div>
           </div>
           <div className="flex-1 relative">
             <textarea
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              className="block w-full h-[500px] rounded-lg border-0 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 font-mono resize-none bg-white"
+              className="block h-[500px] w-full resize-none rounded-lg border border-slate-200 bg-white px-4 py-3 font-mono text-sm leading-6 text-slate-900 shadow-sm outline-none placeholder:text-slate-400 focus:border-cyan-500 dark:border-slate-700 dark:bg-[#282c34] dark:text-slate-100"
               placeholder={t('tools.json-formatter.placeholder')}
             />
           </div>
@@ -112,13 +131,20 @@ export default function JsonFormatter() {
         {/* Output */}
         <div className="flex flex-col space-y-3">
           <div className="flex items-center justify-between">
-            <label className="block text-sm font-medium leading-6 text-gray-900">
+            <div className="flex items-center gap-2">
+              <label className="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
               {t('tools.json-formatter.outputLabel')}
-            </label>
+              </label>
+              {isFormatting ? (
+                <span className="text-[12px] font-medium text-cyan-700 dark:text-cyan-300">
+                  {t('tools.json-formatter.formatting') || 'Formatting...'}
+                </span>
+              ) : null}
+            </div>
             <button 
               onClick={copyToClipboard}
               disabled={!output}
-              className="inline-flex items-center gap-1 text-xs bg-white text-gray-700 border border-gray-300 px-3 py-1.5 rounded-md font-medium hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="inline-flex items-center gap-1 rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors duration-200 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-700 dark:bg-[#282c34] dark:text-slate-200 dark:hover:bg-slate-800"
             >
               {copied ? <Check size={14} className="text-green-500"/> : <Copy size={14} />}
               {copied ? t('tools.json-formatter.btnCopied') : t('tools.json-formatter.btnCopy')}
@@ -128,12 +154,13 @@ export default function JsonFormatter() {
             <textarea
               readOnly
               value={output}
-              className={`block w-full h-[500px] rounded-lg border-0 py-3 text-gray-900 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 font-mono resize-none bg-gray-50 ${
-                error ? 'ring-red-300 text-red-900 bg-red-50 focus:ring-red-500' : 'ring-gray-300'
-              }`}
+              className={cn(
+                'block h-[500px] w-full resize-none rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 font-mono text-sm leading-6 text-slate-900 shadow-sm outline-none dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100',
+                error && 'border-red-300 bg-red-50 text-red-900 dark:border-red-900/70 dark:bg-red-950/20 dark:text-red-200',
+              )}
             />
             {error && (
-              <div className="absolute inset-x-0 bottom-0 p-4 bg-red-50 text-red-700 text-sm font-medium border-t border-red-200 rounded-b-lg">
+              <div className="absolute inset-x-0 bottom-0 rounded-b-lg border-t border-red-200 bg-red-50 p-4 text-sm font-medium text-red-700 dark:border-red-900/70 dark:bg-red-950/90 dark:text-red-200">
                 {t('tools.json-formatter.errorTitle', { error })}
               </div>
             )}

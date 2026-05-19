@@ -43,7 +43,7 @@ export default function AllToolsPage({ locale = 'en' }: AllToolsPageProps) {
   return (
     <main className="mx-auto w-full max-w-7xl py-4">
       <section className="mb-9 border-b border-slate-200 pb-8 dark:border-slate-800">
-        <div className="mb-4 inline-flex items-center gap-2 rounded-md border border-blue-200 bg-blue-50 px-2.5 py-1 text-[12px] font-semibold text-blue-700 dark:border-blue-900/60 dark:bg-blue-950/40 dark:text-blue-200">
+        <div className="mb-4 inline-flex items-center gap-2 rounded-md border border-cyan-200 bg-cyan-50 px-2.5 py-1 text-[12px] font-semibold text-cyan-700 dark:border-cyan-900/60 dark:bg-cyan-950/40 dark:text-cyan-200">
           <Boxes className="h-4 w-4" aria-hidden="true" />
           {isZh ? `${totalTools} 个浏览器工具` : `${totalTools} browser tools`}
         </div>
@@ -63,7 +63,7 @@ export default function AllToolsPage({ locale = 'en' }: AllToolsPageProps) {
             <li key={category}>
               <a
                 href={`#${CATEGORY_SLUGS[category]}`}
-                className="inline-flex min-h-10 items-center rounded-md border border-slate-200 bg-white px-3 text-[13px] font-medium text-slate-700 shadow-sm transition-colors hover:border-blue-300 hover:text-blue-700 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-blue-700 dark:hover:text-blue-200"
+                className="inline-flex min-h-10 items-center rounded-full border border-slate-200 bg-white px-4 text-[13px] font-medium text-slate-700 shadow-sm transition-colors hover:border-cyan-300 hover:text-cyan-700 dark:border-slate-700 dark:bg-[#282c34] dark:text-slate-200 dark:hover:border-cyan-700 dark:hover:text-cyan-200"
               >
                 {categoryName(category, locale)}
               </a>
@@ -90,7 +90,7 @@ export default function AllToolsPage({ locale = 'en' }: AllToolsPageProps) {
                 </div>
                 <NextLink
                   href={categoryPath}
-                  className="inline-flex min-h-10 items-center gap-2 text-[13px] font-semibold text-blue-700 transition hover:text-blue-800 dark:text-blue-300 dark:hover:text-blue-200"
+                  className="inline-flex min-h-10 items-center gap-2 text-[13px] font-semibold text-cyan-700 transition hover:text-cyan-800 dark:text-cyan-300 dark:hover:text-cyan-200"
                 >
                   {isZh ? '查看分类页' : 'View category'}
                   <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -105,13 +105,26 @@ export default function AllToolsPage({ locale = 'en' }: AllToolsPageProps) {
                     <li key={tool.id}>
                       <NextLink
                         href={localizedPath(tool.path, locale)}
-                        className="group flex h-full min-h-32 gap-4 rounded-lg border border-slate-200 bg-white p-4 shadow-sm transition-colors hover:border-blue-300 hover:bg-blue-50/20 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-blue-700 dark:hover:bg-blue-950/20"
+                        className="group flex h-full min-h-[232px] flex-col gap-3 rounded-lg border border-slate-200 bg-white p-3 shadow-sm transition-colors hover:border-cyan-300 hover:bg-cyan-50/20 dark:border-slate-800 dark:bg-[#282c34] dark:hover:border-cyan-700 dark:hover:bg-cyan-950/10"
                       >
-                        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-slate-100 text-slate-700 transition group-hover:bg-blue-50 group-hover:text-blue-700 dark:bg-slate-800 dark:text-slate-200 dark:group-hover:bg-blue-950 dark:group-hover:text-blue-200">
-                          <Icon className="h-5 w-5" aria-hidden="true" />
+                        <span className="relative flex aspect-[16/10] overflow-hidden rounded-lg border border-cyan-100 bg-gradient-to-br from-cyan-50 via-white to-sky-50 p-3 text-cyan-700 shadow-inner dark:border-white/10 dark:from-cyan-950/40 dark:via-slate-900 dark:to-sky-950/20 dark:text-cyan-200">
+                          <span className="absolute -right-6 -top-6 h-20 w-20 rounded-full bg-white/70 blur-2xl dark:bg-white/10" />
+                          <span className="relative flex h-full w-full flex-col justify-between">
+                            <span className="w-fit rounded-full bg-white/80 px-2 py-1 text-[11px] font-semibold text-slate-600 shadow-sm dark:bg-slate-950/50 dark:text-slate-300">
+                              {categoryName(tool.category, locale)}
+                            </span>
+                            <span className="flex items-end justify-between gap-3">
+                              <span className="line-clamp-2 text-[13px] font-semibold leading-5 text-slate-900 dark:text-white">
+                                {toolName(tool, locale)}
+                              </span>
+                              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/90 shadow-sm dark:bg-slate-950/70">
+                                <Icon className="h-5 w-5" aria-hidden="true" />
+                              </span>
+                            </span>
+                          </span>
                         </span>
                         <span className="min-w-0">
-                          <span className="flex items-center gap-2 text-[15px] font-semibold text-slate-950 dark:text-white">
+                          <span className="flex items-center gap-2 text-[15px] font-semibold text-slate-950 transition-colors group-hover:text-cyan-700 dark:text-white dark:group-hover:text-cyan-300">
                             <span>{toolName(tool, locale)}</span>
                             {tool.isPopular ? (
                               <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-500" aria-hidden="true" />

@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useEffect, useRef, useState } from 'react';
-import { ChevronDown, Menu, Moon, Search, Sparkles, Sun } from 'lucide-react';
+import { BookOpen, Bot, ChevronDown, Menu, Moon, Search, Sun, Wrench } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../context/ThemeContext';
 import { detectLocaleFromPathname, localizedPath } from '../lib/i18n-routing';
@@ -92,7 +92,7 @@ export default function LayoutHeaderClient() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 flex h-[58px] items-center justify-between border-b border-slate-200/80 bg-[#f7f8fb]/90 px-4 backdrop-blur-md dark:border-slate-800/80 dark:bg-slate-950/88 sm:px-6 lg:px-8">
+      <header className="fixed inset-x-0 top-0 z-50 flex h-[58px] items-center justify-between border-b border-slate-200/80 bg-[#f7f8fb]/90 px-4 backdrop-blur-md dark:border-slate-800/80 dark:bg-slate-950/88 sm:px-6 lg:px-8">
         <div className="flex min-w-0 items-center gap-4 lg:gap-6 xl:gap-8">
           <Link
             to="/"
@@ -115,6 +115,7 @@ export default function LayoutHeaderClient() {
                     : 'text-slate-600 group-hover:text-slate-900 dark:text-slate-400 dark:group-hover:text-slate-100',
                 )}
               >
+                <Wrench className="h-4 w-4" aria-hidden="true" />
                 {t('common.navTools')}
                 <ChevronDown className="h-3.5 w-3.5 text-slate-400 transition-transform duration-200 group-hover:rotate-180 lg:h-4 lg:w-4" />
               </Link>
@@ -127,13 +128,11 @@ export default function LayoutHeaderClient() {
                 className={cn(
                   'mt-[3px] flex h-full cursor-pointer items-center gap-1.5 whitespace-nowrap border-b-2 border-transparent px-2 text-[13px] font-semibold transition-colors duration-200 lg:px-3',
                   isAiSection
-                    ? 'border-violet-600 text-violet-600 dark:border-violet-400 dark:text-violet-400'
+                    ? 'border-blue-600 text-blue-600 dark:border-blue-400 dark:text-blue-400'
                     : 'text-slate-600 group-hover:text-slate-900 dark:text-slate-400 dark:group-hover:text-slate-100',
                 )}
               >
-                <div className="mr-0.5 flex items-center justify-center text-violet-500 dark:text-violet-400">
-                  <Sparkles size={16} className="fill-violet-500/20" />
-                </div>
+                <Bot className="h-4 w-4" aria-hidden="true" />
                 {t('common.categories.AI 工具') || 'AI Tools'}
                 <ChevronDown className="h-3.5 w-3.5 text-slate-400 transition-transform duration-200 group-hover:rotate-180 lg:h-4 lg:w-4" />
               </Link>
@@ -149,6 +148,7 @@ export default function LayoutHeaderClient() {
                   : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100',
               )}
             >
+              <BookOpen className="h-4 w-4" aria-hidden="true" />
               {t('blog.nav')}
             </Link>
           </nav>

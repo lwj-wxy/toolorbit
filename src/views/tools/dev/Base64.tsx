@@ -1,15 +1,17 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Copy, Check, ArrowDownUp } from 'lucide-react';
+import { ArrowDownUp, Check, Copy, ShieldCheck } from 'lucide-react';
 import ToolSEOCard from '../../../components/ToolSEOCard';
+import { cn } from '../../../lib/utils';
 
 export default function Base64() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
   const [mode, setMode] = useState<'encode' | 'decode'>('encode');
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const isZh = i18n.language?.startsWith('zh');
 
   const processText = (text: string, currentMode: 'encode' | 'decode') => {
     setInput(text);
@@ -58,35 +60,41 @@ export default function Base64() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="space-y-6">
+      <div className="flex flex-col gap-4 border-b border-slate-200 pb-6 dark:border-slate-800 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-slate-900">
+          <h1 className="text-3xl font-semibold tracking-tight text-slate-950 dark:text-white">
             {t('tools.base64.title', { mode: mode === 'encode' ? t('tools.base64.encode') : t('tools.base64.decode') })}
           </h1>
-          <p className="mt-1 text-sm text-gray-500">
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-400">
             {t('tools.base64.subtitle')}
           </p>
         </div>
+        <div className="inline-flex items-center gap-2 rounded-md border border-emerald-200 bg-emerald-50 px-3 py-2 text-[12px] font-semibold text-emerald-700 dark:border-emerald-900/60 dark:bg-emerald-950/30 dark:text-emerald-200">
+          <ShieldCheck className="h-4 w-4" aria-hidden="true" />
+          {isZh ? '浏览器本地实时编解码' : 'Real-time local encode/decode'}
+        </div>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+      <div className="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-[#282c34]">
         {/* Toolbar */}
-        <div className="px-4 py-3 border-b border-gray-200 bg-gray-50 flex items-center justify-between">
-          <div className="flex bg-gray-200 rounded-lg p-1">
+        <div className="flex flex-col gap-3 border-b border-slate-200 bg-slate-50 px-4 py-3 dark:border-slate-800 dark:bg-slate-900 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex w-fit rounded-lg bg-slate-200 p-1 dark:bg-slate-800">
             <button
               onClick={() => { setMode('encode'); processText(input, 'encode'); }}
-              className={`px-4 py-1.5 text-sm font-medium rounded-md transition-colors ${
-                mode === 'encode' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-900'
-              }`}
+              className={cn(
+                'rounded-md px-4 py-1.5 text-sm font-semibold transition-colors duration-200',
+                mode === 'encode' ? 'bg-white text-cyan-700 shadow-sm dark:bg-slate-950 dark:text-cyan-300' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white',
+              )}
             >
               {t('tools.base64.encodeBtn')}
             </button>
             <button
               onClick={() => { setMode('decode'); processText(input, 'decode'); }}
-              className={`px-4 py-1.5 text-sm font-medium rounded-md transition-colors ${
-                mode === 'decode' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-900'
-              }`}
+              className={cn(
+                'rounded-md px-4 py-1.5 text-sm font-semibold transition-colors duration-200',
+                mode === 'decode' ? 'bg-white text-cyan-700 shadow-sm dark:bg-slate-950 dark:text-cyan-300' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white',
+              )}
             >
               {t('tools.base64.decodeBtn')}
             </button>
@@ -94,36 +102,36 @@ export default function Base64() {
           
           <button 
             onClick={toggleMode}
-            className="flex items-center gap-2 px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-200 rounded-md transition-colors font-medium"
+            className="flex w-fit items-center gap-2 rounded-md px-3 py-1.5 text-sm font-semibold text-slate-600 transition-colors duration-200 hover:bg-slate-200 dark:text-slate-300 dark:hover:bg-slate-800"
             title="Swap input mode"
           >
             <ArrowDownUp size={16} /> {t('tools.base64.swapBtn')}
           </button>
         </div>
 
-        <div className="p-6 space-y-6">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+        <div className="grid gap-6 p-4 lg:grid-cols-2 lg:p-6">
+          <div className="flex flex-col gap-2">
+            <label className="block text-sm font-semibold text-slate-900 dark:text-slate-100">
               {mode === 'encode' ? t('tools.base64.textInput') : t('tools.base64.base64Input')}
             </label>
             <textarea
               spellCheck={false}
               value={input}
               onChange={(e) => processText(e.target.value, mode)}
-              className="block w-full rounded-lg border-0 py-3 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6 font-mono resize-none bg-white min-h-[200px] break-all custom-scrollbar"
+              className="custom-scrollbar block min-h-[360px] w-full resize-none break-all rounded-lg border border-slate-200 bg-white px-4 py-3 font-mono text-sm leading-6 text-slate-900 shadow-sm outline-none placeholder:text-slate-400 focus:border-cyan-500 dark:border-slate-700 dark:bg-[#282c34] dark:text-slate-100"
               placeholder={mode === 'encode' ? t('tools.base64.inputTextPlaceholder') : t('tools.base64.inputBase64Placeholder')}
             />
           </div>
 
-          <div>
-            <div className="flex items-center justify-between mb-2">
-              <label className="block text-sm font-medium text-gray-700">
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center justify-between">
+              <label className="block text-sm font-semibold text-slate-900 dark:text-slate-100">
                 {mode === 'encode' ? t('tools.base64.base64Output') : t('tools.base64.textOutput')}
               </label>
               <button 
                 onClick={copyToClipboard}
                 disabled={!output}
-                className="inline-flex items-center gap-1 text-xs bg-white text-gray-700 border border-gray-300 px-3 py-1.5 rounded-md font-medium hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="inline-flex items-center gap-1 rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors duration-200 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-700 dark:bg-[#282c34] dark:text-slate-200 dark:hover:bg-slate-800"
               >
                 {copied ? <Check size={14} className="text-green-500"/> : <Copy size={14} />}
                 {copied ? t('tools.base64.copiedBtn') : t('tools.base64.copyBtn')}
@@ -135,14 +143,15 @@ export default function Base64() {
                 spellCheck={false}
                 readOnly
                 value={error ? '' : output}
-                className={`block w-full rounded-lg border-0 py-3 px-4 text-gray-900 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6 font-mono resize-none bg-gray-50 min-h-[200px] break-all custom-scrollbar ${
-                  error ? 'ring-red-300' : 'ring-gray-300'
-                }`}
+                className={cn(
+                  'custom-scrollbar block min-h-[360px] w-full resize-none break-all rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 font-mono text-sm leading-6 text-slate-900 shadow-sm outline-none dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100',
+                  error && 'border-red-300 dark:border-red-900/70',
+                )}
                 placeholder={t('tools.base64.outputPlaceholder')}
               />
               {error && (
-                <div className="absolute inset-0 bg-red-50/90 flex items-center justify-center rounded-lg border border-red-200">
-                  <p className="text-red-600 font-medium">{error}</p>
+                <div className="absolute inset-0 flex items-center justify-center rounded-lg border border-red-200 bg-red-50/90 p-4 dark:border-red-900/70 dark:bg-red-950/90">
+                  <p className="text-center font-medium text-red-600 dark:text-red-200">{error}</p>
                 </div>
               )}
             </div>

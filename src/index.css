@@ -5,28 +5,36 @@
 
 :root {
   color-scheme: light;
-  --app-bg: #f7f8fb;
-  --app-text: #111827;
-  --app-muted: #5b6472;
-  --app-border: #d9e0ea;
-  --app-accent: #2563eb;
-  --app-accent-strong: #1d4ed8;
-  --app-accent-soft: #e8f0ff;
+  --app-bg: #f4f8fb;
+  --app-text: #0f172a;
+  --app-muted: #475569;
+  --app-border: #dcdee0;
+  --app-accent: #249ffd;
+  --app-accent-strong: #0891b2;
+  --app-accent-soft: #e6f7ff;
+  --app-success: #52de97;
+  --app-danger: #fa5477;
+  --app-info: #9ed0ff;
+  --app-warning: #ffdd98;
 }
 
 :root.dark {
   color-scheme: dark;
-  --app-bg: #0b1120;
+  --app-bg: #363636;
   --app-text: #e5e7eb;
   --app-muted: #9aa4b2;
-  --app-border: #253044;
-  --app-accent: #60a5fa;
-  --app-accent-strong: #93c5fd;
-  --app-accent-soft: #10213f;
+  --app-border: #6a6a6a;
+  --app-accent: #4183c4;
+  --app-accent-strong: #6fb4e8;
+  --app-accent-soft: #1f3448;
+  --app-success: #52de97;
+  --app-danger: #fa5477;
+  --app-info: #9ed0ff;
+  --app-warning: #ffdd98;
 }
 
 body {
-  @apply bg-slate-50 text-slate-900 antialiased transition-colors duration-300 dark:bg-slate-950 dark:text-slate-100;
+  @apply bg-[#f4f8fb] text-slate-900 antialiased transition-colors duration-300 dark:bg-[#363636] dark:text-slate-100;
   font-family:
     "Plus Jakarta Sans",
     Inter,
@@ -104,6 +112,13 @@ summary {
 #main-content :where(textarea, input, select)[class*="ring-"] {
   border: 1px solid var(--app-border) !important;
   box-shadow: none !important;
+}
+
+#main-content .hero-search-form input:focus,
+#main-content .hero-search-form input:focus-visible {
+  border-color: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
