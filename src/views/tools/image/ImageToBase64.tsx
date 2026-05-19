@@ -227,41 +227,6 @@ export default function ImageToBase64() {
         </div>
       </div>
 
-      {/* Bottom SEO Instructions Panel */}
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-8 lg:p-12 mb-8 mt-8">
-        <h2 className="text-xl font-bold text-slate-800 mb-6">{t('tools.image-to-base64.seoTitle')}</h2>
-        
-        <p className="text-slate-600 mb-6 leading-relaxed">
-          {t('tools.image-to-base64.seoDesc')}
-        </p>
-
-        <div className="bg-rose-50 border border-rose-100/50 rounded-xl p-5 mb-8">
-          <p className="text-rose-700 text-sm font-bold leading-relaxed">
-            {t('tools.image-to-base64.privacyNotice')}
-          </p>
-        </div>
-
-        <h3 className="font-bold text-slate-800 text-lg mb-4">{t('tools.image-to-base64.highlightsTitle')}</h3>
-        <ul className="space-y-4 text-slate-600">
-          <li className="flex gap-3">
-            <strong className="text-slate-800 shrink-0">{t('tools.image-to-base64.highlight1Title')}</strong>
-            <span>{t('tools.image-to-base64.highlight1Desc')}</span>
-          </li>
-          <li className="flex gap-3">
-            <strong className="text-slate-800 shrink-0">{t('tools.image-to-base64.highlight2Title')}</strong>
-            <span>{t('tools.image-to-base64.highlight2Desc')}</span>
-          </li>
-          <li className="flex gap-3">
-            <strong className="text-slate-800 shrink-0">{t('tools.image-to-base64.highlight3Title')}</strong>
-            <span>{t('tools.image-to-base64.highlight3Desc')}</span>
-          </li>
-        </ul>
-        
-        <p className="text-slate-500 text-sm mt-8 pt-6 border-t border-slate-100 italic">
-          {t('tools.image-to-base64.seoFooter')}
-        </p>
-      </div>
-
     </div>
   );
 }

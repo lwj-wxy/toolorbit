@@ -57,7 +57,7 @@ export const SEO_CONTENT_PAGES: SeoContentPage[] = [
       {
         label: 'Daily utilities',
         bestFor: 'Small tasks that interrupt engineering flow',
-        tools: 'UUID generator, chmod calculator, timestamp converter, regex tester',
+        tools: 'UUID generator, hash generator, timestamp converter, regex tester',
         note: 'Keep repetitive checks out of production code reviews.',
       },
       {
@@ -73,7 +73,7 @@ export const SEO_CONTENT_PAGES: SeoContentPage[] = [
         body: [
           'A useful browser toolbox should be narrow, predictable, and easy to verify. JSON formatting, Base64 decoding, URL encoding, timestamp conversion, hashing, regex testing, and text comparison all fit this model because the user can paste input, inspect the output, and keep sensitive material on the local device.',
           'ToolOrbit keeps these workflows close together so an engineer can move from one task to the next without opening unrelated SaaS dashboards. A common API debugging path is to format a minified response, sort or inspect nested keys, generate TypeScript interfaces, compare two payload versions, and encode a callback URL for a test request.',
-          'The same pattern applies to infrastructure work. A developer might calculate chmod values, generate a UUID, check a hash, decode a JWT, and convert a Unix timestamp while reviewing a deployment incident. These are small tasks, but they are exactly the tasks that slow teams down when the right utility is not close at hand.',
+          'The same pattern applies to infrastructure work. A developer might generate a UUID, check a hash, decode a JWT, and convert a Unix timestamp while reviewing a deployment incident. These are small tasks, but they are exactly the tasks that slow teams down when the right utility is not close at hand.',
           'A well-chosen toolbox also reduces cognitive overhead. Instead of remembering the flags for openssl, the syntax for jq, or the exact URL for a timestamp converter, engineers can navigate a consistent interface where each utility behaves the same way and sits beside related tools. That consistency matters more than feature count.',
         ],
       },
@@ -152,7 +152,6 @@ export const SEO_CONTENT_PAGES: SeoContentPage[] = [
       '/tools/dev/regex-tester',
       '/tools/dev/hash-generator',
       '/tools/dev/uuid-generator',
-      '/tools/dev/chmod-calculator',
       '/tools/dev/timestamp-converter',
       '/tools/dev/unicode-converter',
       '/tools/dev/color-converter',

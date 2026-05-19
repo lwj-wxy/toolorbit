@@ -4,7 +4,7 @@ export const BLOG_RELATED_TOOLS: Record<string, string[]> = {
   'modern-pdf-workflow-efficiency': ['/tools/pdf/pdf-merge', '/tools/pdf/pdf-split', '/tools/pdf/pdf-to-image'],
   'secure-developer-tools-privacy': ['/tools/dev/json-formatter', '/tools/dev/base64', '/tools/dev/jwt-debugger'],
   'why-use-json-formatter': ['/tools/dev/json-formatter', '/tools/dev/json-to-ts', '/tools/dev/xml-to-json'],
-  'morse-code-guide': ['/tools/dev/morse-code', '/tools/text/symbol-library', '/tools/text/text-analyzer'],
+  'morse-code-guide': ['/tools/text/symbol-library', '/tools/text/text-analyzer'],
   'base64-encoding-deep-dive': ['/tools/dev/base64', '/tools/image/image-to-base64', '/tools/dev/url-encoder'],
   'color-theory-for-developers': ['/tools/dev/color-converter', '/tools/dev/color-palette', '/tools/dev/color-picker'],
   'regex-mastery-guide': ['/tools/dev/regex-tester', '/tools/ai/regex', '/tools/dev/text-diff'],

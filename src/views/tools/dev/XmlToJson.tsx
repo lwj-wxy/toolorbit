@@ -5,6 +5,50 @@ import toast from 'react-hot-toast';
 import { xml2json, json2xml } from 'xml-js';
 import { cn } from '../../../lib/utils';
 
+type JsonNode = {
+  type?: string;
+  name?: string;
+  attributes?: Record<string, string>;
+  children?: Array<JsonNode | string>;
+  text?: string;
+};
+
+function looksLikeHtml(source: string) {
+  return /<!doctype\s+html/i.test(source) || /<html[\s>]/i.test(source);
+}
+
+function domNodeToJson(node: Node): JsonNode | string | null {
+  if (node.nodeType === Node.TEXT_NODE) {
+    const text = node.textContent?.trim();
+    return text ? text : null;
+  }
+
+  if (node.nodeType !== Node.ELEMENT_NODE) return null;
+
+  const element = node as Element;
+  const attributes = Array.from(element.attributes).reduce<Record<string, string>>((acc, attr) => {
+    acc[attr.name] = attr.value;
+    return acc;
+  }, {});
+  const children = Array.from(element.childNodes)
+    .map(domNodeToJson)
+    .filter((child): child is JsonNode | string => child !== null);
+
+  return {
+    type: 'element',
+    name: element.tagName.toLowerCase(),
+    ...(Object.keys(attributes).length ? { attributes } : {}),
+    ...(children.length ? { children } : {}),
+  };
+}
+
+function htmlToJson(source: string) {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(source, 'text/html');
+  const root = domNodeToJson(doc.documentElement);
+  return JSON.stringify({ documentType: 'html', root }, null, 2);
+}
+
 export default function XmlToJson() {
   const { t } = useTranslation();
   
@@ -23,14 +67,13 @@ export default function XmlToJson() {
 
     try {
       if (mode === 'xml2json') {
-        // convert XML to JSON
-        const jsonResult = xml2json(sourceCode, { compact: true, spaces: 2 });
+        const jsonResult = looksLikeHtml(sourceCode)
+          ? htmlToJson(sourceCode)
+          : xml2json(sourceCode, { compact: true, spaces: 2 });
         setResultCode(jsonResult);
         setError(null);
       } else {
-        // convert JSON to XML
-        // check if it's valid JSON first
-        JSON.parse(sourceCode); 
+        JSON.parse(sourceCode);
         const xmlResult = json2xml(sourceCode, { compact: true, spaces: 2 });
         setResultCode(xmlResult);
         setError(null);
@@ -70,7 +113,7 @@ export default function XmlToJson() {
             {t('tools.xml-json.title', 'XML ↔ JSON 互转器')}
         </h1>
         <p className="mt-3 max-w-3xl text-[15px] leading-7 text-slate-600 dark:text-slate-400">
-            {t('tools.xml-json.subtitle', '在两种最流行的 API 数据结构间即时互转，支持深层嵌套与属性映射。')}
+            {t('tools.xml-json.subtitle', '用于 XML 配置、接口响应、RSS/Sitemap/SVG 片段与 JSON 之间的结构转换；粘贴 HTML 页面源码时会自动使用宽松 HTML 解析。')}
         </p>
       </div>
 
@@ -114,7 +157,7 @@ export default function XmlToJson() {
         <section className="flex min-h-[420px] flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900 lg:min-h-[600px]">
           <div className="flex items-center justify-between border-b border-slate-200 px-4 py-3 dark:border-slate-800">
             <h2 className="text-sm font-semibold text-slate-950 dark:text-white">
-              {mode === 'xml2json' ? 'Input XML' : 'Input JSON'}
+              {mode === 'xml2json' ? '输入 XML / HTML' : '输入 JSON'}
             </h2>
             <span className="font-mono text-[12px] text-slate-400">
               {mode === 'xml2json' ? 'XML' : 'JSON'}
@@ -137,7 +180,7 @@ export default function XmlToJson() {
         <section className="flex min-h-[420px] flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900 lg:min-h-[600px]">
           <div className="flex items-center justify-between border-b border-slate-200 px-4 py-3 dark:border-slate-800">
             <h2 className="text-sm font-semibold text-slate-950 dark:text-white">
-              {mode === 'xml2json' ? 'Output JSON' : 'Output XML'}
+              {mode === 'xml2json' ? '输出 JSON' : '输出 XML'}
             </h2>
             <span className="font-mono text-[12px] text-slate-400">
               {mode === 'xml2json' ? 'JSON' : 'XML'}

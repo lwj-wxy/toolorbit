@@ -1,7 +1,9 @@
 import { useState } from 'react';
-import { Lock, Unlock, Copy, CheckCircle2, Shield, RefreshCcw, Trash2 } from 'lucide-react';
+import { CheckCircle2, Copy, Lock, RefreshCcw, Trash2, Unlock } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import CryptoJS from 'crypto-js';
+import ToolSEOCard from '../../../components/ToolSEOCard';
+import { cn } from '../../../lib/utils';
 
 const ALGORITHMS = [
   { id: 'AES', name: 'AES' },
@@ -45,6 +47,7 @@ export default function CryptoSymmetric() {
       setError(input ? t('tools.crypto-symmetric.errorNoKey') : t('tools.crypto-symmetric.errorNoInput'));
       return;
     }
+
     setError(null);
 
     try {
@@ -53,18 +56,12 @@ export default function CryptoSymmetric() {
         padding: (CryptoJS.pad as any)[padding],
         iv: iv ? CryptoJS.enc.Utf8.parse(iv) : undefined,
       };
+      const cipher = (CryptoJS as any)[algo];
+      const result = isEncrypt
+        ? cipher.encrypt(input, key, cfg).toString()
+        : cipher.decrypt(input, key, cfg).toString(CryptoJS.enc.Utf8);
 
-      let result = '';
-      if (isEncrypt) {
-        // @ts-ignore
-        const encrypted = CryptoJS[algo].encrypt(input, key, cfg);
-        result = encrypted.toString();
-      } else {
-        // @ts-ignore
-        const decrypted = CryptoJS[algo].decrypt(input, key, cfg);
-        result = decrypted.toString(CryptoJS.enc.Utf8);
-        if (!result) throw new Error(t('tools.crypto-symmetric.errorDecryptFailed'));
-      }
+      if (!result) throw new Error(t('tools.crypto-symmetric.errorDecryptFailed'));
       setOutput(result);
     } catch (err: any) {
       setError(err.message || t('tools.crypto-symmetric.errorErrorOccurred'));
@@ -86,191 +83,167 @@ export default function CryptoSymmetric() {
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-8 sm:py-12">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-8">
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 bg-indigo-600 rounded-2xl flex items-center justify-center shadow-lg shadow-indigo-200">
-            <Lock className="text-white" size={24} />
-          </div>
+    <div className="mx-auto max-w-7xl space-y-6">
+      <div className="border-b border-slate-200 pb-7 dark:border-slate-800">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
+            <h1 className="text-2xl font-semibold tracking-tight text-slate-950 dark:text-white sm:text-3xl">
               {isEncrypt ? t('tools.crypto-symmetric.titleEncrypt') : t('tools.crypto-symmetric.titleDecrypt')}
             </h1>
-            <p className="text-slate-500 text-sm mt-0.5">
+            <p className="mt-3 max-w-3xl text-[15px] leading-7 text-slate-600 dark:text-slate-400">
               {t('tools.crypto-symmetric.subtitle')}
             </p>
           </div>
-        </div>
-        <div className="flex items-center gap-2 bg-slate-100 p-1.5 rounded-2xl shadow-inner self-start">
-          <button
-            onClick={() => setIsEncrypt(true)}
-            className={`px-4 py-2 text-sm font-bold rounded-xl transition-all ${
-              isEncrypt ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'
-            }`}
-          >
-            {t('tools.crypto-symmetric.tabEncrypt')}
-          </button>
-          <button
-            onClick={() => setIsEncrypt(false)}
-            className={`px-4 py-2 text-sm font-bold rounded-xl transition-all ${
-              !isEncrypt ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'
-            }`}
-          >
-            {t('tools.crypto-symmetric.tabDecrypt')}
-          </button>
+          <div className="flex rounded-lg bg-slate-100 p-1 dark:bg-slate-800">
+            <button
+              type="button"
+              onClick={() => setIsEncrypt(true)}
+              className={cn(
+                'rounded-md px-4 py-2 text-sm font-semibold transition-colors',
+                isEncrypt ? 'bg-white text-blue-700 shadow-sm dark:bg-slate-950 dark:text-blue-300' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white',
+              )}
+            >
+              {t('tools.crypto-symmetric.tabEncrypt')}
+            </button>
+            <button
+              type="button"
+              onClick={() => setIsEncrypt(false)}
+              className={cn(
+                'rounded-md px-4 py-2 text-sm font-semibold transition-colors',
+                !isEncrypt ? 'bg-white text-blue-700 shadow-sm dark:bg-slate-950 dark:text-blue-300' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white',
+              )}
+            >
+              {t('tools.crypto-symmetric.tabDecrypt')}
+            </button>
+          </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Input/Output Column */}
-        <div className="lg:col-span-2 space-y-6">
-          <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-100">
-            <div className="flex items-center justify-between mb-4">
-              <label className="text-sm font-bold text-slate-900 flex items-center gap-2">
-                {isEncrypt ? <Lock size={16} /> : <Unlock size={16} />} 
-                {isEncrypt ? t('tools.crypto-symmetric.inputPlaintextLabel') : t('tools.crypto-symmetric.inputCiphertextLabel')}
-              </label>
-              <button
-                onClick={handleClear}
-                className="p-1.5 text-slate-400 hover:text-red-500 transition-colors"
-                title={t('tools.crypto-symmetric.clearBtn')}
-              >
-                <Trash2 size={18} />
-              </button>
-            </div>
-            <textarea
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder={isEncrypt ? t('tools.crypto-symmetric.inputPlaintextPlaceholder') : t('tools.crypto-symmetric.inputCiphertextPlaceholder')}
-              className="w-full h-40 p-5 font-mono text-sm bg-slate-50 border border-slate-100 rounded-2xl focus:ring-4 focus:ring-indigo-100 focus:border-indigo-200 transition-all resize-none outline-none"
-            />
+      <div className="grid min-h-[620px] grid-cols-1 gap-6 lg:grid-cols-2">
+        <section className="flex min-h-[520px] flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900 lg:min-h-[620px]">
+          <div className="flex items-center justify-between border-b border-slate-200 px-4 py-3 dark:border-slate-800">
+            <h2 className="text-sm font-semibold text-slate-950 dark:text-white">
+              {isEncrypt ? t('tools.crypto-symmetric.inputPlaintextLabel') : t('tools.crypto-symmetric.inputCiphertextLabel')}
+            </h2>
+            <button
+              type="button"
+              onClick={handleClear}
+              className="inline-flex h-8 w-8 items-center justify-center rounded-md text-slate-500 transition-colors hover:bg-red-50 hover:text-red-600 dark:text-slate-400 dark:hover:bg-red-950/30"
+              title={t('tools.crypto-symmetric.clearBtn')}
+            >
+              <Trash2 size={16} />
+            </button>
           </div>
 
-          <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-100 relative group">
-            <div className="flex items-center justify-between mb-4 text-sm font-bold text-slate-900">
-              <span className="flex items-center gap-2 uppercase tracking-wider">
-                {t('tools.crypto-symmetric.outputLabel')} {isEncrypt ? t('tools.crypto-symmetric.outputCiphertext') : t('tools.crypto-symmetric.outputPlaintext')}
-              </span>
-              <button
-                onClick={handleCopy}
-                disabled={!output}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
-                  copied 
-                    ? 'bg-emerald-50 text-emerald-600' 
-                    : 'bg-indigo-50 text-indigo-600 hover:bg-indigo-100 disabled:opacity-50 disabled:cursor-not-allowed'
-                }`}
-              >
-                {copied ? <CheckCircle2 size={14} /> : <Copy size={14} />}
-                {copied ? t('tools.crypto-symmetric.copiedBtn') : t('tools.crypto-symmetric.copyBtn')}
-              </button>
-            </div>
-            <textarea
-              readOnly
-              value={output}
-              placeholder={t('tools.crypto-symmetric.outputPlaceholder')}
-              className="w-full h-40 p-5 font-mono text-sm bg-slate-50 border border-slate-100 rounded-2xl focus:ring-4 focus:ring-indigo-100 focus:border-indigo-200 transition-all resize-none outline-none"
-            />
-            {error && (
-              <div className="absolute top-20 left-10 right-10 p-4 bg-red-50 border border-red-100 rounded-xl text-red-600 text-sm text-center">
-                {error}
-              </div>
-            )}
-          </div>
-        </div>
+          <textarea
+            value={input}
+            onChange={(event) => setInput(event.target.value)}
+            placeholder={isEncrypt ? t('tools.crypto-symmetric.inputPlaintextPlaceholder') : t('tools.crypto-symmetric.inputCiphertextPlaceholder')}
+            className="min-h-[220px] resize-none border-0 bg-white p-4 font-mono text-sm leading-7 text-slate-800 outline-none placeholder:text-slate-400 focus:ring-0 dark:bg-slate-900 dark:text-slate-200"
+            spellCheck={false}
+          />
 
-        {/* Settings Column */}
-        <div className="space-y-6">
-          <div className="bg-white rounded-3xl p-6 shadow-sm border border-slate-100">
-            <h3 className="text-sm font-bold text-slate-900 mb-6 flex items-center gap-2 uppercase tracking-wider">
+          <div className="border-t border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950/40">
+            <h3 className="mb-4 text-sm font-semibold text-slate-950 dark:text-white">
               {t('tools.crypto-symmetric.paramsTitle')}
             </h3>
-            
-            <div className="space-y-5">
-              <div>
-                <label className="block text-xs font-bold text-slate-400 uppercase mb-2">{t('tools.crypto-symmetric.algoLabel')}</label>
-                <select 
-                  value={algo}
-                  onChange={(e) => setAlgo(e.target.value)}
-                  className="w-full p-3 bg-slate-50 border border-slate-100 rounded-xl text-sm outline-none focus:border-indigo-200 transition-all cursor-pointer"
-                >
-                  {ALGORITHMS.map(a => <option key={a.id} value={a.id}>{a.name}</option>)}
+            <div className="grid gap-4 sm:grid-cols-2">
+              <label className="space-y-2">
+                <span className="block text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">{t('tools.crypto-symmetric.algoLabel')}</span>
+                <select value={algo} onChange={(event) => setAlgo(event.target.value)} className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-blue-400 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100">
+                  {ALGORITHMS.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}
                 </select>
-              </div>
+              </label>
 
-              <div>
-                <label className="block text-xs font-bold text-slate-400 uppercase mb-2">{t('tools.crypto-symmetric.keyLabel')}</label>
-                <div className="relative">
+              <label className="space-y-2">
+                <span className="block text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">{t('tools.crypto-symmetric.modeLabel')}</span>
+                <select value={mode} onChange={(event) => setMode(event.target.value)} className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-blue-400 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100">
+                  {MODES.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}
+                </select>
+              </label>
+
+              <label className="space-y-2 sm:col-span-2">
+                <span className="block text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">{t('tools.crypto-symmetric.keyLabel')}</span>
+                <div className="flex">
                   <input
                     type="password"
                     value={key}
-                    onChange={(e) => setKey(e.target.value)}
+                    onChange={(event) => setKey(event.target.value)}
                     placeholder={t('tools.crypto-symmetric.keyPlaceholder')}
-                    className="w-full p-3 pr-10 bg-slate-50 border border-slate-100 rounded-xl text-sm outline-none focus:border-indigo-200 transition-all"
+                    className="min-w-0 flex-1 rounded-l-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-blue-400 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
                   />
-                  <RefreshCcw 
-                    className="absolute right-3 top-3 text-slate-300 hover:text-indigo-500 cursor-pointer transition-colors" 
-                    size={16}
+                  <button
+                    type="button"
                     onClick={() => setKey(Math.random().toString(36).substring(2, 10))}
-                  />
+                    className="-ml-px inline-flex w-10 items-center justify-center rounded-r-md border border-slate-200 bg-white text-slate-500 transition-colors hover:bg-slate-50 hover:text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-400 dark:hover:text-white"
+                    aria-label="Generate key"
+                  >
+                    <RefreshCcw size={15} />
+                  </button>
                 </div>
-              </div>
+              </label>
 
-              <div>
-                <label className="block text-xs font-bold text-slate-400 uppercase mb-2">{t('tools.crypto-symmetric.ivLabel')}</label>
+              <label className="space-y-2">
+                <span className="block text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">{t('tools.crypto-symmetric.ivLabel')}</span>
                 <input
                   type="text"
                   value={iv}
-                  onChange={(e) => setIv(e.target.value)}
+                  onChange={(event) => setIv(event.target.value)}
                   placeholder={t('tools.crypto-symmetric.ivPlaceholder')}
-                  className="w-full p-3 bg-slate-50 border border-slate-100 rounded-xl text-sm outline-none focus:border-indigo-200 transition-all"
+                  className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-blue-400 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
                 />
-              </div>
+              </label>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-xs font-bold text-slate-400 uppercase mb-2">{t('tools.crypto-symmetric.modeLabel')}</label>
-                  <select 
-                    value={mode}
-                    onChange={(e) => setMode(e.target.value)}
-                    className="w-full p-3 bg-slate-50 border border-slate-100 rounded-xl text-sm outline-none focus:border-indigo-200 transition-all cursor-pointer"
-                  >
-                    {MODES.map(m => <option key={m.id} value={m.id}>{m.name}</option>)}
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-xs font-bold text-slate-400 uppercase mb-2">{t('tools.crypto-symmetric.paddingLabel')}</label>
-                  <select 
-                    value={padding}
-                    onChange={(e) => setPadding(e.target.value)}
-                    className="w-full p-3 bg-slate-50 border border-slate-100 rounded-xl text-sm outline-none focus:border-indigo-200 transition-all cursor-pointer"
-                  >
-                    {PADDINGS.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
-                  </select>
-                </div>
-              </div>
-
-              <button
-                onClick={handleProcess}
-                className="w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl font-bold shadow-lg shadow-indigo-100 transition-all flex items-center justify-center gap-2 mt-4"
-              >
-                {isEncrypt ? <Lock size={18} /> : <Unlock size={18} />}
-                {isEncrypt ? t('tools.crypto-symmetric.actionEncrypt') : t('tools.crypto-symmetric.actionDecrypt')}
-              </button>
+              <label className="space-y-2">
+                <span className="block text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">{t('tools.crypto-symmetric.paddingLabel')}</span>
+                <select value={padding} onChange={(event) => setPadding(event.target.value)} className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-blue-400 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100">
+                  {PADDINGS.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}
+                </select>
+              </label>
             </div>
-          </div>
 
-          <div className="bg-indigo-50/50 border border-indigo-100 p-6 rounded-3xl">
-            <div className="flex items-center gap-2 mb-3">
-              <Shield className="text-indigo-600" size={18} />
-              <h4 className="text-sm font-bold text-indigo-900">{t('tools.crypto-symmetric.securityNoteTitle')}</h4>
-            </div>
-            <p className="text-xs text-indigo-700 leading-relaxed">
-              {t('tools.crypto-symmetric.securityNoteDesc')}
-            </p>
+            <button
+              type="button"
+              onClick={handleProcess}
+              className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-md bg-blue-600 px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-blue-700"
+            >
+              {isEncrypt ? <Lock size={17} /> : <Unlock size={17} />}
+              {isEncrypt ? t('tools.crypto-symmetric.actionEncrypt') : t('tools.crypto-symmetric.actionDecrypt')}
+            </button>
           </div>
-        </div>
+        </section>
+
+        <section className="flex min-h-[420px] flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900 lg:min-h-[620px]">
+          <div className="flex items-center justify-between border-b border-slate-200 px-4 py-3 dark:border-slate-800">
+            <h2 className="text-sm font-semibold text-slate-950 dark:text-white">
+              {t('tools.crypto-symmetric.outputLabel')} {isEncrypt ? t('tools.crypto-symmetric.outputCiphertext') : t('tools.crypto-symmetric.outputPlaintext')}
+            </h2>
+            <button
+              type="button"
+              onClick={handleCopy}
+              disabled={!output}
+              className="inline-flex items-center gap-1.5 rounded-md border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200 dark:hover:bg-slate-800"
+            >
+              {copied ? <CheckCircle2 size={14} className="text-emerald-500" /> : <Copy size={14} />}
+              {copied ? t('tools.crypto-symmetric.copiedBtn') : t('tools.crypto-symmetric.copyBtn')}
+            </button>
+          </div>
+          <textarea
+            readOnly
+            value={output}
+            placeholder={t('tools.crypto-symmetric.outputPlaceholder')}
+            className="min-h-0 flex-1 resize-none border-0 bg-slate-50 p-4 font-mono text-sm leading-7 text-slate-800 outline-none placeholder:text-slate-400 focus:ring-0 dark:bg-slate-950/40 dark:text-slate-200"
+            spellCheck={false}
+          />
+          {error ? (
+            <div className="border-t border-red-200 bg-red-50 p-3 text-sm text-red-700 dark:border-red-900/60 dark:bg-red-950/30 dark:text-red-200">
+              {error}
+            </div>
+          ) : null}
+        </section>
       </div>
+
+      <ToolSEOCard toolKey="crypto-symmetric" />
     </div>
   );
 }

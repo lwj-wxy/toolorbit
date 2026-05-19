@@ -316,41 +316,6 @@ export default function ImageCompressor() {
         </div>
       </div>
 
-      {/* SEO & Descriptions */}
-      <div className="bg-white rounded-3xl shadow-sm border border-slate-200/80 p-8 lg:p-12 mb-12">
-        <h2 className="text-2xl font-bold text-slate-800 mb-6">{t('tools.image-compressor.seoTitle')}</h2>
-        
-        <p className="text-slate-600 mb-8 leading-relaxed text-lg italic border-l-4 border-blue-100 pl-6">
-          {t('tools.image-compressor.seoDesc')}
-        </p>
-
-        <div className="bg-rose-50 border border-rose-100/30 rounded-2xl p-6 mb-10 group hover:bg-rose-100/40 transition-colors">
-          <p className="text-rose-800 text-sm font-medium leading-relaxed">
-            {t('tools.image-compressor.privacyNotice')}
-          </p>
-        </div>
-
-        <h3 className="font-bold text-slate-900 text-xl mb-6">{t('tools.image-compressor.highlightsTitle')}</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-           <div className="space-y-3">
-              <h4 className="font-bold text-slate-800">{t('tools.image-compressor.highlight1Title')}</h4>
-              <p className="text-slate-500 text-sm leading-relaxed">{t('tools.image-compressor.highlight1Desc')}</p>
-           </div>
-           <div className="space-y-3">
-              <h4 className="font-bold text-slate-800">{t('tools.image-compressor.highlight2Title')}</h4>
-              <p className="text-slate-500 text-sm leading-relaxed">{t('tools.image-compressor.highlight2Desc')}</p>
-           </div>
-           <div className="space-y-3">
-              <h4 className="font-bold text-slate-800">{t('tools.image-compressor.highlight3Title')}</h4>
-              <p className="text-slate-500 text-sm leading-relaxed">{t('tools.image-compressor.highlight3Desc')}</p>
-           </div>
-        </div>
-        
-        <p className="text-slate-400 text-sm mt-12 pt-8 border-t border-slate-100 text-center">
-          {t('tools.image-compressor.seoFooter')}
-        </p>
-      </div>
-
     </div>
   );
 }

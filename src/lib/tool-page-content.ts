@@ -14,7 +14,6 @@ export const FALLBACK_TOOL_GUIDE_PATHS = new Set([
   '/tools/dev/color-converter',
   '/tools/dev/color-palette',
   '/tools/dev/crypto-symmetric',
-  '/tools/dev/morse-code',
   '/tools/dev/text-diff',
   '/tools/dev/xml-to-json',
   '/tools/generator/barcode-generator',

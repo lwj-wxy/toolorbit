@@ -126,34 +126,6 @@ export default function SymbolLibrary() {
         </div>
       </div>
 
-      {/* Bottom SEO Instructions Panel */}
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-8 lg:p-12 mt-8">
-        <h2 className="text-xl font-bold text-slate-800 mb-6">{t('tools.symbol-library.seoTitle')}</h2>
-        
-        <p className="text-slate-600 mb-6 leading-relaxed">
-          {t('tools.symbol-library.seoDesc')}
-        </p>
-
-        <h3 className="font-bold text-slate-800 text-lg mb-4">{t('tools.symbol-library.seoHighlightsTitle')}</h3>
-        <ul className="space-y-4 text-slate-600">
-          <li className="flex gap-3">
-            <strong className="text-slate-800 shrink-0">{t('tools.symbol-library.highlight1Title')}</strong>
-            <span>{t('tools.symbol-library.highlight1Desc')}</span>
-          </li>
-          <li className="flex gap-3">
-            <strong className="text-slate-800 shrink-0">{t('tools.symbol-library.highlight2Title')}</strong>
-            <span>{t('tools.symbol-library.highlight2Desc')}</span>
-          </li>
-          <li className="flex gap-3">
-            <strong className="text-slate-800 shrink-0">{t('tools.symbol-library.highlight3Title')}</strong>
-            <span>{t('tools.symbol-library.highlight3Desc')}</span>
-          </li>
-        </ul>
-        
-        <p className="text-slate-500 text-sm mt-8 pt-6 border-t border-slate-100">
-          {t('tools.symbol-library.seoFooter')}
-        </p>
-      </div>
     </div>
   );
 }

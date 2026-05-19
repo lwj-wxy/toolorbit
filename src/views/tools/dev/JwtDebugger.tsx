@@ -57,18 +57,15 @@ export default function JwtDebugger() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto space-y-6">
-      <div className="mb-8 flex items-center gap-4">
-        <div className="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center shrink-0">
-          <Layers className="w-6 h-6" />
-        </div>
+    <div className="mx-auto max-w-7xl space-y-6">
+      <div className="border-b border-slate-200 pb-7 dark:border-slate-800">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-slate-900 font-sans">{t('tools.jwt-debugger.title')}</h1>
-          <p className="text-slate-500 mt-1 text-sm">{t('tools.jwt-debugger.subtitle')}</p>
+          <h1 className="text-2xl font-semibold tracking-tight text-slate-950 dark:text-white sm:text-3xl">{t('tools.jwt-debugger.title')}</h1>
+          <p className="mt-3 max-w-3xl text-[15px] leading-7 text-slate-600 dark:text-slate-400">{t('tools.jwt-debugger.subtitle')}</p>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <div className="space-y-6">
           <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm flex flex-col h-full min-h-[500px]">
              <label className="block text-sm font-bold text-slate-700 mb-4 flex items-center gap-2">

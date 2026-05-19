@@ -21,5 +21,5 @@ export default function LayoutPathEnhancements({ slot }: LayoutPathEnhancementsP
     return <Breadcrumbs />;
   }
 
-  return <RelatedTools currentPath={pathname} />;
+  return <RelatedTools currentPath={normalizedPathname} />;
 }

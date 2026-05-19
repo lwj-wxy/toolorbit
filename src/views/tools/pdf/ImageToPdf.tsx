@@ -9,9 +9,6 @@ import {
   Settings,
   X,
   FileImage,
-  ShieldCheck,
-  MousePointer2,
-  MonitorSmartphone,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -296,66 +293,6 @@ export default function ImageToPdf() {
         </div>
       </div>
 
-      {/* SEO Content Section */}
-      <div className="mt-24 border-t border-gray-100 pt-16">
-        <div className="max-w-4xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 mb-16">
-            <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('tools.image-to-pdf.seoTitle')}</h2>
-              <div className="space-y-4 text-gray-600 leading-relaxed">
-                <p>{t('tools.image-to-pdf.seoDesc')}</p>
-                <div className="bg-indigo-50 p-6 rounded-2xl border border-indigo-100">
-                  <div className="flex gap-4 items-start">
-                    <ShieldCheck className="w-6 h-6 text-indigo-600 shrink-0 mt-1" />
-                    <p className="text-sm text-indigo-900">
-                      <strong>{t('tools.image-to-pdf.privacyNotice')}</strong>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="space-y-8">
-              <h3 className="text-xl font-bold text-gray-900">{t('tools.image-to-pdf.highlightsTitle')}</h3>
-              
-              <div className="flex gap-4">
-                <div className="bg-gray-100 w-12 h-12 rounded-xl flex items-center justify-center shrink-0">
-                  <ImageIcon className="w-6 h-6 text-indigo-600" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-gray-900 mb-1">{t('tools.image-to-pdf.highlight1Title')}</h4>
-                  <p className="text-sm text-gray-600">{t('tools.image-to-pdf.highlight1Desc')}</p>
-                </div>
-              </div>
-
-              <div className="flex gap-4">
-                <div className="bg-gray-100 w-12 h-12 rounded-xl flex items-center justify-center shrink-0">
-                  <MousePointer2 className="w-6 h-6 text-indigo-600" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-gray-900 mb-1">{t('tools.image-to-pdf.highlight2Title')}</h4>
-                  <p className="text-sm text-gray-600">{t('tools.image-to-pdf.highlight2Desc')}</p>
-                </div>
-              </div>
-
-              <div className="flex gap-4">
-                <div className="bg-gray-100 w-12 h-12 rounded-xl flex items-center justify-center shrink-0">
-                  <MonitorSmartphone className="w-6 h-6 text-indigo-600" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-gray-900 mb-1">{t('tools.image-to-pdf.highlight3Title')}</h4>
-                  <p className="text-sm text-gray-600">{t('tools.image-to-pdf.highlight3Desc')}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div className="bg-gray-50 p-8 rounded-3xl text-center">
-            <p className="text-gray-500 italic">
-              {t('tools.image-to-pdf.seoFooter')}
-            </p>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }

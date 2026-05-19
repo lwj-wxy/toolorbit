@@ -192,14 +192,6 @@ export default function ImageToIco() {
         )}
       </div>
 
-      {/* Footer Content */}
-      <div className="bg-transparent border border-slate-200/60 rounded-2xl p-8 lg:p-12 mb-12 mt-12 bg-gradient-to-b from-white/50 to-transparent">
-        <h2 className="text-xl font-bold text-slate-800 mb-6">{t('tools.image-to-ico.seoTitle')}</h2>
-        <div className="space-y-4 text-slate-600 text-sm leading-relaxed">
-           <p>{t('tools.image-to-ico.seoDesc')}</p>
-           <p>{t('tools.image-to-ico.seoFooter')}</p>
-        </div>
-      </div>
     </div>
   );
 }

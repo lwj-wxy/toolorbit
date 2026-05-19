@@ -227,14 +227,6 @@ const RAW_TOOLS_META = [
     color: 'amber',
   },
   {
-    id: 'chmod-calculator',
-    name: 'chmod 计算器',
-    description: 'Linux 权限掩码与 RWX 符号模式的可视化直观转换。',
-    category: '开发者工具',
-    path: '/tools/dev/chmod-calculator',
-    color: 'green',
-  },
-  {
     id: 'text-analyzer',
     name: '文本分析器',
     description: '在线统计字数、字符数、段落数并分析文本频率占比。',
@@ -541,14 +533,6 @@ const RAW_TOOLS_META = [
     description: "AES, DES, RC4 等对称加密与解密工具，支持多种补位与模式配置。",
     category: "开发者工具",
     path: "/tools/dev/crypto-symmetric",
-    color: "green"
-  },
-  {
-    id: "morse-code",
-    name: "摩斯密码转换",
-    description: "在线将文本编码为摩斯电码，或将电码解码为可读文本。",
-    category: "开发者工具",
-    path: "/tools/dev/morse-code",
     color: "green"
   },
   {

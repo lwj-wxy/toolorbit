@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Check, Copy, ShieldCheck } from 'lucide-react';
+import { Check, Copy } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { analytics } from '../../../services/analytics';
 import ToolSEOCard from '../../../components/ToolSEOCard';
@@ -81,10 +81,6 @@ export default function JsonFormatter() {
           <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-400">
             {t('tools.json-formatter.subtitle')}
           </p>
-        </div>
-        <div className="inline-flex items-center gap-2 rounded-md border border-emerald-200 bg-emerald-50 px-3 py-2 text-[12px] font-semibold text-emerald-700 dark:border-emerald-900/60 dark:bg-emerald-950/30 dark:text-emerald-200">
-          <ShieldCheck className="h-4 w-4" aria-hidden="true" />
-          {isZh ? '浏览器本地处理，不上传 JSON' : 'Runs locally. JSON is not uploaded.'}
         </div>
       </div>
 

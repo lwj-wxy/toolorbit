@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Copy, Check } from 'lucide-react';
+import { Check, Copy } from 'lucide-react';
 import ToolSEOCard from '../../../components/ToolSEOCard';
 import CryptoJS from 'crypto-js';
+import { cn } from '../../../lib/utils';
 
 export default function HashGenerator() {
   const { t } = useTranslation();
@@ -57,55 +58,70 @@ export default function HashGenerator() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="mx-auto max-w-7xl space-y-6">
+      <div className="border-b border-slate-200 pb-7 dark:border-slate-800">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-slate-900">
+          <h1 className="text-2xl font-semibold tracking-tight text-slate-950 dark:text-white sm:text-3xl">
             {t('tools.hash-generator.title')}
           </h1>
-          <p className="mt-1 text-sm text-gray-500">
+          <p className="mt-3 max-w-3xl text-[15px] leading-7 text-slate-600 dark:text-slate-400">
             {t('tools.hash-generator.subtitle')}
           </p>
         </div>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden p-6 space-y-8">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">{t('tools.hash-generator.inputLabel')}</label>
+      <div className="grid min-h-[560px] grid-cols-1 gap-6 lg:grid-cols-2">
+        <section className="flex min-h-[420px] flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900 lg:min-h-[560px]">
+          <div className="flex items-center justify-between border-b border-slate-200 px-4 py-3 dark:border-slate-800">
+            <h2 className="text-sm font-semibold text-slate-950 dark:text-white">
+              {t('tools.hash-generator.inputLabel')}
+            </h2>
+            <span className="font-mono text-[12px] text-slate-400">TEXT</span>
+          </div>
           <textarea
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            className="block w-full rounded-lg border-0 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm font-mono resize-none bg-white min-h-[120px]"
+            className="min-h-0 flex-1 resize-none border-0 bg-white p-4 font-mono text-sm leading-7 text-slate-800 outline-none placeholder:text-slate-400 focus:ring-0 dark:bg-slate-900 dark:text-slate-200"
             placeholder={t('tools.hash-generator.inputPlaceholder')}
+            spellCheck={false}
           />
-        </div>
+        </section>
 
-        <div className="space-y-4">
-          <h3 className="text-sm font-medium text-gray-900 border-b pb-2">{t('tools.hash-generator.outputLabel')}</h3>
+        <section className="flex min-h-[420px] flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900 lg:min-h-[560px]">
+          <div className="flex items-center justify-between border-b border-slate-200 px-4 py-3 dark:border-slate-800">
+            <h2 className="text-sm font-semibold text-slate-950 dark:text-white">
+              {t('tools.hash-generator.outputLabel')}
+            </h2>
+            <span className="font-mono text-[12px] text-slate-400">HEX</span>
+          </div>
+          <div className="min-h-0 flex-1 space-y-4 overflow-auto bg-slate-50 p-4 dark:bg-slate-950/40">
           {Object.entries(hashes).map(([algo, hashValue]) => {
             const hash = String(hashValue);
             return (
-            <div key={algo} className="group relative">
-              <label className="block text-xs font-semibold text-gray-500 mb-1">{algo}</label>
-              <div className="flex shadow-sm rounded-md">
-                <input
-                  type="text"
-                  readOnly
-                  value={hash}
-                  className="block w-full rounded-none rounded-l-md border-0 py-2.5 pl-3 text-gray-900 ring-1 ring-inset ring-gray-300 bg-gray-50 sm:text-sm font-mono placeholder:text-gray-400"
-                />
-                <button
-                  onClick={() => copyToClipboard(hash, algo)}
-                  disabled={!hash}
-                  className="relative -ml-px inline-flex items-center gap-x-1.5 rounded-r-md px-3 py-2 text-sm font-semibold text-gray-700 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:opacity-50 transition-colors bg-white"
-                >
-                  {copiedHash === algo ? <Check size={16} className="text-green-500"/> : <Copy size={16} className="text-gray-400" />}
-                </button>
+              <div key={algo} className="rounded-lg border border-slate-200 bg-white p-3 dark:border-slate-800 dark:bg-slate-900">
+                <div className="mb-2 flex items-center justify-between gap-3">
+                  <span className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">{algo}</span>
+                  <button
+                    type="button"
+                    onClick={() => copyToClipboard(hash, algo)}
+                    disabled={!hash}
+                    className={cn(
+                      'inline-flex h-8 w-8 items-center justify-center rounded-md border border-slate-200 bg-white text-slate-500 transition-colors hover:bg-slate-50 hover:text-slate-900 disabled:cursor-not-allowed disabled:opacity-40 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-400 dark:hover:text-white',
+                      copiedHash === algo && 'border-emerald-200 bg-emerald-50 text-emerald-600 dark:border-emerald-900/60 dark:bg-emerald-950/30 dark:text-emerald-300',
+                    )}
+                    aria-label={`Copy ${algo}`}
+                  >
+                    {copiedHash === algo ? <Check size={15} /> : <Copy size={15} />}
+                  </button>
+                </div>
+                <div className="min-h-11 break-all rounded-md bg-slate-100 p-3 font-mono text-[13px] leading-6 text-slate-800 dark:bg-slate-950 dark:text-slate-200">
+                  {hash || <span className="text-slate-400">{t('tools.hash-generator.outputPlaceholder', '等待输入内容...')}</span>}
+                </div>
               </div>
-            </div>
             );
           })}
-        </div>
+          </div>
+        </section>
       </div>
       <ToolSEOCard toolKey="hash-generator" />
     </div>
