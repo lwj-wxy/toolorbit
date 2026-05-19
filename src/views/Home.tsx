@@ -41,7 +41,7 @@ function ToolCover({ tool }: { tool: ToolItem }) {
 
   if (!hasGeneratedToolCover(tool.id)) {
     return (
-      <div className={cn('relative flex aspect-[16/10] overflow-hidden rounded-lg border border-white/70 bg-gradient-to-br p-3 shadow-inner dark:border-white/10', styles.cover)}>
+      <div className={cn('relative flex aspect-[16/10] overflow-hidden rounded-t-lg border-b border-white/70 bg-gradient-to-br p-3 shadow-inner dark:border-white/10', styles.cover)}>
         <div className="absolute inset-x-0 top-0 h-px bg-white/80 dark:bg-white/10" />
         <div className="absolute -right-6 -top-6 h-20 w-20 rounded-full bg-white/60 blur-2xl dark:bg-white/10" />
         <div className="relative flex h-full w-full flex-col justify-between">
@@ -62,11 +62,11 @@ function ToolCover({ tool }: { tool: ToolItem }) {
   }
 
   return (
-    <div className="relative aspect-[16/10] overflow-hidden rounded-lg border border-slate-100 bg-slate-50 dark:border-white/10 dark:bg-slate-900">
+    <div className="relative aspect-[16/10] overflow-hidden rounded-t-lg border-b border-slate-100 bg-slate-50 dark:border-white/10 dark:bg-slate-900">
       <img
         src={getToolCoverPath(tool.id)}
         alt={t(`tools.${tool.id}.name`, { defaultValue: tool.name })}
-        className="h-full w-full object-cover"
+        className="block h-full w-full origin-bottom scale-[1.14] object-cover"
         loading="lazy"
       />
     </div>
@@ -83,10 +83,10 @@ function ToolCard({
   const styles = getCategoryStyles(tool.category);
 
   return (
-    <article className="group relative h-full rounded-lg border border-slate-200/90 bg-white p-3 shadow-sm transition-colors duration-200 hover:border-cyan-300 hover:bg-cyan-50/20 dark:border-slate-800 dark:bg-[#282c34] dark:hover:border-cyan-700 dark:hover:bg-cyan-950/10">
-      <Link to={tool.path} className="flex h-full min-h-[232px] flex-col gap-3">
+    <article className="group relative h-full overflow-hidden rounded-lg border border-slate-200/90 bg-white shadow-sm transition-colors duration-200 hover:border-cyan-300 hover:bg-cyan-50/20 dark:border-slate-800 dark:bg-[#282c34] dark:hover:border-cyan-700 dark:hover:bg-cyan-950/10">
+      <Link to={tool.path} className="flex h-full min-h-[232px] flex-col">
         <ToolCover tool={tool} />
-        <div className="flex flex-1 flex-col">
+        <div className="flex flex-1 flex-col p-3 pt-4">
           <div className="flex items-start gap-2">
             <span className={cn('mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md', styles.icon)}>
               <Icon size={17} strokeWidth={2.2} />
@@ -100,10 +100,6 @@ function ToolCard({
               </p>
             </div>
           </div>
-          <span className="mt-auto inline-flex items-center gap-1 pt-4 text-[12px] font-semibold text-slate-500 transition-colors group-hover:text-cyan-700 dark:text-slate-500 dark:group-hover:text-cyan-300">
-            {t(`common.categories.${tool.category}`)}
-            <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
-          </span>
         </div>
       </Link>
     </article>
@@ -206,7 +202,7 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
           ) : null}
         </header>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {filteredTools.map((tool) => (
             <ToolCard key={tool.id} tool={tool} />
           ))}
@@ -268,7 +264,7 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
           <h2 className="text-lg font-semibold tracking-tight text-slate-950 dark:text-white">
             {isZh ? '常用工具' : t('common.recent_tools') || 'Recent tools'}
           </h2>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
             {recentTools.slice(0, 4).map((tool) => (
               <ToolCard key={`recent-${tool.id}`} tool={tool} />
             ))}
@@ -302,18 +298,13 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
 
           return (
             <section key={category} className="space-y-4">
-              <div className="flex items-end justify-between gap-4">
-                <div>
-                  <Link
-                    to={getCategoryPath(category)}
-                    className={cn('inline-flex rounded-full px-2.5 py-1 text-[12px] font-semibold ring-1 transition-colors', styles.badge)}
-                  >
-                    {t(`common.categories.${category}`)}
-                  </Link>
-                  <p className="mt-2 text-[13px] text-slate-500 dark:text-slate-400">
-                    {isZh ? `${toolsInCategory.length} 个工具` : `${toolsInCategory.length} tools`}
-                  </p>
-                </div>
+              <div className="flex items-center justify-between gap-4">
+                <Link
+                  to={getCategoryPath(category)}
+                  className={cn('inline-flex rounded-full px-2.5 py-1 text-[12px] font-semibold ring-1 transition-colors', styles.badge)}
+                >
+                  {t(`common.categories.${category}`)}
+                </Link>
                 {remainingCount > 0 && (
                   <Link
                     to={getCategoryPath(category)}
@@ -325,7 +316,7 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
                 )}
               </div>
 
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
                 {previewTools.map((tool) => (
                   <ToolCard key={tool.id} tool={tool} />
                 ))}
