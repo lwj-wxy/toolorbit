@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { ScanLine, UploadCloud, Copy, RefreshCcw, Check, AlertCircle, FileImage } from 'lucide-react';
 import jsQR from 'jsqr';
 import { useTranslation } from 'react-i18next';
+import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function QrScanner() {
   const { t } = useTranslation();
@@ -215,6 +216,7 @@ export default function QrScanner() {
 
       </div>
 
+      <ToolSEOCard toolKey="qr-scanner" />
     </div>
   );
 }

@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Download, RefreshCcw } from 'lucide-react';
 import JsBarcode from 'jsbarcode';
 import { useTranslation } from 'react-i18next';
+import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function BarcodeGenerator() {
   const { t } = useTranslation();
@@ -256,6 +257,7 @@ export default function BarcodeGenerator() {
 
       </div>
 
+      <ToolSEOCard toolKey="barcode-generator" />
     </div>
   );
 }

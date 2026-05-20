@@ -13,8 +13,6 @@ export const FALLBACK_TOOL_GUIDE_PATHS = new Set([
   '/tools/ai/market-insights',
   '/tools/dev/color-converter',
   '/tools/dev/color-palette',
-  '/tools/generator/barcode-generator',
-  '/tools/generator/qr-scanner',
   '/tools/image/image-compressor',
   '/tools/image/image-cropper',
   '/tools/image/image-to-base64',
