@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { diffWordsWithSpace, diffLines } from 'diff';
 import { FileText, ArrowRightLeft, AlignLeft, RefreshCw, XCircle } from 'lucide-react';
+import ToolSEOCard from '../../../components/ToolSEOCard';
 import { cn } from '../../../lib/utils';
 
 export default function TextDiff() {
@@ -144,6 +145,8 @@ export default function TextDiff() {
             </div>
           </section>
       </div>
+
+      <ToolSEOCard toolKey="text-diff" />
     </div>
   );
 }
