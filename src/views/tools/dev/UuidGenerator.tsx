@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Fingerprint, Copy, RefreshCcw, Check, Download, ShieldCheck } from 'lucide-react';
+import { Fingerprint, Copy, RefreshCcw, Check, Download } from 'lucide-react';
 import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function UuidGenerator() {
@@ -79,99 +79,85 @@ export default function UuidGenerator() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto space-y-8 animate-in fade-in duration-500">
+    <div className="space-y-6 animate-in fade-in duration-500">
       
       {/* Header Section */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-2">
-        <div className="flex items-center gap-4">
-          <div className="w-14 h-14 bg-indigo-50 rounded-2xl flex items-center justify-center text-indigo-600 shadow-sm border border-indigo-100">
-            <Fingerprint className="w-8 h-8" />
-          </div>
-          <div>
-            <h1 className="text-3xl font-extrabold tracking-tight text-slate-900">{t('tools.uuid-generator.title')}</h1>
-            <p className="text-slate-500 mt-1 text-sm md:text-base font-medium">
-              {t('tools.uuid-generator.subtitle')}
-            </p>
-          </div>
+      <div className="flex flex-col gap-4 border-b border-slate-200 pb-6 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h1 className="text-3xl font-semibold tracking-tight text-slate-950">{t('tools.uuid-generator.title')}</h1>
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">
+            {t('tools.uuid-generator.subtitle')}
+          </p>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         
         {/* Left Side: Settings */}
-        <div className="lg:col-span-4 space-y-6">
-          <div className="bg-white rounded-[2rem] shadow-sm border border-slate-200/80 p-8">
-             <h3 className="text-lg font-bold text-slate-800 mb-6 flex items-center gap-2">
-                <span className="w-1.5 h-6 bg-indigo-500 rounded-full block"></span>
+        <div className="flex flex-col space-y-3">
+          <div className="flex items-center justify-between">
+             <h3 className="block text-sm font-semibold leading-6 text-slate-900">
                 {t('tools.uuid-generator.configTitle')}
              </h3>
+          </div>
+
+          <div className="flex min-h-[500px] flex-col rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
              
              <div className="space-y-6">
                 <div>
-                   <label className="block text-sm font-bold text-slate-700 mb-2">{t('tools.uuid-generator.countLabel')}</label>
+                   <label className="mb-2 block text-sm font-semibold text-slate-700">{t('tools.uuid-generator.countLabel')}</label>
                    <input
                      type="number"
                      min="1"
                      max="1000"
                      value={quantity}
                      onChange={(e) => setQuantity(parseInt(e.target.value) || 1)}
-                     className="w-full bg-slate-50 border-2 border-slate-100 rounded-xl px-4 py-3 outline-none focus:border-indigo-500 transition-all font-mono font-bold text-lg"
+                     className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 font-mono text-lg font-semibold text-slate-900 shadow-sm outline-none transition-colors focus:border-cyan-500"
                    />
                 </div>
 
                 <div>
-                   <label className="block text-sm font-bold text-slate-700 mb-4">排版格式</label>
+                   <label className="mb-3 block text-sm font-semibold text-slate-700">排版格式</label>
                    <div className="space-y-3">
-                      <label className="flex items-center gap-3 p-3 bg-slate-50 border border-slate-100 rounded-xl cursor-pointer hover:border-indigo-200 transition-colors group">
+                      <label className="group flex cursor-pointer items-center gap-3 rounded-lg border border-slate-200 bg-slate-50 p-3 transition-colors hover:border-cyan-300">
                         <input
                            type="checkbox"
                            checked={useHyphens}
                            onChange={(e) => setUseHyphens(e.target.checked)}
-                           className="w-5 h-5 rounded text-indigo-600 focus:ring-indigo-500 cursor-pointer"
+                           className="h-5 w-5 cursor-pointer rounded text-cyan-600 focus:ring-cyan-500"
                         />
-                        <span className="text-sm font-bold text-slate-600 group-hover:text-indigo-600">{t('tools.uuid-generator.optHyphens')}</span>
+                        <span className="text-sm font-semibold text-slate-600 group-hover:text-cyan-700">{t('tools.uuid-generator.optHyphens')}</span>
                       </label>
-                      <label className="flex items-center gap-3 p-3 bg-slate-50 border border-slate-100 rounded-xl cursor-pointer hover:border-indigo-200 transition-colors group">
+                      <label className="group flex cursor-pointer items-center gap-3 rounded-lg border border-slate-200 bg-slate-50 p-3 transition-colors hover:border-cyan-300">
                         <input
                            type="checkbox"
                            checked={isUppercase}
                            onChange={(e) => setIsUppercase(e.target.checked)}
-                           className="w-5 h-5 rounded text-indigo-600 focus:ring-indigo-500 cursor-pointer"
+                           className="h-5 w-5 cursor-pointer rounded text-cyan-600 focus:ring-cyan-500"
                         />
-                        <span className="text-sm font-bold text-slate-600 group-hover:text-indigo-600">{t('tools.uuid-generator.optUppercase')}</span>
+                        <span className="text-sm font-semibold text-slate-600 group-hover:text-cyan-700">{t('tools.uuid-generator.optUppercase')}</span>
                       </label>
                    </div>
                 </div>
 
                 <button
                   onClick={handleGenerate}
-                  className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-black py-4 px-6 rounded-xl shadow-lg shadow-indigo-200 transition-all active:scale-95 flex items-center justify-center gap-3 text-lg mt-4 group"
+                  className="mt-4 flex w-full items-center justify-center gap-3 rounded-lg bg-cyan-600 px-6 py-3.5 text-base font-semibold text-white shadow-sm transition-colors hover:bg-cyan-700 active:scale-[0.99]"
                 >
-                   <RefreshCcw className="w-6 h-6 group-hover:rotate-180 transition-transform duration-500" />
+                   <RefreshCcw className="h-5 w-5" />
                    {t('tools.uuid-generator.generateBtn')}
                 </button>
-             </div>
-          </div>
-
-          <div className="bg-amber-50 border-2 border-amber-100 rounded-[1.5rem] p-6 flex gap-4">
-             <ShieldCheck className="w-10 h-10 text-amber-600 shrink-0" />
-             <div className="space-y-1">
-                <div className="font-black text-amber-900 leading-tight">{t('tools.uuid-generator.securityTitle')}</div>
-                <p className="text-xs font-bold text-amber-700/80 leading-relaxed">
-                  {t('tools.uuid-generator.securityDesc')}
-                </p>
              </div>
           </div>
         </div>
 
         {/* Right Side: Results */}
-        <div className="lg:col-span-8 flex flex-col">
-          <div className="bg-white rounded-[2rem] shadow-sm border border-slate-200/80 p-8 flex flex-col h-full min-h-[500px]">
-             <div className="flex items-center justify-between mb-6">
-                <h3 className="text-lg font-bold text-slate-800 flex items-center gap-3">
+        <div className="flex flex-col space-y-3">
+             <div className="flex items-center justify-between">
+                <h3 className="flex items-center gap-3 text-sm font-semibold leading-6 text-slate-900">
                    {t('tools.uuid-generator.resultTitle')}
                    {uuids.length > 0 && (
-                     <span className="bg-indigo-100 text-indigo-600 text-[10px] px-2 py-1 rounded-full font-black uppercase tracking-wider">
+                     <span className="rounded-full bg-cyan-50 px-2 py-1 text-[10px] font-semibold uppercase tracking-wider text-cyan-700">
                         {t('tools.uuid-generator.resultCount', { count: uuids.length })}
                      </span>
                    )}
@@ -181,13 +167,13 @@ export default function UuidGenerator() {
                    <div className="flex gap-2">
                        <button
                          onClick={downloadTxt}
-                         className="text-xs font-black text-slate-400 hover:text-slate-600 uppercase tracking-widest flex items-center gap-2 px-3 py-1.5 rounded-lg border-2 border-slate-50 hover:bg-slate-50 transition-all"
+                         className="flex items-center gap-1 rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors hover:bg-slate-50"
                        >
                          <Download className="w-4 h-4" /> TXT
                        </button>
                        <button
                          onClick={copyAll}
-                         className="text-xs font-black text-indigo-600 hover:text-indigo-800 uppercase tracking-widest flex items-center gap-2 px-3 py-1.5 rounded-lg border-2 border-indigo-50 hover:bg-indigo-50 transition-all"
+                         className="flex items-center gap-1 rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors hover:bg-slate-50"
                        >
                          {copiedAll ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                          {copiedAll ? 'SUCCESS' : t('tools.uuid-generator.copyAll')}
@@ -196,11 +182,11 @@ export default function UuidGenerator() {
                 )}
              </div>
 
-             <div className="flex-1 bg-slate-50 border-2 border-slate-100 rounded-3xl p-2 sm:p-6 overflow-hidden relative">
+             <div className="relative h-[500px] overflow-hidden rounded-lg border border-slate-200 bg-slate-50 p-2 shadow-sm sm:p-4">
                 {uuids.length === 0 ? (
-                   <div className="absolute inset-0 flex flex-col items-center justify-center text-slate-300 drop-shadow-sm opacity-60">
-                      <Fingerprint className="w-20 h-20 mb-4 animate-pulse" />
-                      <p className="font-black text-lg text-center px-6">{t('tools.uuid-generator.placeholder')}</p>
+                   <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
+                      <Fingerprint className="mb-4 h-16 w-16 text-slate-300" />
+                      <p className="px-6 text-base font-semibold text-slate-500">{t('tools.uuid-generator.placeholder')}</p>
                    </div>
                 ) : (
                    <div className="h-full overflow-y-auto custom-scrollbar pr-2 space-y-2">
@@ -208,7 +194,7 @@ export default function UuidGenerator() {
                          {uuids.map((uuid, idx) => (
                             <li 
                               key={idx} 
-                              className="bg-white border border-slate-200 rounded-xl p-4 font-mono font-bold text-slate-700 shadow-sm flex items-center justify-between hover:border-indigo-400 group transition-all"
+                              className="group flex items-center justify-between rounded-lg border border-slate-200 bg-white p-4 font-mono font-semibold text-slate-700 shadow-sm transition-colors hover:border-cyan-400"
                             >
                                <div className="flex items-center gap-4">
                                   <span className="text-slate-400 font-mono text-xs w-6 text-right select-none">{idx + 1}</span>
@@ -216,7 +202,7 @@ export default function UuidGenerator() {
                                </div>
                                <button
                                  onClick={() => copyToClipboard(uuid, idx)}
-                                 className="text-slate-400 hover:text-indigo-600 opacity-0 group-hover:opacity-100 transition-all p-1.5 rounded-md hover:bg-indigo-50"
+                                 className="rounded-md p-1.5 text-slate-400 opacity-0 transition-all hover:bg-cyan-50 hover:text-cyan-700 group-hover:opacity-100"
                                >
                                  {copiedIndex === idx ? <Check className="w-5 h-5 text-emerald-500" /> : <Copy className="w-5 h-5" />}
                                </button>
@@ -226,7 +212,6 @@ export default function UuidGenerator() {
                    </div>
                 )}
              </div>
-          </div>
         </div>
 
       </div>

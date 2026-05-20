@@ -105,39 +105,34 @@ export default function QrScanner() {
   };
 
   return (
-    <div className="max-w-5xl mx-auto space-y-6">
+    <div className="space-y-6">
       
       {/* Header */}
-      <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 bg-blue-50 text-[#2563eb] rounded-xl flex items-center justify-center shrink-0">
-            <ScanLine className="w-6 h-6" />
-          </div>
-          <div>
-            <h1 className="text-3xl font-bold tracking-tight text-slate-900">{t('tools.qr-scanner.title')}</h1>
-            <p className="text-[#64748b] mt-1 text-sm md:text-base">
-              {t('tools.qr-scanner.subtitle')}
-            </p>
-          </div>
+      <div className="flex flex-col gap-4 border-b border-slate-200 pb-6 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h1 className="text-3xl font-semibold tracking-tight text-slate-950">{t('tools.qr-scanner.title')}</h1>
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">
+            {t('tools.qr-scanner.subtitle')}
+          </p>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         
         {/* Left Side: Upload Area */}
-        <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6 flex flex-col min-h-[400px]">
-           <h3 className="font-bold text-[#1e293b] mb-4 flex items-center gap-2">
-              <span className="w-2 h-5 bg-[#2563eb] rounded-sm block"></span>
+        <div className="flex flex-col space-y-3">
+           <h3 className="block text-sm font-semibold leading-6 text-slate-900">
               {t('tools.qr-scanner.inputTitle')}
            </h3>
 
+        <div className="flex h-[500px] flex-col rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
            {!previewImage ? (
                <div
                   onDragOver={onDragOver}
                   onDragLeave={onDragLeave}
                   onDrop={onDrop}
-                  className={`flex-1 border-2 border-dashed rounded-xl flex flex-col items-center justify-center p-8 transition-colors ${
-                      isDragging ? 'border-[#2563eb] bg-blue-50/50' : 'border-[#cbd5e1] hover:bg-[#f8fafc] hover:border-[#94a3b8]'
+                  className={`flex flex-1 flex-col items-center justify-center rounded-lg border-2 border-dashed p-8 transition-colors ${
+                      isDragging ? 'border-cyan-500 bg-cyan-50/50' : 'border-slate-300 hover:border-slate-400 hover:bg-slate-50'
                   }`}
                >
                   <input
@@ -151,49 +146,47 @@ export default function QrScanner() {
                           }
                       }}
                   />
-                  <div className="w-16 h-16 bg-white shadow-sm border border-slate-100 rounded-full flex items-center justify-center mb-4 text-[#94a3b8]">
-                      <UploadCloud className="w-8 h-8" />
-                  </div>
-                  <p className="text-[#1e293b] font-medium text-lg mb-2">{t('tools.qr-scanner.dropLabel')}</p>
-                  <p className="text-[#64748b] text-sm text-center mb-6">
+                  <UploadCloud className="mb-4 h-10 w-10 text-slate-400" />
+                  <p className="mb-2 text-lg font-semibold text-slate-900">{t('tools.qr-scanner.dropLabel')}</p>
+                  <p className="mb-6 text-center text-sm text-slate-500">
                       {t('tools.qr-scanner.dropDesc')}
                   </p>
                   <button
                       onClick={() => fileInputRef.current?.click()}
-                      className="px-6 py-2.5 bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-medium rounded-lg transition-colors shadow-sm"
+                      className="rounded-lg bg-cyan-600 px-6 py-2.5 font-medium text-white shadow-sm transition-colors hover:bg-cyan-700"
                   >
                       {t('tools.qr-scanner.selectBtn')}
                   </button>
                </div>
            ) : (
-               <div className="flex-1 flex flex-col items-center justify-center p-6 bg-[#f8fafc] border border-[#e2e8f0] rounded-xl relative">
+               <div className="relative flex flex-1 flex-col items-center justify-center rounded-lg border border-slate-200 bg-slate-50 p-6">
                   <button 
                      onClick={resetAll}
-                     className="absolute top-4 right-4 p-2 bg-white rounded-lg shadow-sm border border-slate-200 text-slate-500 hover:text-blue-600 transition-colors"
+                     className="absolute right-4 top-4 rounded-md border border-slate-300 bg-white p-2 text-slate-500 shadow-sm transition-colors hover:text-cyan-700"
                      title={t('tools.qr-scanner.reuploadTooltip')}
                   >
                      <RefreshCcw className="w-5 h-5" />
                   </button>
                   <img src={previewImage} alt="Preview" className="max-w-full max-h-[250px] object-contain rounded-lg shadow-sm mb-4" />
-                  <p className="text-sm font-medium text-slate-500 flex items-center gap-2">
+                  <p className="flex items-center gap-2 text-sm font-medium text-slate-500">
                      <FileImage className="w-4 h-4" />
                      {t('tools.qr-scanner.loadedMsg')}
                   </p>
                </div>
            )}
         </div>
+        </div>
 
         {/* Right Side: Result Output */}
-        <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6 flex flex-col min-h-[400px]">
-           <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-4">
-               <h3 className="font-bold text-[#1e293b] flex items-center gap-2">
-                  <span className="w-2 h-5 bg-purple-500 rounded-sm block"></span>
+        <div className="flex flex-col space-y-3">
+           <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
+               <h3 className="block text-sm font-semibold leading-6 text-slate-900">
                   {t('tools.qr-scanner.resultTitle')}
                </h3>
                {result && (
                   <button
                    onClick={copyToClipboard}
-                   className="flex items-center justify-center gap-2 px-4 py-2 text-sm font-bold rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 transition-colors border border-blue-100"
+                   className="flex items-center justify-center gap-2 rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors hover:bg-slate-50"
                   >
                    {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                    {copied ? t('tools.qr-scanner.copiedBtn') : t('tools.qr-scanner.copyBtn')}
@@ -201,18 +194,18 @@ export default function QrScanner() {
                )}
            </div>
 
-           <div className="flex-1 bg-[#f8fafc] border border-[#e2e8f0] rounded-xl p-4 md:p-6 overflow-auto">
+           <div className="h-[500px] overflow-auto rounded-lg border border-slate-200 bg-slate-50 p-4 shadow-sm md:p-6">
               {error ? (
                   <div className="flex flex-col items-center justify-center h-full text-center text-red-500">
                      <AlertCircle className="w-12 h-12 mb-3 opacity-50" />
                      <p className="font-medium max-w-[250px]">{error}</p>
                   </div>
               ) : result ? (
-                  <div className="text-[#0f172a] whitespace-pre-wrap break-all sm:text-lg font-mono">
+                  <div className="whitespace-pre-wrap break-all font-mono text-slate-950 sm:text-lg">
                      {result}
                   </div>
               ) : (
-                  <div className="flex flex-col items-center justify-center h-full text-center text-[#94a3b8]">
+                  <div className="flex h-full flex-col items-center justify-center text-center text-slate-400">
                      <ScanLine className="w-12 h-12 mb-3 opacity-20" />
                      <p className="text-sm">{t('tools.qr-scanner.waitingMsg')}</p>
                   </div>

@@ -271,11 +271,95 @@ const DEV_TOOL_OVERVIEWS_ZH: Record<string, TechnicalOverview> = {
     },
   },
   'uuid-generator': {
-    summary: 'UUID 工具用于生成可复制的唯一标识符，适合测试数据、临时主键、示例配置和接口调试。',
-    input: '生成数量或版本选项。',
-    output: '可复制的 UUID 列表。',
-    processing: '在浏览器内生成随机标识符，适合测试数据、临时主键和示例配置。',
-    modes: ['单个生成', '批量生成', '复制列表', '格式校验'],
+    summary:
+      'UUID 在线生成器用于批量创建 RFC 4122 Version 4 随机 UUID / GUID。适合数据库临时主键、测试数据造数、接口 Mock、分布式任务标识、日志追踪 ID、配置样例和前端调试场景。工具支持控制生成数量、是否保留连字符以及是否输出大写格式，便于直接复制到 SQL、JSON、代码常量或测试脚本中使用。',
+    input:
+      '生成数量（1 到 1000）、连字符格式选项以及大小写选项。默认生成 1 个标准小写 UUID，并保留 RFC 4122 常见的 8-4-4-4-12 连字符分组格式。',
+    output:
+      '一个或多个可复制的 UUID 字符串。保留连字符时输出类似 550e8400-e29b-41d4-a716-446655440000 的标准格式；关闭连字符时输出连续 32 位十六进制字符；启用大写时字母统一转换为 A-F。',
+    processing:
+      '优先调用浏览器原生 crypto.randomUUID() 生成 Version 4 UUID；当运行环境不支持该 API 时，使用随机模板生成兼容格式。生成后根据用户选项执行去连字符和大小写转换。生成、复制和下载均在当前页面完成。',
+    modes: ['Version 4 UUID', '批量生成', '保留 / 移除连字符', '小写 / 大写输出', '一键复制全部', 'TXT 下载'],
+    example: {
+      title: 'UUID 批量生成输入到输出示例',
+      input: '生成数量: 3\n包含连字符: 是\n使用大写字母: 否',
+      output:
+        '550e8400-e29b-41d4-a716-446655440000\n6f9619ff-8b86-d011-b42d-00cf4fc964ff\n7d444840-9dc0-11d1-b245-5ffdce74fad2',
+      inputLanguage: 'text',
+      outputLanguage: 'text',
+    },
+  },
+  'qr-generator': {
+    summary:
+      '二维码生成器用于把链接、文本、联系方式、活动信息、Wi-Fi 文案或业务编号转换为可扫码识别的 QR Code 图像。适合制作官网入口、商品包装标签、线下海报、资料下载链接、移动端跳转入口和内部流程码。工具支持自定义前景色、背景色和纠错等级，并可将结果下载为 PNG 图片。',
+    input:
+      '需要编码进二维码的文本内容或 URL，以及前景色、背景色和纠错等级。内容可以是普通文本、HTTPS 链接、邮件地址、电话号码、短链接或其它扫码后需要展示的字符串。',
+    output:
+      '浏览器中即时渲染的二维码预览图，可下载为 PNG 文件。二维码内容会随输入实时更新，颜色和纠错等级会直接影响最终图像的可读性和容错能力。',
+    processing:
+      '通过 qrcode.react 在浏览器端根据输入内容生成 Canvas 二维码。下载时读取 Canvas 的 data URL 并触发本地 PNG 下载。整个生成和导出过程在当前浏览器页面内完成。',
+    modes: ['文本 / URL 编码', '前景色设置', '背景色设置', 'L/M/Q/H 纠错等级', '实时预览', 'PNG 下载'],
+    example: {
+      title: '链接输入到二维码输出示例',
+      input: '内容: https://toolorbit.site\n前景色: #000000\n背景色: #ffffff\n纠错等级: H',
+      output: '生成一个指向 https://toolorbit.site 的二维码 PNG，可用于网页、海报或文档。',
+      inputLanguage: 'text',
+      outputLanguage: 'text',
+    },
+  },
+  'qr-scanner': {
+    summary:
+      '二维码识别器用于从本地图片中读取 QR Code 内容，适合验证海报二维码、解析截图中的链接、检查包装标签、识别活动码、确认二维码是否指向正确页面，以及在发布前测试生成结果。工具支持拖拽上传或选择本地图片，并在识别成功后展示可复制的文本结果。',
+    input:
+      '包含二维码的本地图片文件，支持浏览器可读取的常见图片格式，如 PNG、JPG、JPEG、WebP 或截图文件。图片中应包含清晰可见的二维码区域。',
+    output:
+      '识别出的二维码原始文本内容，可能是 URL、普通文本、联系方式、业务编号或其它编码字符串。若图片无法读取或未检测到二维码，页面会显示明确错误提示。',
+    processing:
+      '读取用户选择的图片文件并绘制到临时 Canvas，再通过 jsQR 分析像素数据并解析二维码内容。识别结果仅在当前页面展示，用户可一键复制。',
+    modes: ['图片上传', '拖拽识别', '二维码内容解析', '识别错误提示', '结果复制', '重新上传'],
+    example: {
+      title: '二维码图片输入到文本输出示例',
+      input: '上传一张包含 ToolOrbit 首页二维码的 PNG 图片',
+      output: 'https://toolorbit.site',
+      inputLanguage: 'text',
+      outputLanguage: 'text',
+    },
+  },
+  'barcode-generator': {
+    summary:
+      '条形码生成器用于把商品编号、库存编码、订单号、资产编号或测试数据转换为可打印、可下载的条形码图像。适合电商商品标签、仓储入库、内部资产管理、样品编号、门店价签和系统联调场景。工具支持多种条码制式，并可调整线宽、高度、文字显示和颜色。',
+    input:
+      '需要编码的文本或数字、条码格式、线宽、高度、是否显示原始值、条码颜色和背景色。不同条码格式对输入字符有不同限制，例如 EAN-13 需要符合固定数字长度和校验规则。',
+    output:
+      '浏览器中渲染的 SVG 条形码预览，可下载为 PNG 图片。若输入内容不符合所选条码格式，工具会展示格式错误提示，避免导出不可扫描的结果。',
+    processing:
+      '通过 JsBarcode 在浏览器端根据输入内容和格式选项生成 SVG 条码。下载时将 SVG 序列化并绘制到 Canvas，再导出为 PNG 文件。',
+    modes: ['CODE128', 'CODE39', 'EAN13', 'EAN8', 'UPC', 'ITF14', 'MSI', 'pharmacode', '颜色设置', 'PNG 下载'],
+    example: {
+      title: '商品编号输入到条形码输出示例',
+      input: '内容: 123456789012\n格式: CODE128\n线宽: 2\n高度: 100\n显示文本: 是',
+      output: '生成一个可下载的 CODE128 条形码 PNG，条码下方显示 123456789012。',
+      inputLanguage: 'text',
+      outputLanguage: 'text',
+    },
+  },
+  'password-generator': {
+    summary:
+      '强密码生成器用于快速创建随机、高熵、难以猜测的账户密码。适合为网站后台、云服务账号、数据库测试账号、临时共享账号、API 管理面板和密码管理器生成新密码。工具允许设置长度、大小写字母、数字、符号以及是否排除相似字符，并即时展示强度状态。',
+    input:
+      '密码长度（4 到 64 位）以及字符集选项，包括大写字母、小写字母、数字、符号和排除相似字符。至少需要启用一种字符类型，否则工具会提示无法生成。',
+    output:
+      '一条可复制的随机密码字符串，并展示弱、中、强、非常强等强度提示。密码会随长度或字符集选项变化自动刷新，也可手动重新生成。',
+    processing:
+      '根据启用的字符类型拼接候选字符集，再按目标长度随机抽取字符生成密码。强度评分基于长度和字符类型覆盖情况计算，用于快速提示复杂度水平。',
+    modes: ['长度调节', '大写字母', '小写字母', '数字', '符号', '排除相似字符', '强度提示', '一键复制'],
+    example: {
+      title: '密码规则输入到输出示例',
+      input: '长度: 20\n包含大写: 是\n包含小写: 是\n包含数字: 是\n包含符号: 是\n排除相似字符: 是',
+      output: 'K9@vQm7#sT2!pL6xR4zA',
+      inputLanguage: 'text',
+      outputLanguage: 'text',
+    },
   },
   'unicode-converter': {
     summary:
@@ -303,6 +387,14 @@ const DEV_TOOL_OVERVIEWS_ZH: Record<string, TechnicalOverview> = {
     modes: ['BIN', 'OCT', 'DEC', 'HEX'],
   },
 };
+
+const TECHNICAL_OVERVIEW_TOOL_KEYS = new Set([
+  'uuid-generator',
+  'qr-generator',
+  'qr-scanner',
+  'barcode-generator',
+  'password-generator',
+]);
 
 function developerOverviewFor(toolKey: string, title: string, description: string, isZh: boolean): TechnicalOverview {
   const overviewKey = toolKey === 'xml-to-json' ? 'xml-json' : toolKey;
@@ -343,6 +435,7 @@ const ToolSEOCard: React.FC<ToolSEOCardProps> = ({ toolKey }) => {
   });
   const isAiTool = tool?.category === 'AI 工具';
   const isDeveloperTool = tool?.category === '开发者工具';
+  const usesTechnicalOverview = isDeveloperTool || TECHNICAL_OVERVIEW_TOOL_KEYS.has(toolKey);
   const isZh = i18n.language?.startsWith('zh');
 
   // Check if at least the title exists to avoid rendering empty cards
@@ -522,7 +615,7 @@ const ToolSEOCard: React.FC<ToolSEOCardProps> = ({ toolKey }) => {
 
       {isOpen ? (
         <div className="px-5 pb-6 pt-6 sm:px-7">
-          {isDeveloperTool ? developerContent : content}
+          {usesTechnicalOverview ? developerContent : content}
         </div>
       ) : (
         <div className="px-5 pb-6 pt-5 sm:px-7">

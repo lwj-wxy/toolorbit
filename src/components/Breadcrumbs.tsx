@@ -4,6 +4,7 @@ import React from 'react';
 import { Link, useCurrentLocation } from '../lib/navigation';
 import { ChevronRight, Home } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { TOOLS_META } from '../data/tools-meta';
 import { CATEGORY_BY_SLUG, getCategoryPath } from '../lib/category-paths';
 import { getToolSectionCategory } from '../lib/tool-section-paths';
 
@@ -51,7 +52,8 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items }) => {
     const parts = normalizedPathname.split('/').filter(Boolean);
 
     if (parts[0] === 'tools' && parts[1] && parts[2]) {
-      const category = getToolSectionCategory(parts[1]);
+      const currentTool = TOOLS_META.find((tool) => tool.path === normalizedPathname);
+      const category = currentTool?.category || getToolSectionCategory(parts[1]);
       const toolId = TOOL_ID_BY_SLUG[parts[2]] || parts[2];
       const toolName = t(`tools.${toolId}.name`, { defaultValue: titleFromSlug(parts[2]) });
 
