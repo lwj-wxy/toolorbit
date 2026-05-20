@@ -253,11 +253,22 @@ const DEV_TOOL_OVERVIEWS_ZH: Record<string, TechnicalOverview> = {
     },
   },
   'url-encoder': {
-    summary: 'URL 编解码工具用于处理 URL 参数中的中文、空格、符号和保留字符，方便调试链接和查询字符串。',
-    input: 'URL、查询参数或需要放入 URL 的文本片段。',
-    output: '编码后的 URL 安全文本，或解码后的可读文本。',
-    processing: '基于 encodeURIComponent/decodeURIComponent 处理保留字符、空格、中文和特殊符号。',
-    modes: ['URL 编码', 'URL 解码', '复制输出', '本地处理'],
+    summary:
+      'URL 编解码工具用于在原始文本和百分号编码（Percent-Encoding）之间双向转换，基于浏览器原生 encodeURIComponent / decodeURIComponent 实现。适合拼接含中文或特殊字符的 API 请求 URL（如搜索关键词参数）、解码浏览器地址栏中复制的 %E4%B8%AD%E6%96%87 编码串、处理 OAuth 回调地址中的 redirect_uri 编码、修复因未转义 & = # 等保留字符导致的 URL 解析错误，以及为前端 fetch/axios 请求手动构造安全的 query string。',
+    input:
+      '编码模式下输入包含中文、空格或特殊符号（如 & = ? # %）的原始文本；解码模式下输入带有 %XX 百分号编码的 URL 片段。工具实时识别输入内容并根据当前模式进行转换，支持在编码和解码方向间随时切换。',
+    output:
+      '编码模式下输出符合 RFC 3986 标准的百分号编码字符串，所有非 ASCII 字符和 URL 保留字符均被转义为 %XX 格式（如空格→%20、中文→%E4%B8%AD 等 UTF-8 字节序列）；解码模式下将百分号编码还原为原始可读文本。若输入包含非法百分号序列导致解码失败，工具会输出明确错误提示。',
+    processing:
+      '编码方向通过浏览器原生 encodeURIComponent 处理，该函数会将除 A-Z a-z 0-9 - _ . ! ~ * \' ( ) 外的所有字符转义为 UTF-8 字节对应的百分号序列。解码方向通过 decodeURIComponent 将 %XX 序列还原为对应字节并合成原始 UTF-8 字符。双向处理均在本地浏览器同步完成。',
+    modes: ['URL 编码（文本→%XX）', 'URL 解码（%XX→文本）', '中文 / 特殊字符转义', '保留字符处理', '方向一键切换', '复制编解码结果'],
+    example: {
+      title: 'URL 编码输入到输出示例',
+      input: 'https://toolorbit.site/search?q=你好&category=开发工具',
+      output: 'https%3A%2F%2Ftoolorbit.site%2Fsearch%3Fq%3D%E4%BD%A0%E5%A5%BD%26category%3D%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7',
+      inputLanguage: 'text',
+      outputLanguage: 'text',
+    },
   },
   'uuid-generator': {
     summary: 'UUID 工具用于生成可复制的唯一标识符，适合测试数据、临时主键、示例配置和接口调试。',

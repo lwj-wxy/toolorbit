@@ -1,17 +1,16 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ArrowDownUp, Check, Copy, ShieldCheck } from 'lucide-react';
+import { ArrowDownUp, Check, Copy } from 'lucide-react';
 import ToolSEOCard from '../../../components/ToolSEOCard';
 import { cn } from '../../../lib/utils';
 
 export default function Base64() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
   const [mode, setMode] = useState<'encode' | 'decode'>('encode');
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
-  const isZh = i18n.language?.startsWith('zh');
 
   const processText = (text: string, currentMode: 'encode' | 'decode') => {
     setInput(text);
@@ -69,10 +68,6 @@ export default function Base64() {
           <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-400">
             {t('tools.base64.subtitle')}
           </p>
-        </div>
-        <div className="inline-flex items-center gap-2 rounded-md border border-emerald-200 bg-emerald-50 px-3 py-2 text-[12px] font-semibold text-emerald-700 dark:border-emerald-900/60 dark:bg-emerald-950/30 dark:text-emerald-200">
-          <ShieldCheck className="h-4 w-4" aria-hidden="true" />
-          {isZh ? '浏览器本地实时编解码' : 'Real-time local encode/decode'}
         </div>
       </div>
 

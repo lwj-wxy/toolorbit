@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FileCode2, Trash2, Copy, Check, ArrowRightLeft } from 'lucide-react';
+import { Copy, Check, ArrowRightLeft } from 'lucide-react';
 import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function UnicodeConverter() {
@@ -45,11 +45,6 @@ export default function UnicodeConverter() {
     setUnicodeText(val);
   };
 
-  const clearAll = () => {
-    setNativeText('');
-    setUnicodeText('');
-  };
-
   const copyText = (text: string, type: 'native' | 'unicode') => {
     if (!text) return;
     navigator.clipboard.writeText(text).then(() => {
@@ -64,28 +59,17 @@ export default function UnicodeConverter() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto space-y-6">
+    <div className="space-y-6">
       
       {/* Header */}
       <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="flex items-center gap-4">
-          <div className="w-12 h-12 bg-blue-50 text-[#2563eb] rounded-xl flex items-center justify-center shrink-0">
-            <FileCode2 className="w-6 h-6" />
-          </div>
           <div>
             <h1 className="text-3xl font-bold tracking-tight text-slate-900">{t('tools.unicode-converter.title')}</h1>
             <p className="text-[#64748b] mt-1 text-sm md:text-base">
               {t('tools.unicode-converter.subtitle')}
             </p>
           </div>
-        </div>
-        <div>
-            <button 
-              onClick={clearAll}
-              className="px-4 py-2 text-sm font-bold text-red-500 hover:bg-red-50 rounded-lg flex items-center gap-2 transition-colors border border-transparent hover:border-red-100"
-            >
-              <Trash2 className="w-4 h-4" /> {t('tools.unicode-converter.clearBtn')}
-            </button>
         </div>
       </div>
 

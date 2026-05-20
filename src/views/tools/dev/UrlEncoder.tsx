@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Copy, Check, ArrowDownUp } from 'lucide-react';
+import { Copy, Check } from 'lucide-react';
 import ToolSEOCard from '../../../components/ToolSEOCard';
+import { cn } from '../../../lib/utils';
 
 export default function UrlEncoder() {
   const { t } = useTranslation();
@@ -9,6 +10,8 @@ export default function UrlEncoder() {
   const [output, setOutput] = useState('');
   const [mode, setMode] = useState<'encode' | 'decode'>('encode');
   const [copied, setCopied] = useState(false);
+  const errorMessage = t('tools.url-encoder.errorMsg');
+  const hasError = output === errorMessage;
 
   const processText = (text: string, currentMode: 'encode' | 'decode') => {
     setInput(text);
@@ -24,25 +27,19 @@ export default function UrlEncoder() {
         setOutput(decodeURIComponent(text));
       }
     } catch (e) {
-      setOutput(t('tools.url-encoder.errorMsg'));
+      setOutput(errorMessage);
     }
   };
 
-  const toggleMode = () => {
-    const newMode = mode === 'encode' ? 'decode' : 'encode';
-    setMode(newMode);
-    processText(input, newMode);
-  };
-
   const copyToClipboard = () => {
-    if (!output || output === t('tools.url-encoder.errorMsg')) return;
+    if (!output || hasError) return;
     navigator.clipboard.writeText(output);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
+    <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold tracking-tight text-slate-900">
@@ -54,67 +51,79 @@ export default function UrlEncoder() {
         </div>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-        <div className="px-4 py-3 border-b border-gray-200 bg-gray-50 flex items-center justify-between">
-          <div className="flex bg-gray-200 rounded-lg p-1">
-            <button
-              onClick={() => { setMode('encode'); processText(input, 'encode'); }}
-              className={`px-4 py-1.5 text-sm font-medium rounded-md transition-colors ${
-                mode === 'encode' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-900'
-              }`}
-            >
-              {t('tools.url-encoder.encodeBtn')}
-            </button>
-            <button
-              onClick={() => { setMode('decode'); processText(input, 'decode'); }}
-              className={`px-4 py-1.5 text-sm font-medium rounded-md transition-colors ${
-                mode === 'decode' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-900'
-              }`}
-            >
-              {t('tools.url-encoder.decodeBtn')}
-            </button>
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <div className="flex flex-col space-y-3">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <label className="block text-sm font-semibold leading-6 text-slate-900">
+              {t('tools.url-encoder.inputLabel')}
+            </label>
+            <div className="flex flex-wrap items-center gap-2">
+              <div className="flex rounded-lg bg-slate-100 p-1">
+                <button
+                  type="button"
+                  onClick={() => { setMode('encode'); processText(input, 'encode'); }}
+                  className={cn(
+                    'rounded-md px-3 py-1.5 text-xs font-semibold transition-colors duration-200',
+                    mode === 'encode' ? 'bg-white text-cyan-700 shadow-sm' : 'text-slate-500 hover:text-slate-900',
+                  )}
+                >
+                  {t('tools.url-encoder.encodeBtn')}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => { setMode('decode'); processText(input, 'decode'); }}
+                  className={cn(
+                    'rounded-md px-3 py-1.5 text-xs font-semibold transition-colors duration-200',
+                    mode === 'decode' ? 'bg-white text-cyan-700 shadow-sm' : 'text-slate-500 hover:text-slate-900',
+                  )}
+                >
+                  {t('tools.url-encoder.decodeBtn')}
+                </button>
+              </div>
+            </div>
           </div>
-          
-          <button 
-            onClick={toggleMode}
-            className="flex items-center gap-2 px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-200 rounded-md transition-colors font-medium"
-          >
-            <ArrowDownUp size={16} /> {t('tools.url-encoder.swapBtn')}
-          </button>
-        </div>
-
-        <div className="p-6 space-y-6">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">{t('tools.url-encoder.inputLabel')}</label>
+          <div className="relative flex-1">
             <textarea
               value={input}
               spellCheck={false}
-              onChange={(e) => processText(e.target.value, mode)}
-              className="block w-full rounded-lg border-0 py-3 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm font-mono resize-none bg-white min-h-[150px] custom-scrollbar"
+              onChange={(event) => processText(event.target.value, mode)}
+              className="custom-scrollbar block h-[500px] w-full resize-none rounded-lg border border-slate-200 bg-white px-4 py-3 font-mono text-sm leading-6 text-slate-900 shadow-sm outline-none placeholder:text-slate-400 focus:border-cyan-500"
               placeholder={mode === 'encode' ? t('tools.url-encoder.placeholderEncode') : t('tools.url-encoder.placeholderDecode')}
             />
           </div>
+        </div>
 
-          <div>
-            <div className="flex items-center justify-between mb-2">
-              <label className="block text-sm font-medium text-gray-700">{t('tools.url-encoder.outputLabel')}</label>
-              <button 
-                onClick={copyToClipboard}
-                disabled={!output || output === t('tools.url-encoder.errorMsg')}
-                className="inline-flex items-center gap-1 text-xs bg-white text-gray-700 border border-gray-300 px-3 py-1.5 rounded-md font-medium hover:bg-gray-50 transition-colors disabled:opacity-50"
-              >
-                {copied ? <Check size={14} className="text-green-500"/> : <Copy size={14} />}
-                {copied ? t('tools.url-encoder.copiedBtn') : t('tools.url-encoder.copyBtn')}
-              </button>
-            </div>
-            
+        <div className="flex flex-col space-y-3">
+          <div className="flex items-center justify-between">
+            <label className="block text-sm font-semibold leading-6 text-slate-900">
+              {t('tools.url-encoder.outputLabel')}
+            </label>
+            <button
+              type="button"
+              onClick={copyToClipboard}
+              disabled={!output || hasError}
+              className="inline-flex items-center gap-1 rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors duration-200 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              {copied ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
+              {copied ? t('tools.url-encoder.copiedBtn') : t('tools.url-encoder.copyBtn')}
+            </button>
+          </div>
+          <div className="relative flex-1">
             <textarea
               readOnly
               spellCheck={false}
-              value={output}
-              className={`block w-full rounded-lg border-0 py-3 px-4 text-gray-900 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm font-mono resize-none bg-gray-50 min-h-[150px] ring-gray-300 custom-scrollbar`}
+              value={hasError ? '' : output}
+              className={cn(
+                'custom-scrollbar block h-[500px] w-full resize-none rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 font-mono text-sm leading-6 text-slate-900 shadow-sm outline-none',
+                hasError && 'border-red-300 bg-red-50 text-red-900',
+              )}
               placeholder={t('tools.url-encoder.placeholderEncode')}
             />
+            {hasError && (
+              <div className="absolute inset-x-0 bottom-0 rounded-b-lg border-t border-red-200 bg-red-50 p-4 text-sm font-medium text-red-700">
+                {errorMessage}
+              </div>
+            )}
           </div>
         </div>
       </div>

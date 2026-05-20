@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Search, Check, Hash } from 'lucide-react';
+import { Search, Check } from 'lucide-react';
 import ToolSEOCard from '../../../components/ToolSEOCard';
 
 const CONTROL_CHARS: Record<number, string> = {
@@ -74,12 +74,9 @@ export default function AsciiTable() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto space-y-6">
+    <div className="space-y-6">
       <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="flex items-center gap-4">
-          <div className="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center shrink-0">
-            <Hash className="w-6 h-6" />
-          </div>
           <div>
             <h1 className="text-3xl font-bold tracking-tight text-slate-900">{t('tools.ascii-table.title')}</h1>
             <p className="text-[#64748b] mt-1 text-sm md:text-base">

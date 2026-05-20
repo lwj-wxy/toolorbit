@@ -198,7 +198,7 @@ const RAW_TOOLS_META = [
     id: 'url-encoder',
     name: 'URL 编解码',
     description: '安全地编码网页链接，或将其解码为可读的标准格式。',
-    category: '站长工具',
+    category: '开发者工具',
     path: '/tools/dev/url-encoder',
     color: 'blue',
   },
