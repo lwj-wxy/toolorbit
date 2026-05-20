@@ -214,12 +214,43 @@ const DEV_TOOL_OVERVIEWS_ZH: Record<string, TechnicalOverview> = {
       outputLanguage: 'text',
     },
   },
+  'ascii-table': {
+    summary:
+      'ASCII 编码表工具提供完整的 128 字符 ASCII 标准参考表，覆盖控制字符（0–31, 127）、数字（48–57）、大写字母（65–90）、小写字母（97–122）和符号字符。适合开发者快速查询字符的十进制、十六进制、八进制、二进制编码值及 HTML 实体表示（如 &#64;），在调试协议数据、解析二进制流、编写 HTML 转义字符和教学演示编码原理时作为速查手册。支持按字符、编码值或类型名称搜索过滤。',
+    input:
+      '无需输入编码数据。工具加载时自动展示完整 128 字符的 ASCII 对照表。可通过搜索框输入字符名（如 "LF"）、十进制编码（如 "65"）、十六进制编码（如 "41"）、字符本身（如 "A"）或类型名（如 "Letter"）快速过滤定位目标字符。',
+    output:
+      '以交互式表格展示每个字符的 Dec（十进制）、Hex（十六进制 0x 前缀）、Oct（八进制 3 位补齐）、Bin（二进制 8 位补齐）、HTML 实体编号（&#dec; 格式）、可点击复制的字符显示（控制字符显示缩写名，可打印字符大字显示），以及描述和类型分类（Control / Number / Letter / Symbol）。每行字符均可独立点击复制。',
+    processing:
+      '在浏览器端通过循环 0–127 生成完整 ASCII 字符表。控制字符（0–31 和 127）映射为 NUL/SOH/LF/CR/DEL 等标准缩写名；可打印字符通过 String.fromCharCode 还原显示。十进制/十六进制/八进制/二进制通过 toString 基数转换生成，HTML 实体按 &#dec; 模板拼接。搜索过滤在内存中对已生成数据集进行多字段匹配。',
+    modes: ['128 字符完整对照', 'Dec / Hex / Oct / Bin 多进制', 'HTML 实体编号', '控制字符缩写', '搜索过滤', '逐行点击复制'],
+    example: {
+      title: 'ASCII 表关键字符示例 (部分)',
+      input:
+        '无需输入 — 工具加载时自动展示完整 ASCII 表（128 行），可通过搜索框过滤。\n\n常用搜索词示例：\n- "65" 或 "A" → 大写字母 A\n- "LF" → 换行符 (Line Feed)\n- "DEL" → 删除符 (Delete)',
+      output:
+        'Dec  Hex    Oct   Bin         HTML    Char  Type\n65   0x41   101   01000001    &#65;   A     Letter\n10   0x0A   012   00001010    &#10;   LF    Control\n127  0x7F   177   01111111    &#127;  DEL   Control',
+      inputLanguage: 'text',
+      outputLanguage: 'text',
+    },
+  },
   base64: {
-    summary: 'Base64 工具用于在普通文本和 Base64 字符串之间转换，适合检查接口字段、数据片段和轻量编码内容。',
-    input: '普通文本或 Base64 编码字符串。',
-    output: '编码后的 Base64 文本，或解码后的原始文本。',
-    processing: '使用浏览器端编码/解码能力处理字符串，不上传输入内容。',
-    modes: ['文本转 Base64', 'Base64 转文本', '复制输出', '本地处理'],
+    summary:
+      'Base64 编解码工具用于在普通文本和 Base64 编码字符串之间双向转换。适合处理 HTTP Basic Auth 认证头中的凭证编码、Data URL（如 data:image/png;base64,...）中的数据段提取、JSON Web Token 各段的 Base64URL 解码、邮件 MIME 附件编码，以及在 URL 参数和配置文件中传递二进制或非 ASCII 数据的编码场景。工具通过浏览器原生 TextEncoder/TextDecoder 正确处理中文、emoji 等多字节 UTF-8 字符。',
+    input:
+      '编码模式下输入任意文本（支持中文、emoji、特殊符号等多字节 UTF-8 字符）；解码模式下输入标准 Base64 编码字符串。工具实时识别输入内容并在编码/解码两种方向间自由切换。',
+    output:
+      '编码模式下输出符合 RFC 4648 标准的 Base64 字符串；解码模式下输出还原后的原始 UTF-8 文本。当输入不是合法 Base64 格式时，工具会输出明确错误提示而非静默失败。编码结果可直接复制用于配置文件、API 请求头或 Data URL 拼接。',
+    processing:
+      '编码方向：通过浏览器原生 TextEncoder 将 UTF-8 字符串编码为字节数组，再通过 btoa 将字节转为 Base64 字符串。解码方向：通过 atob 将 Base64 字符串解码为字节，再通过 TextDecoder 还原为 UTF-8 文本。双向处理均在本地浏览器同步完成，输入内容不会上传至任何服务器。',
+    modes: ['文本 → Base64 编码', 'Base64 → 文本解码', 'UTF-8 多字节支持', '一键切换方向', '复制编解码结果'],
+    example: {
+      title: '文本编码为 Base64 输入到输出示例',
+      input: 'Hello 世界 ToolOrbit 🚀',
+      output: 'SGVsbG8g5LiW55WMIFRvb2xPcmJpdCDwn5qA',
+      inputLanguage: 'text',
+      outputLanguage: 'text',
+    },
   },
   'url-encoder': {
     summary: 'URL 编解码工具用于处理 URL 参数中的中文、空格、符号和保留字符，方便调试链接和查询字符串。',
@@ -236,11 +267,22 @@ const DEV_TOOL_OVERVIEWS_ZH: Record<string, TechnicalOverview> = {
     modes: ['单个生成', '批量生成', '复制列表', '格式校验'],
   },
   'unicode-converter': {
-    summary: 'Unicode 转换工具用于在普通文本和 Unicode 转义表示之间转换，帮助排查字符编码和转义问题。',
-    input: '普通文本、Unicode 转义或字符编码片段。',
-    output: '转换后的可读文本或 Unicode 表示。',
-    processing: '对字符码点和转义序列进行本地转换，方便排查编码问题。',
-    modes: ['文本转 Unicode', 'Unicode 转文本', '字符检查', '复制输出'],
+    summary:
+      'Unicode 转换工具用于在普通可读文本和 \\uXXXX 格式的 Unicode 转义序列之间双向转换。适合处理 JavaScript/JSON 字符串中的 Unicode 转义字面量（如 "\\u4e2d\\u6587"）、排查国际化文件（.properties / .po）中的编码问题、为编程语言字符串生成安全的 ASCII 表示、检查 emoji 表情符号对应的码点值，以及理解多字节字符在 UTF-16 下的码点表示。工具逐字符处理，每个字符转换为 4 位补齐的小写十六进制 \\u 序列。',
+    input:
+      '编码方向输入普通可读文本（中文、日文、韩文、emoji 等任意 Unicode 字符）；解码方向输入 \\uXXXX 格式的转义序列（支持连续的多个转义，如 \\u4e2d\\u6587）。支持在两侧输入框中自由编辑，并通过方向按钮触发转换。',
+    output:
+      '编码方向输出每个字符对应的 \\uXXXX 转义序列（小写十六进制，4 位补齐），连续排列无分隔符；解码方向将 \\uXXXX 转义序列还原为对应的可读字符并拼接为完整原始文本。若解码时遇到非法转义格式，弹出明确错误提示。两侧输出均支持独立一键复制。',
+    processing:
+      '编码方向：将输入文本逐字符遍历，对每个字符通过 charCodeAt(0) 获取 UTF-16 码元值，再通过 toString(16) 转为十六进制并以 4 位补齐生成 \\uXXXX 格式。解码方向：通过正则 /\\u([0-9a-fA-F]{4})/g 匹配所有转义序列，对每组通过 String.fromCharCode(parseInt(grp, 16)) 还原字符。所有转换在浏览器端同步完成。',
+    modes: ['文本 → Unicode 转义', 'Unicode 转义 → 文本', '逐字符码点映射', 'Emoji / 多字节支持', '两侧独立复制'],
+    example: {
+      title: '文本转 Unicode 转义输入到输出示例',
+      input: '你好 ToolOrbit 🌍',
+      output: '\\u4f60\\u597d\\u0020\\u0054\\u006f\\u006f\\u006c\\u004f\\u0072\\u0062\\u0069\\u0074\\u0020\\ud83c\\udF0d',
+      inputLanguage: 'text',
+      outputLanguage: 'text',
+    },
   },
   'base-converter': {
     summary: '进制转换工具用于在二进制、八进制、十进制和十六进制之间转换数值表示。',

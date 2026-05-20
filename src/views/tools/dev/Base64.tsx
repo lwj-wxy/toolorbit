@@ -76,85 +76,88 @@ export default function Base64() {
         </div>
       </div>
 
-      <div className="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-[#282c34]">
-        {/* Toolbar */}
-        <div className="flex flex-col gap-3 border-b border-slate-200 bg-slate-50 px-4 py-3 dark:border-slate-800 dark:bg-slate-900 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex w-fit rounded-lg bg-slate-200 p-1 dark:bg-slate-800">
-            <button
-              onClick={() => { setMode('encode'); processText(input, 'encode'); }}
-              className={cn(
-                'rounded-md px-4 py-1.5 text-sm font-semibold transition-colors duration-200',
-                mode === 'encode' ? 'bg-white text-cyan-700 shadow-sm dark:bg-slate-950 dark:text-cyan-300' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white',
-              )}
-            >
-              {t('tools.base64.encodeBtn')}
-            </button>
-            <button
-              onClick={() => { setMode('decode'); processText(input, 'decode'); }}
-              className={cn(
-                'rounded-md px-4 py-1.5 text-sm font-semibold transition-colors duration-200',
-                mode === 'decode' ? 'bg-white text-cyan-700 shadow-sm dark:bg-slate-950 dark:text-cyan-300' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white',
-              )}
-            >
-              {t('tools.base64.decodeBtn')}
-            </button>
-          </div>
-          
-          <button 
-            onClick={toggleMode}
-            className="flex w-fit items-center gap-2 rounded-md px-3 py-1.5 text-sm font-semibold text-slate-600 transition-colors duration-200 hover:bg-slate-200 dark:text-slate-300 dark:hover:bg-slate-800"
-            title="Swap input mode"
-          >
-            <ArrowDownUp size={16} /> {t('tools.base64.swapBtn')}
-          </button>
-        </div>
-
-        <div className="grid gap-6 p-4 lg:grid-cols-2 lg:p-6">
-          <div className="flex flex-col gap-2">
-            <label className="block text-sm font-semibold text-slate-900 dark:text-slate-100">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <div className="flex flex-col space-y-3">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <label className="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
               {mode === 'encode' ? t('tools.base64.textInput') : t('tools.base64.base64Input')}
             </label>
+            <div className="flex flex-wrap items-center gap-2">
+              <div className="flex rounded-lg bg-slate-100 p-1 dark:bg-slate-800">
+                <button
+                  type="button"
+                  onClick={() => { setMode('encode'); processText(input, 'encode'); }}
+                  className={cn(
+                    'rounded-md px-3 py-1.5 text-xs font-semibold transition-colors duration-200',
+                    mode === 'encode' ? 'bg-white text-cyan-700 shadow-sm dark:bg-slate-950 dark:text-cyan-300' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white',
+                  )}
+                >
+                  {t('tools.base64.encodeBtn')}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => { setMode('decode'); processText(input, 'decode'); }}
+                  className={cn(
+                    'rounded-md px-3 py-1.5 text-xs font-semibold transition-colors duration-200',
+                    mode === 'decode' ? 'bg-white text-cyan-700 shadow-sm dark:bg-slate-950 dark:text-cyan-300' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white',
+                  )}
+                >
+                  {t('tools.base64.decodeBtn')}
+                </button>
+              </div>
+              <button
+                type="button"
+                onClick={toggleMode}
+                className="inline-flex items-center gap-1 rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors duration-200 hover:bg-slate-50 dark:border-slate-700 dark:bg-[#282c34] dark:text-slate-200 dark:hover:bg-slate-800"
+                title="Swap input mode"
+              >
+                <ArrowDownUp size={14} />
+                {t('tools.base64.swapBtn')}
+              </button>
+            </div>
+          </div>
+          <div className="relative flex-1">
             <textarea
               spellCheck={false}
               value={input}
-              onChange={(e) => processText(e.target.value, mode)}
-              className="custom-scrollbar block min-h-[360px] w-full resize-none break-all rounded-lg border border-slate-200 bg-white px-4 py-3 font-mono text-sm leading-6 text-slate-900 shadow-sm outline-none placeholder:text-slate-400 focus:border-cyan-500 dark:border-slate-700 dark:bg-[#282c34] dark:text-slate-100"
+              onChange={(event) => processText(event.target.value, mode)}
+              className="custom-scrollbar block h-[500px] w-full resize-none break-all rounded-lg border border-slate-200 bg-white px-4 py-3 font-mono text-sm leading-6 text-slate-900 shadow-sm outline-none placeholder:text-slate-400 focus:border-cyan-500 dark:border-slate-700 dark:bg-[#282c34] dark:text-slate-100"
               placeholder={mode === 'encode' ? t('tools.base64.inputTextPlaceholder') : t('tools.base64.inputBase64Placeholder')}
             />
           </div>
+        </div>
 
-          <div className="flex flex-col gap-2">
-            <div className="flex items-center justify-between">
-              <label className="block text-sm font-semibold text-slate-900 dark:text-slate-100">
-                {mode === 'encode' ? t('tools.base64.base64Output') : t('tools.base64.textOutput')}
-              </label>
-              <button 
-                onClick={copyToClipboard}
-                disabled={!output}
-                className="inline-flex items-center gap-1 rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors duration-200 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-700 dark:bg-[#282c34] dark:text-slate-200 dark:hover:bg-slate-800"
-              >
-                {copied ? <Check size={14} className="text-green-500"/> : <Copy size={14} />}
-                {copied ? t('tools.base64.copiedBtn') : t('tools.base64.copyBtn')}
-              </button>
-            </div>
-            
-            <div className="relative">
-              <textarea
-                spellCheck={false}
-                readOnly
-                value={error ? '' : output}
-                className={cn(
-                  'custom-scrollbar block min-h-[360px] w-full resize-none break-all rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 font-mono text-sm leading-6 text-slate-900 shadow-sm outline-none dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100',
-                  error && 'border-red-300 dark:border-red-900/70',
-                )}
-                placeholder={t('tools.base64.outputPlaceholder')}
-              />
-              {error && (
-                <div className="absolute inset-0 flex items-center justify-center rounded-lg border border-red-200 bg-red-50/90 p-4 dark:border-red-900/70 dark:bg-red-950/90">
-                  <p className="text-center font-medium text-red-600 dark:text-red-200">{error}</p>
-                </div>
+        <div className="flex flex-col space-y-3">
+          <div className="flex items-center justify-between">
+            <label className="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
+              {mode === 'encode' ? t('tools.base64.base64Output') : t('tools.base64.textOutput')}
+            </label>
+            <button
+              type="button"
+              onClick={copyToClipboard}
+              disabled={!output}
+              className="inline-flex items-center gap-1 rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors duration-200 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-700 dark:bg-[#282c34] dark:text-slate-200 dark:hover:bg-slate-800"
+            >
+              {copied ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
+              {copied ? t('tools.base64.copiedBtn') : t('tools.base64.copyBtn')}
+            </button>
+          </div>
+          <div className="relative flex-1">
+            <textarea
+              spellCheck={false}
+              readOnly
+              value={error ? '' : output}
+              className={cn(
+                'custom-scrollbar block h-[500px] w-full resize-none break-all rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 font-mono text-sm leading-6 text-slate-900 shadow-sm outline-none dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100',
+                error && 'border-red-300 bg-red-50 text-red-900 dark:border-red-900/70 dark:bg-red-950/20 dark:text-red-200',
               )}
-            </div>
+              placeholder={t('tools.base64.outputPlaceholder')}
+            />
+            {error && (
+              <div className="absolute inset-x-0 bottom-0 rounded-b-lg border-t border-red-200 bg-red-50 p-4 text-sm font-medium text-red-700 dark:border-red-900/70 dark:bg-red-950/90 dark:text-red-200">
+                {error}
+              </div>
+            )}
           </div>
         </div>
       </div>

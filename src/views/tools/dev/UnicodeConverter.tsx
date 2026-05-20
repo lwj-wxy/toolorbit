@@ -89,75 +89,79 @@ export default function UnicodeConverter() {
         </div>
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-4 items-stretch min-h-[500px]">
-        
-        {/* Left Side: Native Text */}
-        <div className="flex-1 bg-white rounded-2xl shadow-sm border border-slate-200/80 p-5 flex flex-col">
-            <div className="flex items-center justify-between mb-4">
-                <h3 className="font-bold text-[#1e293b] flex items-center gap-2">
-                    <span className="w-2 h-6 bg-[#2563eb] rounded-sm block"></span>
-                    {t('tools.unicode-converter.nativeHeader')}
-                </h3>
-                <button
-                  onClick={() => copyText(nativeText, 'native')}
-                  className="p-1.5 text-[#64748b] hover:text-[#2563eb] hover:bg-blue-50 rounded-md transition-colors"
-                  title={t('tools.unicode-converter.copyTitle')}
-                >
-                  {copiedNative ? <Check className="w-5 h-5 text-green-500" /> : <Copy className="w-5 h-5" />}
-                </button>
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <div className="flex flex-col space-y-3">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <label className="block text-sm font-semibold leading-6 text-slate-900">
+              {t('tools.unicode-converter.nativeHeader')}
+            </label>
+            <div className="flex flex-wrap items-center gap-2">
+              <button
+                type="button"
+                onClick={handleEncode}
+                className="inline-flex items-center gap-1 rounded-md border border-blue-600 bg-blue-600 px-3 py-1.5 text-xs font-semibold text-white transition-colors duration-200 hover:bg-blue-700"
+                title={t('tools.unicode-converter.encodeBtn')}
+              >
+                {t('tools.unicode-converter.encodeBtn')}
+                <ArrowRightLeft className="h-3.5 w-3.5" />
+              </button>
+              <button
+                type="button"
+                onClick={() => copyText(nativeText, 'native')}
+                disabled={!nativeText}
+                className="inline-flex items-center gap-1 rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors duration-200 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
+                title={t('tools.unicode-converter.copyTitle')}
+              >
+                {copiedNative ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
+                {copiedNative ? t('tools.unicode-converter.copiedBtn', { defaultValue: 'Copied' }) : t('tools.unicode-converter.copyTitle')}
+              </button>
             </div>
+          </div>
+          <div className="relative flex-1">
             <textarea
-                value={nativeText}
-                onChange={(e) => onNativeChange(e.target.value)}
-                placeholder={t('tools.unicode-converter.nativePlaceholder')}
-                className="flex-1 w-full bg-[#f8fafc] border border-[#cbd5e1] rounded-xl p-4 outline-none focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb] transition-all resize-none shadow-inner"
-            ></textarea>
+              value={nativeText}
+              onChange={(event) => onNativeChange(event.target.value)}
+              placeholder={t('tools.unicode-converter.nativePlaceholder')}
+              className="block h-[500px] w-full resize-none rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm leading-6 text-slate-900 shadow-sm outline-none placeholder:text-slate-400 focus:border-cyan-500"
+            />
+          </div>
         </div>
 
-        {/* Center: Action Buttons */}
-        <div className="flex lg:flex-col justify-center items-center gap-4 py-4 lg:py-0">
-            <button
-               onClick={handleEncode}
-               className="w-full lg:w-auto px-6 py-3 lg:px-4 lg:py-4 bg-[#2563eb] text-white hover:bg-[#1d4ed8] rounded-xl shadow-lg transition-transform hover:scale-105 group font-bold flex flex-row lg:flex-col items-center gap-2"
-               title={t('tools.unicode-converter.encodeBtn')}
-            >
-               <span className="text-sm">{t('tools.unicode-converter.encodeBtn')}</span>
-               <ArrowRightLeft className="w-5 h-5 hidden lg:block rotate-90 lg:rotate-0" />
-               <span className="lg:hidden">{t('tools.unicode-converter.encodeTo')}</span>
-            </button>
-            
-            <button
-               onClick={handleDecode}
-               className="w-full lg:w-auto px-6 py-3 lg:px-4 lg:py-4 bg-white text-[#2563eb] border-2 border-[#2563eb] hover:bg-blue-50 rounded-xl shadow-sm transition-transform hover:scale-105 group font-bold flex flex-row lg:flex-col items-center gap-2"
-               title={t('tools.unicode-converter.decodeBtn')}
-            >
-               <span className="lg:hidden">{t('tools.unicode-converter.decodeFrom')}</span>
-               <ArrowRightLeft className="w-5 h-5 hidden lg:block rotate-90 lg:rotate-180" />
-               <span className="text-sm">{t('tools.unicode-converter.decodeBtn')}</span>
-            </button>
-        </div>
-
-        {/* Right Side: Unicode Text */}
-        <div className="flex-1 bg-white rounded-2xl shadow-sm border border-slate-200/80 p-5 flex flex-col">
-            <div className="flex items-center justify-between mb-4">
-                <h3 className="font-bold text-[#1e293b] flex items-center gap-2">
-                    <span className="w-2 h-6 bg-purple-500 rounded-sm block"></span>
-                    {t('tools.unicode-converter.unicodeHeader')}
-                </h3>
-                <button
-                  onClick={() => copyText(unicodeText, 'unicode')}
-                  className="p-1.5 text-[#64748b] hover:text-[#2563eb] hover:bg-blue-50 rounded-md transition-colors"
-                  title={t('tools.unicode-converter.copyTitle')}
-                >
-                  {copiedUnicode ? <Check className="w-5 h-5 text-green-500" /> : <Copy className="w-5 h-5" />}
-                </button>
+        <div className="flex flex-col space-y-3">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <label className="block text-sm font-semibold leading-6 text-slate-900">
+              {t('tools.unicode-converter.unicodeHeader')}
+            </label>
+            <div className="flex flex-wrap items-center gap-2">
+              <button
+                type="button"
+                onClick={handleDecode}
+                className="inline-flex items-center gap-1 rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors duration-200 hover:bg-slate-50"
+                title={t('tools.unicode-converter.decodeBtn')}
+              >
+                <ArrowRightLeft className="h-3.5 w-3.5" />
+                {t('tools.unicode-converter.decodeBtn')}
+              </button>
+              <button
+                type="button"
+                onClick={() => copyText(unicodeText, 'unicode')}
+                disabled={!unicodeText}
+                className="inline-flex items-center gap-1 rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors duration-200 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
+                title={t('tools.unicode-converter.copyTitle')}
+              >
+                {copiedUnicode ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
+                {copiedUnicode ? t('tools.unicode-converter.copiedBtn', { defaultValue: 'Copied' }) : t('tools.unicode-converter.copyTitle')}
+              </button>
             </div>
+          </div>
+          <div className="relative flex-1">
             <textarea
-                value={unicodeText}
-                onChange={(e) => onUnicodeChange(e.target.value)}
-                placeholder={t('tools.unicode-converter.unicodePlaceholder')}
-                className="flex-1 w-full bg-[#f8fafc] border border-[#cbd5e1] rounded-xl p-4 outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all resize-none shadow-inner font-mono text-[#0f172a] text-[15px]"
-            ></textarea>
+              value={unicodeText}
+              onChange={(event) => onUnicodeChange(event.target.value)}
+              placeholder={t('tools.unicode-converter.unicodePlaceholder')}
+              className="block h-[500px] w-full resize-none rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 font-mono text-sm leading-6 text-slate-900 shadow-sm outline-none placeholder:text-slate-400 focus:border-cyan-500"
+            />
+          </div>
         </div>
       </div>
       <ToolSEOCard toolKey="unicode-converter" />
