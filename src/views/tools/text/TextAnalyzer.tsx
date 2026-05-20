@@ -1,25 +1,16 @@
 import { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { 
-  BarChart, 
-  Bar, 
-  XAxis, 
-  YAxis, 
-  Tooltip, 
-  ResponsiveContainer, 
-  Cell 
-} from 'recharts';
-import { 
   Clock, 
   Search, 
   BarChart3, 
   Zap, 
   Type,
-  TrendingUp,
-  Sparkles,
-  Loader2
+  TrendingUp
 } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion } from 'motion/react';
+import ToolSEOCard from '../../../components/ToolSEOCard';
+import type { TechnicalOverview } from '../../../types/tool-overview';
 
 // Common stop words for filtering
 const STOP_WORDS = new Set([
@@ -27,67 +18,47 @@ const STOP_WORDS = new Set([
   '的', '了', '和', '是', '就', '都', '而', '及', '与', '着', '或', '一个', '没有', '我们', '你们', '他们'
 ]);
 
+const CJK_PATTERN = /[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Hangul}]/u;
+const TOKEN_PATTERN = /[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Hangul}]|[\p{L}\p{N}]+(?:['’-][\p{L}\p{N}]+)*/gu;
+const CHARACTER_PATTERN = /[\p{L}\p{N}]/gu;
+
+const tokenizeText = (value: string) => value.match(TOKEN_PATTERN) ?? [];
+
+const TEXT_ANALYZER_OVERVIEW: TechnicalOverview = {
+  summary:
+    '文本分析器用于实时统计文本字数、字符数、句子数、段落数，并提取字符频率和核心热词分布。适合写作校对、SEO 内容初检、文案长度控制、社媒发布前检查、论文摘要整理和运营文本评估。',
+  input:
+    '任意纯文本内容，可包含中文、英文、数字、标点、换行和段落。工具会实时读取输入框内容并更新统计结果。',
+  output:
+    '总字数/词数、总字符数、不含空格字符数、句子数、段落数、预计阅读时长，以及字符/词频排行图。中文按字符计数，英文和数字按词或 token 计数。',
+  processing:
+    '通过浏览器端正则和 Unicode 脚本匹配进行本地统计。中文、日文、韩文按单字符 token 处理，英文和数字按连续词元处理；字符频率和热词分布按出现次数排序，不上传输入内容。',
+  modes: ['实时字数统计', '字符数统计', '句子 / 段落统计', '中文字符计数', '英文词频统计', '预计阅读时长', '频率排行图'],
+  example: {
+    title: '文本分析输入到输出示例',
+    input: '测试测试测试 water water text',
+    output: '总字数/词数: 9\n总字符数: 23\n高频项: 测 x 3, 试 x 3, water x 2',
+    inputLanguage: 'text',
+    outputLanguage: 'text',
+  },
+};
+
 export default function TextAnalyzer() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [text, setText] = useState('');
   const [activeTab, setActiveTab] = useState<'stats' | 'trends'>('stats');
-  const [aiAnalysis, setAiAnalysis] = useState('');
-  const [isAnalyzing, setIsAnalyzing] = useState(false);
-
-  const handleAIAnalysis = async () => {
-    if (!text.trim()) return;
-    setIsAnalyzing(true);
-    setAiAnalysis('');
-
-    try {
-      const response = await fetch('/api/listing-craft', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          productInfo: "Text Analysis Request", 
-          details: text,
-          keywords: "sentiment, tone, structure, insights",
-          tone: "analytical",
-          targetAudience: "Author",
-          language: i18n.language,
-          isDeepAnalysis: true // Flag for server to change prompt
-        })
-      });
-
-      if (!response.ok) throw new Error('Analysis failed');
-
-      const reader = response.body?.getReader();
-      const decoder = new TextDecoder();
-      if (!reader) return;
-
-      while (true) {
-        const { value, done } = await reader.read();
-        if (done) break;
-        const chunk = decoder.decode(value);
-        const lines = chunk.split('\n');
-        for (const line of lines) {
-          if (line.startsWith('data: ')) {
-            const data = JSON.parse(line.substring(6));
-            if (data.content) setAiAnalysis(prev => prev + data.content);
-            if (data === '[DONE]') break;
-          }
-        }
-      }
-    } catch {
-      setAiAnalysis('AI Analysis failed. Please try again.');
-    } finally {
-      setIsAnalyzing(false);
-    }
-  };
 
   const stats = useMemo(() => {
     const chars = text.length;
     const charsNoSpaces = text.replace(/\s/g, '').length;
-    const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+    const words = tokenizeText(text).length;
     const sentences = text.trim() ? text.split(/[.!?。！？]+/).filter(Boolean).length : 0;
     const paragraphs = text.trim() ? text.split(/\n\s*\n/).filter(Boolean).length : 0;
     // Estimate reading time (avg 200 words per minute for EN, 400 chars for mainland CN)
-    const readingTimeSec = Math.ceil((words / 200) * 60) || Math.ceil((chars / 400) * 60);
+    const hasCjkText = CJK_PATTERN.test(text);
+    const readingTimeSec = text.trim()
+      ? Math.max(1, Math.ceil(((hasCjkText ? charsNoSpaces / 400 : words / 200) * 60)))
+      : 0;
 
     return {
       standard: [
@@ -105,19 +76,20 @@ export default function TextAnalyzer() {
     if (!text.trim()) return { letters: [], topWords: [] };
     
     // Letter frequency
-    const letterCounts: Record<string, number> = {};
-    const lowerText = text.toLowerCase().replace(/[^a-z]/g, '');
-    for (const char of lowerText) {
-      letterCounts[char] = (letterCounts[char] || 0) + 1;
+    const characterCounts: Record<string, number> = {};
+    const textCharacters = text.match(CHARACTER_PATTERN) ?? [];
+    for (const char of textCharacters) {
+      const normalizedChar = char.toLocaleLowerCase();
+      characterCounts[normalizedChar] = (characterCounts[normalizedChar] || 0) + 1;
     }
-    const letters = Object.entries(letterCounts)
+    const letters = Object.entries(characterCounts)
       .sort((a, b) => b[1] - a[1])
       .slice(0, 8)
-      .map(([name, value]) => ({ name: name.toUpperCase(), value }));
+      .map(([name, value]) => ({ name: name.toLocaleUpperCase(), value }));
 
     // Word frequency (Enhanced for both CN and EN)
     const wordCounts: Record<string, number> = {};
-    const words = text.toLowerCase().split(/[\s,.;:!?()\[\]"']+/).filter(w => w.length > 1 && !STOP_WORDS.has(w));
+    const words = tokenizeText(text.toLocaleLowerCase()).filter(word => !STOP_WORDS.has(word));
     
     for (const word of words) {
       wordCounts[word] = (wordCounts[word] || 0) + 1;
@@ -132,6 +104,9 @@ export default function TextAnalyzer() {
   }, [text]);
 
   const COLORS = ['#6366f1', '#8b5cf6', '#a855f7', '#d946ef', '#ec4899', '#f43f5e', '#ef4444', '#f97316', '#f59e0b', '#eab308'];
+  const frequencyData = activeTab === 'stats' ? analysis.letters : analysis.topWords;
+  const maxFrequency = Math.max(...frequencyData.map((item) => item.value), 0);
+  const totalFrequency = frequencyData.reduce((total, item) => total + item.value, 0);
 
   return (
     <div className="space-y-6 pb-12">
@@ -211,7 +186,7 @@ export default function TextAnalyzer() {
             </div>
           </div>
 
-          <div className="h-[500px] overflow-y-auto rounded-lg border border-slate-200 bg-slate-50 p-4 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+          <div className="flex h-[500px] flex-col overflow-hidden rounded-lg border border-slate-200 bg-slate-50 p-4 shadow-sm dark:border-slate-700 dark:bg-slate-900">
           {/* Stats Summary Grid */}
           <div className="grid grid-cols-2 gap-3">
             {stats.standard.map((item, idx) => (
@@ -220,13 +195,13 @@ export default function TextAnalyzer() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: idx * 0.05 }}
-                className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-[#282c34]"
+                className="rounded-lg border border-slate-200 bg-white p-3 shadow-sm dark:border-slate-800 dark:bg-[#282c34]"
               >
-                <div className="flex items-center gap-2 text-slate-400 mb-2">
-                  {item.icon}
+                <div className="mb-1.5 flex items-center gap-2 text-slate-400">
+                  <span className="shrink-0">{item.icon}</span>
                   <span className="text-[10px] font-bold uppercase tracking-wider">{item.name}</span>
                 </div>
-                <div className="text-2xl font-black text-slate-800 dark:text-white tabular-nums tracking-tight">
+                <div className="text-xl font-black tabular-nums tracking-tight text-slate-800 dark:text-white">
                   {item.value.toLocaleString()}
                 </div>
               </motion.div>
@@ -234,108 +209,54 @@ export default function TextAnalyzer() {
           </div>
 
           {/* Charts Section */}
-          <div className="mt-4 flex h-[260px] flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-[#282c34]">
-            <div className="flex-1 p-4">
-              {text.trim() ? (
-                <div className="h-full w-full">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart
-                      data={activeTab === 'stats' ? analysis.letters : analysis.topWords}
-                      layout="vertical"
-                      margin={{ left: 10, right: 30, top: 0, bottom: 0 }}
-                    >
-                      <XAxis type="number" hide />
-                      <YAxis 
-                        dataKey="name" 
-                        type="category" 
-                        tick={{ fill: '#64748b', fontSize: 12, fontWeight: 600 }}
-                        width={80}
-                        axisLine={false}
-                        tickLine={false}
-                      />
-                      <Tooltip 
-                        contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
-                        cursor={{ fill: 'rgba(99, 102, 241, 0.05)' }}
-                      />
-                      <Bar 
-                        dataKey="value" 
-                        radius={[0, 4, 4, 0]}
-                        barSize={20}
-                      >
-                        {(activeTab === 'stats' ? analysis.letters : analysis.topWords).map((_, index) => (
-                          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} opacity={0.8} />
-                        ))}
-                      </Bar>
-                    </BarChart>
-                  </ResponsiveContainer>
+          <div className="mt-4 flex min-h-0 flex-1 flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-[#282c34]">
+            <div className="flex items-center justify-between border-b border-slate-100 px-4 py-3 dark:border-slate-800">
+              <span className="text-sm font-semibold text-slate-900 dark:text-slate-100">
+                {activeTab === 'stats' ? t('tools.text-analyzer.letterFreq') : t('tools.text-analyzer.topWords')}
+              </span>
+              <span className="font-mono text-xs text-slate-400">
+                {frequencyData.length ? `${frequencyData.length} / ${totalFrequency}` : '0'}
+              </span>
+            </div>
+            <div className="min-h-0 flex-1 overflow-y-auto p-4">
+              {text.trim() && frequencyData.length ? (
+                <div className="space-y-3">
+                  {frequencyData.map((item, index) => {
+                    const percent = maxFrequency > 0 ? Math.max((item.value / maxFrequency) * 100, 6) : 0;
+                    const share = totalFrequency > 0 ? Math.round((item.value / totalFrequency) * 100) : 0;
+                    const color = COLORS[index % COLORS.length];
+
+                    return (
+                      <div key={`${item.name}-${index}`} className="grid grid-cols-[32px_1fr_48px] items-center gap-2">
+                        <div className="truncate text-right text-sm font-semibold text-slate-600 dark:text-slate-300" title={item.name}>
+                          {item.name}
+                        </div>
+                        <div className="h-8 rounded-md bg-slate-100 p-1 dark:bg-slate-800">
+                          <div
+                            className="flex h-full items-center justify-end rounded px-2 text-[11px] font-bold text-white shadow-sm transition-all"
+                            style={{ width: `${percent}%`, backgroundColor: color }}
+                          >
+                            {item.value}
+                          </div>
+                        </div>
+                        <div className="text-right font-mono text-xs text-slate-400">{share}%</div>
+                      </div>
+                    );
+                  })}
                 </div>
               ) : (
-                <div className="h-full flex flex-col items-center justify-center text-center opacity-30 grayscale">
+                <div className="flex h-full flex-col items-center justify-center text-center text-slate-400">
                   <BarChart3 size={48} className="mb-4" />
                   <p className="text-sm font-medium">{t('tools.text-analyzer.noLetterFound')}</p>
                 </div>
               )}
             </div>
           </div>
-          
-          {/* AI Insights */}
-          <div className="relative mt-4 overflow-hidden rounded-lg bg-slate-950 p-5 text-white">
-             <div className="relative z-10">
-               <h3 className="text-lg font-bold mb-2 flex items-center gap-2">
-                 <Zap size={20} className="fill-white" />
-                 {t('tools.text-analyzer.sentimentTitle')}
-               </h3>
-               {aiAnalysis ? (
-                 <div className="mb-4 max-h-[220px] overflow-y-auto rounded-lg border border-white/10 bg-white/10 p-4 text-xs leading-relaxed">
-                   <div className="prose prose-invert prose-sm">
-                     {aiAnalysis}
-                   </div>
-                 </div>
-               ) : (
-                 <p className="text-indigo-100 text-sm mb-6 leading-relaxed">
-                   {t('tools.text-analyzer.sentimentTip')}
-                 </p>
-               )}
-               
-               <motion.button 
-                 whileHover={{ scale: 1.02 }}
-                 whileTap={{ scale: 0.98 }}
-                 onClick={handleAIAnalysis}
-                 disabled={!text.trim() || isAnalyzing}
-                 className="flex h-11 w-full items-center justify-center gap-2 overflow-hidden rounded-lg border border-white/10 bg-white/15 py-3 text-sm font-semibold backdrop-blur-md transition-colors hover:bg-white/25 disabled:cursor-not-allowed disabled:opacity-50"
-               >
-                 <AnimatePresence mode="wait">
-                   {isAnalyzing ? (
-                     <motion.div 
-                       key="analyzing"
-                       initial={{ opacity: 0, scale: 0.9 }}
-                       animate={{ opacity: 1, scale: 1 }}
-                       exit={{ opacity: 0, scale: 0.9 }}
-                       className="flex items-center gap-2"
-                     >
-                       <Loader2 size={16} className="animate-spin" />
-                       <span>{t('tools.listing-craft-ai.generating')}</span>
-                     </motion.div>
-                   ) : (
-                     <motion.div 
-                       key="ready"
-                       initial={{ opacity: 0, scale: 0.9 }}
-                       animate={{ opacity: 1, scale: 1 }}
-                       exit={{ opacity: 0, scale: 0.9 }}
-                       className="flex items-center gap-2"
-                     >
-                       <Sparkles size={16} className="fill-white" />
-                       <span>{t('tools.text-analyzer.analyzeBtn')}</span>
-                     </motion.div>
-                   ) }
-                 </AnimatePresence>
-               </motion.button>
-             </div>
-             <Sparkles className="absolute -right-4 -bottom-4 w-32 h-32 text-white/5 rotate-12 transition-transform duration-500 group-hover:scale-110" />
-          </div>
           </div>
         </div>
       </div>
+
+      <ToolSEOCard toolKey="text-analyzer" overview={TEXT_ANALYZER_OVERVIEW} />
     </div>
   );
 }

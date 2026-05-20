@@ -20,7 +20,4 @@ export const FALLBACK_TOOL_GUIDE_PATHS = new Set([
   '/tools/image/svg-to-png',
   '/tools/pdf/image-to-pdf',
   '/tools/pdf/pdf-merge',
-  '/tools/text/symbol-library',
-  '/tools/text/text-analyzer',
-  '/tools/text/text-cleaner',
 ]);

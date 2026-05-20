@@ -1,6 +1,27 @@
 import { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Check, Hash } from 'lucide-react';
+import ToolSEOCard from '../../../components/ToolSEOCard';
+import type { TechnicalOverview } from '../../../types/tool-overview';
+
+const SYMBOL_LIBRARY_OVERVIEW: TechnicalOverview = {
+  summary:
+    '特殊符号与 Emoji 大全用于快速查找并复制常用 Unicode 符号、箭头、数学符号、货币单位、版权标记、括号、星标和 Emoji。适合 UI 文案、社媒排版、Markdown 文档、产品描述、表格备注和代码注释中快速插入特殊字符。',
+  input:
+    '搜索关键词或分类筛选。可以按符号本身、分类名称或不输入搜索直接浏览完整分类。',
+  output:
+    '可点击复制的 Unicode 字符。复制后字符可直接粘贴到网页、文档、设计稿、聊天工具、表格或代码文本中。',
+  processing:
+    '工具在本地维护符号分类数组，根据搜索词和当前分类进行前端过滤。点击符号时调用 Clipboard API 写入剪贴板，并显示复制成功状态。',
+  modes: ['Emoji', '数学符号', '箭头符号', '版权 / 标记', '货币 / 单位', '星标装饰', '括号标点', '搜索过滤', '一键复制'],
+  example: {
+    title: '符号搜索输入到输出示例',
+    input: '搜索: arrow\n分类: 箭头符号',
+    output: '← ↑ → ↓ ↔ ↕ ↖ ↗ ↘ ↙',
+    inputLanguage: 'text',
+    outputLanguage: 'text',
+  },
+};
 
 export default function SymbolLibrary() {
   const { t } = useTranslation();
@@ -165,6 +186,8 @@ export default function SymbolLibrary() {
           </div>
         </div>
       </div>
+
+      <ToolSEOCard toolKey="symbol-library" overview={SYMBOL_LIBRARY_OVERVIEW} />
     </div>
   );
 }
