@@ -2,7 +2,6 @@
 
 import { useTranslation } from 'react-i18next';
 import { Link } from '../lib/navigation';
-import { BRAND_PRIVACY_SUMMARY } from '../data/brand';
 
 export default function LayoutFooter() {
   const { t } = useTranslation();
@@ -14,12 +13,9 @@ export default function LayoutFooter() {
         <Link to="/privacy" className="uppercase tracking-wide transition-colors hover:text-blue-600 dark:hover:text-blue-400">{t('common.nav_privacy')}</Link>
         <Link to="/terms" className="uppercase tracking-wide transition-colors hover:text-blue-600 dark:hover:text-blue-400">{t('common.nav_terms')}</Link>
       </div>
-      <div className="text-center">
-        <p>{t('common.footer_desc')}</p>
-        <p className="mt-2 max-w-2xl text-xs leading-5 text-slate-500 dark:text-slate-400">
-          {t('common.footer_trust', { defaultValue: BRAND_PRIVACY_SUMMARY })}
-        </p>
-        <p>{t('common.footerText')}</p>
+      <div className="flex flex-col items-center gap-2">
+        <p className="text-center text-sm leading-6 text-slate-600 dark:text-slate-400">{t('common.footer_desc')}</p>
+        <p className="text-slate-500 dark:text-slate-400">{t('common.footerText')}</p>
       </div>
     </footer>
   );

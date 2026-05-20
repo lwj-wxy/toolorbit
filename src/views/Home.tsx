@@ -181,9 +181,11 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
     return (
       <div className="flex flex-col gap-8">
         <header className="border-b border-slate-200 pb-7 dark:border-slate-800">
-          <p className="mb-3 text-[12px] font-semibold uppercase tracking-wide text-blue-700 dark:text-blue-300">
-            {categoryFilter ? t('common.navTools') : t('search.results', { query: searchQuery })}
-          </p>
+          {!categoryFilter ? (
+            <p className="mb-3 text-[12px] font-semibold uppercase tracking-wide text-blue-700 dark:text-blue-300">
+              {t('search.results', { query: searchQuery })}
+            </p>
+          ) : null}
           <h1 className="text-2xl font-semibold tracking-tight text-slate-950 dark:text-white">
             {categoryFilter ? t(`common.categories.${categoryFilter}`) : t('search.results', { query: searchQuery })}
           </h1>
@@ -191,13 +193,6 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
           {categoryGuide ? (
             <div className="mt-5 max-w-5xl text-sm leading-6 text-slate-600 dark:text-slate-400">
               <p>{categoryGuide.intro}</p>
-              <div className="mt-5 grid gap-3 sm:grid-cols-3">
-                {categoryGuide.workflows.map((workflow) => (
-                  <p key={workflow} className="border-l-2 border-blue-200 pl-3 text-[13px] leading-5 dark:border-blue-900">
-                    {workflow}
-                  </p>
-                ))}
-              </div>
             </div>
           ) : null}
         </header>
