@@ -49,7 +49,16 @@
       "WebFetch(domain:www.cnblogs.com)",
       "WebFetch(domain:juejin.cn)",
       "Bash(grep -oP '\\(#[0-9a-fA-F]{3,8}|--[a-zA-Z-]+|class=\"[^\"]*\"\\)')",
-      "WebFetch(domain:raw.githubusercontent.com)"
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(sed -i '13d' src/views/tools/text/TextAnalyzer.tsx)",
+      "Bash(sed -i '26,43d' src/views/tools/text/TextAnalyzer.tsx)",
+      "Bash(sed -i 's/ overview={TEXT_ANALYZER_OVERVIEW}//' src/views/tools/text/TextAnalyzer.tsx)",
+      "Bash(sed -i '5d' src/views/tools/text/TextCleaner.tsx)",
+      "Bash(sed -i '6,23d' src/views/tools/text/TextCleaner.tsx)",
+      "Bash(sed -i 's/ overview={TEXT_CLEANER_OVERVIEW}//' src/views/tools/text/TextCleaner.tsx)",
+      "Bash(sed -i '5d' src/views/tools/text/SymbolLibrary.tsx)",
+      "Bash(sed -i '6,23d' src/views/tools/text/SymbolLibrary.tsx)",
+      "Bash(sed -i 's/ overview={SYMBOL_LIBRARY_OVERVIEW}//' src/views/tools/text/SymbolLibrary.tsx)"
     ]
   }
 }

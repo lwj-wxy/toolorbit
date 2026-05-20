@@ -10,7 +10,6 @@ import {
 } from 'lucide-react';
 import { motion } from 'motion/react';
 import ToolSEOCard from '../../../components/ToolSEOCard';
-import type { TechnicalOverview } from '../../../types/tool-overview';
 
 // Common stop words for filtering
 const STOP_WORDS = new Set([
@@ -24,24 +23,6 @@ const CHARACTER_PATTERN = /[\p{L}\p{N}]/gu;
 
 const tokenizeText = (value: string) => value.match(TOKEN_PATTERN) ?? [];
 
-const TEXT_ANALYZER_OVERVIEW: TechnicalOverview = {
-  summary:
-    '文本分析器用于实时统计文本字数、字符数、句子数、段落数，并提取字符频率和核心热词分布。适合写作校对、SEO 内容初检、文案长度控制、社媒发布前检查、论文摘要整理和运营文本评估。',
-  input:
-    '任意纯文本内容，可包含中文、英文、数字、标点、换行和段落。工具会实时读取输入框内容并更新统计结果。',
-  output:
-    '总字数/词数、总字符数、不含空格字符数、句子数、段落数、预计阅读时长，以及字符/词频排行图。中文按字符计数，英文和数字按词或 token 计数。',
-  processing:
-    '通过浏览器端正则和 Unicode 脚本匹配进行本地统计。中文、日文、韩文按单字符 token 处理，英文和数字按连续词元处理；字符频率和热词分布按出现次数排序，不上传输入内容。',
-  modes: ['实时字数统计', '字符数统计', '句子 / 段落统计', '中文字符计数', '英文词频统计', '预计阅读时长', '频率排行图'],
-  example: {
-    title: '文本分析输入到输出示例',
-    input: '测试测试测试 water water text',
-    output: '总字数/词数: 9\n总字符数: 23\n高频项: 测 x 3, 试 x 3, water x 2',
-    inputLanguage: 'text',
-    outputLanguage: 'text',
-  },
-};
 
 export default function TextAnalyzer() {
   const { t } = useTranslation();
@@ -256,7 +237,7 @@ export default function TextAnalyzer() {
         </div>
       </div>
 
-      <ToolSEOCard toolKey="text-analyzer" overview={TEXT_ANALYZER_OVERVIEW} />
+      <ToolSEOCard toolKey="text-analyzer" />
     </div>
   );
 }

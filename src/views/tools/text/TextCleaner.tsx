@@ -2,26 +2,7 @@ import { useState, useMemo } from 'react';
 import { Eraser, Copy, Trash2, Check, Download } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import ToolSEOCard from '../../../components/ToolSEOCard';
-import type { TechnicalOverview } from '../../../types/tool-overview';
 
-const TEXT_CLEANER_OVERVIEW: TechnicalOverview = {
-  summary:
-    '字符串清洗工具用于把粘贴来的文本按规则清理成更干净的输出，适合批量处理多余空格、换行、空行、制表符和标点符号。可用于表格导入前整理、运营文案清洗、日志片段规整、复制内容去噪和数据预处理。',
-  input:
-    '任意待清理文本。可包含空格、换行、空白行、Tab、中文/英文标点、混合语言内容和从网页或文档复制出的格式噪声。',
-  output:
-    '按勾选规则处理后的纯文本结果，并展示输出字符数。结果可复制，也可下载为 .txt 文件。',
-  processing:
-    '工具在浏览器中按顺序执行字符串替换：压缩空白行、移除普通空格、移除换行符、移除制表符、移除 Unicode 标点符号。输出会随输入和规则变化实时更新。',
-  modes: ['移除空格', '移除换行', '移除空白行', '移除 Tab', '移除标点', '实时输出', '复制结果', 'TXT 下载'],
-  example: {
-    title: '文本清洗输入到输出示例',
-    input: 'Hello,  ToolOrbit!\n\n文本\t清洗。',
-    output: 'Hello ToolOrbit\n文本清洗',
-    inputLanguage: 'text',
-    outputLanguage: 'text',
-  },
-};
 
 export default function TextCleaner() {
   const { t } = useTranslation();
@@ -203,7 +184,7 @@ export default function TextCleaner() {
 
       </div>
 
-      <ToolSEOCard toolKey="text-cleaner" overview={TEXT_CLEANER_OVERVIEW} />
+      <ToolSEOCard toolKey="text-cleaner" />
     </div>
   );
 }
