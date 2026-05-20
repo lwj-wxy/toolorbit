@@ -1,11 +1,12 @@
 import { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Type, Check, Hash } from 'lucide-react';
+import { Check, Hash } from 'lucide-react';
 
 export default function SymbolLibrary() {
   const { t } = useTranslation();
   const [copiedText, setCopiedText] = useState<string | null>(null);
   const [search, setSearch] = useState('');
+  const [activeCategory, setActiveCategory] = useState<string>('all');
 
   const SYMBOL_CATEGORIES = useMemo(() => [
     { 
@@ -51,69 +52,107 @@ export default function SymbolLibrary() {
     setTimeout(() => setCopiedText(null), 2000);
   };
 
-  const filteredCategories = useMemo(() => SYMBOL_CATEGORIES.map(category => ({
-    ...category,
-    symbols: category.symbols.filter(symbol => 
-      !search || symbol.toLowerCase().includes(search.toLowerCase()) || category.name.toLowerCase().includes(search.toLowerCase())
-    )
-  })).filter(category => category.symbols.length > 0), [SYMBOL_CATEGORIES, search]);
+  const filteredCategories = useMemo(() => SYMBOL_CATEGORIES
+    .filter(category => activeCategory === 'all' || category.id === activeCategory)
+    .map(category => ({
+      ...category,
+      symbols: category.symbols.filter(symbol => 
+        !search || symbol.toLowerCase().includes(search.toLowerCase()) || category.name.toLowerCase().includes(search.toLowerCase())
+      )
+    }))
+    .filter(category => category.symbols.length > 0), [SYMBOL_CATEGORIES, activeCategory, search]);
 
   return (
-    <div className="max-w-6xl mx-auto space-y-6">
-      <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 bg-pink-50 text-pink-500 rounded-xl flex items-center justify-center shrink-0">
-            <Type className="w-6 h-6" />
-          </div>
-          <div>
-            <h1 className="text-3xl font-bold tracking-tight text-slate-900">{t('tools.symbol-library.title')}</h1>
-            <p className="text-[#64748b] mt-1 text-sm md:text-base">
-              {t('tools.symbol-library.subtitle')}
-            </p>
-          </div>
+    <div className="space-y-6">
+      <div className="flex flex-col gap-4 border-b border-slate-200 pb-6 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h1 className="text-3xl font-semibold tracking-tight text-slate-950">{t('tools.symbol-library.title')}</h1>
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">
+            {t('tools.symbol-library.subtitle')}
+          </p>
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 overflow-hidden">
-        <div className="p-6 border-b border-[#e2e8f0] bg-slate-50 flex flex-col sm:flex-row items-center gap-4">
-          <div className="w-full sm:w-72">
-             <input
-                type="text"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                placeholder={t('tools.symbol-library.searchPlaceholder')}
-                className="w-full bg-white border border-gray-300 rounded-lg px-4 py-2 text-sm outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500"
-             />
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <div className="flex flex-col space-y-3">
+          <div className="flex items-center justify-between">
+            <h3 className="block text-sm font-semibold leading-6 text-slate-900">{t('tools.symbol-library.searchPlaceholder')}</h3>
+          </div>
+
+          <div className="flex h-[500px] flex-col gap-5 rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder={t('tools.symbol-library.searchPlaceholder')}
+              className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 shadow-sm outline-none focus:border-cyan-500"
+            />
+            <div className="min-h-0 flex-1 overflow-y-auto rounded-lg border border-slate-200 bg-slate-50 p-3">
+              <button
+                type="button"
+                onClick={() => setActiveCategory('all')}
+                className={`mb-2 flex w-full items-center justify-between rounded-md px-3 py-2 text-left text-sm font-semibold transition-colors ${
+                  activeCategory === 'all' ? 'bg-white text-cyan-700 shadow-sm' : 'text-slate-600 hover:bg-white'
+                }`}
+              >
+                <span>{t('common.allTools', { defaultValue: '全部符号' })}</span>
+                <span>{SYMBOL_CATEGORIES.reduce((total, category) => total + category.symbols.length, 0)}</span>
+              </button>
+              {SYMBOL_CATEGORIES.map((category) => (
+                <button
+                  key={category.id}
+                  type="button"
+                  onClick={() => setActiveCategory(category.id)}
+                  className={`mb-2 flex w-full items-center justify-between rounded-md px-3 py-2 text-left text-sm font-semibold transition-colors ${
+                    activeCategory === category.id ? 'bg-white text-cyan-700 shadow-sm' : 'text-slate-600 hover:bg-white'
+                  }`}
+                >
+                  <span className="inline-flex items-center gap-2">
+                    <Hash className="h-4 w-4 text-slate-400" />
+                    {category.name}
+                  </span>
+                  <span>{category.symbols.length}</span>
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
-        <div className="p-6 lg:p-8 space-y-10 min-h-[500px]">
+        <div className="flex flex-col space-y-3">
+          <div className="flex items-center justify-between">
+            <h3 className="block text-sm font-semibold leading-6 text-slate-900">{t('tools.symbol-library.title')}</h3>
+            <span className="font-mono text-sm text-slate-400">
+              {filteredCategories.reduce((total, category) => total + category.symbols.length, 0)} {t('tools.symbol-library.countSuffix')}
+            </span>
+          </div>
+
+          <div className="h-[500px] overflow-y-auto rounded-lg border border-slate-200 bg-slate-50 p-5 shadow-sm">
           {filteredCategories.length === 0 ? (
-             <div className="text-center py-20 text-slate-400">
+             <div className="flex h-full items-center justify-center text-center text-slate-400">
                {t('tools.symbol-library.noResults')}
              </div>
           ) : (
             filteredCategories.map((category) => (
-              <div key={category.id} className="space-y-4">
-                <h3 className="font-bold text-slate-800 flex items-center gap-2">
-                  <Hash className="w-4 h-4 text-pink-400" />
+              <div key={category.id} className="mb-8 space-y-4 last:mb-0">
+                <h3 className="flex items-center gap-2 font-semibold text-slate-800">
+                  <Hash className="w-4 h-4 text-cyan-600" />
                   {category.name}
-                  <span className="text-xs font-normal bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full ml-auto">
+                  <span className="ml-auto rounded-full bg-white px-2 py-0.5 text-xs font-normal text-slate-500">
                      {category.symbols.length} {t('tools.symbol-library.countSuffix')}
                   </span>
                 </h3>
                 
-                <div className="grid grid-cols-6 sm:grid-cols-8 md:grid-cols-10 lg:grid-cols-12 xl:grid-cols-16 gap-2 sm:gap-3">
+                <div className="grid grid-cols-6 gap-2 sm:grid-cols-8 md:grid-cols-10 lg:grid-cols-8 xl:grid-cols-10">
                   {category.symbols.map((symbol, sIndex) => (
                     <button
                       key={sIndex}
                       onClick={() => copyToClipboard(symbol)}
                       title={t('tools.symbol-library.copyTooltip')}
-                      className="aspect-square flex items-center justify-center text-xl sm:text-2xl border border-slate-200 rounded-xl hover:bg-pink-50 hover:border-pink-200 hover:text-pink-600 transition-all hover:scale-110 active:scale-95 shadow-sm group relative"
+                      className="relative flex aspect-square items-center justify-center rounded-lg border border-slate-200 bg-white text-xl shadow-sm transition-colors hover:border-cyan-300 hover:bg-cyan-50 hover:text-cyan-700 active:scale-95 sm:text-2xl"
                     >
                       {symbol}
                       {copiedText === symbol && (
-                        <div className="absolute inset-0 bg-green-500/90 rounded-xl flex items-center justify-center z-10 text-white animate-in zoom-in spin-in-12 duration-200">
+                        <div className="absolute inset-0 z-10 flex items-center justify-center rounded-lg bg-emerald-500/90 text-white animate-in zoom-in spin-in-12 duration-200">
                           <Check className="w-5 h-5" />
                         </div>
                       )}
@@ -123,9 +162,9 @@ export default function SymbolLibrary() {
               </div>
             ))
           )}
+          </div>
         </div>
       </div>
-
     </div>
   );
 }

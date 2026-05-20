@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { Eraser, Copy, Trash2, Check, Download, ArrowRight } from 'lucide-react';
+import { Eraser, Copy, Trash2, Check, Download } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 export default function TextCleaner() {
@@ -67,132 +67,93 @@ export default function TextCleaner() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto space-y-6">
+    <div className="space-y-6">
       
       {/* Header */}
-      <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 bg-blue-50 text-[#2563eb] rounded-xl flex items-center justify-center shrink-0">
-            <Eraser className="w-6 h-6" />
-          </div>
-          <div>
-            <h1 className="text-3xl font-bold tracking-tight text-slate-900">{t('tools.text-cleaner.title')}</h1>
-            <p className="text-[#64748b] mt-1 text-sm md:text-base">
-              {t('tools.text-cleaner.subtitle')}
-            </p>
-          </div>
+      <div className="flex flex-col gap-4 border-b border-slate-200 pb-6 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h1 className="text-3xl font-semibold tracking-tight text-slate-950">{t('tools.text-cleaner.title')}</h1>
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">
+            {t('tools.text-cleaner.subtitle')}
+          </p>
         </div>
         <div>
            <button 
              onClick={clearAll}
-             className="px-4 py-2 text-sm font-bold text-red-500 hover:bg-red-50 rounded-lg flex items-center gap-2 transition-colors border border-transparent hover:border-red-100"
+             className="flex items-center gap-2 rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors hover:bg-slate-50"
            >
              <Trash2 className="w-4 h-4" /> {t('tools.text-cleaner.clearBtn')}
            </button>
         </div>
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-6">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         
         {/* Left Side: Input */}
-        <div className="flex-1 lg:w-0 bg-white rounded-2xl shadow-sm border border-slate-200/80 p-5 flex flex-col min-h-[500px]">
-           <div className="flex items-center justify-between mb-4">
-              <h3 className="font-bold text-[#1e293b] flex items-center gap-2">
-                 <span className="w-2 h-6 bg-[#2563eb] rounded-sm block"></span>
+        <div className="flex flex-col space-y-3">
+           <div className="flex items-center justify-between">
+              <h3 className="block text-sm font-semibold leading-6 text-slate-900">
                  {t('tools.text-cleaner.inputHeader')}
               </h3>
-              <span className="text-sm text-[#94a3b8] font-mono">
+              <span className="font-mono text-sm text-slate-400">
                  {t('tools.text-cleaner.charCount', { count: inputText.length })}
               </span>
            </div>
-           <textarea
-             value={inputText}
-             onChange={(e) => setInputText(e.target.value)}
-             placeholder={t('tools.text-cleaner.inputPlaceholder')}
-             className="flex-1 w-full bg-[#f8fafc] border border-[#cbd5e1] rounded-xl p-4 outline-none focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb] transition-all resize-none shadow-inner"
-           ></textarea>
-        </div>
 
-        {/* Center: Pipeline Settings */}
-        <div className="w-full lg:w-[220px] shrink-0 flex flex-col justify-center space-y-4">
-           <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-5 hidden lg:flex flex-col items-center">
-              <h4 className="text-sm font-bold text-[#475569] mb-4 w-full text-center border-b border-slate-100 pb-2">{t('tools.text-cleaner.rulesHeader')}</h4>
-              <div className="space-y-3 w-full">
-                 <label className="flex items-center gap-3 cursor-pointer text-sm font-medium text-[#334155] p-2 hover:bg-slate-50 rounded-lg transition-colors whitespace-nowrap">
-                   <input type="checkbox" checked={removeSpaces} onChange={e => setRemoveSpaces(e.target.checked)} className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500 border-gray-300" />
-                   {t('tools.text-cleaner.ruleSpaces')}
-                 </label>
-                 <label className="flex items-center gap-3 cursor-pointer text-sm font-medium text-[#334155] p-2 hover:bg-slate-50 rounded-lg transition-colors whitespace-nowrap">
-                   <input type="checkbox" checked={removeNewlines} onChange={e => setRemoveNewlines(e.target.checked)} className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500 border-gray-300" />
-                   {t('tools.text-cleaner.ruleNewlines')}
-                 </label>
-                 <label className="flex items-center gap-3 cursor-pointer text-sm font-medium text-[#334155] p-2 hover:bg-slate-50 rounded-lg transition-colors whitespace-nowrap">
-                   <input type="checkbox" checked={removeBlankLines} onChange={e => setRemoveBlankLines(e.target.checked)} className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500 border-gray-300" />
-                   {t('tools.text-cleaner.ruleBlankLines')}
-                 </label>
-                 <label className="flex items-center gap-3 cursor-pointer text-sm font-medium text-[#334155] p-2 hover:bg-slate-50 rounded-lg transition-colors whitespace-nowrap">
-                   <input type="checkbox" checked={removeTabs} onChange={e => setRemoveTabs(e.target.checked)} className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500 border-gray-300" />
-                   {t('tools.text-cleaner.ruleTabs')}
-                 </label>
-                 <label className="flex items-center gap-3 cursor-pointer text-sm font-medium text-[#334155] p-2 hover:bg-slate-50 rounded-lg transition-colors whitespace-nowrap">
-                   <input type="checkbox" checked={removePunctuation} onChange={e => setRemovePunctuation(e.target.checked)} className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500 border-gray-300 shrink-0" />
-                   <span className="truncate">{t('tools.text-cleaner.rulePunctuation')}</span>
-                 </label>
-              </div>
-              <ArrowRight className="w-6 h-6 text-slate-300 mt-6" />
-           </div>
-
-           {/* Mobile View Rules */}
-           <div className="lg:hidden bg-white rounded-2xl shadow-sm border border-slate-200/80 p-5">
-              <h4 className="text-sm font-bold text-[#475569] mb-3">{t('tools.text-cleaner.rulesHeader')}</h4>
-              <div className="grid grid-cols-2 gap-2">
-                 <label className="flex items-center gap-2 cursor-pointer text-sm text-[#334155] bg-slate-50 p-2 rounded-lg whitespace-nowrap">
-                   <input type="checkbox" checked={removeSpaces} onChange={e => setRemoveSpaces(e.target.checked)} className="w-4 h-4 text-blue-600 rounded" />
-                   {t('tools.text-cleaner.ruleSpaces')}
-                 </label>
-                 <label className="flex items-center gap-2 cursor-pointer text-sm text-[#334155] bg-slate-50 p-2 rounded-lg whitespace-nowrap">
-                   <input type="checkbox" checked={removeNewlines} onChange={e => setRemoveNewlines(e.target.checked)} className="w-4 h-4 text-blue-600 rounded" />
-                   {t('tools.text-cleaner.ruleNewlines')}
-                 </label>
-                 <label className="flex items-center gap-2 cursor-pointer text-sm text-[#334155] bg-slate-50 p-2 rounded-lg whitespace-nowrap">
-                   <input type="checkbox" checked={removeBlankLines} onChange={e => setRemoveBlankLines(e.target.checked)} className="w-4 h-4 text-blue-600 rounded" />
-                   {t('tools.text-cleaner.ruleBlankLines')}
-                 </label>
-                 <label className="flex items-center gap-2 cursor-pointer text-sm text-[#334155] bg-slate-50 p-2 rounded-lg whitespace-nowrap">
-                   <input type="checkbox" checked={removeTabs} onChange={e => setRemoveTabs(e.target.checked)} className="w-4 h-4 text-blue-600 rounded" />
-                   {t('tools.text-cleaner.ruleTabs')}
-                 </label>
-                 <label className="flex items-center gap-2 cursor-pointer text-sm text-[#334155] bg-slate-50 p-2 rounded-lg col-span-2 whitespace-nowrap">
-                   <input type="checkbox" checked={removePunctuation} onChange={e => setRemovePunctuation(e.target.checked)} className="w-4 h-4 text-blue-600 rounded shrink-0" />
-                   <span className="truncate">{t('tools.text-cleaner.rulePunctuationMobile')}</span>
-                 </label>
+           <div className="flex h-[500px] flex-col gap-4 rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+              <textarea
+                value={inputText}
+                onChange={(e) => setInputText(e.target.value)}
+                placeholder={t('tools.text-cleaner.inputPlaceholder')}
+                className="min-h-0 flex-1 w-full resize-none rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm leading-6 text-slate-900 shadow-sm outline-none focus:border-cyan-500"
+              />
+              <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
+                <h4 className="mb-3 text-sm font-semibold text-slate-700">{t('tools.text-cleaner.rulesHeader')}</h4>
+                <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                   {[
+                     { checked: removeSpaces, setValue: setRemoveSpaces, label: t('tools.text-cleaner.ruleSpaces') },
+                     { checked: removeNewlines, setValue: setRemoveNewlines, label: t('tools.text-cleaner.ruleNewlines') },
+                     { checked: removeBlankLines, setValue: setRemoveBlankLines, label: t('tools.text-cleaner.ruleBlankLines') },
+                     { checked: removeTabs, setValue: setRemoveTabs, label: t('tools.text-cleaner.ruleTabs') },
+                     { checked: removePunctuation, setValue: setRemovePunctuation, label: t('tools.text-cleaner.rulePunctuation') },
+                   ].map((rule) => (
+                     <label key={rule.label} className="flex cursor-pointer items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium text-slate-700 hover:bg-white">
+                       <input
+                         type="checkbox"
+                         checked={rule.checked}
+                         onChange={(event) => rule.setValue(event.target.checked)}
+                         className="h-4 w-4 rounded border-slate-300 text-cyan-600 focus:ring-cyan-500"
+                       />
+                       <span className="truncate">{rule.label}</span>
+                     </label>
+                   ))}
+                </div>
               </div>
            </div>
         </div>
 
         {/* Right Side: Output */}
-        <div className="flex-1 lg:w-0 bg-white rounded-2xl shadow-sm border border-slate-200/80 p-5 flex flex-col min-h-[500px]">
-           <div className="flex items-center justify-between mb-4">
-              <h3 className="font-bold text-[#1e293b] flex items-center gap-2">
-                 <span className="w-2 h-6 bg-emerald-500 rounded-sm block"></span>
+        <div className="flex flex-col space-y-3">
+           <div className="flex items-center justify-between">
+              <h3 className="block text-sm font-semibold leading-6 text-slate-900">
                  {t('tools.text-cleaner.outputHeader')}
               </h3>
               <div className="flex items-center gap-3">
-                 <span className="text-sm text-[#94a3b8] font-mono mr-2">
+                 <span className="mr-2 font-mono text-sm text-slate-400">
                     {t('tools.text-cleaner.charCount', { count: outputText.length })}
                  </span>
                  {outputText && (
                     <>
                        <button
                          onClick={handleDownload}
-                         className="p-1.5 text-[#64748b] hover:text-[#10b981] hover:bg-emerald-50 rounded-md transition-colors"
+                         className="rounded-md border border-slate-300 bg-white p-1.5 text-slate-500 transition-colors hover:bg-slate-50 hover:text-cyan-700"
                          title={t('tools.text-cleaner.downloadTitle')}
                        >
                          <Download className="w-5 h-5" />
                        </button>
                        <button
                          onClick={copyToClipboard}
-                         className="p-1.5 text-[#64748b] hover:text-[#10b981] hover:bg-emerald-50 rounded-md transition-colors bg-slate-50"
+                         className="rounded-md border border-slate-300 bg-white p-1.5 text-slate-500 transition-colors hover:bg-slate-50 hover:text-cyan-700"
                          title={t('tools.text-cleaner.copyTitle')}
                        >
                          {copied ? <Check className="w-5 h-5 text-emerald-500" /> : <Copy className="w-5 h-5" />}
@@ -202,16 +163,16 @@ export default function TextCleaner() {
               </div>
            </div>
            
-           <div className="flex-1 w-full bg-[#f8fafc] border border-emerald-100 rounded-xl overflow-hidden relative shadow-inner">
+           <div className="relative h-[500px] overflow-hidden rounded-lg border border-slate-200 bg-slate-50 shadow-sm">
               <textarea
                 value={outputText}
                 readOnly
                 placeholder={t('tools.text-cleaner.outputPlaceholder')}
-                className="w-full h-full p-4 outline-none resize-none bg-transparent text-[#0f172a]"
+                className="h-full w-full resize-none bg-transparent p-4 text-sm leading-6 text-slate-950 outline-none"
               ></textarea>
               
               {!outputText && !inputText && (
-                 <div className="absolute inset-0 flex flex-col flex-1 items-center justify-center text-[#94a3b8] pointer-events-none p-4 text-center">
+                 <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center p-4 text-center text-slate-400">
                     <Eraser className="w-12 h-12 mb-3 opacity-20" />
                     <p className="text-sm">{t('tools.text-cleaner.supportMsg')}</p>
                  </div>

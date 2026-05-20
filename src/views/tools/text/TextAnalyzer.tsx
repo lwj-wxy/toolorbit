@@ -134,16 +134,16 @@ export default function TextAnalyzer() {
   const COLORS = ['#6366f1', '#8b5cf6', '#a855f7', '#d946ef', '#ec4899', '#f43f5e', '#ef4444', '#f97316', '#f59e0b', '#eab308'];
 
   return (
-    <div className="space-y-8 max-w-6xl mx-auto pb-12">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+    <div className="space-y-6 pb-12">
+      <div className="flex flex-col gap-4 border-b border-slate-200 pb-6 dark:border-slate-800 sm:flex-row sm:items-end sm:justify-between">
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
         >
-          <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+          <h1 className="text-3xl font-semibold tracking-tight text-slate-950 dark:text-white">
             {t('tools.text-analyzer.title')}
           </h1>
-          <p className="mt-2 text-slate-500 dark:text-slate-400 max-w-2xl leading-relaxed">
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-400">
             {t('tools.text-analyzer.subtitle')}
           </p>
         </motion.div>
@@ -152,30 +152,36 @@ export default function TextAnalyzer() {
           <motion.div 
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="flex items-center gap-3 bg-indigo-50 dark:bg-indigo-900/20 px-4 py-2 rounded-2xl border border-indigo-100 dark:border-indigo-800/30"
+            className="flex items-center gap-2 rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 shadow-sm dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
           >
-            <Clock size={16} className="text-indigo-600 dark:text-indigo-400" />
-            <span className="text-sm font-bold text-indigo-700 dark:text-indigo-300">
+            <Clock size={14} className="text-cyan-700 dark:text-cyan-300" />
+            <span>
               {t('tools.text-analyzer.readingTime')}: {stats.readingTime > 60 ? t('tools.text-analyzer.minutes', { count: Math.ceil(stats.readingTime/60) }) : t('tools.text-analyzer.seconds', { count: stats.readingTime })}
             </span>
           </motion.div>
         )}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         {/* Editor Area */}
-        <div className="lg:col-span-7 flex flex-col gap-4">
-          <div className="relative group flex-1">
+        <div className="flex flex-col space-y-3">
+          <div className="flex items-center justify-between">
+            <h3 className="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
+              {t('tools.text-analyzer.title')}
+            </h3>
+            <span className="font-mono text-sm text-slate-400">{text.length.toLocaleString()}</span>
+          </div>
+          <div className="relative h-[500px]">
             <textarea
               value={text}
               onChange={(e) => setText(e.target.value)}
-              className="block w-full h-full min-h-[500px] lg:min-h-0 rounded-3xl border-0 p-8 text-slate-800 dark:text-slate-100 shadow-2xl shadow-indigo-100/50 dark:shadow-none bg-white dark:bg-slate-900 ring-1 ring-inset ring-slate-100 dark:ring-slate-800 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg leading-relaxed resize-none transition-all duration-300"
+              className="block h-full w-full resize-none rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm leading-6 text-slate-900 shadow-sm outline-none placeholder:text-slate-400 focus:border-cyan-500 dark:border-slate-700 dark:bg-[#282c34] dark:text-slate-100"
               placeholder={t('tools.text-analyzer.placeholder')}
             />
             {text.length > 0 && (
               <button 
                 onClick={() => setText('')}
-                className="absolute top-6 right-6 p-2 rounded-full bg-slate-50 dark:bg-slate-800 text-slate-400 hover:text-red-500 transition-colors"
+                className="absolute right-4 top-4 rounded-md border border-slate-300 bg-white p-2 text-slate-500 transition-colors hover:bg-slate-50 hover:text-red-500 dark:border-slate-700 dark:bg-slate-900"
               >
                 <Zap size={16} />
               </button>
@@ -184,16 +190,37 @@ export default function TextAnalyzer() {
         </div>
 
         {/* Sidebar Analysis */}
-        <div className="lg:col-span-5 space-y-6">
+        <div className="flex flex-col space-y-3">
+          <div className="flex items-center justify-between">
+            <h3 className="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
+              {t('tools.text-analyzer.wordCount')}
+            </h3>
+            <div className="flex rounded-lg bg-slate-100 p-1 dark:bg-slate-800">
+              <button 
+                onClick={() => setActiveTab('stats')}
+                className={`rounded-md px-3 py-1.5 text-xs font-semibold transition-colors ${activeTab === 'stats' ? 'bg-white text-cyan-700 shadow-sm dark:bg-slate-950 dark:text-cyan-300' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'}`}
+              >
+                {t('tools.text-analyzer.letterFreq')}
+              </button>
+              <button 
+                onClick={() => setActiveTab('trends')}
+                className={`rounded-md px-3 py-1.5 text-xs font-semibold transition-colors ${activeTab === 'trends' ? 'bg-white text-cyan-700 shadow-sm dark:bg-slate-950 dark:text-cyan-300' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'}`}
+                >
+                {t('tools.text-analyzer.topWords')}
+              </button>
+            </div>
+          </div>
+
+          <div className="h-[500px] overflow-y-auto rounded-lg border border-slate-200 bg-slate-50 p-4 shadow-sm dark:border-slate-700 dark:bg-slate-900">
           {/* Stats Summary Grid */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-3">
             {stats.standard.map((item, idx) => (
               <motion.div 
                 key={item.name}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: idx * 0.05 }}
-                className="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm"
+                className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-[#282c34]"
               >
                 <div className="flex items-center gap-2 text-slate-400 mb-2">
                   {item.icon}
@@ -207,25 +234,8 @@ export default function TextAnalyzer() {
           </div>
 
           {/* Charts Section */}
-          <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden flex flex-col h-[400px]">
-            <div className="p-4 border-b border-slate-50 dark:border-slate-800 flex items-center justify-between">
-               <div className="flex bg-slate-50 dark:bg-slate-800 p-1 rounded-xl">
-                 <button 
-                  onClick={() => setActiveTab('stats')}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${activeTab === 'stats' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600' : 'text-slate-400'}`}
-                 >
-                   {t('tools.text-analyzer.letterFreq')}
-                 </button>
-                 <button 
-                  onClick={() => setActiveTab('trends')}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${activeTab === 'trends' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600' : 'text-slate-400'}`}
-                  >
-                   {t('tools.text-analyzer.topWords')}
-                 </button>
-               </div>
-            </div>
-
-            <div className="flex-1 p-6">
+          <div className="mt-4 flex h-[260px] flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-[#282c34]">
+            <div className="flex-1 p-4">
               {text.trim() ? (
                 <div className="h-full w-full">
                   <ResponsiveContainer width="100%" height="100%">
@@ -269,14 +279,14 @@ export default function TextAnalyzer() {
           </div>
           
           {/* AI Insights */}
-          <div className="bg-gradient-to-br from-indigo-600 to-violet-700 rounded-3xl p-6 text-white overflow-hidden relative group">
+          <div className="relative mt-4 overflow-hidden rounded-lg bg-slate-950 p-5 text-white">
              <div className="relative z-10">
                <h3 className="text-lg font-bold mb-2 flex items-center gap-2">
                  <Zap size={20} className="fill-white" />
                  {t('tools.text-analyzer.sentimentTitle')}
                </h3>
                {aiAnalysis ? (
-                 <div className="bg-white/10 rounded-xl p-4 text-xs leading-relaxed max-h-[300px] overflow-y-auto mb-4 border border-white/5 backdrop-blur-sm">
+                 <div className="mb-4 max-h-[220px] overflow-y-auto rounded-lg border border-white/10 bg-white/10 p-4 text-xs leading-relaxed">
                    <div className="prose prose-invert prose-sm">
                      {aiAnalysis}
                    </div>
@@ -292,7 +302,7 @@ export default function TextAnalyzer() {
                  whileTap={{ scale: 0.98 }}
                  onClick={handleAIAnalysis}
                  disabled={!text.trim() || isAnalyzing}
-                 className="w-full bg-white/20 hover:bg-white/30 transition-all py-3 rounded-xl text-sm font-black backdrop-blur-md border border-white/10 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 h-11 overflow-hidden"
+                 className="flex h-11 w-full items-center justify-center gap-2 overflow-hidden rounded-lg border border-white/10 bg-white/15 py-3 text-sm font-semibold backdrop-blur-md transition-colors hover:bg-white/25 disabled:cursor-not-allowed disabled:opacity-50"
                >
                  <AnimatePresence mode="wait">
                    {isAnalyzing ? (
@@ -322,6 +332,7 @@ export default function TextAnalyzer() {
                </motion.button>
              </div>
              <Sparkles className="absolute -right-4 -bottom-4 w-32 h-32 text-white/5 rotate-12 transition-transform duration-500 group-hover:scale-110" />
+          </div>
           </div>
         </div>
       </div>
