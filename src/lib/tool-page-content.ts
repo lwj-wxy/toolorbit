@@ -18,6 +18,4 @@ export const FALLBACK_TOOL_GUIDE_PATHS = new Set([
   '/tools/image/image-to-base64',
   '/tools/image/image-to-ico',
   '/tools/image/svg-to-png',
-  '/tools/pdf/image-to-pdf',
-  '/tools/pdf/pdf-merge',
 ]);
