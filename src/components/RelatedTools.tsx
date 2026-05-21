@@ -1,57 +1,27 @@
 'use client';
 
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Star } from 'lucide-react';
 import { Link } from '../lib/navigation';
-import { TOOLS, type ToolItem } from '../data/tools';
+import { TOOLS } from '../data/tools';
+import { getRandomRelatedTools } from '../lib/related-tools';
 
 interface RelatedToolsProps {
   currentPath: string;
 }
 
-const ECOMMERCE_RELATED_FALLBACK_IDS = [
-  'listing-generator',
-  'keyword-analyzer',
-  'competitor-tracker',
-  'market-insights',
-];
-
-const buildRelatedTools = (currentTool: ToolItem) => {
-  const categoryTools = TOOLS.filter(
-    (tool) => tool.category === currentTool.category && tool.id !== currentTool.id
-  );
-
-  if (categoryTools.length >= 4 || currentTool.category !== '电商工具') {
-    return categoryTools.slice(0, 4);
-  }
-
-  const fallbackTools = ECOMMERCE_RELATED_FALLBACK_IDS
-    .map((toolId) => TOOLS.find((tool) => tool.id === toolId))
-    .filter((tool): tool is ToolItem => {
-      if (!tool) return false;
-      return tool.id !== currentTool.id;
-    });
-
-  const relatedTools = [...categoryTools];
-
-  fallbackTools.forEach((tool) => {
-    if (relatedTools.length < 4 && !relatedTools.some((relatedTool) => relatedTool.id === tool.id)) {
-      relatedTools.push(tool);
-    }
-  });
-
-  return relatedTools.slice(0, 4);
-};
-
 export default function RelatedTools({ currentPath }: RelatedToolsProps) {
   const { t, i18n } = useTranslation();
   const currentTool = TOOLS.find((tool) => tool.path === currentPath);
+  const related = useMemo(
+    () => (currentTool ? getRandomRelatedTools(TOOLS, currentTool, 4) : []),
+    [currentTool?.id],
+  );
 
   if (!currentTool) return null;
   const isAiTool = currentTool.category === 'AI 工具';
   const isZh = i18n.language?.startsWith('zh');
-
-  const related = buildRelatedTools(currentTool);
 
   if (isAiTool) {
     return (
