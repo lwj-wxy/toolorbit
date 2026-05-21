@@ -304,7 +304,10 @@ Please generate a comprehensive listing including title, bullet points, SEO desc
       return {
         model: DEEPSEEK_TEXT_MODEL,
         messages: [
-          { role: 'system', content: `You are a Competitor Analysis AI. Produce JSON only with comparison, swot, and strategies. Output language: ${lang}.` },
+          {
+            role: 'system',
+            content: `You are a Competitor Analysis AI. Produce JSON only. Output language: ${lang}. Use exactly this shape: {"comparison":{"score":{"mine":number,"competitor":number},"metrics":[{"name":string,"mine":string,"competitor":string,"comment":string}]},"swot":{"strengths":string[],"weaknesses":string[],"opportunities":string[],"threats":string[]},"strategies":string[]}. The comparison.score values must be 0-100 numbers. Include 4-6 comparison.metrics items.`,
+          },
           { role: 'user', content: `My Product: ${body.productName}\nCompetitor Info: ${body.competitorInfo}` },
         ],
       };

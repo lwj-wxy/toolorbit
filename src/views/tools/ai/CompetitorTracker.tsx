@@ -10,6 +10,7 @@ export default function CompetitorTracker() {
   const [compInfo, setCompInfo] = useState('');
   const [compLanguage, setCompLanguage] = useState(i18n.language === 'zh' ? '中文' : 'English');
   const [result, setResult] = useState<any>(null);
+  const [streamingText, setStreamingText] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -22,6 +23,7 @@ export default function CompetitorTracker() {
     setLoading(true);
     setError('');
     setResult(null);
+    setStreamingText('');
     let currentText = '';
     
     try {
@@ -58,6 +60,7 @@ export default function CompetitorTracker() {
                 if (data.error) throw new Error(data.error);
                 if (data.content) {
                   currentText += data.content;
+                  setStreamingText(currentText);
                 }
               } catch (e) {}
             }
@@ -81,6 +84,8 @@ export default function CompetitorTracker() {
   };
 
   const isZh = i18n.language === 'zh';
+  const hasStructuredResult = Boolean(result?.comparison?.score && Array.isArray(result?.comparison?.metrics));
+  const visibleText = result && !hasStructuredResult ? JSON.stringify(result, null, 2) : streamingText;
 
   return (
     <div className="space-y-6">
@@ -142,9 +147,22 @@ export default function CompetitorTracker() {
           )}
 
           <div className="h-full flex-1 overflow-y-auto">
-            {loading && <div className="flex h-full items-center justify-center"><Loader2 className="animate-spin text-cyan-500" size={40}/></div>}
-            {!loading && !result && <div className="h-full flex items-center justify-center opacity-40"><Target size={48}/></div>}
-            {result && (
+            {loading && !visibleText && <div className="flex h-full items-center justify-center"><Loader2 className="animate-spin text-cyan-500" size={40}/></div>}
+            {!loading && !result && !visibleText && <div className="h-full flex items-center justify-center opacity-40"><Target size={48}/></div>}
+            {visibleText && (!hasStructuredResult || loading) && (
+              <div className="rounded-lg border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-950">
+                {loading && (
+                  <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-cyan-700 dark:text-cyan-300">
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    {isZh ? '正在生成竞品分析...' : 'Generating competitor analysis...'}
+                  </div>
+                )}
+                <pre className="whitespace-pre-wrap break-words text-sm leading-6 text-slate-700 dark:text-slate-300">
+                  {visibleText}
+                </pre>
+              </div>
+            )}
+            {hasStructuredResult && !loading && (
               <div className="space-y-6">
                 <div className="grid grid-cols-2 rounded-lg border border-slate-200 bg-white p-5 text-center dark:border-slate-700 dark:bg-slate-950">
                   <div><p className="text-sm font-bold text-slate-500">My Score</p><p className="text-3xl font-black text-cyan-600">{result.comparison?.score?.mine}</p></div>
