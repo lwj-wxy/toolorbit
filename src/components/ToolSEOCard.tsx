@@ -13,6 +13,7 @@ import { IMAGE_TOOL_OVERVIEWS } from '../views/tools/image/data';
 import { TEXT_TOOL_OVERVIEWS } from '../views/tools/text/data';
 import { ECOMMERCE_TOOL_OVERVIEWS } from '../views/tools/ecommerce/data';
 import { PDF_TOOL_OVERVIEWS } from '../views/tools/pdf/data';
+import { CALCULATE_TOOL_OVERVIEWS } from '../views/tools/calculate/data';
 
 const ALL_OVERVIEWS: Record<string, { zh: TechnicalOverview; en: TechnicalOverview }> = {
   ...DEV_TOOL_OVERVIEWS,
@@ -20,6 +21,7 @@ const ALL_OVERVIEWS: Record<string, { zh: TechnicalOverview; en: TechnicalOvervi
   ...TEXT_TOOL_OVERVIEWS,
   ...ECOMMERCE_TOOL_OVERVIEWS,
   ...PDF_TOOL_OVERVIEWS,
+  ...CALCULATE_TOOL_OVERVIEWS,
 };
 
 interface ToolSEOCardProps {
@@ -119,7 +121,9 @@ const ToolSEOCard: React.FC<ToolSEOCardProps> = ({ toolKey, overview }) => {
   });
   const isAiTool = tool?.category === 'AI 工具';
   const isDeveloperTool = tool?.category === '开发者工具';
-  const usesTechnicalOverview = Boolean(overview) || isDeveloperTool || TECHNICAL_OVERVIEW_TOOL_KEYS.has(toolKey);
+  const overviewKey = toolKey === 'xml-to-json' ? 'xml-json' : toolKey;
+  const hasStoredOverview = Boolean(ALL_OVERVIEWS[overviewKey]);
+  const usesTechnicalOverview = Boolean(overview) || hasStoredOverview || isDeveloperTool || TECHNICAL_OVERVIEW_TOOL_KEYS.has(toolKey);
   const isZh = i18n.language?.startsWith('zh');
 
   // Check if at least the title exists to avoid rendering empty cards
