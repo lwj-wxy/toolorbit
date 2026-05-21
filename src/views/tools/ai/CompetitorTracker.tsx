@@ -85,7 +85,8 @@ export default function CompetitorTracker() {
 
   const isZh = i18n.language === 'zh';
   const hasStructuredResult = Boolean(result?.comparison?.score && Array.isArray(result?.comparison?.metrics));
-  const visibleText = result && !hasStructuredResult ? JSON.stringify(result, null, 2) : streamingText;
+  const fallbackText = result && !hasStructuredResult ? JSON.stringify(result, null, 2) : '';
+  const hasStreamStarted = Boolean(streamingText);
 
   return (
     <div className="space-y-6">
@@ -147,19 +148,63 @@ export default function CompetitorTracker() {
           )}
 
           <div className="h-full flex-1 overflow-y-auto">
-            {loading && !visibleText && <div className="flex h-full items-center justify-center"><Loader2 className="animate-spin text-cyan-500" size={40}/></div>}
-            {!loading && !result && !visibleText && <div className="h-full flex items-center justify-center opacity-40"><Target size={48}/></div>}
-            {visibleText && (!hasStructuredResult || loading) && (
-              <div className="rounded-lg border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-950">
-                {loading && (
-                  <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-cyan-700 dark:text-cyan-300">
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                    {isZh ? '正在生成竞品分析...' : 'Generating competitor analysis...'}
+            {loading && (
+              <div className="space-y-6">
+                <div className="grid grid-cols-2 rounded-lg border border-slate-200 bg-white p-5 text-center dark:border-slate-700 dark:bg-slate-950">
+                  <div>
+                    <p className="text-sm font-bold text-slate-500">My Score</p>
+                    <div className="mx-auto mt-2 h-9 w-16 rounded-md bg-cyan-100 dark:bg-cyan-950/50" />
                   </div>
-                )}
-                <pre className="whitespace-pre-wrap break-words text-sm leading-6 text-slate-700 dark:text-slate-300">
-                  {visibleText}
-                </pre>
+                  <div>
+                    <p className="text-sm font-bold text-slate-500">Competitor</p>
+                    <div className="mx-auto mt-2 h-9 w-16 rounded-md bg-orange-100 dark:bg-orange-950/50" />
+                  </div>
+                </div>
+                <div>
+                  <div className="mb-3 flex items-center gap-2 font-bold text-slate-800 dark:text-slate-100">
+                    <Loader2 className="h-4 w-4 animate-spin text-cyan-600" />
+                    {hasStreamStarted
+                      ? (isZh ? '正在整理核心差异...' : 'Organizing key differences...')
+                      : (isZh ? '正在生成竞品分析...' : 'Generating competitor analysis...')}
+                  </div>
+                  <div className="space-y-3">
+                    {[0, 1].map((placeholderIndex) => (
+                      <div key={placeholderIndex} className="space-y-3 rounded-lg border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-950">
+                        <div className="h-5 w-32 rounded bg-slate-200 dark:bg-slate-800" />
+                        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                          <div className="rounded-md border border-cyan-100 bg-cyan-50 px-3 py-2 dark:border-cyan-900/50 dark:bg-cyan-950/30">
+                            <span className="text-[11px] font-semibold uppercase tracking-wide text-cyan-700 dark:text-cyan-300">
+                              {isZh ? '我的产品' : 'You'}
+                            </span>
+                            <div className="mt-2 space-y-2">
+                              <div className="h-3 rounded bg-cyan-100 dark:bg-cyan-900/50" />
+                              <div className="h-3 w-3/4 rounded bg-cyan-100 dark:bg-cyan-900/50" />
+                            </div>
+                          </div>
+                          <div className="rounded-md border border-orange-100 bg-orange-50 px-3 py-2 dark:border-orange-900/50 dark:bg-orange-950/30">
+                            <span className="text-[11px] font-semibold uppercase tracking-wide text-orange-700 dark:text-orange-300">
+                              {isZh ? '竞品' : 'Competitor'}
+                            </span>
+                            <div className="mt-2 space-y-2">
+                              <div className="h-3 rounded bg-orange-100 dark:bg-orange-900/50" />
+                              <div className="h-3 w-2/3 rounded bg-orange-100 dark:bg-orange-900/50" />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="border-t border-slate-100 pt-3 dark:border-slate-800">
+                          <div className="h-3 rounded bg-slate-200 dark:bg-slate-800" />
+                          <div className="mt-2 h-3 w-4/5 rounded bg-slate-200 dark:bg-slate-800" />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+            {!loading && !result && <div className="h-full flex items-center justify-center opacity-40"><Target size={48}/></div>}
+            {!loading && fallbackText && (
+              <div className="rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm leading-6 text-amber-900 dark:border-amber-900/60 dark:bg-amber-950/20 dark:text-amber-200">
+                {isZh ? '分析已返回，但结构化结果解析不完整。请重新生成一次。' : 'The analysis returned, but the structured result could not be fully parsed. Please generate again.'}
               </div>
             )}
             {hasStructuredResult && !loading && (
