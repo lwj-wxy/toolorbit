@@ -58,7 +58,15 @@
       "Bash(sed -i 's/ overview={TEXT_CLEANER_OVERVIEW}//' src/views/tools/text/TextCleaner.tsx)",
       "Bash(sed -i '5d' src/views/tools/text/SymbolLibrary.tsx)",
       "Bash(sed -i '6,23d' src/views/tools/text/SymbolLibrary.tsx)",
-      "Bash(sed -i 's/ overview={SYMBOL_LIBRARY_OVERVIEW}//' src/views/tools/text/SymbolLibrary.tsx)"
+      "Bash(sed -i 's/ overview={SYMBOL_LIBRARY_OVERVIEW}//' src/views/tools/text/SymbolLibrary.tsx)",
+      "Bash(sed -i '5d' src/views/tools/ecommerce/EtsyFee.tsx)",
+      "Bash(sed -i '6,40d' src/views/tools/ecommerce/EtsyFee.tsx)",
+      "Bash(sed -i 's/ overview={overview}//' src/views/tools/ecommerce/EtsyFee.tsx)",
+      "Bash(sed -i '/const overview = i18n.language/d' src/views/tools/ecommerce/EtsyFee.tsx)",
+      "Bash(sed -i '5d' src/views/tools/ecommerce/StripeFee.tsx)",
+      "Bash(sed -i '6,40d' src/views/tools/ecommerce/StripeFee.tsx)",
+      "Bash(sed -i 's/ overview={overview}//' src/views/tools/ecommerce/StripeFee.tsx)",
+      "Bash(sed -i '/const overview = i18n.language/d' src/views/tools/ecommerce/StripeFee.tsx)"
     ]
   }
 }

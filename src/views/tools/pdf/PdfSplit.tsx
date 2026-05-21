@@ -91,117 +91,133 @@ export default function PdfSplit() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-12">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4 flex items-center justify-center gap-3">
-          <Scissors className="w-10 h-10 text-orange-600" />
-          {t('tools.pdf-split.title')}
-        </h1>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-          {t('tools.pdf-split.subtitle')}
-        </p>
+    <div className="space-y-6">
+      <div className="flex flex-col gap-4 border-b border-slate-200 pb-6 dark:border-slate-800 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h1 className="text-3xl font-semibold tracking-tight text-slate-950 dark:text-white">
+            {t('tools.pdf-split.title')}
+          </h1>
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-400">
+            {t('tools.pdf-split.subtitle')}
+          </p>
+        </div>
       </div>
 
-      <div className="max-w-4xl mx-auto">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <div className="flex flex-col space-y-3">
+          <label className="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
+            {pdf ? t('tools.pdf-split.fileCardTitle') : t('tools.pdf-split.dropLabel')}
+          </label>
+          <div className="h-[500px] overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-[#282c34]">
         {!pdf ? (
-          <div
-            onDragOver={(e) => e.preventDefault()}
-            onDrop={(e) => {
-              e.preventDefault();
-              const file = e.dataTransfer.files[0];
-              if (file) handleFile(file);
-            }}
-            className="border-2 border-dashed border-gray-300 rounded-3xl p-16 text-center hover:border-orange-500 hover:bg-orange-50/30 transition-all cursor-pointer group"
-            onClick={() => document.getElementById('pdf-upload')?.click()}
-          >
-            <input
-              id="pdf-upload"
-              type="file"
-              accept=".pdf"
-              className="hidden"
-              onChange={(e) => {
-                const file = e.target.files?.[0];
+              <button
+                type="button"
+              onDragOver={(e) => e.preventDefault()}
+              onDrop={(e) => {
+                e.preventDefault();
+                const file = e.dataTransfer.files[0];
                 if (file) handleFile(file);
               }}
-            />
-            <div className="bg-orange-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-              <Upload className="w-10 h-10 text-orange-600" />
-            </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-2">{t('tools.pdf-split.dropLabel')}</h3>
-            <p className="text-gray-500 mb-8">{t('tools.pdf-split.readyDesc')}</p>
-            <button className="bg-orange-600 text-white px-10 py-4 rounded-xl font-bold text-lg hover:bg-orange-700 transition-colors shadow-lg shadow-orange-200">
-              {t('tools.pdf-split.selectBtn')}
-            </button>
-          </div>
+              onClick={() => document.getElementById('pdf-upload')?.click()}
+                className="flex h-full w-full flex-col items-center justify-center px-8 text-center transition-colors hover:bg-cyan-50/30 dark:hover:bg-cyan-950/20"
+            >
+              <input
+                id="pdf-upload"
+                type="file"
+                accept=".pdf"
+                className="hidden"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) handleFile(file);
+                }}
+              />
+                <span className="mb-5 flex h-12 w-12 items-center justify-center rounded-lg bg-cyan-50 text-cyan-700 dark:bg-cyan-950/40 dark:text-cyan-300">
+                <Upload className="h-6 w-6" />
+                </span>
+                <span className="text-base font-semibold text-slate-950 dark:text-white">{t('tools.pdf-split.dropLabel')}</span>
+                <span className="mt-2 max-w-md text-sm leading-6 text-slate-500 dark:text-slate-400">{t('tools.pdf-split.readyDesc')}</span>
+                <span className="mt-6 rounded-md bg-cyan-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-cyan-700">
+                {t('tools.pdf-split.selectBtn')}
+                </span>
+              </button>
         ) : (
-          <div className="grid md:grid-cols-2 gap-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <div className="space-y-6">
-              <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm relative overflow-hidden">
-                <div className="absolute top-0 right-0 p-4 opacity-5">
-                  <FileText className="w-24 h-24" />
-                </div>
-                <h3 className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-4">{t('tools.pdf-split.fileCardTitle')}</h3>
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="bg-red-50 p-4 rounded-xl">
-                    <FileText className="w-8 h-8 text-red-600" />
+              <div className="h-full overflow-y-auto p-6">
+                <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">{t('tools.pdf-split.fileCardTitle')}</h3>
+                <div className="mb-6 flex items-center gap-4">
+                  <div className="rounded-lg bg-red-50 p-3 text-red-600 dark:bg-red-950/30 dark:text-red-300">
+                    <FileText className="h-7 w-7" />
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="font-bold text-gray-900 text-lg truncate">{pdf.name}</p>
-                    <p className="text-gray-500">
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate text-lg font-semibold text-slate-950 dark:text-white">{pdf.name}</p>
+                    <p className="text-slate-500 dark:text-slate-400">
                       {t('tools.pdf-split.pageCount', { count: pdf.pages })} · {(pdf.size / 1024 / 1024).toFixed(2)} MB
                     </p>
                   </div>
                 </div>
                 
-                <div className="bg-blue-50 rounded-xl p-4 border border-blue-100">
+                <div className="rounded-lg border border-cyan-100 bg-cyan-50 p-4 dark:border-cyan-900/50 dark:bg-cyan-950/20">
                   <div className="flex gap-3">
-                    <Box className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
+                    <Box className="mt-0.5 h-5 w-5 shrink-0 text-cyan-700 dark:text-cyan-300" />
                     <div>
-                      <h4 className="font-bold text-blue-900 text-sm">{t('tools.pdf-split.extractFeatureTitle')}</h4>
-                      <p className="text-xs text-blue-800 leading-relaxed mt-1">
+                      <h4 className="text-sm font-semibold text-cyan-950 dark:text-cyan-100">{t('tools.pdf-split.extractFeatureTitle')}</h4>
+                      <p className="mt-1 text-xs leading-relaxed text-cyan-800 dark:text-cyan-200">
                         {t('tools.pdf-split.extractFeatureDesc')}
                       </p>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm">
-                <h3 className="text-sm font-bold text-gray-900 mb-4 flex items-center gap-2">
-                  <Zap className="w-4 h-4 text-orange-600" />
+                <button
+                  onClick={reset}
+                  className="mt-6 font-semibold text-cyan-700 transition-colors hover:text-cyan-800 dark:text-cyan-300"
+                >
+                  {t('tools.pdf-split.clearAll')}
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className="flex flex-col space-y-3">
+          <label className="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
+            {t('tools.pdf-split.readyTitle')}
+          </label>
+          <div className="flex h-[500px] flex-col justify-center rounded-lg border border-slate-200 bg-slate-50 p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+            {!pdf ? (
+              <div>
+                <h3 className="mb-3 flex items-center gap-2 text-base font-semibold text-slate-950 dark:text-white">
+                  <Scissors className="h-5 w-5 text-cyan-700 dark:text-cyan-300" />
                   {t('tools.pdf-split.readyTitle')}
                 </h3>
-                <p className="text-gray-600 text-sm leading-relaxed mb-6">
+                <p className="text-sm leading-6 text-slate-600 dark:text-slate-400">
                   {t('tools.pdf-split.readyDesc')}
                 </p>
-                <div className="flex items-center gap-2 text-green-600 bg-green-50 p-3 rounded-lg border border-green-100">
-                  <ShieldCheck className="w-4 h-4" />
-                  <span className="text-xs font-medium uppercase tracking-tight">Verified Local Processing</span>
+                <div className="mt-5 flex items-center gap-2 rounded-lg border border-green-100 bg-green-50 p-3 text-green-700 dark:border-green-900/50 dark:bg-green-950/20 dark:text-green-300">
+                  <ShieldCheck className="h-4 w-4" />
+                  <span className="text-xs font-semibold uppercase tracking-wide">Verified Local Processing</span>
                 </div>
               </div>
-            </div>
-
-            <div className="flex flex-col justify-center">
+            ) : (
               <AnimatePresence mode="wait">
                 {isSuccess ? (
                   <motion.div
                     key="success"
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    className="text-center space-y-6"
+                    className="space-y-6 text-center"
                   >
-                    <div className="bg-green-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto">
-                      <CheckCircle2 className="w-10 h-10 text-green-600" />
+                    <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-lg bg-green-50 text-green-600 dark:bg-green-950/30 dark:text-green-300">
+                      <CheckCircle2 className="h-7 w-7" />
                     </div>
                     <div>
-                      <h3 className="text-2xl font-bold text-gray-900 mb-2">{t('tools.pdf-split.successMsg')}</h3>
-                      <p className="text-gray-600">{t('tools.pdf-split.successTip')}</p>
+                      <h3 className="mb-2 text-xl font-semibold text-slate-950 dark:text-white">{t('tools.pdf-split.successMsg')}</h3>
+                      <p className="text-sm leading-6 text-slate-600 dark:text-slate-400">{t('tools.pdf-split.successTip')}</p>
                     </div>
                     <button
                       onClick={reset}
-                      className="flex items-center gap-2 text-orange-600 font-bold mx-auto hover:gap-3 transition-all"
+                      className="mx-auto flex items-center gap-2 font-semibold text-cyan-700 transition-colors hover:text-cyan-800 dark:text-cyan-300"
                     >
-                      <RefreshCw className="w-5 h-5" />
+                      <RefreshCw className="h-5 w-5" />
                       {t('tools.pdf-split.processNext')}
                     </button>
                   </motion.div>
@@ -215,43 +231,36 @@ export default function PdfSplit() {
                     <button
                       onClick={splitPdf}
                       disabled={isProcessing}
-                      className={`w-full py-6 rounded-2xl font-bold text-white shadow-xl flex flex-col items-center justify-center gap-2 transition-all active:scale-[0.98] ${
-                        isProcessing 
-                          ? 'bg-gray-400 cursor-not-allowed' 
-                          : 'bg-orange-600 hover:bg-orange-700 shadow-orange-200'
+                      className={`flex w-full flex-col items-center justify-center gap-2 rounded-lg py-5 font-semibold text-white transition-colors ${
+                        isProcessing
+                          ? 'cursor-not-allowed bg-slate-300 dark:bg-slate-700'
+                          : 'bg-cyan-600 hover:bg-cyan-700'
                       }`}
                     >
                       {isProcessing ? (
                         <>
-                          <div className="w-8 h-8 border-3 border-white/30 border-t-white rounded-full animate-spin" />
+                          <div className="h-7 w-7 animate-spin rounded-full border-2 border-white/30 border-t-white" />
                           <span>{t('tools.pdf-split.processingMsg')}</span>
                         </>
                       ) : (
                         <>
-                          <div className="flex items-center gap-2 text-xl">
-                            <Download className="w-6 h-6" />
+                          <div className="flex items-center gap-2 text-lg">
+                            <Download className="h-5 w-5" />
                             {t('tools.pdf-split.downloadBtn')}
                           </div>
                           <span className="text-xs opacity-80 font-normal uppercase tracking-widest flex items-center gap-1">
-                            <FileArchive className="w-3 h-3" />
+                            <FileArchive className="h-3 w-3" />
                             {t('tools.pdf-split.downloadDesc')}
                           </span>
                         </>
                       )}
                     </button>
-                    
-                    <button
-                      onClick={reset}
-                      className="w-full py-4 text-gray-500 font-medium hover:text-gray-700 transition-colors"
-                    >
-                      {t('tools.pdf-split.clearAll')}
-                    </button>
                   </motion.div>
                 )}
               </AnimatePresence>
-            </div>
+            )}
           </div>
-        )}
+        </div>
       </div>
 
       <ToolSEOCard toolKey="pdf-split" />

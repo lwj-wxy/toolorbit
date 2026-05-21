@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { PDFDocument } from 'pdf-lib';
 import { motion, AnimatePresence } from 'motion/react';
+import ToolSEOCard from '../../../components/ToolSEOCard';
 
 interface PdfMetadata {
   id: string;
@@ -104,29 +105,34 @@ export default function PdfMerge() {
   const totalPages = pdfs.reduce((sum, pdf) => sum + pdf.pages, 0);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-12">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4 flex items-center justify-center gap-3">
-          <Layers className="w-10 h-10 text-blue-600" />
-          {t('tools.pdf-merge.title')}
-        </h1>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-          {t('tools.pdf-merge.subtitle')}
-        </p>
+    <div className="space-y-6">
+      <div className="flex flex-col gap-4 border-b border-slate-200 pb-6 dark:border-slate-800 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h1 className="text-3xl font-semibold tracking-tight text-slate-950 dark:text-white">
+            {t('tools.pdf-merge.title')}
+          </h1>
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-400">
+            {t('tools.pdf-merge.subtitle')}
+          </p>
+        </div>
       </div>
 
-      <div className="grid lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2 space-y-6">
-          {/* Upload Area */}
-          <div
-            onDragOver={(e) => e.preventDefault()}
-            onDrop={(e) => {
-              e.preventDefault();
-              handleFiles(e.dataTransfer.files);
-            }}
-            className="border-2 border-dashed border-gray-300 rounded-2xl p-10 text-center hover:border-blue-500 hover:bg-blue-50/30 transition-all cursor-pointer group"
-            onClick={() => document.getElementById('pdf-upload')?.click()}
-          >
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <div className="flex flex-col space-y-3">
+          <div className="flex items-center justify-between">
+            <label className="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
+              {t('tools.pdf-merge.listTitle', { count: pdfs.length })}
+            </label>
+            {pdfs.length > 0 ? (
+              <button
+                onClick={() => setPdfs([])}
+                className="text-xs font-semibold text-red-600 transition-colors hover:text-red-700"
+              >
+                {t('tools.pdf-merge.clearAll')}
+              </button>
+            ) : null}
+          </div>
+          <div className="h-[500px] overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-[#282c34]">
             <input
               id="pdf-upload"
               type="file"
@@ -135,122 +141,122 @@ export default function PdfMerge() {
               className="hidden"
               onChange={(e) => handleFiles(e.target.files!)}
             />
-            <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-              <Upload className="w-8 h-8 text-blue-600" />
-            </div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">{t('tools.pdf-merge.dropLabel')}</h3>
-            <p className="text-gray-500 mb-6">{t('tools.pdf-merge.dropDesc')}</p>
-            <button className="bg-blue-600 text-white px-8 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors">
-              {t('tools.pdf-merge.selectBtn')}
-            </button>
-          </div>
+            {pdfs.length === 0 ? (
+              <button
+                type="button"
+                onDragOver={(e) => e.preventDefault()}
+                onDrop={(e) => {
+                  e.preventDefault();
+                  handleFiles(e.dataTransfer.files);
+                }}
+                onClick={() => document.getElementById('pdf-upload')?.click()}
+                className="flex h-full w-full flex-col items-center justify-center px-8 text-center transition-colors hover:bg-cyan-50/30 dark:hover:bg-cyan-950/20"
+              >
+                <span className="mb-5 flex h-12 w-12 items-center justify-center rounded-lg bg-cyan-50 text-cyan-700 dark:bg-cyan-950/40 dark:text-cyan-300">
+                  <Upload className="h-6 w-6" />
+                </span>
+                <span className="text-base font-semibold text-slate-950 dark:text-white">{t('tools.pdf-merge.dropLabel')}</span>
+                <span className="mt-2 max-w-md text-sm leading-6 text-slate-500 dark:text-slate-400">{t('tools.pdf-merge.dropDesc')}</span>
+                <span className="mt-6 rounded-md bg-cyan-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-cyan-700">
+                  {t('tools.pdf-merge.selectBtn')}
+                </span>
+              </button>
+            ) : (
+              <div className="flex h-full flex-col">
+                <div className="flex-1 divide-y divide-slate-100 overflow-y-auto dark:divide-slate-800">
+                  <AnimatePresence initial={false}>
+                    {pdfs.map((pdf, index) => (
+                      <motion.div
+                        key={pdf.id}
+                        layout
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: 20 }}
+                        className="flex items-center gap-4 p-4 transition-colors hover:bg-slate-50/80 dark:hover:bg-slate-900/40"
+                      >
+                        <div className="flex flex-col gap-1">
+                          <button
+                            onClick={() => movePdf(index, 'up')}
+                            disabled={index === 0}
+                            className="rounded p-1 transition-colors hover:bg-slate-200 disabled:opacity-0 dark:hover:bg-slate-800"
+                          >
+                            <ArrowUp className="h-4 w-4 text-slate-500" />
+                          </button>
+                          <button
+                            onClick={() => movePdf(index, 'down')}
+                            disabled={index === pdfs.length - 1}
+                            className="rounded p-1 transition-colors hover:bg-slate-200 disabled:opacity-0 dark:hover:bg-slate-800"
+                          >
+                            <ArrowDown className="h-4 w-4 text-slate-500" />
+                          </button>
+                        </div>
 
-          {/* File List */}
-          {pdfs.length > 0 && (
-            <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
-              <div className="p-4 border-b border-gray-100 bg-gray-50/50 flex justify-between items-center">
-                <h3 className="font-semibold text-gray-900 flex items-center gap-2">
-                  <FileText className="w-5 h-5 text-gray-500" />
-                  {t('tools.pdf-merge.listTitle', { count: pdfs.length })}
-                </h3>
-                <button 
-                  onClick={() => setPdfs([])}
-                  className="text-sm text-red-600 hover:text-red-700 font-medium"
+                        <div className="rounded-lg bg-red-50 p-3 text-red-600 dark:bg-red-950/30 dark:text-red-300">
+                          <FileText className="h-6 w-6" />
+                        </div>
+
+                        <div className="min-w-0 flex-1">
+                          <p className="truncate font-semibold text-slate-950 dark:text-white">{pdf.name}</p>
+                          <p className="text-sm text-slate-500 dark:text-slate-400">
+                            {pdf.pages} {t('tools.pdf-merge.totalPages')} · {(pdf.size / 1024 / 1024).toFixed(2)} MB
+                          </p>
+                        </div>
+
+                        <button
+                          onClick={() => removePdf(pdf.id)}
+                          className="rounded-lg p-2 text-slate-400 transition-colors hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-950/30"
+                        >
+                          <Trash2 className="h-5 w-5" />
+                        </button>
+                      </motion.div>
+                    ))}
+                  </AnimatePresence>
+                </div>
+                <button
+                  onClick={() => document.getElementById('pdf-upload')?.click()}
+                  className="flex w-full items-center justify-center gap-2 border-t border-slate-100 p-4 font-semibold text-cyan-700 transition-colors hover:bg-cyan-50 dark:border-slate-800 dark:text-cyan-300 dark:hover:bg-cyan-950/20"
                 >
-                  {t('tools.pdf-merge.clearAll')}
+                  <FilePlus className="h-5 w-5" />
+                  {t('tools.pdf-merge.addMore')}
                 </button>
               </div>
-              <div className="divide-y divide-gray-100">
-                <AnimatePresence initial={false}>
-                  {pdfs.map((pdf, index) => (
-                    <motion.div
-                      key={pdf.id}
-                      layout
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: 20 }}
-                      className="p-4 flex items-center gap-4 group hover:bg-gray-50/80 transition-colors"
-                    >
-                      <div className="flex flex-col gap-1">
-                        <button
-                          onClick={() => movePdf(index, 'up')}
-                          disabled={index === 0}
-                          className="p-1 hover:bg-gray-200 rounded disabled:opacity-0"
-                        >
-                          <ArrowUp className="w-4 h-4 text-gray-500" />
-                        </button>
-                        <button
-                          onClick={() => movePdf(index, 'down')}
-                          disabled={index === pdfs.length - 1}
-                          className="p-1 hover:bg-gray-200 rounded disabled:opacity-0"
-                        >
-                          <ArrowDown className="w-4 h-4 text-gray-500" />
-                        </button>
-                      </div>
-                      
-                      <div className="bg-red-50 p-3 rounded-lg">
-                        <FileText className="w-6 h-6 text-red-600" />
-                      </div>
-
-                      <div className="flex-1 min-w-0">
-                        <p className="font-medium text-gray-900 truncate">{pdf.name}</p>
-                        <p className="text-sm text-gray-500">
-                          {pdf.pages} {t('tools.pdf-merge.totalPages')} · {(pdf.size / 1024 / 1024).toFixed(2)} MB
-                        </p>
-                      </div>
-
-                      <button
-                        onClick={() => removePdf(pdf.id)}
-                        className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                      >
-                        <Trash2 className="w-5 h-5" />
-                      </button>
-                    </motion.div>
-                  ))}
-                </AnimatePresence>
-              </div>
-              <button
-                onClick={() => document.getElementById('pdf-upload')?.click()}
-                className="w-full p-4 text-blue-600 hover:bg-blue-50 font-medium flex items-center justify-center gap-2 transition-colors border-t border-gray-100"
-              >
-                <FilePlus className="w-5 h-5" />
-                {t('tools.pdf-merge.addMore')}
-              </button>
-            </div>
-          )}
+            )}
+          </div>
         </div>
 
-        {/* Sidebar Settings */}
-        <div className="space-y-6">
-          <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm sticky top-8">
-            <h3 className="text-lg font-bold text-gray-900 mb-6 flex items-center gap-2">
-              <Layers className="w-5 h-5 text-blue-600" />
+        <div className="flex flex-col space-y-3">
+          <label className="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
+            {t('tools.pdf-merge.settingsTitle')}
+          </label>
+          <div className="flex h-[500px] flex-col rounded-lg border border-slate-200 bg-slate-50 p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+            <h3 className="mb-6 flex items-center gap-2 text-base font-semibold text-slate-950 dark:text-white">
+              <Layers className="h-5 w-5 text-cyan-700 dark:text-cyan-300" />
               {t('tools.pdf-merge.settingsTitle')}
             </h3>
 
             <div className="space-y-4 mb-8">
-              <div className="flex justify-between py-3 border-b border-gray-100">
-                <span className="text-gray-600">{t('tools.pdf-merge.totalFiles')}</span>
-                <span className="font-semibold text-gray-900">{pdfs.length}</span>
+              <div className="flex justify-between border-b border-slate-200 py-3 dark:border-slate-700">
+                <span className="text-slate-600 dark:text-slate-300">{t('tools.pdf-merge.totalFiles')}</span>
+                <span className="font-semibold text-slate-950 dark:text-white">{pdfs.length}</span>
               </div>
-              <div className="flex justify-between py-3 border-b border-gray-100">
-                <span className="text-gray-600">{t('tools.pdf-merge.totalPages')}</span>
-                <span className="font-semibold text-gray-900">{totalPages}</span>
+              <div className="flex justify-between border-b border-slate-200 py-3 dark:border-slate-700">
+                <span className="text-slate-600 dark:text-slate-300">{t('tools.pdf-merge.totalPages')}</span>
+                <span className="font-semibold text-slate-950 dark:text-white">{totalPages}</span>
               </div>
             </div>
 
-            <div className="bg-amber-50 rounded-xl p-4 mb-8 border border-amber-100">
+            <div className="mb-8 rounded-lg border border-amber-100 bg-amber-50 p-4 dark:border-amber-900/50 dark:bg-amber-950/20">
               <div className="flex gap-3">
-                <Info className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
-                <p className="text-sm text-amber-800 leading-relaxed">
+                <Info className="mt-0.5 h-5 w-5 shrink-0 text-amber-600 dark:text-amber-300" />
+                <p className="text-sm leading-relaxed text-amber-800 dark:text-amber-100">
                   {t('tools.pdf-merge.dragTip')}
                 </p>
               </div>
             </div>
 
             {isSuccess && !isMerging && (
-              <div className="bg-green-50 text-green-700 p-4 rounded-xl mb-6 flex items-center gap-3 border border-green-100 animate-in fade-in slide-in-from-bottom-2">
-                <CheckCircle2 className="w-5 h-5" />
+              <div className="mb-6 flex items-center gap-3 rounded-lg border border-green-100 bg-green-50 p-4 text-green-700 dark:border-green-900/50 dark:bg-green-950/20 dark:text-green-300">
+                <CheckCircle2 className="h-5 w-5" />
                 <span className="text-sm font-medium">{t('tools.pdf-merge.successMsg')}</span>
               </div>
             )}
@@ -258,21 +264,21 @@ export default function PdfMerge() {
             <button
               onClick={mergePdfs}
               disabled={pdfs.length < 2 || isMerging}
-              className={`w-full py-4 rounded-xl font-bold text-white shadow-lg transition-all flex flex-col items-center justify-center gap-1 ${
+              className={`flex w-full flex-col items-center justify-center gap-1 rounded-lg py-4 font-semibold text-white transition-colors ${
                 pdfs.length < 2 || isMerging
-                  ? 'bg-gray-300 cursor-not-allowed'
-                  : 'bg-blue-600 hover:bg-blue-700 hover:shadow-blue-200 active:scale-[0.98]'
+                  ? 'cursor-not-allowed bg-slate-300 dark:bg-slate-700'
+                  : 'bg-cyan-600 hover:bg-cyan-700'
               }`}
             >
               {isMerging ? (
                 <div className="flex items-center gap-2">
-                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  <div className="h-5 w-5 animate-spin rounded-full border-2 border-white/30 border-t-white" />
                   {t('tools.pdf-merge.processingMsg')}
                 </div>
               ) : (
                 <>
                   <div className="flex items-center gap-2">
-                    <Download className="w-5 h-5" />
+                    <Download className="h-5 w-5" />
                     {t('tools.pdf-merge.downloadBtn')}
                   </div>
                   <span className="text-[10px] opacity-80 font-normal uppercase tracking-wider">
@@ -285,6 +291,7 @@ export default function PdfMerge() {
         </div>
       </div>
 
+      <ToolSEOCard toolKey="pdf-merge" />
     </div>
   );
 }

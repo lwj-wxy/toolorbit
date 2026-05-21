@@ -11,11 +11,15 @@ import type { TechnicalOverview } from '../types/tool-overview';
 import { DEV_TOOL_OVERVIEWS } from '../views/tools/dev/data';
 import { IMAGE_TOOL_OVERVIEWS } from '../views/tools/image/data';
 import { TEXT_TOOL_OVERVIEWS } from '../views/tools/text/data';
+import { ECOMMERCE_TOOL_OVERVIEWS } from '../views/tools/ecommerce/data';
+import { PDF_TOOL_OVERVIEWS } from '../views/tools/pdf/data';
 
 const ALL_OVERVIEWS: Record<string, { zh: TechnicalOverview; en: TechnicalOverview }> = {
   ...DEV_TOOL_OVERVIEWS,
   ...IMAGE_TOOL_OVERVIEWS,
   ...TEXT_TOOL_OVERVIEWS,
+  ...ECOMMERCE_TOOL_OVERVIEWS,
+  ...PDF_TOOL_OVERVIEWS,
 };
 
 interface ToolSEOCardProps {
@@ -61,6 +65,12 @@ const TECHNICAL_OVERVIEW_TOOL_KEYS = new Set([
   'text-analyzer',
   'text-cleaner',
   'symbol-library',
+  'etsy-fee-calculator',
+  'stripe-fee-calculator',
+  'pdf-merge',
+  'pdf-split',
+  'pdf-to-image',
+  'image-to-pdf',
 ]);
 
 function developerOverviewFor(toolKey: string, title: string, description: string, isZh: boolean): TechnicalOverview {
