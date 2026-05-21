@@ -15,6 +15,7 @@ import { ECOMMERCE_TOOL_OVERVIEWS } from '../views/tools/ecommerce/data';
 import { PDF_TOOL_OVERVIEWS } from '../views/tools/pdf/data';
 import { CALCULATE_TOOL_OVERVIEWS } from '../views/tools/calculate/data';
 import { NET_TOOL_OVERVIEWS } from '../views/tools/net/data';
+import { AI_TOOL_OVERVIEWS } from '../views/tools/ai/data';
 
 const ALL_OVERVIEWS: Record<string, { zh: TechnicalOverview; en: TechnicalOverview }> = {
   ...DEV_TOOL_OVERVIEWS,
@@ -24,6 +25,7 @@ const ALL_OVERVIEWS: Record<string, { zh: TechnicalOverview; en: TechnicalOvervi
   ...PDF_TOOL_OVERVIEWS,
   ...CALCULATE_TOOL_OVERVIEWS,
   ...NET_TOOL_OVERVIEWS,
+  ...AI_TOOL_OVERVIEWS,
 };
 
 interface ToolSEOCardProps {
@@ -272,7 +274,7 @@ const ToolSEOCard: React.FC<ToolSEOCardProps> = ({ toolKey, overview }) => {
     </div>
   );
 
-  if (isAiTool) {
+  if (isAiTool && !usesTechnicalOverview) {
     return (
       <div className="mt-10 border-t border-slate-200 pt-10 transition-colors duration-300 dark:border-slate-800">
         <p className="mb-3 text-[12px] font-semibold uppercase tracking-wide text-blue-700 dark:text-blue-300">

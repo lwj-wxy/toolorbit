@@ -93,26 +93,24 @@ export default function WeeklyReport() {
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="text-center mb-10">
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 mb-6 relative group">
-          <div className="absolute inset-0 bg-blue-400 opacity-20 blur-xl rounded-full group-hover:opacity-30 transition-opacity"></div>
-          <FileText className="w-8 h-8 relative z-10" />
-        </div>
-        <h1 className="text-4xl font-bold text-slate-900 dark:text-white mb-4">
+    <div className="space-y-6">
+      <div className="flex flex-col gap-4 border-b border-slate-200 pb-6 dark:border-slate-800 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+        <h1 className="text-3xl font-semibold tracking-tight text-slate-950 dark:text-white">
           {t('tools.ai-weekly-report.title') || 'AI Weekly Report'}
         </h1>
-        <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+        <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-400">
           {t('tools.ai-weekly-report.description') || 'Turn your raw notes into a professional and well-structured weekly report.'}
         </p>
+        </div>
       </div>
 
-      <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
-        <div className="p-6 sm:p-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <div className="contents">
+          <div className="contents">
             
             {/* Input Section */}
-            <div className="space-y-5">
+            <div className="flex h-[500px] flex-col overflow-y-auto rounded-lg border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-[#282c34]">
               <div>
                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                    {t('tools.ai-weekly-report.done') || 'Done this week'}
@@ -121,11 +119,11 @@ export default function WeeklyReport() {
                   value={done}
                   onChange={(e) => setDone(e.target.value)}
                   placeholder={t('tools.ai-weekly-report.donePlaceholder') || 'e.g. fixed login bug, wrote API documentation'}
-                  className="w-full h-24 p-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none resize-none transition-all placeholder:text-slate-400 dark:text-white"
+                  className="w-full h-24 resize-none rounded-lg border border-slate-200 bg-slate-50 p-3 text-sm text-slate-900 outline-none transition-colors placeholder:text-slate-400 focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
                 />
               </div>
 
-              <div>
+              <div className="mt-5">
                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                    {t('tools.ai-weekly-report.todo') || 'Plans for next week'}
                 </label>
@@ -133,11 +131,11 @@ export default function WeeklyReport() {
                   value={todo}
                   onChange={(e) => setTodo(e.target.value)}
                   placeholder={t('tools.ai-weekly-report.todoPlaceholder') || 'e.g. setup database, meeting with client'}
-                  className="w-full h-24 p-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none resize-none transition-all placeholder:text-slate-400 dark:text-white"
+                  className="w-full h-24 resize-none rounded-lg border border-slate-200 bg-slate-50 p-3 text-sm text-slate-900 outline-none transition-colors placeholder:text-slate-400 focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
                 />
               </div>
               
-              <div>
+              <div className="mt-5">
                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                    {t('tools.ai-weekly-report.problems') || 'Problems / Risks'}
                 </label>
@@ -145,18 +143,18 @@ export default function WeeklyReport() {
                   value={problems}
                   onChange={(e) => setProblems(e.target.value)}
                   placeholder={t('tools.ai-weekly-report.problemsPlaceholder') || 'e.g. waiting for API keys from third-party'}
-                  className="w-full h-20 p-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none resize-none transition-all placeholder:text-slate-400 dark:text-white"
+                  className="w-full h-20 resize-none rounded-lg border border-slate-200 bg-slate-50 p-3 text-sm text-slate-900 outline-none transition-colors placeholder:text-slate-400 focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
                 />
               </div>
 
-              <div>
+              <div className="mt-5">
                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                   {t('tools.ai-weekly-report.tone') || 'Tone'}
                 </label>
                 <select
                   value={tone}
                   onChange={(e) => setTone(e.target.value)}
-                  className="w-full p-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-slate-700 dark:text-slate-300"
+                  className="w-full rounded-lg border border-slate-200 bg-slate-50 p-3 text-sm text-slate-900 outline-none transition-colors focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
                 >
                   {tones.map(tOption => (
                     <option key={tOption} value={tOption}>{tOption}</option>
@@ -167,7 +165,7 @@ export default function WeeklyReport() {
               <button
                 onClick={handleGenerate}
                 disabled={(!done.trim() && !todo.trim()) || loading}
-                className="w-full py-4 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-300 dark:disabled:bg-slate-800 disabled:cursor-not-allowed text-white rounded-xl font-medium transition-all shadow-sm hover:shadow-md flex items-center justify-center gap-2 group"
+                className="mt-5 flex w-full items-center justify-center gap-2 rounded-md bg-cyan-600 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-cyan-700 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {loading ? (
                   <>
@@ -184,7 +182,7 @@ export default function WeeklyReport() {
             </div>
 
             {/* Output Section */}
-            <div className="space-y-6 h-full">
+            <div className="flex h-[500px] flex-col rounded-lg border border-slate-200 bg-slate-50 p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
               <div className="h-full flex flex-col">
                  <div className="flex items-center justify-between mb-2 shrink-0">
                     <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
@@ -193,7 +191,7 @@ export default function WeeklyReport() {
                     {result && (
                       <button
                         onClick={copyToClipboard}
-                        className="flex items-center gap-1.5 text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 font-medium px-3 py-1.5 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
+                        className="inline-flex items-center gap-1 rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors hover:bg-slate-50 dark:border-slate-700 dark:bg-[#282c34] dark:text-slate-200 dark:hover:bg-slate-800"
                       >
                         {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                         {copied ? (t('common.copied') || 'Copied') : (t('common.copy') || 'Copy')}
@@ -201,10 +199,10 @@ export default function WeeklyReport() {
                     )}
                  </div>
                  
-                 <div className="relative flex-1 min-h-[400px]">
+                 <div className="relative min-h-0 flex-1">
                     <div className={`absolute inset-0 p-5 rounded-xl border transition-all overflow-y-auto
                       ${result 
-                        ? 'bg-blue-50/50 dark:bg-blue-900/10 border-blue-100 dark:border-blue-900/30 text-slate-800 dark:text-slate-200' 
+                        ? 'bg-white dark:bg-[#282c34] border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200'
                         : 'bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500 flex items-center justify-center'}`}
                     >
                       {error ? (
@@ -236,7 +234,6 @@ export default function WeeklyReport() {
           </div>
         </div>
       </div>
-
     </div>
   );
 }

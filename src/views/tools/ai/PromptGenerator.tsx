@@ -159,26 +159,24 @@ export default function PromptGenerator() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="text-center mb-10">
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-fuchsia-100 dark:bg-fuchsia-900/30 text-fuchsia-600 dark:text-fuchsia-400 mb-6 relative group">
-          <div className="absolute inset-0 bg-fuchsia-400 opacity-20 blur-xl rounded-full group-hover:opacity-30 transition-opacity"></div>
-          <ImageIcon className="w-8 h-8 relative z-10" />
-        </div>
-        <h1 className="text-4xl font-bold text-slate-900 dark:text-white mb-4">
+    <div className="space-y-6">
+      <div className="flex flex-col gap-4 border-b border-slate-200 pb-6 dark:border-slate-800 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+        <h1 className="text-3xl font-semibold tracking-tight text-slate-950 dark:text-white">
           {t('tools.ai-prompt-generator.title') || 'AI Prompt Generator'}
         </h1>
-        <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+        <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-400">
           {t('tools.ai-prompt-generator.description') || 'Generate high-quality painting prompts for Midjourney and Stable Diffusion.'}
         </p>
+        </div>
       </div>
 
-      <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
-        <div className="p-6 sm:p-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <div className="contents">
+          <div className="contents">
             
             {/* Input Section */}
-            <div className="space-y-6">
+            <div className="flex h-[500px] flex-col rounded-lg border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-[#282c34]">
               <div>
                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                    {t('tools.ai-prompt-generator.topic') || 'What do you want to draw?'}
@@ -187,18 +185,18 @@ export default function PromptGenerator() {
                   value={topic}
                   onChange={(e) => setTopic(e.target.value)}
                   placeholder={t('tools.ai-prompt-generator.placeholder') || 'E.g., A cute cat drinking coffee in Paris'}
-                  className="w-full h-40 p-4 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-fuchsia-500 focus:border-transparent outline-none resize-none transition-all placeholder:text-slate-400 dark:text-white"
+                  className="w-full h-40 resize-none rounded-lg border border-slate-200 bg-slate-50 p-3 text-sm text-slate-900 outline-none transition-colors placeholder:text-slate-400 focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
                 />
               </div>
 
-              <div>
+              <div className="mt-5">
                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                   {t('tools.ai-prompt-generator.style') || 'Art Style'}
                 </label>
                 <select
                   value={style}
                   onChange={(e) => setStyle(e.target.value)}
-                  className="w-full p-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-fuchsia-500 outline-none text-slate-700 dark:text-slate-300"
+                  className="w-full rounded-lg border border-slate-200 bg-slate-50 p-3 text-sm text-slate-900 outline-none transition-colors focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
                 >
                   {styles.map(s => (
                     <option key={s} value={s}>{s}</option>
@@ -209,7 +207,7 @@ export default function PromptGenerator() {
               <button
                 onClick={handleGenerate}
                 disabled={!topic.trim() || loading}
-                className="w-full py-4 bg-fuchsia-600 hover:bg-fuchsia-700 disabled:bg-slate-300 dark:disabled:bg-slate-800 disabled:cursor-not-allowed text-white rounded-xl font-medium transition-all shadow-sm hover:shadow-md flex items-center justify-center gap-2 group"
+                className="mt-5 flex w-full items-center justify-center gap-2 rounded-md bg-cyan-600 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-cyan-700 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {loading ? (
                   <>
@@ -226,18 +224,18 @@ export default function PromptGenerator() {
             </div>
 
             {/* Output Section */}
-            <div className="space-y-6">
-              <div>
+            <div className="flex h-[500px] flex-col rounded-lg border border-slate-200 bg-slate-50 p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+              <div className="flex min-h-0 flex-1 flex-col">
                  <div className="flex items-center justify-between mb-2">
                     <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
                       {t('tools.ai-prompt-generator.result') || 'Generated Prompts'}
                     </label>
                  </div>
                  
-                 <div className="relative">
-                    <div className={`w-full h-[400px] p-2 sm:p-5 rounded-xl border transition-all overflow-y-auto whitespace-pre-wrap
+                 <div className="relative min-h-0 flex-1">
+                    <div className={`absolute inset-0 p-2 sm:p-5 rounded-xl border transition-all overflow-y-auto whitespace-pre-wrap
                       ${result 
-                        ? 'bg-fuchsia-50/30 dark:bg-fuchsia-900/5 border-fuchsia-100 dark:border-fuchsia-900/30' 
+                        ? 'bg-white dark:bg-[#282c34] border-slate-200 dark:border-slate-700'
                         : 'bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500 flex items-center justify-center'}`}
                     >
                       {error ? (

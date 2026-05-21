@@ -104,7 +104,7 @@ export default function CodeReviewer() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="space-y-8">
       <div className="text-center mb-10">
         <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 mb-6 relative group">
           <div className="absolute inset-0 bg-green-400 opacity-20 blur-xl rounded-full group-hover:opacity-30 transition-opacity"></div>

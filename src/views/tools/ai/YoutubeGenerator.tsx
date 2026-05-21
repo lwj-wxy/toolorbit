@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Sparkles, Loader2, Copy, Check, Clapperboard } from 'lucide-react';
+import { Sparkles, Loader2, Copy, Check } from 'lucide-react';
 import Markdown from 'react-markdown';
 
 export default function YoutubeGenerator() {
@@ -116,52 +116,53 @@ export default function YoutubeGenerator() {
   const isZh = i18n.language === 'zh';
 
   return (
-    <div className="max-w-7xl mx-auto space-y-8 pb-20 pt-8">
-      <div className="text-center mb-10">
-        <h1 className="text-3xl font-extrabold text-slate-800 tracking-tight flex items-center justify-center gap-3">
-          <Clapperboard className="text-rose-500" size={32} />
+    <div className="space-y-6">
+      <div className="flex flex-col gap-4 border-b border-slate-200 pb-6 dark:border-slate-800 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+        <h1 className="text-3xl font-semibold tracking-tight text-slate-950 dark:text-white">
           {isZh ? 'YouTube 视频标题与简介生成器' : 'YouTube Title & Description Generator'}
         </h1>
-        <p className="text-slate-500 mt-3 text-lg">
+        <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-400">
           {isZh ? '一键生成高点击率的 YouTube 标题、SEO 优化描述及标签。' : 'Generate catchy, high-CTR titles and SEO-optimized descriptions instantly.'}
         </p>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-[400px,1fr] gap-8 items-start">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         {/* Left Input Sidebar */}
-        <div className="bg-white rounded-3xl border border-slate-200 shadow-xl shadow-slate-200/50 p-6 sm:p-7 space-y-6">
-          <h2 className="text-xl font-black text-slate-800 tracking-tight flex items-center gap-2">
-            <Sparkles className="text-rose-500" />
+        <div className="flex h-[500px] flex-col overflow-y-auto rounded-lg border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-[#282c34]">
+          <h2 className="flex items-center gap-2 text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
+            <Sparkles className="h-4 w-4 text-cyan-600" />
             {isZh ? '内容设置' : 'Video Idea'}
           </h2>
 
-          <div className="space-y-4">
+          <div className="mt-5">
             <div>
               <label className="text-sm font-bold text-slate-700 mb-1 block">{isZh ? '视频主题 / 细节' : 'Video Topic'}</label>
-              <textarea value={topic} onChange={e => setTopic(e.target.value)} placeholder={isZh ? '例如：教你如何在家制作咖啡拉花...' : 'e.g. How to create latte art at home...'} className="w-full min-h-[100px] p-3 rounded-xl border border-slate-200 text-sm outline-none focus:ring-2 focus:ring-rose-500/20 resize-none" />
+              <textarea value={topic} onChange={e => setTopic(e.target.value)} placeholder={isZh ? '例如：教你如何在家制作咖啡拉花...' : 'e.g. How to create latte art at home...'} className="h-32 w-full resize-none rounded-lg border border-slate-200 bg-slate-50 p-3 text-sm text-slate-900 outline-none transition-colors placeholder:text-slate-400 focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100" />
             </div>
-            <div>
+            <div className="mt-5">
               <label className="text-sm font-bold text-slate-700 mb-1 block">{isZh ? '目标观众' : 'Target Audience'}</label>
-              <input value={targetAudience} onChange={e => setTargetAudience(e.target.value)} placeholder={isZh ? '例如：咖啡初学者' : 'e.g. Coffee beginners'} className="w-full h-11 px-3 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-rose-500/20 outline-none" />
+              <input value={targetAudience} onChange={e => setTargetAudience(e.target.value)} placeholder={isZh ? '例如：咖啡初学者' : 'e.g. Coffee beginners'} className="h-11 w-full rounded-lg border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 outline-none transition-colors placeholder:text-slate-400 focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100" />
             </div>
             
-            <div className="grid grid-cols-2 gap-4">
+            <div className="mt-5 grid grid-cols-2 gap-4">
               <div>
                 <label className="text-xs font-bold text-slate-700 mb-1 block">{isZh ? '输出语言' : 'Language'}</label>
-                <select value={language} onChange={e => setLanguage(e.target.value)} className="w-full h-10 px-2 rounded-xl border border-slate-200 bg-white text-xs">
+                <select value={language} onChange={e => setLanguage(e.target.value)} className="h-10 w-full rounded-lg border border-slate-200 bg-slate-50 px-2 text-xs text-slate-900 outline-none transition-colors focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100">
                   <option value="English">English</option><option value="Chinese">Chinese</option><option value="Japanese">Japanese</option><option value="Spanish">Spanish</option>
                 </select>
               </div>
               <div>
                 <label className="text-xs font-bold text-slate-700 mb-1 block">{isZh ? '推荐语气' : 'Tone'}</label>
-                <select value={tone} onChange={e => setTone(e.target.value)} className="w-full h-10 px-2 rounded-xl border border-slate-200 bg-white text-xs">
+                <select value={tone} onChange={e => setTone(e.target.value)} className="h-10 w-full rounded-lg border border-slate-200 bg-slate-50 px-2 text-xs text-slate-900 outline-none transition-colors focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100">
                   <option value="engaging">Engaging</option><option value="educational">Educational</option><option value="dramatic">Dramatic/Clicky</option>
                 </select>
               </div>
             </div>
             <button 
               onClick={requestStream} disabled={loading || !topic.trim()}
-              className="w-full h-12 bg-rose-600 hover:bg-rose-700 text-white rounded-xl font-bold mt-4 shadow-lg flex items-center justify-center gap-2 disabled:opacity-50"
+              className="mt-5 flex h-12 w-full items-center justify-center gap-2 rounded-md bg-cyan-600 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-cyan-700 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {loading ? <Loader2 className="animate-spin" size={18}/> : <Sparkles size={18}/>}
               {isZh ? '开始生成' : 'Generate'}
@@ -170,14 +171,14 @@ export default function YoutubeGenerator() {
         </div>
 
         {/* Right Result Panel */}
-        <div className="bg-white rounded-3xl border border-slate-200 shadow-xl shadow-slate-200/50 min-h-[600px] flex flex-col p-6 sm:p-8">
+        <div className="flex h-[500px] flex-col rounded-lg border border-slate-200 bg-slate-50 p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
           {error && (
-            <div className="mb-6 p-4 bg-red-50 border border-red-100 rounded-xl text-red-600 font-medium text-sm">
+            <div className="mb-4 rounded-lg border border-red-200 bg-red-50 p-4 text-sm font-medium text-red-700 dark:border-red-900/70 dark:bg-red-950/20 dark:text-red-200">
               {error}
             </div>
           )}
 
-          <div className="flex-1 overflow-y-auto">
+          <div className="min-h-0 flex-1 overflow-y-auto rounded-lg border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-[#282c34]">
             {!result && !loading && (
               <div className="h-full flex flex-col items-center justify-center opacity-40 py-20 text-center">
                 <Sparkles size={64} className="mb-4 text-slate-300" />
@@ -202,7 +203,7 @@ export default function YoutubeGenerator() {
                         <p className={`text-slate-700 ${field==='tags'?'font-mono text-sm leading-relaxed':''}`}>{content}</p>
                       }
                       {content && (
-                        <button onClick={() => copyToClipboard(content, field)} className="absolute top-3 right-3 p-2 bg-white rounded-lg shadow-sm border border-slate-200 opacity-0 group-hover:opacity-100 hover:text-rose-600 transition-all">
+                        <button onClick={() => copyToClipboard(content, field)} className="absolute top-3 right-3 rounded-md border border-slate-200 bg-white p-2 opacity-0 shadow-sm transition-all hover:text-cyan-700 group-hover:opacity-100 dark:border-slate-700 dark:bg-slate-900">
                           {copiedField === field ? <Check size={14} className="text-emerald-500" /> : <Copy size={14} />}
                         </button>
                       )}
@@ -219,7 +220,7 @@ export default function YoutubeGenerator() {
                 <div className="prose prose-slate prose-sm max-w-none">
                   <Markdown>{result}</Markdown>
                 </div>
-                <button onClick={() => copyToClipboard(result, 'raw')} className="absolute top-3 right-3 p-2 bg-white rounded-lg shadow-sm border border-slate-200 opacity-0 group-hover:opacity-100 hover:text-rose-600 transition-all">
+                <button onClick={() => copyToClipboard(result, 'raw')} className="absolute top-3 right-3 rounded-md border border-slate-200 bg-white p-2 opacity-0 shadow-sm transition-all hover:text-cyan-700 group-hover:opacity-100 dark:border-slate-700 dark:bg-slate-900">
                   {copiedField === 'raw' ? <Check size={14} className="text-emerald-500" /> : <Copy size={14} />}
                 </button>
               </div>
