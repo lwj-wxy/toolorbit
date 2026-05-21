@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { Upload, Copy, Trash2, CheckCircle2, ArrowRightLeft, AlertTriangle } from 'lucide-react';
 import { Link } from '../../../lib/navigation';
 import { useTranslation } from 'react-i18next';
+import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function ImageToBase64() {
   const { t } = useTranslation();
@@ -233,6 +234,7 @@ export default function ImageToBase64() {
         </Link>
       </div>
 
+      <ToolSEOCard toolKey="image-to-base64" />
     </div>
   );
 }

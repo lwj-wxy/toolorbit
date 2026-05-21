@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { Image as ImageIcon, UploadCloud, Download, Loader2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { cn } from '../../../lib/utils';
+import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function ImageToIco() {
   const { t } = useTranslation();
@@ -201,6 +202,7 @@ export default function ImageToIco() {
         />
       </div>
 
+      <ToolSEOCard toolKey="image-to-ico" />
     </div>
   );
 }

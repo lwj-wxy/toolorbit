@@ -4,6 +4,7 @@ import 'react-image-crop/dist/ReactCrop.css';
 import { Upload, Download, Trash2, Image as ImageIcon, Columns, Maximize, MousePointer2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { analytics } from '../../../services/analytics';
+import ToolSEOCard from '../../../components/ToolSEOCard';
 
 function centerAspectCrop(mediaWidth: number, mediaHeight: number, aspect: number) {
   return centerCrop(
@@ -372,6 +373,7 @@ export default function ImageCropper() {
         </div>
       </div>
       
+      <ToolSEOCard toolKey="image-cropper" />
     </div>
   );
 }

@@ -13,9 +13,4 @@ export const FALLBACK_TOOL_GUIDE_PATHS = new Set([
   '/tools/ai/market-insights',
   '/tools/dev/color-converter',
   '/tools/dev/color-palette',
-  '/tools/image/image-compressor',
-  '/tools/image/image-cropper',
-  '/tools/image/image-to-base64',
-  '/tools/image/image-to-ico',
-  '/tools/image/svg-to-png',
 ]);
