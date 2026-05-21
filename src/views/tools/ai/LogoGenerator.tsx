@@ -146,28 +146,24 @@ export default function LogoGenerator() {
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="text-center mb-10">
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 mb-6 relative group">
-          <div className="absolute inset-0 bg-indigo-400 opacity-20 blur-xl rounded-full group-hover:opacity-30 transition-opacity"></div>
-          <Hexagon className="w-8 h-8 relative z-10" />
+    <div className="space-y-6">
+      <div className="flex flex-col gap-4 border-b border-slate-200 pb-6 dark:border-slate-800 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h1 className="text-3xl font-semibold tracking-tight text-slate-950 dark:text-white">
+            {t('tools.logo-generator.title') || 'AI Logo & Avatar Generator'}
+          </h1>
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-400">
+            {t('tools.logo-generator.subtitle') || 'Create professional, unique logos and avatars in seconds.'}
+          </p>
         </div>
-        <h1 className="text-4xl font-bold text-slate-900 dark:text-white mb-4">
-          {t('tools.logo-generator.title') || 'AI Logo & Avatar Generator'}
-        </h1>
-        <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-          {t('tools.logo-generator.subtitle') || 'Create professional, unique logos and avatars in seconds.'}
-        </p>
       </div>
 
-      <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
-        <div className="p-6 sm:p-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
             
             {/* Input Section */}
-            <div className="space-y-5">
+            <div className="flex h-[500px] flex-col space-y-5 rounded-lg border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-[#282c34]">
               <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                <label className="mb-2 block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
                    {t('tools.logo-generator.color') || 'Color Palette'}
                 </label>
                 <input
@@ -175,19 +171,19 @@ export default function LogoGenerator() {
                   value={color}
                   onChange={(e) => setColor(e.target.value)}
                   placeholder={t('tools.logo-generator.colorPlaceholder') || 'e.g. Blue and White, Vibrant'}
-                  className="w-full p-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none text-slate-700 dark:text-slate-300"
+                  className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm leading-6 text-slate-900 shadow-sm outline-none placeholder:text-slate-400 focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
                 />
               </div>
 
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
+                  <label className="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
                      {t('tools.logo-generator.description') || 'Core Concept / Symbol'}
                   </label>
                   <button
                     onClick={() => fileInputRef.current?.click()}
                     disabled={analyzingImage || loading}
-                    className="flex items-center gap-1.5 text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 bg-indigo-50 dark:bg-indigo-900/30 px-2.5 py-1.5 rounded-lg transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="inline-flex items-center gap-1.5 rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors duration-200 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
                     title={i18n.language.startsWith('zh') ? '上传参考图片，AI自动提取视觉概念' : 'Upload reference image, AI will extract visual concepts'}
                   >
                     {analyzingImage ? <Loader2 className="w-3.5 h-3.5 animate-spin"/> : <ImageIcon className="w-3.5 h-3.5" />}
@@ -208,18 +204,18 @@ export default function LogoGenerator() {
                     ? (i18n.language.startsWith('zh') ? '正在使用 GLM-4V-Flash 分析图片...' : 'Analyzing image with GLM-4V-Flash...')
                     : (t('tools.logo-generator.descPlaceholder') || 'e.g. A cute cat holding a coffee cup')}
                   disabled={analyzingImage || loading}
-                  className="w-full h-24 p-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none resize-none transition-all placeholder:text-slate-400 dark:text-white disabled:opacity-70"
+                  className="h-28 w-full resize-none rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm leading-6 text-slate-900 shadow-sm outline-none placeholder:text-slate-400 focus:border-cyan-500 disabled:opacity-70 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                <label className="mb-2 block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
                   {t('tools.logo-generator.style') || 'Design Style'}
                 </label>
                 <select
                   value={style}
                   onChange={(e) => setStyle(e.target.value)}
-                  className="w-full p-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none text-slate-700 dark:text-slate-300"
+                  className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm leading-6 text-slate-900 shadow-sm outline-none focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
                 >
                   {styles.map(s => (
                     <option key={s.value} value={s.value}>{s.label}</option>
@@ -230,7 +226,7 @@ export default function LogoGenerator() {
               <button
                 onClick={() => handleGenerate()}
                 disabled={!description.trim() || loading || analyzingImage}
-                className="w-full py-4 bg-indigo-600 hover:bg-indigo-700 disabled:bg-slate-300 dark:disabled:bg-slate-800 disabled:cursor-not-allowed text-white rounded-xl font-medium transition-all shadow-sm hover:shadow-md flex items-center justify-center gap-2 group"
+                className="mt-auto inline-flex w-full items-center justify-center gap-2 rounded-lg bg-cyan-600 px-4 py-3 text-sm font-semibold text-white shadow-sm transition-colors duration-200 hover:bg-cyan-700 disabled:cursor-not-allowed disabled:bg-slate-300 dark:disabled:bg-slate-800"
               >
                 {loading ? (
                   <>
@@ -247,16 +243,16 @@ export default function LogoGenerator() {
             </div>
 
             {/* Output Section */}
-            <div className="space-y-6 h-full">
+            <div className="flex h-[500px] flex-col space-y-3 rounded-lg border border-slate-200 bg-slate-50 p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
               <div className="h-full flex flex-col">
-                 <div className="flex items-center justify-between mb-2 shrink-0">
-                    <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
+                 <div className="mb-2 flex shrink-0 items-center justify-between">
+                    <label className="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
                       {t('tools.logo-generator.resultTitle') || 'Generated Result'}
                     </label>
                     {resultUrl && !loading && (
                       <button
                         onClick={downloadImage}
-                        className="flex items-center gap-1.5 text-sm text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 font-medium px-3 py-1.5 rounded-lg hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-colors"
+                        className="inline-flex items-center gap-1 rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors duration-200 hover:bg-slate-50 dark:border-slate-700 dark:bg-[#282c34] dark:text-slate-200 dark:hover:bg-slate-800"
                       >
                         <Download className="w-4 h-4" />
                         {t('common.download') || 'Download'}
@@ -265,9 +261,9 @@ export default function LogoGenerator() {
                  </div>
                  
                  <div className="relative flex-1 min-h-[400px]">
-                    <div className={`absolute inset-0 rounded-xl border transition-all overflow-hidden flex items-center justify-center
+                    <div className={`absolute inset-0 flex items-center justify-center overflow-hidden rounded-lg border transition-all
                       ${resultUrl && !loading
-                        ? 'bg-slate-100 dark:bg-slate-900 border-indigo-200 dark:border-indigo-900/30' 
+                        ? 'bg-white dark:bg-slate-950 border-cyan-200 dark:border-cyan-900/40'
                         : 'bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500'}`}
                     >
                       {error ? (
@@ -277,8 +273,8 @@ export default function LogoGenerator() {
                         </div>
                       ) : loading ? (
                         <div className="flex flex-col items-center justify-center p-5">
-                          <Loader2 className="w-10 h-10 mb-4 animate-spin text-indigo-500" />
-                          <p className="text-indigo-600 dark:text-indigo-400 font-medium animate-pulse">
+                          <Loader2 className="w-10 h-10 mb-4 animate-spin text-cyan-500" />
+                          <p className="text-cyan-600 dark:text-cyan-400 font-medium animate-pulse">
                             {t('tools.logo-generator.generating') || 'AI is designing...'}
                           </p>
                         </div>
@@ -304,8 +300,6 @@ export default function LogoGenerator() {
               </div>
             </div>
 
-          </div>
-        </div>
       </div>
 
       <ToolSEOCard toolKey="logo-generator" />

@@ -102,47 +102,43 @@ export default function Translator() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="text-center mb-10">
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 mb-6 relative group">
-          <div className="absolute inset-0 bg-blue-400 opacity-20 blur-xl rounded-full group-hover:opacity-30 transition-opacity"></div>
-          <Languages className="w-8 h-8 relative z-10" />
+    <div className="space-y-6">
+      <div className="flex flex-col gap-4 border-b border-slate-200 pb-6 dark:border-slate-800 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h1 className="text-3xl font-semibold tracking-tight text-slate-950 dark:text-white">
+            {t('tools.ai-translator.title') || 'AI Translator'}
+          </h1>
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-400">
+            {t('tools.ai-translator.description') || '超越传统机翻，提供更具母语感的高度精准翻译。'}
+          </p>
         </div>
-        <h1 className="text-4xl font-bold text-slate-900 dark:text-white mb-4">
-          {t('tools.ai-translator.title') || 'AI Translator'}
-        </h1>
-        <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-          {t('tools.ai-translator.description') || '超越传统机翻，提供更具母语感的高度精准翻译。'}
-        </p>
       </div>
 
-      <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
-        <div className="p-6 sm:p-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
             
             {/* Input Section */}
-            <div className="space-y-6">
+            <div className="flex h-[500px] flex-col space-y-5 rounded-lg border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-[#282c34]">
               <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                <label className="mb-2 block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
                    {t('tools.ai-translator.originalText') || 'Source Text'}
                 </label>
                 <textarea
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   placeholder={t('tools.ai-translator.placeholder') || 'Paste text to translate...'}
-                  className="w-full h-48 p-4 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none resize-none transition-all placeholder:text-slate-400 dark:text-white"
+                  className="h-56 w-full resize-none rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm leading-6 text-slate-900 shadow-sm outline-none placeholder:text-slate-400 focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                  <label className="mb-2 block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
                     {t('tools.ai-translator.targetLang') || 'Target'}
                   </label>
                   <select
                     value={targetLang}
                     onChange={(e) => setTargetLang(e.target.value)}
-                    className="w-full p-2.5 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-slate-700 dark:text-slate-300 text-sm"
+                    className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm leading-6 text-slate-900 shadow-sm outline-none focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
                   >
                     {targetLanguages.map(lang => (
                       <option key={lang} value={lang}>{lang}</option>
@@ -151,13 +147,13 @@ export default function Translator() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                  <label className="mb-2 block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
                     {t('tools.ai-translator.selectTone') || 'Tone Style'}
                   </label>
                   <select
                     value={tone}
                     onChange={(e) => setTone(e.target.value)}
-                    className="w-full p-2.5 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-slate-700 dark:text-slate-300 text-sm"
+                    className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm leading-6 text-slate-900 shadow-sm outline-none focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
                   >
                     {tones.map(tOption => (
                       <option key={tOption} value={tOption}>{tOption}</option>
@@ -169,7 +165,7 @@ export default function Translator() {
               <button
                 onClick={handleGenerate}
                 disabled={!input.trim() || loading}
-                className="w-full py-4 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-300 dark:disabled:bg-slate-800 disabled:cursor-not-allowed text-white rounded-xl font-medium transition-all shadow-sm hover:shadow-md flex items-center justify-center gap-2 group"
+                className="mt-auto inline-flex w-full items-center justify-center gap-2 rounded-lg bg-cyan-600 px-4 py-3 text-sm font-semibold text-white shadow-sm transition-colors duration-200 hover:bg-cyan-700 disabled:cursor-not-allowed disabled:bg-slate-300 dark:disabled:bg-slate-800"
               >
                 {loading ? (
                   <>
@@ -186,16 +182,16 @@ export default function Translator() {
             </div>
 
             {/* Output Section */}
-            <div className="space-y-6">
+            <div className="flex h-[500px] flex-col space-y-3 rounded-lg border border-slate-200 bg-slate-50 p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
               <div>
-                 <div className="flex items-center justify-between mb-2">
-                    <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
+                 <div className="mb-2 flex items-center justify-between">
+                    <label className="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
                       {t('tools.ai-translator.result') || 'Translation Result'}
                     </label>
                     {result && (
                       <button
                         onClick={copyToClipboard}
-                        className="flex items-center gap-1.5 text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 font-medium px-3 py-1.5 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
+                        className="inline-flex items-center gap-1 rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors duration-200 hover:bg-slate-50 dark:border-slate-700 dark:bg-[#282c34] dark:text-slate-200 dark:hover:bg-slate-800"
                       >
                         {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                         {copied ? (t('tools.ai-translator.copied') || 'Copied') : (t('tools.ai-translator.copyBtn') || 'Copy')}
@@ -206,7 +202,7 @@ export default function Translator() {
                  <div className="relative">
                     <div className={`w-full h-[335px] p-5 rounded-xl border transition-all overflow-y-auto whitespace-pre-wrap
                       ${result 
-                        ? 'bg-blue-50/50 dark:bg-blue-900/10 border-blue-100 dark:border-blue-900/30 text-slate-800 dark:text-slate-200' 
+                        ? 'bg-white dark:bg-slate-950 border-cyan-200 dark:border-cyan-900/40 text-slate-800 dark:text-slate-200'
                         : 'bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500 flex items-center justify-center'}`}
                     >
                       {error ? (
@@ -233,8 +229,6 @@ export default function Translator() {
               </div>
             </div>
 
-          </div>
-        </div>
       </div>
 
       <ToolSEOCard toolKey="ai-translator" />

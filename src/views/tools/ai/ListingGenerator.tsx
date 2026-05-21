@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { Sparkles, Loader2, Copy, Check } from 'lucide-react';
 import Markdown from 'react-markdown';
 import ToolSEOCard from '../../../components/ToolSEOCard';
-import ToolPageHero from '../../../components/ToolPageHero';
 
 export default function ListingGenerator() {
   const { t, i18n } = useTranslation();
@@ -106,58 +105,63 @@ export default function ListingGenerator() {
   const isZh = i18n.language === 'zh';
 
   return (
-    <div className="max-w-7xl mx-auto space-y-8 pb-20">
-      <ToolPageHero
-        icon={Sparkles}
-        title={t('tools.listing-generator.title', isZh ? 'Listing 生成器' : 'Listing Generator')}
-        description={t(
-          'tools.listing-generator.subtitle',
-          isZh
-            ? 'AI 驱动的电商商品文案生成器。秒级生成标题、描述和标签。'
-            : 'AI-driven e-commerce listing generator. Creates titles, descriptions and tags in seconds.',
-        )}
-      />
+    <div className="space-y-6">
+      <div className="flex flex-col gap-4 border-b border-slate-200 pb-6 dark:border-slate-800 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h1 className="text-3xl font-semibold tracking-tight text-slate-950 dark:text-white">
+            {t('tools.listing-generator.title', isZh ? 'Listing 生成器' : 'Listing Generator')}
+          </h1>
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-400">
+            {t(
+              'tools.listing-generator.subtitle',
+              isZh
+                ? 'AI 驱动的电商商品文案生成器。秒级生成标题、描述和标签。'
+                : 'AI-driven e-commerce listing generator. Creates titles, descriptions and tags in seconds.',
+            )}
+          </p>
+        </div>
+      </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-[400px,1fr] gap-8 items-start">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         {/* Left Input Sidebar */}
-        <div className="bg-white rounded-3xl border border-slate-200 shadow-xl shadow-slate-200/50 p-6 sm:p-7 space-y-6">
-          <h2 className="text-xl font-black text-slate-800 tracking-tight flex items-center gap-2">
-            <Sparkles className="text-indigo-500" />
+        <div className="flex h-[560px] flex-col space-y-5 rounded-lg border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-[#282c34]">
+          <h2 className="flex items-center gap-2 text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
+            <Sparkles className="h-4 w-4 text-cyan-600 dark:text-cyan-300" />
             {isZh ? '商品文案生成器' : 'Listing Generator'}
           </h2>
 
-          <div className="space-y-4">
+          <div className="flex flex-1 flex-col space-y-4">
             <div>
-              <label className="text-sm font-bold text-slate-700 mb-1 block">{isZh ? '销售平台' : 'Platform'}</label>
-              <select value={platform} onChange={e => setPlatform(e.target.value)} className="w-full h-11 px-3 rounded-xl border border-slate-200 bg-white text-sm focus:ring-2 focus:ring-indigo-500/20 outline-none">
+              <label className="mb-1 block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">{isZh ? '销售平台' : 'Platform'}</label>
+              <select value={platform} onChange={e => setPlatform(e.target.value)} className="h-11 w-full rounded-lg border border-slate-200 bg-white px-3 text-sm text-slate-900 shadow-sm outline-none focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100">
                 <option>Etsy</option><option>Amazon</option><option>Shopify</option><option>eBay</option>
               </select>
             </div>
             <div>
-              <label className="text-sm font-bold text-slate-700 mb-1 block">{isZh ? '产品名称' : 'Product Name'}</label>
-              <input value={input} onChange={e => setInput(e.target.value)} placeholder={isZh ? '手工陶瓷马克杯' : 'Handmade Ceramic Mug'} className="w-full h-11 px-3 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-indigo-500/20 outline-none" />
+              <label className="mb-1 block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">{isZh ? '产品名称' : 'Product Name'}</label>
+              <input value={input} onChange={e => setInput(e.target.value)} placeholder={isZh ? '手工陶瓷马克杯' : 'Handmade Ceramic Mug'} className="h-11 w-full rounded-lg border border-slate-200 bg-white px-3 text-sm text-slate-900 shadow-sm outline-none placeholder:text-slate-400 focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100" />
             </div>
             <div>
-              <label className="text-sm font-bold text-slate-700 mb-1 block">{isZh ? '特色与卖点' : 'Features'}</label>
-              <textarea value={details} onChange={e => setDetails(e.target.value)} placeholder={isZh ? '极简风格，送礼佳品...' : 'Minimalist, great gift...'} className="w-full min-h-[100px] p-3 rounded-xl border border-slate-200 text-sm outline-none focus:ring-2 focus:ring-indigo-500/20 resize-none" />
+              <label className="mb-1 block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">{isZh ? '特色与卖点' : 'Features'}</label>
+              <textarea value={details} onChange={e => setDetails(e.target.value)} placeholder={isZh ? '极简风格，送礼佳品...' : 'Minimalist, great gift...'} className="min-h-[100px] w-full resize-none rounded-lg border border-slate-200 bg-white p-3 text-sm text-slate-900 shadow-sm outline-none placeholder:text-slate-400 focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100" />
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="text-xs font-bold text-slate-700 mb-1 block">{isZh ? '语言' : 'Language'}</label>
-                <select value={language} onChange={e => setLanguage(e.target.value)} className="w-full h-10 px-2 rounded-xl border border-slate-200 bg-white text-xs">
+                <label className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-200">{isZh ? '语言' : 'Language'}</label>
+                <select value={language} onChange={e => setLanguage(e.target.value)} className="h-10 w-full rounded-lg border border-slate-200 bg-white px-2 text-xs text-slate-900 outline-none focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100">
                   <option value="English">English</option><option value="Chinese">Chinese</option><option value="Japanese">Japanese</option><option value="German">German</option>
                 </select>
               </div>
               <div>
-                <label className="text-xs font-bold text-slate-700 mb-1 block">{isZh ? '语气' : 'Tone'}</label>
-                <select value={tone} onChange={e => setTone(e.target.value)} className="w-full h-10 px-2 rounded-xl border border-slate-200 bg-white text-xs">
+                <label className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-200">{isZh ? '语气' : 'Tone'}</label>
+                <select value={tone} onChange={e => setTone(e.target.value)} className="h-10 w-full rounded-lg border border-slate-200 bg-white px-2 text-xs text-slate-900 outline-none focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100">
                   <option value="persuasive">Persuasive</option><option value="professional">Professional</option><option value="urgent">Urgent</option>
                 </select>
               </div>
             </div>
             <button 
               onClick={requestStream} disabled={loading || !input.trim()}
-              className="w-full h-12 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold mt-4 shadow-lg flex items-center justify-center gap-2 disabled:opacity-50"
+              className="mt-auto inline-flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-cyan-600 text-sm font-semibold text-white shadow-sm transition-colors duration-200 hover:bg-cyan-700 disabled:cursor-not-allowed disabled:bg-slate-300 dark:disabled:bg-slate-800"
             >
               {loading ? <Loader2 className="animate-spin" size={18}/> : <Sparkles size={18}/>}
               {isZh ? '生成文案' : 'Generate'}
@@ -166,9 +170,9 @@ export default function ListingGenerator() {
         </div>
 
         {/* Right Result Panel */}
-        <div className="bg-white rounded-3xl border border-slate-200 shadow-xl shadow-slate-200/50 min-h-[600px] flex flex-col p-6 sm:p-8">
+        <div className="flex h-[560px] flex-col rounded-lg border border-slate-200 bg-slate-50 p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
           {error && (
-            <div className="mb-6 p-4 bg-rose-50 border border-rose-100 rounded-xl text-rose-600 font-medium text-sm">
+            <div className="mb-4 rounded-lg border border-rose-100 bg-rose-50 p-4 text-sm font-medium text-rose-600">
               {error}
             </div>
           )}
@@ -191,14 +195,14 @@ export default function ListingGenerator() {
                   const content = (currentSections as any)[field];
                   if (!content && !loading) return null;
                   return (
-                    <div key={field} className="relative group p-5 bg-slate-50 border border-slate-100 rounded-2xl">
+                    <div key={field} className="group relative rounded-lg border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-950">
                       <span className="text-xs font-bold text-slate-400 uppercase mb-2 block">{field}</span>
                       {field === 'description' ? 
                         <div className="prose prose-slate prose-sm"><Markdown>{content}</Markdown></div> :
                         <p className={`text-slate-700 ${field==='tags'?'font-mono text-xs':''}`}>{content}</p>
                       }
                       {content && (
-                        <button onClick={() => copyToClipboard(content, field)} className="absolute top-3 right-3 p-2 bg-white rounded-lg shadow-sm border border-slate-200 opacity-0 group-hover:opacity-100 hover:text-indigo-600 transition-all">
+                        <button onClick={() => copyToClipboard(content, field)} className="absolute right-3 top-3 rounded-md border border-slate-300 bg-white p-2 opacity-0 shadow-sm transition-all hover:text-cyan-600 group-hover:opacity-100 dark:border-slate-700 dark:bg-[#282c34]">
                           {copiedField === field ? <Check size={14} className="text-emerald-500" /> : <Copy size={14} />}
                         </button>
                       )}

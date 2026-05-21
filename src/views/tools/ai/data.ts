@@ -293,6 +293,396 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
     },
   },
 
+  'logo-generator': {
+    zh: {
+      summary:
+        'AI Logo & Avatar Generator 用于根据品牌描述、核心符号、配色偏好和设计风格生成方形 Logo 或头像图。它适合独立开发者快速为新项目准备应用图标，电商卖家为店铺或新品系列探索视觉标识，内容创作者生成频道头像，设计师在正式出图前验证多个方向，以及需要把参考图片中的视觉元素提炼为新 Logo 概念的场景。工具支持文字描述和参考图识别两种入口，生成结果以图片预览形式展示，并可直接下载用于后续编辑或投放。',
+      input:
+        '输入包含颜色偏好、核心概念描述、设计风格，以及可选的参考图片。颜色可以是具体色名、品牌色、情绪色板或组合说明；核心概念可以描述行业、品牌个性、主体符号、目标用户和使用场景；风格选项覆盖极简、扁平、吉祥物、抽象几何、字母标志、3D、复古和水彩等方向。上传参考图片时，页面会先提取图片的视觉特征并回填描述，再把提取结果作为生成提示的一部分。',
+      output:
+        '输出为一张适合 Logo、头像或应用图标使用的方形图片。生成后右侧预览区会展示图片，并提供下载按钮。若服务端返回 data URL、远程图片地址或其他可下载资源，页面会按当前结果类型创建下载链接；生成失败时会展示错误信息，用户可以调整描述、颜色或风格后重新生成。',
+      processing:
+        '点击生成后，页面将描述、配色、风格、当前语言和可选参考图 base64 组装为 JSON，提交到 /api/ai-image-generator。参考图模式下会先调用 /api/ai-vision-describe 获取图片描述，再把描述与图片一起传入生成请求。服务端返回图片地址后写入结果状态，浏览器立即展示预览。下载时前端根据结果 URL 类型决定直接下载 data URL、请求远程图片转 blob，或在失败时打开图片地址。',
+      modes: ['文字描述生成', '参考图识别', '配色偏好', '多种 Logo 风格', '1:1 方形输出', '图片预览', '一键下载'],
+      example: {
+        title: 'Logo 生成输入到输出示例',
+        input: '颜色: Blue and White\n核心概念: 面向开发者的云端自动化工具，图形可以包含轨道、星球或代码符号\n风格: Minimalist / 极简风',
+        output: '生成一张蓝白配色、干净背景、以轨道和代码符号为核心视觉的方形 Logo 图片，可作为网站头像或 App 图标下载。',
+        inputLanguage: 'text',
+        outputLanguage: 'text',
+      },
+    },
+    en: {
+      summary:
+        'The AI Logo & Avatar Generator creates square logo or avatar images from brand descriptions, core symbols, color preferences, and design styles. It is useful for indie developers preparing app icons for new projects, e-commerce sellers exploring store or product-line marks, content creators generating channel avatars, designers validating visual directions before formal production, and teams that want to extract visual cues from a reference image and turn them into a fresh logo concept. The tool supports both text prompts and reference-image analysis, then displays the generated image with direct download support.',
+      input:
+        'Inputs include color preference, core concept description, design style, and an optional reference image. Colors can be specific names, brand colors, mood palettes, or combinations. The concept can describe the industry, brand personality, symbol ideas, target audience, and usage context. Style options cover minimalist, flat, mascot, abstract geometry, lettermark, 3D, vintage, and watercolor directions. When a reference image is uploaded, the page first extracts visual characteristics and uses that description as part of the generation prompt.',
+      output:
+        'The output is a square image suitable for logos, avatars, or app icons. Once generated, the preview panel displays the image and exposes a download action. Depending on the returned result type, the page downloads a data URL directly, fetches a remote image into a blob, or opens the image URL as a fallback. Generation failures are shown in the output panel so the user can revise the prompt, colors, or style and retry.',
+      processing:
+        'When generation starts, the page assembles the description, color, style, current language, and optional reference image base64 into a JSON request for /api/ai-image-generator. In reference-image mode it first calls /api/ai-vision-describe to obtain an image description, then passes both the extracted text and the image into the generation request. The returned image URL is stored in state and rendered immediately. Downloads are handled entirely in the browser based on whether the result is a data URL, blob-compatible URL, or remote image.',
+      modes: ['Text prompt generation', 'Reference-image analysis', 'Color preference', 'Multiple logo styles', '1:1 square output', 'Image preview', 'One-click download'],
+      example: {
+        title: 'Logo generation input-to-output example',
+        input: 'Color: Blue and white\nConcept: A developer automation tool with orbit, planet, or code symbols\nStyle: Minimalist',
+        output: 'A square blue-and-white minimalist logo image with an orbit/code visual direction, ready to preview and download as a site avatar or app icon.',
+        inputLanguage: 'text',
+        outputLanguage: 'text',
+      },
+    },
+  },
+
+  'ai-image-generator': {
+    zh: {
+      summary:
+        'AI Image Generator 用于把自然语言描述转换为图片，支持选择画幅比例和视觉风格，适合为博客封面、社交媒体配图、广告素材、产品概念图、演示文稿和视觉草案快速生成候选图。它强调从单段提示词到可预览图片的轻量流程，适合在创意早期快速试错，也适合非设计岗位用统一的输入表单生成可下载素材。',
+      input:
+        '输入包括画面描述、图片比例和艺术风格。描述可以包含主体、场景、动作、构图、光线、色彩、镜头、材质和用途；比例支持 1:1、16:9 和 9:16，分别适合头像/封面、横向海报/视频缩略图、竖屏短视频/故事图；风格覆盖真实摄影、动漫、数字艺术、油画、3D 渲染和赛博朋克等方向。',
+      output:
+        '输出为 AI 生成图片及模型元信息。生成完成后右侧面板展示图片预览，如果返回了模型名或 fallback 状态，会在结果标题旁显示，方便判断使用的生成服务。用户可以直接下载图片；若生成失败，错误文案会显示在输出区域。',
+      processing:
+        '点击生成后，页面将 prompt、ratio、style 和 language 发送到 /api/ai-image-generator。请求成功后读取 imageUrl、model、fallbackUsed 和 elapsedMs 等字段，写入结果状态并渲染图片。页面在生成前会清空旧结果和错误状态，并对 blob URL 做释放处理，避免重复生成时残留旧预览。',
+      modes: ['自然语言图片描述', '1:1 / 16:9 / 9:16 比例', '多种艺术风格', '模型信息显示', '图片预览', '一键下载', '错误重试'],
+      example: {
+        title: '图片生成输入到输出示例',
+        input: '描述: A futuristic city bathed in neon lights during heavy rain\n比例: 16:9\n风格: Photorealistic',
+        output: '生成一张 16:9 横向赛博城市雨夜图片，并在右侧预览区提供下载按钮。',
+        inputLanguage: 'text',
+        outputLanguage: 'text',
+      },
+    },
+    en: {
+      summary:
+        'The AI Image Generator turns natural-language descriptions into images with selectable aspect ratios and visual styles. It is useful for blog covers, social images, ad creatives, product concept art, presentation visuals, and early design drafts. The workflow is intentionally lightweight: write a prompt, choose format and style, preview the generated image, then download it for further use.',
+      input:
+        'Inputs include the image description, aspect ratio, and art style. The description can cover subject, scene, action, composition, lighting, color, camera, material, and intended use. Ratios include 1:1 for avatars or covers, 16:9 for landscape posters or thumbnails, and 9:16 for vertical short-video or story assets. Style options include photorealistic, anime, digital art, oil painting, 3D render, and cyberpunk.',
+      output:
+        'The output is an AI-generated image plus optional model metadata. After generation, the preview panel displays the image. If the response includes model or fallback information, it appears next to the result title so users can understand which generation path was used. The image can be downloaded directly; failures are displayed in the output panel.',
+      processing:
+        'On generation, the page sends prompt, ratio, style, and language to /api/ai-image-generator. A successful response provides imageUrl, model, fallbackUsed, and elapsedMs fields, which are stored in React state and rendered as a preview. Before each new run, the page clears previous results and errors, and revokes old blob URLs when needed to avoid stale previews.',
+      modes: ['Natural-language image prompt', '1:1 / 16:9 / 9:16 ratios', 'Multiple art styles', 'Model metadata display', 'Image preview', 'One-click download', 'Retry after errors'],
+      example: {
+        title: 'Image generation input-to-output example',
+        input: 'Prompt: A futuristic city bathed in neon lights during heavy rain\nRatio: 16:9\nStyle: Photorealistic',
+        output: 'A 16:9 cyberpunk rainy city image is generated, previewed in the result panel, and made available for download.',
+        inputLanguage: 'text',
+        outputLanguage: 'text',
+      },
+    },
+  },
+
+  'ai-svg-generator': {
+    zh: {
+      summary:
+        'Smart SVG Generator 用于根据图标或插画描述生成可复制、可下载的 SVG 代码，适合快速制作网站图标、空状态插画、产品功能符号、轻量装饰图形和设计系统草案。相比位图生成，它更适合需要矢量缩放、可继续编辑、可嵌入前端代码的场景。',
+      input:
+        '输入包括图形描述和目标风格。描述可以写明主体对象、用途、形状语言、线条粗细、颜色倾向、是否需要背景、复杂度和应用尺寸；风格支持扁平化、线性图标、极简和彩色插画等方向。输入越明确，生成的 SVG 越容易满足可用性和可编辑性要求。',
+      output:
+        '输出为 SVG 内容预览和清洗后的 SVG 代码。页面会从 AI 返回文本中提取第一个 <svg>...</svg> 片段，补充 xmlns 属性并在右侧渲染；如果返回不是标准 SVG，则以代码文本形式展示。用户可以下载 .svg 文件，也可以复制清洗后的 SVG 代码。',
+      processing:
+        '点击生成后，页面将 prompt、style 和 language 提交到 /api/ai-svg-generator。返回 content 后，前端通过正则提取 SVG 标签块，并在渲染前补充命名空间属性。下载时使用 Blob 创建 image/svg+xml 文件；复制时把清洗后的 SVG 字符串写入剪贴板。',
+      modes: ['SVG 图标生成', '扁平/线性/极简/彩色风格', 'SVG 代码提取', '浏览器内预览', '复制代码', '下载 SVG 文件', '非标准返回降级显示'],
+      example: {
+        title: 'SVG 生成输入到输出示例',
+        input: '描述: 一个喝咖啡的猫咪线性图标，圆角线条，适合空状态插画\n风格: Line Art / 线性图标',
+        output: '<svg xmlns="http://www.w3.org/2000/svg" ...>...</svg>\n页面同时显示矢量预览，并支持复制或下载 SVG。',
+        inputLanguage: 'text',
+        outputLanguage: 'xml',
+      },
+    },
+    en: {
+      summary:
+        'The Smart SVG Generator creates copyable and downloadable SVG code from icon or illustration descriptions. It is useful for website icons, empty-state illustrations, product feature symbols, lightweight decorative graphics, and design-system drafts. Compared with bitmap generation, it fits scenarios where vector scaling, editability, and direct frontend embedding matter.',
+      input:
+        'Inputs include the graphic description and target style. The description can specify subject, usage, shape language, stroke weight, color direction, background needs, complexity, and target size. Styles include flat design, line art, minimalist, and colorful illustration. The clearer the description, the more usable and editable the SVG output becomes.',
+      output:
+        'The output is an SVG preview and cleaned SVG code. The page extracts the first <svg>...</svg> block from the AI response, adds an xmlns attribute when missing, and renders it in the result panel. If the response is not valid SVG, it falls back to a code-text display. Users can download the .svg file or copy the cleaned SVG string.',
+      processing:
+        'When Generate is clicked, the page submits prompt, style, and language to /api/ai-svg-generator. After content is returned, the frontend extracts the SVG tag block using a regular expression and normalizes the namespace before rendering. Downloads use a Blob with image/svg+xml, while copying writes the cleaned SVG string to the clipboard.',
+      modes: ['SVG icon generation', 'Flat / line / minimalist / colorful styles', 'SVG code extraction', 'In-browser preview', 'Copy code', 'Download SVG file', 'Fallback text display'],
+      example: {
+        title: 'SVG generation input-to-output example',
+        input: 'Description: A line-art cat drinking coffee, rounded strokes, suitable for an empty-state illustration\nStyle: Line Art',
+        output: '<svg xmlns="http://www.w3.org/2000/svg" ...>...</svg>\nThe page shows a vector preview and supports copying or downloading the SVG.',
+        inputLanguage: 'text',
+        outputLanguage: 'xml',
+      },
+    },
+  },
+
+  'ai-xiaohongshu': {
+    zh: {
+      summary:
+        '小红书文案生成器用于根据核心主题、关键词和笔记风格生成适合小红书图文笔记的标题、正文、标签和排版化表达。它适合品牌运营、探店博主、好物推荐账号、知识型内容创作者和跨境卖家快速起草种草测评、干货教程、情绪共鸣、合集盘点或打卡类内容。',
+      input:
+        '输入包括核心主题、可选关键词和笔记风格。核心主题建议写具体场景、产品、用户痛点或内容角度；关键词可以加入必须出现的卖点、品牌词、场景词、价格词或情绪词；风格选项包括种草测评、干货教程、情感共鸣、好物合集和探店打卡，用于控制文案结构、语气和内容节奏。',
+      output:
+        '输出为 Markdown 格式的图文笔记草稿，通常包含标题方向、正文段落、分点内容、互动引导和话题标签。结果会在右侧面板实时流式出现，支持一键复制完整内容，方便继续粘贴到编辑器、小红书草稿或团队协作文档中二次修改。',
+      processing:
+        '点击生成后，页面把 topic、keywords、style 和当前语言提交到 /api/xiaohongshu。服务端通过 SSE 返回文本片段，前端读取 ReadableStream，将每个 data 片段解析为 JSON，并把 content 字段追加到结果状态。结果使用 react-markdown 和 remark-gfm 渲染，复制按钮调用 navigator.clipboard.writeText 写入完整 Markdown 源文本。',
+      modes: ['核心主题输入', '关键词约束', '五类笔记风格', 'SSE 流式生成', 'Markdown 渲染', '全文复制', '适合社媒草稿二次编辑'],
+      example: {
+        title: '小红书文案生成输入到输出示例',
+        input: '核心主题: 油皮冬季护肤精简流程\n关键词: 平价, 不搓泥, 通勤\n风格: 干货教程',
+        output: '生成一篇带标题、分段正文、步骤说明、避坑提醒和话题标签的小红书笔记草稿。',
+        inputLanguage: 'text',
+        outputLanguage: 'markdown',
+      },
+    },
+    en: {
+      summary:
+        'The Xiaohongshu Copy Generator creates Xiaohongshu-style post drafts from a core topic, optional keywords, and a note style. It is useful for brand operators, store reviewers, product recommendation accounts, educational creators, and cross-border sellers drafting review, tutorial, emotional storytelling, collection, or check-in style posts quickly.',
+      input:
+        'Inputs include the core topic, optional keywords, and note style. The topic should describe a specific scenario, product, user pain point, or content angle. Keywords can include required selling points, brand terms, usage scenarios, price positioning, or emotional phrases. Style options include recommendation review, practical tutorial, emotional resonance, product collection, and store check-in, which control structure, tone, and pacing.',
+      output:
+        'The output is a Markdown-style social post draft, usually including title directions, body paragraphs, bullet points, engagement prompts, and hashtags. The result streams into the panel in real time and can be copied as a full draft for further editing in Xiaohongshu, a writing tool, or a team document.',
+      processing:
+        'When generation starts, the page submits topic, keywords, style, and current language to /api/xiaohongshu. The server streams text chunks via SSE. The frontend reads the response body, parses each data event as JSON, appends the content field to state, and renders the accumulated result through react-markdown and remark-gfm. Copying writes the full Markdown source to the clipboard.',
+      modes: ['Core topic input', 'Keyword constraints', 'Five note styles', 'SSE streaming generation', 'Markdown rendering', 'Full-text copy', 'Social draft editing'],
+      example: {
+        title: 'Xiaohongshu copy generation input-to-output example',
+        input: 'Topic: Simple winter skincare routine for oily skin\nKeywords: affordable, no pilling, commute\nStyle: Practical tutorial',
+        output: 'A Xiaohongshu post draft with title ideas, structured body text, practical steps, warnings, and hashtags.',
+        inputLanguage: 'text',
+        outputLanguage: 'markdown',
+      },
+    },
+  },
+
+  'ai-text-polisher': {
+    zh: {
+      summary:
+        'AI Text Polisher 用于把原始文本改写为更清晰、更自然、更符合目标语气的版本，适合邮件、产品描述、社媒文案、报告段落、客服回复、学术摘要和营销素材的润色。它不会要求用户重写结构，只需要粘贴原文并选择语气，就能获得可直接复制的改写结果。',
+      input:
+        '输入包括待润色文本和语气选项。文本可以是中文、英文或混合内容；语气选项覆盖正式专业、轻松友好、学术严谨、营销转化、简明扼要和幽默风趣。用户可以把粗糙草稿、直译文本、口语化内容或需要压缩的长段落放入输入框，由 AI 根据语气重组表达。',
+      output:
+        '输出为润色后的文本结果，保留原意但改善措辞、逻辑顺序、可读性和语气一致性。结果在右侧面板流式出现，生成完成后可以一键复制。若请求失败，错误信息会显示在输出区域而不会清空原始输入。',
+      processing:
+        '点击润色后，页面将 text、tone 和 language 提交到 /api/ai-polisher。响应以 SSE 形式返回，前端通过 TextDecoder 解码流片段，解析 data 行中的 JSON，并把 content 字段逐步追加到结果状态。完成后保留最终文本；复制按钮调用 navigator.clipboard.writeText 并短暂显示已复制状态。',
+      modes: ['文本粘贴', '多语气改写', 'SSE 流式输出', '保留原意润色', '右侧预览', '一键复制', '错误提示'],
+      example: {
+        title: '文本润色输入到输出示例',
+        input: '原文: 这个工具可以帮你把很乱的描述改得更好，看起来专业一点。\n语气: Professional / 正式专业',
+        output: '该工具可帮助用户将结构松散的描述优化为更清晰、专业且易于理解的表达。',
+        inputLanguage: 'text',
+        outputLanguage: 'text',
+      },
+    },
+    en: {
+      summary:
+        'The AI Text Polisher rewrites raw text into clearer, more natural, tone-appropriate copy. It is useful for emails, product descriptions, social posts, report paragraphs, support replies, academic abstracts, and marketing materials. Users only need to paste a draft and choose a tone to receive a copy-ready rewritten version.',
+      input:
+        'Inputs include the text to polish and the tone option. The text can be Chinese, English, or mixed-language content. Tone options cover professional, casual and friendly, academic, persuasive, concise, and humorous. Users can paste rough drafts, literal translations, conversational notes, or long paragraphs that need tightening.',
+      output:
+        'The output is a polished version that preserves the original meaning while improving wording, logical flow, readability, and tonal consistency. The result streams into the panel and can be copied once available. If the request fails, the error appears in the output area while the original input remains editable.',
+      processing:
+        'On polishing, the page submits text, tone, and language to /api/ai-polisher. The response is streamed via SSE. The frontend decodes stream chunks with TextDecoder, parses data lines as JSON, and appends the content field to the result state. The copy action writes the final text to the clipboard and briefly shows a copied state.',
+      modes: ['Text paste input', 'Tone-based rewriting', 'SSE streaming output', 'Meaning-preserving polish', 'Result preview', 'One-click copy', 'Error display'],
+      example: {
+        title: 'Text polishing input-to-output example',
+        input: 'Original: This tool can help make messy descriptions better and more professional.\nTone: Professional',
+        output: 'This tool helps refine unstructured descriptions into clearer, more professional, and easier-to-understand copy.',
+        inputLanguage: 'text',
+        outputLanguage: 'text',
+      },
+    },
+  },
+
+  'ai-translator': {
+    zh: {
+      summary:
+        'AI Translator 用于把源文本翻译为目标语言，并按指定语气输出更具母语感的表达。它适合跨境电商商品文案、本地化官网内容、邮件沟通、社媒帖文、说明文档和学习材料翻译，重点不只是直译，而是让译文在目标语言环境中更自然、更准确。',
+      input:
+        '输入包括源文本、目标语言和语气风格。源文本可以是短句、段落、商品说明、邮件或多语言混合文本；目标语言覆盖英文、简体中文、繁体中文、日文、韩文、法文、德文、西班牙文、葡萄牙文和俄文；语气可选择地道母语、专业严谨、文学优美或轻松随意。',
+      output:
+        '输出为目标语言译文。右侧结果区会流式展示翻译内容，生成完成后可一键复制。译文会尽量保留原文含义、信息顺序和上下文，同时根据语气设置调整措辞、句式和表达自然度。',
+      processing:
+        '点击翻译后，页面将 text、targetLang 和 tone 提交到 /api/ai-translator。服务端以 SSE 返回翻译片段，前端逐行解析 data 事件，将 content 字段追加到结果状态。渲染层通过普通文本/Markdown 兼容方式展示，复制按钮把完整译文写入剪贴板。',
+      modes: ['多目标语言', '语气风格控制', '长段落翻译', 'SSE 流式输出', '译文预览', '一键复制', '错误提示'],
+      example: {
+        title: '翻译输入到输出示例',
+        input: '源文本: 这款手工陶瓷杯适合日常咖啡和送礼。\n目标语言: English\n语气: Native / 地道母语',
+        output: 'This handmade ceramic mug is perfect for everyday coffee and makes a thoughtful gift.',
+        inputLanguage: 'text',
+        outputLanguage: 'text',
+      },
+    },
+    en: {
+      summary:
+        'The AI Translator converts source text into a target language with a selected tone for more native-sounding expression. It is useful for cross-border product copy, localized website content, email communication, social posts, documentation, and learning materials. The focus is not only literal translation, but clear and natural wording in the target-language context.',
+      input:
+        'Inputs include the source text, target language, and tone style. Source text can be a short sentence, paragraph, product description, email, or mixed-language content. Target languages include English, Simplified Chinese, Traditional Chinese, Japanese, Korean, French, German, Spanish, Portuguese, and Russian. Tone options include native, professional, literary, and casual.',
+      output:
+        'The output is the translated text in the selected language. The result panel streams the translation as it arrives and supports one-click copying. The translation aims to preserve meaning, information order, and context while adapting wording, sentence structure, and naturalness to the selected tone.',
+      processing:
+        'When Translate is clicked, the page submits text, targetLang, and tone to /api/ai-translator. The server streams translation chunks via SSE. The frontend parses data events line by line, appends the content field to result state, renders the accumulated text, and writes the full translation to the clipboard when copied.',
+      modes: ['Multiple target languages', 'Tone control', 'Paragraph translation', 'SSE streaming output', 'Translation preview', 'One-click copy', 'Error display'],
+      example: {
+        title: 'Translation input-to-output example',
+        input: 'Source: 这款手工陶瓷杯适合日常咖啡和送礼。\nTarget: English\nTone: Native',
+        output: 'This handmade ceramic mug is perfect for everyday coffee and makes a thoughtful gift.',
+        inputLanguage: 'text',
+        outputLanguage: 'text',
+      },
+    },
+  },
+
+  'listing-generator': {
+    zh: {
+      summary:
+        'Listing 生成器用于根据商品名称、平台、卖点、语言和语气生成电商商品标题、描述、标签和社媒推广文案。它适合 Etsy、Amazon、Shopify、eBay 等平台卖家在上新前快速准备基础文案，也适合运营人员批量探索不同卖点表达、SEO 关键词植入和多语言商品页本地化。',
+      input:
+        '输入包括销售平台、产品名称、特色与卖点、输出语言和语气。产品名称用于确定商品主体；特色与卖点可以写材质、尺寸、适用场景、目标用户、工艺、礼品属性、价格定位或差异化优势；平台会影响标题长度、标签形式和描述侧重点；语气决定文案是更强调说服、专业还是紧迫感。',
+      output:
+        '输出通常按 [TITLE]、[DESCRIPTION]、[TAGS] 和 [SOCIAL] 分段，分别对应商品标题、详情描述、搜索标签和社媒推广片段。页面会解析这些标记并以独立卡片展示，每个字段都能单独复制，方便直接粘贴到对应平台输入框。',
+      processing:
+        '点击生成后，页面把 productInfo、details、keywords、tone、targetAudience 和 language 发送到 /api/listing-craft。服务端以 SSE 返回内容片段，前端累积文本后通过正则提取 [TITLE]、[DESCRIPTION]、[TAGS]、[SOCIAL] 区块。描述段落使用 Markdown 渲染，其它字段以文本展示；复制按钮按字段写入剪贴板。',
+      modes: ['多平台 Listing', '商品卖点输入', '语言选择', '语气选择', 'SSE 流式生成', '字段分段解析', '字段独立复制'],
+      example: {
+        title: 'Listing 文案生成输入到输出示例',
+        input: '平台: Etsy\n产品名称: 手工陶瓷马克杯\n特色与卖点: 极简风格，手作釉面，适合咖啡爱好者和送礼\n语言: Chinese\n语气: Persuasive',
+        output: '[TITLE]\n手工陶瓷马克杯｜极简釉面咖啡杯｜送礼佳品\n\n[DESCRIPTION]\n这款手工陶瓷马克杯采用简洁轮廓与温润釉面，适合日常咖啡、办公室使用或节日礼物……\n\n[TAGS]\n手工陶瓷杯, 马克杯, 咖啡杯, 送礼',
+        inputLanguage: 'text',
+        outputLanguage: 'markdown',
+      },
+    },
+    en: {
+      summary:
+        'The Listing Generator creates e-commerce product titles, descriptions, tags, and social promo copy from product name, platform, features, language, and tone. It is useful for Etsy, Amazon, Shopify, and eBay sellers preparing listing copy before launch, and for operators exploring selling-point wording, SEO keyword placement, and multilingual product-page localization.',
+      input:
+        'Inputs include sales platform, product name, features and selling points, output language, and tone. Product name defines the item. Features can include material, size, use case, target user, craft, gift positioning, pricing angle, or differentiators. Platform affects title length, tag format, and description emphasis. Tone controls whether the copy is more persuasive, professional, or urgent.',
+      output:
+        'The output is usually divided into [TITLE], [DESCRIPTION], [TAGS], and [SOCIAL] blocks for product title, detailed description, search tags, and social promotion. The page parses these markers into separate cards, each with its own copy action for pasting into the relevant platform field.',
+      processing:
+        'On generation, the page sends productInfo, details, keywords, tone, targetAudience, and language to /api/listing-craft. The server streams text chunks via SSE. The frontend accumulates the text and extracts [TITLE], [DESCRIPTION], [TAGS], and [SOCIAL] blocks with regex. Description content is rendered with Markdown while other fields are shown as text. Copy actions write the selected field to the clipboard.',
+      modes: ['Multi-platform listings', 'Product selling-point input', 'Language selection', 'Tone selection', 'SSE streaming generation', 'Field section parsing', 'Per-field copy'],
+      example: {
+        title: 'Listing copy generation input-to-output example',
+        input: 'Platform: Etsy\nProduct: Handmade ceramic mug\nFeatures: Minimalist design, handmade glaze, suitable for coffee lovers and gifting\nLanguage: English\nTone: Persuasive',
+        output: '[TITLE]\nHandmade Ceramic Mug | Minimalist Glazed Coffee Cup | Thoughtful Gift\n\n[DESCRIPTION]\nThis handmade ceramic mug combines a clean silhouette with a warm glazed finish, making it ideal for daily coffee, office use, or gifting…\n\n[TAGS]\nhandmade mug, ceramic mug, coffee cup, gift',
+        inputLanguage: 'text',
+        outputLanguage: 'markdown',
+      },
+    },
+  },
+
+  'keyword-analyzer': {
+    zh: {
+      summary:
+        '关键词分析器用于根据种子产品词生成电商长尾关键词、竞争程度、推荐方向和分类列表，帮助卖家发现更具体、更容易转化的搜索词。它适合新品选品、Listing SEO、广告词拓展、类目机会判断和跨语言关键词初筛。',
+      input:
+        '输入包括种子产品词和输出语言。种子词可以是商品名称、品类词、材质词、场景词或组合词，例如"纯银项链""宠物纪念礼物""handmade candle"。输出语言决定分析报告和关键词建议的语言，便于面向中文运营团队或英文市场直接使用。',
+      output:
+        '输出为结构化关键词分析结果，包含总量、平均竞争程度、重点推荐词、分类列表、每个关键词的搜索量/热度提示和评分。页面会以指标卡和分类列表形式展示，单个关键词可直接复制。',
+      processing:
+        '点击分析后，页面将 productName 和 language 提交到 /api/keywords。服务端流式返回 JSON 文本，前端累积完整字符串后尝试 JSON.parse；如果直接解析失败，会从文本中提取第一个 JSON 对象再解析。解析成功后用 result.summary 和 result.categories 渲染指标与关键词列表。',
+      modes: ['种子词输入', '中英文输出', '关键词分类', '竞争度摘要', '推荐词识别', 'JSON 结果解析', '关键词复制'],
+      example: {
+        title: '关键词分析输入到输出示例',
+        input: '种子产品词: 纯银项链\n输出语言: 中文',
+        output: 'Total: 42\nAvg Competition: Medium\nTop Rec: 极简纯银锁骨链\n分类: 礼物场景词、材质长尾词、风格词、节日词等。',
+        inputLanguage: 'text',
+        outputLanguage: 'json',
+      },
+    },
+    en: {
+      summary:
+        'The Keyword Analyzer generates e-commerce long-tail keywords, competition hints, recommendations, and category groupings from a seed product term. It helps sellers find more specific, conversion-oriented search terms for product research, listing SEO, ad keyword expansion, category opportunity checks, and multilingual keyword screening.',
+      input:
+        'Inputs include the seed product term and output language. The seed term can be a product name, category phrase, material term, scenario phrase, or combination such as "silver necklace," "pet memorial gift," or "handmade candle." The output language controls the analysis report and keyword suggestions.',
+      output:
+        'The output is a structured keyword analysis result containing total count, average competition, top recommendation, categories, and per-keyword volume or score hints. The page renders summary cards and categorized keyword rows, with individual copy buttons for terms.',
+      processing:
+        'When Analyze is clicked, the page submits productName and language to /api/keywords. The server streams JSON text. The frontend accumulates the full string and attempts JSON.parse; if direct parsing fails, it extracts the first JSON object from the response and parses that. The parsed result.summary and result.categories drive the rendered cards and lists.',
+      modes: ['Seed term input', 'Chinese or English output', 'Keyword grouping', 'Competition summary', 'Top recommendation', 'JSON result parsing', 'Keyword copy'],
+      example: {
+        title: 'Keyword analysis input-to-output example',
+        input: 'Seed product: silver necklace\nLanguage: English',
+        output: 'Total: 42\nAvg Competition: Medium\nTop Rec: minimalist silver choker necklace\nCategories: gift intent terms, material long-tails, style terms, seasonal terms.',
+        inputLanguage: 'text',
+        outputLanguage: 'json',
+      },
+    },
+  },
+
+  'competitor-tracker': {
+    zh: {
+      summary:
+        '竞品分析器用于把自己的产品与竞品描述进行对比，提取差异、弱点、机会点和可改进方向。它适合电商卖家分析竞争 Listing、运营团队做卖点重构、产品经理整理定位差异，也适合在广告投放或页面改版前快速判断哪些卖点需要强化。',
+      input:
+        '输入包括我的产品、竞品详情或链接描述、输出语言。我的产品建议写清品类、目标用户和核心卖点；竞品详情可以粘贴竞品标题、描述、评价摘要、价格信息、卖点列表或人工整理的观察结论。两段信息越具体，比较结果越有可执行性。',
+      output:
+        '输出为结构化竞品报告，包含我的产品评分、竞品评分、关键维度对比、每个维度的双方表现和点评。页面以评分卡和差异列表展示，帮助用户快速识别要补强的卖点、可避开的同质化方向和可转化为文案的竞争优势。',
+      processing:
+        '点击分析后，页面将 productName、competitorInfo 和 language 提交到 /api/competitor。服务端返回 JSON 文本流，前端累积后解析为对象；若 JSON 外包含额外文本，会尝试提取对象片段再解析。渲染时读取 comparison.score 和 comparison.metrics 生成评分与指标对比。',
+      modes: ['我的产品输入', '竞品描述输入', '中英文输出', '评分对比', '指标差异分析', 'JSON 结果解析', '机会点识别'],
+      example: {
+        title: '竞品分析输入到输出示例',
+        input: '我的产品: 手工编织包，天然草编，可折叠，适合夏季度假\n竞品详情: 同类草编包，价格更低，但评论提到容量偏小、肩带不舒适\n语言: 中文',
+        output: 'My Score: 82\nCompetitor: 74\n差异: 材质自然感、容量、肩带舒适度、价格感知。建议突出可折叠和旅行场景。',
+        inputLanguage: 'text',
+        outputLanguage: 'json',
+      },
+    },
+    en: {
+      summary:
+        'The Competitor Tracker compares your product against competitor descriptions to extract differences, weaknesses, opportunities, and improvement directions. It is useful for e-commerce sellers analyzing competing listings, operators rebuilding selling-point strategy, product managers clarifying positioning, and teams preparing ad campaigns or page updates.',
+      input:
+        'Inputs include your product, competitor description, and output language. Your product should describe category, target user, and key selling points. Competitor information can include title, description, review summary, pricing, selling-point list, or manually collected observations. More specific input leads to more actionable comparison results.',
+      output:
+        'The output is a structured competitor report with your score, competitor score, key dimension comparisons, each side\'s performance, and comments. The page renders a score card and metric list to help users identify selling points to strengthen, commoditized angles to avoid, and advantages that can be turned into copy.',
+      processing:
+        'When analysis starts, the page submits productName, competitorInfo, and language to /api/competitor. The server streams JSON text. The frontend accumulates and parses it; if extra text surrounds the JSON, it extracts the object block before parsing. Rendering uses comparison.score and comparison.metrics for the score and dimension comparison UI.',
+      modes: ['My product input', 'Competitor description input', 'Chinese or English output', 'Score comparison', 'Metric difference analysis', 'JSON result parsing', 'Opportunity identification'],
+      example: {
+        title: 'Competitor analysis input-to-output example',
+        input: 'My product: Handmade woven bag, natural straw, foldable, suitable for summer travel\nCompetitor: Similar straw bag, lower price, reviews mention small capacity and uncomfortable strap\nLanguage: English',
+        output: 'My Score: 82\nCompetitor: 74\nDifferences: natural material feel, capacity, strap comfort, price perception. Recommendation: emphasize foldability and travel scenarios.',
+        inputLanguage: 'text',
+        outputLanguage: 'json',
+      },
+    },
+  },
+
+  'market-insights': {
+    zh: {
+      summary:
+        '市场洞察工具用于根据目标平台和时间周期生成类目趋势、搜索热度、增长变化和榜单洞察，帮助卖家或运营人员快速理解平台近期机会。它适合选品前调研、活动档期判断、类目趋势复盘、广告预算讨论和内容选题规划。',
+      input:
+        '输入包括目标平台、输出语言和时间周期。平台可选择 Etsy、Amazon、TikTok Shop 或 eBay；时间周期支持 1 天、3 天和 7 天，用于控制报告关注近期变化还是相对稳定趋势；语言决定报告表述和洞察建议的输出语种。',
+      output:
+        '输出为结构化市场报告，通常包含类目列表、搜索量、增长率和若干洞察建议。页面会展示平台名称、日期范围、类目指标卡和洞察列表，方便快速扫描哪些类目正在增长、哪些方向可能值得进一步验证。',
+      processing:
+        '点击获取报告后，页面将 platform、timeframe 和 language 提交到 /api/market-research。服务端返回 JSON 文本流，前端累积并解析；如果响应包含额外说明，会提取 JSON 对象后再解析。日期范围由当前日期和 timeframe 在浏览器端计算，用于展示报告覆盖时间。',
+      modes: ['平台选择', '时间周期切换', '中英文输出', '类目趋势卡片', '增长率展示', '洞察列表', 'JSON 结果解析'],
+      example: {
+        title: '市场洞察输入到输出示例',
+        input: '平台: Etsy\n时间周期: 7 天\n语言: 中文',
+        output: 'Etsy Insights\n日期范围: 2026-05-14 to 2026-05-21\n类目: handmade jewelry, home decor, printable planner\n洞察: 个性化礼品和数字下载类目保持增长。',
+        inputLanguage: 'text',
+        outputLanguage: 'json',
+      },
+    },
+    en: {
+      summary:
+        'The Market Insights tool generates category trends, search interest, growth changes, and ranking insights from a target platform and timeframe. It helps sellers and operators quickly understand recent marketplace opportunities for product research, campaign timing, category reviews, ad budget discussions, and content planning.',
+      input:
+        'Inputs include target platform, output language, and timeframe. Platforms include Etsy, Amazon, TikTok Shop, and eBay. Timeframes include 1, 3, and 7 days, controlling whether the report focuses on immediate movement or more stable short-term trends. Language controls the wording of the report and recommendations.',
+      output:
+        'The output is a structured market report, usually including category entries, search volume, growth percentage, and insight recommendations. The page renders platform name, date range, category metric cards, and an insight list so users can quickly scan which categories are growing and which directions deserve validation.',
+      processing:
+        'When Get Insight is clicked, the page submits platform, timeframe, and language to /api/market-research. The server streams JSON text. The frontend accumulates and parses it, extracting a JSON object if the response includes surrounding prose. The date range is calculated in the browser from the current date and selected timeframe for display.',
+      modes: ['Platform selection', 'Timeframe switching', 'Chinese or English output', 'Category trend cards', 'Growth display', 'Insight list', 'JSON result parsing'],
+      example: {
+        title: 'Market insight input-to-output example',
+        input: 'Platform: Etsy\nTimeframe: 7 days\nLanguage: English',
+        output: 'Etsy Insights\nDate range: 2026-05-14 to 2026-05-21\nCategories: handmade jewelry, home decor, printable planner\nInsights: personalized gifts and digital downloads continue to show growth.',
+        inputLanguage: 'text',
+        outputLanguage: 'json',
+      },
+    },
+  },
+
   'ai-code-reviewer': {
     zh: {
       summary:

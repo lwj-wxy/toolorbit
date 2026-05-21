@@ -1,10 +1,11 @@
 import { useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Sparkles, FileText, Send, Copy, Loader2, Tag, BookOpen } from 'lucide-react';
+import { Sparkles, FileText, Send, Copy, Loader2, Tag } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { cn } from '../../../lib/utils';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function Xiaohongshu() {
   const { t, i18n } = useTranslation();
@@ -108,28 +109,25 @@ export default function Xiaohongshu() {
   };
 
   return (
-    <>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
-        <div className="mb-8">
-          <div className="inline-flex items-center justify-center p-2 bg-gradient-to-br from-red-100 to-rose-100 dark:from-red-900/30 dark:to-rose-900/30 rounded-xl mb-4">
-            <Sparkles className="w-6 h-6 text-red-600 dark:text-red-400" />
-          </div>
-          <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">
+    <div className="space-y-6">
+        <div className="flex flex-col gap-4 border-b border-slate-200 pb-6 dark:border-slate-800 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+          <h1 className="text-3xl font-semibold tracking-tight text-slate-950 dark:text-white">
             {t('tools.ai-xiaohongshu.title', '小红书文案生存器')}
           </h1>
-          <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl">
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-400">
             {t('tools.ai-xiaohongshu.subtitle', '基于深度的社交媒体语料库训练，一键产出网感满分、排版吸睛的爆款图文笔记文案。')}
           </p>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           {/* Input Section */}
-          <div className="lg:col-span-5 space-y-6">
-            <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+          <div className="flex h-[500px] flex-col rounded-lg border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-[#282c34]">
               
-              <div className="space-y-4">
+              <div className="flex flex-1 flex-col space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                  <label className="mb-2 block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
                     {t('tools.ai-xiaohongshu.topicLabel', '核心主题 (必填)')}
                   </label>
                   <input
@@ -137,12 +135,12 @@ export default function Xiaohongshu() {
                     value={topic}
                     onChange={(e) => setTopic(e.target.value)}
                     placeholder={t('tools.ai-xiaohongshu.topicPlaceholder', '例如：租房神器、冬季护肤指南...')}
-                    className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-red-500/20 focus:border-red-500 transition-all text-slate-900 dark:text-white"
+                    className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm leading-6 text-slate-900 shadow-sm outline-none placeholder:text-slate-400 focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                  <label className="mb-2 block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
                     {t('tools.ai-xiaohongshu.keywordsLabel', '包含关键词 (选填)')}
                   </label>
                   <input
@@ -150,12 +148,12 @@ export default function Xiaohongshu() {
                     value={keywords}
                     onChange={(e) => setKeywords(e.target.value)}
                     placeholder={t('tools.ai-xiaohongshu.keywordsPlaceholder', '例如：平价, 氛围感, 绝绝子 (用逗号分隔)')}
-                    className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-red-500/20 focus:border-red-500 transition-all text-slate-900 dark:text-white"
+                    className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm leading-6 text-slate-900 shadow-sm outline-none placeholder:text-slate-400 focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                  <label className="mb-2 block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
                     {t('tools.ai-xiaohongshu.styleLabel', '笔记风格定调')}
                   </label>
                   <div className="grid grid-cols-2 gap-2">
@@ -166,8 +164,8 @@ export default function Xiaohongshu() {
                         className={cn(
                           "px-3 py-2 rounded-lg text-sm font-medium transition-all border",
                           style === opt.value
-                            ? "bg-red-50 dark:bg-red-500/10 border-red-200 dark:border-red-500/30 text-red-600 dark:text-red-400"
-                            : "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-red-200 dark:hover:border-red-500/30"
+                            ? "bg-cyan-50 dark:bg-cyan-950/30 border-cyan-500 dark:border-cyan-400 text-cyan-700 dark:text-cyan-300"
+                            : "bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-cyan-300 dark:hover:border-cyan-500/40"
                         )}
                       >
                         {opt.label}
@@ -176,11 +174,11 @@ export default function Xiaohongshu() {
                   </div>
                 </div>
 
-                <div className="pt-4">
+                <div className="mt-auto pt-4">
                   <button
                     onClick={handleGenerate}
                     disabled={isGenerating || !topic.trim()}
-                    className="w-full py-3.5 bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white rounded-xl font-medium transition-all shadow-lg shadow-red-500/25 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-cyan-600 px-4 py-3 text-sm font-semibold text-white shadow-sm transition-colors duration-200 hover:bg-cyan-700 disabled:cursor-not-allowed disabled:bg-slate-300 dark:disabled:bg-slate-800"
                   >
                     {isGenerating ? (
                       <>
@@ -197,47 +195,35 @@ export default function Xiaohongshu() {
                 </div>
               </div>
             </div>
-            
-            <div className="bg-gradient-to-br from-red-50 to-orange-50 dark:from-slate-800 dark:to-slate-800 rounded-2xl p-6 border border-red-100 dark:border-slate-700">
-              <h3 className="font-semibold text-red-800 dark:text-red-400 flex items-center gap-2 mb-2">
-                <BookOpen className="w-4 h-4" />
-                写作提示
-              </h3>
-              <p className="text-sm text-red-600/80 dark:text-slate-400 leading-relaxed">
-                主题越具体，大模型生成的成文越有“干货感”。如把“洗发水”改为“油性发质如何两周改善坍塌发根的洗发水推荐”，效果更佳。
-              </p>
-            </div>
-          </div>
 
           {/* Result Section */}
-          <div className="lg:col-span-7" ref={resultRef}>
-            <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 h-full min-h-[500px] flex flex-col">
-              <div className="flex items-center justify-between p-4 border-b border-slate-100 dark:border-slate-700/50">
-                <h3 className="font-semibold text-slate-800 dark:text-white flex items-center gap-2">
-                  <FileText className="w-5 h-5 text-red-500" />
+          <div className="flex h-[500px] flex-col rounded-lg border border-slate-200 bg-slate-50 p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900" ref={resultRef}>
+              <div className="mb-2 flex items-center justify-between">
+                <h3 className="flex items-center gap-2 text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
+                  <FileText className="h-4 w-4 text-cyan-600 dark:text-cyan-300" />
                   {t('tools.ai-xiaohongshu.resultTitle', 'AI 成稿结果')}
                 </h3>
                 <button
                   onClick={handleCopy}
                   disabled={!result || isGenerating}
-                  className="p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors disabled:opacity-50"
+                  className="rounded-md border border-slate-300 bg-white p-2 text-slate-500 transition-colors hover:bg-slate-50 disabled:opacity-50 dark:border-slate-700 dark:bg-[#282c34] dark:hover:bg-slate-800"
                   title={t('common.copy', '复制内容')}
                 >
                   <Copy className="w-5 h-5" />
                 </button>
               </div>
 
-              <div className="p-6 flex-1 bg-slate-50/50 dark:bg-slate-900/20">
+              <div className="flex-1 overflow-y-auto rounded-lg border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-950">
                 {!result && !isGenerating ? (
-                  <div className="h-full flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 space-y-4 py-20">
+                  <div className="flex h-full flex-col items-center justify-center space-y-4 py-20 text-slate-400 dark:text-slate-500">
                     <div className="w-16 h-16 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
                       <Tag className="w-8 h-8 opacity-50" />
                     </div>
                     <p>{t('tools.ai-xiaohongshu.emptyTip', '在这里见证爆款文案的诞生')}</p>
                   </div>
                 ) : (
-                  <div className="prose prose-red dark:prose-invert max-w-none text-slate-700 dark:text-slate-300 
-                                  prose-p:leading-relaxed prose-headings:font-bold prose-a:text-red-600
+                  <div className="prose prose-slate dark:prose-invert max-w-none text-slate-700 dark:text-slate-300
+                                  prose-p:leading-relaxed prose-headings:font-bold prose-a:text-cyan-600
                                   font-sans text-[15px]">
                     <div className="markdown-body">
                       <ReactMarkdown remarkPlugins={[remarkGfm]}>
@@ -245,15 +231,14 @@ export default function Xiaohongshu() {
                       </ReactMarkdown>
                     </div>
                     {isGenerating && (
-                      <span className="inline-block w-2 h-5 bg-red-500 ml-1 animate-pulse align-middle" />
+                      <span className="ml-1 inline-block h-5 w-2 animate-pulse bg-cyan-500 align-middle" />
                     )}
                   </div>
                 )}
               </div>
-            </div>
           </div>
         </div>
-      </div>
-    </>
+        <ToolSEOCard toolKey="ai-xiaohongshu" />
+    </div>
   );
 }

@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Target, Loader2 } from 'lucide-react';
 import ToolSEOCard from '../../../components/ToolSEOCard';
-import ToolPageHero from '../../../components/ToolPageHero';
 
 export default function CompetitorTracker() {
   const { t, i18n } = useTranslation();
@@ -84,44 +83,49 @@ export default function CompetitorTracker() {
   const isZh = i18n.language === 'zh';
 
   return (
-    <div className="max-w-7xl mx-auto space-y-8 pb-20">
-      <ToolPageHero
-        icon={Target}
-        title={t('tools.competitor-tracker.title', isZh ? '竞品分析器' : 'Competitor Tracker')}
-        description={t(
-          'tools.competitor-tracker.subtitle',
-          isZh
-            ? '分析竞争对手，找出弱点，为你的产品寻找新机会。'
-            : 'Analyze competitors, find weaknesses, and identify opportunities for your products.',
-        )}
-      />
+    <div className="space-y-6">
+      <div className="flex flex-col gap-4 border-b border-slate-200 pb-6 dark:border-slate-800 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h1 className="text-3xl font-semibold tracking-tight text-slate-950 dark:text-white">
+            {t('tools.competitor-tracker.title', isZh ? '竞品分析器' : 'Competitor Tracker')}
+          </h1>
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-400">
+            {t(
+              'tools.competitor-tracker.subtitle',
+              isZh
+                ? '分析竞争对手，找出弱点，为你的产品寻找新机会。'
+                : 'Analyze competitors, find weaknesses, and identify opportunities for your products.',
+            )}
+          </p>
+        </div>
+      </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-[400px,1fr] gap-8 items-start">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         {/* Left Input Sidebar */}
-        <div className="bg-white rounded-3xl border border-slate-200 shadow-xl shadow-slate-200/50 p-6 sm:p-7 space-y-6">
-          <h2 className="text-xl font-black text-slate-800 tracking-tight flex items-center gap-2">
-            <Target className="text-indigo-500" />
+        <div className="flex h-[500px] flex-col space-y-5 rounded-lg border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-[#282c34]">
+          <h2 className="flex items-center gap-2 text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
+            <Target className="h-4 w-4 text-cyan-600 dark:text-cyan-300" />
             {isZh ? '竞品分析器' : 'Competitor Tracker'}
           </h2>
 
-          <div className="space-y-4">
+          <div className="flex flex-1 flex-col space-y-4">
             <div>
-              <label className="text-sm font-bold text-slate-700 mb-1 block">{isZh ? '我的产品' : 'My Product'}</label>
-              <input value={compProduct} onChange={e => setCompProduct(e.target.value)} placeholder={isZh ? '如: 手工编织包' : 'e.g. Handmade Woven Bag'} className="w-full h-11 px-3 rounded-xl border border-slate-200 outline-none text-sm focus:ring-2 focus:ring-indigo-500/20" />
+              <label className="mb-1 block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">{isZh ? '我的产品' : 'My Product'}</label>
+              <input value={compProduct} onChange={e => setCompProduct(e.target.value)} placeholder={isZh ? '如: 手工编织包' : 'e.g. Handmade Woven Bag'} className="h-11 w-full rounded-lg border border-slate-200 bg-white px-3 text-sm text-slate-900 shadow-sm outline-none placeholder:text-slate-400 focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100" />
             </div>
             <div>
-              <label className="text-sm font-bold text-slate-700 mb-1 block">{isZh ? '竞品详情/链接描述' : 'Competitor Description'}</label>
-              <textarea value={compInfo} onChange={e => setCompInfo(e.target.value)} placeholder={isZh ? '竞品的卖点介绍或评论槽点...' : 'Paste competitor features...'} className="w-full min-h-[120px] p-3 rounded-xl border border-slate-200 outline-none text-sm resize-none focus:ring-2 focus:ring-indigo-500/20" />
+              <label className="mb-1 block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">{isZh ? '竞品详情/链接描述' : 'Competitor Description'}</label>
+              <textarea value={compInfo} onChange={e => setCompInfo(e.target.value)} placeholder={isZh ? '竞品的卖点介绍或评论槽点...' : 'Paste competitor features...'} className="min-h-[120px] w-full resize-none rounded-lg border border-slate-200 bg-white p-3 text-sm text-slate-900 shadow-sm outline-none placeholder:text-slate-400 focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100" />
             </div>
             <div>
-              <label className="text-sm font-bold text-slate-700 mb-1 block">{isZh ? '语言' : 'Language'}</label>
-              <select value={compLanguage} onChange={e => setCompLanguage(e.target.value)} className="w-full h-11 px-3 rounded-xl border border-slate-200 bg-white text-sm outline-none">
+              <label className="mb-1 block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">{isZh ? '语言' : 'Language'}</label>
+              <select value={compLanguage} onChange={e => setCompLanguage(e.target.value)} className="h-11 w-full rounded-lg border border-slate-200 bg-white px-3 text-sm text-slate-900 shadow-sm outline-none focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100">
                 <option value="中文">Chinese</option><option value="English">English</option>
               </select>
             </div>
             <button 
               onClick={requestStream} disabled={loading || !compProduct.trim() || !compInfo.trim()}
-              className="w-full h-12 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold mt-4 shadow-lg flex items-center justify-center gap-2 disabled:opacity-50"
+              className="mt-auto inline-flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-cyan-600 text-sm font-semibold text-white shadow-sm transition-colors duration-200 hover:bg-cyan-700 disabled:cursor-not-allowed disabled:bg-slate-300 dark:disabled:bg-slate-800"
             >
               {loading ? <Loader2 className="animate-spin" size={18}/> : <Target size={18}/>}
               {isZh ? '透视竞品' : 'Analyze Competitor'}
@@ -130,27 +134,27 @@ export default function CompetitorTracker() {
         </div>
 
         {/* Right Result Panel */}
-        <div className="bg-white rounded-3xl border border-slate-200 shadow-xl shadow-slate-200/50 min-h-[600px] flex flex-col p-6 sm:p-8">
+        <div className="flex h-[500px] flex-col rounded-lg border border-slate-200 bg-slate-50 p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
           {error && (
-            <div className="mb-6 p-4 bg-rose-50 border border-rose-100 rounded-xl text-rose-600 font-medium text-sm">
+            <div className="mb-4 rounded-lg border border-rose-100 bg-rose-50 p-4 text-sm font-medium text-rose-600">
               {error}
             </div>
           )}
 
-          <div className="flex-1 h-full">
-            {loading && <div className="h-full flex items-center justify-center"><Loader2 className="animate-spin text-indigo-500" size={40}/></div>}
+          <div className="h-full flex-1 overflow-y-auto">
+            {loading && <div className="flex h-full items-center justify-center"><Loader2 className="animate-spin text-cyan-500" size={40}/></div>}
             {!loading && !result && <div className="h-full flex items-center justify-center opacity-40"><Target size={48}/></div>}
             {result && (
               <div className="space-y-6">
-                <div className="p-5 bg-slate-50 border border-slate-100 rounded-2xl grid grid-cols-2 text-center">
-                  <div><p className="text-slate-500 font-bold text-sm">My Score</p><p className="text-3xl font-black text-indigo-600">{result.comparison?.score?.mine}</p></div>
+                <div className="grid grid-cols-2 rounded-lg border border-slate-200 bg-white p-5 text-center dark:border-slate-700 dark:bg-slate-950">
+                  <div><p className="text-sm font-bold text-slate-500">My Score</p><p className="text-3xl font-black text-cyan-600">{result.comparison?.score?.mine}</p></div>
                   <div><p className="text-slate-500 font-bold text-sm">Competitor</p><p className="text-3xl font-black text-orange-500">{result.comparison?.score?.competitor}</p></div>
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-800 mb-3">{isZh ? '核心差异分析' : 'Key Differences'}</h3>
+                  <h3 className="mb-3 font-bold text-slate-800 dark:text-slate-100">{isZh ? '核心差异分析' : 'Key Differences'}</h3>
                   <div className="space-y-2">
                     {result.comparison?.metrics?.map((m: any, i: number) => (
-                      <div key={i} className="p-3 border border-slate-100 rounded-xl bg-white">
+                      <div key={i} className="rounded-lg border border-slate-200 bg-white p-3 dark:border-slate-700 dark:bg-slate-950">
                         <div className="flex justify-between items-center mb-1"><span className="font-bold text-sm">{m.name}</span> <span className="text-xs px-2 py-1 bg-slate-100 rounded">You: {m.mine} vs {m.competitor}</span></div>
                         <p className="text-xs text-slate-500">{m.comment}</p>
                       </div>

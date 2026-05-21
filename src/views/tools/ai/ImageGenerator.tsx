@@ -97,40 +97,36 @@ export default function ImageGenerator() {
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="text-center mb-10">
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 mb-6 relative group">
-          <div className="absolute inset-0 bg-amber-400 opacity-20 blur-xl rounded-full group-hover:opacity-30 transition-opacity"></div>
-          <ImageIcon className="w-8 h-8 relative z-10" />
+    <div className="space-y-6">
+      <div className="flex flex-col gap-4 border-b border-slate-200 pb-6 dark:border-slate-800 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h1 className="text-3xl font-semibold tracking-tight text-slate-950 dark:text-white">
+            {t('tools.ai-image-generator.title') || 'AI Image Generator'}
+          </h1>
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-400">
+            {t('tools.ai-image-generator.subtitle') || 'Describe what you want to see, and AI will turn it into a beautiful image.'}
+          </p>
         </div>
-        <h1 className="text-4xl font-bold text-slate-900 dark:text-white mb-4">
-          {t('tools.ai-image-generator.title') || 'AI Image Generator'}
-        </h1>
-        <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-          {t('tools.ai-image-generator.subtitle') || 'Describe what you want to see, and AI will turn it into a beautiful image.'}
-        </p>
       </div>
 
-      <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
-        <div className="p-6 sm:p-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
             
             {/* Input Section */}
-            <div className="space-y-5">
+            <div className="flex h-[500px] flex-col space-y-5 rounded-lg border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-[#282c34]">
               <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                <label className="mb-2 block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
                    {t('tools.ai-image-generator.prompt') || 'Description'}
                 </label>
                 <textarea
                   value={prompt}
                   onChange={(e) => setPrompt(e.target.value)}
                   placeholder={t('tools.ai-image-generator.promptPlaceholder') || 'e.g. A futuristic city bathed in neon lights during heavy rain...'}
-                  className="w-full h-32 p-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none resize-none transition-all placeholder:text-slate-400 dark:text-white"
+                  className="h-36 w-full resize-none rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm leading-6 text-slate-900 shadow-sm outline-none placeholder:text-slate-400 focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                <label className="mb-2 block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
                   {t('tools.ai-image-generator.ratio') || 'Aspect Ratio'}
                 </label>
                 <div className="grid grid-cols-3 gap-3">
@@ -140,8 +136,8 @@ export default function ImageGenerator() {
                       onClick={() => setRatio(r.value)}
                       className={`flex flex-col items-center justify-center p-3 rounded-xl border transition-all ${
                         ratio === r.value
-                          ? 'bg-amber-50 border-amber-500 text-amber-700 dark:bg-amber-900/20 dark:border-amber-400 dark:text-amber-300'
-                          : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50 dark:bg-slate-800/50 dark:border-slate-700 dark:text-slate-400 dark:hover:bg-slate-800'
+                          ? 'bg-cyan-50 border-cyan-500 text-cyan-700 dark:bg-cyan-950/30 dark:border-cyan-400 dark:text-cyan-300'
+                          : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50 dark:bg-slate-900 dark:border-slate-700 dark:text-slate-400 dark:hover:bg-slate-800'
                       }`}
                     >
                       <r.icon className="w-5 h-5 mb-1.5" />
@@ -152,13 +148,13 @@ export default function ImageGenerator() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                <label className="mb-2 block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
                   {t('tools.ai-image-generator.style') || 'Art Style'}
                 </label>
                 <select
                   value={style}
                   onChange={(e) => setStyle(e.target.value)}
-                  className="w-full p-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-amber-500 outline-none text-slate-700 dark:text-slate-300"
+                  className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm leading-6 text-slate-900 shadow-sm outline-none focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
                 >
                   {styles.map(s => (
                     <option key={s.value} value={s.value}>{s.label}</option>
@@ -169,7 +165,7 @@ export default function ImageGenerator() {
               <button
                 onClick={handleGenerate}
                 disabled={!prompt.trim() || loading}
-                className="w-full py-4 bg-amber-600 hover:bg-amber-700 disabled:bg-slate-300 dark:disabled:bg-slate-800 disabled:cursor-not-allowed text-white rounded-xl font-medium transition-all shadow-sm hover:shadow-md flex items-center justify-center gap-2 group"
+                className="mt-auto inline-flex w-full items-center justify-center gap-2 rounded-lg bg-cyan-600 px-4 py-3 text-sm font-semibold text-white shadow-sm transition-colors duration-200 hover:bg-cyan-700 disabled:cursor-not-allowed disabled:bg-slate-300 dark:disabled:bg-slate-800"
               >
                 {loading ? (
                   <>
@@ -186,10 +182,10 @@ export default function ImageGenerator() {
             </div>
 
             {/* Output Section */}
-            <div className="space-y-6 h-full">
+            <div className="flex h-[500px] flex-col space-y-3 rounded-lg border border-slate-200 bg-slate-50 p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
               <div className="h-full flex flex-col">
-                 <div className="flex items-center justify-between mb-2 shrink-0">
-                    <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
+                 <div className="mb-2 flex shrink-0 items-center justify-between">
+                    <label className="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
                       {t('tools.ai-image-generator.resultTitle') || 'Result'}
                     </label>
                     <div className="flex items-center gap-2">
@@ -201,7 +197,7 @@ export default function ImageGenerator() {
                       {resultUrl && !loading && (
                         <button
                           onClick={downloadImage}
-                          className="flex items-center gap-1.5 text-sm text-amber-600 dark:text-amber-400 hover:text-amber-700 font-medium px-3 py-1.5 rounded-lg hover:bg-amber-50 dark:hover:bg-amber-900/20 transition-colors"
+                          className="inline-flex items-center gap-1 rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors duration-200 hover:bg-slate-50 dark:border-slate-700 dark:bg-[#282c34] dark:text-slate-200 dark:hover:bg-slate-800"
                         >
                           <Download className="w-4 h-4" />
                           {t('common.download') || 'Download'}
@@ -211,9 +207,9 @@ export default function ImageGenerator() {
                  </div>
                  
                  <div className="relative flex-1 min-h-[400px]">
-                    <div className={`absolute inset-0 rounded-xl border transition-all overflow-hidden flex items-center justify-center
+                    <div className={`absolute inset-0 flex items-center justify-center overflow-hidden rounded-lg border transition-all
                       ${resultUrl && !loading
-                        ? 'bg-slate-100 dark:bg-slate-900 border-amber-200 dark:border-amber-900/30' 
+                        ? 'bg-white dark:bg-slate-950 border-cyan-200 dark:border-cyan-900/40'
                         : 'bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500'}`}
                     >
                       {error ? (
@@ -223,8 +219,8 @@ export default function ImageGenerator() {
                         </div>
                       ) : loading ? (
                         <div className="flex flex-col items-center justify-center p-5">
-                          <Loader2 className="w-10 h-10 mb-4 animate-spin text-amber-500" />
-                          <p className="text-amber-600 dark:text-amber-400 font-medium animate-pulse">
+                          <Loader2 className="w-10 h-10 mb-4 animate-spin text-cyan-500" />
+                          <p className="text-cyan-600 dark:text-cyan-400 font-medium animate-pulse">
                             {t('tools.ai-image-generator.generating') || 'AI is painting...'}
                           </p>
                         </div>
@@ -247,8 +243,6 @@ export default function ImageGenerator() {
               </div>
             </div>
 
-          </div>
-        </div>
       </div>
 
       <ToolSEOCard toolKey="ai-image-generator" />
