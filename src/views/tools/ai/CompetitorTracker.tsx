@@ -128,7 +128,7 @@ export default function CompetitorTracker() {
               className="mt-auto inline-flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-cyan-600 text-sm font-semibold text-white shadow-sm transition-colors duration-200 hover:bg-cyan-700 disabled:cursor-not-allowed disabled:bg-slate-300 dark:disabled:bg-slate-800"
             >
               {loading ? <Loader2 className="animate-spin" size={18}/> : <Target size={18}/>}
-              {isZh ? '透视竞品' : 'Analyze Competitor'}
+              {isZh ? '分析竞品' : 'Analyze Competitor'}
             </button>
           </div>
         </div>
