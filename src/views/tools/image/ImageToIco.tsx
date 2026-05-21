@@ -105,22 +105,93 @@ export default function ImageToIco() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
-      <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center shrink-0">
-            <ImageIcon className="w-6 h-6" />
-          </div>
-          <div>
-            <h1 className="text-3xl font-bold tracking-tight text-slate-900">{t('tools.image-to-ico.title')}</h1>
-            <p className="text-slate-500 mt-1 text-sm md:text-base">
-              {t('tools.image-to-ico.subtitle')}
-            </p>
-          </div>
+    <div className="space-y-6">
+      <div className="flex flex-col gap-4 border-b border-slate-200 pb-6 dark:border-slate-800 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h1 className="text-3xl font-semibold tracking-tight text-slate-950 dark:text-white">{t('tools.image-to-ico.title')}</h1>
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-400">
+            {t('tools.image-to-ico.subtitle')}
+          </p>
         </div>
       </div>
 
-      <div className="bg-white rounded-3xl border border-slate-200/80 p-6 lg:p-8 shadow-sm">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <div className="flex flex-col space-y-3">
+          <label className="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
+            {fileUrl ? fileName : t('tools.image-to-ico.dropLabel')}
+          </label>
+          <div className="h-[500px] overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-[#282c34]">
+            {!fileUrl ? (
+              <button
+                type="button"
+                onClick={() => fileInputRef.current?.click()}
+                className="flex h-full w-full flex-col items-center justify-center px-8 text-center transition-colors hover:bg-cyan-50/30 dark:hover:bg-cyan-950/20"
+              >
+                <span className="mb-5 flex h-12 w-12 items-center justify-center rounded-lg bg-cyan-50 text-cyan-700 dark:bg-cyan-950/50 dark:text-cyan-300">
+                  <UploadCloud className="h-6 w-6" />
+                </span>
+                <span className="text-base font-semibold text-slate-950 dark:text-white">{t('tools.image-to-ico.dropLabel')}</span>
+                <span className="mt-2 max-w-sm text-sm leading-6 text-slate-600 dark:text-slate-400">{t('tools.image-to-ico.dropDesc')}</span>
+              </button>
+            ) : (
+              <div className="flex h-full flex-col">
+                <div className="flex items-center justify-between border-b border-slate-200 px-4 py-3 text-sm dark:border-slate-700">
+                  <span className="truncate font-semibold text-slate-900 dark:text-slate-100" title={fileName}>{fileName}</span>
+                  <button
+                    type="button"
+                    onClick={() => { setFileUrl(null); setFileName(''); }}
+                    className="ml-4 shrink-0 text-xs font-semibold text-slate-500 transition-colors hover:text-cyan-700 dark:text-slate-400 dark:hover:text-cyan-300"
+                  >
+                    {t('tools.image-to-ico.reselectBtn')}
+                  </button>
+                </div>
+                <div className="flex min-h-0 flex-1 items-center justify-center bg-slate-50 p-6 dark:bg-slate-900">
+                  <img src={fileUrl} className="max-h-full max-w-full object-contain" alt="preview" />
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className="flex flex-col space-y-3">
+          <label className="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
+            {t('tools.image-to-ico.sizeLabel')}
+          </label>
+          <div className="flex h-[500px] flex-col rounded-lg border border-slate-200 bg-slate-50 p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+              {SIZES.map(s => (
+                <button
+                  key={s}
+                  type="button"
+                  onClick={() => setTargetSize(s)}
+                  className={cn(
+                    "rounded-md border px-4 py-3 font-mono text-sm font-semibold transition-colors",
+                    targetSize === s
+                      ? "border-cyan-600 bg-cyan-600 text-white"
+                      : "border-slate-200 bg-white text-slate-600 hover:border-cyan-300 dark:border-slate-700 dark:bg-[#282c34] dark:text-slate-300"
+                  )}
+                >
+                  {s}x{s}
+                </button>
+              ))}
+            </div>
+
+            <div className="mt-6 flex flex-1 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-400 dark:border-slate-700 dark:bg-[#282c34] dark:text-slate-500">
+              <ImageIcon className="h-12 w-12" />
+            </div>
+
+            <button
+              type="button"
+              disabled={!fileUrl || isProcessing}
+              onClick={convertToIco}
+              className="mt-6 flex w-full items-center justify-center gap-2 rounded-md bg-cyan-600 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-cyan-700 disabled:cursor-not-allowed disabled:bg-slate-300 dark:disabled:bg-slate-700"
+            >
+              {isProcessing ? <Loader2 className="h-4 w-4 animate-spin" /> : <Download className="h-4 w-4" />}
+              {isProcessing ? t('tools.image-to-ico.processingMsg') : t('tools.image-to-ico.exportBtn')}
+            </button>
+          </div>
+        </div>
+
         <input 
             type="file" 
             ref={fileInputRef} 
@@ -128,68 +199,6 @@ export default function ImageToIco() {
             accept="image/*" 
             className="hidden" 
         />
-        
-        {!fileUrl ? (
-          <div 
-            onClick={() => fileInputRef.current?.click()}
-            className="border-2 border-dashed border-slate-300 rounded-2xl p-16 flex flex-col items-center justify-center text-slate-500 hover:bg-slate-50 hover:border-emerald-400 hover:text-emerald-600 transition-colors cursor-pointer group"
-          >
-            <div className="w-16 h-16 bg-white shadow-sm border border-slate-200 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-              <UploadCloud className="w-8 h-8" />
-            </div>
-            <p className="font-bold text-lg text-slate-700 group-hover:text-emerald-700 mb-1">{t('tools.image-to-ico.dropLabel')}</p>
-            <p className="text-sm opacity-60 text-center">{t('tools.image-to-ico.dropDesc')}</p>
-          </div>
-        ) : (
-          <div className="space-y-8 animate-in fade-in duration-300">
-             <div className="flex flex-col md:flex-row gap-8 items-center bg-slate-50 border border-slate-200/80 p-8 rounded-2xl">
-                 <div className="w-48 h-48 bg-[url('https://cdn.pixabay.com/photo/2021/08/11/06/32/transparent-block-pattern-6537672_1280.png')] rounded-xl shadow-inner border border-slate-200 flex items-center justify-center overflow-hidden bg-cover shrink-0">
-                    <img src={fileUrl} className="max-w-full max-h-full object-contain" alt="preview" />
-                 </div>
-                 <div className="flex-1 w-full space-y-4">
-                     <div>
-                         <h3 className="font-bold text-slate-800 text-lg truncate flex-1" title={fileName}>{fileName}</h3>
-                         <div className="text-xs text-slate-500 font-mono mt-1">Ready for compilation • Source mapped frame</div>
-                     </div>
-
-                     <div className="space-y-3">
-                         <label className="text-sm font-bold text-slate-700 block">{t('tools.image-to-ico.sizeLabel')}</label>
-                         <div className="flex flex-wrap gap-3">
-                             {SIZES.map(s => (
-                                <button
-                                   key={s}
-                                   onClick={() => setTargetSize(s)}
-                                   className={cn(
-                                       "px-4 py-2 rounded-lg font-mono text-sm font-bold border transition-all",
-                                       targetSize === s ? "bg-slate-900 border-slate-900 text-white shadow" : "bg-white border-slate-200/80 text-slate-500 hover:border-slate-300 hover:bg-slate-50"
-                                   )}
-                                >
-                                    {s}x{s}
-                                </button>
-                             ))}
-                         </div>
-                     </div>
-                 </div>
-             </div>
-
-             <div className="flex gap-4">
-                 <button 
-                    onClick={() => { setFileUrl(null); setFileName(''); }}
-                    className="px-6 py-3 bg-white border border-slate-200/80 text-slate-600 rounded-xl font-bold hover:bg-slate-50 transition-colors"
-                 >
-                     {t('tools.image-to-ico.reselectBtn')}
-                 </button>
-                 <button 
-                    disabled={isProcessing}
-                    onClick={convertToIco}
-                    className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-emerald-600 text-white rounded-xl font-bold hover:bg-emerald-500 transition-colors disabled:opacity-50"
-                 >
-                     {isProcessing ? <Loader2 className="w-5 h-5 animate-spin" /> : <Download className="w-5 h-5" />}
-                     {isProcessing ? t('tools.image-to-ico.processingMsg') : t('tools.image-to-ico.exportBtn')}
-                 </button>
-             </div>
-          </div>
-        )}
       </div>
 
     </div>

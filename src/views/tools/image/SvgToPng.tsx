@@ -164,193 +164,163 @@ export default function SvgToPng() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto space-y-6">
+    <div className="space-y-6">
       
       {/* Hidden Canvas for Processing */}
       <canvas ref={canvasRef} width={width} height={height} className="hidden" />
 
       {/* Header */}
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6 lg:p-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 bg-blue-50 text-[#2563eb] rounded-xl flex items-center justify-center shrink-0">
-            <FileImage className="w-6 h-6" />
-          </div>
-          <div>
-            <h1 className="text-3xl font-bold tracking-tight text-slate-900">{t('tools.svg-to-png.title')}</h1>
-            <p className="text-[#64748b] mt-1 text-sm md:text-base">
-              {t('tools.svg-to-png.subtitle')}
-            </p>
-          </div>
+      <div className="flex flex-col gap-4 border-b border-slate-200 pb-6 dark:border-slate-800 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h1 className="text-3xl font-semibold tracking-tight text-slate-950 dark:text-white">{t('tools.svg-to-png.title')}</h1>
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-400">
+            {t('tools.svg-to-png.subtitle')}
+          </p>
         </div>
-        
-        {svgContent && (
-             <button 
-                 onClick={clearAll}
-                 className="px-4 py-2 text-sm font-bold text-red-500 hover:bg-red-50 rounded-lg flex items-center gap-2 transition-colors border border-transparent hover:border-red-100 self-start md:self-auto"
-               >
-                 <Trash2 className="w-4 h-4" /> {t('tools.svg-to-png.clearBtn')}
-             </button>
-        )}
       </div>
 
-      {!svgContent ? (
-          /* Step 1: Upload Area */
-          <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-8 lg:p-16 flex flex-col items-center">
-               <div
-                  onDragOver={onDragOver}
-                  onDragLeave={onDragLeave}
-                  onDrop={onDrop}
-                  className={`w-full max-w-2xl border-2 border-dashed rounded-2xl flex flex-col items-center justify-center p-12 transition-colors ${
-                      isDragging ? 'border-[#2563eb] bg-blue-50/50' : 'border-[#cbd5e1] hover:bg-[#f8fafc] hover:border-[#94a3b8]'
-                  }`}
-               >
-                  <input
-                      type="file"
-                      ref={fileInputRef}
-                      className="hidden"
-                      accept=".svg,image/svg+xml"
-                      onChange={(e) => {
-                          if (e.target.files?.[0]) {
-                              handleFileUpload(e.target.files[0]);
-                          }
-                      }}
-                  />
-                  <div className="w-20 h-20 bg-white shadow-sm border border-slate-100 rounded-full flex items-center justify-center mb-6 text-[#94a3b8]">
-                      <UploadCloud className="w-10 h-10" />
-                  </div>
-                  <p className="text-[#1e293b] font-medium text-xl mb-3">{t('tools.svg-to-png.dropLabel')}</p>
-                  <p className="text-[#64748b] text-sm text-center mb-8">
-                      {t('tools.svg-to-png.dropDesc')}
-                  </p>
-                  <button
-                      onClick={() => fileInputRef.current?.click()}
-                      className="px-8 py-3 bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-medium rounded-xl transition-colors shadow-sm"
-                  >
-                      {t('tools.svg-to-png.selectBtn')}
-                  </button>
-               </div>
-
-               <div className="mt-8 flex items-center gap-4 w-full max-w-2xl">
-                  <div className="h-px bg-slate-200 flex-1"></div>
-                  <span className="text-sm font-medium text-slate-400">{t('tools.svg-to-png.orPaste')}</span>
-                  <div className="h-px bg-slate-200 flex-1"></div>
-               </div>
-
-               <div className="w-full max-w-2xl mt-8">
-                   <textarea
-                       onChange={(e) => setSvgContent(e.target.value)}
-                       placeholder="<svg viewBox=&#34;0 0 100 100&#34;> ... </svg>"
-                       className="w-full h-32 bg-[#f8fafc] border border-[#cbd5e1] rounded-xl p-4 font-mono text-sm outline-none focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb] transition-all resize-none shadow-inner"
-                   />
-               </div>
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <div className="flex flex-col space-y-3">
+          <div className="flex items-center justify-between">
+            <label className="flex items-center gap-2 text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
+              <Code className="h-4 w-4 text-cyan-600" />
+              {t('tools.svg-to-png.editorTitle')}
+            </label>
+            {svgContent ? (
+              <button
+                type="button"
+                onClick={clearAll}
+                className="inline-flex items-center gap-1 rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors duration-200 hover:bg-slate-50 dark:border-slate-700 dark:bg-[#282c34] dark:text-slate-200 dark:hover:bg-slate-800"
+              >
+                <Trash2 className="h-3.5 w-3.5" />
+                {t('tools.svg-to-png.clearBtn')}
+              </button>
+            ) : null}
           </div>
-      ) : (
-          /* Step 2: Playground Area */
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-              
-              {/* Left Column: Code Editor & Export Settings */}
-              <div className="lg:col-span-5 space-y-6">
-                 {/* Raw Editor */}
-                 <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-5 flex flex-col h-[400px]">
-                    <div className="flex items-center gap-2 mb-3">
-                        <Code className="w-5 h-5 text-blue-600" />
-                        <h3 className="font-bold text-[#1e293b]">{t('tools.svg-to-png.editorTitle')}</h3>
-                    </div>
-                    <textarea
-                       value={svgContent}
-                       onChange={(e) => setSvgContent(e.target.value)}
-                       className="flex-1 w-full bg-slate-900 text-slate-50 border-none rounded-xl p-4 font-mono text-xs outline-none focus:ring-2 focus:ring-[#2563eb] transition-all resize-none"
-                       spellCheck={false}
-                    />
-                 </div>
 
-                 {/* Export Engine */}
-                 <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-5">
-                    <h3 className="font-bold text-[#1e293b] mb-4 flex items-center gap-2">
-                       <span className="w-2 h-5 bg-emerald-500 rounded-sm block"></span>
-                       {t('tools.svg-to-png.settingsTitle')}
-                    </h3>
-                    
-                    <div className="space-y-4">
-                       <div className="grid grid-cols-2 gap-4">
-                           <div>
-                               <label className="block text-sm font-bold text-[#475569] mb-2">{t('tools.svg-to-png.widthLabel')}</label>
-                               <input
-                                 type="number"
-                                 value={width || ''}
-                                 onChange={(e) => handleWidthChange(parseInt(e.target.value) || 0)}
-                                 className="w-full bg-[#f8fafc] border border-[#cbd5e1] rounded-lg px-4 py-2 outline-none focus:border-[#2563eb]"
-                               />
-                           </div>
-                           <div>
-                               <label className="block text-sm font-bold text-[#475569] mb-2">{t('tools.svg-to-png.heightLabel')}</label>
-                               <input
-                                 type="number"
-                                 value={height || ''}
-                                 onChange={(e) => handleHeightChange(parseInt(e.target.value) || 0)}
-                                 className="w-full bg-[#f8fafc] border border-[#cbd5e1] rounded-lg px-4 py-2 outline-none focus:border-[#2563eb]"
-                               />
-                           </div>
-                       </div>
-                       
-                       <label className="flex items-center gap-2 cursor-pointer text-sm font-medium text-[#475569]">
-                         <input
-                            type="checkbox"
-                            checked={maintainRatio}
-                            onChange={(e) => setMaintainRatio(e.target.checked)}
-                            className="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500 border-gray-300"
-                         />
-                         {t('tools.svg-to-png.lockRatio')}
-                       </label>
+          <div
+            className={`flex h-[500px] flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-[#282c34] ${
+              isDragging ? 'border-cyan-500 bg-cyan-50/40 dark:bg-cyan-950/20' : ''
+            }`}
+            onDragOver={onDragOver}
+            onDragLeave={onDragLeave}
+            onDrop={onDrop}
+          >
+            <input
+              type="file"
+              ref={fileInputRef}
+              className="hidden"
+              accept=".svg,image/svg+xml"
+              onChange={(e) => {
+                if (e.target.files?.[0]) {
+                  handleFileUpload(e.target.files[0]);
+                }
+              }}
+            />
 
-                       <button
-                         onClick={handleDownload}
-                         disabled={!!previewError || width === 0 || height === 0}
-                         className="w-full mt-4 flex items-center justify-center gap-2 px-4 py-3 font-bold rounded-xl bg-emerald-500 text-white hover:bg-emerald-600 transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
-                       >
-                         <Download className="w-5 h-5" /> {t('tools.svg-to-png.downloadBtn')}
-                       </button>
-                    </div>
-                 </div>
+            {!svgContent ? (
+              <div className="flex h-56 flex-col items-center justify-center border-b border-slate-200 px-8 text-center dark:border-slate-700">
+                <button
+                  type="button"
+                  onClick={() => fileInputRef.current?.click()}
+                  className="flex flex-col items-center"
+                >
+                  <span className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-cyan-50 text-cyan-700 dark:bg-cyan-950/50 dark:text-cyan-300">
+                    <UploadCloud className="h-6 w-6" />
+                  </span>
+                  <span className="text-base font-semibold text-slate-950 dark:text-white">{t('tools.svg-to-png.dropLabel')}</span>
+                  <span className="mt-2 max-w-sm text-sm leading-6 text-slate-600 dark:text-slate-400">{t('tools.svg-to-png.dropDesc')}</span>
+                  <span className="mt-4 rounded-md bg-cyan-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-cyan-700">
+                    {t('tools.svg-to-png.selectBtn')}
+                  </span>
+                </button>
               </div>
+            ) : null}
 
-              {/* Right Column: Visual Render */}
-              <div className="lg:col-span-7 bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6 min-h-[500px] flex flex-col">
-                 <h3 className="font-bold text-[#1e293b] mb-4 flex items-center gap-2 border-b border-slate-100 pb-4">
-                    <ImageIcon className="w-5 h-5 text-blue-600" /> {t('tools.svg-to-png.renderTitle')}
-                 </h3>
-                 
-                 <div className="flex-1 relative flex items-center justify-center bg-checkered p-8 rounded-xl overflow-hidden border border-slate-200">
-                    <style dangerouslySetInnerHTML={{__html: `
-                        .bg-checkered {
-                            background-image: linear-gradient(45deg, #f1f5f9 25%, transparent 25%), linear-gradient(-45deg, #f1f5f9 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #f1f5f9 75%), linear-gradient(-45deg, transparent 75%, #f1f5f9 75%);
-                            background-size: 20px 20px;
-                            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
-                        }
-                    `}} />
-
-                    {previewError ? (
-                        <div className="bg-white/90 backdrop-blur-sm border border-red-200 rounded-xl p-6 text-center max-w-sm">
-                           <div className="w-12 h-12 bg-red-100 text-red-500 rounded-full flex items-center justify-center mx-auto mb-3">
-                               <span className="font-bold text-xl">!</span>
-                           </div>
-                           <h4 className="font-bold text-slate-800 mb-1">{t('tools.svg-to-png.failTitle')}</h4>
-                           <p className="text-sm text-slate-600">{previewError}</p>
-                        </div>
-                    ) : (
-                        getEncodedSvgUri() && (
-                            <img 
-                              src={getEncodedSvgUri()!} 
-                              alt="SVG Preview" 
-                              style={{ maxWidth: '100%', maxHeight: '600px' }}
-                              className="shadow-sm" 
-                            />
-                        )
-                    )}
-                 </div>
-              </div>
+            <textarea
+              value={svgContent}
+              onChange={(e) => setSvgContent(e.target.value)}
+              placeholder={`${t('tools.svg-to-png.orPaste')}\n<svg viewBox="0 0 100 100"> ... </svg>`}
+              className="block min-h-0 flex-1 resize-none border-0 bg-white px-4 py-3 font-mono text-sm leading-6 text-slate-900 outline-none placeholder:text-slate-400 dark:bg-[#282c34] dark:text-slate-100"
+              spellCheck={false}
+            />
           </div>
-      )}
+        </div>
+
+        <div className="flex flex-col space-y-3">
+          <label className="flex items-center gap-2 text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
+            <ImageIcon className="h-4 w-4 text-cyan-600" />
+            {t('tools.svg-to-png.renderTitle')}
+          </label>
+
+          <div className="flex h-[500px] flex-col rounded-lg border border-slate-200 bg-slate-50 p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-200">{t('tools.svg-to-png.widthLabel')}</label>
+                <input
+                  type="number"
+                  value={width || ''}
+                  onChange={(e) => handleWidthChange(parseInt(e.target.value) || 0)}
+                  className="w-full rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm text-slate-900 outline-none transition-colors focus:border-cyan-500 dark:border-slate-700 dark:bg-[#282c34] dark:text-slate-100"
+                />
+              </div>
+              <div>
+                <label className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-200">{t('tools.svg-to-png.heightLabel')}</label>
+                <input
+                  type="number"
+                  value={height || ''}
+                  onChange={(e) => handleHeightChange(parseInt(e.target.value) || 0)}
+                  className="w-full rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm text-slate-900 outline-none transition-colors focus:border-cyan-500 dark:border-slate-700 dark:bg-[#282c34] dark:text-slate-100"
+                />
+              </div>
+            </div>
+
+            <label className="mt-4 flex cursor-pointer items-center gap-2 text-sm font-medium text-slate-600 dark:text-slate-300">
+              <input
+                type="checkbox"
+                checked={maintainRatio}
+                onChange={(e) => setMaintainRatio(e.target.checked)}
+                className="h-4 w-4 rounded border-slate-300 text-cyan-600 focus:ring-cyan-500"
+              />
+              {t('tools.svg-to-png.lockRatio')}
+            </label>
+
+            <div
+              className="mt-5 flex min-h-0 flex-1 items-center justify-center overflow-hidden rounded-lg border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-[#282c34]"
+              style={{
+                backgroundImage: 'linear-gradient(45deg, rgba(148, 163, 184, 0.18) 25%, transparent 25%), linear-gradient(-45deg, rgba(148, 163, 184, 0.18) 25%, transparent 25%), linear-gradient(45deg, transparent 75%, rgba(148, 163, 184, 0.18) 75%), linear-gradient(-45deg, transparent 75%, rgba(148, 163, 184, 0.18) 75%)',
+                backgroundSize: '20px 20px',
+                backgroundPosition: '0 0, 0 10px, 10px -10px, -10px 0px',
+              }}
+            >
+              {previewError ? (
+                <div className="max-w-sm rounded-lg border border-red-200 bg-red-50 p-5 text-center text-sm text-red-700 dark:border-red-900/70 dark:bg-red-950/20 dark:text-red-200">
+                  <div className="mb-1 font-semibold">{t('tools.svg-to-png.failTitle')}</div>
+                  {previewError}
+                </div>
+              ) : getEncodedSvgUri() ? (
+                <img
+                  src={getEncodedSvgUri()!}
+                  alt="SVG Preview"
+                  className="max-h-full max-w-full object-contain"
+                />
+              ) : (
+                <FileImage className="h-12 w-12 text-slate-300 dark:text-slate-600" />
+              )}
+            </div>
+
+            <button
+              type="button"
+              onClick={handleDownload}
+              disabled={!svgContent || !!previewError || width === 0 || height === 0}
+              className="mt-5 flex w-full items-center justify-center gap-2 rounded-md bg-cyan-600 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-cyan-700 disabled:cursor-not-allowed disabled:bg-slate-300 dark:disabled:bg-slate-700"
+            >
+              <Download className="h-4 w-4" />
+              {t('tools.svg-to-png.downloadBtn')}
+            </button>
+          </div>
+        </div>
+      </div>
 
     </div>
   );

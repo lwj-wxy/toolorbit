@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Upload, Image as ImageIcon, Download, Trash2, CheckCircle2, RefreshCcw } from 'lucide-react';
+import { Upload, Download, Trash2, CheckCircle2, RefreshCcw } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { analytics } from '../../../services/analytics';
 import ToolSEOCard from '../../../components/ToolSEOCard';
@@ -150,138 +150,148 @@ export default function ImageConverter() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
+    <div className="space-y-6">
       
       {/* Header */}
-      <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 bg-blue-50 text-[#2563eb] rounded-xl flex items-center justify-center shrink-0">
-            <RefreshCcw className="w-6 h-6" />
-          </div>
-          <div>
-            <h1 className="text-3xl font-bold tracking-tight text-slate-900">{t('tools.image-converter.title')}</h1>
-            <p className="text-[#64748b] mt-1 text-sm md:text-base">
-              {t('tools.image-converter.subtitle')}
-            </p>
-          </div>
+      <div className="flex flex-col gap-4 border-b border-slate-200 pb-6 dark:border-slate-800 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h1 className="text-3xl font-semibold tracking-tight text-slate-950 dark:text-white">{t('tools.image-converter.title')}</h1>
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-400">
+            {t('tools.image-converter.subtitle')}
+          </p>
         </div>
       </div>
 
       {/* Main App Workspace */}
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6 lg:p-10">
-        {!file ? (
-          <div 
-            className={`rounded-2xl border-2 border-dashed transition-all p-12 text-center flex flex-col items-center justify-center min-h-[360px] cursor-pointer
-              ${isDragging ? 'border-[#2563eb] bg-blue-50/50' : 'border-[#cbd5e1] hover:border-[#94a3b8] hover:bg-slate-50'}`}
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <div className="flex flex-col space-y-3">
+          <div className="flex items-center justify-between">
+            <label className="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
+              {file ? t('tools.image-converter.uploadedTitle', { name: file.name }) : t('tools.image-converter.dropLabel')}
+            </label>
+            {file ? (
+              <button
+                type="button"
+                onClick={clearFile}
+                className="inline-flex items-center gap-1 rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors duration-200 hover:bg-slate-50 dark:border-slate-700 dark:bg-[#282c34] dark:text-slate-200 dark:hover:bg-slate-800"
+              >
+                <Trash2 className="h-3.5 w-3.5" />
+                {t('tools.image-converter.clearBtn')}
+              </button>
+            ) : null}
+          </div>
+
+          <div
+            className={`h-[500px] overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-[#282c34] ${
+              isDragging ? 'border-cyan-500 bg-cyan-50/40 dark:bg-cyan-950/20' : ''
+            }`}
             onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
             onDragLeave={(e) => { e.preventDefault(); setIsDragging(false); }}
             onDrop={handleDrop}
-            onClick={() => fileInputRef.current?.click()}
           >
-            <input 
-              type="file" 
-              ref={fileInputRef} 
-              onChange={handleFileChange} 
-              accept="image/*" 
-              className="hidden" 
+            <input
+              type="file"
+              ref={fileInputRef}
+              onChange={handleFileChange}
+              accept="image/*"
+              className="hidden"
             />
-            <div className="w-16 h-16 bg-blue-50 text-[#2563eb] rounded-full flex items-center justify-center mb-6 shadow-sm">
-              <Upload className="w-8 h-8" />
-            </div>
-            <h3 className="text-xl font-bold text-[#1e293b] mb-2">{t('tools.image-converter.dropLabel')}</h3>
-            <p className="text-[#64748b] mb-6">{t('tools.image-converter.dropDesc')}</p>
-            <button className="bg-white border border-[#cbd5e1] text-[#0f172a] px-6 py-2.5 rounded-lg font-bold shadow-sm hover:border-[#94a3b8] hover:bg-slate-50 transition-colors flex items-center gap-2">
-              <Upload className="w-4 h-4" />
-              {t('tools.image-converter.selectBtn')}
-            </button>
-          </div>
-        ) : (
-          <div className="flex flex-col gap-8">
-            <div className="flex items-center justify-between border-b border-[#e2e8f0] pb-4">
-              <h3 className="text-lg font-bold text-[#1e293b] flex items-center gap-2">
-                <ImageIcon className="w-5 h-5 text-blue-500" />
-                {t('tools.image-converter.uploadedTitle', { name: file.name })}
-              </h3>
-              <button 
-                onClick={clearFile}
-                className="text-sm font-bold text-red-500 hover:text-red-700 hover:bg-red-50 px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5"
+
+            {!file ? (
+              <button
+                type="button"
+                onClick={() => fileInputRef.current?.click()}
+                className="flex h-full w-full flex-col items-center justify-center px-8 text-center transition-colors hover:bg-cyan-50/30 dark:hover:bg-cyan-950/20"
               >
-                <Trash2 className="w-4 h-4" />{t('tools.image-converter.clearBtn')}
+                <span className="mb-5 flex h-12 w-12 items-center justify-center rounded-lg bg-cyan-50 text-cyan-700 dark:bg-cyan-950/50 dark:text-cyan-300">
+                  <Upload className="h-6 w-6" />
+                </span>
+                <span className="text-base font-semibold text-slate-950 dark:text-white">{t('tools.image-converter.dropLabel')}</span>
+                <span className="mt-2 max-w-sm text-sm leading-6 text-slate-600 dark:text-slate-400">{t('tools.image-converter.dropDesc')}</span>
+                <span className="mt-6 rounded-md bg-cyan-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-cyan-700">
+                  {t('tools.image-converter.selectBtn')}
+                </span>
               </button>
+            ) : (
+              <div className="flex h-full flex-col">
+                <div className="flex items-center justify-between border-b border-slate-200 px-4 py-3 text-sm dark:border-slate-700">
+                  <span className="truncate font-semibold text-slate-900 dark:text-slate-100">{file.name}</span>
+                  <span className="ml-4 shrink-0 text-slate-500 dark:text-slate-400">
+                    {hasConverted && convertedBlob ? formatSize(convertedBlob.size) : formatSize(file.size)}
+                  </span>
+                </div>
+                <div className="flex min-h-0 flex-1 items-center justify-center bg-slate-50 p-4 dark:bg-slate-900">
+                  <img
+                    src={hasConverted ? convertedUrl : originalUrl}
+                    alt="Preview"
+                    className="max-h-full max-w-full object-contain"
+                  />
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className="flex flex-col space-y-3">
+          <label className="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
+            {t('tools.image-converter.targetFormat')}
+          </label>
+          <div className="flex h-[500px] flex-col rounded-lg border border-slate-200 bg-slate-50 p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+            <div className="space-y-6">
+              <select
+                value={targetFormat}
+                onChange={(e) => {
+                  setTargetFormat(e.target.value);
+                  if (hasConverted) setHasConverted(false);
+                }}
+                className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-900 outline-none transition-colors focus:border-cyan-500 dark:border-slate-700 dark:bg-[#282c34] dark:text-slate-100"
+              >
+                <option value="image/jpeg">JPEG (.jpg)</option>
+                <option value="image/png">PNG (.png)</option>
+                <option value="image/webp">WEBP (.webp)</option>
+              </select>
+
+              <div className="rounded-lg border border-slate-200 bg-white p-4 text-sm dark:border-slate-700 dark:bg-[#282c34]">
+                <div className="flex items-center justify-between gap-4">
+                  <span className="text-slate-500 dark:text-slate-400">{t('tools.image-converter.fileSize')}</span>
+                  <span className="font-semibold text-slate-900 dark:text-slate-100">
+                    {file ? (hasConverted && convertedBlob ? formatSize(convertedBlob.size) : formatSize(file.size)) : '--'}
+                  </span>
+                </div>
+              </div>
+
+              {hasConverted ? (
+                <div className="flex items-center gap-2 rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm font-medium text-green-700 dark:border-green-900/70 dark:bg-green-950/20 dark:text-green-300">
+                  <CheckCircle2 className="h-4 w-4" />
+                  {t('tools.image-converter.successMsg')}
+                </div>
+              ) : null}
             </div>
 
-            <div className="flex flex-col md:flex-row gap-8 lg:gap-12">
-              {/* Preview Area */}
-              <div className="w-full md:w-[320px] shrink-0">
-                <div className="flex flex-col relative group">
-                  <div className="aspect-square bg-[#f8fafc] rounded-xl border border-[#e2e8f0] overflow-hidden flex items-center justify-center mb-3">
-                    <img 
-                      src={hasConverted ? convertedUrl : originalUrl} 
-                      alt="Preview" 
-                      className="w-full h-full object-contain p-2" 
-                    />
-                  </div>
-                  <div className="flex justify-between items-center px-1 text-sm">
-                    <span className="text-[#64748b] font-medium">{t('tools.image-converter.fileSize')}</span>
-                    <span className="font-bold text-[#0f172a]">
-                      {hasConverted && convertedBlob ? formatSize(convertedBlob.size) : formatSize(file.size)}
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Action Area */}
-              <div className="flex-1 space-y-8 py-2">
-                <div>
-                  <label className="block text-[14px] font-bold text-[#1e293b] mb-3">{t('tools.image-converter.targetFormat')}</label>
-                  <select
-                    value={targetFormat}
-                    onChange={(e) => { 
-                      setTargetFormat(e.target.value); 
-                      if(hasConverted) setHasConverted(false); 
-                    }}
-                    className="w-full sm:w-[240px] bg-white border border-[#cbd5e1] px-4 py-3 rounded-lg outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all font-bold text-slate-700 cursor-pointer shadow-sm"
-                  >
-                    <option value="image/jpeg">JPEG (.jpg)</option>
-                    <option value="image/png">PNG (.png)</option>
-                    <option value="image/webp">WEBP (.webp)</option>
-                  </select>
-                </div>
-
-                <div className="pt-2">
-                  {!hasConverted ? (
-                    <button
-                      onClick={convertImage}
-                      disabled={isConverting}
-                      className="bg-[#10b981] hover:bg-[#059669] disabled:bg-emerald-300 disabled:cursor-not-allowed text-white px-8 py-3 rounded-lg font-bold transition-all shadow-[0_2px_10px_rgba(16,185,129,0.2)] flex items-center gap-2"
-                    >
-                      {isConverting ? (
-                        <>
-                          <RefreshCcw className="w-5 h-5 animate-spin" />
-                          {t('tools.image-converter.converting')}
-                        </>
-                      ) : (
-                        t('tools.image-converter.convertBtn')
-                      )}
-                    </button>
-                  ) : (
-                    <div className="flex items-center gap-4">
-                      <button
-                        onClick={downloadImage}
-                        className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-3 rounded-lg font-bold transition-all shadow-[0_2px_10px_rgba(37,99,235,0.2)] flex items-center gap-2"
-                      >
-                        <Download className="w-5 h-5" /> {t('tools.image-converter.downloadBtn')}
-                      </button>
-                      <div className="text-green-600 font-medium flex items-center gap-1.5 text-sm bg-green-50 px-3 py-1.5 rounded-lg border border-green-100">
-                        <CheckCircle2 className="w-4 h-4" /> {t('tools.image-converter.successMsg')}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
+            <div className="mt-auto">
+              {!hasConverted ? (
+                <button
+                  type="button"
+                  onClick={convertImage}
+                  disabled={!file || isConverting}
+                  className="flex w-full items-center justify-center gap-2 rounded-md bg-cyan-600 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-cyan-700 disabled:cursor-not-allowed disabled:bg-slate-300 dark:disabled:bg-slate-700"
+                >
+                  {isConverting ? <RefreshCcw className="h-4 w-4 animate-spin" /> : null}
+                  {isConverting ? t('tools.image-converter.converting') : t('tools.image-converter.convertBtn')}
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={downloadImage}
+                  className="flex w-full items-center justify-center gap-2 rounded-md bg-cyan-600 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-cyan-700"
+                >
+                  <Download className="h-4 w-4" />
+                  {t('tools.image-converter.downloadBtn')}
+                </button>
+              )}
             </div>
           </div>
-        )}
+        </div>
       </div>
 
       <ToolSEOCard toolKey="image-converter" />

@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import ReactCrop, { type Crop, type PixelCrop, centerCrop, makeAspectCrop } from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
-import { Upload, Crop as CropIcon, Download, Trash2, Image as ImageIcon, Settings2, Columns, Maximize, MousePointer2 } from 'lucide-react';
+import { Upload, Download, Trash2, Image as ImageIcon, Columns, Maximize, MousePointer2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { analytics } from '../../../services/analytics';
 
@@ -190,144 +190,145 @@ export default function ImageCropper() {
   const realCropSize = getRealCropSize();
 
   return (
-    <div className="max-w-6xl mx-auto space-y-6">
+    <div className="space-y-6">
       
       {/* Header */}
-      <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 bg-blue-50 text-[#2563eb] rounded-xl flex items-center justify-center shrink-0">
-            <CropIcon className="w-6 h-6" />
-          </div>
-          <div>
-            <h1 className="text-3xl font-bold tracking-tight text-slate-900">{t('tools.image-cropper.title')}</h1>
-            <p className="text-[#64748b] mt-1 text-sm md:text-base">
-              {t('tools.image-cropper.subtitle')}
-            </p>
-          </div>
+      <div className="flex flex-col gap-4 border-b border-slate-200 pb-6 dark:border-slate-800 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h1 className="text-3xl font-semibold tracking-tight text-slate-950 dark:text-white">{t('tools.image-cropper.title')}</h1>
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-400">
+            {t('tools.image-cropper.subtitle')}
+          </p>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        
-        {/* Main Interface */}
-        <div className="lg:col-span-2 space-y-6">
-          <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 w-full">
-            
-            {!imgSrc ? (
-              <div 
-                className={`rounded-2xl border-2 border-dashed transition-all p-12 text-center flex flex-col items-center justify-center min-h-[400px] cursor-pointer w-full
-                  ${isDragging ? 'border-[#2563eb] bg-blue-50/50' : 'border-[#cbd5e1] hover:border-[#94a3b8] hover:bg-slate-50'}`}
-                onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
-                onDragLeave={(e) => { e.preventDefault(); setIsDragging(false); }}
-                onDrop={handleDrop}
-                onClick={() => fileInputRef.current?.click()}
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <div className="flex flex-col space-y-3">
+          <div className="flex items-center justify-between">
+            <label className="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
+              {imgSrc ? t('tools.image-cropper.editingTitle', { name: file?.name }) : t('tools.image-cropper.dropLabel')}
+            </label>
+            {imgSrc ? (
+              <button
+                type="button"
+                onClick={clearFile}
+                className="inline-flex items-center gap-1 rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors duration-200 hover:bg-slate-50 dark:border-slate-700 dark:bg-[#282c34] dark:text-slate-200 dark:hover:bg-slate-800"
               >
-                <input 
-                  type="file" 
-                  ref={fileInputRef} 
-                  onChange={handleFileChange} 
-                  accept="image/*" 
-                  className="hidden" 
-                />
-                <div className="w-20 h-20 bg-blue-50 text-[#2563eb] rounded-full flex items-center justify-center mb-6 shadow-sm">
-                  <Upload className="w-10 h-10" />
-                </div>
-                <h3 className="text-xl font-bold text-[#1e293b] mb-2">{t('tools.image-cropper.dropLabel')}</h3>
-                <p className="text-[#64748b] mb-6">{t('tools.image-cropper.dropDesc')}</p>
-                <button className="bg-[#2563eb] text-white px-8 py-3 rounded-full font-bold shadow-sm hover:bg-[#1d4ed8] transition-colors">
+                <Trash2 className="h-3.5 w-3.5" />
+                {t('tools.image-cropper.reselectBtn')}
+              </button>
+            ) : null}
+          </div>
+
+          <div
+            className={`h-[500px] overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-[#282c34] ${
+              isDragging ? 'border-cyan-500 bg-cyan-50/40 dark:bg-cyan-950/20' : ''
+            }`}
+            onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
+            onDragLeave={(e) => { e.preventDefault(); setIsDragging(false); }}
+            onDrop={handleDrop}
+          >
+            <input
+              type="file"
+              ref={fileInputRef}
+              onChange={handleFileChange}
+              accept="image/*"
+              className="hidden"
+            />
+            {!imgSrc ? (
+              <button
+                type="button"
+                onClick={() => fileInputRef.current?.click()}
+                className="flex h-full w-full flex-col items-center justify-center px-8 text-center transition-colors hover:bg-cyan-50/30 dark:hover:bg-cyan-950/20"
+              >
+                <span className="mb-5 flex h-12 w-12 items-center justify-center rounded-lg bg-cyan-50 text-cyan-700 dark:bg-cyan-950/50 dark:text-cyan-300">
+                  <Upload className="h-6 w-6" />
+                </span>
+                <span className="text-base font-semibold text-slate-950 dark:text-white">{t('tools.image-cropper.dropLabel')}</span>
+                <span className="mt-2 max-w-sm text-sm leading-6 text-slate-600 dark:text-slate-400">{t('tools.image-cropper.dropDesc')}</span>
+                <span className="mt-6 rounded-md bg-cyan-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-cyan-700">
                   {t('tools.image-cropper.selectBtn')}
-                </button>
-              </div>
+                </span>
+              </button>
             ) : (
-              <div className="space-y-4 w-full">
-                <div className="flex items-center justify-between border-b border-[#e2e8f0] pb-4">
-                  <h3 className="text-lg font-bold text-[#1e293b] flex items-center gap-2 truncate">
-                    <ImageIcon className="w-5 h-5 text-blue-500" />
-                    {t('tools.image-cropper.editingTitle', { name: file?.name })}
-                  </h3>
-                  <button 
-                    onClick={clearFile}
-                    className="text-sm font-bold text-red-500 hover:text-red-700 hover:bg-red-50 px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 shrink-0"
-                  >
-                    <Trash2 className="w-4 h-4" />{t('tools.image-cropper.reselectBtn')}
-                  </button>
+              <div className="flex h-full flex-col">
+                <div className="flex items-center justify-between border-b border-slate-200 px-4 py-3 text-sm dark:border-slate-700">
+                  <span className="inline-flex min-w-0 items-center gap-2 font-semibold text-slate-900 dark:text-slate-100">
+                    <ImageIcon className="h-4 w-4 shrink-0 text-cyan-600" />
+                    <span className="truncate">{file?.name}</span>
+                  </span>
+                  <span className="ml-4 shrink-0 text-slate-500 dark:text-slate-400">
+                    {t('tools.image-cropper.originalDim', { width: actualWidth, height: actualHeight })}
+                  </span>
                 </div>
-                
-                <div className="bg-[#f8fafc] rounded-xl border border-[#e2e8f0] p-4 flex justify-center items-center overflow-x-auto">
+                <div className="flex min-h-0 flex-1 items-center justify-center overflow-auto bg-slate-50 p-4 dark:bg-slate-900">
                   <ReactCrop
                     crop={crop}
                     onChange={(_, percentCrop) => setCrop(percentCrop)}
                     onComplete={(c) => setCompletedCrop(c)}
                     aspect={aspect}
-                    className="max-w-full max-h-[600px] shadow-sm rounded border border-slate-300"
+                    className="max-h-full max-w-full rounded border border-slate-300 shadow-sm dark:border-slate-700"
                   >
                     <img
                       ref={imgRef}
                       alt="Crop me"
                       src={imgSrc}
-                      style={{ maxHeight: '600px', objectFit: 'contain' }}
+                      style={{ maxHeight: '430px', objectFit: 'contain' }}
                       onLoad={onImageLoad}
                     />
                   </ReactCrop>
                 </div>
-
-                <div className="flex justify-between items-center text-sm text-[#64748b] px-2 font-medium">
-                  <div className="flex items-center gap-2">
-                    <MousePointer2 className="w-4 h-4" /> {t('tools.image-cropper.dragTip')}
-                  </div>
-                  <div>{t('tools.image-cropper.originalDim', { width: actualWidth, height: actualHeight })}</div>
+                <div className="flex items-center gap-2 border-t border-slate-200 px-4 py-3 text-sm text-slate-500 dark:border-slate-700 dark:text-slate-400">
+                  <MousePointer2 className="h-4 w-4" />
+                  {t('tools.image-cropper.dragTip')}
                 </div>
               </div>
             )}
-
           </div>
         </div>
 
-        {/* Sidebar Controls */}
-        <div className="lg:col-span-1 space-y-6">
-          <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6">
-            <div className="flex items-center gap-2 mb-6">
-              <Settings2 className="w-5 h-5 text-[#2563eb]" />
-              <h3 className="font-bold text-[#1e293b]">{t('tools.image-cropper.settingsTitle')}</h3>
-            </div>
-
+        <div className="flex flex-col space-y-3">
+          <label className="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
+            {t('tools.image-cropper.settingsTitle')}
+          </label>
+          <div className="flex h-[500px] flex-col rounded-lg border border-slate-200 bg-slate-50 p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
             <div className="space-y-6">
               {/* Aspect Ratio Presets */}
               <div>
-                <label className="text-sm font-bold text-[#64748b] mb-3 block">{t('tools.image-cropper.aspectLabel')}</label>
+                <label className="mb-3 block text-sm font-semibold text-slate-700 dark:text-slate-200">{t('tools.image-cropper.aspectLabel')}</label>
                 <div className="grid grid-cols-2 gap-3">
                   <button 
                     onClick={() => handleAspectClick(undefined)}
                     disabled={!imgSrc}
-                    className={`py-2 rounded-lg font-bold text-sm transition-all border ${!aspect ? 'bg-blue-50 border-blue-200 text-blue-700' : 'bg-white border-[#e2e8f0] text-slate-600 hover:border-slate-300'} disabled:opacity-50 disabled:cursor-not-allowed`}
+                    className={`rounded-md border px-3 py-2 text-sm font-semibold transition-colors ${!aspect ? 'border-cyan-600 bg-cyan-600 text-white' : 'border-slate-200 bg-white text-slate-600 hover:border-cyan-300 dark:border-slate-700 dark:bg-[#282c34] dark:text-slate-300'} disabled:cursor-not-allowed disabled:opacity-50`}
                   >
                     {t('tools.image-cropper.aspectFree')}
                   </button>
                   <button 
                     onClick={() => handleAspectClick(1)}
                     disabled={!imgSrc}
-                    className={`py-2 rounded-lg font-bold text-sm transition-all border ${aspect === 1 ? 'bg-blue-50 border-blue-200 text-blue-700' : 'bg-white border-[#e2e8f0] text-slate-600 hover:border-slate-300'} disabled:opacity-50 disabled:cursor-not-allowed`}
+                    className={`rounded-md border px-3 py-2 text-sm font-semibold transition-colors ${aspect === 1 ? 'border-cyan-600 bg-cyan-600 text-white' : 'border-slate-200 bg-white text-slate-600 hover:border-cyan-300 dark:border-slate-700 dark:bg-[#282c34] dark:text-slate-300'} disabled:cursor-not-allowed disabled:opacity-50`}
                   >
                     {t('tools.image-cropper.aspectSquare')}
                   </button>
                   <button 
                     onClick={() => handleAspectClick(16 / 9)}
                     disabled={!imgSrc}
-                    className={`py-2 rounded-lg font-bold text-sm transition-all border ${aspect === 16 / 9 ? 'bg-blue-50 border-blue-200 text-blue-700' : 'bg-white border-[#e2e8f0] text-slate-600 hover:border-slate-300'} disabled:opacity-50 disabled:cursor-not-allowed`}
+                    className={`rounded-md border px-3 py-2 text-sm font-semibold transition-colors ${aspect === 16 / 9 ? 'border-cyan-600 bg-cyan-600 text-white' : 'border-slate-200 bg-white text-slate-600 hover:border-cyan-300 dark:border-slate-700 dark:bg-[#282c34] dark:text-slate-300'} disabled:cursor-not-allowed disabled:opacity-50`}
                   >
                     {t('tools.image-cropper.aspect169')}
                   </button>
                   <button 
                     onClick={() => handleAspectClick(4 / 3)}
                     disabled={!imgSrc}
-                    className={`py-2 rounded-lg font-bold text-sm transition-all border ${aspect === 4 / 3 ? 'bg-blue-50 border-blue-200 text-blue-700' : 'bg-white border-[#e2e8f0] text-slate-600 hover:border-slate-300'} disabled:opacity-50 disabled:cursor-not-allowed`}
+                    className={`rounded-md border px-3 py-2 text-sm font-semibold transition-colors ${aspect === 4 / 3 ? 'border-cyan-600 bg-cyan-600 text-white' : 'border-slate-200 bg-white text-slate-600 hover:border-cyan-300 dark:border-slate-700 dark:bg-[#282c34] dark:text-slate-300'} disabled:cursor-not-allowed disabled:opacity-50`}
                   >
                     {t('tools.image-cropper.aspect43')}
                   </button>
                   <button 
                     onClick={() => handleAspectClick(9 / 16)}
                     disabled={!imgSrc}
-                    className={`py-2 col-span-2 rounded-lg font-bold text-sm transition-all border ${aspect === 9 / 16 ? 'bg-blue-50 border-blue-200 text-blue-700' : 'bg-white border-[#e2e8f0] text-slate-600 hover:border-slate-300'} disabled:opacity-50 disabled:cursor-not-allowed`}
+                    className={`col-span-2 rounded-md border px-3 py-2 text-sm font-semibold transition-colors ${aspect === 9 / 16 ? 'border-cyan-600 bg-cyan-600 text-white' : 'border-slate-200 bg-white text-slate-600 hover:border-cyan-300 dark:border-slate-700 dark:bg-[#282c34] dark:text-slate-300'} disabled:cursor-not-allowed disabled:opacity-50`}
                   >
                     {t('tools.image-cropper.aspect916')}
                   </button>
@@ -335,41 +336,39 @@ export default function ImageCropper() {
               </div>
 
               {/* Real-time Crop Size Feedback */}
-              <div className="bg-[#f8fafc] border border-[#e2e8f0] p-4 rounded-xl">
-                 <label className="text-sm font-bold text-[#64748b] mb-3 flex items-center gap-1">
-                   <Columns className="w-4 h-4" /> {t('tools.image-cropper.outputDimLabel')}
+              <div className="rounded-lg border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-[#282c34]">
+                 <label className="mb-3 flex items-center gap-1 text-sm font-semibold text-slate-700 dark:text-slate-200">
+                   <Columns className="h-4 w-4" /> {t('tools.image-cropper.outputDimLabel')}
                  </label>
                  
                  <div className="flex items-center gap-4 text-center">
-                    <div className="flex-1 bg-white border border-[#cbd5e1] rounded-lg p-2 shadow-sm relative">
-                       <span className="block text-[#0f172a] font-mono font-bold text-xl tracking-tight">{realCropSize.width}</span>
-                       <span className="text-[11px] text-[#64748b] uppercase font-bold tracking-wider">{t('tools.image-cropper.widthLabel')}</span>
+                    <div className="relative flex-1 rounded-lg border border-slate-200 bg-slate-50 p-2 dark:border-slate-700 dark:bg-slate-900">
+                       <span className="block font-mono text-xl font-semibold tracking-tight text-slate-950 dark:text-white">{realCropSize.width}</span>
+                       <span className="text-[11px] font-semibold uppercase text-slate-500 dark:text-slate-400">{t('tools.image-cropper.widthLabel')}</span>
                     </div>
-                    <div className="text-slate-300">
-                      <Maximize className="w-5 h-5 mx-auto" />
+                    <div className="text-slate-300 dark:text-slate-600">
+                      <Maximize className="mx-auto h-5 w-5" />
                     </div>
-                    <div className="flex-1 bg-white border border-[#cbd5e1] rounded-lg p-2 shadow-sm relative">
-                       <span className="block text-[#0f172a] font-mono font-bold text-xl tracking-tight">{realCropSize.height}</span>
-                       <span className="text-[11px] text-[#64748b] uppercase font-bold tracking-wider">{t('tools.image-cropper.heightLabel')}</span>
+                    <div className="relative flex-1 rounded-lg border border-slate-200 bg-slate-50 p-2 dark:border-slate-700 dark:bg-slate-900">
+                       <span className="block font-mono text-xl font-semibold tracking-tight text-slate-950 dark:text-white">{realCropSize.height}</span>
+                       <span className="text-[11px] font-semibold uppercase text-slate-500 dark:text-slate-400">{t('tools.image-cropper.heightLabel')}</span>
                     </div>
                  </div>
               </div>
 
             </div>
             
-            <div className="border-t border-[#e2e8f0] mt-6 pt-6">
+            <div className="mt-auto">
               <button 
                 onClick={downloadCroppedImage}
                 disabled={!completedCrop?.width || !completedCrop?.height || !imgSrc}
-                className="w-full bg-[#2563eb] text-white hover:bg-[#1d4ed8] disabled:bg-slate-300 disabled:cursor-not-allowed py-3.5 rounded-xl font-bold shadow-sm transition-all flex justify-center items-center gap-2 text-[15px]"
+                className="flex w-full items-center justify-center gap-2 rounded-md bg-cyan-600 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-cyan-700 disabled:cursor-not-allowed disabled:bg-slate-300 dark:disabled:bg-slate-700"
               >
-                <Download className="w-5 h-5" />
+                <Download className="h-4 w-4" />
                 {t('tools.image-cropper.downloadBtn')}
               </button>
             </div>
-
           </div>
-          
         </div>
       </div>
       

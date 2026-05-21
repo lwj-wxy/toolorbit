@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Upload, FileCode2, Copy, Trash2, CheckCircle2, Image as ImageIcon, ArrowRightLeft, AlertTriangle } from 'lucide-react';
+import { Upload, Copy, Trash2, CheckCircle2, ArrowRightLeft, AlertTriangle } from 'lucide-react';
 import { Link } from '../../../lib/navigation';
 import { useTranslation } from 'react-i18next';
 
@@ -78,33 +78,44 @@ export default function ImageToBase64() {
   };
 
   return (
-    <div className="max-w-5xl mx-auto space-y-6">
+    <div className="space-y-6">
       
       {/* Header */}
-      <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 bg-blue-50 text-[#2563eb] rounded-xl flex items-center justify-center shrink-0">
-            <FileCode2 className="w-6 h-6" />
-          </div>
-          <div>
-            <h1 className="text-3xl font-bold tracking-tight text-slate-900">{t('tools.image-to-base64.title')}</h1>
-            <p className="text-[#64748b] mt-1 text-sm md:text-base">
-              {t('tools.image-to-base64.subtitle')}
-            </p>
-          </div>
+      <div className="flex flex-col gap-4 border-b border-slate-200 pb-6 dark:border-slate-800 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h1 className="text-3xl font-semibold tracking-tight text-slate-950 dark:text-white">{t('tools.image-to-base64.title')}</h1>
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-400">
+            {t('tools.image-to-base64.subtitle')}
+          </p>
         </div>
       </div>
 
       {/* Main App Workspace */}
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6 lg:p-10">
-        {!file ? (
-          <div 
-            className={`rounded-2xl border-2 border-dashed transition-all p-12 text-center flex flex-col items-center justify-center min-h-[360px] cursor-pointer
-              ${isDragging ? 'border-[#2563eb] bg-blue-50/50' : 'border-[#cbd5e1] hover:border-[#94a3b8] hover:bg-slate-50'}`}
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <div className="flex flex-col space-y-3">
+          <div className="flex items-center justify-between">
+            <label className="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
+              {file ? t('tools.image-to-base64.sourceImage') : t('tools.image-to-base64.dropLabel')}
+            </label>
+            {file ? (
+              <button
+                type="button"
+                onClick={clearFile}
+                className="inline-flex items-center gap-1 rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors duration-200 hover:bg-slate-50 dark:border-slate-700 dark:bg-[#282c34] dark:text-slate-200 dark:hover:bg-slate-800"
+              >
+                <Trash2 className="h-3.5 w-3.5" />
+                {t('tools.image-to-base64.clearBtn')}
+              </button>
+            ) : null}
+          </div>
+
+          <div
+            className={`h-[500px] overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-[#282c34] ${
+              isDragging ? 'border-cyan-500 bg-cyan-50/40 dark:bg-cyan-950/20' : ''
+            }`}
             onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
             onDragLeave={(e) => { e.preventDefault(); setIsDragging(false); }}
             onDrop={handleDrop}
-            onClick={() => fileInputRef.current?.click()}
           >
             <input 
               type="file" 
@@ -113,118 +124,113 @@ export default function ImageToBase64() {
               accept="image/*" 
               className="hidden" 
             />
-            <div className="w-16 h-16 bg-blue-50 text-[#2563eb] rounded-full flex items-center justify-center mb-6 shadow-sm">
-              <Upload className="w-8 h-8" />
-            </div>
-            <h3 className="text-xl font-bold text-[#1e293b] mb-2">{t('tools.image-to-base64.dropLabel')}</h3>
-            <p className="text-[#64748b] mb-6">{t('tools.image-to-base64.dropDesc')}</p>
-            <button className="bg-white border border-[#cbd5e1] text-[#0f172a] px-6 py-2.5 rounded-lg font-bold shadow-sm hover:border-[#94a3b8] hover:bg-slate-50 transition-colors flex items-center gap-2">
-              <Upload className="w-4 h-4" />
-              {t('tools.image-to-base64.selectBtn')}
-            </button>
-          </div>
-        ) : (
-          <div className="flex flex-col gap-6">
-            <div className="flex items-center justify-between border-b border-[#e2e8f0] pb-4">
-              <h3 className="text-lg font-bold text-[#1e293b] flex items-center gap-2">
-                <ImageIcon className="w-5 h-5 text-blue-500" />
-                {t('tools.image-to-base64.detailsTitle')}
-              </h3>
-              <button 
-                onClick={clearFile}
-                className="text-sm font-bold text-red-500 hover:text-red-700 hover:bg-red-50 px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5"
+
+            {!file ? (
+              <button
+                type="button"
+                onClick={() => fileInputRef.current?.click()}
+                className="flex h-full w-full flex-col items-center justify-center px-8 text-center transition-colors hover:bg-cyan-50/30 dark:hover:bg-cyan-950/20"
               >
-                <Trash2 className="w-4 h-4" />{t('tools.image-to-base64.clearBtn')}
+                <span className="mb-5 flex h-12 w-12 items-center justify-center rounded-lg bg-cyan-50 text-cyan-700 dark:bg-cyan-950/50 dark:text-cyan-300">
+                  <Upload className="h-6 w-6" />
+                </span>
+                <span className="text-base font-semibold text-slate-950 dark:text-white">{t('tools.image-to-base64.dropLabel')}</span>
+                <span className="mt-2 max-w-sm text-sm leading-6 text-slate-600 dark:text-slate-400">{t('tools.image-to-base64.dropDesc')}</span>
+                <span className="mt-6 rounded-md bg-cyan-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-cyan-700">
+                  {t('tools.image-to-base64.selectBtn')}
+                </span>
+              </button>
+            ) : (
+              <div className="flex h-full flex-col">
+                <div className="flex items-center justify-between border-b border-slate-200 px-4 py-3 text-sm dark:border-slate-700">
+                  <span className="truncate font-semibold text-slate-900 dark:text-slate-100">{file.name}</span>
+                  <span className="ml-4 shrink-0 text-slate-500 dark:text-slate-400">{formatSize(file.size)}</span>
+                </div>
+                <div className="flex min-h-0 flex-1 items-center justify-center bg-slate-50 p-4 dark:bg-slate-900">
+                  <img
+                    src={previewUrl}
+                    alt="Preview"
+                    className="max-h-full max-w-full object-contain"
+                  />
+                </div>
+                <div className="border-t border-slate-200 px-4 py-3 text-sm dark:border-slate-700">
+                  <div className="flex justify-between gap-4">
+                    <span className="text-slate-500 dark:text-slate-400">{t('tools.image-to-base64.fileFormat')}</span>
+                    <span className="truncate font-semibold text-slate-900 dark:text-slate-100">{file.type}</span>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className="flex flex-col space-y-3">
+          <div className="flex items-center justify-between">
+            <label className="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
+              {t('tools.image-to-base64.detailsTitle')}
+            </label>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => copyToClipboard(base64String, 'dataurl')}
+                disabled={!base64String}
+                className="inline-flex items-center gap-1 rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors duration-200 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-700 dark:bg-[#282c34] dark:text-slate-200 dark:hover:bg-slate-800"
+              >
+                {copiedDataUrl ? <CheckCircle2 className="h-3.5 w-3.5 text-green-500" /> : <Copy className="h-3.5 w-3.5" />}
+                {copiedDataUrl ? t('tools.image-to-base64.copiedDataUrl') : t('tools.image-to-base64.copyDataUrl')}
+              </button>
+              <button
+                type="button"
+                onClick={() => copyToClipboard(pureBase64, 'raw')}
+                disabled={!pureBase64}
+                className="inline-flex items-center gap-1 rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors duration-200 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-700 dark:bg-[#282c34] dark:text-slate-200 dark:hover:bg-slate-800"
+              >
+                {copiedRaw ? <CheckCircle2 className="h-3.5 w-3.5 text-green-500" /> : <Copy className="h-3.5 w-3.5" />}
+                {copiedRaw ? t('tools.image-to-base64.copiedRaw') : t('tools.image-to-base64.copyRaw')}
               </button>
             </div>
-
-            {file.size > 2 * 1024 * 1024 && (
-               <div className="flex items-center gap-2 bg-amber-50 border border-amber-200 text-amber-700 px-4 py-3 rounded-lg text-sm mb-4">
-                 <AlertTriangle className="h-4 w-4 shrink-0" aria-hidden="true" />
-                 <span className="font-bold">{t('tools.image-to-base64.sizeWarning', { size: formatSize(file.size) })}</span>
-               </div>
-            )}
-
-            <div className="flex flex-col lg:flex-row gap-8">
-              {/* Preview Area (Left) */}
-              <div className="w-full lg:w-[300px] shrink-0">
-                <h4 className="text-sm font-bold text-[#64748b] mb-3 uppercase tracking-wider">{t('tools.image-to-base64.sourceImage')}</h4>
-                <div className="flex flex-col">
-                  <div className="aspect-square bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjRUVFIi8+CjxyZWN0IHdpZHRoPSI0IiBoZWlnaHQ9IjQiIHg9IjQiIHk9IjQiIGZpbGw9IiNFRUUiLz4KPC9zdmc+')] rounded-xl border border-[#e2e8f0] overflow-hidden flex items-center justify-center mb-3">
-                    <img 
-                      src={previewUrl} 
-                      alt="Preview" 
-                      className="w-full h-full object-contain" 
-                    />
-                  </div>
-                  <div className="bg-[#f8fafc] rounded-lg p-3 border border-[#e2e8f0] space-y-1.5 text-[13px]">
-                     <div className="flex justify-between items-center gap-4">
-                        <span className="text-slate-500">{t('tools.image-to-base64.fileName')}</span>
-                        <span className="font-bold text-slate-700 truncate text-right">{file.name}</span>
-                     </div>
-                     <div className="flex justify-between items-center gap-4">
-                        <span className="text-slate-500">{t('tools.image-to-base64.fileFormat')}</span>
-                        <span className="font-bold text-slate-700">{file.type}</span>
-                     </div>
-                     <div className="flex justify-between items-center gap-4">
-                        <span className="text-slate-500">{t('tools.image-to-base64.rawSize')}</span>
-                        <span className="font-bold text-slate-700">{formatSize(file.size)}</span>
-                     </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Output Content Area (Right) */}
-              <div className="flex-1 space-y-5 overflow-hidden">
-                
-                <div>
-                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2 gap-2">
-                    <h4 className="text-sm font-bold text-[#64748b] uppercase tracking-wider">{t('tools.image-to-base64.dataUrlTitle')}</h4>
-                    <button 
-                      onClick={() => copyToClipboard(base64String, 'dataurl')}
-                      className="text-xs font-bold text-blue-600 hover:text-blue-800 bg-blue-50 px-3 py-1.5 rounded-md transition-colors flex items-center gap-1.5"
-                    >
-                      {copiedDataUrl ? <CheckCircle2 className="w-3.5 h-3.5 text-green-500" /> : <Copy className="w-3.5 h-3.5" />}
-                      {copiedDataUrl ? t('tools.image-to-base64.copiedDataUrl') : t('tools.image-to-base64.copyDataUrl')}
-                    </button>
-                  </div>
-                  <textarea 
-                    readOnly
-                    value={base64String}
-                    className="w-full h-[140px] bg-[#f8fafc] border border-[#e2e8f0] rounded-xl p-4 font-mono text-[12px] text-slate-600 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 resize-none break-all shadow-inner custom-scrollbar"
-                  />
-                </div>
-
-                <div>
-                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2 gap-2">
-                    <h4 className="text-sm font-bold text-[#64748b] uppercase tracking-wider">{t('tools.image-to-base64.rawBase64Title')}</h4>
-                    <button 
-                      onClick={() => copyToClipboard(pureBase64, 'raw')}
-                      className="text-xs font-bold text-blue-600 hover:text-blue-800 bg-blue-50 px-3 py-1.5 rounded-md transition-colors flex items-center gap-1.5"
-                    >
-                      {copiedRaw ? <CheckCircle2 className="w-3.5 h-3.5 text-green-500" /> : <Copy className="w-3.5 h-3.5" />}
-                      {copiedRaw ? t('tools.image-to-base64.copiedRaw') : t('tools.image-to-base64.copyRaw')}
-                    </button>
-                  </div>
-                  <textarea 
-                    readOnly
-                    value={pureBase64}
-                    className="w-full h-[140px] bg-[#f8fafc] border border-[#e2e8f0] rounded-xl p-4 font-mono text-[12px] text-slate-600 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 resize-none break-all shadow-inner custom-scrollbar"
-                  />
-                </div>
-
-              </div>
-            </div>
           </div>
-        )}
-        
-        {/* Related Link matching user screenshot */}
-        <div className="mt-8 bg-amber-50 rounded-xl p-4 text-center border border-amber-100 flex items-center justify-center gap-2">
-          <span className="text-amber-800 text-sm">{t('tools.image-to-base64.relatedRecommend')}</span>
-          <Link to="/tools/dev/base64" className="text-amber-600 hover:text-amber-700 font-bold underline flex items-center gap-1 text-sm">
-            {t('tools.image-to-base64.relatedLink')} <ArrowRightLeft className="w-3.5 h-3.5" />
-          </Link>
+
+          <div className="flex h-[500px] flex-col gap-4 rounded-lg border border-slate-200 bg-slate-50 p-4 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+            {file && file.size > 2 * 1024 * 1024 ? (
+              <div className="flex items-center gap-2 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm font-medium text-amber-700 dark:border-amber-900/70 dark:bg-amber-950/20 dark:text-amber-300">
+                <AlertTriangle className="h-4 w-4 shrink-0" aria-hidden="true" />
+                {t('tools.image-to-base64.sizeWarning', { size: formatSize(file.size) })}
+              </div>
+            ) : null}
+
+            <div className="min-h-0 flex-1">
+              <label className="mb-2 block text-xs font-semibold text-slate-500 dark:text-slate-400">
+                {t('tools.image-to-base64.dataUrlTitle')}
+              </label>
+              <textarea
+                readOnly
+                value={base64String}
+                className="block h-[190px] w-full resize-none rounded-lg border border-slate-200 bg-white px-4 py-3 font-mono text-xs leading-5 text-slate-900 shadow-sm outline-none dark:border-slate-700 dark:bg-[#282c34] dark:text-slate-100"
+              />
+            </div>
+
+            <div className="min-h-0 flex-1">
+              <label className="mb-2 block text-xs font-semibold text-slate-500 dark:text-slate-400">
+                {t('tools.image-to-base64.rawBase64Title')}
+              </label>
+              <textarea
+                readOnly
+                value={pureBase64}
+                className="block h-[190px] w-full resize-none rounded-lg border border-slate-200 bg-white px-4 py-3 font-mono text-xs leading-5 text-slate-900 shadow-sm outline-none dark:border-slate-700 dark:bg-[#282c34] dark:text-slate-100"
+              />
+            </div>
+
+          </div>
         </div>
+      </div>
+
+      {/* Related Link matching user screenshot */}
+      <div className="flex items-center justify-center gap-2 rounded-lg border border-amber-100 bg-amber-50 p-4 text-center dark:border-amber-900/70 dark:bg-amber-950/20">
+        <span className="text-sm text-amber-800 dark:text-amber-300">{t('tools.image-to-base64.relatedRecommend')}</span>
+        <Link to="/tools/dev/base64" className="flex items-center gap-1 text-sm font-semibold text-amber-700 underline hover:text-amber-800 dark:text-amber-300">
+          {t('tools.image-to-base64.relatedLink')} <ArrowRightLeft className="h-3.5 w-3.5" />
+        </Link>
       </div>
 
     </div>
