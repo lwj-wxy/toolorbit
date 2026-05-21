@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Palette, Check } from 'lucide-react';
+import { Check } from 'lucide-react';
 import tinycolor from 'tinycolor2';
 
 export default function ColorPalette() {
@@ -55,70 +55,80 @@ export default function ColorPalette() {
   };
 
   return (
-    <div className="max-w-5xl mx-auto space-y-6">
-      <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 bg-fuchsia-50 text-fuchsia-600 rounded-xl flex items-center justify-center shrink-0">
-            <Palette className="w-6 h-6" />
-          </div>
-          <div>
-            <h1 className="text-3xl font-bold tracking-tight text-slate-900">{t('tools.color-palette.title')}</h1>
-            <p className="text-slate-500 mt-1 text-sm md:text-base">
-              {t('tools.color-palette.subtitle')}
-            </p>
-          </div>
+    <div className="space-y-6">
+      <div className="flex flex-col gap-4 border-b border-slate-200 pb-6 dark:border-slate-800 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h1 className="text-3xl font-semibold tracking-tight text-slate-950 dark:text-white">{t('tools.color-palette.title')}</h1>
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-400">
+            {t('tools.color-palette.subtitle')}
+          </p>
         </div>
       </div>
 
-      <div className="border border-slate-200/80 bg-white rounded-2xl p-6 shadow-sm mb-6">
-         <label className="block text-sm font-bold text-slate-700 mb-3">{t('tools.color-palette.inputLabel')}</label>
-         <div className="flex gap-4 items-center">
-             <input
-               type="color"
-               value={tc.isValid() ? tc.toHexString() : '#000000'}
-               onChange={(e) => setBaseColor(e.target.value)}
-               className="w-14 h-14 p-1 border border-slate-200/80 rounded cursor-pointer" 
-             />
-             <input
-               type="text"
-               value={baseColor}
-               onChange={(e) => setBaseColor(e.target.value)}
-               placeholder="#2563eb"
-               className="font-mono text-lg px-4 py-3 bg-slate-50 border border-slate-200/80 rounded-xl outline-none focus:border-fuchsia-400 focus:ring-2 focus:ring-fuchsia-100"
-             />
-         </div>
-         {!tc.isValid() && <p className="text-red-500 text-xs font-bold mt-2">{t('tools.color-palette.invalidColor')}</p>}
-      </div>
-
-      {tc.isValid() && (
-         <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
-            <div className="grid grid-cols-2 md:grid-cols-5 2xl:grid-cols-10">
-               {tints.reverse().slice(0, 10).map((c, i) => (
-                  <ColorBlock key={`tint-${i}`} color={c} weight={((10-i)*100).toString()} />
-               ))}
-               
-               <div className="col-span-2 md:col-span-12 border-y-4 border-white">
-                  <div 
-                     title={tc.toHexString().toUpperCase()}
-                     onClick={() => handleCopy(tc.toHexString())}
-                     className="relative h-20 md:h-28 flex items-center justify-between px-6 cursor-pointer group"
-                     style={{ backgroundColor: tc.toHexString() }}
-                  >
-                     <div className={`font-bold font-mono text-xl ${tc.isLight() ? 'text-black/80' : 'text-white'}`}>
-                        {tc.toHexString().toUpperCase()}
-                     </div>
-                     <div className={`font-black tracking-widest text-xs opacity-40 uppercase ${tc.isLight() ? 'text-black' : 'text-white'}`}>
-                        {t('tools.color-palette.baseColorLabel')}
-                     </div>
-                  </div>
-               </div>
-
-               {shades.slice(0, 10).map((c, i) => (
-                  <ColorBlock key={`shade-${i}`} color={c} weight={`+${(i+1)*100}`} />
-               ))}
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <div className="flex flex-col space-y-3">
+          <label className="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
+            {t('tools.color-palette.inputLabel')}
+          </label>
+          <div className="flex h-[500px] flex-col rounded-lg border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-[#282c34]">
+            <div
+              className="min-h-0 flex-1 rounded-lg border border-slate-200 dark:border-slate-700"
+              style={{ backgroundColor: tc.isValid() ? tc.toHexString() : '#ffffff' }}
+            />
+            <div className="mt-5 flex items-center gap-4">
+              <input
+                type="color"
+                value={tc.isValid() ? tc.toHexString() : '#000000'}
+                onChange={(e) => setBaseColor(e.target.value)}
+                className="h-14 w-14 cursor-pointer rounded border border-slate-200 p-1 dark:border-slate-700"
+              />
+              <input
+                type="text"
+                value={baseColor}
+                onChange={(e) => setBaseColor(e.target.value)}
+                placeholder="#2563eb"
+                className="w-full rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 font-mono text-sm text-slate-900 outline-none transition-colors focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
+              />
             </div>
-         </div>
-      )}
+            {!tc.isValid() && <p className="mt-2 text-xs font-semibold text-red-500">{t('tools.color-palette.invalidColor')}</p>}
+          </div>
+        </div>
+
+        <div className="flex flex-col space-y-3">
+          <label className="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
+            {t('tools.color-palette.baseColorLabel')}
+          </label>
+          <div className="h-[500px] overflow-hidden rounded-lg border border-slate-200 bg-slate-50 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+            {tc.isValid() && (
+              <div className="grid h-full grid-cols-2 overflow-y-auto md:grid-cols-5">
+                {tints.reverse().slice(0, 10).map((c, i) => (
+                  <ColorBlock key={`tint-${i}`} color={c} weight={((10-i)*100).toString()} />
+                ))}
+
+                <div className="col-span-2 border-y-4 border-white md:col-span-5 dark:border-slate-900">
+                  <div
+                    title={tc.toHexString().toUpperCase()}
+                    onClick={() => handleCopy(tc.toHexString())}
+                    className="group relative flex h-20 cursor-pointer items-center justify-between px-6"
+                    style={{ backgroundColor: tc.toHexString() }}
+                  >
+                    <div className={`font-mono text-xl font-bold ${tc.isLight() ? 'text-black/80' : 'text-white'}`}>
+                      {tc.toHexString().toUpperCase()}
+                    </div>
+                    <div className={`text-xs font-black uppercase tracking-widest opacity-40 ${tc.isLight() ? 'text-black' : 'text-white'}`}>
+                      {t('tools.color-palette.baseColorLabel')}
+                    </div>
+                  </div>
+                </div>
+
+                {shades.slice(0, 10).map((c, i) => (
+                  <ColorBlock key={`shade-${i}`} color={c} weight={`+${(i+1)*100}`} />
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

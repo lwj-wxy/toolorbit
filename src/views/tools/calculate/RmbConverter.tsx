@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Banknote, Copy, Check } from 'lucide-react';
+import { Copy, Check } from 'lucide-react';
 import ToolSEOCard from '../../../components/ToolSEOCard';
 import { useTranslation } from 'react-i18next';
 import { analytics } from '../../../services/analytics';
@@ -115,67 +115,75 @@ export default function RmbConverter() {
   };
 
   return (
-    <div className="max-w-5xl mx-auto space-y-6">
-      <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 bg-red-50 text-red-600 rounded-xl flex items-center justify-center shrink-0">
-            <Banknote className="w-6 h-6" />
-          </div>
-          <div>
-            <h1 className="text-3xl font-bold tracking-tight text-slate-900">{t('tools.rmb-converter.title')}</h1>
-            <p className="text-[#64748b] mt-1 text-sm md:text-base">
-              {t('tools.rmb-converter.subtitle')}
-            </p>
-          </div>
+    <div className="space-y-6">
+      <div className="flex flex-col gap-4 border-b border-slate-200 pb-6 dark:border-slate-800 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h1 className="text-3xl font-semibold tracking-tight text-slate-950 dark:text-white">{t('tools.rmb-converter.title')}</h1>
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-400">
+            {t('tools.rmb-converter.subtitle')}
+          </p>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-        <div className="space-y-6">
-           <div>
-              <label className="block text-sm font-bold text-slate-700 mb-4">{t('tools.rmb-converter.inputLabel')}</label>
-              <div className="relative group">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-lg group-focus-within:text-red-500 transition-colors">¥</span>
-                  <input
-                    type="text"
-                    value={input}
-                    onChange={handleInputChange}
-                    placeholder="例如: 12345.67"
-                    className="w-full pl-10 pr-4 py-4 text-2xl font-mono border-2 border-slate-200 rounded-xl focus:border-red-500 focus:ring-4 focus:ring-red-500/10 outline-none transition-all placeholder:text-slate-200"
-                  />
-              </div>
-           </div>
-           
-           <div className="flex flex-wrap gap-2">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <div className="flex flex-col space-y-3">
+          <label className="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
+            {t('tools.rmb-converter.inputLabel')}
+          </label>
+          <div className="flex h-[500px] flex-col rounded-lg border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-[#282c34]">
+            <div className="relative">
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-lg font-semibold text-slate-400 transition-colors">¥</span>
+              <input
+                type="text"
+                value={input}
+                onChange={handleInputChange}
+                placeholder="例如: 12345.67"
+                className="w-full rounded-lg border border-slate-200 bg-slate-50 py-4 pl-10 pr-4 font-mono text-2xl font-semibold text-slate-900 outline-none transition-colors placeholder:text-slate-300 focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
+              />
+            </div>
+
+            <div className="mt-5 flex flex-wrap gap-2">
               {[100, 1000, 10000, 100000, 1000000].map(val => (
-                 <button
-                   key={val}
-                   onClick={() => setInput(val.toString())}
-                   className="px-3 py-1.5 bg-slate-50 border border-slate-200 text-slate-500 hover:text-red-600 hover:border-red-200 rounded-lg text-xs font-bold transition-all"
-                 >
-                    {t('tools.rmb-converter.quickFill', { val: val.toLocaleString() })}
-                 </button>
+                <button
+                  key={val}
+                  type="button"
+                  onClick={() => setInput(val.toString())}
+                  className="rounded-md border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-semibold text-slate-600 transition-colors hover:border-cyan-300 hover:bg-cyan-50 hover:text-cyan-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-cyan-950/20"
+                >
+                  {t('tools.rmb-converter.quickFill', { val: val.toLocaleString() })}
+                </button>
               ))}
-           </div>
+            </div>
+
+            <div className="mt-auto rounded-lg border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-900">
+              <div className="text-xs font-semibold uppercase text-slate-500 dark:text-slate-400">{t('tools.rmb-converter.resultLabel')}</div>
+              <div className="mt-3 min-h-[80px] text-lg font-semibold leading-8 tracking-widest text-slate-500 dark:text-slate-300">
+                {input ? output : t('tools.rmb-converter.waitingMsg')}
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div className="bg-slate-50 rounded-2xl shadow-inner border border-[#cbd5e1] p-6 lg:p-8 relative">
-           <div className="flex items-center justify-between mb-4">
-              <label className="block text-sm font-bold text-slate-700 uppercase tracking-widest">{t('tools.rmb-converter.resultLabel')}</label>
-              <button 
-                onClick={copyToClipboard}
-                disabled={!input}
-                className="flex items-center gap-1.5 px-4 py-2 bg-white border border-slate-200 shadow-sm text-red-600 hover:bg-red-50 rounded-lg font-bold transition-all disabled:opacity-50 disabled:cursor-not-allowed group"
-              >
-                {copied ? <Check className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4" />}
-                {copied ? t('tools.rmb-converter.copiedBtn') : t('tools.rmb-converter.copyBtn')}
-              </button>
-           </div>
-           <div className="min-h-[140px] flex items-center justify-center p-6 bg-white border-2 border-red-100 rounded-xl shadow-sm">
-              <span className={`text-xl md:text-2xl lg:text-3xl font-bold tracking-widest text-center leading-relaxed ${input ? 'text-red-700' : 'text-slate-200'}`}>
-                 {input ? output : t('tools.rmb-converter.waitingMsg')}
-              </span>
-           </div>
+        <div className="flex flex-col space-y-3">
+          <div className="flex items-center justify-between">
+            <label className="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
+              {t('tools.rmb-converter.resultLabel')}
+            </label>
+            <button
+              type="button"
+              onClick={copyToClipboard}
+              disabled={!input}
+              className="inline-flex items-center gap-1 rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-700 dark:bg-[#282c34] dark:text-slate-200 dark:hover:bg-slate-800"
+            >
+              {copied ? <Check className="h-3.5 w-3.5 text-green-500" /> : <Copy className="h-3.5 w-3.5" />}
+              {copied ? t('tools.rmb-converter.copiedBtn') : t('tools.rmb-converter.copyBtn')}
+            </button>
+          </div>
+          <div className="flex h-[500px] items-center justify-center rounded-lg border border-slate-200 bg-slate-50 p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+            <span className={`text-center text-2xl font-semibold leading-relaxed tracking-widest md:text-3xl ${input ? 'text-cyan-700 dark:text-cyan-300' : 'text-slate-300 dark:text-slate-600'}`}>
+              {input ? output : t('tools.rmb-converter.waitingMsg')}
+            </span>
+          </div>
         </div>
       </div>
 

@@ -166,109 +166,139 @@ export default function ArchiveConverter() {
   };
 
   return (
-    <div className="max-w-5xl mx-auto space-y-6">
-      <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 bg-sky-50 text-sky-600 rounded-xl flex items-center justify-center shrink-0">
-            <Archive className="w-6 h-6" />
-          </div>
-          <div>
-            <h1 className="text-3xl font-bold tracking-tight text-slate-900">{t('tools.archive-converter.title')}</h1>
-            <p className="text-[#64748b] mt-1 text-sm md:text-base">
-              {t('tools.archive-converter.subtitle')}
-            </p>
-          </div>
+    <div className="space-y-6">
+      <div className="flex flex-col gap-4 border-b border-slate-200 pb-6 dark:border-slate-800 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h1 className="text-3xl font-semibold tracking-tight text-slate-950 dark:text-white">{t('tools.archive-converter.title')}</h1>
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-400">
+            {t('tools.archive-converter.subtitle')}
+          </p>
         </div>
       </div>
 
-      <div className="mb-8 flex flex-col items-stretch gap-8">
-        <div
-          onClick={() => !isProcessing && fileInputRef.current?.click()}
-          onDragOver={handleDragOver}
-          onDragLeave={handleDragLeave}
-          onDrop={handleDrop}
-          className={`border-2 border-dashed rounded-2xl p-12 text-center cursor-pointer transition-colors ${
-            isDragging ? 'border-sky-500 bg-sky-50' : 'border-slate-300 hover:border-sky-400 hover:bg-slate-50'
-          } ${isProcessing ? 'pointer-events-none opacity-60' : ''}`}
-        >
-          <input
-            type="file"
-            ref={fileInputRef}
-            onChange={handleFileChange}
-            multiple
-            className="hidden"
-          />
-          <div className="bg-white w-20 h-20 rounded-full flex items-center justify-center shadow-sm border border-slate-100 mx-auto mb-6">
-            <UploadCloud className={`w-10 h-10 ${isDragging ? 'text-sky-500' : 'text-slate-400'}`} />
-          </div>
-          <h3 className="text-lg font-bold text-slate-800 mb-2">
-             {isProcessing ? t('tools.archive-converter.processingMsg') : t('tools.archive-converter.dropLabel')}
-          </h3>
-          <p className="text-slate-500 text-sm max-w-sm mx-auto italic">
-            {t('tools.archive-converter.dropDesc')}
-          </p>
-        </div>
-
-        {files.length > 0 && (
-          <div className="animate-in slide-in-from-bottom-4 duration-500">
-            <div className="flex items-center justify-between mb-4">
-               <h3 className="font-bold text-[#1e293b]">
-                 {t('tools.archive-converter.queueTitle', { count: files.length })}
-               </h3>
-               <div className="flex gap-3">
-                 <button onClick={clearAll} className="px-4 py-2 text-sm font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors">
-                   {t('tools.archive-converter.clearAll')}
-                 </button>
-                 <button 
-                   onClick={generateZip}
-                   disabled={isProcessing}
-                   className="px-4 py-2 text-sm font-bold text-white bg-sky-600 hover:bg-sky-700 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 shadow-md shadow-sky-100"
-                 >
-                   <Download className="w-4 h-4" /> {t('tools.archive-converter.bundleBtn')}
-                 </button>
-               </div>
-            </div>
-
-            <div className="bg-slate-50 border border-slate-200 rounded-xl overflow-hidden max-h-[500px] overflow-y-auto custom-scrollbar shadow-inner">
-               <ul className="divide-y divide-slate-200 text-slate-700">
-                 {files.map((file, index) => (
-                   <li key={index} className="flex items-center justify-between px-5 py-3 hover:bg-white transition-colors group">
-                      <div className="flex items-center gap-3 overflow-hidden pr-4">
-                        <div className="bg-white p-2 rounded-lg border border-slate-100 shadow-sm shrink-0">
-                          <Archive className="w-4 h-4 text-sky-500" />
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <div className="flex flex-col space-y-3">
+          <label className="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
+            {files.length > 0 ? t('tools.archive-converter.queueTitle', { count: files.length }) : t('tools.archive-converter.dropLabel')}
+          </label>
+          <div
+            onClick={() => !isProcessing && files.length === 0 && fileInputRef.current?.click()}
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+            onDrop={handleDrop}
+            className={`h-[500px] overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-[#282c34] ${
+              isDragging ? 'border-cyan-500 bg-cyan-50/40 dark:bg-cyan-950/20' : ''
+            } ${isProcessing ? 'pointer-events-none opacity-60' : ''}`}
+          >
+            <input
+              type="file"
+              ref={fileInputRef}
+              onChange={handleFileChange}
+              multiple
+              className="hidden"
+            />
+            {files.length === 0 ? (
+              <button
+                type="button"
+                onClick={() => !isProcessing && fileInputRef.current?.click()}
+                className="flex h-full w-full flex-col items-center justify-center px-8 text-center transition-colors hover:bg-cyan-50/30 dark:hover:bg-cyan-950/20"
+              >
+                <span className="mb-5 flex h-12 w-12 items-center justify-center rounded-lg bg-cyan-50 text-cyan-700 dark:bg-cyan-950/50 dark:text-cyan-300">
+                  <UploadCloud className="h-6 w-6" />
+                </span>
+                <span className="text-base font-semibold text-slate-950 dark:text-white">
+                  {isProcessing ? t('tools.archive-converter.processingMsg') : t('tools.archive-converter.dropLabel')}
+                </span>
+                <span className="mt-2 max-w-sm text-sm leading-6 text-slate-600 dark:text-slate-400">
+                  {t('tools.archive-converter.dropDesc')}
+                </span>
+              </button>
+            ) : (
+              <div className="flex h-full flex-col">
+                <div className="min-h-0 flex-1 divide-y divide-slate-200 overflow-y-auto dark:divide-slate-700">
+                  {files.map((file, index) => (
+                    <div key={index} className="group flex items-center justify-between px-5 py-3 transition-colors hover:bg-slate-50 dark:hover:bg-slate-900">
+                      <div className="flex min-w-0 items-center gap-3 pr-4">
+                        <div className="shrink-0 rounded-lg border border-slate-200 bg-white p-2 dark:border-slate-700 dark:bg-[#282c34]">
+                          <Archive className="h-4 w-4 text-cyan-600 dark:text-cyan-300" />
                         </div>
-                        <div className="flex flex-col gap-0.5 overflow-hidden">
-                          <span className="font-medium text-sm truncate" title={file.name}>
+                        <div className="min-w-0">
+                          <span className="block truncate text-sm font-medium text-slate-900 dark:text-slate-100" title={file.name}>
                             {file.name}
                           </span>
-                          <span className="text-[10px] text-slate-400 font-mono font-bold uppercase">
+                          <span className="font-mono text-[10px] font-semibold uppercase text-slate-400">
                             {formatSize(file.size)}
                           </span>
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-2 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
-                         <button
-                           onClick={() => downloadSingle(file)}
-                           className="p-1.5 text-sky-600 hover:bg-sky-50 rounded-md transition-colors"
-                           title={t('tools.archive-converter.extractSingle')}
-                         >
-                            <Download className="w-4 h-4" />
-                         </button>
-                         <button
-                           onClick={() => removeFile(index)}
-                           className="p-1.5 text-red-500 hover:bg-red-50 rounded-md transition-colors"
-                           title={t('tools.archive-converter.removeFile')}
-                         >
-                            <X className="w-4 h-4" />
-                         </button>
+                      <div className="flex shrink-0 items-center gap-2 opacity-0 transition-opacity group-hover:opacity-100">
+                        <button
+                          type="button"
+                          onClick={() => downloadSingle(file)}
+                          className="rounded-md p-1.5 text-cyan-600 transition-colors hover:bg-cyan-50 dark:text-cyan-300 dark:hover:bg-cyan-950/20"
+                          title={t('tools.archive-converter.extractSingle')}
+                        >
+                          <Download className="h-4 w-4" />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => removeFile(index)}
+                          className="rounded-md p-1.5 text-red-500 transition-colors hover:bg-red-50 dark:hover:bg-red-950/20"
+                          title={t('tools.archive-converter.removeFile')}
+                        >
+                          <X className="h-4 w-4" />
+                        </button>
                       </div>
-                   </li>
-                 ))}
-               </ul>
+                    </div>
+                  ))}
+                </div>
+                <button
+                  type="button"
+                  onClick={() => !isProcessing && fileInputRef.current?.click()}
+                  className="flex w-full items-center justify-center gap-2 border-t border-slate-200 p-4 font-semibold text-cyan-700 transition-colors hover:bg-cyan-50 dark:border-slate-700 dark:text-cyan-300 dark:hover:bg-cyan-950/20"
+                >
+                  <UploadCloud className="h-5 w-5" />
+                  {t('tools.archive-converter.dropLabel')}
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className="flex flex-col space-y-3">
+          <label className="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
+            {t('tools.archive-converter.bundleBtn')}
+          </label>
+          <div className="flex h-[500px] flex-col rounded-lg border border-slate-200 bg-slate-50 p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+            <div className="space-y-4">
+              <div className="flex justify-between border-b border-slate-200 py-3 dark:border-slate-700">
+                <span className="text-slate-600 dark:text-slate-300">{t('tools.archive-converter.queueTitle', { count: files.length })}</span>
+                <span className="font-semibold text-slate-950 dark:text-white">{files.length}</span>
+              </div>
+            </div>
+
+            <div className="mt-auto space-y-3">
+              <button
+                type="button"
+                onClick={generateZip}
+                disabled={files.length === 0 || isProcessing}
+                className="flex w-full items-center justify-center gap-2 rounded-md bg-cyan-600 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-cyan-700 disabled:cursor-not-allowed disabled:bg-slate-300 dark:disabled:bg-slate-700"
+              >
+                <Download className="h-4 w-4" />
+                {isProcessing ? t('tools.archive-converter.processingMsg') : t('tools.archive-converter.bundleBtn')}
+              </button>
+              <button
+                type="button"
+                onClick={clearAll}
+                disabled={files.length === 0 || isProcessing}
+                className="flex w-full items-center justify-center rounded-md border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-700 dark:bg-[#282c34] dark:text-slate-200 dark:hover:bg-slate-800"
+              >
+                {t('tools.archive-converter.clearAll')}
+              </button>
             </div>
           </div>
-        )}
+        </div>
       </div>
 
       <ToolSEOCard toolKey="archive-converter" />

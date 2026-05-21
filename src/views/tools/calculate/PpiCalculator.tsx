@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { MonitorSmartphone, LayoutPanelLeft } from 'lucide-react';
+import { LayoutPanelLeft } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { analytics } from '../../../services/analytics';
 import ToolSEOCard from '../../../components/ToolSEOCard';
@@ -34,92 +34,96 @@ export default function PpiCalculator() {
   };
 
   return (
-    <div className="max-w-5xl mx-auto space-y-6">
-      <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 bg-teal-50 text-teal-600 rounded-xl flex items-center justify-center shrink-0">
-            <MonitorSmartphone className="w-6 h-6" />
-          </div>
-          <div>
-            <h1 className="text-3xl font-bold tracking-tight text-slate-900">{t('tools.ppi-calculator.title')}</h1>
-            <p className="text-[#64748b] mt-1 text-sm md:text-base">
-              {t('tools.ppi-calculator.subtitle')}
-            </p>
-          </div>
+    <div className="space-y-6">
+      <div className="flex flex-col gap-4 border-b border-slate-200 pb-6 dark:border-slate-800 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h1 className="text-3xl font-semibold tracking-tight text-slate-950 dark:text-white">{t('tools.ppi-calculator.title')}</h1>
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-400">
+            {t('tools.ppi-calculator.subtitle')}
+          </p>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6 lg:p-8 space-y-6">
-           <div className="grid grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <div className="flex flex-col space-y-3">
+          <label className="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
+            {t('tools.ppi-calculator.presetsTitle')}
+          </label>
+          <div className="flex h-[500px] flex-col rounded-lg border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-[#282c34]">
+           <div className="grid grid-cols-2 gap-5">
               <div>
-                 <label className="block text-sm font-bold text-slate-700 mb-2">{t('tools.ppi-calculator.widthLabel')}</label>
+                 <label className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-200">{t('tools.ppi-calculator.widthLabel')}</label>
                  <input
                     type="number"
                     value={width}
                     onChange={(e) => setWidth(e.target.value)}
-                    className="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-lg font-mono outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500"
+                    className="w-full rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 font-mono text-lg text-slate-900 outline-none transition-colors focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
                     placeholder={t('tools.ppi-calculator.widthPlaceholder')}
                  />
               </div>
               <div>
-                 <label className="block text-sm font-bold text-slate-700 mb-2">{t('tools.ppi-calculator.heightLabel')}</label>
+                 <label className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-200">{t('tools.ppi-calculator.heightLabel')}</label>
                  <input
                     type="number"
                     value={height}
                     onChange={(e) => setHeight(e.target.value)}
-                    className="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-lg font-mono outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500"
+                    className="w-full rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 font-mono text-lg text-slate-900 outline-none transition-colors focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
                     placeholder={t('tools.ppi-calculator.heightPlaceholder')}
                  />
               </div>
            </div>
 
-           <div className="pt-4 border-t border-slate-100">
-              <label className="block text-sm font-bold text-slate-700 mb-2">{t('tools.ppi-calculator.diagonalLabel')}</label>
+           <div className="mt-5 border-t border-slate-200 pt-5 dark:border-slate-700">
+              <label className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-200">{t('tools.ppi-calculator.diagonalLabel')}</label>
               <input
                  type="number"
                  value={diagonal}
                  onChange={(e) => setDiagonal(e.target.value)}
-                 className="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-lg font-mono outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500"
+                 className="w-full rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 font-mono text-lg text-slate-900 outline-none transition-colors focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
                  placeholder="如: 27"
               />
            </div>
 
-           <div className="pt-6">
-              <label className="block text-sm font-bold text-slate-700 mb-3">{t('tools.ppi-calculator.presetsTitle')}</label>
+           <div className="mt-auto">
+              <label className="mb-3 block text-sm font-semibold text-slate-700 dark:text-slate-200">{t('tools.ppi-calculator.presetsTitle')}</label>
               <div className="flex flex-wrap gap-2">
-                 <button onClick={() => setPreset('2532', '1170', '6.1', 'iPhone 12/13/14')} className="px-3 py-1.5 bg-slate-100 hover:bg-teal-50 hover:text-teal-700 text-slate-600 rounded-lg text-sm transition-colors border border-transparent hover:border-teal-200">
+                 <button onClick={() => setPreset('2532', '1170', '6.1', 'iPhone 12/13/14')} className="rounded-md border border-slate-200 bg-slate-50 px-3 py-1.5 text-sm text-slate-600 transition-colors hover:border-cyan-300 hover:bg-cyan-50 hover:text-cyan-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300">
                     iPhone 12/13/14
                  </button>
-                 <button onClick={() => setPreset('2560', '1600', '13.3', 'MacBook Pro 13"')} className="px-3 py-1.5 bg-slate-100 hover:bg-teal-50 hover:text-teal-700 text-slate-600 rounded-lg text-sm transition-colors border border-transparent hover:border-teal-200">
+                 <button onClick={() => setPreset('2560', '1600', '13.3', 'MacBook Pro 13"')} className="rounded-md border border-slate-200 bg-slate-50 px-3 py-1.5 text-sm text-slate-600 transition-colors hover:border-cyan-300 hover:bg-cyan-50 hover:text-cyan-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300">
                     MacBook Pro 13"
                  </button>
-                 <button onClick={() => setPreset('3840', '2160', '27', '27" 4K Monitor')} className="px-3 py-1.5 bg-slate-100 hover:bg-teal-50 hover:text-teal-700 text-slate-600 rounded-lg text-sm transition-colors border border-transparent hover:border-teal-200">
+                 <button onClick={() => setPreset('3840', '2160', '27', '27" 4K Monitor')} className="rounded-md border border-slate-200 bg-slate-50 px-3 py-1.5 text-sm text-slate-600 transition-colors hover:border-cyan-300 hover:bg-cyan-50 hover:text-cyan-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300">
                     27" 4K 桌面显示器
                  </button>
-                 <button onClick={() => setPreset('1920', '1080', '24', '24" 1080P Monitor')} className="px-3 py-1.5 bg-slate-100 hover:bg-teal-50 hover:text-teal-700 text-slate-600 rounded-lg text-sm transition-colors border border-transparent hover:border-teal-200">
+                 <button onClick={() => setPreset('1920', '1080', '24', '24" 1080P Monitor')} className="rounded-md border border-slate-200 bg-slate-50 px-3 py-1.5 text-sm text-slate-600 transition-colors hover:border-cyan-300 hover:bg-cyan-50 hover:text-cyan-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300">
                     24" 1080P 办公屏
                  </button>
               </div>
            </div>
+          </div>
         </div>
 
-        <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl shadow-lg p-6 lg:p-8 text-white relative overflow-hidden flex flex-col justify-center">
-           <div className="absolute right-0 top-0 opacity-10 pointer-events-none translate-x-1/4 -translate-y-1/4">
-             <LayoutPanelLeft className="w-64 h-64" />
+        <div className="flex flex-col space-y-3">
+          <label className="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
+            {t('tools.ppi-calculator.resultTitle')}
+          </label>
+          <div className="relative flex h-[500px] flex-col justify-center overflow-hidden rounded-lg border border-slate-200 bg-slate-50 p-6 text-slate-950 shadow-sm dark:border-slate-700 dark:bg-slate-900 dark:text-white lg:p-8">
+           <div className="pointer-events-none absolute right-0 top-0 translate-x-1/4 -translate-y-1/4 opacity-5">
+             <LayoutPanelLeft className="h-64 w-64" />
            </div>
-           
-           <div className="relative z-10 text-center space-y-6">
+
+           <div className="relative z-10 space-y-6 text-center">
               <div>
-                <div className="text-slate-400 font-medium tracking-widest text-sm mb-4 uppercase">{t('tools.ppi-calculator.resultTitle')}</div>
-                <div className="text-7xl lg:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-emerald-300">
+                <div className="mb-4 text-sm font-medium uppercase tracking-widest text-slate-500 dark:text-slate-400">{t('tools.ppi-calculator.resultTitle')}</div>
+                <div className="text-7xl font-semibold text-cyan-700 dark:text-cyan-300 lg:text-8xl">
                    {ppiResult ? ppiResult.toFixed(2) : '-'}
                 </div>
               </div>
 
               {ppiResult && (
-                 <div className="inline-block mt-8 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl px-6 py-4">
-                    <div className="text-sm font-medium text-slate-300 mb-1">
+                 <div className="mt-8 inline-block rounded-lg border border-slate-200 bg-white px-6 py-4 dark:border-slate-700 dark:bg-[#282c34]">
+                    <div className="mb-1 text-sm font-medium text-slate-500 dark:text-slate-400">
                        {t('tools.ppi-calculator.retinaRatingTitle')}
                     </div>
                     <div className="text-xl font-bold">
@@ -134,6 +138,7 @@ export default function PpiCalculator() {
                  </div>
               )}
            </div>
+          </div>
         </div>
       </div>
 

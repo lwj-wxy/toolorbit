@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FileCode, ArrowRightLeft, Copy, CheckCircle2, Trash2, Info } from 'lucide-react';
+import { ArrowRightLeft, Copy, CheckCircle2, Trash2, Info } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import ToolSEOCard from '../../../components/ToolSEOCard';
 
@@ -56,86 +56,87 @@ export default function HexStringConverter() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8 sm:py-12">
-      <div className="flex items-center gap-4 mb-8">
-        <div className="w-12 h-12 bg-emerald-600 rounded-2xl flex items-center justify-center shadow-lg shadow-emerald-100 text-white">
-          <FileCode size={24} />
-        </div>
+    <div className="space-y-6">
+      <div className="flex flex-col gap-4 border-b border-slate-200 pb-6 dark:border-slate-800 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">{t('tools.hex-string-converter.title')}</h1>
-          <p className="text-slate-500 text-sm">{t('tools.hex-string-converter.subtitle')}</p>
+          <h1 className="text-3xl font-semibold tracking-tight text-slate-950 dark:text-white">{t('tools.hex-string-converter.title')}</h1>
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-400">
+            {t('tools.hex-string-converter.subtitle')}
+          </p>
         </div>
       </div>
 
       <div className="space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-6 border-b border-slate-100">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <label className="text-xs font-bold text-slate-400 uppercase tracking-widest">{t('tools.hex-string-converter.textLabel')}</label>
-              <button 
+              <label className="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">{t('tools.hex-string-converter.textLabel')}</label>
+              <button
                 onClick={() => handleCopy(text)}
-                className="text-slate-400 hover:text-emerald-500 transition-colors"
+                className="inline-flex items-center gap-1 rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors hover:bg-slate-50 dark:border-slate-700 dark:bg-[#282c34] dark:text-slate-200 dark:hover:bg-slate-800"
                 title={t('tools.hex-string-converter.copyText')}
               >
-                <div className="flex items-center gap-1.5 px-3 py-1 rounded-lg hover:bg-slate-50 transition-all">
-                   {copied ? <CheckCircle2 size={16} className="text-emerald-500" /> : <Copy size={16} />}
-                </div>
+                {copied ? <CheckCircle2 size={14} className="text-green-500" /> : <Copy size={14} />}
               </button>
             </div>
             <textarea
               value={text}
               onChange={(e) => handleTextChange(e.target.value)}
               placeholder={t('tools.hex-string-converter.textPlaceholder')}
-              className="w-full h-48 p-5 font-mono text-sm bg-white border border-slate-200 rounded-2xl focus:ring-4 focus:ring-emerald-100 focus:border-emerald-200 transition-all resize-none outline-none"
+              className="block h-[500px] w-full resize-none rounded-lg border border-slate-200 bg-white px-4 py-3 font-mono text-sm leading-6 text-slate-900 shadow-sm outline-none placeholder:text-slate-400 focus:border-cyan-500 dark:border-slate-700 dark:bg-[#282c34] dark:text-slate-100"
             />
           </div>
 
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <label className="text-xs font-bold text-slate-400 uppercase tracking-widest">{t('tools.hex-string-converter.hexLabel')}</label>
-              <button 
+              <label className="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">{t('tools.hex-string-converter.hexLabel')}</label>
+              <button
                 onClick={() => handleCopy(hex)}
-                className="text-slate-400 hover:text-emerald-500 transition-colors"
+                className="inline-flex items-center gap-1 rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors hover:bg-slate-50 dark:border-slate-700 dark:bg-[#282c34] dark:text-slate-200 dark:hover:bg-slate-800"
                 title={t('tools.hex-string-converter.copyHex')}
               >
-                <div className="flex items-center gap-1.5 px-3 py-1 rounded-lg hover:bg-slate-50 transition-all">
-                   {copied ? <CheckCircle2 size={16} className="text-emerald-500" /> : <Copy size={16} />}
-                </div>
+                {copied ? <CheckCircle2 size={14} className="text-green-500" /> : <Copy size={14} />}
               </button>
             </div>
-            <textarea
-              value={hex}
-              onChange={(e) => handleHexChange(e.target.value)}
-              placeholder={t('tools.hex-string-converter.hexPlaceholder')}
-              className="w-full h-48 p-5 font-mono text-sm bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-emerald-100 focus:border-emerald-200 transition-all resize-none outline-none"
-            />
-            {error && <p className="text-[10px] text-red-500 font-bold uppercase">{error}</p>}
+            <div className="relative">
+              <textarea
+                value={hex}
+                onChange={(e) => handleHexChange(e.target.value)}
+                placeholder={t('tools.hex-string-converter.hexPlaceholder')}
+                className="block h-[500px] w-full resize-none rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 font-mono text-sm leading-6 text-slate-900 shadow-sm outline-none placeholder:text-slate-400 focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
+              />
+              {error && (
+                <div className="absolute inset-x-0 bottom-0 rounded-b-lg border-t border-red-200 bg-red-50 p-4 text-sm font-medium text-red-700 dark:border-red-900/70 dark:bg-red-950/90 dark:text-red-200">
+                  {error}
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
-        <div className="flex flex-col sm:flex-row items-center gap-4 justify-between bg-slate-50 p-6 rounded-3xl border border-slate-100">
+        <div className="flex flex-col items-center justify-between gap-4 rounded-lg border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-900 sm:flex-row">
            <div className="flex items-center gap-3">
-             <div className="w-10 h-10 bg-white rounded-xl border border-slate-200 flex items-center justify-center text-slate-400">
+             <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-400 dark:border-slate-700 dark:bg-[#282c34]">
                 <ArrowRightLeft size={18} />
              </div>
-             <p className="text-sm text-slate-600 font-medium tracking-tight">
+             <p className="text-sm font-medium text-slate-600 dark:text-slate-300">
                {t('tools.hex-string-converter.statusMsg')}
              </p>
            </div>
            <button
              onClick={() => { setText(''); setHex(''); setError(null); }}
-             className="px-6 py-2.5 text-sm font-bold text-slate-500 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all flex items-center gap-2"
+             className="flex items-center gap-2 rounded-md px-5 py-2.5 text-sm font-semibold text-slate-500 transition-colors hover:bg-red-50 hover:text-red-500 dark:hover:bg-red-950/20"
            >
              <Trash2 size={16} /> {t('tools.hex-string-converter.clearBtn')}
            </button>
         </div>
 
-        <div className="bg-emerald-50/50 rounded-3xl p-6 border border-emerald-100">
-          <div className="flex items-center gap-2 mb-3 text-emerald-900 font-bold">
+        <div className="rounded-lg border border-emerald-100 bg-emerald-50/50 p-5 dark:border-emerald-900/60 dark:bg-emerald-950/20">
+          <div className="mb-3 flex items-center gap-2 font-semibold text-emerald-900 dark:text-emerald-200">
             <Info size={16} />
             <h4 className="text-sm">{t('tools.hex-string-converter.didYouKnowTitle')}</h4>
           </div>
-          <p className="text-xs text-emerald-700 leading-relaxed">
+          <p className="text-xs leading-relaxed text-emerald-700 dark:text-emerald-300">
             {t('tools.hex-string-converter.didYouKnowDesc')}
           </p>
         </div>

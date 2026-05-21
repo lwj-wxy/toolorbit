@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ArrowRightLeft, Calculator } from 'lucide-react';
+import { ArrowRightLeft } from 'lucide-react';
 import { analytics } from '../../../services/analytics';
 import ToolSEOCard from '../../../components/ToolSEOCard';
 
@@ -128,90 +128,98 @@ export default function UnitConverter() {
   }, [inputValue, fromUnit, toUnit, category, UNITS_CONFIG]);
 
   return (
-    <div className="max-w-5xl mx-auto space-y-6 animate-in fade-in duration-500">
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6 lg:p-8 flex items-center gap-4">
-        <div className="w-12 h-12 bg-orange-50 text-orange-600 rounded-xl flex items-center justify-center shrink-0">
-          <Calculator className="w-6 h-6" />
-        </div>
+    <div className="space-y-6">
+      <div className="flex flex-col gap-4 border-b border-slate-200 pb-6 dark:border-slate-800 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-slate-900">{t('tools.unit-converter.title')}</h1>
-          <p className="text-[#64748b] mt-1 text-sm md:text-base">
+          <h1 className="text-3xl font-semibold tracking-tight text-slate-950 dark:text-white">{t('tools.unit-converter.title')}</h1>
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-400">
             {t('tools.unit-converter.subtitle')}
           </p>
         </div>
       </div>
 
-      <div className="mb-8 flex flex-col items-center">
-        <div className="w-full flex gap-2 p-1 bg-slate-100 rounded-xl overflow-x-auto mb-8 custom-scrollbar justify-start sm:justify-center">
-          {(Object.entries(UNITS_CONFIG) as [UnitCategory, typeof UNITS_CONFIG[UnitCategory]][]).map(([cat, data]) => (
-            <button
-              key={cat}
-              onClick={() => handleCategoryChange(cat)}
-              className={`px-6 py-2.5 rounded-lg text-sm font-bold whitespace-nowrap transition-colors ${
-                category === cat 
-                  ? 'bg-white text-orange-600 shadow-sm' 
-                  : 'text-slate-600 hover:bg-slate-200/50'
-              }`}
-            >
-              {data.name}
-            </button>
-          ))}
-        </div>
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <div className="flex flex-col space-y-3">
+          <label className="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
+            {t('tools.unit-converter.fromLabel')}
+          </label>
+          <div className="flex h-[500px] flex-col rounded-lg border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-[#282c34]">
+            <div className="mb-5 flex gap-2 overflow-x-auto rounded-lg bg-slate-100 p-1 dark:bg-slate-900">
+              {(Object.entries(UNITS_CONFIG) as [UnitCategory, typeof UNITS_CONFIG[UnitCategory]][]).map(([cat, data]) => (
+                <button
+                  key={cat}
+                  type="button"
+                  onClick={() => handleCategoryChange(cat)}
+                  className={`whitespace-nowrap rounded-md px-4 py-2 text-xs font-semibold transition-colors ${
+                    category === cat
+                      ? 'bg-white text-cyan-700 shadow-sm dark:bg-[#282c34] dark:text-cyan-300'
+                      : 'text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white'
+                  }`}
+                >
+                  {data.name}
+                </button>
+              ))}
+            </div>
 
-        <div className="w-full grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-6 items-center">
-          {/* From */}
-          <div className="bg-slate-50 p-6 rounded-3xl border border-slate-200 shadow-inner">
-            <label className="block text-sm font-bold text-slate-500 uppercase tracking-wider mb-4 px-1">{t('tools.unit-converter.fromLabel')}</label>
-            <div className="flex flex-col gap-4">
+            <div className="space-y-5">
               <input
                 type="number"
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
-                className="w-full bg-white border-2 border-slate-200 rounded-2xl px-4 py-4 text-2xl font-mono font-bold outline-none focus:border-orange-500 focus:ring-4 focus:ring-orange-500/10 transition-all shadow-sm"
+                className="w-full rounded-lg border border-slate-200 bg-slate-50 px-4 py-4 font-mono text-2xl font-semibold text-slate-900 outline-none transition-colors focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
                 placeholder={t('tools.unit-converter.inputPlaceholder')}
               />
               <select
                 value={fromUnit}
                 onChange={(e) => setFromUnit(e.target.value)}
-                className="w-full bg-white border-2 border-slate-200 rounded-2xl px-4 py-4 text-slate-700 font-bold outline-none focus:border-orange-500 transition-all cursor-pointer shadow-sm appearance-none"
+                className="w-full rounded-lg border border-slate-200 bg-slate-50 px-4 py-4 text-sm font-semibold text-slate-900 outline-none transition-colors focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
               >
                 {Object.entries(UNITS_CONFIG[category].units).map(([key, unit]) => (
                   <option key={key} value={key}>{unit.name}</option>
                 ))}
               </select>
             </div>
-          </div>
 
-          {/* Swap */}
-          <div className="flex justify-center">
             <button
+              type="button"
               onClick={swapUnits}
-              className="p-5 bg-white border-2 border-slate-200 text-slate-400 hover:text-orange-600 rounded-full shadow-lg hover:shadow-xl hover:-rotate-180 transition-all duration-500"
+              className="mt-auto flex w-full items-center justify-center gap-2 rounded-md border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
+              aria-label="Swap units"
             >
-              <ArrowRightLeft className="w-8 h-8" />
+              <ArrowRightLeft className="h-4 w-4" />
             </button>
           </div>
+        </div>
 
-          {/* To */}
-          <div className="bg-orange-50/50 p-6 rounded-3xl border-2 border-orange-100 shadow-sm">
-            <label className="block text-sm font-bold text-orange-600/70 uppercase tracking-wider mb-4 px-1">{t('tools.unit-converter.toLabel')}</label>
-            <div className="flex flex-col gap-4">
+        <div className="flex flex-col space-y-3">
+          <label className="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
+            {t('tools.unit-converter.toLabel')}
+          </label>
+          <div className="flex h-[500px] flex-col rounded-lg border border-slate-200 bg-slate-50 p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+            <div className="space-y-5">
               <input
                 type="text"
                 readOnly
                 value={outputValue}
-                className="w-full bg-white border-2 border-slate-200 rounded-2xl px-4 py-4 text-2xl font-mono font-bold outline-none text-slate-900 cursor-default shadow-sm"
+                className="w-full rounded-lg border border-slate-200 bg-white px-4 py-4 font-mono text-2xl font-semibold text-slate-900 outline-none dark:border-slate-700 dark:bg-[#282c34] dark:text-slate-100"
                 placeholder={t('tools.unit-converter.outputPlaceholder')}
               />
               <select
                 value={toUnit}
                 onChange={(e) => setToUnit(e.target.value)}
-                className="w-full bg-white border-2 border-slate-200 rounded-2xl px-4 py-4 text-slate-700 font-bold outline-none focus:border-orange-500 transition-all cursor-pointer shadow-sm appearance-none"
+                className="w-full rounded-lg border border-slate-200 bg-white px-4 py-4 text-sm font-semibold text-slate-900 outline-none transition-colors focus:border-cyan-500 dark:border-slate-700 dark:bg-[#282c34] dark:text-slate-100"
               >
                 {Object.entries(UNITS_CONFIG[category].units).map(([key, unit]) => (
                   <option key={key} value={key}>{unit.name}</option>
                 ))}
               </select>
+            </div>
+
+            <div className="mt-auto rounded-lg border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-[#282c34]">
+              <div className="text-sm font-semibold text-slate-500 dark:text-slate-400">{UNITS_CONFIG[category].name}</div>
+              <div className="mt-3 break-all font-mono text-3xl font-semibold text-cyan-700 dark:text-cyan-300">
+                {outputValue || '-'}
+              </div>
             </div>
           </div>
         </div>

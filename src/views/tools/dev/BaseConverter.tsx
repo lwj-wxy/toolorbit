@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Binary, ArrowRightLeft, Copy, Check } from 'lucide-react';
+import { ArrowRightLeft, Copy, Check } from 'lucide-react';
 import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function BaseConverter() {
@@ -113,124 +113,115 @@ export default function BaseConverter() {
   ];
 
   return (
-    <div className="max-w-5xl mx-auto space-y-6">
+    <div className="space-y-6">
       
-      <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 bg-blue-50 text-[#2563eb] rounded-xl flex items-center justify-center shrink-0">
-            <Binary className="w-6 h-6" />
-          </div>
-          <div>
-            <h1 className="text-3xl font-bold tracking-tight text-slate-900">{t('tools.base-converter.title')}</h1>
-            <p className="text-[#64748b] mt-1 text-sm md:text-base">
-              {t('tools.base-converter.subtitle')}
-            </p>
-          </div>
+      <div className="flex flex-col gap-4 border-b border-slate-200 pb-6 dark:border-slate-800 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h1 className="text-3xl font-semibold tracking-tight text-slate-950 dark:text-white">{t('tools.base-converter.title')}</h1>
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-400">
+            {t('tools.base-converter.subtitle')}
+          </p>
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6 lg:p-10 relative">
-          
-          <div className="grid grid-cols-1 lg:grid-cols-11 gap-6 items-stretch">
-              
-              <div className="col-span-1 lg:col-span-5 flex flex-col">
-                  <div className="mb-4">
-                      <label className="block text-sm font-bold text-[#475569] mb-2 flex items-center justify-between">
-                          <span>{t('tools.base-converter.inputLabel')}</span>
-                          <span className="text-[#94a3b8] font-normal">{inputVal.length} {t('tools.base-converter.chars')}</span>
-                      </label>
-                      <textarea
-                        value={inputVal}
-                        onChange={(e) => setInputVal(e.target.value)}
-                        placeholder={t('tools.base-converter.inputPlaceholder')}
-                        className="w-full h-32 bg-[#f8fafc] border border-[#cbd5e1] rounded-xl p-4 font-mono text-lg outline-none focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb] transition-all resize-none uppercase"
-                        spellCheck={false}
-                      />
-                      {error && <p className="text-red-500 text-sm mt-2 font-medium">{error}</p>}
-                  </div>
-                  
-                  <div>
-                      <label className="block text-sm font-bold text-[#475569] mb-2">{t('tools.base-converter.sourceBaseLabel')}</label>
-                      <select 
-                          value={inputBase}
-                          onChange={(e) => setInputBase(parseInt(e.target.value))}
-                          className="w-full bg-[#f8fafc] border border-[#cbd5e1] rounded-lg px-4 py-3 outline-none focus:border-[#2563eb]"
-                      >
-                          {COMMON_BASES.map(b => (
-                              <option key={`in-${b.value}`} value={b.value}>{b.label}</option>
-                          ))}
-                          <option disabled>──────</option>
-                          {Array.from({length: 35}, (_, i) => i + 2).filter(v => !COMMON_BASES.find(cb => cb.value === v)).map(v => (
-                              <option key={`in-other-${v}`} value={v}>{v} {t('tools.base-converter.baseSuffix')}</option>
-                          ))}
-                      </select>
-                  </div>
-              </div>
-
-              <div className="col-span-1 flex flex-col items-center justify-center">
-                  <button 
-                      onClick={swapBases}
-                      className="w-12 h-12 bg-[#f1f5f9] hover:bg-[#e2e8f0] text-slate-600 rounded-full flex items-center justify-center transition-colors shadow-sm border border-slate-200"
-                      title={t('tools.base-converter.swapTitle')}
-                  >
-                     <ArrowRightLeft className="w-5 h-5 lg:rotate-0 rotate-90" />
-                  </button>
-              </div>
-
-              <div className="col-span-1 lg:col-span-5 flex flex-col">
-                  <div className="mb-4">
-                      <label className="block text-sm font-bold text-[#475569] mb-2 flex items-center justify-between">
-                          <span>{t('tools.base-converter.outputLabel')}</span>
-                          {outputVal && (
-                              <button 
-                                  onClick={handleCopy}
-                                  className="text-blue-600 hover:text-blue-800 text-sm font-bold flex items-center gap-1 transition-colors"
-                              >
-                                  {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-                                  {copied ? t('tools.base-converter.copiedBtn') : t('tools.base-converter.copyBtn')}
-                              </button>
-                          )}
-                      </label>
-                      <div className="w-full h-32 bg-slate-800 border-none rounded-xl p-4 overflow-y-auto">
-                          {outputVal ? (
-                              <div className="font-mono text-emerald-400 text-lg break-all">
-                                  {outputVal}
-                              </div>
-                          ) : (
-                              <div className="font-mono text-slate-500 text-lg flex items-center justify-center h-full">
-                                  {t('tools.base-converter.waiting')}
-                              </div>
-                          )}
-                      </div>
-                  </div>
-
-                  <div>
-                      <label className="block text-sm font-bold text-[#475569] mb-2">{t('tools.base-converter.targetBaseLabel')}</label>
-                      <select 
-                          value={outputBase}
-                          onChange={(e) => setOutputBase(parseInt(e.target.value))}
-                          className="w-full bg-[#f8fafc] border border-[#cbd5e1] rounded-lg px-4 py-3 outline-none focus:border-[#2563eb]"
-                      >
-                          {COMMON_BASES.map(b => (
-                              <option key={`out-${b.value}`} value={b.value}>{b.label}</option>
-                          ))}
-                          <option disabled>──────</option>
-                          {Array.from({length: 35}, (_, i) => i + 2).filter(v => !COMMON_BASES.find(cb => cb.value === v)).map(v => (
-                              <option key={`out-other-${v}`} value={v}>{v} {t('tools.base-converter.baseSuffix')}</option>
-                          ))}
-                      </select>
-                  </div>
-              </div>
-
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <div className="flex flex-col space-y-3">
+          <div className="flex items-center justify-between">
+            <label className="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
+              {t('tools.base-converter.inputLabel')}
+            </label>
+            <span className="text-xs font-medium text-slate-500 dark:text-slate-400">{inputVal.length} {t('tools.base-converter.chars')}</span>
           </div>
+          <div className="flex h-[500px] flex-col rounded-lg border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-[#282c34]">
+            <textarea
+              value={inputVal}
+              onChange={(e) => setInputVal(e.target.value)}
+              placeholder={t('tools.base-converter.inputPlaceholder')}
+              className="block min-h-0 flex-1 resize-none rounded-lg border border-slate-200 bg-white px-4 py-3 font-mono text-lg leading-7 text-slate-900 shadow-sm outline-none uppercase placeholder:text-slate-400 focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
+              spellCheck={false}
+            />
+            {error && <p className="mt-3 text-sm font-medium text-red-500">{error}</p>}
+            <div className="mt-5">
+              <label className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-200">{t('tools.base-converter.sourceBaseLabel')}</label>
+              <select
+                value={inputBase}
+                onChange={(e) => setInputBase(parseInt(e.target.value))}
+                className="w-full rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition-colors focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
+              >
+                {COMMON_BASES.map(b => (
+                  <option key={`in-${b.value}`} value={b.value}>{b.label}</option>
+                ))}
+                <option disabled>------</option>
+                {Array.from({length: 35}, (_, i) => i + 2).filter(v => !COMMON_BASES.find(cb => cb.value === v)).map(v => (
+                  <option key={`in-other-${v}`} value={v}>{v} {t('tools.base-converter.baseSuffix')}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex flex-col space-y-3">
+          <div className="flex items-center justify-between">
+            <label className="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
+              {t('tools.base-converter.outputLabel')}
+            </label>
+            <button
+              type="button"
+              onClick={handleCopy}
+              disabled={!outputVal}
+              className="inline-flex items-center gap-1 rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-700 dark:bg-[#282c34] dark:text-slate-200 dark:hover:bg-slate-800"
+            >
+              {copied ? <Check className="h-3.5 w-3.5 text-green-500" /> : <Copy className="h-3.5 w-3.5" />}
+              {copied ? t('tools.base-converter.copiedBtn') : t('tools.base-converter.copyBtn')}
+            </button>
+          </div>
+          <div className="flex h-[500px] flex-col rounded-lg border border-slate-200 bg-slate-50 p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+            <div className="min-h-0 flex-1 overflow-y-auto rounded-lg border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-[#282c34]">
+              {outputVal ? (
+                <div className="break-all font-mono text-lg leading-7 text-cyan-700 dark:text-cyan-300">
+                  {outputVal}
+                </div>
+              ) : (
+                <div className="flex h-full items-center justify-center font-mono text-lg text-slate-500">
+                  {t('tools.base-converter.waiting')}
+                </div>
+              )}
+            </div>
+            <div className="mt-5">
+              <label className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-200">{t('tools.base-converter.targetBaseLabel')}</label>
+              <select
+                value={outputBase}
+                onChange={(e) => setOutputBase(parseInt(e.target.value))}
+                className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition-colors focus:border-cyan-500 dark:border-slate-700 dark:bg-[#282c34] dark:text-slate-100"
+              >
+                {COMMON_BASES.map(b => (
+                  <option key={`out-${b.value}`} value={b.value}>{b.label}</option>
+                ))}
+                <option disabled>------</option>
+                {Array.from({length: 35}, (_, i) => i + 2).filter(v => !COMMON_BASES.find(cb => cb.value === v)).map(v => (
+                  <option key={`out-other-${v}`} value={v}>{v} {t('tools.base-converter.baseSuffix')}</option>
+                ))}
+              </select>
+            </div>
+            <button
+              type="button"
+              onClick={swapBases}
+              className="mt-5 flex w-full items-center justify-center gap-2 rounded-md border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50 dark:border-slate-700 dark:bg-[#282c34] dark:text-slate-200 dark:hover:bg-slate-800"
+              title={t('tools.base-converter.swapTitle')}
+            >
+              <ArrowRightLeft className="h-4 w-4" />
+              {t('tools.base-converter.swapTitle')}
+            </button>
+          </div>
+        </div>
       </div>
     
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
           {[
-              { in: 10, out: 2, label: t('tools.base-converter.quickDecToBin'), color: 'bg-indigo-50 border-indigo-100 text-indigo-700 hover:bg-indigo-100' },
-              { in: 10, out: 16, label: t('tools.base-converter.quickDecToHex'), color: 'bg-fuchsia-50 border-fuchsia-100 text-fuchsia-700 hover:bg-fuchsia-100' },
-              { in: 16, out: 10, label: t('tools.base-converter.quickHexToDec'), color: 'bg-amber-50 border-amber-100 text-amber-700 hover:bg-amber-100' },
-              { in: 2, out: 10, label: t('tools.base-converter.quickBinToDec'), color: 'bg-emerald-50 border-emerald-100 text-emerald-700 hover:bg-emerald-100' },
+              { in: 10, out: 2, label: t('tools.base-converter.quickDecToBin') },
+              { in: 10, out: 16, label: t('tools.base-converter.quickDecToHex') },
+              { in: 16, out: 10, label: t('tools.base-converter.quickHexToDec') },
+              { in: 2, out: 10, label: t('tools.base-converter.quickBinToDec') },
           ].map((quick, idx) => (
              <button
                 key={idx}
@@ -238,7 +229,7 @@ export default function BaseConverter() {
                    setInputBase(quick.in);
                    setOutputBase(quick.out);
                 }}
-                className={`flex flex-col items-center justify-center p-4 rounded-xl border transition-colors shadow-sm ${quick.color}`}
+                className="flex flex-col items-center justify-center rounded-lg border border-slate-200 bg-white p-4 text-slate-700 shadow-sm transition-colors hover:border-cyan-300 hover:bg-cyan-50 dark:border-slate-700 dark:bg-[#282c34] dark:text-slate-200 dark:hover:bg-cyan-950/20"
              >
                 <span className="font-bold">{quick.label}</span>
                 <span className="text-xs opacity-70 mt-1 uppercase font-mono">Base {quick.in} → {quick.out}</span>

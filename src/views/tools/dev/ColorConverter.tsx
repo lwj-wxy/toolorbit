@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Palette, Copy, Check } from 'lucide-react';
+import { Copy, Check } from 'lucide-react';
 import tinycolor from 'tinycolor2';
 
 export default function ColorConverter() {
@@ -44,78 +44,78 @@ export default function ColorConverter() {
   };
 
   return (
-    <div className="max-w-5xl mx-auto space-y-6">
-      <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 bg-pink-50 text-pink-600 rounded-xl flex items-center justify-center shrink-0">
-            <Palette className="w-6 h-6" />
-          </div>
-          <div>
-            <h1 className="text-3xl font-bold tracking-tight text-slate-900">{t('tools.color-converter.title')}</h1>
-            <p className="text-slate-500 mt-1 text-sm md:text-base">
-              {t('tools.color-converter.subtitle')}
-            </p>
-          </div>
+    <div className="space-y-6">
+      <div className="flex flex-col gap-4 border-b border-slate-200 pb-6 dark:border-slate-800 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h1 className="text-3xl font-semibold tracking-tight text-slate-950 dark:text-white">{t('tools.color-converter.title')}</h1>
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-400">
+            {t('tools.color-converter.subtitle')}
+          </p>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-1 border border-slate-200/80 bg-white rounded-2xl p-6 shadow-sm flex flex-col gap-6">
-          <div className="space-y-3">
-             <label className="block text-sm font-bold text-slate-700">{t('tools.color-converter.previewLabel')}</label>
-             <div 
-               className="w-full h-48 rounded-xl border border-slate-200/80 shadow-inner flex items-end justify-start p-4 transition-colors"
-               style={{ backgroundColor: tc.isValid() ? tc.toHexString() : '#ffffff' }}
-             >
-                <div className="bg-white/90 backdrop-blur-sm px-3 py-1 rounded text-sm font-mono shadow text-slate-800">
-                   {tc.isValid() ? tc.toHexString().toUpperCase() : 'INVALID'}
-                </div>
-             </div>
-          </div>
-          
-          <div>
-             <label className="block text-sm font-bold text-slate-700 mb-2">{t('tools.color-converter.inputLabel')}</label>
-             <div className="flex items-center gap-3">
-                <input 
-                  type="color" 
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <div className="flex flex-col space-y-3">
+          <label className="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
+            {t('tools.color-converter.previewLabel')}
+          </label>
+          <div className="flex h-[500px] flex-col rounded-lg border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-[#282c34]">
+            <div
+              className="flex min-h-0 flex-1 items-end justify-start rounded-lg border border-slate-200 p-4 transition-colors dark:border-slate-700"
+              style={{ backgroundColor: tc.isValid() ? tc.toHexString() : '#ffffff' }}
+            >
+              <div className="rounded bg-white/90 px-3 py-1 font-mono text-sm text-slate-800 shadow">
+                {tc.isValid() ? tc.toHexString().toUpperCase() : 'INVALID'}
+              </div>
+            </div>
+
+            <div className="mt-5">
+              <label className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-200">{t('tools.color-converter.inputLabel')}</label>
+              <div className="flex items-center gap-3">
+                <input
+                  type="color"
                   value={tc.isValid() ? tc.toHexString() : '#000000'}
                   onChange={(e) => setInputColor(e.target.value)}
-                  className="w-12 h-12 p-1 rounded border border-slate-200/80 cursor-pointer shrink-0"
+                  className="h-12 w-12 shrink-0 cursor-pointer rounded border border-slate-200 p-1 dark:border-slate-700"
                 />
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   value={inputColor}
                   onChange={(e) => setInputColor(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-200/80 rounded-xl px-4 py-3 font-mono outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20"
+                  className="w-full rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 font-mono text-sm text-slate-900 outline-none transition-colors focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
                   placeholder={t('tools.color-converter.inputPlaceholder')}
                 />
-             </div>
-             {!tc.isValid() && <p className="text-red-500 text-xs mt-2 font-bold">{t('tools.color-converter.invalidColor')}</p>}
+              </div>
+              {!tc.isValid() && <p className="mt-2 text-xs font-semibold text-red-500">{t('tools.color-converter.invalidColor')}</p>}
+            </div>
           </div>
         </div>
 
-        <div className="lg:col-span-2 border border-slate-200/80 bg-white rounded-2xl overflow-hidden shadow-sm">
-           <div className="px-6 py-4 bg-slate-50 border-b border-slate-200/80">
-              <h3 className="font-bold text-slate-700">{t('tools.color-converter.resultsTitle')}</h3>
-           </div>
-           <div className="divide-y divide-slate-100">
+        <div className="flex flex-col space-y-3">
+          <label className="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
+            {t('tools.color-converter.resultsTitle')}
+          </label>
+          <div className="h-[500px] overflow-hidden rounded-lg border border-slate-200 bg-slate-50 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+            <div className="h-full divide-y divide-slate-200 overflow-y-auto dark:divide-slate-700">
               {colorFormats.map((fmt, idx) => (
-                 <div key={fmt.label} className="flex items-center justify-between p-4 hover:bg-slate-50 transition-colors">
-                    <div className="flex items-center gap-4 w-full">
-                       <span className="w-16 text-sm font-bold text-slate-400 shrink-0">{fmt.label}</span>
-                       <span className="font-mono text-slate-800 flex-1 break-all">{tc.isValid() ? fmt.value : '-'}</span>
-                    </div>
-                    <button 
-                       onClick={() => tc.isValid() && handleCopy(fmt.value, idx)}
-                       disabled={!tc.isValid()}
-                       className="ml-4 shrink-0 flex items-center gap-2 px-3 py-1.5 bg-white border border-slate-200/80 rounded-lg text-sm text-slate-600 hover:text-pink-600 hover:border-pink-200 hover:bg-pink-50 transition-all disabled:opacity-50"
-                    >
-                       {copiedIndex === idx ? <Check className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4" />}
-                       {copiedIndex === idx ? t('tools.color-converter.copiedBtn') : t('tools.color-converter.copyBtn')}
-                    </button>
-                 </div>
+                <div key={fmt.label} className="flex items-center justify-between gap-4 p-4 transition-colors hover:bg-white dark:hover:bg-[#282c34]">
+                  <div className="flex min-w-0 flex-1 items-center gap-4">
+                    <span className="w-16 shrink-0 text-sm font-semibold text-slate-500 dark:text-slate-400">{fmt.label}</span>
+                    <span className="flex-1 break-all font-mono text-sm text-slate-900 dark:text-slate-100">{tc.isValid() ? fmt.value : '-'}</span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => tc.isValid() && handleCopy(fmt.value, idx)}
+                    disabled={!tc.isValid()}
+                    className="inline-flex shrink-0 items-center gap-1 rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-700 dark:bg-[#282c34] dark:text-slate-200 dark:hover:bg-slate-800"
+                  >
+                    {copiedIndex === idx ? <Check className="h-3.5 w-3.5 text-green-500" /> : <Copy className="h-3.5 w-3.5" />}
+                    {copiedIndex === idx ? t('tools.color-converter.copiedBtn') : t('tools.color-converter.copyBtn')}
+                  </button>
+                </div>
               ))}
-           </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
