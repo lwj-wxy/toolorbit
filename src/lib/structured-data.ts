@@ -17,7 +17,7 @@ import { BLOG_RELATED_TOOLS } from '../data/blogRelatedTools';
 import en from '../locales/en.json';
 import zh from '../locales/zh.json';
 import { getCategoryPath } from './category-paths';
-import { POSTS_PER_PAGE, sortedBlogPosts } from './blog-pagination';
+import { getBlogPagePosts, sortedBlogPosts } from './blog-pagination';
 import { localizedPath, type Locale } from './i18n-routing';
 import { readPath, SITE_NAME, SITE_URL } from './metadata';
 
@@ -238,7 +238,7 @@ export function homePageJsonLd(locale: Locale = 'en') {
 export function blogListJsonLd(locale: Locale = 'en', page = 1) {
   const normalizedPage = Math.max(1, page);
   const path = normalizedPage > 1 ? `/blog/page/${normalizedPage}` : '/blog';
-  const posts = sortedBlogPosts().slice((normalizedPage - 1) * POSTS_PER_PAGE, normalizedPage * POSTS_PER_PAGE);
+  const posts = getBlogPagePosts(sortedBlogPosts(), normalizedPage);
   const url = absoluteUrl(path, locale);
   const blogName = locale === 'zh-CN' ? '博客' : 'Blog';
 

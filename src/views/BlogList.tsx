@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from '../lib/navigation';
 import { Calendar, ChevronRight, ChevronLeft, UserCheck, ArrowRight } from 'lucide-react';
 import { BLOG_POSTS, BlogPost } from '../constants/blogData';
-import { POSTS_PER_PAGE } from '../lib/blog-pagination';
+import { getBlogPagePosts, getTotalBlogPages, POSTS_PER_PAGE } from '../lib/blog-pagination';
 import { getAuthorById } from '../data/authors';
 
 type BlogListProps = {
@@ -48,17 +48,24 @@ const BlogList: React.FC<BlogListProps> = ({ initialPage = 1 }) => {
     return sortedPosts.filter((p) => p.category === activeCategory);
   }, [sortedPosts, activeCategory]);
 
-  const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
+  const hasFeaturedFirstPage = activeCategory === 'All';
+  const totalPages = hasFeaturedFirstPage
+    ? getTotalBlogPages(filteredPosts.length)
+    : Math.max(1, Math.ceil(filteredPosts.length / POSTS_PER_PAGE));
   const safeCurrentPage = Math.min(currentPage, Math.max(totalPages, 1));
 
   const currentPosts = useMemo(() => {
+    if (hasFeaturedFirstPage) {
+      return getBlogPagePosts(filteredPosts, safeCurrentPage);
+    }
+
     const startIndex = (safeCurrentPage - 1) * POSTS_PER_PAGE;
     return filteredPosts.slice(startIndex, startIndex + POSTS_PER_PAGE);
-  }, [filteredPosts, safeCurrentPage]);
+  }, [filteredPosts, hasFeaturedFirstPage, safeCurrentPage]);
 
-  const showHero = activeCategory === 'All' && safeCurrentPage === 1 && filteredPosts.length > 0;
-  const heroPost = showHero ? filteredPosts[0] : null;
-  const gridPosts = showHero ? currentPosts.filter(p => p.slug !== heroPost!.slug).slice(0, 11) : currentPosts;
+  const showHero = hasFeaturedFirstPage && safeCurrentPage === 1 && currentPosts.length > 0;
+  const heroPost = showHero ? currentPosts[0] : null;
+  const gridPosts = showHero ? currentPosts.slice(1) : currentPosts;
 
   const blogPagePath = (page: number) => (page <= 1 ? '/blog' : `/blog/page/${page}`);
 
