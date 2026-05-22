@@ -5,9 +5,60 @@ import { BLOG_POSTS } from '../constants/blogData';
 import en from '../locales/en.json';
 import zh from '../locales/zh.json';
 import { blogBySlug, toolByPath, type SeoContentPage } from '../data/seoContent';
-import { readPath } from '../lib/metadata';
 
 const LINK_PATTERN = /\[([^\]]+)\]\((\/[^)]+)\)/g;
+
+const UI_TEXT = {
+  en: {
+    lastReviewed: 'Last reviewed',
+    target: 'Target',
+    audienceTitle: 'Who This Page Is For',
+    comparisonMatrix: 'Comparison Matrix',
+    categoryComparison: 'Category Comparison',
+    area: 'Area',
+    bestFor: 'Best For',
+    relevantTools: 'Relevant Tools',
+    practicalNote: 'Practical Note',
+    relatedTools: 'Related ToolOrbit Tools',
+    relatedToolsDescription: 'Open the specific utility when you are ready to apply the workflow.',
+    relatedGuides: 'Related Guides',
+    guideFallback: 'Guide',
+    readGuide: 'Read guide',
+    faq: 'FAQ',
+    maintained:
+      'Maintained by the ToolOrbit Editorial Team. This page links to practical tools and supporting guides so readers can verify the workflow rather than relying on broad claims.',
+    editorialProfile: 'Editorial team profile',
+  },
+  zh: {
+    lastReviewed: '最近复核',
+    target: '目标关键词',
+    audienceTitle: '本页面适合谁',
+    comparisonMatrix: '对比矩阵',
+    categoryComparison: '分类对比',
+    area: '范围',
+    bestFor: '适用场景',
+    relevantTools: '相关工具',
+    practicalNote: '实用说明',
+    relatedTools: '相关 ToolOrbit 工具',
+    relatedToolsDescription: '当你准备执行该工作流时，可直接打开对应工具。',
+    relatedGuides: '相关指南',
+    guideFallback: '指南',
+    readGuide: '阅读指南',
+    faq: '常见问题',
+    maintained:
+      '由 ToolOrbit 编辑团队维护。本页面链接到实用工具和配套指南，帮助读者验证具体工作流，而不是依赖笼统说法。',
+    editorialProfile: '编辑团队资料',
+  },
+};
+
+const BLOG_CATEGORY_ZH: Record<string, string> = {
+  AI: 'AI',
+  Business: '商业运营',
+  Design: '视觉设计',
+  Development: '程序开发',
+  Productivity: '效率知识',
+  Security: '安全防护',
+};
 
 function BodyParagraph({ text }: { text: string }) {
   const parts: Array<{ type: 'text' | 'link'; content: string; href?: string }> = [];
@@ -45,13 +96,30 @@ function BodyParagraph({ text }: { text: string }) {
   );
 }
 
-function localeData(locale?: string) {
-  if (locale === 'zh') return zh;
-  return en;
+function isChineseLocale(locale?: string) {
+  return locale?.toLowerCase().startsWith('zh');
+}
+
+function localeData(locale?: string): Record<string, unknown> {
+  if (isChineseLocale(locale)) return zh as Record<string, unknown>;
+  return en as Record<string, unknown>;
+}
+
+function readLocaleValue(source: Record<string, unknown>, pathStr: string) {
+  return pathStr
+    .split('.')
+    .reduce<unknown>((current, key) => (current && typeof current === 'object' ? (current as Record<string, unknown>)[key] : undefined), source);
 }
 
 function t(pathStr: string, locale?: string) {
-  return readPath(localeData(locale), pathStr);
+  const value = readLocaleValue(localeData(locale), pathStr);
+  if (typeof value === 'string') return value;
+  return undefined;
+}
+
+function ui(locale?: string) {
+  if (isChineseLocale(locale)) return UI_TEXT.zh;
+  return UI_TEXT.en;
 }
 
 function toolName(path: string, locale?: string) {
@@ -74,6 +142,12 @@ function blogSummary(slug: string, locale?: string) {
   return t(`blog.posts.${slug}.summary`, locale) || 'ToolOrbit practical guide.';
 }
 
+function blogCategory(category: string | undefined, locale?: string) {
+  if (!category) return ui(locale).guideFallback;
+  if (isChineseLocale(locale)) return BLOG_CATEGORY_ZH[category] || category;
+  return category;
+}
+
 function pageString(field: string, page: SeoContentPage, locale?: string) {
   const translated = t(`seoContent.${page.path}.${field}`, locale);
   if (typeof translated === 'string') return translated;
@@ -81,25 +155,25 @@ function pageString(field: string, page: SeoContentPage, locale?: string) {
 }
 
 function pageArray(field: string, page: SeoContentPage, locale?: string) {
-  const translated = t(`seoContent.${page.path}.${field}`, locale);
+  const translated = readLocaleValue(localeData(locale), `seoContent.${page.path}.${field}`);
   if (Array.isArray(translated)) return translated as string[];
   return (page as Record<string, unknown>)[field] as string[];
 }
 
 function pageTable(page: SeoContentPage, locale?: string) {
-  const translated = t(`seoContent.${page.path}.table`, locale);
+  const translated = readLocaleValue(localeData(locale), `seoContent.${page.path}.table`);
   if (Array.isArray(translated)) return translated as Array<{ label: string; bestFor: string; tools: string; note: string }>;
   return page.table;
 }
 
 function pageSections(page: SeoContentPage, locale?: string) {
-  const translated = t(`seoContent.${page.path}.sections`, locale);
+  const translated = readLocaleValue(localeData(locale), `seoContent.${page.path}.sections`);
   if (Array.isArray(translated)) return translated as Array<{ heading: string; body: string[] }>;
   return page.sections;
 }
 
 function pageFaqs(page: SeoContentPage, locale?: string) {
-  const translated = t(`seoContent.${page.path}.faqs`, locale);
+  const translated = readLocaleValue(localeData(locale), `seoContent.${page.path}.faqs`);
   if (Array.isArray(translated)) return translated as Array<{ question: string; answer: string }>;
   return page.faqs;
 }
@@ -111,10 +185,12 @@ export default function SeoContentPageView({ page, locale }: { page: SeoContentP
   const description = pageString('description', page, locale);
   const eyebrow = pageString('eyebrow', page, locale);
   const audience = pageString('audience', page, locale);
+  const targetKeyword = pageString('targetKeyword', page, locale);
   const summary = pageArray('summary', page, locale);
   const table = pageTable(page, locale);
   const sections = pageSections(page, locale);
   const faqs = pageFaqs(page, locale);
+  const labels = ui(locale);
 
   return (
     <main className="mx-auto w-full max-w-6xl py-4">
@@ -131,16 +207,16 @@ export default function SeoContentPageView({ page, locale }: { page: SeoContentP
           <div className="mt-6 flex flex-wrap gap-3 text-sm text-slate-600 dark:text-slate-300">
             <span className="inline-flex min-h-9 items-center gap-2 rounded-md border border-slate-200 px-3 dark:border-slate-800">
               <CalendarCheck className="h-4 w-4" aria-hidden="true" />
-              Last reviewed {page.updated}
+              {labels.lastReviewed} {page.updated}
             </span>
             <span className="inline-flex min-h-9 items-center rounded-md border border-slate-200 px-3 dark:border-slate-800">
-              Target: {page.targetKeyword}
+              {labels.target}: {targetKeyword}
             </span>
           </div>
         </header>
 
         <section className="mb-10 border-b border-slate-200 pb-9 dark:border-slate-800">
-          <h2 className="text-xl font-semibold text-slate-950 dark:text-white">Who This Page Is For</h2>
+          <h2 className="text-xl font-semibold text-slate-950 dark:text-white">{labels.audienceTitle}</h2>
           <p className="mt-3 leading-7 text-slate-700 dark:text-slate-300">{audience}</p>
           <div className="mt-5 grid gap-4 md:grid-cols-2">
             {summary.map((item) => (
@@ -154,17 +230,17 @@ export default function SeoContentPageView({ page, locale }: { page: SeoContentP
         <section className="mb-12 overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
           <div className="border-b border-slate-200 p-5 dark:border-slate-800">
             <h2 className="text-xl font-semibold text-slate-950 dark:text-white">
-              {page.type === 'comparison' ? 'Comparison Matrix' : 'Category Comparison'}
+              {page.type === 'comparison' ? labels.comparisonMatrix : labels.categoryComparison}
             </h2>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full min-w-[720px] text-left text-sm">
               <thead className="bg-slate-50 text-slate-700 dark:bg-slate-950 dark:text-slate-200">
                 <tr>
-                  <th className="px-5 py-3 font-semibold">Area</th>
-                  <th className="px-5 py-3 font-semibold">Best For</th>
-                  <th className="px-5 py-3 font-semibold">Relevant Tools</th>
-                  <th className="px-5 py-3 font-semibold">Practical Note</th>
+                  <th className="px-5 py-3 font-semibold">{labels.area}</th>
+                  <th className="px-5 py-3 font-semibold">{labels.bestFor}</th>
+                  <th className="px-5 py-3 font-semibold">{labels.relevantTools}</th>
+                  <th className="px-5 py-3 font-semibold">{labels.practicalNote}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-200 dark:divide-slate-800">
@@ -198,8 +274,8 @@ export default function SeoContentPageView({ page, locale }: { page: SeoContentP
               <Wrench className="h-5 w-5" aria-hidden="true" />
             </span>
             <div>
-              <h2 className="text-xl font-semibold text-slate-950 dark:text-white">Related ToolOrbit Tools</h2>
-              <p className="text-sm text-slate-600 dark:text-slate-300">Open the specific utility when you are ready to apply the workflow.</p>
+              <h2 className="text-xl font-semibold text-slate-950 dark:text-white">{labels.relatedTools}</h2>
+              <p className="text-sm text-slate-600 dark:text-slate-300">{labels.relatedToolsDescription}</p>
             </div>
           </div>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -220,7 +296,7 @@ export default function SeoContentPageView({ page, locale }: { page: SeoContentP
 
         {visibleBlogs.length > 0 ? (
           <section className="mb-12">
-            <h2 className="mb-5 text-xl font-semibold text-slate-950 dark:text-white">Related Guides</h2>
+            <h2 className="mb-5 text-xl font-semibold text-slate-950 dark:text-white">{labels.relatedGuides}</h2>
             <div className="grid gap-4 md:grid-cols-2">
               {visibleBlogs.map((slug) => {
                 const blog = blogBySlug(slug);
@@ -230,13 +306,15 @@ export default function SeoContentPageView({ page, locale }: { page: SeoContentP
                     href={`/blog/${slug}`}
                     className="group rounded-lg border border-slate-200 bg-white p-5 shadow-sm transition-colors hover:border-blue-300 hover:bg-blue-50/20 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-blue-700 dark:hover:bg-blue-950/20"
                   >
-                    <span className="text-xs font-semibold uppercase tracking-wide text-blue-700 dark:text-blue-300">{blog?.category || 'Guide'}</span>
+                    <span className="text-xs font-semibold uppercase tracking-wide text-blue-700 dark:text-blue-300">
+                      {blogCategory(blog?.category, locale)}
+                    </span>
                     <h3 className="mt-2 text-lg font-semibold text-slate-950 group-hover:text-blue-700 dark:text-white dark:group-hover:text-blue-300">
                       {blogTitle(slug, locale)}
                     </h3>
                     <p className="mt-2 line-clamp-2 text-sm leading-6 text-slate-600 dark:text-slate-300">{blogSummary(slug, locale)}</p>
                     <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-blue-700 dark:text-blue-300">
-                      Read guide <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                      {labels.readGuide} <ArrowRight className="h-4 w-4" aria-hidden="true" />
                     </span>
                   </NextLink>
                 );
@@ -246,7 +324,7 @@ export default function SeoContentPageView({ page, locale }: { page: SeoContentP
         ) : null}
 
         <section className="mb-12">
-          <h2 className="mb-5 text-xl font-semibold text-slate-950 dark:text-white">FAQ</h2>
+          <h2 className="mb-5 text-xl font-semibold text-slate-950 dark:text-white">{labels.faq}</h2>
           <div className="space-y-3">
             {faqs.map((faq) => (
               <details key={faq.question} className="border-b border-slate-200 py-4 dark:border-slate-800">
@@ -260,10 +338,10 @@ export default function SeoContentPageView({ page, locale }: { page: SeoContentP
         <footer className="border-t border-slate-200 pt-5 text-sm leading-6 text-slate-600 dark:border-slate-800 dark:text-slate-300">
           <p className="flex items-start gap-2">
             <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-blue-600" aria-hidden="true" />
-            Maintained by the ToolOrbit Editorial Team. This page links to practical tools and supporting guides so readers can verify the workflow rather than relying on broad claims.
+            {labels.maintained}
           </p>
           <NextLink href="/authors/toolorbit-editorial-team" className="mt-3 inline-flex items-center gap-2 font-semibold text-blue-700 dark:text-blue-300">
-            Editorial team profile <ExternalLink className="h-4 w-4" aria-hidden="true" />
+            {labels.editorialProfile} <ExternalLink className="h-4 w-4" aria-hidden="true" />
           </NextLink>
         </footer>
       </article>

@@ -193,6 +193,20 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
           {categoryGuide ? (
             <div className="mt-5 max-w-5xl text-sm leading-6 text-slate-600 dark:text-slate-400">
               <p>{categoryGuide.intro}</p>
+              {categoryGuide.relatedPages && categoryGuide.relatedPages.length > 0 ? (
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {categoryGuide.relatedPages.map((page) => (
+                    <Link
+                      key={page.href}
+                      to={page.href}
+                      className="inline-flex items-center gap-1.5 rounded-lg border border-blue-200 bg-blue-50 px-3 py-1.5 text-[13px] font-medium text-blue-700 transition-colors hover:border-blue-300 hover:bg-blue-100 dark:border-blue-900/60 dark:bg-blue-950/30 dark:text-blue-300 dark:hover:border-blue-800 dark:hover:bg-blue-950/50"
+                    >
+                      {page.label}
+                      <ArrowRight size={14} />
+                    </Link>
+                  ))}
+                </div>
+              ) : null}
             </div>
           ) : null}
         </header>

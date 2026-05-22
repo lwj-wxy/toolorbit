@@ -362,7 +362,11 @@ export function seoContentMetadata(path: string, locale: Locale = 'en'): Metadat
     return pageMetadata(undefined, undefined, path, locale);
   }
 
-  return pageMetadata(page.title, page.description, path, locale);
+  const source = localeSource(locale);
+  const title = readPath(source, `seoContent.${path}.title`) || page.title;
+  const description = readPath(source, `seoContent.${path}.description`) || page.description;
+
+  return pageMetadata(title, description, path, locale);
 }
 
 export function authorMetadata(authorId?: string, locale: Locale = 'en'): Metadata {

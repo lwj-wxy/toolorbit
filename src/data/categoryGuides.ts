@@ -3,6 +3,7 @@ import type { Category } from './tools';
 export type CategoryGuideCopy = {
   intro: string;
   workflows: string[];
+  relatedPages?: Array<{ label: string; href: string }>;
 };
 
 export const CATEGORY_GUIDES: Record<Category, { en: CategoryGuideCopy; zh: CategoryGuideCopy }> = {
@@ -15,6 +16,10 @@ export const CATEGORY_GUIDES: Record<Category, { en: CategoryGuideCopy; zh: Cate
         'Analyze keywords, competitors, and market direction before choosing content or product angles.',
         'Polish, translate, review, or reshape text while keeping the workflow lightweight in the browser.',
       ],
+      relatedPages: [
+        { label: 'AI Tools Hub', href: '/ai-tools' },
+        { label: 'Best AI Tools for Content Creators', href: '/best-ai-tools-for-content-creators' },
+      ],
     },
     zh: {
       intro:
@@ -23,6 +28,10 @@ export const CATEGORY_GUIDES: Record<Category, { en: CategoryGuideCopy; zh: Cate
         '生成视频标题、商品文案、周报、会议纪要、提示词和社媒内容。',
         '分析关键词、竞品和市场方向，辅助判断内容或产品切入点。',
         '润色、翻译、审查或改写文本，让轻量任务直接在浏览器中完成。',
+      ],
+      relatedPages: [
+        { label: 'AI 工具中心', href: '/ai-tools' },
+        { label: '内容创作者最佳 AI 工具对比', href: '/best-ai-tools-for-content-creators' },
       ],
     },
   },
@@ -35,6 +44,10 @@ export const CATEGORY_GUIDES: Record<Category, { en: CategoryGuideCopy; zh: Cate
         'Generate identifiers, hashes, permissions, regular expressions, and other implementation helpers.',
         'Inspect copied API payloads, configuration values, tokens, and text fragments before shipping code.',
       ],
+      relatedPages: [
+        { label: 'Developer Tools Hub', href: '/developer-tools' },
+        { label: 'Best JSON Formatters', href: '/best-json-formatters' },
+      ],
     },
     zh: {
       intro:
@@ -43,6 +56,10 @@ export const CATEGORY_GUIDES: Record<Category, { en: CategoryGuideCopy; zh: Cate
         '格式化、校验、对比、编码、解码和转换常见开发数据格式。',
         '生成标识符、哈希、权限、正则表达式和其他实现辅助内容。',
         '发布代码前检查复制来的 API 数据、配置值、令牌和文本片段。',
+      ],
+      relatedPages: [
+        { label: '开发者工具中心', href: '/developer-tools' },
+        { label: '最佳 JSON 格式化工具对比', href: '/best-json-formatters' },
       ],
     },
   },
@@ -55,6 +72,9 @@ export const CATEGORY_GUIDES: Record<Category, { en: CategoryGuideCopy; zh: Cate
         'Prepare shorter links and QR-related assets for campaigns, documents, and social channels.',
         'Check web-facing strings and link formats before they reach users or crawlers.',
       ],
+      relatedPages: [
+        { label: 'Webmaster Toolkit', href: '/webmaster-toolkit' },
+      ],
     },
     zh: {
       intro:
@@ -63,6 +83,9 @@ export const CATEGORY_GUIDES: Record<Category, { en: CategoryGuideCopy; zh: Cate
         '将 URL 编码或解码后再放入页面、表单、邮件或跟踪链接。',
         '为活动、文档和社媒渠道准备短链接与二维码相关素材。',
         '在链接面向用户或爬虫前检查字符串和 Web 格式是否正常。',
+      ],
+      relatedPages: [
+        { label: '站长工具中心', href: '/webmaster-toolkit' },
       ],
     },
   },
@@ -75,6 +98,9 @@ export const CATEGORY_GUIDES: Record<Category, { en: CategoryGuideCopy; zh: Cate
         'Analyze word count, character count, frequency, and readability signals for drafts.',
         'Find symbols, emoji, marks, and special characters for UI labels, posts, or documentation.',
       ],
+      relatedPages: [
+        { label: 'Text Tools Hub', href: '/text-tools' },
+      ],
     },
     zh: {
       intro:
@@ -83,6 +109,9 @@ export const CATEGORY_GUIDES: Record<Category, { en: CategoryGuideCopy; zh: Cate
         '清理粘贴文本、移除多余空格、规范换行，并准备发布文案。',
         '分析字数、字符数、词频和可读性等文本信号。',
         '查找符号、表情、标记和特殊字符，用于 UI、帖子或文档。',
+      ],
+      relatedPages: [
+        { label: '文本工具中心', href: '/text-tools' },
       ],
     },
   },
@@ -115,6 +144,10 @@ export const CATEGORY_GUIDES: Record<Category, { en: CategoryGuideCopy; zh: Cate
         'Prepare product titles, descriptions, tags, and marketing angles for marketplace listings.',
         'Research competitors, keyword opportunities, and market signals before updating products.',
       ],
+      relatedPages: [
+        { label: 'Ecommerce Tools Hub — full workflow guide', href: '/ecommerce-tools' },
+        { label: 'Best Etsy Fee Calculators — which one fits you?', href: '/best-etsy-fee-calculators' },
+      ],
     },
     zh: {
       intro:
@@ -123,6 +156,10 @@ export const CATEGORY_GUIDES: Record<Category, { en: CategoryGuideCopy; zh: Cate
         '估算平台费用、支付手续费、利润空间和不同定价方案。',
         '准备商品标题、描述、标签和适合平台的营销角度。',
         '更新产品前研究竞品、关键词机会和市场信号。',
+      ],
+      relatedPages: [
+        { label: '电商工具中心 — 完整工作流指南', href: '/ecommerce-tools' },
+        { label: 'Etsy 费用计算器对比：哪个最适合你？', href: '/best-etsy-fee-calculators' },
       ],
     },
   },
