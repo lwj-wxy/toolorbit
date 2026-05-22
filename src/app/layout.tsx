@@ -3,6 +3,7 @@ import Script from 'next/script';
 import '../index.css';
 import JsonLd from '../components/JsonLd';
 import DelayedAdSenseScript from '../components/DelayedAdSenseScript';
+import HtmlRoot from '../components/HtmlRoot';
 import Layout from '../components/Layout';
 import Providers from './providers';
 import { BRAND_DESCRIPTION } from '../data/brand';
@@ -52,7 +53,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const shouldLoadGoogleAnalytics = process.env.NODE_ENV === 'production' && Boolean(gaMeasurementId);
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <HtmlRoot>
       <head>
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
@@ -90,6 +91,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Layout>{children}</Layout>
         </Providers>
       </body>
-    </html>
+    </HtmlRoot>
   );
 }

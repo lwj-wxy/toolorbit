@@ -1,67 +1,190 @@
-# 🛠️ All-in-One 在线工具箱 (Web ToolBox)
+[中文版本 →](README_zh.md)
 
-本项目是一个基于 Next.js App Router、React 19 和 TypeScript 构建的现代化在线工具箱。它集合了开发者必备组件、文本排版、电商计算、媒体处理（PDF/图片）和数字单位换算等高频实用工具。
+# ToolOrbit — Free Online Toolbox
 
-**💡 核心理念：**
-所有涉及敏感数据提取、转换与解析的过程（如 JSON 格式化、密钥 Hash 计算、图像私密处理、ZIP 压缩包解包提取等）均依靠前端浏览器的底层算力在**离线沙盒环境**中完成。您的数据绝不上传云端或经过外部服务器，最大程度保障隐私与数据资产安全。
+**[toolorbit.site](https://toolorbit.site)** · Privacy-first, browser-based utilities for developers, creators, and online sellers.
 
----
-
-## 🧰 内置工具集大纲
-
-### 👨‍💻 开发者工具 (Developer Tools)
-- **JSON 格式化**: 支持 2/4 空格缩进切换，具备严格的语法异常防呆红字报错，适用于 API 抓包调试格式化。
-- **Base64 编解码**: 支持极广的字符包含处理（如 UTF-8 宽带中文字符和 Emoji 的互转），杜绝原生解析乱码。
-- **ASCII 编码表**: 0-127 位底层 ASCII 和不可见控制字符全量速查（横向关联二、八、十、十六进制与 HTML 实体转换）。
-- **URL 编解码**: 转义并防污染特殊字符网关传递链接，一键反钓鱼、去混淆解码还原重定向地址。
-- **哈希生成器**: 本地计算并生成包含 MD5, SHA-1/256/512 等全覆盖位数的不可逆混合加密特征码信息。
-- **UUID 在线生成**: 并发生成高达百余条严格符合 RFC 4122 v4 标准规则的随机主键，解决压测阶段参数短缺。
-- **Unicode 转换**: 解破生僻字与老旧 Java/C# 架构系统底层的 `\uXXXX` 字符双向互转与沟通阻碍。
-- **chmod 权限计算器**: 预置 755/777/644 可视化挡位并提供多选掩码配置，一键推导 Linux 的 RWX 八进制读写配置。
-
-### 📝 文本排版大观 (Text formatting)
-- **文本分析器**: 海量文字快速字数统计与多段落高频词组占比分析。
-- **字符串清洗**: 一键执行多余空行、特殊制表符以及繁杂标点符号的批量洗净格式化处理。
-- **特殊符号大全**: 货币、特殊 Emoji 情绪和数学理工方程式微小标号免打开系统输入法翻页，即达式点选复制。
-
-### 📦 格式聚合与条码生成 (Generators)
-- **二维码处理阵列**: 支持全量颜色渲染的一键专属二维码成码功能。另外配有逆向拖拽离线破译器，剥离二维码背后藏匿的网络地址。
-- **条形码生成**: 提供工业仓储及物流所需的 CODE128, EAN, UPC 国际商代码光栅级生成与高精度 PNG 输出下载。
-- **在线存档转换器**: 使用 JSZip 提供纯前端加载剥离 ZIP 压缩包内容；一栏式剔除、查阅选排内部项目后，重新极速打包成新档案集。无需下载第三方广告解压端。
-
-### 🧮 计算与数字推演 (Calculators & Converters)
-- **时间与时区推演**: 全球跨大洲时区对照转换（自动补齐当地夏令时系数），直出 Unix 时钟层级毫秒秒表代码。
-- **单位转换器**: 全自动化浮点演算，横跨长度、重量、温度等常数物理指标，避免查阅公式手工计算。
-- **进制转换**: 提供从初级的二进制往复至三十六进制的高算力数集穿插切换。
-- **人民币大写金额**: 突破对公记账痛点，全解构智能推导并填补万位十位 0 元空档期，规范输出带有“整/正”角的会计大写串。
-- **屏幕 PPI 计算器**: 提供 iPhone 或是各类 PC 台式显示器的 Retina （视网膜级）防颗粒渲染清晰屏鉴定基准。
-
-### 🛒 跨境与独立站运作 (E-commerce)
-- **Etsy / Stripe 费率计算器**: 立体化核算海内外电商交易流的上架折旧、税种、处理抽成并最终预估单品纯利润空间与盈亏防线。
-
-### 🖼️ PDF与图层介质渲染 (Media Processing)
-- **PDF 组件**: 支持高强度的文档流合并与截断拆分，亦支持将纸质源 PDF 高清提取为一页一档的静态图层集。
-- **图像矩阵**: 无损级别的多图片本地格式转码机，并内置了大体积压制瘦身和网页开发者常备的直接式 Base64 DOM 直挂代码解析器。
+No sign-up. No uploads to a server. Every tool runs locally in your browser using Web APIs and client-side computation. Your data stays on your device.
 
 ---
 
-## 🚀 启动与构建
-本项目彻底摒弃强依赖的微服务后端，基于现代化的 NPM 包管理工具一键热更调起：
+## What's Included
+
+### AI Tools (18)
+AI-powered generators and assistants for content creation, code review, and e-commerce.
+
+| Tool | Description |
+|------|-------------|
+| AI 万能图像生成 | Text-to-image generation with multiple styles and aspect ratios |
+| AI SVG 矢量图生成 | Generate SVG illustrations and icons from text descriptions |
+| AI 绘画提示词生成 | Midjourney / Stable Diffusion prompt engineering |
+| AI 头像/Logo 设计师 | Brand logo, site icon, and avatar generation |
+| AI 智能翻译 | Context-aware translation with native-level fluency |
+| AI 智能润色 | Polish articles, emails, and copy for professional tone |
+| AI 代码审查 (Code Review) | AI-powered bug detection, security audit, and refactor suggestions |
+| AI 周报生成器 | Turn scattered work notes into structured weekly reports |
+| AI Excel 公式助手 | Generate complex Excel / Google Sheets formulas from natural language |
+| AI 正则生成器 | Generate regex patterns with explanations from plain descriptions |
+| YouTube Title & Description Generator | SEO-optimized YouTube metadata generation |
+| 短视频脚本生成 | Viral short-video scripts with scene breakdowns and narration |
+| AI 会议纪要生成 | Extract structured meeting minutes from transcripts and notes |
+| 小红书文案生成 | Xiaohongshu post copy with emojis and trending hashtags |
+| Listing Generator | AI-driven e-commerce titles, descriptions, and tags |
+| Keyword Analyzer | Long-tail keyword discovery for e-commerce niches |
+| Competitor Tracker | Competitive analysis and opportunity identification |
+| Market Insights | Platform-specific market research and trend reports |
+
+### Developer Tools (13)
+JSON, encoding, crypto, and debugging utilities that run entirely in the browser.
+
+| Tool | Description |
+|------|-------------|
+| JSON 格式化 | Validate, beautify, and compress JSON with syntax error highlighting |
+| JSON 转 TypeScript | Auto-generate TypeScript interfaces from JSON data |
+| XML / JSON 互转 | Bidirectional XML ↔ JSON conversion |
+| 文本对比 Diff | Line-by-line and word-by-word text/code comparison |
+| Base64 编解码 | Encode and decode with full UTF-8 and emoji support |
+| URL 编解码 | Safe URL encoding/decoding with redirect deobfuscation |
+| 哈希生成器 | MD5, SHA-1, SHA-256, SHA-512 hash generation |
+| ASCII 编码表 | Full ASCII reference with binary, octal, decimal, hex, and HTML entities |
+| Unicode 转换 | Native characters ↔ \\uXXXX Unicode escape sequences |
+| JWT 在线解码 | Decode and inspect JSON Web Token payloads locally |
+| 正则表达式测试 | Live regex editing with match highlighting and capture groups |
+| 对称加密 (AES/DES) | AES, DES, RC4 symmetric encryption with configurable modes |
+| 国密算法 (SM2/3/4) | Chinese national cryptographic standards |
+
+### Generators (5)
+Codes, IDs, and security credentials generated client-side.
+
+| Tool | Description |
+|------|-------------|
+| 二维码生成器 | Customizable QR codes with color rendering |
+| 二维码识别 | Upload and decode QR code content |
+| 条形码生成 | CODE128, CODE39, EAN, UPC barcode generation and PNG export |
+| UUID 在线生成 | Batch-generate RFC 4122 version 4 UUIDs |
+| 强密码生成器 | High-entropy random password generation |
+
+### E-commerce Tools (5)
+Fee calculators for Etsy and Stripe sellers with real-time local computation.
+
+| Tool | Description |
+|------|-------------|
+| Etsy 利润计算器 | Full Etsy fee breakdown — listing, transaction, and payment processing |
+| Etsy 站外广告费计算器 | Estimate Offsite Ads fees (12% or 15%) with $100 per-order cap |
+| Etsy 目标售价计算器 | Reverse-calculate item price from target profit including all fee layers |
+| Etsy 监管与汇率费计算器 | Regulatory Operating Fee and 2.5% currency conversion estimates by country |
+| Stripe 手续费计算器 | Forward and reverse Stripe fee calculation (2.9% + $0.30) |
+
+### PDF Tools (4)
+Merge, split, and convert PDFs without uploading files to a server.
+
+| Tool | Description |
+|------|-------------|
+| PDF 合并 | Combine multiple PDFs into one document |
+| PDF 拆分 | Extract pages or split large PDFs into smaller files |
+| PDF 转图片 | Convert PDF pages to high-quality JPG or PNG |
+| 图片转 PDF | Bundle JPG/PNG images into a single PDF |
+
+### Image Tools (6)
+Compress, convert, and transform images in the browser.
+
+| Tool | Description |
+|------|-------------|
+| 图片在线压缩 | Lossy/lossless compression to reduce file size |
+| 图片格式转换 | Convert between JPG, PNG, WebP, and other formats |
+| SVG 转 PNG | Rasterize SVG vector graphics to PNG |
+| 图片转 Base64 | Encode images to Base64 for inline HTML/CSS embedding |
+| 图片裁剪选区 | Visual crop tool with precise thumbnail extraction |
+| 图片转 ICO 图标 | Generate .ico files with proper headers for favicons |
+
+### Text Tools (3)
+Analyze, clean, and compose text.
+
+| Tool | Description |
+|------|-------------|
+| 文本分析器 | Word/character/paragraph count with frequency analysis |
+| 字符串清洗 | Strip whitespace, tabs, newlines, and normalize punctuation |
+| 特殊符号大全 | Emoji, math symbols, currency signs — click to copy |
+
+### Calculators & Converters (11)
+Unit conversion, time, color, and encoding utilities.
+
+| Tool | Description |
+|------|-------------|
+| 时间戳转换 | Unix timestamp ↔ human-readable date conversion |
+| 进制转换 | Base 2–36 arbitrary-radix conversion with big-integer support |
+| 单位转换器 | Length, weight, volume, temperature, and more |
+| 时间转换器 | Cross-timezone conversion with DST and UTC offsets |
+| 存档转换器 | ZIP/RAR/TAR archive packing and extraction in the browser |
+| 人民币大写转换 | Arabic numerals to formal Chinese financial capitalization |
+| 屏幕 PPI 计算器 | Pixel density from physical dimensions and resolution |
+| 颜色代码转换 | HEX ↔ RGB ↔ HSL ↔ HSV ↔ CMYK with alpha extraction |
+| 阶梯调色板推演工具 | Tints and shades generation from a base color |
+| 屏幕颜色拾取器 | Browser-native EyeDropper API for screen color picking |
+| 16 进制转字符串 | Text ↔ hexadecimal string encoding |
+
+### Webmaster Tools (1)
+
+| Tool | Description |
+|------|-------------|
+| 短链接生成 | URL shortening for social media and sharing |
+
+---
+
+## Blog
+
+31 in-depth articles covering tool mechanics, developer workflows, Etsy selling strategies, and AI productivity. [Browse the blog →](https://toolorbit.site/blog)
+
+---
+
+## Privacy & Security
+
+- **All computation runs locally** — JSON parsing, hash generation, image processing, PDF manipulation, and encryption all execute in your browser via Web APIs. No data is ever uploaded to a server.
+- **No account required** — every tool works immediately without sign-up.
+- **Content Security Policy** headers restrict script sources and block inline execution.
+- **HTTPS only** with HSTS preload and secure defaults.
+
+---
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|------------|
+| Framework | [Next.js 16](https://nextjs.org/) (App Router) |
+| UI Library | [React 19](https://react.dev/) |
+| Language | TypeScript (strict mode) |
+| Styling | [Tailwind CSS 4](https://tailwindcss.com/) |
+| Icons | [Lucide React](https://lucide.dev/) |
+| Animations | [Motion](https://motion.dev/) |
+| Content | react-markdown + remark-gfm |
+| Charts | Recharts |
+| i18n | react-i18next (English / 简体中文) |
+| PDF | pdf-lib, pdfjs-dist, jspdf |
+| Compression | JSZip |
+| Deployment | Static export with pre-compressed assets |
+
+---
+
+## Development
 
 ```bash
-# 进入工程目录并装载配套包依赖
+# Install dependencies
 npm install
 
-# 唤醒 VITE 实时热加载开发服务器
+# Start dev server
 npm run dev
 
-# 编译投递到公域分发网络 (CDN) 的压缩产物
+# Production build
 npm run build
+
+# Start production server
+npm start
 ```
 
-## 🛡️ 技术栈概览
-- **核心框架**: [Next.js](https://nextjs.org/) + [React 19](https://react.dev/) (App Router & SSR/SSG)
-- **类型系统**: TypeScript 静态检查增强
-- **视觉底层**: [Tailwind CSS](https://tailwindcss.com/) (实用至上，拒绝臃肿层叠)
-- **图形徽章**: [Lucide React](https://lucide.dev/)
-- **特殊处理链**: JSZip, Day.js, JsBarcode等等
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+---
+
+## License
+
+MIT © ToolOrbit
