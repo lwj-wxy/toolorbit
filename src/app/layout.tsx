@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import '../index.css';
 import JsonLd from '../components/JsonLd';
 import DelayedAdSenseScript from '../components/DelayedAdSenseScript';
-import GoogleAnalyticsScript from '../components/GoogleAnalyticsScript';
 import Layout from '../components/Layout';
 import Providers from './providers';
 import { BRAND_DESCRIPTION } from '../data/brand';
@@ -49,6 +49,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const gaMeasurementId = getGaMeasurementId();
   const toolTrackingData = getToolTrackingData();
+  const shouldLoadGoogleAnalytics = process.env.NODE_ENV === 'production' && Boolean(gaMeasurementId);
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -62,7 +63,28 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body suppressHydrationWarning>
         <JsonLd id="structured-data-organization" data={organizationJsonLd()} />
         <JsonLd id="structured-data-website" data={websiteJsonLd()} />
-        <GoogleAnalyticsScript measurementId={gaMeasurementId} />
+        {shouldLoadGoogleAnalytics ? (
+          <>
+            <Script
+              id="toolorbit-ga-loader"
+              src={`https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(gaMeasurementId)}`}
+              strategy="afterInteractive"
+            />
+            <Script
+              id="toolorbit-ga-init"
+              strategy="afterInteractive"
+              dangerouslySetInnerHTML={{
+                __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  window.gtag = window.gtag || gtag;
+                  gtag('js', new Date());
+                  gtag('config', ${JSON.stringify(gaMeasurementId)});
+                `,
+              }}
+            />
+          </>
+        ) : null}
         <DelayedAdSenseScript client={googleAdsenseClient} />
         <Providers toolTrackingData={toolTrackingData}>
           <Layout>{children}</Layout>
