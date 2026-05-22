@@ -31,6 +31,16 @@ const scriptSrc = [
   'https://*.adtrafficquality.google',
 ].join(' ');
 
+const frameSrc = [
+  'https://googleads.g.doubleclick.net',
+  'https://pagead2.googlesyndication.com',
+  'https://tpc.googlesyndication.com',
+  'https://www.google.com',
+  'https://ep1.adtrafficquality.google',
+  'https://ep2.adtrafficquality.google',
+  'https://*.adtrafficquality.google',
+].join(' ');
+
 const contentSecurityPolicy = [
   "default-src 'self'",
   `script-src ${scriptSrc}`,
@@ -38,7 +48,7 @@ const contentSecurityPolicy = [
   "img-src 'self' https: data: blob:",
   "font-src 'self' data:",
   "connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://analytics.google.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net https://stats.g.doubleclick.net https://ep1.adtrafficquality.google https://ep2.adtrafficquality.google https://*.adtrafficquality.google",
-  "frame-src https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com https://tpc.googlesyndication.com",
+  `frame-src ${frameSrc}`,
   "worker-src 'self' blob:",
   "object-src 'none'",
   "base-uri 'self'",
