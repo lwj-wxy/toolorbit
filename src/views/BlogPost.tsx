@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { Link } from '../lib/navigation';
 import { useTranslation } from 'react-i18next';
-import { Calendar, Clock, Tag, FileText, Wrench, ShieldCheck } from 'lucide-react';
+import { Calendar, Clock, Tag, Wrench, ArrowLeft, ChevronRight } from 'lucide-react';
 import { BLOG_POSTS } from '../constants/blogData';
 import { BLOG_RELATED_TOOLS } from '../data/blogRelatedTools';
 import { TOOLS } from '../data/tools';
@@ -30,7 +30,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, initialMarkdown = '' }) => {
   const { t, i18n } = useTranslation();
   const [markdown, setMarkdown] = useState<string>(initialMarkdown);
 
-  const post = BLOG_POSTS.find(p => p.slug === slug);
+  const post = BLOG_POSTS.find((p) => p.slug === slug);
   const author = getAuthorById(post?.authorId);
 
   useEffect(() => {
@@ -38,7 +38,6 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, initialMarkdown = '' }) => {
     const lang = i18n.language && i18n.language.startsWith('zh') ? 'zh' : 'en';
     const cacheKey = `${lang}/${slug}`;
 
-    // Cache the server-provided initial markdown
     if (initialMarkdown) {
       markdownCache.set(cacheKey, initialMarkdown);
     }
@@ -49,13 +48,13 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, initialMarkdown = '' }) => {
     }
 
     fetch(`/articles/${cacheKey}.md`)
-      .then(res => {
+      .then((res) => {
         if (!res.ok) {
           return t(`blog.posts.${slug}.content`);
         }
         return res.text();
       })
-      .then(text => {
+      .then((text) => {
         if (text === `blog.posts.${slug}.content`) {
           setMarkdown('');
         } else {
@@ -68,219 +67,194 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, initialMarkdown = '' }) => {
 
   if (!post) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="flex min-h-[60vh] items-center justify-center">
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-slate-900 mb-4">404</h1>
-          <p className="text-slate-600 mb-8">Post not found</p>
-          <Link to="/blog" className="text-emerald-600 font-bold hover:underline">Back to Blog</Link>
+          <p className="text-7xl font-bold text-slate-200 dark:text-slate-800">404</p>
+          <p className="mt-4 text-slate-500">Post not found</p>
+          <Link
+            to="/blog"
+            className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-cyan-600 hover:text-cyan-700 dark:text-cyan-400"
+          >
+            <ArrowLeft size={16} />
+            Back to Blog
+          </Link>
         </div>
       </div>
     );
   }
 
-  // Related Posts Logic: same category first, otherwise any other posts
-  const relatedPosts = BLOG_POSTS
-    .filter(p => p.slug !== post.slug)
+  const relatedPosts = BLOG_POSTS.filter((p) => p.slug !== post.slug)
     .sort((a, b) => {
       if (a.category === post.category && b.category !== post.category) return -1;
       if (a.category !== post.category && b.category === post.category) return 1;
       return 0;
     })
-    .slice(0, 2);
+    .slice(0, 3);
+
   const relatedTools = (BLOG_RELATED_TOOLS[slug] || [])
     .map((path) => TOOLS.find((tool) => tool.path === path))
     .filter((tool) => tool && !tool.isNoIndex) as typeof TOOLS;
 
   const title = t(`blog.posts.${post.slug}.title`);
-  // Estimate reading time based on markdown length
   const readingTime = Math.max(3, Math.ceil(markdown.length / 800));
 
   return (
-    <article className="px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
-      <div className="mx-auto max-w-7xl">
-      <nav className="mb-8 flex items-center gap-2 overflow-x-auto whitespace-nowrap pb-2 text-sm font-medium text-slate-500 dark:text-slate-400">
-        <Link to="/" className="flex flex-shrink-0 items-center gap-1.5 transition-colors hover:text-emerald-600">
+    <article className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
+      {/* Breadcrumb */}
+      <nav className="mb-8 flex items-center gap-2 overflow-x-auto whitespace-nowrap pb-2 text-sm font-medium text-slate-400 dark:text-slate-500">
+        <Link to="/" className="flex-shrink-0 transition-colors hover:text-cyan-600 dark:hover:text-cyan-400">
           {t('common.nav_home') || 'Home'}
         </Link>
-        <span className="flex-shrink-0 text-slate-300 dark:text-slate-600">{"/"}</span>
-        <Link to="/blog" className="flex-shrink-0 transition-colors hover:text-emerald-600">
+        <span className="flex-shrink-0 text-slate-300 dark:text-slate-700">/</span>
+        <Link to="/blog" className="flex-shrink-0 transition-colors hover:text-cyan-600 dark:hover:text-cyan-400">
           {t('blog.nav') || 'Blog'}
         </Link>
-        <span className="flex-shrink-0 text-slate-300 dark:text-slate-600">{"/"}</span>
-        <span className="inline-block max-w-[220px] flex-shrink-0 overflow-hidden text-ellipsis break-all text-slate-800 dark:text-slate-200 sm:max-w-none">
-          {t(`blog.posts.${post.slug}.title`)}
+        <span className="flex-shrink-0 text-slate-300 dark:text-slate-700">/</span>
+        <span className="inline-block max-w-[200px] flex-shrink-0 truncate text-slate-700 dark:text-slate-300 sm:max-w-none">
+          {title}
         </span>
       </nav>
 
-      <header className="mb-10 grid gap-8 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start">
-        <div className="min-w-0">
-          <div className="mb-6 flex flex-wrap items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
-            <span className="inline-flex items-center gap-1.5 rounded-md border border-emerald-200 bg-emerald-50 px-3 py-1.5 font-bold text-emerald-700 dark:border-emerald-900/60 dark:bg-emerald-950/30 dark:text-emerald-300">
-              <Tag size={14} />
-              {t(`blog.categories.${post.category.toLowerCase()}`, { defaultValue: post.category })}
-            </span>
-            <span className="inline-flex items-center gap-1.5 rounded-md border border-slate-200 bg-white px-3 py-1.5 font-medium text-slate-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300">
-              <Calendar size={14} />
-              {post.date}
-            </span>
-            <span className="inline-flex items-center gap-1.5 rounded-md border border-slate-200 bg-white px-3 py-1.5 font-medium text-slate-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300">
-              <Clock size={14} />
-              {readingTime} min read
-            </span>
-          </div>
-
-          <h1 className="max-w-4xl text-4xl font-black leading-tight text-slate-950 dark:text-white md:text-5xl lg:text-6xl">
-            {title}
-          </h1>
-
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-600 dark:text-slate-300">
-            {t(`blog.posts.${post.slug}.summary`, { defaultValue: '' })}
-          </p>
-
-          <div className="mt-8 flex flex-col gap-4 border-y border-slate-200 py-5 dark:border-slate-800 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex items-start gap-3">
-              <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg border border-slate-200 bg-white text-sm font-black text-emerald-700 shadow-sm dark:border-slate-800 dark:bg-slate-900 dark:text-emerald-300">
-                {author.avatarInitials}
-              </div>
-              <div className="min-w-0">
-                <p className="font-bold text-slate-950 dark:text-white">
-                  {t('blog.editorial_byline', {
-                    authorName: author.name,
-                    defaultValue: `Written and maintained by ${author.name}`,
-                  })}
-                </p>
-                <p className="mt-1 max-w-2xl text-sm leading-6 text-slate-600 dark:text-slate-400">
-                  {t('blog.editorial_note', {
-                    defaultValue: author.bio,
-                  })}
-                </p>
-              </div>
-            </div>
-            <Link
-              to={author.url}
-              className="inline-flex flex-shrink-0 items-center justify-center gap-2 rounded-md border border-slate-300 bg-white px-3 py-2 text-sm font-bold text-slate-700 transition-colors hover:border-emerald-300 hover:bg-emerald-50 hover:text-emerald-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-emerald-800 dark:hover:bg-emerald-950/30 dark:hover:text-emerald-300"
-            >
-              <ShieldCheck size={16} />
-              {t('blog.editorial_policy', { defaultValue: 'Author profile' })}
-            </Link>
-          </div>
+      {/* Article Header */}
+      <header className="mb-10">
+        <div className="flex flex-wrap items-center gap-2 mb-4">
+          <span className="inline-flex items-center gap-1.5 rounded-md bg-cyan-50 px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-cyan-700 dark:bg-cyan-950/40 dark:text-cyan-300">
+            <Tag size={13} />
+            {t(`blog.categories.${post.category.toLowerCase()}`, { defaultValue: post.category })}
+          </span>
+          <span className="inline-flex items-center gap-1.5 text-xs text-slate-400">
+            <Calendar size={13} />
+            {post.date}
+          </span>
+          <span className="inline-flex items-center gap-1.5 text-xs text-slate-400">
+            <Clock size={13} />
+            {readingTime} min read
+          </span>
         </div>
 
-        <aside className="lg:pt-2">
-          <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
-            <div className="relative aspect-[4/3] overflow-hidden bg-slate-100 dark:bg-slate-800">
-          <Image
-                src={post.image}
-                alt={title}
-                fill
-                priority
-                sizes="(min-width: 1024px) 360px, 100vw"
-                className="object-cover"
-              />
+        <h1 className="max-w-3xl text-2xl font-bold leading-tight text-slate-900 dark:text-slate-100 sm:text-3xl lg:text-4xl">
+          {title}
+        </h1>
+
+        <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-500 dark:text-slate-400">
+          {t(`blog.posts.${post.slug}.summary`, { defaultValue: '' })}
+        </p>
+
+        {/* Author row */}
+        <div className="mt-6 flex flex-col gap-4 border-y border-slate-100 py-4 dark:border-slate-800 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center gap-3">
+            <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-cyan-50 text-sm font-bold text-cyan-700 dark:bg-cyan-950/40 dark:text-cyan-300">
+              {author.avatarInitials}
             </div>
-            <div className="grid grid-cols-3 divide-x divide-slate-200 border-t border-slate-200 text-center dark:divide-slate-800 dark:border-slate-800">
-              <div className="p-4">
-                <p className="text-[11px] font-bold uppercase text-slate-400">Type</p>
-                <p className="mt-1 text-sm font-black text-slate-900 dark:text-slate-100">
-                  {markdown.length > 2000 ? 'Guide' : 'Article'}
-                </p>
-              </div>
-              <div className="p-4">
-                <p className="text-[11px] font-bold uppercase text-slate-400">Read</p>
-                <p className="mt-1 text-sm font-black text-slate-900 dark:text-slate-100">{readingTime} min</p>
-              </div>
-              <div className="p-4">
-                <p className="text-[11px] font-bold uppercase text-slate-400">Topic</p>
-                <p className="mt-1 truncate text-sm font-black text-slate-900 dark:text-slate-100">
-                  {t(`blog.categories.${post.category.toLowerCase()}`, { defaultValue: post.category })}
-                </p>
-              </div>
+            <div>
+              <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">{author.name}</p>
+              <p className="text-xs text-slate-400 dark:text-slate-500">{author.bio}</p>
             </div>
           </div>
-        </aside>
+          <Link
+            to={author.url}
+            className="inline-flex flex-shrink-0 items-center gap-1.5 self-start rounded-md border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-600 transition-colors hover:border-cyan-200 hover:text-cyan-700 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400 dark:hover:border-cyan-800 dark:hover:text-cyan-400"
+          >
+            Author profile
+          </Link>
+        </div>
       </header>
 
-      <div className="grid gap-10 lg:grid-cols-[minmax(0,780px)_320px] lg:items-start">
+      {/* Main content + sidebar */}
+      <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-start">
+        {/* Article content */}
         <div className="min-w-0">
-        <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
-          <div className="border-b border-slate-200 bg-slate-50 px-5 py-3 dark:border-slate-800 dark:bg-slate-950/40">
-            <div className="flex items-center gap-2 text-xs font-bold uppercase text-slate-500 dark:text-slate-400">
-              <FileText size={14} className="text-emerald-600" />
-              Article
-            </div>
+          {/* Featured image */}
+          <div className="relative mb-8 aspect-[2/1] overflow-hidden rounded-xl bg-slate-100 dark:bg-slate-800">
+            <Image
+              src={post.image}
+              alt={title}
+              fill
+              priority
+              sizes="(min-width: 1024px) 780px, 100vw"
+              className="object-cover"
+            />
           </div>
-          <div className="px-5 py-8 sm:px-8 lg:px-10">
-            {markdown ? (
-              <div className="prose prose-slate prose-lg max-w-none
-                dark:prose-invert
-                prose-headings:scroll-mt-24 prose-headings:text-slate-950 dark:prose-headings:text-slate-100 prose-headings:font-black
-                prose-h2:mt-12 prose-h2:border-t prose-h2:border-slate-200 prose-h2:pt-8 prose-h2:text-2xl prose-h2:leading-tight dark:prose-h2:border-slate-800 sm:prose-h2:text-3xl
-                prose-h3:mt-8 prose-h3:text-xl prose-h3:leading-snug sm:prose-h3:text-2xl
-                prose-p:text-slate-700 dark:prose-p:text-slate-300 prose-p:leading-8
-                prose-li:text-slate-700 dark:prose-li:text-slate-300 prose-li:leading-7
-                prose-img:rounded-lg prose-img:border prose-img:border-slate-200 dark:prose-img:border-slate-800
-                prose-strong:text-slate-950 dark:prose-strong:text-slate-100
-                prose-a:text-emerald-700 prose-a:font-bold prose-a:no-underline hover:prose-a:text-emerald-800 hover:prose-a:underline dark:prose-a:text-emerald-300
-                prose-blockquote:rounded-r-lg prose-blockquote:border-l-4 prose-blockquote:border-emerald-500 prose-blockquote:bg-emerald-50/60 prose-blockquote:px-6 prose-blockquote:py-2 prose-blockquote:text-slate-700 prose-blockquote:not-italic dark:prose-blockquote:bg-emerald-950/20 dark:prose-blockquote:text-slate-300
-                prose-code:rounded prose-code:bg-slate-100 prose-code:px-1.5 prose-code:py-0.5 prose-code:text-emerald-700 prose-code:before:content-none prose-code:after:content-none dark:prose-code:bg-slate-800 dark:prose-code:text-emerald-300
-                prose-pre:rounded-lg prose-pre:border prose-pre:border-slate-800 prose-pre:bg-slate-950 prose-pre:text-slate-50">
-                <MarkdownContent markdown={markdown} />
-              </div>
-            ) : (
-              <div className="flex justify-center py-20">
-                <div className="flex animate-pulse items-center space-x-2 text-slate-400">
-                  <div className="h-2 w-2 rounded-full bg-slate-400"></div>
-                  <div className="h-2 w-2 rounded-full bg-slate-400"></div>
-                  <div className="h-2 w-2 rounded-full bg-slate-400"></div>
-                  <span className="ml-2 font-medium">Loading article content...</span>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
 
-        <div className="mt-12 border-t border-slate-200 pt-10 text-center dark:border-slate-800">
-          <h3 className="mb-4 text-lg font-black text-slate-950 dark:text-white">{t('blog.shareTitle') || 'Share this article'}</h3>
-          <div className="flex justify-center gap-4">
+          {/* Markdown body */}
+          {markdown ? (
+            <div
+              className="prose prose-slate max-w-none
+                dark:prose-invert
+                prose-headings:scroll-mt-24 prose-headings:font-bold prose-headings:tracking-tight
+                prose-h2:mt-10 prose-h2:border-t prose-h2:border-slate-100 prose-h2:pt-8 prose-h2:text-xl prose-h2:leading-tight dark:prose-h2:border-slate-800 sm:prose-h2:text-2xl
+                prose-h3:mt-8 prose-h3:text-lg prose-h3:leading-snug sm:prose-h3:text-xl
+                prose-p:text-[15px] prose-p:leading-7 prose-p:text-slate-600 dark:prose-p:text-slate-300
+                prose-li:text-[15px] prose-li:leading-7 prose-li:text-slate-600 dark:prose-li:text-slate-300
+                prose-img:rounded-lg prose-img:border prose-img:border-slate-200 dark:prose-img:border-slate-800
+                prose-strong:text-slate-900 dark:prose-strong:text-slate-100
+                prose-a:font-semibold prose-a:text-cyan-600 prose-a:no-underline hover:prose-a:text-cyan-700 hover:prose-a:underline dark:prose-a:text-cyan-400 dark:hover:prose-a:text-cyan-300
+                prose-blockquote:rounded-r-lg prose-blockquote:border-l-[3px] prose-blockquote:border-cyan-400 prose-blockquote:bg-cyan-50/60 prose-blockquote:px-5 prose-blockquote:py-2 prose-blockquote:text-[15px] prose-blockquote:not-italic prose-blockquote:text-slate-600 dark:prose-blockquote:bg-cyan-950/20 dark:prose-blockquote:text-slate-300
+                prose-code:rounded-md prose-code:bg-slate-100 prose-code:px-1.5 prose-code:py-0.5 prose-code:text-sm prose-code:font-medium prose-code:text-cyan-700 prose-code:before:content-none prose-code:after:content-none dark:prose-code:bg-slate-800 dark:prose-code:text-cyan-300
+                prose-pre:rounded-lg prose-pre:border prose-pre:border-slate-200 prose-pre:bg-slate-50 prose-pre:text-sm dark:prose-pre:border-slate-800 dark:prose-pre:bg-slate-950
+                prose-hr:border-slate-100 dark:prose-hr:border-slate-800"
+            >
+              <MarkdownContent markdown={markdown} />
+            </div>
+          ) : (
+            <div className="flex justify-center py-20">
+              <div className="flex animate-pulse items-center gap-2 text-sm text-slate-400">
+                <div className="h-2 w-2 rounded-full bg-slate-300 dark:bg-slate-600" />
+                <div className="h-2 w-2 rounded-full bg-slate-300 dark:bg-slate-600" />
+                <div className="h-2 w-2 rounded-full bg-slate-300 dark:bg-slate-600" />
+                <span className="ml-1 font-medium">Loading article...</span>
+              </div>
+            </div>
+          )}
+
+          {/* Share */}
+          <div className="mt-12 border-t border-slate-100 pt-8 dark:border-slate-800">
+            <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">
+              {t('blog.shareTitle') || 'Share this article'}
+            </p>
             <button
               onClick={() => {
                 const shareUrl = window.location.href;
-                const shareText = title;
-                window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`, '_blank', 'noopener,noreferrer');
+                window.open(
+                  `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(shareUrl)}`,
+                  '_blank',
+                  'noopener,noreferrer',
+                );
               }}
-              className="inline-flex items-center justify-center gap-2 rounded-md bg-[#1DA1F2] px-5 py-3 text-sm font-bold text-white shadow-sm transition-colors hover:bg-[#1a8cd8]"
+              className="mt-3 inline-flex items-center gap-2 rounded-lg bg-slate-900 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-slate-800 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-white"
             >
-              <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+              <svg className="h-4 w-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
               </svg>
-              {t('blog.shareTwitter') || 'Share on Twitter'}
+              Share on X
             </button>
           </div>
         </div>
-        </div>
 
-        <aside className="space-y-6 lg:sticky lg:top-24">
+        {/* Sidebar */}
+        <aside className="space-y-5 lg:sticky lg:top-24">
+          {/* Post meta card */}
           <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-            <p className="text-xs font-bold uppercase text-slate-400">Reading context</p>
-            <div className="mt-4 space-y-4 text-sm">
+            <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">About this article</p>
+            <div className="mt-4 space-y-4">
               <div className="flex items-start gap-3">
-                <div className="mt-0.5 flex h-8 w-8 items-center justify-center rounded-md bg-emerald-50 text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-300">
-                  <Tag size={16} />
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-cyan-50 text-cyan-600 dark:bg-cyan-950/40 dark:text-cyan-400">
+                  <Tag size={15} />
                 </div>
-                <div>
-                  <p className="font-bold text-slate-950 dark:text-white">
+                <div className="min-w-0">
+                  <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">
                     {t(`blog.categories.${post.category.toLowerCase()}`, { defaultValue: post.category })}
                   </p>
-                  <p className="text-slate-500 dark:text-slate-400">Topic area</p>
+                  <p className="text-xs text-slate-400 dark:text-slate-500">Topic</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <div className="mt-0.5 flex h-8 w-8 items-center justify-center rounded-md bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300">
-                  <Clock size={16} />
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400">
+                  <Clock size={15} />
                 </div>
-                <div>
-                  <p className="font-bold text-slate-950 dark:text-white">{readingTime} min read</p>
-                  <p className="text-slate-500 dark:text-slate-400">
+                <div className="min-w-0">
+                  <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">{readingTime} min read</p>
+                  <p className="text-xs text-slate-400 dark:text-slate-500">
                     {markdown.length > 2000 ? 'In-depth guide' : 'Focused article'}
                   </p>
                 </div>
@@ -288,96 +262,104 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, initialMarkdown = '' }) => {
             </div>
           </div>
 
-      {relatedTools.length > 0 && (
-            <div className="rounded-xl border border-emerald-100 bg-emerald-50/70 p-5 shadow-sm dark:border-emerald-950/60 dark:bg-emerald-950/20">
-              <div className="mb-5 flex items-start gap-3">
-                <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-white text-emerald-600 shadow-sm dark:bg-slate-900 dark:text-emerald-300">
-              <Wrench size={20} />
-            </div>
-            <div>
-                  <h2 className="text-lg font-black text-slate-950 dark:text-white">
-                {t('blog.related_tools', { defaultValue: 'Related tools' })}
-              </h2>
-                  <p className="mt-1 text-sm leading-6 text-slate-600 dark:text-slate-400">
-                {t('blog.related_tools_desc', {
-                  defaultValue: 'Use these ToolOrbit utilities to apply the workflow from this article.',
+          {/* Related tools */}
+          {relatedTools.length > 0 && (
+            <div className="rounded-xl border border-cyan-100 bg-cyan-50/50 p-5 shadow-sm dark:border-cyan-950/50 dark:bg-cyan-950/15">
+              <div className="mb-4 flex items-center gap-2">
+                <Wrench size={16} className="text-cyan-600 dark:text-cyan-400" />
+                <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">
+                  {t('blog.related_tools', { defaultValue: 'Related tools' })}
+                </p>
+              </div>
+              <div className="space-y-2.5">
+                {relatedTools.map((tool) => {
+                  const Icon = tool.icon;
+                  return (
+                    <Link
+                      key={tool.id}
+                      to={tool.path}
+                      className="group flex items-start gap-3 rounded-lg border border-white/80 bg-white/80 p-3 transition-colors hover:border-cyan-200 hover:bg-white dark:border-slate-800 dark:bg-slate-900/80 dark:hover:border-cyan-900 dark:hover:bg-slate-900"
+                    >
+                      <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-md bg-cyan-50 text-cyan-600 dark:bg-cyan-950/40 dark:text-cyan-400">
+                        <Icon size={16} />
+                      </div>
+                      <div className="min-w-0">
+                        <p className="text-sm font-semibold text-slate-900 transition-colors group-hover:text-cyan-700 dark:text-slate-100 dark:group-hover:text-cyan-400">
+                          {t(`tools.${tool.id}.name`, { defaultValue: tool.name })}
+                        </p>
+                        <p className="mt-0.5 line-clamp-2 text-xs leading-5 text-slate-500 dark:text-slate-400">
+                          {t(`tools.${tool.id}.description`, { defaultValue: tool.description })}
+                        </p>
+                      </div>
+                    </Link>
+                  );
                 })}
-              </p>
+              </div>
             </div>
-          </div>
-              <div className="space-y-3">
-            {relatedTools.map((tool) => {
-              const Icon = tool.icon;
-              return (
-                <Link
-                  key={tool.id}
-                  to={tool.path}
-                      className="group block rounded-lg border border-white bg-white p-4 shadow-sm transition-colors hover:border-emerald-200 hover:bg-emerald-50/60 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-emerald-900 dark:hover:bg-emerald-950/20"
-                >
-                  <div className="mb-3 flex items-center gap-3">
-                        <div className="flex h-9 w-9 items-center justify-center rounded-md bg-emerald-50 text-emerald-600 dark:bg-emerald-950/30 dark:text-emerald-300">
-                      <Icon size={18} />
-                    </div>
-                        <span className="text-sm font-bold text-slate-950 group-hover:text-emerald-700 dark:text-slate-100 dark:group-hover:text-emerald-300">
-                      {t(`tools.${tool.id}.name`, { defaultValue: tool.name })}
-                    </span>
-                  </div>
-                      <p className="line-clamp-2 text-xs leading-5 text-slate-500 dark:text-slate-400">
-                    {t(`tools.${tool.id}.description`, { defaultValue: tool.description })}
-                  </p>
-                </Link>
-              );
-            })}
-          </div>
-            </div>
-      )}
-        </aside>
+          )}
 
+          {/* Back to blog link */}
+          <Link
+            to="/blog"
+            className="flex items-center gap-1.5 text-sm font-medium text-slate-500 transition-colors hover:text-cyan-600 dark:text-slate-400 dark:hover:text-cyan-400"
+          >
+            <ArrowLeft size={15} />
+            Back to all articles
+          </Link>
+        </aside>
       </div>
 
-      {/* Related Posts */}
-      <div className="mt-14 border-t border-slate-200/80 pt-10 dark:border-slate-800">
+      {/* Related posts */}
+      <section className="mt-14 border-t border-slate-100 pt-10 dark:border-slate-800">
         <div className="mb-6 flex items-end justify-between gap-4">
           <div>
-            <p className="text-xs font-bold uppercase text-emerald-700 dark:text-emerald-300">Keep reading</p>
-            <h3 className="mt-2 text-2xl font-black text-slate-950 dark:text-white">{t('blog.related_posts') || 'Related Articles'}</h3>
+            <p className="text-xs font-semibold uppercase tracking-wider text-cyan-600 dark:text-cyan-400">
+              Keep reading
+            </p>
+            <h2 className="mt-1.5 text-xl font-bold text-slate-900 dark:text-slate-100">
+              {t('blog.related_posts') || 'Related Articles'}
+            </h2>
           </div>
-          <Link to="/blog" className="hidden rounded-md border border-slate-300 bg-white px-3 py-2 text-sm font-bold text-slate-700 transition-colors hover:border-emerald-300 hover:bg-emerald-50 hover:text-emerald-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-emerald-800 dark:hover:bg-emerald-950/30 sm:inline-flex">
-            {t('blog.nav') || 'Blog'}
+          <Link
+            to="/blog"
+            className="hidden items-center gap-1 rounded-lg border border-slate-200 px-3 py-1.5 text-sm font-medium text-slate-600 transition-colors hover:border-cyan-200 hover:text-cyan-700 dark:border-slate-800 dark:text-slate-400 dark:hover:border-cyan-800 dark:hover:text-cyan-400 sm:inline-flex"
+          >
+            View all
+            <ChevronRight size={14} />
           </Link>
         </div>
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          {relatedPosts.map(related => (
-            <Link 
+
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {relatedPosts.map((related) => (
+            <Link
               key={related.slug}
               to={`/blog/${related.slug}`}
-              className="group grid overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition-colors hover:border-emerald-200 hover:bg-emerald-50/30 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-emerald-900 dark:hover:bg-emerald-950/10 sm:grid-cols-[180px_minmax(0,1fr)]"
+              className="group flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md dark:border-slate-800 dark:bg-slate-900"
             >
-              <div className="relative min-h-48 overflow-hidden bg-slate-100 dark:bg-slate-800 sm:min-h-full">
+              <div className="relative aspect-[16/9] overflow-hidden bg-slate-100 dark:bg-slate-800">
                 <Image
-                  src={related.image} 
+                  src={related.image}
                   alt={t(`blog.posts.${related.slug}.title`)}
                   fill
-                  sizes="(min-width: 768px) 180px, 100vw"
-                  className="object-cover"
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
-              <div className="flex min-w-0 flex-col p-5">
-                <span className="mb-2 text-xs font-bold uppercase text-emerald-700 dark:text-emerald-300">
+              <div className="flex flex-1 flex-col p-4">
+                <span className="text-xs font-semibold uppercase tracking-wide text-cyan-600 dark:text-cyan-400">
                   {t(`blog.categories.${related.category.toLowerCase()}`, { defaultValue: related.category })}
                 </span>
-                <h4 className="mb-2 line-clamp-2 text-lg font-black leading-snug text-slate-950 transition-colors group-hover:text-emerald-700 dark:text-slate-100 dark:group-hover:text-emerald-300">
+                <h3 className="mt-1 line-clamp-2 text-sm font-bold leading-snug text-slate-900 transition-colors group-hover:text-cyan-700 dark:text-slate-100 dark:group-hover:text-cyan-400">
                   {t(`blog.posts.${related.slug}.title`)}
-                </h4>
-                <p className="line-clamp-3 flex-1 text-sm leading-6 text-slate-600 dark:text-slate-400">
+                </h3>
+                <p className="mt-1 line-clamp-2 text-[13px] leading-relaxed text-slate-500 dark:text-slate-400">
                   {t(`blog.posts.${related.slug}.summary`)}
                 </p>
               </div>
             </Link>
           ))}
         </div>
-      </div>
-      </div>
+      </section>
     </article>
   );
 };
