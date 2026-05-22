@@ -13,6 +13,8 @@ sitemap.xml
 public/**/*.gz
 public/**/*.br
 
+.claude/*
+!.claude/settings.local.json
 # SEO audit temporary artifacts
 screenshots/
 claude-seo/

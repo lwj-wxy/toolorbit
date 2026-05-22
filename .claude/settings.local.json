@@ -66,7 +66,9 @@
       "Bash(sed -i '5d' src/views/tools/ecommerce/StripeFee.tsx)",
       "Bash(sed -i '6,40d' src/views/tools/ecommerce/StripeFee.tsx)",
       "Bash(sed -i 's/ overview={overview}//' src/views/tools/ecommerce/StripeFee.tsx)",
-      "Bash(sed -i '/const overview = i18n.language/d' src/views/tools/ecommerce/StripeFee.tsx)"
+      "Bash(sed -i '/const overview = i18n.language/d' src/views/tools/ecommerce/StripeFee.tsx)",
+      "Bash(npm *)",
+      "Bash(uipro init *)"
     ]
   }
 }
