@@ -1,3 +1,4 @@
+import React from 'react';
 import NextLink from 'next/link';
 import { ArrowRight, CalendarCheck, CheckCircle2, ExternalLink, Layers, Wrench } from 'lucide-react';
 import { BLOG_POSTS } from '../constants/blogData';
@@ -5,6 +6,44 @@ import en from '../locales/en.json';
 import zh from '../locales/zh.json';
 import { blogBySlug, toolByPath, type SeoContentPage } from '../data/seoContent';
 import { readPath } from '../lib/metadata';
+
+const LINK_PATTERN = /\[([^\]]+)\]\((\/[^)]+)\)/g;
+
+function BodyParagraph({ text }: { text: string }) {
+  const parts: Array<{ type: 'text' | 'link'; content: string; href?: string }> = [];
+  let lastIndex = 0;
+  let match: RegExpExecArray | null;
+
+  while ((match = LINK_PATTERN.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      parts.push({ type: 'text', content: text.slice(lastIndex, match.index) });
+    }
+    parts.push({ type: 'link', content: match[1], href: match[2] });
+    lastIndex = match.index + match[0].length;
+  }
+
+  if (lastIndex < text.length) {
+    parts.push({ type: 'text', content: text.slice(lastIndex) });
+  }
+
+  if (parts.length === 0) {
+    return <p>{text}</p>;
+  }
+
+  return (
+    <p>
+      {parts.map((part, i) =>
+        part.type === 'link' && part.href ? (
+          <NextLink key={i} href={part.href} className="font-semibold text-blue-700 hover:text-blue-800 dark:text-blue-300 dark:hover:text-blue-200">
+            {part.content}
+          </NextLink>
+        ) : (
+          <React.Fragment key={i}>{part.content}</React.Fragment>
+        ),
+      )}
+    </p>
+  );
+}
 
 function localeData(locale?: string) {
   if (locale === 'zh') return zh;
@@ -147,7 +186,7 @@ export default function SeoContentPageView({ page, locale }: { page: SeoContentP
             <section key={section.heading} className="mb-10">
               <h2>{section.heading}</h2>
               {section.body.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
+                <BodyParagraph key={paragraph} text={paragraph} />
               ))}
             </section>
           ))}

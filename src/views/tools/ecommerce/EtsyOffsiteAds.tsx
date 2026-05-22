@@ -75,28 +75,59 @@ const EtsyOffsiteAdsCalculator = () => {
               </div>
             </div>
 
-            <div>
+            <div className="sm:col-span-2">
               <label className="mb-2 block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
                 {t('tools.etsy-offsite-ads-calculator.adRateLabel')}
               </label>
-              <select
-                value={adRate}
-                onChange={(event) => setAdRate(event.target.value)}
-                className="block w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition-colors focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
-              >
-                <option value="15">{t('tools.etsy-offsite-ads-calculator.rate15')}</option>
-                <option value="12">{t('tools.etsy-offsite-ads-calculator.rate12')}</option>
-              </select>
+              <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                {[
+                  { value: '15', label: t('tools.etsy-offsite-ads-calculator.rate15') },
+                  { value: '12', label: t('tools.etsy-offsite-ads-calculator.rate12') },
+                ].map((rateOption) => {
+                  const isSelectedRate = adRate === rateOption.value;
+
+                  return (
+                    <button
+                      key={rateOption.value}
+                      type="button"
+                      onClick={() => setAdRate(rateOption.value)}
+                      className={`flex min-h-11 items-center justify-between rounded-lg border px-3 py-2 text-left text-sm font-semibold shadow-sm outline-none transition-colors focus-visible:ring-2 focus-visible:ring-cyan-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900 ${
+                        isSelectedRate
+                          ? 'border-cyan-500 bg-cyan-50 text-cyan-800 dark:border-cyan-400 dark:bg-cyan-950/40 dark:text-cyan-200'
+                          : 'border-slate-200 bg-white text-slate-900 hover:border-slate-300 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:border-slate-600'
+                      }`}
+                    >
+                      <span>{rateOption.label}</span>
+                      <span
+                        className={`ml-3 h-2.5 w-2.5 shrink-0 rounded-full ${
+                          isSelectedRate ? 'bg-cyan-600 dark:bg-cyan-300' : 'bg-slate-300 dark:bg-slate-600'
+                        }`}
+                      />
+                    </button>
+                  );
+                })}
+              </div>
             </div>
 
-            <label className="flex items-center gap-3 rounded-lg border border-slate-200 px-3 py-2.5 text-sm font-semibold text-slate-900 dark:border-slate-700 dark:text-slate-100">
+            <label className="flex min-h-12 cursor-pointer items-center justify-between gap-3 rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm font-semibold text-slate-900 shadow-sm transition-colors hover:border-slate-300 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:border-slate-600 sm:col-span-2">
+              <span>{t('tools.etsy-offsite-ads-calculator.includeCoreFees')}</span>
               <input
                 type="checkbox"
                 checked={includeCoreFees}
                 onChange={(event) => setIncludeCoreFees(event.target.checked)}
-                className="h-4 w-4 rounded border-slate-300 text-cyan-600 focus:ring-cyan-500"
+                className="peer sr-only"
               />
-              {t('tools.etsy-offsite-ads-calculator.includeCoreFees')}
+              <span
+                className={`flex h-6 w-11 shrink-0 items-center rounded-full p-0.5 transition-colors peer-focus-visible:ring-2 peer-focus-visible:ring-cyan-500 peer-focus-visible:ring-offset-2 dark:peer-focus-visible:ring-offset-slate-900 ${
+                  includeCoreFees ? 'bg-cyan-600' : 'bg-slate-200 dark:bg-slate-700'
+                }`}
+              >
+                <span
+                  className={`h-5 w-5 rounded-full bg-white shadow-sm transition-transform ${
+                    includeCoreFees ? 'translate-x-5' : 'translate-x-0'
+                  }`}
+                />
+              </span>
             </label>
           </div>
         </div>

@@ -1382,6 +1382,308 @@ export const SEO_CONTENT_PAGES: SeoContentPage[] = [
       },
     ],
   },
+  {
+    path: '/ecommerce-tools',
+    title: 'Free Etsy Fee Calculators & Ecommerce Tools',
+    description:
+      'A practical hub for free, local-first Etsy fee calculators and ecommerce tools — calculate Etsy fees, Offsite Ads costs, target pricing, regulatory fees, and Stripe processing charges.',
+    eyebrow: 'Ecommerce Tools Hub',
+    audience:
+      'Built for Etsy sellers, handmade business owners, vintage resellers, craft entrepreneurs, print-on-demand operators, and small ecommerce teams who need fast, private fee calculations.',
+    updated: '2026-05-22',
+    type: 'pillar',
+    targetKeyword: 'free Etsy fee calculator ecommerce tools',
+    summary: [
+      'Etsy selling is a numbers game. Between listing fees, transaction fees, payment processing, Offsite Ads, regulatory operating fees, and currency conversion charges, a seller can lose 15–25% of every order to platform costs before accounting for materials and labor. Understanding exactly where the money goes is the difference between a hobby and a profitable business.',
+      'ToolOrbit ecommerce tools are designed for one purpose: give Etsy sellers fast, private, local-first calculators that show the real numbers. No uploading sales data to a third-party server. No signing up for a SaaS trial. Just open the tool, enter your numbers, and see the breakdown instantly. Every calculation runs in your browser.',
+      'This hub connects all five ecommerce calculators, related AI tools for listing optimization and keyword research, and in-depth blog guides on Etsy pricing strategy, Offsite Ads, international selling fees, and Stripe comparison. Use it as your entry point for Etsy financial tooling.',
+    ],
+    table: [
+      {
+        label: 'Core Etsy fees',
+        bestFor: 'Understanding exactly what Etsy deducts from each order',
+        tools: 'Etsy Fee Calculator, Stripe Fee Calculator',
+        note: 'Start here. Know your real per-order cost before setting any price.',
+      },
+      {
+        label: 'Offsite Ads impact',
+        bestFor: 'Estimating the 12% or 15% ad fee on attributed orders',
+        tools: 'Etsy Offsite Ads Calculator, Etsy Pricing Calculator',
+        note: 'Once you pass $10K in annual sales, you cannot opt out. Model it early.',
+      },
+      {
+        label: 'Profit-first pricing',
+        bestFor: 'Working backward from desired profit to the listing price you need',
+        tools: 'Etsy Pricing Calculator, Etsy Fee Calculator',
+        note: 'Reverse-engineer your price instead of guessing and hoping.',
+      },
+      {
+        label: 'International seller fees',
+        bestFor: 'Regulatory Operating Fees and currency conversion costs by country',
+        tools: 'Etsy Regulatory & Currency Fee Calculator, Etsy Fee Calculator',
+        note: 'UK, EU, Canada, India, Turkey, and Vietnam sellers pay extra fees.',
+      },
+      {
+        label: 'Listing and keyword tools',
+        bestFor: 'Creating marketplace-optimized titles, descriptions, and tags',
+        tools: 'Listing Generator, Keyword Analyzer, Competitor Tracker, Market Insights',
+        note: 'AI tools accelerate listing creation; always review before publishing.',
+      },
+    ],
+    sections: [
+      {
+        heading: 'The real cost of selling on Etsy in 2026',
+        body: [
+          'Etsy charges are layered, not flat. A $40 item with $5 shipping can easily incur $0.20 (listing fee) + $2.93 (6.5% transaction on $45) + $1.60 (3% + $0.25 payment processing on $45) = $4.73 in core fees alone. That is 10.5% of the order total before you account for materials, labor, packaging, or marketing.',
+          'If the order comes through Offsite Ads at the 15% rate, add another $6.75. If you are a UK seller, add 0.35% regulatory fee and potentially 2.5% currency conversion. The total can reach 25% or more. These are not hidden fees — Etsy discloses them — but they are easy to underestimate when you are focused on making and shipping products.',
+          'The calculators on this page exist to make these numbers explicit. Enter your actual costs and expected sale price, and see the full fee breakdown in seconds. The goal is not to discourage selling on Etsy; it is to help sellers price with their eyes open. Etsy provides access to millions of buyers. The fees are the cost of that access. Knowing them precisely lets you decide whether each order is worth it.',
+          'A common mistake is treating Etsy fees as a single percentage. In practice, the fee stack is a combination of fixed amounts (listing fee, payment processing fixed component) and variable rates (transaction fee, payment processing percentage, optional Offsite Ads, regulatory fees, currency conversion). Fixed fees hurt more on low-value orders. Percentage fees hurt more on high-value orders. The only way to understand your specific situation is to run your own numbers.',
+        ],
+      },
+      {
+        heading: 'How to use these tools in a pricing workflow',
+        body: [
+          'Step one: use the Etsy Fee Calculator to understand your baseline per-order costs. Enter your typical sale price, shipping charge, and item cost. The result shows exactly how much Etsy keeps. Do this for your three best-selling items first.',
+          'Step two: use the Etsy Offsite Ads Calculator to model the worst case. If you are above the $10K threshold, you are permanently opted into Offsite Ads at 12%. That fee applies to the total order amount including shipping. Run the numbers and decide whether to build that cost into your base price or treat it as an occasional margin reduction.',
+          'Step three: use the Etsy Pricing Calculator to set prices scientifically. Instead of looking at competitors and guessing, enter your cost, shipping, target profit, and any optional fees (Offsite Ads, regulatory, currency conversion). The calculator reverse-engineers the exact listing price you need. Compare the free-shipping and buyer-paid-shipping scenarios side by side.',
+          'Step four: if you sell internationally, use the Etsy Regulatory & Currency Fee Calculator. Check your country rate and decide whether the 2.5% currency conversion fee applies to your payout setup. If it does, consider whether matching your listing currency to your bank currency would save more than the potential conversion-rate benefit of listing in USD.',
+          'Step five: use the Stripe Fee Calculator to compare. If you also sell on your own website, enter the same transaction amount in both calculators. The difference between Etsy all-in fees (~10–20%) and Stripe processing (~3%) explains why many successful Etsy sellers eventually build independent storefronts. Etsy earns its fees through buyer traffic; Stripe just processes payments. Understanding this trade-off is central to ecommerce strategy.',
+        ],
+      },
+      {
+        heading: 'Why local-first calculation matters for financial data',
+        body: [
+          'Financial data is sensitive by nature. Your revenue, costs, profit margins, and pricing strategy are competitively significant information. When you enter these numbers into a cloud-based calculator, you are trusting that service with your business data. When you use a browser-based, local-first calculator, the computation happens in your tab and the numbers never leave your device.',
+          'This is not paranoia. Etsy sellers have been targeted by competitors, scraping tools, and phishing campaigns. Your pricing spreadsheet in the wrong hands reveals your entire business model. A local-first calculator eliminates that exposure. You can test pricing scenarios, run what-if analyses, and model worst-case fee impacts without any data transmission.',
+          'The privacy model also supports practical workflows. You can use the calculators during a live product photoshoot where you are deciding whether a new item is worth listing. You can run numbers at a craft fair while talking to a customer about a custom order. You can check fees from your phone while sourcing materials. No login, no app install, no account — just open the page and calculate.',
+          'For teams and agencies managing multiple Etsy shops, local-first tools avoid the complication of mixing client financial data on a shared SaaS account. Each client session is isolated to the browser tab. There is no cross-client data leakage, no retention policy to review, and no need to explain to a client why their sales data is on a third-party platform.',
+        ],
+      },
+      {
+        heading: 'Etsy tools vs. general ecommerce tools: why specialization matters',
+        body: [
+          'General ecommerce calculators often ask for a generic fee percentage and do not model the specific fee stack that Etsy uses. Etsy has fixed listing fees, percentage-based transaction and payment processing fees, an Offsite Ads program with its own rules, country-specific regulatory fees, and a currency conversion system. A generic calculator that asks for "platform fee percentage" cannot capture this structure.',
+          'Specialized Etsy calculators encode the actual fee rules. They know the $0.20 listing fee, the 6.5% transaction rate, the 3% + $0.25 payment processing formula, the 12%/15% Offsite Ads rate with the $100 per-order cap, the country-by-country regulatory rates, and the 2.5% currency conversion fee. This specificity means the output matches what appears on your Etsy payment account statement.',
+          'The specialization also extends to workflows. An Etsy seller does not just need a fee number; they need to know whether to build Offsite Ads into their base price, whether free shipping is worth the listing boost, how regulatory fees differ between the UK and France, and whether the currency conversion fee can be avoided by changing their payout currency. These are Etsy-specific questions that a general ecommerce calculator cannot answer.',
+        ],
+      },
+      {
+        heading: 'Combining ecommerce calculators with AI listing tools',
+        body: [
+          'Pricing is half the battle. The other half is getting found. ToolOrbit AI tools for ecommerce include a Listing Generator that creates marketplace-optimized titles, descriptions, and tags; a Keyword Analyzer that surfaces long-tail search terms buyers actually use; a Competitor Tracker that identifies gaps in competing listings; and Market Insights that provide category-level trend data.',
+          'The ideal workflow combines both: use the pricing calculators to set profitable prices, then use the AI tools to create listings that rank for the right search terms. A perfectly priced product that no one finds is as unprofitable as a well-ranked product priced below cost. The tools on this hub support both sides of the equation.',
+          'After generating listing copy, use the text analysis and polish tools to check length, remove repetition, and tighten language. If you sell in multiple Etsy marketplaces, use the AI translator to create localized versions and then review them for marketplace-specific search behavior. Keywords that work on Etsy.com may not be the terms buyers search for on Etsy UK or Etsy France.',
+        ],
+      },
+      {
+        heading: 'How this hub supports SEO and discovery',
+        body: [
+          'Search engines reward topical depth and clear information architecture. A standalone Etsy fee calculator page is useful, but an ecommerce tools hub that connects five fee calculators, four AI listing tools, and four in-depth blog guides tells search engines that ToolOrbit covers the Etsy seller workflow systematically. This hub is the connective tissue between individual tool pages.',
+          'If you are comparing Etsy calculator options and want to understand how ToolOrbit stacks up against official Etsy resources, spreadsheet templates, and third-party platforms, see our [Best Etsy Fee Calculators comparison](/best-etsy-fee-calculators). That guide honestly evaluates when each approach is the right choice.',
+          'For AI citation systems like ChatGPT, Perplexity, and Google AI Overviews, this hub serves as a structured overview of Etsy financial tooling. When a user asks "how do I calculate Etsy fees" or "what tools help with Etsy pricing," the AI can cite this page as a comprehensive resource and link to the specific calculators.',
+          'The internal link structure flows both ways: individual tool pages link back to relevant blog posts, blog posts link to tools, and this hub links to everything in the ecommerce cluster. That tight internal linking helps PageRank flow efficiently and ensures crawlers discover new ecommerce content through multiple paths.',
+        ],
+      },
+    ],
+    toolPaths: [
+      '/tools/ecommerce/etsy-fee-calculator',
+      '/tools/ecommerce/etsy-offsite-ads-calculator',
+      '/tools/ecommerce/etsy-pricing-calculator',
+      '/tools/ecommerce/etsy-regulatory-fee-calculator',
+      '/tools/ecommerce/stripe-fee-calculator',
+      '/tools/ai/listing-generator',
+      '/tools/ai/keyword-analyzer',
+      '/tools/ai/competitor-tracker',
+      '/tools/ai/market-insights',
+      '/tools/ai/text-polisher',
+      '/tools/ai/translator',
+      '/tools/text/text-analyzer',
+    ],
+    blogSlugs: [
+      'etsy-fee-complete-guide',
+      'etsy-pricing-strategy-guide',
+      'etsy-offsite-ads-explained',
+      'etsy-international-selling-fees',
+      'secure-developer-tools-privacy',
+    ],
+    faqs: [
+      {
+        question: 'How much does Etsy take from a sale?',
+        answer:
+          'Etsy core fees total approximately 10% of the order amount: $0.20 listing fee + 6.5% transaction fee + 3% + $0.25 payment processing fee. Additional optional fees include Offsite Ads (12% or 15% on attributed orders), Regulatory Operating Fees (0.35%–1.1% depending on seller location), and Currency Conversion (2.5% when listing and payout currencies differ). The Etsy Fee Calculator on this page shows the exact breakdown for any order scenario.',
+      },
+      {
+        question: 'Can I opt out of Etsy Offsite Ads?',
+        answer:
+          'You can opt out if your shop has made less than $10,000 in sales over the past 12 months. Once you cross that threshold, participation becomes mandatory at the 12% rate. The Etsy Offsite Ads Calculator helps you model the impact before and after reaching the threshold.',
+      },
+      {
+        question: 'How should I price my Etsy products?',
+        answer:
+          'Start with your total per-item cost (materials, labor, packaging, actual shipping), add your target profit, account for all Etsy fees including any optional Offsite Ads or regulatory fees, and reverse-calculate the listing price. The Etsy Pricing Calculator automates this entire workflow and compares free-shipping vs. buyer-paid-shipping scenarios.',
+      },
+      {
+        question: 'Are these calculators accurate compared to my Etsy bill?',
+        answer:
+          'The calculators use the publicly documented US Etsy fee rates. They are accurate for estimation and pricing decisions. However, Etsy may update rates, and some fees vary by region. Always verify against your official Etsy payment account statement for accounting and tax purposes. The calculators are designed for operational pricing decisions, not as a replacement for bookkeeping.',
+      },
+      {
+        question: 'Do I need to create an account to use these tools?',
+        answer:
+          'No. All ToolOrbit ecommerce calculators are free and require no sign-up, account, or installation. Calculations run in your browser, and your financial data never leaves your device. Open the tool, enter your numbers, and get results instantly.',
+      },
+      {
+        question: 'Should I sell on Etsy or my own website?',
+        answer:
+          'It depends on your volume and margins. Etsy provides access to millions of active buyers but charges ~10–20% in total fees. Selling on your own site via Stripe costs ~3% in payment processing but requires you to drive your own traffic. Use the Etsy Fee Calculator and Stripe Fee Calculator side by side to compare the per-order economics. Many successful sellers start on Etsy for discovery and gradually build an independent storefront for repeat customers.',
+      },
+    ],
+  },
+  {
+    path: '/best-etsy-fee-calculators',
+    title: 'Best Etsy Fee Calculators Compared',
+    description:
+      'An honest comparison of Etsy fee calculator options — browser-based tools, Etsy official resources, spreadsheet templates, and third-party platforms — to help sellers choose the right tool for their workflow.',
+    eyebrow: 'Comparison Guide',
+    audience:
+      'Built for Etsy sellers, handmade business owners, craft entrepreneurs, and ecommerce operators comparing fee calculation methods for pricing and profitability analysis.',
+    updated: '2026-05-22',
+    type: 'comparison',
+    targetKeyword: 'best Etsy fee calculators',
+    summary: [
+      'The best Etsy fee calculator depends on what you need it for. A quick profit check before listing a new product calls for a fast browser tool. A detailed multi-product pricing analysis may need a spreadsheet. Verifying a specific charge on your Etsy bill calls for the official Etsy fee page. And batch-processing hundreds of listings may need a third-party platform with bulk features.',
+      'ToolOrbit Etsy calculators are built for speed and privacy: open the page, enter numbers, see results instantly, and no data leaves your browser. This guide honestly compares that approach against official resources, spreadsheet templates, and third-party platforms so you can choose the right tool for each task.',
+    ],
+    table: [
+      {
+        label: 'ToolOrbit Etsy Calculators',
+        bestFor: 'Fast, private, per-order fee checks and pricing decisions',
+        tools: 'Etsy Fee Calculator, Offsite Ads Calculator, Pricing Calculator, Regulatory Fee Calculator, Stripe Fee Calculator',
+        note: 'Best for quick operational use. Local-first, no account, free.',
+      },
+      {
+        label: 'Etsy Official Fee Page',
+        bestFor: 'Verifying current fee rates and policy updates',
+        tools: 'Etsy Help Center fee articles, payment account statement',
+        note: 'The source of truth for rates, but not a calculator.',
+      },
+      {
+        label: 'Spreadsheet Templates',
+        bestFor: 'Multi-product pricing, bulk analysis, and record-keeping',
+        tools: 'Excel, Google Sheets with Etsy fee formulas',
+        note: 'Best for power sellers managing many SKUs. Requires setup.',
+      },
+      {
+        label: 'Third-Party Platforms',
+        bestFor: 'All-in-one shop management with integrated fee tools',
+        tools: 'EverBee, SaleCalc, Alura, eRank, Everbee, Marmalead',
+        note: 'More features but may require accounts, subscriptions, or data sharing.',
+      },
+    ],
+    sections: [
+      {
+        heading: 'What makes a good Etsy fee calculator?',
+        body: [
+          'A good Etsy fee calculator should be accurate, transparent about its fee assumptions, fast to use, and respectful of your data. Accuracy means it uses the current Etsy fee schedule: $0.20 listing fee, 6.5% transaction fee, and 3% + $0.25 payment processing fee for US sellers. Transparency means it shows the breakdown rather than a single total, so you understand where each dollar goes.',
+          'Speed matters because fee checking is often done in the middle of other work: during product photography, while sourcing materials, or when a customer asks about a custom order. A calculator that requires login, loads slowly, or has a complex interface creates friction at exactly the wrong moment.',
+          'Data respect is the most overlooked criterion. Your per-item costs, pricing strategy, and profit margins are sensitive business information. A calculator that uploads your numbers to a server for processing has created a data trail. A local-first calculator keeps that information in your browser. For most sellers, the convenience of cloud processing is not worth the privacy trade-off for routine fee checks.',
+          'The final criterion is scope. A good Etsy fee calculator should handle the full fee stack, not just the core three fees. Offsite Ads, regulatory operating fees, and currency conversion charges are real costs that affect real sellers. A calculator that ignores them produces misleading results for sellers in the UK, EU, Canada, and other affected regions.',
+        ],
+      },
+      {
+        heading: 'When ToolOrbit is the best choice',
+        body: [
+          'ToolOrbit works best when you need a fast, private answer to a specific question: what will I actually earn on this order? Open the Etsy Fee Calculator, enter the sale price, shipping, and item cost, and see the full breakdown in seconds. You do not need to log in, start a trial, or wonder where your data is going.',
+          'The five-calculator suite covers the full Etsy fee landscape. If you are unsure whether to build Offsite Ads into your pricing, use the Offsite Ads Calculator to model both scenarios. If you are setting prices for a new product line, use the Pricing Calculator to reverse-engineer from target profit. If you sell from outside the US, use the Regulatory Fee Calculator to check your country rate.',
+          'ToolOrbit is also the best choice when fee calculation is part of a larger workflow. After checking fees, you might use the AI Listing Generator to create a product description, the Keyword Analyzer to find search terms, or the text tools to polish your copy. The calculators are not isolated; they sit beside related utilities that support the full listing process.',
+          'For occasional sellers who check fees a few times a month, ToolOrbit is likely all you need. The tools are free, always available, and require zero commitment. There is no subscription to manage, no account to remember, and no feature that suddenly moves behind a paywall.',
+        ],
+      },
+      {
+        heading: 'When official Etsy resources are better',
+        body: [
+          'Etsy official fee pages are the definitive source for current rates. When Etsy updates its fee schedule, the official page is the first place the new rates appear. Use the official resources to verify that your calculator is using the right numbers, especially after Etsy announces policy changes.',
+          'Your Etsy payment account statement is the only authoritative record of what you actually paid. Use it to reconcile calculator estimates against real charges. If there is a discrepancy, the statement is correct by definition — but understanding why it differs from the calculator output helps you refine your estimating process.',
+          'Etsy also provides some fee information inside the listing creation flow and the Shop Manager dashboard. These in-platform displays are useful for quick reference while actively managing your shop, but they are not designed for what-if analysis or scenario planning.',
+        ],
+      },
+      {
+        heading: 'When spreadsheets are the better tool',
+        body: [
+          'Spreadsheets excel at multi-product analysis. If you sell 50 different items and want to see the profit margin on each one under different fee scenarios, a spreadsheet with embedded formulas is more efficient than entering numbers into a web calculator 50 times. Set up the fee formulas once, then copy them across rows.',
+          'Spreadsheets also support record-keeping and trend analysis. You can track how your effective fee rate changes over time, compare profitability across product categories, and model the impact of price changes. This kind of longitudinal analysis is beyond the scope of a single-use web calculator.',
+          'The downside of spreadsheets is setup cost and maintenance. You need to build or find a template with the correct fee formulas, keep it updated when Etsy changes rates, and ensure formula errors do not produce misleading results. For sellers comfortable with spreadsheet tools, this is a worthwhile investment. For sellers who want a quick answer, a browser calculator is more practical.',
+          'A hybrid approach often works best: use a browser calculator for quick per-order checks during daily operations, and maintain a spreadsheet for monthly profit reviews and strategic pricing analysis. The two tools serve different purposes and complement each other well.',
+        ],
+      },
+      {
+        heading: 'When third-party platforms add value',
+        body: [
+          'Third-party Etsy seller platforms bundle fee calculators with additional features: listing optimization, keyword research, competitor tracking, rank monitoring, and sales analytics. If you need these features and are willing to pay for them, an integrated platform may be more efficient than using separate free tools.',
+          'The trade-off is complexity, cost, and data sharing. Most platforms require an account. Some require connecting your Etsy shop via API, which grants access to your sales data. Others charge monthly subscriptions that make sense at higher sales volumes but are hard to justify for new or part-time sellers.',
+          'Platforms are most valuable when you have crossed the $10K threshold and can no longer opt out of Offsite Ads, when you are managing a large inventory across multiple marketplaces, or when you need competitive intelligence that goes beyond what free tools provide. For sellers below these thresholds, a combination of free browser calculators and Etsy own dashboard is often sufficient.',
+          'Be cautious about platforms that promise to "maximize Etsy profits" without disclosing their fee methodology. A calculator is only as good as the fee rules it encodes. Before relying on any platform fee estimates, verify that the numbers match what appears on your Etsy payment statement for a few test orders.',
+        ],
+      },
+      {
+        heading: 'Recommended approach: use the right tool for each task',
+        body: [
+          'For daily pricing decisions: use a browser calculator. It is fast, free, private, and requires zero setup. The ToolOrbit suite covers the full fee stack including Offsite Ads, regulatory fees, and currency conversion. Start from the [Ecommerce Tools Hub](/ecommerce-tools) for a guided tour of the full calculator suite.',
+          'For monthly profit reviews: use a spreadsheet. Track actual revenue, actual fees from your Etsy statement, and actual costs. Compare the real numbers against your estimates to refine your pricing model over time.',
+          'For policy and rate verification: use Etsy official resources. When rates change or you are unsure about a specific fee, the official documentation is the source of truth.',
+          'For competitive intelligence and shop growth: consider a third-party platform if your sales volume justifies the cost. The additional features can pay for themselves through better listing optimization and keyword targeting.',
+          'For comparing Etsy to your own website: run the same transaction amount through the Etsy Fee Calculator and the Stripe Fee Calculator. The comparison shows exactly how much Etsy traffic is costing you per order, which informs the strategic decision of whether to build an independent storefront.',
+        ],
+      },
+    ],
+    toolPaths: [
+      '/tools/ecommerce/etsy-fee-calculator',
+      '/tools/ecommerce/etsy-offsite-ads-calculator',
+      '/tools/ecommerce/etsy-pricing-calculator',
+      '/tools/ecommerce/etsy-regulatory-fee-calculator',
+      '/tools/ecommerce/stripe-fee-calculator',
+      '/tools/ai/listing-generator',
+      '/tools/ai/keyword-analyzer',
+    ],
+    blogSlugs: [
+      'etsy-fee-complete-guide',
+      'etsy-pricing-strategy-guide',
+      'etsy-offsite-ads-explained',
+      'etsy-international-selling-fees',
+    ],
+    faqs: [
+      {
+        question: 'What is the most accurate Etsy fee calculator?',
+        answer:
+          'Accuracy depends on whether the calculator uses the current Etsy fee schedule and handles the full fee stack. The ToolOrbit Etsy Fee Calculator uses publicly documented US rates. For the most authoritative numbers, cross-reference with your Etsy payment account statement. No calculator replaces your actual bill.',
+      },
+      {
+        question: 'Are free Etsy fee calculators reliable?',
+        answer:
+          'Free calculators can be reliable if they are transparent about their fee assumptions and updated when Etsy changes rates. The key is to verify: check a few test orders against your Etsy statement. If the calculator consistently matches, it is reliable for estimation. If it does not, find one that does.',
+      },
+      {
+        question: 'Do I need a paid Etsy calculator tool?',
+        answer:
+          'Most sellers do not need a paid calculator. Free browser tools handle per-order fee estimates and pricing decisions well. Paid tools become useful when you need bulk analysis, historical tracking, competitive intelligence, or integrated listing optimization. Start with free tools and only upgrade when you have a specific need they cannot meet.',
+      },
+      {
+        question: 'How do these calculators compare to Etsy own fee information?',
+        answer:
+          'Etsy official fee pages tell you the rates. Calculator tools apply those rates to your specific numbers and show the results in a structured breakdown. They are complementary: use Etsy pages to confirm the rates are current, and use a calculator to see how those rates affect your actual orders.',
+      },
+      {
+        question: 'Can I use these calculators for Etsy shops in any country?',
+        answer:
+          'The core fee calculations (listing, transaction, payment processing) use US Etsy rates. The Regulatory Fee Calculator adds country-specific rates for the UK, France, Italy, Spain, Turkey, India, Vietnam, and Canada. The Currency Conversion Calculator handles the 2.5% fee for cross-currency settlements. Sellers in regions not covered should verify their local rates against the calculator assumptions.',
+      },
+      {
+        question: 'Is my sales data safe in a browser-based calculator?',
+        answer:
+          'ToolOrbit calculators process all data locally in your browser. Numbers you enter are not transmitted to any server. You can verify this by opening browser DevTools, switching to the Network tab, and confirming that no data-containing requests fire during calculation. This local-first design is intentional: financial data should stay on your device unless you choose to share it.',
+      },
+    ],
+  },
 ];
 
 export const SEO_CONTENT_PATHS = SEO_CONTENT_PAGES.map((page) => page.path);

@@ -23,9 +23,11 @@ const SEO_CONTENT_PATHS = [
   '/text-tools',
   '/pdf-image-tools',
   '/webmaster-toolkit',
+  '/ecommerce-tools',
   '/best-json-formatters',
   '/best-free-pdf-tools',
   '/best-ai-tools-for-content-creators',
+  '/best-etsy-fee-calculators',
   '/authors/toolorbit-editorial-team',
 ];
 
