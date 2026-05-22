@@ -172,6 +172,30 @@ const posts: BlogPost[] = [
     category: 'Security',
     image: blogImage('api-security-best-practices'),
   },
+  {
+    slug: 'etsy-fee-complete-guide',
+    date: '2026-05-20',
+    category: 'Business',
+    image: blogImage('etsy-fee-complete-guide'),
+  },
+  {
+    slug: 'etsy-pricing-strategy-guide',
+    date: '2026-05-19',
+    category: 'Business',
+    image: blogImage('etsy-pricing-strategy-guide'),
+  },
+  {
+    slug: 'etsy-offsite-ads-explained',
+    date: '2026-05-18',
+    category: 'Business',
+    image: blogImage('etsy-offsite-ads-explained'),
+  },
+  {
+    slug: 'etsy-international-selling-fees',
+    date: '2026-05-17',
+    category: 'Business',
+    image: blogImage('etsy-international-selling-fees'),
+  },
 ];
 
 export const BLOG_POSTS: BlogPost[] = posts.map((post) => ({

@@ -2575,6 +2575,22 @@
       "uuid-demystified": {
         "title": "UUID 大揭秘：藏在 36 个字符背后的分布式系统数学哲学",
         "summary": "如何在不依赖中央极权的前提下生成全球唯一 ID？深入 UUID 各版本、碰撞概率的底层数学，以及各场景选型指南。"
+      },
+      "etsy-fee-complete-guide": {
+        "title": "2026 Etsy 费用完全指南：卖家实际承担的所有费用",
+        "summary": "Etsy 收取上架费、交易费、支付处理费、站外广告费、监管运营费和货币转换费。本文逐一详解每项费用的计算方式和实际影响。"
+      },
+      "etsy-pricing-strategy-guide": {
+        "title": "Etsy 定价策略：如何为利润（而非收入）定价",
+        "summary": "学会系统化的 Etsy 定价方法——从成本出发、计入每一项费用、设定目标利润、反推出理想售价。告别凭感觉定价。"
+      },
+      "etsy-offsite-ads-explained": {
+        "title": "Etsy 站外广告详解：你未必能退出的广告费计划",
+        "summary": "Etsy 站外广告按归因订单的 12% 或 15% 收取。了解两档费率、$100 单笔上限、有效费率计算，以及如何将广告成本纳入定价体系。"
+      },
+      "etsy-international-selling-fees": {
+        "title": "Etsy 国际卖家附加费用：监管运营费与货币转换费详解",
+        "summary": "监管运营费和 2.5% 货币转换费悄悄侵蚀非美国卖家的利润。了解各国费率差异及降低这些附加费用的实用策略。"
       }
     },
     "categories": {

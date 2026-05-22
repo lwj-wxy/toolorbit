@@ -26,4 +26,8 @@ export const BLOG_RELATED_TOOLS: Record<string, string[]> = {
   'url-encoding-demystified': ['/tools/dev/url-encoder', '/tools/dev/json-formatter', '/tools/dev/text-diff'],
   'unicode-character-encoding-guide': ['/tools/dev/unicode-converter', '/tools/dev/json-formatter', '/tools/dev/text-diff'],
   'uuid-demystified': ['/tools/dev/uuid-generator', '/tools/dev/timestamp-converter', '/tools/dev/json-formatter'],
+  'etsy-fee-complete-guide': ['/tools/ecommerce/etsy-fee-calculator', '/tools/ecommerce/etsy-pricing-calculator', '/tools/ecommerce/stripe-fee-calculator'],
+  'etsy-pricing-strategy-guide': ['/tools/ecommerce/etsy-pricing-calculator', '/tools/ecommerce/etsy-fee-calculator', '/tools/ecommerce/etsy-offsite-ads-calculator'],
+  'etsy-offsite-ads-explained': ['/tools/ecommerce/etsy-offsite-ads-calculator', '/tools/ecommerce/etsy-pricing-calculator', '/tools/ecommerce/etsy-fee-calculator'],
+  'etsy-international-selling-fees': ['/tools/ecommerce/etsy-regulatory-fee-calculator', '/tools/ecommerce/etsy-fee-calculator', '/tools/ecommerce/etsy-pricing-calculator'],
 };

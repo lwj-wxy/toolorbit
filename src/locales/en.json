@@ -184,6 +184,22 @@
       "uuid-demystified": {
         "title": "UUID Demystified: The Math Behind Those 36-Character Identifiers",
         "summary": "How do you generate globally unique IDs without a central authority? Explore UUID versions, collision math, and when to use each one."
+      },
+      "etsy-fee-complete-guide": {
+        "title": "The Complete Guide to Etsy Fees in 2026: What Every Seller Actually Pays",
+        "summary": "Etsy charges listing fees, transaction fees, payment processing, Offsite Ads, regulatory fees, and currency conversion. Here's the full breakdown."
+      },
+      "etsy-pricing-strategy-guide": {
+        "title": "Etsy Pricing Strategy: How to Price for Profit (Not Just Revenue)",
+        "summary": "Learn a systematic approach to Etsy pricing — start from costs, account for every fee, set a target profit, and reverse-engineer your ideal listing price."
+      },
+      "etsy-offsite-ads-explained": {
+        "title": "Etsy Offsite Ads Explained: The Program You Can't Always Opt Out Of",
+        "summary": "Etsy Offsite Ads charge 12% or 15% per attributed order. Understand rate tiers, the $100 cap, effective rates, and how to build ad costs into your pricing."
+      },
+      "etsy-international-selling-fees": {
+        "title": "Etsy International Selling Fees: Regulatory Charges and Currency Conversion",
+        "summary": "Regulatory Operating Fees and 2.5% currency conversion charges silently erode margins for non-US sellers. Learn country-specific rates and strategies to minimize them."
       }
     },
     "categories": {
