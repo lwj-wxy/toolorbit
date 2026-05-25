@@ -6,6 +6,45 @@ type BilingualOverview = {
 };
 
 export const UTILITY_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
+  'age-calculator': {
+    zh: {
+      summary:
+        '年龄计算器根据用户输入的出生日期，自动计算从出生日期到今天的完整年龄和累计天数。它适合填写资料前核对周岁、计算纪念日跨度、统计已经出生多少天、确认距离下一个生日还有多少天，以及在不打开表格或手动推算闰年月份的情况下快速得到准确结果。工具以浏览器当前日期作为“今天”，所有计算都在本地完成。',
+      input:
+        '输入出生日期，格式由浏览器日期选择器提供，通常为 YYYY-MM-DD。出生日期不能晚于今天；如果输入为空、格式无效或选择未来日期，页面会提示先修正日期。工具会把出生日期和今天都归一到本地时区当天 00:00，再进行日期差计算，避免小时、分钟、夏令时等因素影响年龄结果。',
+      output:
+        '输出包括三个核心结果：完整周岁、从出生日期到今天的累计天数，以及距离下一个生日的天数。页面还会展示更细的年龄表达，例如“26 岁 4 个月 24 天”，并列出输入出生日期和下一个生日日期，方便直接复制到资料填写、家庭记录、活动报名或纪念日规划场景中。',
+      processing:
+        '计算过程在浏览器中同步完成。首先将 YYYY-MM-DD 拆分为年、月、日并创建本地日期对象；随后按“今天年份 - 出生年份”得到初始年数，再根据当前月日是否已经过生日修正年、月、日差。当日差为负时，借用上一个月的实际天数补齐，因此能正确处理大小月和闰年。累计天数通过两个本地零点日期的毫秒差除以 86400000 得出。下一个生日日期则以今年生日为基准，如果已经过去则顺延到下一年。',
+      modes: ['出生日期输入', '完整周岁', '年月日精确年龄', '累计天数', '距离下个生日天数', '下个生日日期', '本地日期计算'],
+      example: {
+        title: '年龄计算示例',
+        input: '出生日期: 2000-01-01\n今天: 2026-05-25',
+        output: '年龄: 26 岁 4 个月 24 天\n累计天数: 9637 天\n距离下一个生日: 221 天',
+        inputLanguage: 'text',
+        outputLanguage: 'text',
+      },
+    },
+    en: {
+      summary:
+        'The Age Calculator uses a birth date to calculate the complete age and total days elapsed from that date to today. It is useful for checking full years before filling forms, measuring anniversary spans, counting days since birth, seeing how many days remain until the next birthday, and getting accurate results without manually handling leap years or month lengths. The tool uses the browser’s current date as “today” and runs locally.',
+      input:
+        'Enter a birth date through the browser date picker, usually in YYYY-MM-DD format. The birth date cannot be later than today. If the value is empty, invalid, or in the future, the page asks the user to correct it first. Both the birth date and today are normalized to local midnight before calculation so hours, minutes, and daylight-saving differences do not distort the result.',
+      output:
+        'Outputs include three core values: complete age in years, total days from the birth date to today, and days until the next birthday. The page also shows a more precise age expression such as “26 years 4 months 24 days,” plus the selected birth date and next birthday date for form filling, household records, event registration, or anniversary planning.',
+      processing:
+        'The calculation runs synchronously in the browser. First, the YYYY-MM-DD value is split into year, month, and day and converted into a local Date object. The initial year difference is computed from today’s year minus the birth year, then adjusted based on whether this year’s birthday has passed. If the day difference is negative, the algorithm borrows the actual number of days from the previous month, correctly handling short months and leap years. Total days are calculated by subtracting the two local-midnight timestamps and dividing by 86400000. The next birthday is this year’s birthday unless it has already passed, in which case it moves to next year.',
+      modes: ['Birth date input', 'Full years', 'Precise years/months/days age', 'Total days', 'Days until next birthday', 'Next birthday date', 'Local date calculation'],
+      example: {
+        title: 'Age calculation example',
+        input: 'Birth date: 2000-01-01\nToday: 2026-05-25',
+        output: 'Age: 26 years 4 months 24 days\nTotal days: 9637 days\nDays until next birthday: 221 days',
+        inputLanguage: 'text',
+        outputLanguage: 'text',
+      },
+    },
+  },
+
   'bmi-calculator': {
     zh: {
       summary:

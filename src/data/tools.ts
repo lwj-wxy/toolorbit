@@ -49,6 +49,7 @@ import {
   Terminal,
   Image,
   Activity,
+  CalendarDays,
 } from 'lucide-react';
 import { TOOLS_META, type Category, type ToolMeta } from './tools-meta';
 
@@ -114,6 +115,7 @@ const iconMap: Record<string, ComponentType<any>> = {
   'rmb-converter': Banknote,
   'ppi-calculator': MonitorSmartphone,
   'bmi-calculator': Activity,
+  'age-calculator': CalendarDays,
   'color-converter': Palette,
   'color-palette': Palette,
   'color-picker': Pipette,

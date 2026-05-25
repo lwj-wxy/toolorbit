@@ -49,6 +49,7 @@ import {
   Zap,
   BarChart3,
   Activity,
+  CalendarDays,
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Link } from '../lib/navigation';
@@ -111,6 +112,7 @@ const iconMap: Record<string, ComponentType<{ size?: number; className?: string 
   'rmb-converter': Banknote,
   'ppi-calculator': MonitorSmartphone,
   'bmi-calculator': Activity,
+  'age-calculator': CalendarDays,
   'color-converter': Palette,
   'color-palette': Palette,
   'color-picker': Pipette,

@@ -496,6 +496,14 @@ const RAW_TOOLS_META = [
     color: 'teal',
   },
   {
+    id: 'age-calculator',
+    name: '年龄计算器',
+    description: '输入出生日期，计算到今天的完整年龄、累计天数和距离下个生日的天数。',
+    category: '实用工具',
+    path: '/tools/utility/age-calculator',
+    color: 'teal',
+  },
+  {
     id: "color-converter",
     name: "颜色代码转换",
     description: "HEX, RGB, HSL, HSV, CMYK 等多种工业色彩规格之间无损互转，支持透明度提取。",

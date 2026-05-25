@@ -13,6 +13,7 @@ const GENERATED_TOOL_COVER_IDS = new Set([
   'ai-xiaohongshu',
   'ai-youtube-generator',
   'archive-converter',
+  'age-calculator',
   'ascii-table',
   'barcode-generator',
   'base-converter',
