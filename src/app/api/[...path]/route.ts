@@ -12,6 +12,10 @@ const ZHIPU_IMAGE_FALLBACK_MODEL = process.env.ZHIPU_IMAGE_FALLBACK_MODEL || 'co
 const ZHIPU_IMAGE_BASE_URL = 'https://open.bigmodel.cn/api/paas/v4/images/generations';
 const ZHIPU_VISION_MODEL = process.env.ZHIPU_VISION_MODEL || 'glm-4v-flash';
 const IMAGE_GENERATION_TIMEOUT_MS = 45_000;
+const TRACE_MOE_API_URL = 'https://api.trace.moe/search';
+const TRACE_MOE_TIMEOUT_MS = 20_000;
+const TRACE_MOE_MAX_FILE_SIZE = 8 * 1024 * 1024;
+const TRACE_MOE_SUPPORTED_EXTENSIONS = new Set(['jpg', 'jpeg', 'png', 'webp']);
 
 type AiToolCategory = 'copy' | 'document' | 'code' | 'image' | 'vision';
 
@@ -502,15 +506,171 @@ async function imageGenerator(body: any) {
   );
 }
 
+type TraceMoeResult = {
+  anilist?: number | {
+    id?: number;
+    title?: {
+      native?: string;
+      romaji?: string;
+      english?: string;
+    };
+  };
+  filename?: string;
+  episode?: string | number | null;
+  from?: number;
+  to?: number;
+  similarity?: number;
+  video?: string;
+  image?: string;
+};
+
+function firstText(values: unknown[]) {
+  for (const value of values) {
+    if (Array.isArray(value)) {
+      const foundValue = firstText(value);
+      if (foundValue) return foundValue;
+    }
+
+    if (typeof value === 'string' && value.trim()) {
+      return value.trim();
+    }
+
+    if (typeof value === 'number' && Number.isFinite(value)) {
+      return String(value);
+    }
+  }
+
+  return '';
+}
+
+function traceMoeAnilistId(anilist: TraceMoeResult['anilist']) {
+  if (typeof anilist === 'number') return anilist;
+  return anilist?.id || null;
+}
+
+function traceMoeTitle(result: TraceMoeResult) {
+  if (typeof result.anilist === 'object') {
+    return firstText([
+      result.anilist.title?.native,
+      result.anilist.title?.romaji,
+      result.anilist.title?.english,
+    ]);
+  }
+
+  return firstText([result.filename, 'Unknown anime']);
+}
+
+function formatTraceTime(seconds?: number) {
+  if (!Number.isFinite(seconds)) return '';
+  const totalSeconds = Math.max(0, Math.floor(seconds || 0));
+  const minutes = Math.floor(totalSeconds / 60);
+  const remainingSeconds = totalSeconds % 60;
+  return `${minutes}:${String(remainingSeconds).padStart(2, '0')}`;
+}
+
+function normalizeTraceMoeResults(results: TraceMoeResult[]) {
+  return results.map((result, resultIndex) => {
+    const anilistId = traceMoeAnilistId(result.anilist);
+    const similarity = Number(result.similarity || 0) <= 1 ? Number(result.similarity || 0) * 100 : Number(result.similarity || 0);
+    const urls = [
+      anilistId ? `https://anilist.co/anime/${anilistId}` : '',
+      anilistId && Number.isFinite(result.from) ? `https://trace.moe/?anilist=${anilistId}&t=${Math.floor(result.from || 0)}` : '',
+      result.video || '',
+      result.image || '',
+    ].filter((url) => /^https?:\/\//i.test(url));
+
+    const episodeText = result.episode ? `Episode ${result.episode}` : '';
+    const timeText = formatTraceTime(result.from);
+
+    return {
+      id: `trace-moe-${resultIndex}`,
+      similarity,
+      thumbnail: result.image || '',
+      sourceName: 'Anime scene index',
+      title: traceMoeTitle(result),
+      author: firstText([episodeText && timeText ? `${episodeText} · ${timeText}` : episodeText, timeText, result.filename]),
+      urls,
+      indexName: 'Anime scene index',
+    };
+  });
+}
+
+async function animeScreenshotSource(formData: FormData) {
+  const uploadedImage = formData.get('image');
+
+  if (!(uploadedImage instanceof File)) {
+    return Response.json({ success: false, message: 'Image is required.' }, { status: 400 });
+  }
+
+  const fileName = uploadedImage.name || 'anime-source-image.png';
+  const fileExtension = fileName.split('.').pop()?.toLowerCase() || '';
+  if (!TRACE_MOE_SUPPORTED_EXTENSIONS.has(fileExtension)) {
+    return Response.json({ success: false, message: 'Unsupported image format.' }, { status: 400 });
+  }
+
+  const imageBytes = Buffer.from(await uploadedImage.arrayBuffer());
+  if (imageBytes.byteLength > TRACE_MOE_MAX_FILE_SIZE) {
+    return Response.json({ success: false, message: 'Image file is too large.' }, { status: 413 });
+  }
+
+  const traceFormData = new FormData();
+  traceFormData.append('image', new Blob([imageBytes], { type: uploadedImage.type || 'application/octet-stream' }), fileName);
+
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), TRACE_MOE_TIMEOUT_MS);
+
+  try {
+    const response = await fetch(`${TRACE_MOE_API_URL}?anilistInfo`, {
+      method: 'POST',
+      body: traceFormData,
+      signal: controller.signal,
+    });
+
+    const responseData = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      return Response.json(
+        {
+          success: false,
+          message: responseData?.error || responseData?.message || 'trace.moe search failed.',
+        },
+        { status: response.status },
+      );
+    }
+
+    return Response.json({
+      success: true,
+      results: normalizeTraceMoeResults(Array.isArray(responseData?.result) ? responseData.result : []),
+      shortRemaining: responseData?.quota ? Math.max(0, Number(responseData.quota) - Number(responseData.quotaUsed || 0)) : undefined,
+      longRemaining: responseData?.limit,
+    });
+  } catch (error: any) {
+    return Response.json(
+      {
+        success: false,
+        message: error?.name === 'AbortError' ? 'trace.moe search timed out.' : error.message || 'trace.moe search failed.',
+      },
+      { status: 502 },
+    );
+  } finally {
+    clearTimeout(timeoutId);
+  }
+}
+
 export async function POST(request: Request) {
   const path = new URL(request.url).pathname.replace(/^\/api\/?/, '');
   const ip = clientIp(request);
   const userAgent = request.headers.get('user-agent') || 'unknown';
   const rateLimitKey = `${path}:${ip}:${userAgent}`;
-  const body = await request.json().catch(() => ({}));
   const category = getAiToolCategory(path);
 
   try {
+    if (path === 'anime-screenshot-source') {
+      const traceMoeRateLimit = rateLimit(rateLimitKey, 30 * 1000, 'Please wait before searching another image.');
+      if (traceMoeRateLimit) return traceMoeRateLimit;
+      return await animeScreenshotSource(await request.formData());
+    }
+
+    const body = await request.json().catch(() => ({}));
     if (path === 'shorten') return await shorten(body);
 
     const jsonRateLimit = rateLimit(rateLimitKey);

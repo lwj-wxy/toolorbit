@@ -101,6 +101,7 @@ const iconMap: Record<string, ComponentType<{ size?: number; className?: string 
   'svg-to-png': FileImage,
   'image-to-base64': FileCode2,
   'image-cropper': Crop,
+  'anime-screenshot-source': ScanLine,
   'timestamp-converter': Calculator,
   'base-converter': Calculator,
   'unit-converter': Calculator,

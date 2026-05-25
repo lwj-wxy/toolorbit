@@ -31,6 +31,7 @@ const GENERATED_TOOL_COVER_IDS = new Set([
   'image-compressor',
   'image-converter',
   'image-cropper',
+  'anime-screenshot-source',
   'image-to-base64',
   'image-to-ico',
   'image-to-pdf',

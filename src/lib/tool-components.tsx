@@ -80,6 +80,7 @@ export const toolComponentMap: Record<string, ToolComponent> = {
   '/tools/image/image-cropper': lazyTool(() => import('../views/tools/image/ImageCropper')),
   '/tools/image/image-to-base64': lazyTool(() => import('../views/tools/image/ImageToBase64')),
   '/tools/image/image-to-ico': lazyTool(() => import('../views/tools/image/ImageToIco')),
+  '/tools/image/anime-screenshot-source': lazyTool(() => import('../views/tools/image/AnimeScreenshotSource')),
   '/tools/image/svg-to-png': lazyTool(() => import('../views/tools/image/SvgToPng')),
   '/tools/net/short-url': lazyTool(() => import('../views/tools/net/ShortUrl')),
   '/tools/pdf/image-to-pdf': lazyTool(() => import('../views/tools/pdf/ImageToPdf')),

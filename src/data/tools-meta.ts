@@ -424,6 +424,14 @@ const RAW_TOOLS_META = [
     color: 'fuchsia',
   },
   {
+    id: 'anime-screenshot-source',
+    name: '动漫截图溯源',
+    description: '上传番剧截图，检索候选动画、集数、时间点和预览链接。',
+    category: '图片处理',
+    path: '/tools/image/anime-screenshot-source',
+    color: 'fuchsia',
+  },
+  {
     id: 'timestamp-converter',
     name: '时间戳转换',
     description: 'Unix 时间戳与标准北京时间相互转换计算。',

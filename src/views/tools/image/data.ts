@@ -123,6 +123,47 @@ export const IMAGE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
     },
   },
 
+  'anime-screenshot-source': {
+    zh: {
+      summary:
+        '动漫截图溯源工具用于通过番剧截图索引服务反向图像检索定位番剧截图来源。适合上传动画正片截图、GIF 单帧或接近原始画面的二次元场景图，快速查找候选动画作品、集数、时间点和预览链接。工具会返回多条候选结果，并展示相似度评分、画面预览、作品标题与外部链接，便于用户继续人工核对。番剧截图索引服务更适合番剧截图定位，不适合插画、同人图、游戏 CG 或纯原创图片；这类图片应改用其他以图搜图工具交叉验证。',
+      input:
+        '上传一张需要溯源的番剧截图文件，支持 JPG、JPEG、PNG、WEBP 格式。建议使用清晰度较高、接近 16:9 或 4:3 原始画幅、未过度裁切且未明显调色的版本；强水印、过度裁剪、滤镜调色、合成效果、屏幕斜拍、明显透视变形或低分辨率图片，都会降低命中率。若一次搜索没有找到目标来源，可以尝试上传同一画面的不同裁切版本，或换用更接近原始清晰度的文件。',
+      output:
+        '按相似度从高到低排列的候选番剧场景列表。每条结果包含相似度评分、预览缩略图、动画标题、集数、时间点，以及可打开的作品信息或预览链接。相似度越高通常越可能接近正确来源，但不等于完全一致；同一作品中相近构图、片头片尾重复镜头、裁切版和压缩版图片，都可能出现接近评分。第一条结果不准确时，应结合预览画面、集数和时间点继续向下比对。',
+      processing:
+        '工具读取用户上传的图片并提交给番剧截图索引服务，由该服务在番剧截图索引中进行画面特征匹配。接口返回候选结果后，页面提取相似度、预览图、动画标题、集数、时间点与外部链接，并统一整理为可浏览的结果列表。番剧截图索引服务无法保证覆盖所有动画：较旧作品、长篇连载、非日本动画、尚未索引的新番、非正片截图或大幅修改后的图片可能没有命中。由于图片会用于外部检索，请避免上传包含个人信息或隐私内容的图片；必要时应先遮挡或脱敏。',
+      modes: ['JPG / JPEG / PNG / WEBP 上传', '番剧截图索引检索', '相似度排序', '预览图展示', '集数 / 时间点定位', '候选结果人工核对'],
+      example: {
+        title: '动漫截图溯源示例',
+        input: '上传文件: anime-scene.png\n图片类型: 番剧截图\n目标: 查找动画作品、集数和时间点',
+        output:
+          '候选 1: 相似度 92.4% · 第 3 集 · 12:34\n候选 2: 相似度 88.1% · 第 4 集 · 05:18\n用户根据预览图、标题、集数和时间点继续核对正确来源。',
+        inputLanguage: 'text',
+        outputLanguage: 'text',
+      },
+    },
+    en: {
+      summary:
+        'The Anime Screenshot Source Finder uses an anime scene index service to locate anime scene sources through reverse image search. It is designed for episode screenshots, GIF frames, and images close to original anime frames, helping users find candidate anime titles, episodes, timestamps, and preview links. The tool returns multiple candidate matches with similarity scores, thumbnails, titles, and external links for manual verification. Anime scene indexing is best for episode screenshots, not illustrations, fan art, game CGs, or unpublished original images; use other reverse image search tools for those workflows.',
+      input:
+        'Upload the anime screenshot you want to trace. Supported formats include JPG, JPEG, PNG, and WEBP. Clear images close to the original 16:9 or 4:3 frame work best. Heavy watermarks, excessive cropping, filters, color grading, compositing, angled screen photos, perspective distortion, or very low-resolution images can reduce accuracy. If the first search misses the target, try another crop of the same frame or a higher-quality version closer to the original.',
+      output:
+        'A ranked list of candidate anime scenes sorted by similarity. Each result includes a similarity score, thumbnail preview, anime title, episode, timestamp, and external links such as work information or preview pages. A higher score usually means a closer visual match, but it is not proof of an exact source. Similar compositions, repeated opening or ending shots, cropped frames, and compressed versions can all produce close scores. If the first result is not the target, compare the remaining candidates using thumbnails, episode data, timestamps, and links.',
+      processing:
+        'The tool reads the uploaded image and submits it to an anime scene index service, where visual features are compared against an anime scene index. After the API returns candidates, the page normalizes similarity, thumbnail, anime title, episode, timestamp, and external links into a readable result list. Anime scene indexes do not cover every animation: older titles, very long-running series, non-Japanese animation, newly released episodes not yet indexed, non-scene images, or heavily edited screenshots may not match. Because images are used for external lookup, avoid uploading files that contain personal or private information; mask sensitive areas first when needed.',
+      modes: ['JPG / JPEG / PNG / WEBP upload', 'Anime scene index search', 'Similarity ranking', 'Thumbnail preview', 'Episode / timestamp lookup', 'Manual candidate verification'],
+      example: {
+        title: 'Anime source lookup example',
+        input: 'Uploaded file: anime-scene.png\nImage type: anime episode screenshot\nGoal: find anime title, episode, and timestamp',
+        output:
+          'Candidate 1: 92.4% similarity · Episode 3 · 12:34\nCandidate 2: 88.1% similarity · Episode 4 · 05:18\nThe user verifies the correct source by comparing thumbnails, title, episode, and timestamp.',
+        inputLanguage: 'text',
+        outputLanguage: 'text',
+      },
+    },
+  },
+
   'image-compressor': {
     zh: {
       summary:
