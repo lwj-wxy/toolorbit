@@ -16,12 +16,18 @@ interface BlogPostProps {
   initialMarkdown?: string;
 }
 
-const MarkdownContent = dynamic(() => import('../components/MarkdownContent'), {
-  loading: () => (
+const MarkdownLoading = () => {
+  const { t } = useTranslation();
+
+  return (
     <div className="flex justify-center py-10 text-sm font-medium text-slate-400">
-      Rendering article...
+      {t('blog.loading_article', { defaultValue: 'Loading article...' })}
     </div>
-  ),
+  );
+};
+
+const MarkdownContent = dynamic(() => import('../components/MarkdownContent'), {
+  loading: () => <MarkdownLoading />,
 });
 
 const markdownCache = new Map<string, string>();
@@ -31,7 +37,8 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, initialMarkdown = '' }) => {
   const [markdown, setMarkdown] = useState<string>(initialMarkdown);
 
   const post = BLOG_POSTS.find((p) => p.slug === slug);
-  const author = getAuthorById(post?.authorId);
+  const authorLocale = i18n.language && i18n.language.startsWith('zh') ? 'zh-CN' : 'en';
+  const author = getAuthorById(post?.authorId, authorLocale);
 
   useEffect(() => {
     if (!slug) return;
@@ -70,13 +77,13 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, initialMarkdown = '' }) => {
       <div className="flex min-h-[60vh] items-center justify-center">
         <div className="text-center">
           <p className="text-7xl font-bold text-slate-200 dark:text-slate-800">404</p>
-          <p className="mt-4 text-slate-500">Post not found</p>
+          <p className="mt-4 text-slate-500">{t('blog.post_not_found', { defaultValue: 'Post not found' })}</p>
           <Link
             to="/blog"
             className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-cyan-600 hover:text-cyan-700 dark:text-cyan-400"
           >
             <ArrowLeft size={16} />
-            Back to Blog
+            {t('blog.back_to_blog', { defaultValue: 'Back to Blog' })}
           </Link>
         </div>
       </div>
@@ -97,6 +104,10 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, initialMarkdown = '' }) => {
 
   const title = t(`blog.posts.${post.slug}.title`);
   const readingTime = Math.max(3, Math.ceil(markdown.length / 800));
+  const readingTimeLabel = t('blog.reading_time', {
+    count: readingTime,
+    defaultValue: '{{count}} min read',
+  });
 
   return (
     <article className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
@@ -128,7 +139,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, initialMarkdown = '' }) => {
           </span>
           <span className="inline-flex items-center gap-1.5 text-xs text-slate-400">
             <Clock size={13} />
-            {readingTime} min read
+            {readingTimeLabel}
           </span>
         </div>
 
@@ -155,7 +166,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, initialMarkdown = '' }) => {
             to={author.url}
             className="inline-flex flex-shrink-0 items-center gap-1.5 self-start rounded-md border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-600 transition-colors hover:border-cyan-200 hover:text-cyan-700 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400 dark:hover:border-cyan-800 dark:hover:text-cyan-400"
           >
-            Author profile
+            {t('blog.author_profile', { defaultValue: 'Author profile' })}
           </Link>
         </div>
       </header>
@@ -202,7 +213,9 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, initialMarkdown = '' }) => {
                 <div className="h-2 w-2 rounded-full bg-slate-300 dark:bg-slate-600" />
                 <div className="h-2 w-2 rounded-full bg-slate-300 dark:bg-slate-600" />
                 <div className="h-2 w-2 rounded-full bg-slate-300 dark:bg-slate-600" />
-                <span className="ml-1 font-medium">Loading article...</span>
+                <span className="ml-1 font-medium">
+                  {t('blog.loading_article', { defaultValue: 'Loading article...' })}
+                </span>
               </div>
             </div>
           )}
@@ -226,7 +239,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, initialMarkdown = '' }) => {
               <svg className="h-4 w-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
               </svg>
-              Share on X
+              {t('blog.shareTwitter', { defaultValue: 'Share on X' })}
             </button>
           </div>
         </div>
@@ -235,7 +248,9 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, initialMarkdown = '' }) => {
         <aside className="space-y-5 lg:sticky lg:top-24">
           {/* Post meta card */}
           <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-            <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">About this article</p>
+            <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+              {t('blog.about_article', { defaultValue: 'About this article' })}
+            </p>
             <div className="mt-4 space-y-4">
               <div className="flex items-start gap-3">
                 <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-cyan-50 text-cyan-600 dark:bg-cyan-950/40 dark:text-cyan-400">
@@ -245,7 +260,9 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, initialMarkdown = '' }) => {
                   <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">
                     {t(`blog.categories.${post.category.toLowerCase()}`, { defaultValue: post.category })}
                   </p>
-                  <p className="text-xs text-slate-400 dark:text-slate-500">Topic</p>
+                  <p className="text-xs text-slate-400 dark:text-slate-500">
+                    {t('blog.topic_label', { defaultValue: 'Topic' })}
+                  </p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
@@ -253,9 +270,11 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, initialMarkdown = '' }) => {
                   <Clock size={15} />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">{readingTime} min read</p>
+                  <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">{readingTimeLabel}</p>
                   <p className="text-xs text-slate-400 dark:text-slate-500">
-                    {markdown.length > 2000 ? 'In-depth guide' : 'Focused article'}
+                    {markdown.length > 2000
+                      ? t('blog.in_depth_guide', { defaultValue: 'In-depth guide' })
+                      : t('blog.focused_article', { defaultValue: 'Focused article' })}
                   </p>
                 </div>
               </div>
@@ -304,7 +323,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, initialMarkdown = '' }) => {
             className="flex items-center gap-1.5 text-sm font-medium text-slate-500 transition-colors hover:text-cyan-600 dark:text-slate-400 dark:hover:text-cyan-400"
           >
             <ArrowLeft size={15} />
-            Back to all articles
+            {t('blog.back_to_all_articles', { defaultValue: 'Back to all articles' })}
           </Link>
         </aside>
       </div>
@@ -314,7 +333,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, initialMarkdown = '' }) => {
         <div className="mb-6 flex items-end justify-between gap-4">
           <div>
             <p className="text-xs font-semibold uppercase tracking-wider text-cyan-600 dark:text-cyan-400">
-              Keep reading
+              {t('blog.keep_reading', { defaultValue: 'Keep reading' })}
             </p>
             <h2 className="mt-1.5 text-xl font-bold text-slate-900 dark:text-slate-100">
               {t('blog.related_posts') || 'Related Articles'}
@@ -324,7 +343,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, initialMarkdown = '' }) => {
             to="/blog"
             className="hidden items-center gap-1 rounded-lg border border-slate-200 px-3 py-1.5 text-sm font-medium text-slate-600 transition-colors hover:border-cyan-200 hover:text-cyan-700 dark:border-slate-800 dark:text-slate-400 dark:hover:border-cyan-800 dark:hover:text-cyan-400 sm:inline-flex"
           >
-            View all
+            {t('blog.view_all', { defaultValue: 'View all' })}
             <ChevronRight size={14} />
           </Link>
         </div>

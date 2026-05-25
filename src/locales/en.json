@@ -217,8 +217,21 @@
       "productivity": "Productivity"
     },
     "noPosts": "No articles in this category yet.",
+    "post_not_found": "Post not found",
+    "back_to_blog": "Back to Blog",
+    "author_profile": "Author profile",
+    "loading_article": "Loading article...",
+    "reading_time": "{{count}} min read",
+    "about_article": "About this article",
+    "topic_label": "Topic",
+    "in_depth_guide": "In-depth guide",
+    "focused_article": "Focused article",
+    "related_tools": "Related tools",
+    "back_to_all_articles": "Back to all articles",
+    "keep_reading": "Keep reading",
+    "view_all": "View all",
     "shareTitle": "Share this post",
-    "shareTwitter": "Share on Twitter",
+    "shareTwitter": "Share on X",
     "related_posts": "Related Articles"
   },
   "search": {

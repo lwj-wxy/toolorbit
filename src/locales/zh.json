@@ -2625,8 +2625,21 @@
       "productivity": "效率知识"
     },
     "noPosts": "该分类暂无文章。",
+    "post_not_found": "文章未找到",
+    "back_to_blog": "返回博客",
+    "author_profile": "作者主页",
+    "loading_article": "正在加载文章...",
+    "reading_time": "{{count}} 分钟阅读",
+    "about_article": "关于本文",
+    "topic_label": "主题",
+    "in_depth_guide": "深度指南",
+    "focused_article": "精选文章",
+    "related_tools": "相关工具",
+    "back_to_all_articles": "返回全部文章",
+    "keep_reading": "继续阅读",
+    "view_all": "查看全部",
     "shareTitle": "分享这篇文章",
-    "shareTwitter": "分享到 Twitter",
+    "shareTwitter": "分享到 X",
     "related_posts": "相关文章推荐"
   },
   "nav": {
