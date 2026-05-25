@@ -17,6 +17,7 @@ const GENERATED_TOOL_COVER_IDS = new Set([
   'barcode-generator',
   'base-converter',
   'base64',
+  'bmi-calculator',
   'color-converter',
   'color-palette',
   'color-picker',
@@ -72,5 +73,5 @@ export function hasGeneratedToolCover(toolId: string) {
 }
 
 export function getToolCoverPath(toolId: string) {
-  return `/images/tools/${toolId}.png?v=2`;
+  return `/images/tools/${toolId}.png?v=3`;
 }

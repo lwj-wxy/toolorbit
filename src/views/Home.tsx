@@ -27,6 +27,7 @@ const categoryStyles: Record<string, { badge: string; icon: string; line: string
   'PDF工具': { badge: 'bg-rose-50 text-rose-700 ring-rose-200 dark:bg-rose-950/30 dark:text-rose-300 dark:ring-rose-900', icon: 'text-rose-700 bg-rose-50 dark:bg-rose-950/40 dark:text-rose-300', line: 'bg-rose-500', cover: 'from-rose-50 via-white to-cyan-50 text-rose-700 dark:from-rose-950/50 dark:via-slate-900 dark:to-cyan-950/30 dark:text-rose-200' },
   '图片处理': { badge: 'bg-pink-50 text-pink-700 ring-pink-200 dark:bg-pink-950/30 dark:text-pink-300 dark:ring-pink-900', icon: 'text-pink-700 bg-pink-50 dark:bg-pink-950/40 dark:text-pink-300', line: 'bg-pink-500', cover: 'from-pink-50 via-white to-cyan-50 text-pink-700 dark:from-pink-950/50 dark:via-slate-900 dark:to-cyan-950/30 dark:text-pink-200' },
   '计算转换': { badge: 'bg-amber-50 text-amber-700 ring-amber-200 dark:bg-amber-950/30 dark:text-amber-300 dark:ring-amber-900', icon: 'text-amber-700 bg-amber-50 dark:bg-amber-950/40 dark:text-amber-300', line: 'bg-amber-500', cover: 'from-amber-50 via-white to-cyan-50 text-amber-700 dark:from-amber-950/50 dark:via-slate-900 dark:to-cyan-950/30 dark:text-amber-200' },
+  '实用工具': { badge: 'bg-teal-50 text-teal-700 ring-teal-200 dark:bg-teal-950/30 dark:text-teal-300 dark:ring-teal-900', icon: 'text-teal-700 bg-teal-50 dark:bg-teal-950/40 dark:text-teal-300', line: 'bg-teal-500', cover: 'from-teal-50 via-white to-cyan-50 text-teal-700 dark:from-teal-950/50 dark:via-slate-900 dark:to-cyan-950/30 dark:text-teal-200' },
   default: { badge: 'bg-slate-100 text-slate-700 ring-slate-200 dark:bg-slate-900 dark:text-slate-300 dark:ring-slate-800', icon: 'text-slate-600 bg-slate-100 dark:bg-slate-900 dark:text-slate-300', line: 'bg-slate-500', cover: 'from-slate-100 via-white to-cyan-50 text-slate-700 dark:from-slate-800 dark:via-slate-900 dark:to-slate-800 dark:text-slate-200' },
 };
 
@@ -282,19 +283,6 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
       )}
 
       <div className="space-y-10">
-        <div className="flex items-end justify-between gap-4 border-b border-slate-200 pb-3 dark:border-slate-800">
-          <div>
-            <p className="text-[12px] font-semibold uppercase tracking-wide text-cyan-700 dark:text-cyan-300">
-              {isZh ? '工具探索' : 'Explore tools'}
-            </p>
-            <h2 className="mt-1 text-xl font-semibold tracking-tight text-slate-950 dark:text-white">
-              {normalizedHomeSearch
-                ? (isZh ? '筛选结果' : 'Filtered tools')
-                : (isZh ? '按场景查找工具' : 'Browse by workflow')}
-            </h2>
-          </div>
-        </div>
-
         {homeCategories.map((category) => {
           const toolsInCategory = homeGroupedTools[category];
           if (!toolsInCategory?.length) return null;

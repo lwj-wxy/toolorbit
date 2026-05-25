@@ -10,6 +10,7 @@ export const CATEGORY_SLUGS: Record<Category, string> = {
   'PDF工具': 'pdf-tools',
   '图片处理': 'image-tools',
   '计算转换': 'conversion-tools',
+  '实用工具': 'utility-tools',
 };
 
 export const CATEGORY_BY_SLUG = Object.fromEntries(

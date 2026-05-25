@@ -48,6 +48,7 @@ import {
   Wand2,
   Zap,
   BarChart3,
+  Activity,
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Link } from '../lib/navigation';
@@ -109,6 +110,7 @@ const iconMap: Record<string, ComponentType<{ size?: number; className?: string 
   'archive-converter': RefreshCcw,
   'rmb-converter': Banknote,
   'ppi-calculator': MonitorSmartphone,
+  'bmi-calculator': Activity,
   'color-converter': Palette,
   'color-palette': Palette,
   'color-picker': Pipette,

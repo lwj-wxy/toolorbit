@@ -1,4 +1,4 @@
-export type Category = 'AI 工具' | '开发者工具' | '站长工具' | '文本排版' | '生成器' | '电商工具' | 'PDF工具' | '图片处理' | '计算转换';
+export type Category = 'AI 工具' | '开发者工具' | '站长工具' | '文本排版' | '生成器' | '电商工具' | 'PDF工具' | '图片处理' | '计算转换' | '实用工具';
 
 export interface ToolMeta {
   id: string;
@@ -486,6 +486,14 @@ const RAW_TOOLS_META = [
     category: '计算转换',
     path: '/tools/calculate/ppi-calculator',
     color: 'amber',
+  },
+  {
+    id: 'bmi-calculator',
+    name: 'BMI 计算器',
+    description: '根据性别、年龄、身高和体重实时计算 BMI、体重分类与健康体重建议区间。',
+    category: '实用工具',
+    path: '/tools/utility/bmi-calculator',
+    color: 'teal',
   },
   {
     id: "color-converter",

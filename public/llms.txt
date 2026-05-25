@@ -16,7 +16,7 @@ ToolOrbit is a browser-first collection of free online tools for developers, cre
 - PDF tools: PDF merge, PDF split, PDF to image, image to PDF.
 - Image tools: image compressor, image converter, SVG to PNG, image to Base64, image cropper, image to ICO.
 - Ecommerce tools: Etsy fee calculator, Stripe fee calculator, listing generator, keyword analyzer, competitor tracker, market insights.
-- Utility tools: QR generator, QR scanner, barcode generator, unit converter, time converter, archive converter, RMB uppercase converter, PPI calculator, password generator, short URL converter.
+- Utility tools: QR generator, QR scanner, barcode generator, unit converter, time converter, archive converter, RMB uppercase converter, PPI calculator, BMI calculator, password generator, short URL converter.
 
 ## Indexable Entry Points
 

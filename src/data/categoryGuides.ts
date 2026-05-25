@@ -223,4 +223,24 @@ export const CATEGORY_GUIDES: Record<Category, { en: CategoryGuideCopy; zh: Cate
       ],
     },
   },
+  '实用工具': {
+    en: {
+      intro:
+        'Utility tools cover everyday checks and personal productivity calculations that are useful outside a narrow technical workflow. Use this category when you need a quick, browser-based answer for health, daily planning, simple references, or lightweight decision support. The tools are designed to be clear, local-first, and fast enough for repeat use.',
+      workflows: [
+        'Run everyday calculators and quick checks without opening a spreadsheet.',
+        'Keep personal reference inputs local in the browser whenever possible.',
+        'Use the result as a practical reference before making a final decision.',
+      ],
+    },
+    zh: {
+      intro:
+        '实用工具收纳日常生活、个人效率和轻量判断场景中的小工具。需要快速计算健康指标、整理日常参考值、做简单决策辅助或临时校验信息时，可以直接在浏览器中完成。这类工具强调清晰输入、即时结果和本地优先处理，适合反复打开使用。',
+      workflows: [
+        '快速完成日常计算和个人参考值校验，避免临时搭表。',
+        '尽量让个人输入保留在浏览器本地，减少不必要的数据传输。',
+        '把结果作为初步参考，再结合实际情况或专业意见判断。',
+      ],
+    },
+  },
 };

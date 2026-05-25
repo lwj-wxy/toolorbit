@@ -11,6 +11,7 @@ export const TOOL_SECTION_CATEGORIES: Record<string, Category> = {
   pdf: 'PDF工具',
   image: '图片处理',
   calculate: '计算转换',
+  utility: '实用工具',
 };
 
 export function getToolSectionCategory(section: string) {

@@ -53,8 +53,8 @@ export default function AllToolsPage({ locale = 'en' }: AllToolsPageProps) {
         </h1>
         <p className="mt-4 max-w-3xl text-[15px] leading-7 text-slate-600 dark:text-slate-300">
           {isZh
-            ? '浏览 ToolOrbit 的开发者、AI、PDF、图片、电商、文本、生成器和计算转换工具。每个工具都可从浏览器直接打开，适合快速完成日常工作流。'
-            : 'Browse every ToolOrbit developer, AI, PDF, image, ecommerce, text, generator, and conversion tool from one crawlable hub. Open each utility directly in the browser for fast everyday workflows.'}
+            ? '浏览 ToolOrbit 的开发者、AI、PDF、图片、电商、文本、生成器、计算转换和日常实用工具。每个工具都可从浏览器直接打开，适合快速完成日常工作流。'
+            : 'Browse every ToolOrbit developer, AI, PDF, image, ecommerce, text, generator, conversion, and everyday utility tool from one crawlable hub. Open each utility directly in the browser for fast everyday workflows.'}
         </p>
       </section>
 

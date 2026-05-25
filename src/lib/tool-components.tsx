@@ -46,6 +46,7 @@ export const toolComponentMap: Record<string, ToolComponent> = {
   '/tools/calculate/rmb-converter': lazyTool(() => import('../views/tools/calculate/RmbConverter')),
   '/tools/calculate/time-converter': lazyTool(() => import('../views/tools/calculate/TimeConverter')),
   '/tools/calculate/unit-converter': lazyTool(() => import('../views/tools/calculate/UnitConverter')),
+  '/tools/utility/bmi-calculator': lazyTool(() => import('../views/tools/utility/BmiCalculator')),
   '/tools/dev/ascii-table': lazyTool(() => import('../views/tools/dev/AsciiTable')),
   '/tools/dev/base64': lazyTool(() => import('../views/tools/dev/Base64')),
   '/tools/dev/base-converter': lazyTool(() => import('../views/tools/dev/BaseConverter')),

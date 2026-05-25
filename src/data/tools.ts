@@ -48,6 +48,7 @@ import {
   FileSpreadsheet,
   Terminal,
   Image,
+  Activity,
 } from 'lucide-react';
 import { TOOLS_META, type Category, type ToolMeta } from './tools-meta';
 
@@ -112,6 +113,7 @@ const iconMap: Record<string, ComponentType<any>> = {
   'archive-converter': RefreshCcw,
   'rmb-converter': Banknote,
   'ppi-calculator': MonitorSmartphone,
+  'bmi-calculator': Activity,
   'color-converter': Palette,
   'color-palette': Palette,
   'color-picker': Pipette,

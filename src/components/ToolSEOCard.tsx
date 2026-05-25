@@ -16,6 +16,7 @@ import { PDF_TOOL_OVERVIEWS } from '../views/tools/pdf/data';
 import { CALCULATE_TOOL_OVERVIEWS } from '../views/tools/calculate/data';
 import { NET_TOOL_OVERVIEWS } from '../views/tools/net/data';
 import { AI_TOOL_OVERVIEWS } from '../views/tools/ai/data';
+import { UTILITY_TOOL_OVERVIEWS } from '../views/tools/utility/data';
 
 const ALL_OVERVIEWS: Record<string, { zh: TechnicalOverview; en: TechnicalOverview }> = {
   ...DEV_TOOL_OVERVIEWS,
@@ -26,6 +27,7 @@ const ALL_OVERVIEWS: Record<string, { zh: TechnicalOverview; en: TechnicalOvervi
   ...CALCULATE_TOOL_OVERVIEWS,
   ...NET_TOOL_OVERVIEWS,
   ...AI_TOOL_OVERVIEWS,
+  ...UTILITY_TOOL_OVERVIEWS,
 };
 
 interface ToolSEOCardProps {
