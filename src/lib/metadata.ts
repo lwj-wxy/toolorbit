@@ -370,7 +370,7 @@ export function seoContentMetadata(path: string, locale: Locale = 'en'): Metadat
 }
 
 export function authorMetadata(authorId?: string, locale: Locale = 'en'): Metadata {
-  const author = getAuthorById(authorId);
+  const author = getAuthorById(authorId, locale);
 
   return pageMetadata(
     author.name,

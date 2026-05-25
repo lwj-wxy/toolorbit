@@ -148,13 +148,15 @@ function itemList(items: Array<{ name: string; url: string; description?: string
 }
 
 function editorialTeamEntity(locale: Locale = 'en') {
+  const team = getAuthorById(TOOL_ORBIT_EDITORIAL_TEAM.id, locale);
+
   return {
     '@type': 'Organization',
     '@id': `${SITE_URL}${localizedPath(TOOL_ORBIT_EDITORIAL_TEAM.url, locale)}#author`,
-    name: TOOL_ORBIT_EDITORIAL_TEAM.name,
+    name: team.name,
     url: absoluteUrl(TOOL_ORBIT_EDITORIAL_TEAM.url, locale),
-    description: TOOL_ORBIT_EDITORIAL_TEAM.bio,
-    knowsAbout: TOOL_ORBIT_EDITORIAL_TEAM.role,
+    description: team.bio,
+    knowsAbout: team.role,
     parentOrganization: organizationEntity(),
   };
 }
@@ -401,7 +403,7 @@ export function seoContentPageJsonLd(path: string, locale: Locale = 'en') {
 }
 
 export function authorPageJsonLd(authorId?: string, locale: Locale = 'en') {
-  const author = getAuthorById(authorId);
+  const author = getAuthorById(authorId, locale);
   const url = absoluteUrl(author.url, locale);
 
   return [

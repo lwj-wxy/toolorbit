@@ -48,7 +48,7 @@ const About = dynamic(() => import('../../../views/About')) as ComponentType;
 const Privacy = dynamic(() => import('../../../views/Privacy')) as ComponentType;
 const Terms = dynamic(() => import('../../../views/Terms')) as ComponentType;
 const AllToolsPage = dynamic(() => import('../../../views/AllToolsPage')) as ComponentType<{ locale: string }>;
-const AuthorPage = dynamic(() => import('../../../views/AuthorPage')) as ComponentType<{ authorId?: string }>;
+const AuthorPage = dynamic(() => import('../../../views/AuthorPage')) as ComponentType<{ authorId?: string; locale?: typeof LOCALE }>;
 const SeoContentPageView = dynamic(() => import('../../../views/SeoContentPage')) as ComponentType<{ page: unknown; locale: string }>;
 
 type PageProps = {
@@ -230,7 +230,7 @@ export default async function Page({ params }: PageProps) {
     return zhPage(
       <>
         <JsonLd id={`structured-data-author-${author.id}-zh`} data={authorPageJsonLd(author.id, LOCALE)} />
-        <AuthorPage authorId={author.id} />
+        <AuthorPage authorId={author.id} locale={LOCALE} />
       </>,
     );
   }
