@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { useTheme } from '../context/ThemeContext';
 import { detectLocaleFromPathname, localizedPath } from '../lib/i18n-routing';
 import { Link, useCurrentLocation } from '../lib/navigation';
-import type { NavigationMenuData } from '../lib/navigation-menu';
+import { getNavigationMenuData, type NavigationMenuData } from '../lib/navigation-menu';
 import { cn } from '../lib/utils';
 import LanguageSwitcher from './LanguageSwitcher';
 
@@ -29,7 +29,7 @@ export default function LayoutHeaderClient() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [isWideDesktop, setIsWideDesktop] = useState(false);
-  const [navigationMenu, setNavigationMenu] = useState<NavigationMenuData | null>(null);
+  const [navigationMenu, setNavigationMenu] = useState<NavigationMenuData>(() => getNavigationMenuData());
   const searchInputRef = useRef<HTMLInputElement>(null);
   const location = useCurrentLocation();
 
