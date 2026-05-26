@@ -66,6 +66,7 @@ const GENERATED_TOOL_COVER_IDS = new Set([
   'unicode-converter',
   'url-encoder',
   'uuid-generator',
+  'world-timezone-compare',
   'xml-json',
 ]);
 

@@ -45,6 +45,45 @@ export const UTILITY_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
     },
   },
 
+  'world-timezone-compare': {
+    zh: {
+      summary:
+        '世界时区对比工具同时显示 38 个固定 UTC 偏移时区在同一时刻的本地时间，覆盖 UTC-12:00 至 UTC+14:00。它适合协调跨时区会议、安排客服或开发交接、规划全球发布窗口，以及解释为什么同一时刻在另一地可能显示为前一天或次日。页面默认以 UTC+08:00 作为参考时区，用户可以切换参考偏移、拖动时间轴并搜索地区或偏移值。',
+      input:
+        '输入包括参考时区、参考时间、搜索关键词、视图模式和 12/24 小时制偏好。参考时区从固定偏移表选择，不绑定 IANA 政治时区；参考时间通过 0-1439 分钟范围的滑块调整，步进为 15 分钟。搜索支持地区名称、偏移标签和偏移值片段，例如 Tokyo、Berlin、+09:00 或 -03:30。',
+      output:
+        '输出包括每个 UTC 偏移对应的本地时间、UTC 标签、与参考时区的时间差、跨日标签和地区示例。卡片视图适合快速浏览所有时区；时间轴视图把 24 小时横向展开，更适合观察多方工作时间是否重叠。若目标时间落在参考日期前后，页面会显示“前一天”“次日”或多日差标签。',
+      processing:
+        '计算在浏览器内同步完成。工具先将参考时区的本地分钟数减去参考 UTC 偏移，得到同一时刻的 UTC 分钟；再为每个目标偏移加上对应分钟数，归一化到 0-1439 分钟显示本地时间。日期差通过未归一化分钟数除以 1440 向下取整得到。由于工具使用固定 UTC 偏移表，不会查询夏令时或当地法定时区规则；例如美国夏令时期间纽约通常应按 UTC-04:00 复核，而不是固定的 UTC-05:00。',
+      modes: ['38 个固定 UTC 偏移', '参考时区选择', '拖动时间轴', '地区和偏移搜索', '概览卡片', '时间轴视图', '跨日标签', '12/24 小时制切换'],
+      example: {
+        title: '跨时区换算示例',
+        input: '参考时区: Beijing, Singapore, Manila (UTC+08:00)\n参考时间: 15:30\n目标时区: Eastern Time - New York, Toronto (UTC-05:00)',
+        output: '纽约固定偏移时间: 02:30\n时间差: 13h 落后\n跨日标签: 同一天（如参考时间较早，则可能显示前一天）',
+        inputLanguage: 'text',
+        outputLanguage: 'text',
+      },
+    },
+    en: {
+      summary:
+        'World Timezone Compare shows the local time for the same moment across 38 fixed UTC offsets from UTC-12:00 through UTC+14:00. It helps coordinate cross-timezone meetings, support handoffs, global release windows, and date-change explanations when another region shows the previous or next day. The page defaults to UTC+08:00 as the reference offset and lets users switch offsets, drag the timeline, and search by region or UTC value.',
+      input:
+        'Inputs include the reference timezone, reference time, search keyword, view mode, and 12/24-hour preference. The reference timezone is selected from a fixed offset table rather than an IANA political timezone. The reference time uses a 0-1439 minute slider with a 15-minute step. Search matches region names, offset labels, and offset fragments such as Tokyo, Berlin, +09:00, or -03:30.',
+      output:
+        'Outputs include each offset’s local time, UTC label, difference from the reference offset, date-change label, and example regions. The card view is best for scanning all zones quickly. The timeline view lays out the 24-hour day horizontally, which is better for checking overlap across working hours. If the target local time lands before or after the reference date, the page marks previous day, next day, or a multi-day difference.',
+      processing:
+        'The calculation runs synchronously in the browser. The tool subtracts the reference UTC offset from the reference local minutes to get the same moment in UTC minutes, then adds every target offset and normalizes the result into the 0-1439 minute display range. The date delta is derived from the non-normalized minute value divided by 1440 and floored. Because this is a fixed UTC offset table, it does not query daylight saving time or local legal timezone rules; during US daylight saving time, for example, New York should usually be checked as UTC-04:00 rather than the fixed UTC-05:00 row.',
+      modes: ['38 fixed UTC offsets', 'Reference timezone selector', 'Draggable timeline', 'Region and offset search', 'Overview cards', 'Timeline view', 'Date-change labels', '12/24-hour toggle'],
+      example: {
+        title: 'Cross-timezone conversion example',
+        input: 'Reference timezone: Beijing, Singapore, Manila (UTC+08:00)\nReference time: 15:30\nTarget timezone: Eastern Time - New York, Toronto (UTC-05:00)',
+        output: 'New York fixed-offset time: 02:30\nDifference: 13h behind\nDate label: same day, unless the reference time is early enough to cross into the previous day',
+        inputLanguage: 'text',
+        outputLanguage: 'text',
+      },
+    },
+  },
+
   'bmi-calculator': {
     zh: {
       summary:

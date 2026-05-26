@@ -50,6 +50,7 @@ import {
   Image,
   Activity,
   CalendarDays,
+  Globe2,
 } from 'lucide-react';
 import { TOOLS_META, type Category, type ToolMeta } from './tools-meta';
 
@@ -116,6 +117,7 @@ const iconMap: Record<string, ComponentType<any>> = {
   'ppi-calculator': MonitorSmartphone,
   'bmi-calculator': Activity,
   'age-calculator': CalendarDays,
+  'world-timezone-compare': Globe2,
   'color-converter': Palette,
   'color-palette': Palette,
   'color-picker': Pipette,

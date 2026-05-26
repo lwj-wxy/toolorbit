@@ -504,6 +504,14 @@ const RAW_TOOLS_META = [
     color: 'teal',
   },
   {
+    id: 'world-timezone-compare',
+    name: '世界时区对比',
+    description: '同时对比 UTC-12:00 至 UTC+14:00 的 38 个固定 UTC 偏移时区，拖动时间轴安排跨时区会议。',
+    category: '实用工具',
+    path: '/tools/utility/world-timezone-compare',
+    color: 'teal',
+  },
+  {
     id: "color-converter",
     name: "颜色代码转换",
     description: "HEX, RGB, HSL, HSV, CMYK 等多种工业色彩规格之间无损互转，支持透明度提取。",

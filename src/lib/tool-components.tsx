@@ -48,6 +48,7 @@ export const toolComponentMap: Record<string, ToolComponent> = {
   '/tools/calculate/unit-converter': lazyTool(() => import('../views/tools/calculate/UnitConverter')),
   '/tools/utility/age-calculator': lazyTool(() => import('../views/tools/utility/AgeCalculator')),
   '/tools/utility/bmi-calculator': lazyTool(() => import('../views/tools/utility/BmiCalculator')),
+  '/tools/utility/world-timezone-compare': lazyTool(() => import('../views/tools/utility/WorldTimezoneCompare')),
   '/tools/dev/ascii-table': lazyTool(() => import('../views/tools/dev/AsciiTable')),
   '/tools/dev/base64': lazyTool(() => import('../views/tools/dev/Base64')),
   '/tools/dev/base-converter': lazyTool(() => import('../views/tools/dev/BaseConverter')),
