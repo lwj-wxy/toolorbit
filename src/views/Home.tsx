@@ -1,7 +1,8 @@
 'use client';
 
-import { FormEvent, useMemo, useState } from 'react';
+import { FormEvent, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { motion } from 'motion/react';
 import {
   ArrowRight,
   Clock,
@@ -16,6 +17,8 @@ import { getToolCoverPath, hasGeneratedToolCover } from '../lib/tool-covers';
 import { cn } from '../lib/utils';
 
 const HOME_CATEGORY_PREVIEW_LIMIT = 6;
+const TOOL_CARD_REVEAL_DELAY_STEP = 0.035;
+const TOOL_CARD_REVEAL_DELAY_MAX = 0.14;
 
 const categoryStyles: Record<string, { badge: string; icon: string; line: string; cover: string }> = {
   'AI 工具': { badge: 'bg-sky-50 text-sky-700 ring-sky-200 dark:bg-sky-950/30 dark:text-sky-300 dark:ring-sky-900', icon: 'text-sky-700 bg-sky-50 dark:bg-sky-950/40 dark:text-sky-300', line: 'bg-sky-500', cover: 'from-sky-50 via-cyan-50 to-white text-sky-700 dark:from-sky-950/50 dark:via-cyan-950/30 dark:to-slate-900 dark:text-sky-200' },
@@ -34,6 +37,64 @@ const categoryStyles: Record<string, { badge: string; icon: string; line: string
 function getCategoryStyles(category: Category) {
   return categoryStyles[category] || categoryStyles.default;
 }
+
+const LazyToolCoverImage = ({
+  src,
+  alt,
+  className,
+}: {
+  src: string;
+  alt: string;
+  className: string;
+}) => {
+  const imageContainerRef = useRef<HTMLDivElement>(null);
+  const [shouldLoadImage, setShouldLoadImage] = useState(false);
+
+  useEffect(() => {
+    if (shouldLoadImage) return;
+
+    const imageContainer = imageContainerRef.current;
+    if (!imageContainer) return;
+
+    if (!('IntersectionObserver' in window)) {
+      setShouldLoadImage(true);
+      return;
+    }
+
+    const imageObserver = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+
+        setShouldLoadImage(true);
+        imageObserver.disconnect();
+      },
+      {
+        rootMargin: '480px 0px',
+        threshold: 0.01,
+      },
+    );
+
+    imageObserver.observe(imageContainer);
+
+    return () => {
+      imageObserver.disconnect();
+    };
+  }, [shouldLoadImage]);
+
+  return (
+    <div ref={imageContainerRef} className="h-full w-full">
+      {shouldLoadImage ? (
+        <img
+          src={src}
+          alt={alt}
+          className={className}
+          loading="lazy"
+          decoding="async"
+        />
+      ) : null}
+    </div>
+  );
+};
 
 function ToolCover({ tool }: { tool: ToolItem }) {
   const { t } = useTranslation();
@@ -64,27 +125,38 @@ function ToolCover({ tool }: { tool: ToolItem }) {
 
   return (
     <div className="relative aspect-[16/10] overflow-hidden rounded-t-lg border-b border-slate-100 bg-slate-50 dark:border-white/10 dark:bg-slate-900">
-      <img
+      <LazyToolCoverImage
         src={getToolCoverPath(tool.id)}
         alt={t(`tools.${tool.id}.name`, { defaultValue: tool.name })}
         className="block h-full w-full origin-bottom scale-[1.14] object-cover"
-        loading="lazy"
       />
     </div>
   );
 }
 
-function ToolCard({
+const ToolCard = ({
   tool,
+  revealIndex = 0,
 }: {
   tool: ToolItem;
-}) {
+  revealIndex?: number;
+}) => {
   const { t } = useTranslation();
   const Icon = tool.icon;
   const styles = getCategoryStyles(tool.category);
 
   return (
-    <article className="group relative h-full overflow-hidden rounded-lg border border-slate-200/90 bg-white shadow-sm transition-colors duration-200 hover:border-cyan-300 hover:bg-cyan-50/20 dark:border-slate-800 dark:bg-[#282c34] dark:hover:border-cyan-700 dark:hover:bg-cyan-950/10">
+    <motion.article
+      initial={{ opacity: 0, y: 24, scale: 0.97 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, amount: 0.18 }}
+      transition={{
+        duration: 0.45,
+        ease: 'easeOut',
+        delay: Math.min(revealIndex * TOOL_CARD_REVEAL_DELAY_STEP, TOOL_CARD_REVEAL_DELAY_MAX),
+      }}
+      className="group relative h-full overflow-hidden rounded-lg border border-slate-200/90 bg-white shadow-sm transition-colors duration-200 hover:border-cyan-300 hover:bg-cyan-50/20 dark:border-slate-800 dark:bg-[#282c34] dark:hover:border-cyan-700 dark:hover:bg-cyan-950/10"
+    >
       <Link to={tool.path} className="flex h-full min-h-[232px] flex-col">
         <ToolCover tool={tool} />
         <div className="flex flex-1 flex-col p-3 pt-4">
@@ -103,9 +175,9 @@ function ToolCard({
           </div>
         </div>
       </Link>
-    </article>
+    </motion.article>
   );
-}
+};
 
 type HomeProps = {
   initialSearch?: string;
@@ -213,8 +285,8 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
         </header>
 
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {filteredTools.map((tool) => (
-            <ToolCard key={tool.id} tool={tool} />
+          {filteredTools.map((tool, toolIndex) => (
+            <ToolCard key={tool.id} tool={tool} revealIndex={toolIndex} />
           ))}
         </div>
 
@@ -275,8 +347,8 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
             {isZh ? '常用工具' : t('common.recent_tools') || 'Recent tools'}
           </h2>
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
-            {recentTools.slice(0, 4).map((tool) => (
-              <ToolCard key={`recent-${tool.id}`} tool={tool} />
+            {recentTools.slice(0, 4).map((tool, toolIndex) => (
+              <ToolCard key={`recent-${tool.id}`} tool={tool} revealIndex={toolIndex} />
             ))}
           </div>
         </section>
@@ -314,8 +386,8 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
               </div>
 
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-                {previewTools.map((tool) => (
-                  <ToolCard key={tool.id} tool={tool} />
+                {previewTools.map((tool, toolIndex) => (
+                  <ToolCard key={tool.id} tool={tool} revealIndex={toolIndex} />
                 ))}
               </div>
             </section>
