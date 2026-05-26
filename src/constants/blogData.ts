@@ -11,6 +11,30 @@ const defaultAuthorId = 'luo-wj';
 
 const posts: BlogPost[] = [
   {
+    slug: 'etsy-seo-title-tags-guide',
+    date: '2026-05-26',
+    category: 'Business',
+    image: blogImage('etsy-pricing-strategy-guide'),
+  },
+  {
+    slug: 'etsy-product-photography-conversion-guide',
+    date: '2026-05-25',
+    category: 'Business',
+    image: blogImage('etsy-fee-complete-guide'),
+  },
+  {
+    slug: 'etsy-shipping-free-shipping-strategy',
+    date: '2026-05-24',
+    category: 'Business',
+    image: blogImage('etsy-international-selling-fees'),
+  },
+  {
+    slug: 'etsy-digital-download-pricing-guide',
+    date: '2026-05-23',
+    category: 'Business',
+    image: blogImage('etsy-offsite-ads-explained'),
+  },
+  {
     slug: 'uuid-demystified',
     date: '2026-05-16',
     category: 'Development',
