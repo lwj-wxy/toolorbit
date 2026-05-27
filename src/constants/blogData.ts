@@ -11,6 +11,24 @@ const defaultAuthorId = 'luo-wj';
 
 const posts: BlogPost[] = [
   {
+    slug: 'mbti-personality-test-guide',
+    date: '2026-05-27',
+    category: 'Productivity',
+    image: '/images/blog/mbti-personality-test-guide.png',
+  },
+  {
+    slug: 'mbti-four-dimensions-explained',
+    date: '2026-05-27',
+    category: 'Productivity',
+    image: '/images/blog/mbti-four-dimensions-explained.png',
+  },
+  {
+    slug: 'mbti-16-personality-types-guide',
+    date: '2026-05-27',
+    category: 'Productivity',
+    image: '/images/blog/mbti-16-personality-types-guide.png',
+  },
+  {
     slug: 'codex-gpt-image-2-workflow',
     date: '2026-05-27',
     category: 'AI',

@@ -89,7 +89,7 @@ export const UTILITY_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       summary:
         'MBTI 性格测试工具通过 24 道原创偏好题，按外向/内向、实感/直觉、思考/情感、判断/感知四个维度生成 16 型性格参考结果。它适合做轻量自我了解、团队沟通破冰、学习风格讨论和个人工作偏好梳理。结果页会展示低多边形风格人物画像、性格定向、性格解析、优势提醒、成长建议和与当前类型匹配的 ToolOrbit 推荐工具。',
       input:
-        '输入为 24 道五档偏好题，选项从“不符合”到“很符合”。每道题只描述日常偏好，不涉及对错、能力高低或诊断结论。题目分别映射到 E/I、S/N、T/F、J/P 四个维度；同一维度包含正反向题目，用于降低单一措辞造成的偏差。用户也可以在结果区点击 16 型按钮，预览其它类型的画像和解析。',
+        '输入为 24 道五档偏好题，选项从“不符合”到“很符合”。每道题只描述日常偏好，不涉及对错、能力高低或诊断结论。题目分别映射到 E/I、S/N、T/F、J/P 四个维度；同一维度包含正反向题目，用于降低单一措辞造成的偏差。完成全部题目后，结果区会集中展示当前类型的画像、优势提示、性格定向和成长提醒。',
       output:
         '输出包括四字母类型代码、类型角色组、低多边形人物图、性格定向、性格解析、三条优势提示、一条成长建议、四个维度的实时倾向条，以及按类型角色推荐的站内工具。若题目尚未全部回答，页面会显示当前预览类型；完成全部题目后结果会标记为已完成。',
       processing:
@@ -107,7 +107,7 @@ export const UTILITY_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       summary:
         'The MBTI Personality Test uses 24 original preference statements to estimate a 16-type personality result across Extraversion/Introversion, Sensing/Intuition, Thinking/Feeling, and Judging/Perceiving. It is useful for lightweight self-reflection, team icebreakers, learning-style conversations, and work-preference mapping. The result page shows a low-poly character illustration, style orientation, personality analysis, strengths, growth guidance, and ToolOrbit tool recommendations matched to the current role group.',
       input:
-        'The input is a 24-question five-point preference scale, ranging from “does not fit” to “strongly fits.” Each statement describes everyday preference rather than correctness, ability, or diagnosis. Questions map to the E/I, S/N, T/F, and J/P dimensions, with both forward and reverse wording in each dimension to reduce single-phrasing bias. Users can also click any of the 16 type buttons in the result area to preview another type illustration and analysis.',
+        'The input is a 24-question five-point preference scale, ranging from “does not fit” to “strongly fits.” Each statement describes everyday preference rather than correctness, ability, or diagnosis. Questions map to the E/I, S/N, T/F, and J/P dimensions, with both forward and reverse wording in each dimension to reduce single-phrasing bias. After all questions are complete, the result area groups the current type portrait, strength notes, personality orientation, and growth note.',
       output:
         'The output includes the four-letter type code, role group, low-poly character illustration, style orientation, personality analysis, three strength notes, one growth suggestion, live dimension bars, and role-based recommended ToolOrbit tools. If not every question has been answered, the page shows a preview type; after all questions are answered, the result is marked as complete.',
       processing:

@@ -2096,14 +2096,13 @@
       "orientationTitle": "性格定向",
       "strengthsTitle": "优势提示",
       "growthTitle": "成长提醒",
-      "allTypesTitle": "查看 16 型画像",
       "seoTitle": "MBTI 性格测试工具：16 型画像、性格定向与解析",
       "seoDesc": "在线完成 24 道原创 MBTI 风格偏好题，获得 16 型参考结果、低多边形人物画像、四维度倾向、性格解析、成长建议和站内推荐工具。",
       "guideTitle": "如何使用 MBTI 性格测试？",
       "guide1": "1. 按第一反应回答 24 道日常偏好题，不需要追求“正确答案”。",
       "guide2": "2. 观察右侧 E/I、S/N、T/F、J/P 四个维度的实时倾向。",
       "guide3": "3. 完成全部题目后查看类型画像、性格定向、优势和成长提醒。",
-      "guide4": "4. 使用 16 型按钮预览其它类型，并参考结果区的推荐工具继续操作。",
+      "guide4": "4. 结果区会集中展示画像、优势提示、性格定向和成长提醒，便于一次性阅读。",
       "faq1Q": "这个测试是官方 MBTI 吗？",
       "faq1A": "不是。本工具是非官方偏好测试，不代表 Myers-Briggs 官方 MBTI® 评估，也不适合替代专业解释流程。",
       "faq2Q": "结果为什么可能和其它网站不一样？",
@@ -2832,6 +2831,18 @@
     "editorial_note": "每篇指南都会围绕实际工作流准确性进行检查，并连接到可直接应用的浏览器工具。",
     "editorial_policy": "编辑标准",
     "posts": {
+      "mbti-personality-test-guide": {
+        "title": "MBTI 性格测试怎么读：从四个字母到自我理解",
+        "summary": "了解 MBTI 的四组偏好、ToolOrbit MBTI 工具的计分方式、结果卡片如何解读，以及为什么它更适合自我反思而不是贴标签。"
+      },
+      "mbti-four-dimensions-explained": {
+        "title": "MBTI 四维度解析：E/I、S/N、T/F、J/P 分别代表什么？",
+        "summary": "用具体场景解释外向与内向、实感与直觉、情感与思考、感知与判断四组偏好，帮助你看懂性格结果背后的思维倾向。"
+      },
+      "mbti-16-personality-types-guide": {
+        "title": "16 型 MBTI 性格解析：每种类型的优势、盲点与沟通建议",
+        "summary": "按分析家、外交家、守护者和探险家四组梳理 16 种 MBTI 类型，快速理解每类人的工作风格、关系需求和成长提醒。"
+      },
       "codex-gpt-image-2-workflow": {
         "title": "Codex 如何使用 GPT Image 2 生成项目图片",
         "summary": "学习什么时候适合让 Codex 生成图片、如何写 GPT Image 2 提示词、如何把输出保存进项目，以及如何避免常见素材工作流问题。"

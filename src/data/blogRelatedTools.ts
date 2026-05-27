@@ -1,4 +1,7 @@
 export const BLOG_RELATED_TOOLS: Record<string, string[]> = {
+  'mbti-personality-test-guide': ['/tools/utility/mbti-personality-test', '/tools/text/text-analyzer', '/tools/ai/text-polisher'],
+  'mbti-four-dimensions-explained': ['/tools/utility/mbti-personality-test', '/tools/text/text-analyzer', '/tools/ai/prompt-generator'],
+  'mbti-16-personality-types-guide': ['/tools/utility/mbti-personality-test', '/tools/ai/text-polisher', '/tools/text/text-analyzer'],
   'codex-gpt-image-2-workflow': ['/tools/ai/prompt-generator', '/tools/image/image-compressor', '/tools/image/image-converter'],
   'codex-skill-installation-guide': ['/tools/dev/json-formatter', '/tools/dev/text-diff', '/tools/ai/prompt-generator'],
   'codex-ui-ux-pro-max-guide': ['/tools/dev/color-palette', '/tools/dev/color-picker', '/tools/ai/prompt-generator'],
