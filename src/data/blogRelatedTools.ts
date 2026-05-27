@@ -34,4 +34,8 @@ export const BLOG_RELATED_TOOLS: Record<string, string[]> = {
   'etsy-pricing-strategy-guide': ['/tools/ecommerce/etsy-pricing-calculator', '/tools/ecommerce/etsy-fee-calculator', '/tools/ecommerce/etsy-offsite-ads-calculator'],
   'etsy-offsite-ads-explained': ['/tools/ecommerce/etsy-offsite-ads-calculator', '/tools/ecommerce/etsy-pricing-calculator', '/tools/ecommerce/etsy-fee-calculator'],
   'etsy-international-selling-fees': ['/tools/ecommerce/etsy-regulatory-fee-calculator', '/tools/ecommerce/etsy-fee-calculator', '/tools/ecommerce/etsy-pricing-calculator'],
+  'paypal-fees-complete-guide': ['/tools/ecommerce/paypal-fee-calculator', '/tools/ecommerce/stripe-vs-paypal-fee-calculator', '/tools/ecommerce/stripe-fee-calculator'],
+  'stripe-vs-paypal-fees-guide': ['/tools/ecommerce/stripe-vs-paypal-fee-calculator', '/tools/ecommerce/stripe-fee-calculator', '/tools/ecommerce/paypal-fee-calculator'],
+  'reverse-payment-fee-calculator-guide': ['/tools/ecommerce/paypal-fee-calculator', '/tools/ecommerce/stripe-fee-calculator', '/tools/ecommerce/stripe-vs-paypal-fee-calculator'],
+  'ecommerce-payment-processing-fees-guide': ['/tools/ecommerce/etsy-fee-calculator', '/tools/ecommerce/stripe-vs-paypal-fee-calculator', '/tools/ecommerce/paypal-fee-calculator'],
 };

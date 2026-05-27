@@ -78,6 +78,22 @@
     "editorial_note": "Each guide is reviewed for practical workflow accuracy and connected to the browser tools that help you apply it.",
     "editorial_policy": "Editorial standards",
     "posts": {
+      "paypal-fees-complete-guide": {
+        "title": "PayPal Fees in 2026: Checkout, Goods & Services, Invoices, and Fixed Fees",
+        "summary": "Understand current PayPal merchant fee presets, fixed fees by currency, international surcharges, and how to estimate real net payout before you invoice a customer."
+      },
+      "stripe-vs-paypal-fees-guide": {
+        "title": "Stripe vs PayPal Fees: Which Payment Processor Is Cheaper?",
+        "summary": "Compare Stripe and PayPal fees by transaction size, checkout method, international cards, fixed fees, and net payout instead of relying on headline percentages."
+      },
+      "reverse-payment-fee-calculator-guide": {
+        "title": "Reverse Payment Fee Calculation: How Much Should You Invoice to Receive a Net Amount?",
+        "summary": "Learn the reverse fee formula for Stripe and PayPal so freelancers, agencies, and ecommerce sellers can quote prices that preserve target net revenue."
+      },
+      "ecommerce-payment-processing-fees-guide": {
+        "title": "Ecommerce Payment Processing Fees: Etsy, Stripe, PayPal, and Your Real Margin",
+        "summary": "A practical guide to comparing marketplace fees and standalone payment processors so sellers can understand what they actually keep from each order."
+      },
       "why-use-json-formatter": {
         "title": "In-depth Analysis: Why Developers Need Efficient JSON Formatting Tools",
         "summary": "In the world of microservices and massive API responses, well-formatted data is the backbone of efficient debugging and integration. Here's why technical formatting matters."

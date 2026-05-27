@@ -11,6 +11,30 @@ const defaultAuthorId = 'luo-wj';
 
 const posts: BlogPost[] = [
   {
+    slug: 'paypal-fees-complete-guide',
+    date: '2026-05-27',
+    category: 'Business',
+    image: blogImage('paypal-fees-complete-guide'),
+  },
+  {
+    slug: 'stripe-vs-paypal-fees-guide',
+    date: '2026-05-27',
+    category: 'Business',
+    image: blogImage('stripe-vs-paypal-fees-guide'),
+  },
+  {
+    slug: 'reverse-payment-fee-calculator-guide',
+    date: '2026-05-27',
+    category: 'Business',
+    image: blogImage('reverse-payment-fee-calculator-guide'),
+  },
+  {
+    slug: 'ecommerce-payment-processing-fees-guide',
+    date: '2026-05-27',
+    category: 'Business',
+    image: blogImage('ecommerce-payment-processing-fees-guide'),
+  },
+  {
     slug: 'etsy-seo-title-tags-guide',
     date: '2026-05-26',
     category: 'Business',
