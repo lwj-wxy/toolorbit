@@ -93,7 +93,7 @@ export const UTILITY_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         '输出包括四字母类型代码、类型角色组、低多边形人物图、性格定向、性格解析、三条优势提示、一条成长建议、四个维度的实时倾向条，以及按类型角色推荐的站内工具。若题目尚未全部回答，页面会显示当前预览类型；完成全部题目后结果会标记为已完成。',
       processing:
-        '计算在浏览器内同步完成。每道题的回答值按 -2、-1、0、1、2 记录；如果题目倾向 E、N、T、J，则同意会增加对应维度分数；如果题目倾向 I、S、F、P，则同意会反向扣减该维度分数。四个维度分别累加后，分数大于或等于 0 时取 E/N/T/J，小于 0 时取 I/S/F/P，组合为 16 型之一。维度条将每个维度的 -12 到 +12 分映射为 0-100% 位置。所有题目、答案和结果都保留在本地 React 状态中，不发送到服务器。',
+        '计算在浏览器内同步完成。每道题的回答值按 -2、-1、0、1、2 记录；同意某道题时，会按强度给该题指向的偏好字母加 1 或 2 分；不同意时，会给同一维度的相反字母加 1 或 2 分；选择“一般”不增加任一端分数。完成后分别比较 E/I、S/N、T/F、J/P 四组累计得分，得分较高的一端成为最终四字母类型中的对应字母。维度条显示每组相反偏好中右侧字母得分占该组总分的比例；如果该维度没有有效倾向，则显示在中间。所有题目、答案和结果都保留在本地 React 状态中，不发送到服务器。',
       modes: ['24 道原创偏好题', '五档量表', '四维度实时倾向', '16 型结果', '低多边形画像', '性格定向', '性格解析', '推荐工具', '本地计算'],
       example: {
         title: 'MBTI 测试示例',
@@ -111,7 +111,7 @@ export const UTILITY_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         'The output includes the four-letter type code, role group, low-poly character illustration, style orientation, personality analysis, three strength notes, one growth suggestion, live dimension bars, and role-based recommended ToolOrbit tools. If not every question has been answered, the page shows a preview type; after all questions are answered, the result is marked as complete.',
       processing:
-        'The calculation runs synchronously in the browser. Each answer is stored as -2, -1, 0, 1, or 2. Agreement with statements leaning E, N, T, or J increases that dimension score; agreement with statements leaning I, S, F, or P subtracts from the same dimension score. After summing each dimension, scores greater than or equal to 0 choose E/N/T/J, while scores below 0 choose I/S/F/P, forming one of the 16 type codes. The dimension bars map each -12 to +12 score to a 0-100% position. Questions, answers, and results remain in local React state and are not sent to a server.',
+        'The calculation runs synchronously in the browser. Each answer is stored as -2, -1, 0, 1, or 2. Agreement gives 1 or 2 points to the preference letter the statement is keyed to; disagreement gives 1 or 2 points to the opposite letter in the same dimension; a neutral answer adds no points to either side. After completion, the tool compares the accumulated totals for E/I, S/N, T/F, and J/P, and the higher-scoring side becomes the corresponding letter in the final four-letter type. Each dimension bar shows the right-side letter score as a share of that pair total; if a dimension has no effective preference, it stays centered. Questions, answers, and results remain in local React state and are not sent to a server.',
       modes: ['24 original preference questions', 'Five-point scale', 'Live four-dimension bars', '16 type results', 'Low-poly illustration', 'Style orientation', 'Personality analysis', 'Recommended tools', 'Local calculation'],
       example: {
         title: 'MBTI test example',
