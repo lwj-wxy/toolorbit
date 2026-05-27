@@ -528,6 +528,14 @@ const RAW_TOOLS_META = [
     color: 'teal',
   },
   {
+    id: 'mbti-personality-test',
+    name: 'MBTI 性格测试',
+    description: '通过 24 道原创偏好题生成 16 型性格参考结果，展示低多边形画像、性格定向、解析和推荐工具。',
+    category: '实用工具',
+    path: '/tools/utility/mbti-personality-test',
+    color: 'teal',
+  },
+  {
     id: "color-converter",
     name: "颜色代码转换",
     description: "HEX, RGB, HSL, HSV, CMYK 等多种工业色彩规格之间无损互转，支持透明度提取。",

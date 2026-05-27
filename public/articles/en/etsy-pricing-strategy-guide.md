@@ -57,6 +57,89 @@ Where:
 
 Don't want to do the algebra? The [Etsy Pricing Calculator](/tools/ecommerce/etsy-pricing-calculator) does it all for you in real time.
 
+## Psychological Pricing Tactics for Etsy
+
+Beyond cost-plus math, how you present the price affects conversion:
+
+### Charm pricing ($X.99 vs. round numbers)
+
+$29.99 signals "under $30" to the buyer's brain. The difference between $30.00 and $29.99 is one cent, but the psychological distance is larger. On Etsy, charm pricing works best for items under $50. Above $100, round numbers ($125, not $124.99) convey quality and simplicity.
+
+### Price anchoring with variations
+
+List a product with variations at different price points. The highest-priced variation anchors the buyer's perception: the mid-tier option now looks reasonable, and the entry option looks like a deal. Example:
+
+- Basic (1 file, personal use): $8
+- Standard (3 files, personal use): $14 ← most buyers choose this
+- Premium (5 files + commercial license): $28
+
+The $28 option exists partly to make $14 look like the smart choice. Most buyers will not choose the highest tier, but its presence increases the average order value by making the middle tier feel like a value.
+
+### The "just below a threshold" rule
+
+Pricing at $19.99 instead of $20 crosses a mental threshold. The key thresholds on Etsy: $10, $20, $25, $35 (free shipping guarantee threshold), $50, $100. Price just below a threshold when you want to signal affordability. Price above a round number ($52, not $49.99) when you want to signal quality.
+
+### Comparison pricing in descriptions
+
+If your product replaces a more expensive alternative, mention it: "This editable template replaces a $150 custom designer fee" or "This printable wall art set costs less than one framed print from a home decor store." The comparison anchors the buyer's perception of value before they evaluate your price.
+
+## Cost-Based vs. Value-Based Pricing
+
+| Approach | Formula | Best for | Risk |
+|---|---|---|---|
+| Cost-based | Cost + target margin = price | Commodity items, craft supplies | Leaves money on the table for unique products |
+| Value-based | What the buyer saves/avoids = price ceiling | Unique designs, problem-solving products | Harder to calculate; requires understanding buyer's alternatives |
+| Competitor-based | Match or slightly undercut competitors | Saturated niches, commodity digital downloads | Race to the bottom if everyone does this |
+
+The strongest Etsy pricing strategies blend all three: cost-based sets the floor (minimum viable price), value-based sets the ceiling (maximum justifiable price), and competitor-based informs positioning within that range.
+
+For a custom wedding invitation template: cost might be $3 in design time per sale, competitors charge $8-15, and the value to the buyer (versus a $200 custom designer) is $200. Pricing at $18 captures more value than competitor-matching at $12 while still being 90% cheaper than the alternative.
+
+## Pricing for Variations and Bundles
+
+### Variation pricing strategy
+
+When a single listing has variations at different prices:
+
+- **Tier by size, complexity, or license type**, not by arbitrary differences. Buyers understand why a larger print costs more than a smaller one.
+- **Keep the price gap between tiers consistent.** If Small is $12 and Medium is $18, Large should be around $24, not $35. A sudden jump breaks the pattern and causes hesitation.
+- **Make the middle tier the obvious best value.** Slightly better margin on the middle tier, and it becomes the default choice.
+
+### Bundle pricing strategy
+
+Bundles should follow these rules:
+
+- **Price at 40-60% of the sum of individual prices.** A $30 total at $15 feels like a 50% discount — substantial but not desperate.
+- **Create bundle-exclusive items.** One design only in the bundle gives buyers a reason to choose the bundle over picking individual items.
+- **Name bundles by use case**, not by contents. "New Homeowner Bundle" sells better than "5 Printable Wall Art Files."
+
+## Margin Protection During Sales and Discounts
+
+Running a sale without checking the math is the fastest way to sell more and earn less. Before setting a discount:
+
+1. Calculate the sale price.
+2. Run the sale price through the [Etsy Fee Calculator](/tools/ecommerce/etsy-fee-calculator).
+3. Subtract item cost and shipping cost.
+4. Compare the sale margin to your full-price margin.
+
+### The discount break-even calculator
+
+A 20% discount does not mean you need 20% more sales to earn the same revenue. You need significantly more because fees take a proportion of revenue, not profit:
+
+```text
+Full price: $30, margin after fees and cost: $12
+20% off: $24, margin after fees and cost: $7
+Sales increase needed to earn the same total: 71% more units
+```
+
+A 20% price cut requires a 71% volume increase to maintain the same total profit. Few sales generate that kind of lift. Discount sparingly and always run the numbers first.
+
+Sale types ranked by profit preservation:
+1. **Bundle discount** (higher AOV offsets per-item margin loss)
+2. **Volume discount** (buy 3+, save 15%)
+3. **Seasonal clearance** (clear old inventory for new season)
+4. **Site-wide percentage off** (highest margin loss; use only for major events)
+
 ## Should You Build Offsite Ads into Your Base Price?
 
 This is a strategic question with no one-size-fits-all answer. Here's the framework:
@@ -72,6 +155,39 @@ This is a strategic question with no one-size-fits-all answer. Here's the framew
 - You'd rather price competitively and accept the occasional ad fee as a cost of doing business
 
 The calculator lets you toggle this on and off so you can model both scenarios.
+
+## International Pricing Strategy
+
+If you sell to buyers in multiple countries, consider:
+
+- **Currency display:** Etsy shows prices in the buyer's local currency by default. A $30 item appears as roughly £24, €28, or C$41. The conversion is automatic, but the perceived price varies — $30 feels different in each market.
+- **Market-specific pricing:** Some sellers adjust prices by country to account for different willingness-to-pay. A printable that sells well at $8 in the US might need to be £5 (roughly $6.30) in the UK market. Test pricing by reviewing your shop stats by buyer country.
+- **International fee impact:** If you are a non-US seller listing in USD, the 2.5% currency conversion fee applies. Build this into your price or switch your listing currency to match your bank account.
+
+## When and How to Raise Prices
+
+Raising prices is emotionally difficult but often financially necessary. Signs it is time:
+
+- **Your effective hourly rate is below your target.** If you are earning less per hour than you would at a local job, prices are too low.
+- **Sell-through rate is consistently high (>80% of listed quantity sells within the listing period).** Strong demand supports higher prices.
+- **Materials or shipping costs have increased** since you last set prices.
+- **Competitor prices have risen** and your product is now the cheapest in its category by a wide margin.
+
+How to raise prices without losing customers:
+
+- **Raise in small increments (5-10%)** rather than one large jump.
+- **Add value at the same time:** improved packaging, a bonus file, faster processing.
+- **Raise prices on new listings first**, then gradually bring existing listings up.
+- **Do not apologize or explain.** A price increase is a business decision, not a favor you are asking.
+
+## Pricing Refresh Cadence
+
+Set a recurring pricing review schedule:
+
+- **Monthly:** Check material and shipping cost changes. Adjust if costs have moved more than 5%.
+- **Quarterly:** Review competitor pricing in your top 5 listings. Note if the competitive range has shifted.
+- **Annually:** Full profit audit. Review effective hourly rate, blended fee rate, and product-line profitability. Discontinue or reprice products with sub-target margins.
+- **After major Etsy policy changes:** Fee structure changes are announced in advance. Re-run pricing models the day the change is published.
 
 ## Real-World Pricing Example
 
@@ -115,8 +231,11 @@ Compare for yourself: enter the same amount in both the [Etsy Fee Calculator](/t
 1. **Cost-first, not competitor-first** — your costs are unique; their prices might be wrong
 2. **Include every fee** — the difference between accounting for 3 fees vs. 5 fees can be 5+ percentage points on your margin
 3. **Use reverse-engineering** — decide your profit first, then let math tell you the price
-4. **Model multiple scenarios** — free shipping vs. paid shipping, ads vs. no ads
-5. **Know when to go independent** — Etsy's built-in traffic is valuable, but at a certain volume, the fee savings from your own site pay for the marketing
+4. **Apply psychological pricing** — charm pricing, anchoring, and threshold effects are real and measurable
+5. **Model multiple scenarios** — free shipping vs. paid shipping, ads vs. no ads, bundle vs. individual
+6. **Protect margins during sales** — a 20% discount can require 71% more units to earn the same profit
+7. **Review prices regularly** — costs change, markets move, and your time is worth more as you gain experience
+8. **Know when to go independent** — Etsy's built-in traffic is valuable, but at a certain volume, the fee savings from your own site pay for the marketing
 
 ---
 

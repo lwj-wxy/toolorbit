@@ -84,6 +84,45 @@ export const UTILITY_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
     },
   },
 
+  'mbti-personality-test': {
+    zh: {
+      summary:
+        'MBTI 性格测试工具通过 24 道原创偏好题，按外向/内向、实感/直觉、思考/情感、判断/感知四个维度生成 16 型性格参考结果。它适合做轻量自我了解、团队沟通破冰、学习风格讨论和个人工作偏好梳理。结果页会展示低多边形风格人物画像、性格定向、性格解析、优势提醒、成长建议和与当前类型匹配的 ToolOrbit 推荐工具。',
+      input:
+        '输入为 24 道五档偏好题，选项从“不符合”到“很符合”。每道题只描述日常偏好，不涉及对错、能力高低或诊断结论。题目分别映射到 E/I、S/N、T/F、J/P 四个维度；同一维度包含正反向题目，用于降低单一措辞造成的偏差。用户也可以在结果区点击 16 型按钮，预览其它类型的画像和解析。',
+      output:
+        '输出包括四字母类型代码、类型角色组、低多边形人物图、性格定向、性格解析、三条优势提示、一条成长建议、四个维度的实时倾向条，以及按类型角色推荐的站内工具。若题目尚未全部回答，页面会显示当前预览类型；完成全部题目后结果会标记为已完成。',
+      processing:
+        '计算在浏览器内同步完成。每道题的回答值按 -2、-1、0、1、2 记录；如果题目倾向 E、N、T、J，则同意会增加对应维度分数；如果题目倾向 I、S、F、P，则同意会反向扣减该维度分数。四个维度分别累加后，分数大于或等于 0 时取 E/N/T/J，小于 0 时取 I/S/F/P，组合为 16 型之一。维度条将每个维度的 -12 到 +12 分映射为 0-100% 位置。所有题目、答案和结果都保留在本地 React 状态中，不发送到服务器。',
+      modes: ['24 道原创偏好题', '五档量表', '四维度实时倾向', '16 型结果', '低多边形画像', '性格定向', '性格解析', '推荐工具', '本地计算'],
+      example: {
+        title: 'MBTI 测试示例',
+        input: 'E/I: 更偏独处整理\nS/N: 更偏模式和可能性\nT/F: 更偏逻辑一致性\nJ/P: 更偏提前规划',
+        output: '结果类型: INTJ\n性格定向: 长期规划 / 独立判断 / 系统优化\n推荐工具: AI 代码审查、JSON 格式化、正则表达式测试、文本对比 Diff',
+        inputLanguage: 'text',
+        outputLanguage: 'text',
+      },
+    },
+    en: {
+      summary:
+        'The MBTI Personality Test uses 24 original preference statements to estimate a 16-type personality result across Extraversion/Introversion, Sensing/Intuition, Thinking/Feeling, and Judging/Perceiving. It is useful for lightweight self-reflection, team icebreakers, learning-style conversations, and work-preference mapping. The result page shows a low-poly character illustration, style orientation, personality analysis, strengths, growth guidance, and ToolOrbit tool recommendations matched to the current role group.',
+      input:
+        'The input is a 24-question five-point preference scale, ranging from “does not fit” to “strongly fits.” Each statement describes everyday preference rather than correctness, ability, or diagnosis. Questions map to the E/I, S/N, T/F, and J/P dimensions, with both forward and reverse wording in each dimension to reduce single-phrasing bias. Users can also click any of the 16 type buttons in the result area to preview another type illustration and analysis.',
+      output:
+        'The output includes the four-letter type code, role group, low-poly character illustration, style orientation, personality analysis, three strength notes, one growth suggestion, live dimension bars, and role-based recommended ToolOrbit tools. If not every question has been answered, the page shows a preview type; after all questions are answered, the result is marked as complete.',
+      processing:
+        'The calculation runs synchronously in the browser. Each answer is stored as -2, -1, 0, 1, or 2. Agreement with statements leaning E, N, T, or J increases that dimension score; agreement with statements leaning I, S, F, or P subtracts from the same dimension score. After summing each dimension, scores greater than or equal to 0 choose E/N/T/J, while scores below 0 choose I/S/F/P, forming one of the 16 type codes. The dimension bars map each -12 to +12 score to a 0-100% position. Questions, answers, and results remain in local React state and are not sent to a server.',
+      modes: ['24 original preference questions', 'Five-point scale', 'Live four-dimension bars', '16 type results', 'Low-poly illustration', 'Style orientation', 'Personality analysis', 'Recommended tools', 'Local calculation'],
+      example: {
+        title: 'MBTI test example',
+        input: 'E/I: prefers private reflection\nS/N: prefers patterns and possibilities\nT/F: prefers logical consistency\nJ/P: prefers early planning',
+        output: 'Result type: INTJ\nStyle orientation: Long-range planning / independent judgment / system improvement\nRecommended tools: AI Code Reviewer, JSON Formatter, Regex Tester, Text Diff',
+        inputLanguage: 'text',
+        outputLanguage: 'text',
+      },
+    },
+  },
+
   'bmi-calculator': {
     zh: {
       summary:

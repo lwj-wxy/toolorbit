@@ -39,6 +39,15 @@ Etsy's Currency Conversion Fee applies when your **listing currency** differs fr
 
 The fee is **2.5% of the order total** and is automatically applied when Etsy converts funds during payout. It's one of the highest percentage fees on the platform, and it's entirely avoidable in many cases.
 
+### Where the conversion happens matters
+
+Etsy converts currency at two possible points:
+
+1. **At the time of sale:** If the buyer pays in a currency different from your listing currency, Etsy converts the buyer's payment to your listing currency. This conversion is typically handled without an additional seller fee (the buyer may see a conversion fee from their payment method).
+2. **At the time of payout:** If your listing currency differs from your bank account currency, Etsy converts during the payout process and charges the 2.5% fee. This is the conversion sellers can control.
+
+The distinction matters because some sellers list in the buyer's currency (e.g., USD to match US buyers) but then pay the 2.5% fee at payout. Others list in their bank currency and let Etsy handle the buyer-side conversion at no direct seller cost.
+
 ### Real Example
 
 A UK-based seller lists products in USD (to appeal to the larger American market). Their bank account is in GBP.
@@ -54,15 +63,62 @@ On a $200 order:
 
 The currency conversion fee is the second-largest single charge on this order after the transaction fee — and it's entirely a function of the currency mismatch.
 
+### The annual cost of currency conversion
+
+For a seller doing $50,000/year listing in USD with a GBP bank account:
+
+```text
+Annual currency conversion fees: $50,000 × 2.5% = $1,250
+```
+
+That is $1,250 per year that could be reduced to roughly $250 by using a multi-currency account (Wise, Revolut) that converts at interbank rates (~0.5%). The $1,000 annual saving goes directly to profit.
+
+## VAT, GST, and Sales Tax on International Orders
+
+Etsy collects and remits sales tax, VAT, and GST on behalf of sellers for most jurisdictions:
+
+- **US sales tax:** Etsy collects and remits for most states under marketplace facilitator laws.
+- **EU VAT:** Etsy collects VAT on orders shipped to EU buyers (via the Import One-Stop Shop / IOSS for orders under €150).
+- **UK VAT:** Etsy collects VAT on orders shipped to UK buyers.
+- **Australia GST:** Etsy collects GST on orders shipped to Australian buyers.
+- **Canada GST/HST:** Etsy collects and remits for most provinces.
+
+Sellers do not need to handle tax collection or remittance for transactions where Etsy acts as the marketplace facilitator. However, sellers are still responsible for income tax on their Etsy earnings and may need to register for VAT/GST in their home country if their total Etsy revenue exceeds local thresholds.
+
+The key operational note: tax amounts collected by Etsy are included in the order total for fee calculation purposes. Transaction fees, payment processing fees, and Offsite Ads fees are all calculated on the tax-inclusive total in jurisdictions where Etsy collects tax.
+
+## Marketplace Facilitator Laws by Region
+
+Marketplace facilitator laws require platforms like Etsy to collect and remit sales tax on behalf of sellers. The major regions:
+
+| Region | Law | Etsy's role |
+|--------|-----|-------------|
+| United States (most states) | Marketplace facilitator laws | Etsy collects and remits sales tax |
+| European Union | VAT e-commerce package | Etsy collects VAT via IOSS for orders ≤€150 |
+| United Kingdom | Marketplace facilitator rules | Etsy collects and remits VAT |
+| Australia | GST on low-value imported goods | Etsy collects and remits GST |
+| Canada (most provinces) | Marketplace facilitator rules | Etsy collects and remits GST/HST |
+| New Zealand | GST on remote services | Etsy collects and remits GST |
+
+These laws simplify compliance for sellers — you do not need to register, collect, or remit in these jurisdictions for Etsy sales. However, if you also sell on your own website, you may need to handle tax compliance independently for those sales.
+
 ## Strategies to Minimize These Fees
 
 ### 1. Match Your Listing Currency to Your Bank Currency
 
 The simplest fix: list in the same currency your bank account uses. If your bank is in GBP, list in GBP. Yes, you might lose some price transparency for international buyers, but you save 2.5% on every order. For many sellers, that's worth more than the potential conversion-rate improvement from listing in USD.
 
+To evaluate the trade-off: track your conversion rate by buyer country. If US buyers convert at 3.5% when you list in GBP vs. 4.0% when you list in USD, the 0.5 percentage point improvement needs to generate enough additional revenue to offset the 2.5% fee on all USD-listed sales. Usually, it does not.
+
 ### 2. Use a Multi-Currency Bank Account
 
 Some financial institutions (Wise, Revolut, certain business bank accounts) let you hold balances in multiple currencies. If you can receive USD payouts into a USD account, then convert to your local currency at interbank rates (often ~0.5%), you've effectively cut your currency conversion cost by 80%.
+
+Setup steps:
+1. Open a multi-currency account that provides US bank details (account number, routing number).
+2. Add the USD account details to your Etsy payment settings.
+3. Etsy pays out in USD to your USD account (no 2.5% conversion fee).
+4. Convert USD to your local currency within the multi-currency account at ~0.5%.
 
 ### 3. Factor the Fees into Your Pricing
 
@@ -78,17 +134,39 @@ Etsy's fee statements aren't always easy to parse. Use the [Etsy Regulatory & Cu
 
 UK sellers face a 0.35% regulatory fee — the lowest rate — plus a 2.5% currency conversion fee if listing in non-GBP currencies. Since many UK sellers target the US market, the combined add-on fee can reach 2.85%.
 
+UK-specific note: Etsy collects and remits UK VAT on orders shipped to UK buyers. Sellers do not need to handle VAT for these transactions, but income tax on Etsy profits is the seller's responsibility.
+
 ### Turkey
 
 Turkish sellers pay the highest regulatory rate at 1.1%, and most list in USD or EUR rather than TRY (because Etsy's buyer base is international). The combination of 1.1% regulatory + 2.5% currency conversion = 3.6% in add-on fees before any core Etsy charges.
+
+Turkish sellers should strongly consider listing in EUR if their bank account supports EUR, as EUR is more common among Turkish business bank accounts than USD. A multi-currency account is even better.
 
 ### Canada
 
 Canadian sellers pay 0.5% regulatory, and those listing in USD (to align with the dominant Etsy buyer base) pay an additional 2.5% currency conversion — totaling 3.0% in add-on fees.
 
+Canadian sellers have a good alternative: many Canadian banks offer USD-denominated business accounts. Receiving Etsy payouts in USD to a Canadian USD account avoids the 2.5% conversion fee. Convert USD to CAD when exchange rates are favorable or use a service like Wise for lower conversion costs.
+
 ### India
 
 Indian sellers face a 1.0% regulatory fee. Combined with 2.5% currency conversion, total add-on fees reach 3.5%. On a ₹10,000 order (roughly $120), that's about ₹350 ($4.20) before core Etsy fees.
+
+Indian sellers should investigate whether their bank supports foreign currency accounts. The Reserve Bank of India allows residents to hold foreign currency accounts under certain conditions. If available, a USD-denominated account eliminates the 2.5% conversion fee.
+
+### France
+
+French sellers pay 0.45% regulatory. Combined with 2.5% currency conversion when listing in non-EUR currencies, add-on fees reach 2.95%. Since most French sellers can list in EUR (their bank currency) and reach a large European buyer base, the currency conversion fee is avoidable for many.
+
+## International Shipping Fee Interactions
+
+International orders carry higher shipping costs, which increases the fee base for all percentage-based Etsy fees. A $20 item with $25 international shipping creates a $45 fee base — more than doubling the transaction, payment processing, and currency conversion fees compared to a domestic $20 + $5 shipping order.
+
+For sellers with significant international order volume, consider:
+
+- **Offer free shipping with the cost built into item price** only for domestic orders. Use shipping profiles to charge calculated international shipping separately.
+- **Review international shipping costs annually.** Carrier rates change. A destination that was affordable last year may now eat too much of the order value after fees.
+- **Decide whether certain countries are worth serving.** If Italy orders generate 5% of revenue but 25% of customer service inquiries and 15% of returns, the post-fee profit may not justify the operational load.
 
 ## Comparing Etsy to Direct Stripe Sales
 
@@ -101,13 +179,38 @@ One advantage of driving traffic to your own site is fee simplicity. When you se
 
 Compare both sides using our [Stripe Fee Calculator](/tools/ecommerce/stripe-fee-calculator) alongside the [Etsy Regulatory & Currency Fee Calculator](/tools/ecommerce/etsy-regulatory-fee-calculator). The difference can be substantial, especially if you're in a high regulatory-rate country.
 
+### The crossover point: when independent saves more
+
+For a Canadian seller doing $3,000/month in Etsy sales:
+
+```text
+Etsy scenario (USD listing, CAD bank, 0.5% regulatory):
+Monthly core fees at ~10%: $300
+Monthly regulatory (0.5%): $15
+Monthly currency conversion (2.5%): $75
+Total monthly fees: $390
+
+Independent scenario (Stripe + Shopify Basic):
+Monthly payment processing (~3.5%): $105
+Shopify Basic subscription: $39
+Total monthly fees: $144
+
+Monthly difference: $246 saved
+Annual difference: $2,952 saved
+```
+
+At $3,000/month, the savings from going independent substantially exceed the cost of driving your own traffic. The crossover point for most international sellers is around $1,000-$1,500/month in sales, depending on their regulatory fee rate and currency setup.
+
 ## Key Takeaways
 
 1. **Check your country's rate** — regulatory fees range from 0.35% to 1.1% depending on where you're registered as a seller
 2. **Currency conversion is the silent margin killer** — 2.5% per order adds up fast, and it's often avoidable
 3. **Match listing currency to bank currency** — the single easiest way to eliminate the conversion fee
-4. **Build add-on fees into your pricing model** — don't treat them as "miscellaneous"; they're real costs
-5. **Audit your Etsy bill regularly** — use a calculator to cross-check the regulatory and conversion line items
+4. **Use a multi-currency account** — cut currency conversion costs by 80% (from 2.5% to ~0.5%)
+5. **Etsy handles tax collection** for most jurisdictions — you do not need to collect or remit sales tax/VAT/GST for Etsy orders
+6. **Build add-on fees into your pricing model** — don't treat them as "miscellaneous"; they're real costs
+7. **Audit your Etsy bill regularly** — use a calculator to cross-check the regulatory and conversion line items
+8. **International shipping amplifies all fees** — the fee base includes shipping, so high international shipping costs increase every percentage-based fee
 
 ---
 

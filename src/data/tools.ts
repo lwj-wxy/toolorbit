@@ -51,6 +51,7 @@ import {
   Activity,
   CalendarDays,
   Globe2,
+  Brain,
 } from 'lucide-react';
 import { TOOLS_META, type Category, type ToolMeta } from './tools-meta';
 
@@ -120,6 +121,7 @@ const iconMap: Record<string, ComponentType<any>> = {
   'bmi-calculator': Activity,
   'age-calculator': CalendarDays,
   'world-timezone-compare': Globe2,
+  'mbti-personality-test': Brain,
   'color-converter': Palette,
   'color-palette': Palette,
   'color-picker': Pipette,
