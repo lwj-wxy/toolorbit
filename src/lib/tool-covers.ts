@@ -44,6 +44,7 @@ const GENERATED_TOOL_COVER_IDS = new Set([
   'listing-generator',
   'logo-generator',
   'market-insights',
+  'mbti-personality-test',
   'password-generator',
   'paypal-fee-calculator',
   'pdf-merge',
