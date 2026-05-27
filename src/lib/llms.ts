@@ -55,7 +55,7 @@ ToolOrbit is a browser-first collection of free online tools for developers, cre
 - AI tools: YouTube title and description generator, AI prompt generator, weekly report generator, code reviewer, video script generator, meeting minutes generator, Excel formula assistant, AI regex generator, logo generator, image generator, SVG generator, Xiaohongshu copywriter, text polisher, translator.
 - PDF tools: PDF merge, PDF split, PDF to image, image to PDF.
 - Image tools: image compressor, image converter, SVG to PNG, image to Base64, image cropper, image to ICO.
-- Ecommerce tools: Etsy fee calculator, Stripe fee calculator, listing generator, keyword analyzer, competitor tracker, market insights.
+- Ecommerce tools: Etsy fee calculator, Stripe fee calculator, PayPal fee calculator, Stripe vs PayPal fee comparison, listing generator, keyword analyzer, competitor tracker, market insights.
 - Utility tools: QR generator, QR scanner, barcode generator, unit converter, time converter, archive converter, RMB uppercase converter, PPI calculator, BMI calculator, age calculator, password generator, short URL converter.
 
 ## Indexable Entry Points
@@ -76,6 +76,9 @@ ToolOrbit is a browser-first collection of free online tools for developers, cre
 - https://toolorbit.site/tools/ai/translator
 - https://toolorbit.site/tools/ai/excel-formula
 - https://toolorbit.site/tools/ai/code-reviewer
+- https://toolorbit.site/tools/ecommerce/stripe-fee-calculator
+- https://toolorbit.site/tools/ecommerce/paypal-fee-calculator
+- https://toolorbit.site/tools/ecommerce/stripe-vs-paypal-fee-calculator
 
 ## Content Notes
 

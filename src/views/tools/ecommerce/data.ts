@@ -202,4 +202,82 @@ export const ECOMMERCE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       },
     },
   },
+
+  'paypal-fee-calculator': {
+    zh: {
+      summary:
+        'PayPal 手续费计算器用于在浏览器中估算美国 PayPal 商家收款的手续费、净到账金额和反推开票金额。它覆盖 PayPal Checkout、标准信用卡/借记卡收款、Goods & Services 以及 PayPal Pay Later 等常见档位，并支持 USD、EUR、GBP、CAD、AUD 的固定费用预设和国际交易附加费开关。适合自由职业者、电商卖家、SaaS 小团队和跨境服务商在报价、开票和利润核算前快速判断 PayPal 扣费影响。',
+      input:
+        '输入交易金额，选择 PayPal 收款类型、收款币种，并按需勾选国际商业交易附加费。金额支持小数；币种选择会影响固定手续费，例如 USD 使用 $0.49，EUR/GBP 使用 0.39，CAD/AUD 使用 0.59。收款类型决定百分比费率和是否包含固定费。',
+      output:
+        '输出包含当前适用费率、预计 PayPal 手续费、有效费率、净到账金额，以及为了净收目标金额需要向客户开票的总金额。正向结果用于判断客户支付某个金额后实际能收到多少；反推结果用于报价时把手续费计入客户付款金额。',
+      processing:
+        '所有计算在浏览器本地同步完成。正向公式：手续费 = 交易金额 × 百分比费率 + 固定费；净到账 = 交易金额 − 手续费。国际交易开关会在基础百分比费率上叠加 1.5%。反推公式：开票金额 = (目标净收 + 固定费) / (1 − 百分比费率)。结果用于估算，PayPal 账户地区、产品、风控、货币转换和合同价可能改变实际费率。',
+      modes: ['PayPal Checkout', '信用卡收款', 'Goods & Services', 'Pay Later', '多币种固定费', '国际交易附加费', '反推开票金额'],
+      example: {
+        title: 'PayPal 手续费计算示例',
+        input: '交易金额: 100.00 USD\n收款类型: PayPal Checkout\n国际交易: 否',
+        output: 'PayPal 手续费: $3.98 USD\n预计净到账: $96.02 USD\n净收 $100.00 USD 需开票: $104.12 USD',
+        inputLanguage: 'text',
+        outputLanguage: 'text',
+      },
+    },
+    en: {
+      summary:
+        'The PayPal Fee Calculator estimates US PayPal merchant fees, net payout, and reverse invoice amounts directly in the browser. It covers common PayPal payment types including PayPal Checkout, standard credit/debit card payments, Goods & Services, and PayPal Pay Later, with fixed-fee presets for USD, EUR, GBP, CAD, and AUD plus an international commercial transaction toggle. It is useful for freelancers, ecommerce sellers, SaaS teams, and cross-border service providers who need to price invoices and understand PayPal deductions before accepting a payment.',
+      input:
+        'Enter a transaction amount, choose the PayPal payment type, select the receiving currency, and optionally add the international commercial transaction surcharge. Decimal values are supported. Currency selection controls the fixed fee, such as $0.49 for USD, 0.39 for EUR/GBP, and 0.59 for CAD/AUD. The payment type controls the percentage rate and whether a fixed fee applies.',
+      output:
+        'The tool returns the applied rate, estimated PayPal fee, effective fee rate, net payout, and the invoice amount needed to receive a target net amount. The forward result shows what you keep when the customer pays a given amount; the reverse result helps you quote a gross amount that covers the processing fee.',
+      processing:
+        'All calculations run synchronously in the browser. Forward formula: fee = transaction amount × percentage rate + fixed fee; net payout = transaction amount − fee. The international toggle adds 1.5 percentage points to the base percentage rate. Reverse formula: invoice amount = (target net + fixed fee) / (1 − percentage rate). Results are estimates; account country, product setup, risk rules, currency conversion, and custom pricing can change the actual PayPal fee.',
+      modes: ['PayPal Checkout', 'Credit and debit cards', 'Goods & Services', 'Pay Later', 'Multi-currency fixed fees', 'International surcharge', 'Reverse invoice amount'],
+      example: {
+        title: 'PayPal fee calculation example',
+        input: 'Transaction amount: 100.00 USD\nPayment type: PayPal Checkout\nInternational transaction: no',
+        output: 'PayPal fee: $3.98 USD\nEstimated payout: $96.02 USD\nInvoice to receive $100.00 USD: $104.12 USD',
+        inputLanguage: 'text',
+        outputLanguage: 'text',
+      },
+    },
+  },
+
+  'stripe-vs-paypal-fee-calculator': {
+    zh: {
+      summary:
+        'Stripe vs PayPal 手续费对比工具用于在同一交易金额下并排比较 Stripe 和 PayPal 的手续费、有效费率、净到账金额和差额。它面向正在选择收款方式的独立开发者、SaaS 团队、跨境卖家、自由职业者和小型电商团队，帮助他们快速判断某个订单金额下哪种支付渠道费用更低。工具默认使用 Stripe 美国标准在线卡费率 2.9% + $0.30，并允许切换 PayPal 常见商家费率档位。',
+      input:
+        '输入美元交易金额，选择 PayPal 对比档位，并按需勾选 PayPal 国际商业交易附加费。Stripe 侧固定使用美国标准在线卡费率；PayPal 侧可在 PayPal Checkout、标准信用卡/借记卡、Goods & Services 和 PayPal Pay Later 之间切换。',
+      output:
+        '输出两张并排结果卡：Stripe 和 PayPal 各自显示适用费率、预计手续费、有效费率和净到账金额。摘要区会标记手续费更低的平台，并展示手续费差额和净到账差额，方便直接判断迁移支付方式、选择发票支付方式或调整报价时的影响。',
+      processing:
+        '所有计算在浏览器本地完成。Stripe 手续费 = 金额 × 2.9% + $0.30；PayPal 手续费 = 金额 × 所选 PayPal 百分比费率 + 对应固定费；国际 PayPal 开关会额外叠加 1.5%。净到账 = 金额 − 手续费。该工具不建模退款、争议、货币转换、订阅产品附加费、税费或定制合同价。',
+      modes: ['Stripe vs PayPal 对比', 'PayPal 费率档位切换', '国际交易开关', '净到账差额', '有效费率', '本地实时计算'],
+      example: {
+        title: '支付渠道对比示例',
+        input: '交易金额: 100.00 USD\nPayPal 档位: PayPal Checkout',
+        output: 'Stripe 手续费: $3.20 USD，净到账 $96.80 USD\nPayPal 手续费: $3.98 USD，净到账 $96.02 USD\n较低费用: Stripe，差额 $0.78 USD',
+        inputLanguage: 'text',
+        outputLanguage: 'text',
+      },
+    },
+    en: {
+      summary:
+        'The Stripe vs PayPal Fee Calculator compares Stripe and PayPal fees side by side for the same transaction amount, showing processing fees, effective rates, net payouts, and the difference between the two processors. It is designed for indie developers, SaaS teams, cross-border sellers, freelancers, and small ecommerce operators who need to choose a payment method before sending an invoice or configuring checkout. Stripe uses the standard US online card rate of 2.9% + $0.30, while PayPal can be switched between common US merchant fee profiles.',
+      input:
+        'Enter a USD transaction amount, choose the PayPal comparison profile, and optionally enable the PayPal international commercial transaction surcharge. The Stripe side uses the standard US online card preset. The PayPal side can compare PayPal Checkout, standard credit/debit card payments, Goods & Services, or PayPal Pay Later.',
+      output:
+        'Two comparison cards show each processor’s applied rate, estimated fee, effective rate, and net payout. A summary panel highlights which processor has the lower fee and shows the fee difference and payout difference, making it easier to decide whether to use Stripe, PayPal, or adjust the customer-facing price.',
+      processing:
+        'All calculations run locally in the browser. Stripe fee = amount × 2.9% + $0.30. PayPal fee = amount × selected PayPal percentage rate + selected fixed fee. The PayPal international toggle adds 1.5 percentage points. Net payout = amount − fee. The calculator does not model refunds, disputes, currency conversion, subscription add-ons, taxes, or custom negotiated pricing.',
+      modes: ['Stripe vs PayPal comparison', 'PayPal fee profile switching', 'International transaction toggle', 'Net payout difference', 'Effective fee rate', 'Real-time local calculation'],
+      example: {
+        title: 'Processor comparison example',
+        input: 'Transaction amount: 100.00 USD\nPayPal profile: PayPal Checkout',
+        output: 'Stripe fee: $3.20 USD, payout $96.80 USD\nPayPal fee: $3.98 USD, payout $96.02 USD\nLower fee: Stripe, difference $0.78 USD',
+        inputLanguage: 'text',
+        outputLanguage: 'text',
+      },
+    },
+  },
 };

@@ -1396,13 +1396,13 @@ export const SEO_CONTENT_PAGES: SeoContentPage[] = [
     summary: [
       'Etsy selling is a numbers game. Between listing fees, transaction fees, payment processing, Offsite Ads, regulatory operating fees, and currency conversion charges, a seller can lose 15–25% of every order to platform costs before accounting for materials and labor. Understanding exactly where the money goes is the difference between a hobby and a profitable business.',
       'ToolOrbit ecommerce tools are designed for one purpose: give Etsy sellers fast, private, local-first calculators that show the real numbers. No uploading sales data to a third-party server. No signing up for a SaaS trial. Just open the tool, enter your numbers, and see the breakdown instantly. Every calculation runs in your browser.',
-      'This hub connects all five ecommerce calculators, related AI tools for listing optimization and keyword research, and in-depth blog guides on Etsy pricing strategy, Offsite Ads, international selling fees, and Stripe comparison. Use it as your entry point for Etsy financial tooling.',
+      'This hub connects Etsy calculators, Stripe and PayPal payment fee tools, related AI tools for listing optimization and keyword research, and in-depth blog guides on Etsy pricing strategy, Offsite Ads, international selling fees, and payment processor comparison. Use it as your entry point for ecommerce financial tooling.',
     ],
     table: [
       {
         label: 'Core Etsy fees',
         bestFor: 'Understanding exactly what Etsy deducts from each order',
-        tools: 'Etsy Fee Calculator, Stripe Fee Calculator',
+        tools: 'Etsy Fee Calculator, Stripe Fee Calculator, PayPal Fee Calculator',
         note: 'Start here. Know your real per-order cost before setting any price.',
       },
       {
@@ -1447,7 +1447,7 @@ export const SEO_CONTENT_PAGES: SeoContentPage[] = [
           'Step two: use the Etsy Offsite Ads Calculator to model the worst case. If you are above the $10K threshold, you are permanently opted into Offsite Ads at 12%. That fee applies to the total order amount including shipping. Run the numbers and decide whether to build that cost into your base price or treat it as an occasional margin reduction.',
           'Step three: use the Etsy Pricing Calculator to set prices scientifically. Instead of looking at competitors and guessing, enter your cost, shipping, target profit, and any optional fees (Offsite Ads, regulatory, currency conversion). The calculator reverse-engineers the exact listing price you need. Compare the free-shipping and buyer-paid-shipping scenarios side by side.',
           'Step four: if you sell internationally, use the Etsy Regulatory & Currency Fee Calculator. Check your country rate and decide whether the 2.5% currency conversion fee applies to your payout setup. If it does, consider whether matching your listing currency to your bank currency would save more than the potential conversion-rate benefit of listing in USD.',
-          'Step five: use the Stripe Fee Calculator to compare. If you also sell on your own website, enter the same transaction amount in both calculators. The difference between Etsy all-in fees (~10–20%) and Stripe processing (~3%) explains why many successful Etsy sellers eventually build independent storefronts. Etsy earns its fees through buyer traffic; Stripe just processes payments. Understanding this trade-off is central to ecommerce strategy.',
+          'Step five: use the Stripe Fee Calculator, PayPal Fee Calculator, and Stripe vs PayPal Fee Calculator to compare payment processors. If you also sell on your own website, enter the same transaction amount in these calculators. The difference between Etsy all-in fees (~10–20%) and standalone payment processing explains why many successful sellers eventually build independent storefronts. Etsy earns its fees through buyer traffic; Stripe and PayPal mainly process payments. Understanding this trade-off is central to ecommerce strategy.',
         ],
       },
       {
@@ -1491,6 +1491,8 @@ export const SEO_CONTENT_PAGES: SeoContentPage[] = [
       '/tools/ecommerce/etsy-pricing-calculator',
       '/tools/ecommerce/etsy-regulatory-fee-calculator',
       '/tools/ecommerce/stripe-fee-calculator',
+      '/tools/ecommerce/paypal-fee-calculator',
+      '/tools/ecommerce/stripe-vs-paypal-fee-calculator',
       '/tools/ai/listing-generator',
       '/tools/ai/keyword-analyzer',
       '/tools/ai/competitor-tracker',
@@ -1535,7 +1537,7 @@ export const SEO_CONTENT_PAGES: SeoContentPage[] = [
       {
         question: 'Should I sell on Etsy or my own website?',
         answer:
-          'It depends on your volume and margins. Etsy provides access to millions of active buyers but charges ~10–20% in total fees. Selling on your own site via Stripe costs ~3% in payment processing but requires you to drive your own traffic. Use the Etsy Fee Calculator and Stripe Fee Calculator side by side to compare the per-order economics. Many successful sellers start on Etsy for discovery and gradually build an independent storefront for repeat customers.',
+          'It depends on your volume and margins. Etsy provides access to millions of active buyers but charges ~10–20% in total fees. Selling on your own site via Stripe or PayPal can reduce platform fees but requires you to drive your own traffic. Use the Etsy Fee Calculator, Stripe Fee Calculator, PayPal Fee Calculator, and Stripe vs PayPal Fee Calculator side by side to compare per-order economics. Many successful sellers start on Etsy for discovery and gradually build an independent storefront for repeat customers.',
       },
     ],
   },
@@ -1558,7 +1560,7 @@ export const SEO_CONTENT_PAGES: SeoContentPage[] = [
       {
         label: 'ToolOrbit Etsy Calculators',
         bestFor: 'Fast, private, per-order fee checks and pricing decisions',
-        tools: 'Etsy Fee Calculator, Offsite Ads Calculator, Pricing Calculator, Regulatory Fee Calculator, Stripe Fee Calculator',
+        tools: 'Etsy Fee Calculator, Offsite Ads Calculator, Pricing Calculator, Regulatory Fee Calculator, Stripe Fee Calculator, PayPal Fee Calculator',
         note: 'Best for quick operational use. Local-first, no account, free.',
       },
       {
@@ -1632,7 +1634,7 @@ export const SEO_CONTENT_PAGES: SeoContentPage[] = [
           'For monthly profit reviews: use a spreadsheet. Track actual revenue, actual fees from your Etsy statement, and actual costs. Compare the real numbers against your estimates to refine your pricing model over time.',
           'For policy and rate verification: use Etsy official resources. When rates change or you are unsure about a specific fee, the official documentation is the source of truth.',
           'For competitive intelligence and shop growth: consider a third-party platform if your sales volume justifies the cost. The additional features can pay for themselves through better listing optimization and keyword targeting.',
-          'For comparing Etsy to your own website: run the same transaction amount through the Etsy Fee Calculator and the Stripe Fee Calculator. The comparison shows exactly how much Etsy traffic is costing you per order, which informs the strategic decision of whether to build an independent storefront.',
+          'For comparing Etsy to your own website: run the same transaction amount through the Etsy Fee Calculator, Stripe Fee Calculator, PayPal Fee Calculator, and Stripe vs PayPal Fee Calculator. The comparison shows exactly how much Etsy traffic is costing you per order and how standalone payment processors differ.',
         ],
       },
     ],
@@ -1642,6 +1644,8 @@ export const SEO_CONTENT_PAGES: SeoContentPage[] = [
       '/tools/ecommerce/etsy-pricing-calculator',
       '/tools/ecommerce/etsy-regulatory-fee-calculator',
       '/tools/ecommerce/stripe-fee-calculator',
+      '/tools/ecommerce/paypal-fee-calculator',
+      '/tools/ecommerce/stripe-vs-paypal-fee-calculator',
       '/tools/ai/listing-generator',
       '/tools/ai/keyword-analyzer',
     ],

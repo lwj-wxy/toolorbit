@@ -316,6 +316,22 @@ const RAW_TOOLS_META = [
     color: 'emerald',
   },
   {
+    id: 'paypal-fee-calculator',
+    name: 'PayPal 手续费计算器',
+    description: '按 PayPal Checkout、信用卡收款和 Goods & Services 档位估算手续费、净到账和反推开票金额。',
+    category: '电商工具',
+    path: '/tools/ecommerce/paypal-fee-calculator',
+    color: 'emerald',
+  },
+  {
+    id: 'stripe-vs-paypal-fee-calculator',
+    name: 'Stripe vs PayPal 手续费对比',
+    description: '同屏比较 Stripe 和 PayPal 在同一交易金额下的手续费、净到账和差额，辅助选择收款方式。',
+    category: '电商工具',
+    path: '/tools/ecommerce/stripe-vs-paypal-fee-calculator',
+    color: 'emerald',
+  },
+  {
     id: 'listing-generator',
     name: 'Listing Generator',
     description: 'AI-driven e-commerce listing generator. Creates titles, descriptions and tags in seconds.',

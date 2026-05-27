@@ -1434,6 +1434,127 @@
       "highlight3Desc": "All calculations occur locally in your browser. Your financial data remains private and is never sent to third-party servers.",
       "disclaimer": "Disclaimer: Cross-border or currency conversion fees are not included here. Refer to your Stripe dashboard for final accurate values."
     },
+    "paypal-fee-calculator": {
+      "name": "PayPal Fee Calculator",
+      "description": "Estimate PayPal merchant fees, net payouts, and reverse invoice amounts.",
+      "title": "PayPal Fee Calculator",
+      "subtitle": "Calculate PayPal Checkout, card payment, Goods & Services, and Pay Later fees with currency-specific fixed fee presets.",
+      "amountLabel": "Transaction Amount",
+      "profileLabel": "PayPal payment type",
+      "currencyLabel": "Receiving currency",
+      "internationalLabel": "Add international commercial transaction surcharge (+1.5%)",
+      "resultTitle": "If customer pays {{amount}}",
+      "rateLabel": "Applied rate",
+      "feeLabel": "PayPal fee deduction",
+      "effectiveRateLabel": "Effective fee rate",
+      "payoutLabel": "Estimated net payout",
+      "reverseTitle": "To receive exactly {{amount}}",
+      "reverseFeeLabel": "Fee to add",
+      "invoiceLabel": "Amount to invoice",
+      "rateNote": "Rates are US merchant fee presets for estimation. Your actual PayPal fee can vary by account country, product setup, risk rules, currency conversion, and custom pricing.",
+      "profiles": {
+        "checkout": {
+          "label": "PayPal Checkout",
+          "rate": "3.49% + fixed fee"
+        },
+        "standardCard": {
+          "label": "Credit / debit cards",
+          "rate": "2.99% + fixed fee"
+        },
+        "goodsServices": {
+          "label": "Goods & Services",
+          "rate": "2.99%"
+        },
+        "payLater": {
+          "label": "PayPal Pay Later",
+          "rate": "4.99% + fixed fee"
+        }
+      },
+      "guideTitle": "How to use the PayPal Fee Calculator?",
+      "guide1": "1. Enter the amount your customer will pay or the net amount you want to receive.",
+      "guide2": "2. Choose the PayPal payment type that matches your checkout, invoice, or card flow.",
+      "guide3": "3. Select the receiving currency so the fixed fee matches the currency you receive.",
+      "guide4": "4. Use the reverse invoice result when you want the customer-facing price to cover the processing fee.",
+      "faq1Q": "Which PayPal rates does this calculator use?",
+      "faq1A": "It uses common US PayPal merchant fee presets, including PayPal Checkout at 3.49% + fixed fee, standard credit/debit card payments at 2.99% + fixed fee, Goods & Services at 2.99%, and Pay Later at 4.99% + fixed fee.",
+      "faq2Q": "Why does the fixed fee change by currency?",
+      "faq2A": "PayPal fixed fees are based on the currency received. For example, USD, EUR, GBP, CAD, and AUD use different fixed fee amounts, so the calculator changes the fixed portion when you switch currency.",
+      "faq3Q": "Does this include currency conversion?",
+      "faq3A": "No. The calculator estimates payment processing fees only. PayPal currency conversion spreads, account-specific pricing, chargebacks, refunds, and tax treatment can change your final statement.",
+      "seoTitle": "PayPal Fee Calculator for Checkout, Goods & Services, and Invoices",
+      "seoDesc": "Estimate PayPal merchant processing fees, net payouts, effective rates, and reverse invoice amounts with common US PayPal fee presets and multi-currency fixed fees.",
+      "highlightsTitle": "Why use this PayPal fee calculator?",
+      "highlight1Title": "Multiple PayPal fee profiles",
+      "highlight1Desc": "Switch between Checkout, card payments, Goods & Services, and Pay Later without rebuilding a spreadsheet.",
+      "highlight2Title": "Reverse invoice math",
+      "highlight2Desc": "See how much to charge when you need to receive an exact net amount after PayPal fees.",
+      "highlight3Title": "Currency-aware fixed fees",
+      "highlight3Desc": "Choose USD, EUR, GBP, CAD, or AUD so the fixed fee reflects the receiving currency.",
+      "disclaimer": "Disclaimer: This is an estimate based on public US PayPal merchant fee presets. Always verify final fees in your PayPal account statement."
+    },
+    "stripe-vs-paypal-fee-calculator": {
+      "name": "Stripe vs PayPal Fee Calculator",
+      "description": "Compare Stripe and PayPal fees, net payouts, and differences for the same payment amount.",
+      "title": "Stripe vs PayPal Fee Calculator",
+      "subtitle": "Compare Stripe's standard US card fee against common PayPal merchant fee profiles for the same transaction amount.",
+      "amountLabel": "Transaction Amount (USD)",
+      "paypalProfileLabel": "PayPal comparison profile",
+      "internationalLabel": "Add PayPal international commercial transaction surcharge (+1.5%)",
+      "resultTitle": "Comparison for {{amount}}",
+      "rateLabel": "Applied rate",
+      "feeLabel": "Processing fee",
+      "effectiveRateLabel": "Effective fee rate",
+      "payoutLabel": "Net payout",
+      "summaryTitle": "Difference summary",
+      "cheaperLabel": "Lower fee processor",
+      "feeDifferenceLabel": "Fee difference",
+      "payoutDifferenceLabel": "Net payout difference",
+      "lowerFeeBadge": "Lower fee",
+      "rateNote": "Stripe uses the standard US online card preset of 2.9% + $0.30. PayPal uses selectable US merchant fee presets. Final account fees can vary.",
+      "processors": {
+        "stripe": "Stripe",
+        "paypal": "PayPal"
+      },
+      "profiles": {
+        "checkout": {
+          "label": "PayPal Checkout",
+          "rate": "3.49% + $0.49"
+        },
+        "standardCard": {
+          "label": "Credit / debit cards",
+          "rate": "2.99% + $0.49"
+        },
+        "goodsServices": {
+          "label": "Goods & Services",
+          "rate": "2.99%"
+        },
+        "payLater": {
+          "label": "PayPal Pay Later",
+          "rate": "4.99% + $0.49"
+        }
+      },
+      "guideTitle": "How to compare Stripe and PayPal fees?",
+      "guide1": "1. Enter the customer payment amount in USD.",
+      "guide2": "2. Choose the PayPal fee profile that matches your invoice or checkout flow.",
+      "guide3": "3. Compare fees, effective rates, and net payouts side by side.",
+      "guide4": "4. Use the difference summary to decide which processor is cheaper for that payment size.",
+      "faq1Q": "Why is Stripe cheaper in some examples?",
+      "faq1A": "Stripe's standard US online card preset is 2.9% + $0.30. PayPal Checkout is commonly higher at 3.49% + fixed fee, so Stripe may be cheaper for many card-style payments.",
+      "faq2Q": "Can PayPal be cheaper than Stripe?",
+      "faq2A": "Yes. Depending on the PayPal product, payment method, account pricing, currency, and transaction size, PayPal can be competitive. Use the profile selector to test the closest available scenario.",
+      "faq3Q": "Does this replace my processor statement?",
+      "faq3A": "No. It is a planning calculator. Refund handling, disputes, currency conversion, subscriptions, taxes, and negotiated pricing can change the final cost.",
+      "seoTitle": "Stripe vs PayPal Fee Calculator - Compare Payment Processing Costs",
+      "seoDesc": "Compare Stripe and PayPal processing fees for the same amount, including net payout, effective fee rate, lower-cost processor, and fee difference.",
+      "highlightsTitle": "Why compare Stripe and PayPal fees?",
+      "highlight1Title": "Same amount, clear comparison",
+      "highlight1Desc": "Enter one payment amount and see both processors' fees without switching pages.",
+      "highlight2Title": "Net payout focus",
+      "highlight2Desc": "The comparison shows what you actually keep, not just headline rates.",
+      "highlight3Title": "Better checkout decisions",
+      "highlight3Desc": "Use the fee difference to choose payment links, invoices, or ecommerce checkout options more intentionally.",
+      "disclaimer": "Disclaimer: This calculator uses public fee presets for estimation. Check Stripe and PayPal dashboards for final account-specific fees."
+    },
     "listing-craft-ai": {
       "name": "Listing Craft AI",
       "description": "AI-powered product listing generator for cross-border e-commerce.",

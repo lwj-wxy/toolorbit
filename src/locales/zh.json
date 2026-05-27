@@ -1172,6 +1172,127 @@
       "highlight3Desc": "所有计算均在您的浏览器本地进行。您的财务数据保持私密，绝不发送给第三方服务器。",
       "disclaimer": "免责声明：此处不包含跨境或货币转换费。请参考您的 Stripe 后台获取最终准确值。"
     },
+    "paypal-fee-calculator": {
+      "name": "PayPal 手续费计算",
+      "description": "估算 PayPal 商家收款手续费、净到账和反推开票金额。",
+      "title": "PayPal 手续费计算器",
+      "subtitle": "按 PayPal Checkout、信用卡收款、Goods & Services 和 Pay Later 档位计算手续费，并支持多币种固定费预设。",
+      "amountLabel": "交易金额",
+      "profileLabel": "PayPal 收款类型",
+      "currencyLabel": "收款币种",
+      "internationalLabel": "加入国际商业交易附加费 (+1.5%)",
+      "resultTitle": "如果客户支付 {{amount}}",
+      "rateLabel": "适用费率",
+      "feeLabel": "PayPal 手续费扣除",
+      "effectiveRateLabel": "有效费率",
+      "payoutLabel": "预计净到账",
+      "reverseTitle": "如果要精准收到 {{amount}}",
+      "reverseFeeLabel": "需要补齐的手续费",
+      "invoiceLabel": "应开票金额",
+      "rateNote": "当前使用美国 PayPal 商家费率预设进行估算。实际费用可能因账户地区、产品配置、风控、货币转换和定制费率而不同。",
+      "profiles": {
+        "checkout": {
+          "label": "PayPal Checkout",
+          "rate": "3.49% + 固定费"
+        },
+        "standardCard": {
+          "label": "信用卡/借记卡",
+          "rate": "2.99% + 固定费"
+        },
+        "goodsServices": {
+          "label": "Goods & Services",
+          "rate": "2.99%"
+        },
+        "payLater": {
+          "label": "PayPal Pay Later",
+          "rate": "4.99% + 固定费"
+        }
+      },
+      "guideTitle": "如何使用 PayPal 手续费计算器？",
+      "guide1": "1. 输入客户将支付的金额，或您希望净收的目标金额。",
+      "guide2": "2. 选择与您的 checkout、发票或信用卡收款流程匹配的 PayPal 收款类型。",
+      "guide3": "3. 选择收款币种，让固定手续费与实际收款币种一致。",
+      "guide4": "4. 如果希望客户付款覆盖手续费，可参考反推开票金额。",
+      "faq1Q": "这个计算器使用哪些 PayPal 费率？",
+      "faq1A": "它使用常见的美国 PayPal 商家费率预设，包括 PayPal Checkout 3.49% + 固定费、信用卡/借记卡 2.99% + 固定费、Goods & Services 2.99%、Pay Later 4.99% + 固定费。",
+      "faq2Q": "为什么固定费会随币种变化？",
+      "faq2A": "PayPal 固定费按收款币种计算。例如 USD、EUR、GBP、CAD 和 AUD 对应不同固定费，所以切换币种时固定费用会同步变化。",
+      "faq3Q": "这个工具包含货币转换费吗？",
+      "faq3A": "不包含。该工具只估算付款处理费。PayPal 货币转换价差、账户专属费率、拒付、退款和税务处理都会影响最终账单。",
+      "seoTitle": "PayPal 手续费计算器 - Checkout、Goods & Services 与发票收款",
+      "seoDesc": "使用常见美国 PayPal 商家费率和多币种固定费，估算 PayPal 手续费、净到账、有效费率和反推开票金额。",
+      "highlightsTitle": "为什么使用这个 PayPal 手续费计算器？",
+      "highlight1Title": "多个 PayPal 费率档位",
+      "highlight1Desc": "可在 Checkout、信用卡收款、Goods & Services 和 Pay Later 之间快速切换，无需手动搭表。",
+      "highlight2Title": "反推开票金额",
+      "highlight2Desc": "当您需要净收固定金额时，工具会算出应向客户收取的总金额。",
+      "highlight3Title": "固定费跟随币种",
+      "highlight3Desc": "支持 USD、EUR、GBP、CAD、AUD，让固定手续费更接近实际收款币种。",
+      "disclaimer": "免责声明：本工具基于公开的美国 PayPal 商家费率预设进行估算。最终费用请以 PayPal 账户账单为准。"
+    },
+    "stripe-vs-paypal-fee-calculator": {
+      "name": "Stripe vs PayPal 手续费对比",
+      "description": "对比同一付款金额下 Stripe 与 PayPal 的手续费、净到账和差额。",
+      "title": "Stripe vs PayPal 手续费对比计算器",
+      "subtitle": "用同一交易金额对比 Stripe 美国标准卡费率和常见 PayPal 商家费率，快速判断哪个渠道费用更低。",
+      "amountLabel": "交易金额 (USD)",
+      "paypalProfileLabel": "PayPal 对比档位",
+      "internationalLabel": "加入 PayPal 国际商业交易附加费 (+1.5%)",
+      "resultTitle": "{{amount}} 的费用对比",
+      "rateLabel": "适用费率",
+      "feeLabel": "处理手续费",
+      "effectiveRateLabel": "有效费率",
+      "payoutLabel": "净到账",
+      "summaryTitle": "差额汇总",
+      "cheaperLabel": "手续费更低的平台",
+      "feeDifferenceLabel": "手续费差额",
+      "payoutDifferenceLabel": "净到账差额",
+      "lowerFeeBadge": "费用更低",
+      "rateNote": "Stripe 使用美国标准在线卡费率 2.9% + $0.30。PayPal 使用可选美国商家费率预设。最终账户费用可能不同。",
+      "processors": {
+        "stripe": "Stripe",
+        "paypal": "PayPal"
+      },
+      "profiles": {
+        "checkout": {
+          "label": "PayPal Checkout",
+          "rate": "3.49% + $0.49"
+        },
+        "standardCard": {
+          "label": "信用卡/借记卡",
+          "rate": "2.99% + $0.49"
+        },
+        "goodsServices": {
+          "label": "Goods & Services",
+          "rate": "2.99%"
+        },
+        "payLater": {
+          "label": "PayPal Pay Later",
+          "rate": "4.99% + $0.49"
+        }
+      },
+      "guideTitle": "如何对比 Stripe 和 PayPal 手续费？",
+      "guide1": "1. 输入客户将支付的美元金额。",
+      "guide2": "2. 选择与发票或 checkout 流程匹配的 PayPal 费率档位。",
+      "guide3": "3. 并排查看手续费、有效费率和净到账。",
+      "guide4": "4. 使用差额汇总判断该金额下哪个收款渠道更便宜。",
+      "faq1Q": "为什么某些示例中 Stripe 更便宜？",
+      "faq1A": "Stripe 美国标准在线卡费率是 2.9% + $0.30，而 PayPal Checkout 常见费率为 3.49% + 固定费，所以很多卡类收款场景下 Stripe 费用更低。",
+      "faq2Q": "PayPal 有可能比 Stripe 更便宜吗？",
+      "faq2A": "有可能。不同 PayPal 产品、付款方式、账户费率、币种和交易金额都会影响结果。请使用档位选择器测试最接近的场景。",
+      "faq3Q": "这个工具可以替代平台账单吗？",
+      "faq3A": "不能。它是规划计算器。退款、争议、货币转换、订阅附加费、税费和协商费率都会改变最终成本。",
+      "seoTitle": "Stripe vs PayPal 手续费计算器 - 对比支付处理成本",
+      "seoDesc": "对比同一金额下 Stripe 和 PayPal 的处理手续费、净到账、有效费率、费用更低的平台和手续费差额。",
+      "highlightsTitle": "为什么要对比 Stripe 和 PayPal 手续费？",
+      "highlight1Title": "同一金额直接对比",
+      "highlight1Desc": "输入一个付款金额即可查看两个平台的手续费，无需来回切换页面。",
+      "highlight2Title": "聚焦真实净到账",
+      "highlight2Desc": "对比结果展示您实际能留下多少，而不只是表面费率。",
+      "highlight3Title": "辅助选择收款方式",
+      "highlight3Desc": "根据手续费差额选择 payment link、发票或电商 checkout 方案。",
+      "disclaimer": "免责声明：本工具基于公开费率预设进行估算。最终账户专属费用请以 Stripe 和 PayPal 后台为准。"
+    },
     "short-url": {
       "name": "短链接转化",
       "description": "一键缩短长链接，便于分享与传播。",

@@ -94,6 +94,8 @@ const iconMap: Record<string, ComponentType<any>> = {
   'etsy-pricing-calculator': Calculator,
   'etsy-regulatory-fee-calculator': Banknote,
   'stripe-fee-calculator': CreditCard,
+  'paypal-fee-calculator': CreditCard,
+  'stripe-vs-paypal-fee-calculator': Calculator,
   'listing-generator': Sparkles,
   'keyword-analyzer': Zap,
   'competitor-tracker': Target,
