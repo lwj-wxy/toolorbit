@@ -2785,6 +2785,18 @@
     "editorial_note": "每篇指南都会围绕实际工作流准确性进行检查，并连接到可直接应用的浏览器工具。",
     "editorial_policy": "编辑标准",
     "posts": {
+      "codex-gpt-image-2-workflow": {
+        "title": "Codex 如何使用 GPT Image 2 生成项目图片",
+        "summary": "学习什么时候适合让 Codex 生成图片、如何写 GPT Image 2 提示词、如何把输出保存进项目，以及如何避免常见素材工作流问题。"
+      },
+      "codex-skill-installation-guide": {
+        "title": "Codex 如何安装和使用 Skill",
+        "summary": "从可信来源安装 Codex Skill、重启 Codex、明确触发技能，并在项目中使用前检查 Skill 质量的实操指南。"
+      },
+      "codex-ui-ux-pro-max-guide": {
+        "title": "Codex 如何安装和使用 ui-ux-pro-max 做前端设计",
+        "summary": "用 ui-ux-pro-max 为 Codex 前端任务补充设计系统、产品上下文、布局模式、UX 约束和技术栈实现建议。"
+      },
       "paypal-fees-complete-guide": {
         "title": "2026 PayPal 手续费指南：Checkout、Goods & Services、发票与固定费",
         "summary": "理解 PayPal 商家费率、不同币种固定费、国际交易附加费，以及如何在开票前估算真实净到账。"

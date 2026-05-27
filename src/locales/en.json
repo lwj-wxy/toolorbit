@@ -78,6 +78,18 @@
     "editorial_note": "Each guide is reviewed for practical workflow accuracy and connected to the browser tools that help you apply it.",
     "editorial_policy": "Editorial standards",
     "posts": {
+      "codex-gpt-image-2-workflow": {
+        "title": "Codex and GPT Image 2: A Practical Workflow for Project Assets",
+        "summary": "Learn when to use Codex image generation, how to write reliable GPT Image 2 prompts, save outputs into your project, and avoid common asset workflow mistakes."
+      },
+      "codex-skill-installation-guide": {
+        "title": "How to Install and Use Codex Skills",
+        "summary": "A practical guide to installing Codex skills from trusted sources, restarting Codex, invoking skills clearly, and reviewing skill quality before using them in projects."
+      },
+      "codex-ui-ux-pro-max-guide": {
+        "title": "How to Use ui-ux-pro-max with Codex for Better Frontend Design",
+        "summary": "Use ui-ux-pro-max to guide Codex frontend work with design systems, product context, layout patterns, UX constraints, and stack-specific implementation advice."
+      },
       "paypal-fees-complete-guide": {
         "title": "PayPal Fees in 2026: Checkout, Goods & Services, Invoices, and Fixed Fees",
         "summary": "Understand current PayPal merchant fee presets, fixed fees by currency, international surcharges, and how to estimate real net payout before you invoice a customer."

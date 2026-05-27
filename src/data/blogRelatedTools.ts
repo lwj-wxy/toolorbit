@@ -1,4 +1,7 @@
 export const BLOG_RELATED_TOOLS: Record<string, string[]> = {
+  'codex-gpt-image-2-workflow': ['/tools/ai/prompt-generator', '/tools/image/image-compressor', '/tools/image/image-converter'],
+  'codex-skill-installation-guide': ['/tools/dev/json-formatter', '/tools/dev/text-diff', '/tools/ai/prompt-generator'],
+  'codex-ui-ux-pro-max-guide': ['/tools/dev/color-palette', '/tools/dev/color-picker', '/tools/ai/prompt-generator'],
   'xml-json-conversion-guide': ['/tools/dev/xml-to-json', '/tools/dev/json-formatter', '/tools/dev/json-to-ts'],
   'why-text-diff-matters': ['/tools/dev/text-diff', '/tools/dev/json-formatter', '/tools/ai/code-reviewer'],
   'modern-pdf-workflow-efficiency': ['/tools/pdf/pdf-merge', '/tools/pdf/pdf-split', '/tools/pdf/pdf-to-image'],

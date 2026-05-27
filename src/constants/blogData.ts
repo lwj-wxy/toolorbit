@@ -11,6 +11,24 @@ const defaultAuthorId = 'luo-wj';
 
 const posts: BlogPost[] = [
   {
+    slug: 'codex-gpt-image-2-workflow',
+    date: '2026-05-27',
+    category: 'AI',
+    image: blogImage('codex-gpt-image-2-workflow'),
+  },
+  {
+    slug: 'codex-skill-installation-guide',
+    date: '2026-05-27',
+    category: 'AI',
+    image: blogImage('codex-skill-installation-guide'),
+  },
+  {
+    slug: 'codex-ui-ux-pro-max-guide',
+    date: '2026-05-27',
+    category: 'AI',
+    image: blogImage('codex-ui-ux-pro-max-guide'),
+  },
+  {
     slug: 'paypal-fees-complete-guide',
     date: '2026-05-27',
     category: 'Business',
