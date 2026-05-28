@@ -1,0 +1,3 @@
+module.exports=[578691,(a,b,c)=>{!function(b,c){if("function"==typeof define&&define.amd){let b;void 0!==(b=c())&&a.v(b)}else c()}(a.e,function(){"use strict";var c="object"==typeof self&&self.self===self?self:a.g.global===a.g?a.g:void 0,d=(c.navigator&&/Macintosh/.test(navigator.userAgent)&&/AppleWebKit/.test(navigator.userAgent)&&/Safari/.test(navigator.userAgent),c.saveAs||function(){});c.saveAs=d.saveAs=d,b.exports=d})}];
+
+//# sourceMappingURL=0q8g_file-saver_dist_FileSaver_min_0_jzfod.js.map

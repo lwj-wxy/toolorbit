@@ -1,0 +1,123 @@
+# ToolOrbit Full Tool Inventory
+
+ToolOrbit is a browser-first collection of free online tools. This expanded file lists every major indexable tool page, grouped by category, for LLM discovery, answer citation, and site understanding.
+
+## Site Metadata
+
+- Canonical site: https://toolorbit.site/
+- All tools hub: https://toolorbit.site/tools
+- Sitemap: https://toolorbit.site/sitemap.xml
+- Robots: https://toolorbit.site/robots.txt
+- Concise LLM file: https://toolorbit.site/llms.txt
+- About and editorial standards: https://toolorbit.site/about
+- Privacy policy: https://toolorbit.site/privacy
+- Contact: luowj1998@outlook.com
+
+## AI Tools
+
+- [YouTube Metadata Generator](https://toolorbit.site/tools/ai/youtube-generator): AI-powered tool to generate catchy, click-worthy titles, descriptions, and tags.
+- [AI Prompt Generator](https://toolorbit.site/tools/ai/prompt-generator): Midjourney/SD prompt engineer, one-click high-quality prompts.
+- [AI Weekly Report](https://toolorbit.site/tools/ai/weekly-report): Automatically transform scattered work records into professional reports.
+- [AI Code Reviewer](https://toolorbit.site/tools/ai/code-reviewer): Senior AI architect performs Code Review, finds bugs and gives advice.
+- [Video Script Generator](https://toolorbit.site/tools/ai/video-script): AI-powered tool to generate viral short video scripts, including storyboards, visuals, subtitles, and voiceover.
+- [AI Meeting Minutes](https://toolorbit.site/tools/ai/meeting-minutes): Automatically extract and organize messy meeting notes or transcripts into clear, structured meeting minutes.
+- [AI Excel Formula Generator](https://toolorbit.site/tools/ai/excel-formula): Describe what you want to do in natural language, and AI will generate the exact Excel or Google Sheets formula for you.
+- [AI Matcher Regex Planner](https://toolorbit.site/tools/ai/regex): Translate your plain English descriptions into accurate Regular Expressions.
+- [AI Logo & Avatar Designer](https://toolorbit.site/tools/ai/logo-generator): Core Concept / Symbol
+- [AI Image Generator](https://toolorbit.site/tools/ai/image-generator): Generate high-quality photorealistic images or artwork from text descriptions with multiple aspect ratios and styles.
+- [AI SVG Generator](https://toolorbit.site/tools/ai/svg-generator): Generate scalable, high-quality SVG vector illustrations or icon code directly from text descriptions.
+- [Xiaohongshu AI Copywriter](https://toolorbit.site/tools/ai/xiaohongshu): Instantly generate viral Xiaohongshu (RED) posts with emojis and hashtags using AI.
+- [AI Text Polisher](https://toolorbit.site/tools/ai/text-polisher): Uses top-tier AI models to instantly rewrite, polish, and adapt your texts to any tone.
+- [AI Translator](https://toolorbit.site/tools/ai/translator): Beyond traditional translation engines! Get highly accurate, native-sounding translations powered by AI context awareness.
+- [Listing Generator](https://toolorbit.site/tools/ai/listing-generator): AI-driven e-commerce listing generator. Creates titles, descriptions and tags in seconds.
+- [Keyword Analyzer](https://toolorbit.site/tools/ai/keyword-analyzer): Deep-dive into e-commerce long-tail keywords, discovering hidden profitable niches.
+- [Competitor Tracker](https://toolorbit.site/tools/ai/competitor-tracker): Analyze competitors, find weaknesses, and identify opportunities for your products.
+- [Market Insights](https://toolorbit.site/tools/ai/market-insights): Acquire platform-specific market research reports, trends, and category dynamics.
+
+## Dev Tools
+
+- [JSON Formatter](https://toolorbit.site/tools/dev/json-formatter): Beautify, compress, and validate JSON data.
+- [XML / JSON Converter](https://toolorbit.site/tools/dev/xml-to-json): Convert between XML, HTML structures, and JSON for API debugging, config migration, and structure inspection.
+- [Text Diff Tool](https://toolorbit.site/tools/dev/text-diff): Quickly find differences between two texts or codes with line-by-line or word-by-word comparison.
+- [Base64 Codec](https://toolorbit.site/tools/dev/base64): Quickly encode/decode Base64 online.
+- [ASCII Table](https://toolorbit.site/tools/dev/ascii-table): Standard ASCII and control character reference.
+- [URL Codec](https://toolorbit.site/tools/dev/url-encoder): Safely encode or decode URL components.
+- [Hash Generator](https://toolorbit.site/tools/dev/hash-generator): Generate MD5, SHA-1/256/512 hashes quickly.
+- [Unicode Converter](https://toolorbit.site/tools/dev/unicode-converter): Convert between native characters and Unicode escape.
+- [JWT Debugger](https://toolorbit.site/tools/dev/jwt-debugger): Decode and debug JSON Web Tokens locally with ease.
+- [Regex Tester](https://toolorbit.site/tools/dev/regex-tester): Write and debug regular expressions in real-time with highlighting and grouping.
+- [JSON to TypeScript](https://toolorbit.site/tools/dev/json-to-ts): Automatically infer and generate precise TypeScript interface definitions from JSON data.
+- [Symmetric Crypto](https://toolorbit.site/tools/dev/crypto-symmetric): Securely encrypt or decrypt data using AES, DES, or TripleDES locally.
+- [SM Crypto (SM2/3/4)](https://toolorbit.site/tools/dev/chinese-crypto): Chinese national standard encryption algorithms including SM2, SM3, and SM4.
+
+## Webmaster
+
+- [Short URL](https://toolorbit.site/tools/net/short-url): Generate tiny URLs for easy sharing.
+
+## Typography
+
+- [Text Analyzer](https://toolorbit.site/tools/text/text-analyzer): Count words, characters, and frequency analysis.
+- [Text Cleaner](https://toolorbit.site/tools/text/text-cleaner): Remove spaces, newlines, tabs, and punctuation.
+- [Symbol Library](https://toolorbit.site/tools/text/symbol-library): Copy Emoji, Math, Currency, and special symbols.
+
+## Generators
+
+- [UUID Generator](https://toolorbit.site/tools/dev/uuid-generator): Generate RFC 4122 v4 UUIDs online.
+- [QR Generator](https://toolorbit.site/tools/generator/qr-generator): Generate downloadable QR codes for any link.
+- [QR Scanner](https://toolorbit.site/tools/generator/qr-scanner): Upload and scan QR codes to see their contents.
+- [Barcode Generator](https://toolorbit.site/tools/generator/barcode-generator): Support CODE128, CODE39, EAN, UPC generation.
+- [Password Generator](https://toolorbit.site/tools/dev/password-generator): Generate complex secure passwords locally.
+
+## E-commerce
+
+- [Etsy Fee Calculator](https://toolorbit.site/tools/ecommerce/etsy-fee-calculator): Calculate Etsy listing, transaction and payment fees.
+- [Etsy Offsite Ads Calculator](https://toolorbit.site/tools/ecommerce/etsy-offsite-ads-calculator): Estimate Etsy Offsite Ads fees at 12% or 15% and see how attributed orders affect profit.
+- [Etsy Pricing Calculator](https://toolorbit.site/tools/ecommerce/etsy-pricing-calculator): Reverse-calculate the Etsy item price needed for your cost, shipping, target profit, and fee assumptions.
+- [Etsy Regulatory & Currency Fee Calculator](https://toolorbit.site/tools/ecommerce/etsy-regulatory-fee-calculator): Estimate Etsy Regulatory Operating Fees by seller location plus the optional 2.5% currency conversion fee.
+- [Stripe Fee Calculator](https://toolorbit.site/tools/ecommerce/stripe-fee-calculator): Estimate Stripe transaction fees and net payouts.
+- [PayPal Fee Calculator](https://toolorbit.site/tools/ecommerce/paypal-fee-calculator): Estimate PayPal merchant fees, net payouts, and reverse invoice amounts.
+- [Stripe vs PayPal Fee Calculator](https://toolorbit.site/tools/ecommerce/stripe-vs-paypal-fee-calculator): Compare Stripe and PayPal fees, net payouts, and differences for the same payment amount.
+
+## PDF Tools
+
+- [PDF Merge](https://toolorbit.site/tools/pdf/pdf-merge): Merge multiple PDF files into one.
+- [PDF Split](https://toolorbit.site/tools/pdf/pdf-split): Split PDF files into multiple parts.
+- [PDF to Image](https://toolorbit.site/tools/pdf/pdf-to-image): Convert PDF pages to JPEG/PNG images.
+- [Image to PDF](https://toolorbit.site/tools/pdf/image-to-pdf): Convert images to PDF documents.
+
+## Image
+
+- [Image Compressor](https://toolorbit.site/tools/image/image-compressor): Reduce image file size while maintaining quality.
+- [Image Converter](https://toolorbit.site/tools/image/image-converter): Convert images between JPG, PNG, WebP locally.
+- [SVG to PNG](https://toolorbit.site/tools/image/svg-to-png): Export SVG vector images as PNG with custom dimensions.
+- [Image to Base64](https://toolorbit.site/tools/image/image-to-base64): Convert images to Base64 strings for CSS/HTML.
+- [Image Cropper](https://toolorbit.site/tools/image/image-cropper): Crop images visually and precisely online.
+- [Anime Screenshot Source Finder](https://toolorbit.site/tools/image/anime-screenshot-source): Upload an anime scene screenshot to find candidate anime titles, episodes, timestamps, and preview links.
+- [Image to ICO](https://toolorbit.site/tools/image/image-to-ico): Pack images into professional ICO icon files.
+
+## Converters
+
+- [Timestamp Converter](https://toolorbit.site/tools/dev/timestamp-converter): Convert Unix timestamps to local time and back.
+- [Base Converter](https://toolorbit.site/tools/dev/base-converter): Convert between bases 2 to 36 for large integers.
+- [Unit Converter](https://toolorbit.site/tools/calculate/unit-converter): Convert between length, weight, volume, and temperature.
+- [Time Converter](https://toolorbit.site/tools/calculate/time-converter): Convert between time zones and dates instantly.
+- [Archive Converter](https://toolorbit.site/tools/calculate/archive-converter): Online tool to bundle or extract ZIP archives.
+- [RMB Converter](https://toolorbit.site/tools/calculate/rmb-converter): Convert numbers to Chinese financial capital characters.
+- [PPI Calculator](https://toolorbit.site/tools/calculate/ppi-calculator): Calculate Pixels Per Inch based on size and resolution.
+- [Color Converter](https://toolorbit.site/tools/dev/color-converter): Convert between HEX, RGB, HSL, HSV, CMYK colors.
+- [Color Palette](https://toolorbit.site/tools/dev/color-palette): Generate Tints and Shades from a primary color.
+- [Color Picker](https://toolorbit.site/tools/dev/color-picker): Pick colors from your screen using EyeDropper API.
+- [Hex Converter](https://toolorbit.site/tools/dev/hex-string-converter): Convert text to hexadecimal encoding and vice versa.
+
+## Utility Tools
+
+- [BMI Calculator](https://toolorbit.site/tools/utility/bmi-calculator): Calculate BMI, weight category, and a healthy weight range from gender, age, height, and weight.
+- [Age Calculator](https://toolorbit.site/tools/utility/age-calculator): Enter a birth date to calculate full age, total days up to today, and days until the next birthday.
+- [World Timezone Compare](https://toolorbit.site/tools/utility/world-timezone-compare): Compare local times across 38 fixed UTC offsets from UTC-12:00 to UTC+14:00, with a draggable reference timeline for cross-timezone meetings.
+- [MBTI Personality Test](https://toolorbit.site/tools/utility/mbti-personality-test): Answer 24 original preference questions to estimate a 16-type personality result with a low-poly portrait, orientation, analysis, and recommended tools.
+
+## Editorial And Usage Notes
+
+Most ToolOrbit utilities run directly in the browser so files, text, and developer data stay on the user device unless an AI-powered feature explicitly needs a model request.
+
+ToolOrbit utilities are designed around practical browser workflows. Most non-AI tools process input locally in the browser. AI-assisted tools may send prompts to configured model APIs and should be reviewed before professional use.

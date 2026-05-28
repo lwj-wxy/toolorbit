@@ -1,0 +1,3 @@
+module.exports=[793578,a=>{"use strict";var b=a.i(624696),c=a.i(247282),d=a.i(876638);let e={a:({href:a,children:c,...d})=>{let e="string"==typeof a&&/^https?:\/\//.test(a);return(0,b.jsx)("a",{...d,href:a,target:e?"_blank":void 0,rel:e?"noopener noreferrer":void 0,onClick:b=>{e&&a&&(b.preventDefault(),window.open(a,"_blank","noopener,noreferrer"))},children:c})}};a.s(["default",0,function({markdown:a}){return(0,b.jsx)(c.default,{remarkPlugins:[d.default],components:e,children:a})}])},817586,a=>{a.n(a.i(793578))}];
+
+//# sourceMappingURL=Desktop_my-project_toolorbit_src_components_MarkdownContent_tsx_0b_h78p._.js.map

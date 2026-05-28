@@ -1,0 +1,3 @@
+module.exports=[633378,a=>{"use strict";let b=(0,a.i(47302).default)("copy",[["rect",{width:"14",height:"14",x:"8",y:"8",rx:"2",ry:"2",key:"17jyea"}],["path",{d:"M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2",key:"zix9uf"}]]);a.s(["Copy",0,b],633378)},668407,a=>{"use strict";let b=(0,a.i(47302).default)("info",[["circle",{cx:"12",cy:"12",r:"10",key:"1mglay"}],["path",{d:"M12 16v-4",key:"1dtifu"}],["path",{d:"M12 8h.01",key:"e9boi3"}]]);a.s(["Info",0,b],668407)},529177,a=>{"use strict";let b=(0,a.i(47302).default)("lock-open",[["rect",{width:"18",height:"11",x:"3",y:"11",rx:"2",ry:"2",key:"1w4ew1"}],["path",{d:"M7 11V7a5 5 0 0 1 9.9-1",key:"1mm8w8"}]]);a.s(["Unlock",0,b],529177)}];
+
+//# sourceMappingURL=0q8g_lucide-react_dist_esm_icons_0f3w6g_._.js.map
