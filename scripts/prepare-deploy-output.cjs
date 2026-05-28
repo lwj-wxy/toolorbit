@@ -14,6 +14,31 @@ const assertDir = (dirPath, message) => {
   }
 };
 
+const findStandaloneAppDir = (dirPath) => {
+  const directServerPath = path.join(dirPath, 'server.js');
+
+  if (fs.existsSync(directServerPath)) {
+    return dirPath;
+  }
+
+  const entries = fs.readdirSync(dirPath, { withFileTypes: true });
+
+  for (const entry of entries) {
+    if (!entry.isDirectory()) {
+      continue;
+    }
+
+    const childDir = path.join(dirPath, entry.name);
+    const appDir = findStandaloneAppDir(childDir);
+
+    if (appDir) {
+      return appDir;
+    }
+  }
+
+  return null;
+};
+
 const gitValue = (command) => {
   try {
     return execSync(command, { cwd: rootDir, encoding: 'utf8' }).trim();
@@ -28,10 +53,16 @@ assertDir(
 );
 assertDir(staticDir, 'Missing .next/static. Run "npm run build" before packing.');
 
+const standaloneAppDir = findStandaloneAppDir(standaloneDir);
+
+if (!standaloneAppDir) {
+  throw new Error('Missing server.js in .next/standalone. Check Next standalone output.');
+}
+
 fs.rmSync(outputDir, { recursive: true, force: true });
 fs.mkdirSync(outputDir, { recursive: true });
 
-fs.cpSync(standaloneDir, outputDir, { recursive: true });
+fs.cpSync(standaloneAppDir, outputDir, { recursive: true });
 fs.cpSync(staticDir, path.join(outputDir, '.next', 'static'), { recursive: true });
 
 if (fs.existsSync(publicDir)) {

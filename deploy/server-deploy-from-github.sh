@@ -12,13 +12,18 @@ mkdir -p "$APP_DIR/sources" "$APP_DIR/releases"
 
 git clone --depth=1 --branch "$BRANCH" "$REPO_URL" "$SOURCE_DIR"
 
-if [ ! -f "$SOURCE_DIR/deploy-output/server.js" ]; then
-  echo "deploy-output/server.js not found. Run npm run deploy:local locally, commit deploy-output, and push first." >&2
+if [ ! -f "$SOURCE_DIR/deploy-release.tar.gz" ]; then
+  echo "deploy-release.tar.gz not found. Run npm run deploy:local locally, commit deploy-release.tar.gz, and push first." >&2
   exit 1
 fi
 
 mkdir -p "$RELEASE_DIR"
-cp -a "$SOURCE_DIR/deploy-output/." "$RELEASE_DIR/"
+tar -xzf "$SOURCE_DIR/deploy-release.tar.gz" -C "$RELEASE_DIR"
+
+if [ ! -f "$RELEASE_DIR/server.js" ]; then
+  echo "server.js not found after extracting deploy-release.tar.gz." >&2
+  exit 1
+fi
 
 ln -sfn "$RELEASE_DIR" "$APP_DIR/current.new"
 mv -Tf "$APP_DIR/current.new" "$APP_DIR/current"

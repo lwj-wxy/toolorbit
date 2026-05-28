@@ -2,12 +2,9 @@ node_modules/
 build/
 dist/
 .next/
-!deploy-output/
-!deploy-output/**
-!deploy-output/.next/
-!deploy-output/.next/**
-!deploy-output/node_modules/
-!deploy-output/node_modules/**
+deploy-output/
+deploy-release.tar.gz
+!deploy-release.tar.gz
 coverage/
 .DS_Store
 *.tsbuildinfo

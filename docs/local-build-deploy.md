@@ -8,12 +8,14 @@ Run locally:
 
 ```bash
 npm run deploy:local
-git add next.config.ts package.json .gitignore scripts/prepare-deploy-output.cjs deploy docs/local-build-deploy.md deploy-output
+git add next.config.ts package.json .gitignore scripts/prepare-deploy-output.cjs deploy docs/local-build-deploy.md deploy-release.tar.gz
 git commit -m "Build deploy output"
 git push origin main
 ```
 
-`npm run deploy:local` runs the production build, then prepares `deploy-output/` from:
+`npm run deploy:local` runs the production build, prepares `deploy-output/`, then archives it as `deploy-release.tar.gz`.
+
+`deploy-output/` is local generated output and should not be committed directly. The archive contains:
 
 - `.next/standalone`
 - `.next/static`
@@ -63,6 +65,6 @@ cd /var/www/etsy-fee-calculator
 ./deploy.sh
 ```
 
-The script clones the latest GitHub code into a timestamped source directory, copies `deploy-output/` into a timestamped release directory, switches `current` atomically, and reloads PM2.
+The script clones the latest GitHub code into a timestamped source directory, extracts `deploy-release.tar.gz` into a timestamped release directory, switches `current` atomically, and reloads PM2.
 
 Nginx should keep proxying to the PM2 port, for example `http://127.0.0.1:3000`.

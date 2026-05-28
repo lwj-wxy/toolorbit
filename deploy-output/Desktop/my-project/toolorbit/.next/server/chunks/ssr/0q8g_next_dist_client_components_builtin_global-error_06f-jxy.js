@@ -1,3 +1,0 @@
-module.exports=[864640,(a,b,c)=>{let{createClientModuleProxy:d}=a.r(527604);a.n(d("[project]/Desktop/my-project/toolorbit/node_modules/next/dist/client/components/builtin/global-error.js <module evaluation>"))},999459,(a,b,c)=>{let{createClientModuleProxy:d}=a.r(527604);a.n(d("[project]/Desktop/my-project/toolorbit/node_modules/next/dist/client/components/builtin/global-error.js"))},907411,a=>{"use strict";a.i(864640);var b=a.i(999459);a.n(b)},18344,a=>{a.n(a.i(907411))}];
-
-//# sourceMappingURL=0q8g_next_dist_client_components_builtin_global-error_06f-jxy.js.map
