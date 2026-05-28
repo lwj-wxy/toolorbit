@@ -257,6 +257,18 @@
       "etsy-digital-download-pricing-guide": {
         "title": "Etsy Digital Download Pricing: How to Price Printables, Templates, and Files",
         "summary": "Digital downloads still have costs. Learn how to price instant downloads and made-to-order files with tiers, fee modeling, discounts, and clearer listing content."
+      },
+      "ai-model-war-2026": {
+        "title": "June 2026: Four AI Labs Are About to Ship New Models in the Same Month",
+        "summary": "GPT-5.6, Claude Sonnet 4.8, Gemini 3.5 Pro, and Grok 5 are all targeting June releases. What this unprecedented convergence means for developers and the industry."
+      },
+      "ai-security-code-audit": {
+        "title": "After Finding 23,000 Bugs: When AI Code Audits Outrun the Humans Who Fix Them",
+        "summary": "Claude Mythos scanned 1,000+ open-source projects and found 23,019 vulnerabilities with a 90.6% accuracy rate — but less than 15% have been patched. AI-powered auditing is reshaping security."
+      },
+      "ai-frontend-revolution": {
+        "title": "AI Is Rewriting the Rules of Frontend: From 62% Job Losses to a $1,100 Next.js Clone",
+        "summary": "Junior frontend roles dropped 62%, but top-tier talent salaries surged 70%. Cloudflare rebuilt Next.js for $1,100 in API fees. Three major frameworks just shipped game-changing releases — frontend is undergoing a forced evolution."
       }
     },
     "categories": {

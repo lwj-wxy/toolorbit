@@ -3010,6 +3010,18 @@
       "etsy-digital-download-pricing-guide": {
         "title": "Etsy 数字下载产品定价指南：Printable、模板与文件如何定价",
         "summary": "数字下载产品仍然有成本。学习如何用价格层级、费用模型、折扣验证和清晰 listing 内容，为即时下载和定制文件定价。"
+      },
+      "ai-model-war-2026": {
+        "title": "2026 年 6 月 AI 大乱斗：四家大厂一个月内扎堆发新模型",
+        "summary": "GPT-5.6、Claude Sonnet 4.8、Gemini 3.5 Pro、Grok 5 同时剑指 6 月发布。四家顶级 AI 实验室的集体亮剑，对开发者和行业意味着什么。"
+      },
+      "ai-security-code-audit": {
+        "title": "AI 找到 23000 个漏洞之后：当代码审计快到人类跟不上的那一天",
+        "summary": "Claude Mythos 扫描 1000+ 开源项目找出 23019 个漏洞，90.6% 为真实漏洞，但修复率不到 15%。AI 驱动的代码审计正在颠覆安全行业的底层逻辑。"
+      },
+      "ai-frontend-revolution": {
+        "title": "AI 正在重写前端规则：从 62% 岗位消失到 1100 美元复刻 Next.js",
+        "summary": "初级前端岗位锐减 62%，但顶层人才薪资暴涨 70%。Cloudflare 用 1100 美元 API 费重写了 Next.js，三大框架齐发新版——前端正在经历一场剧烈的升维。"
       }
     },
     "categories": {

@@ -11,6 +11,24 @@ const defaultAuthorId = 'luo-wj';
 
 const posts: BlogPost[] = [
   {
+    slug: 'ai-model-war-2026',
+    date: '2026-05-28',
+    category: 'AI',
+    image: blogImage('ai-model-war-2026-cover'),
+  },
+  {
+    slug: 'ai-security-code-audit',
+    date: '2026-05-28',
+    category: 'Security',
+    image: blogImage('ai-security-code-audit-cover'),
+  },
+  {
+    slug: 'ai-frontend-revolution',
+    date: '2026-05-28',
+    category: 'AI',
+    image: blogImage('ai-frontend-revolution-cover'),
+  },
+  {
     slug: 'mbti-personality-test-guide',
     date: '2026-05-27',
     category: 'Productivity',
