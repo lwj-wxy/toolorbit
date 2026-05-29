@@ -4,6 +4,7 @@ import '../i18n';
 import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { Toaster } from 'react-hot-toast';
+import CookieConsentManager from '../components/CookieConsentManager';
 import RecentToolsTracker from '../components/RecentToolsTracker';
 import ScrollToTop from '../components/ScrollToTop';
 import { ThemeProvider } from '../context/ThemeContext';
@@ -41,9 +42,13 @@ function LanguageBootstrapper() {
 
 export default function Providers({
   children,
+  gaMeasurementId,
+  adsenseClient,
   toolTrackingData,
 }: {
   children: React.ReactNode;
+  gaMeasurementId?: string;
+  adsenseClient?: string;
   toolTrackingData: ToolTrackingItem[];
 }) {
   return (
@@ -54,6 +59,7 @@ export default function Providers({
       <Toaster position="top-right" toastOptions={{ className: 'text-sm font-medium' }} />
       <AnalyticsTracker />
       {children}
+      <CookieConsentManager gaMeasurementId={gaMeasurementId} adsenseClient={adsenseClient} />
     </ThemeProvider>
   );
 }

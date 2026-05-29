@@ -23,7 +23,7 @@ import { readPath, SITE_NAME, SITE_URL } from './metadata';
 
 const LOGO_URL = `${SITE_URL}/icon.svg`;
 
-function organizationEntity() {
+export function organizationEntity() {
   return {
     '@type': 'Organization',
     '@id': `${SITE_URL}/#organization`,

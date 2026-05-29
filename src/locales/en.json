@@ -69,6 +69,19 @@
     "reasonsTitle": "Key reasons to use it",
     "relatedTools": "Related tools"
   },
+  "cookieConsent": {
+    "title": "Cookie preferences",
+    "description": "ToolOrbit uses essential browser storage for preferences. With your consent, we also use analytics and advertising cookies to improve the site and support free tools.",
+    "privacyLink": "Privacy Policy",
+    "necessary": "Necessary",
+    "analytics": "Analytics",
+    "ads": "Advertising",
+    "manage": "Manage",
+    "reject": "Reject optional",
+    "accept": "Accept all",
+    "save": "Save choices",
+    "footerLink": "Cookie settings"
+  },
   "blog": {
     "nav": "Blog",
     "title": "Developer Resources",

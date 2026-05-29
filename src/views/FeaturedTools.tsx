@@ -1,6 +1,7 @@
 'use client';
 
-import { ExternalLink, Search } from 'lucide-react';
+import { ChevronRight, ExternalLink, Search } from 'lucide-react';
+import Image from 'next/image';
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
@@ -8,6 +9,7 @@ import {
   FEATURED_TOOLS,
   type FeaturedCategoryId,
 } from '../data/featured-tools';
+import { Link } from '../lib/navigation';
 import { cn } from '../lib/utils';
 
 const ALL_CATEGORY_ID = '__all__';
@@ -27,7 +29,7 @@ export default function FeaturedTools() {
       const q = search.trim().toLowerCase();
       list = list.filter((t) => {
         const titleText = isZh ? t.titleZh : t.title;
-        const descText = isZh ? t.descriptionZh : t.description;
+        const descText = (isZh ? t.descriptionZh : t.description).join(' ');
         return (
           titleText.toLowerCase().includes(q) ||
           descText.toLowerCase().includes(q) ||
@@ -62,7 +64,6 @@ export default function FeaturedTools() {
     : 'A curated collection of quality websites, online tools, and open-source GitHub projects — organized by use case to help you discover great resources.';
   const allLabel = isZh ? '全部' : 'All';
   const searchPlaceholder = isZh ? '搜索工具名称或关键词...' : 'Search by name or keyword...';
-  const visitLabel = isZh ? '访问' : 'Visit';
   const noResults = isZh ? '没有匹配的工具。' : 'No matching tools found.';
 
   return (
@@ -79,7 +80,6 @@ export default function FeaturedTools() {
 
       {/* Search + category filter */}
       <div className="space-y-4">
-        {/* Search bar */}
         <div className="relative max-w-md">
           <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
           <input
@@ -91,7 +91,6 @@ export default function FeaturedTools() {
           />
         </div>
 
-        {/* Category pills */}
         {!search.trim() && (
           <div className="flex flex-wrap gap-2">
             <button
@@ -129,7 +128,7 @@ export default function FeaturedTools() {
       {(activeCategory !== ALL_CATEGORY_ID || search.trim()) && (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((tool) => (
-            <ToolCard key={tool.url} tool={tool} isZh={isZh} visitLabel={visitLabel} />
+            <ToolCard key={tool.slug} tool={tool} isZh={isZh} />
           ))}
         </div>
       )}
@@ -147,7 +146,7 @@ export default function FeaturedTools() {
               </h2>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {tools.map((tool) => (
-                  <ToolCard key={tool.url} tool={tool} isZh={isZh} visitLabel={visitLabel} />
+                  <ToolCard key={tool.slug} tool={tool} isZh={isZh} />
                 ))}
               </div>
             </section>
@@ -164,52 +163,65 @@ export default function FeaturedTools() {
   );
 }
 
-function ToolCard({
-  tool,
-  isZh,
-  visitLabel,
-}: {
-  tool: (typeof FEATURED_TOOLS)[number];
-  isZh: boolean;
-  visitLabel: string;
-}) {
+function ToolCard({ tool, isZh }: { tool: (typeof FEATURED_TOOLS)[number]; isZh: boolean }) {
   const cat = FEATURED_CATEGORIES.find((c) => c.id === tool.category);
+  const coverSrc = `/featured-tools/${tool.slug}.png`;
+  const [imgError, setImgError] = useState(false);
+
   return (
-    <a
-      href={tool.url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="group flex flex-col rounded-xl border border-slate-200/80 bg-white p-5 shadow-sm transition-all hover:border-blue-200 hover:shadow-md dark:border-slate-800 dark:bg-[#282c34] dark:hover:border-blue-800"
+    <Link
+      to={`/featured-tools/${tool.slug}`}
+      className="group flex flex-col overflow-hidden rounded-xl border border-slate-200/80 bg-white shadow-sm transition-all hover:border-blue-200 hover:shadow-md dark:border-slate-800 dark:bg-[#282c34] dark:hover:border-blue-800"
     >
-      <div className="mb-2 flex items-start justify-between gap-2">
-        <h3 className="text-base font-semibold text-slate-950 transition-colors group-hover:text-blue-600 dark:text-white dark:group-hover:text-blue-400">
-          {isZh ? tool.titleZh : tool.title}
-        </h3>
-        <span className="mt-0.5 shrink-0 text-slate-400 transition-colors group-hover:text-blue-500 dark:text-slate-500">
-          <ExternalLink className="h-4 w-4" />
-        </span>
-      </div>
-      <p className="mb-3 flex-1 text-sm leading-6 text-slate-600 dark:text-slate-400">
-        {isZh ? tool.descriptionZh : tool.description}
-      </p>
-      <div className="flex items-center gap-2">
-        {cat && (
-          <span className="rounded-md bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-500 dark:bg-slate-700 dark:text-slate-400">
-            {cat.icon} {isZh ? cat.nameZh : cat.name}
-          </span>
+      {/* Cover image */}
+      <div className="relative h-36 w-full overflow-hidden bg-slate-100 dark:bg-slate-800">
+        {!imgError ? (
+          <Image
+            src={coverSrc}
+            alt={isZh ? tool.titleZh : tool.title}
+            fill
+            className="object-cover object-top transition-transform duration-300 group-hover:scale-105"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            onError={() => setImgError(true)}
+          />
+        ) : (
+          <div className="flex h-full items-center justify-center text-4xl">
+            {cat?.icon || '🔗'}
+          </div>
         )}
-        {tool.tags?.slice(0, 3).map((tag) => (
-          <span
-            key={tag}
-            className="rounded-md bg-blue-50 px-2 py-0.5 text-xs font-medium text-blue-600 dark:bg-blue-950/40 dark:text-blue-300"
-          >
-            {tag}
-          </span>
-        ))}
-        <span className="ml-auto text-xs font-medium text-blue-600 opacity-0 transition-opacity group-hover:opacity-100 dark:text-blue-400">
-          {visitLabel} →
-        </span>
       </div>
-    </a>
+
+      {/* Content */}
+      <div className="flex flex-1 flex-col p-4">
+        <div className="mb-2 flex items-start gap-2">
+          <h3 className="flex-1 text-base font-semibold text-slate-950 transition-colors group-hover:text-blue-600 dark:text-white dark:group-hover:text-blue-400">
+            {isZh ? tool.titleZh : tool.title}
+          </h3>
+          <ExternalLink className="mt-0.5 h-3.5 w-3.5 shrink-0 text-slate-400" />
+        </div>
+        <p className="mb-3 flex-1 text-sm leading-6 text-slate-600 dark:text-slate-400 line-clamp-2">
+          {(isZh ? tool.descriptionZh : tool.description)[0]}
+        </p>
+        <div className="flex items-center gap-2">
+          {cat && (
+            <span className="rounded-md bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-500 dark:bg-slate-700 dark:text-slate-400">
+              {cat.icon} {isZh ? cat.nameZh : cat.name}
+            </span>
+          )}
+          {tool.tags?.slice(0, 2).map((tag) => (
+            <span
+              key={tag}
+              className="rounded-md bg-blue-50 px-2 py-0.5 text-xs font-medium text-blue-600 dark:bg-blue-950/40 dark:text-blue-300"
+            >
+              {tag}
+            </span>
+          ))}
+          <span className="ml-auto flex items-center gap-0.5 text-xs font-medium text-blue-600 opacity-0 transition-opacity group-hover:opacity-100 dark:text-blue-400">
+            {isZh ? '详情' : 'Details'}
+            <ChevronRight className="h-3 w-3" />
+          </span>
+        </div>
+      </div>
+    </Link>
   );
 }

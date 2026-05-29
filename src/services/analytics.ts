@@ -28,7 +28,7 @@ type AnalyticsEvent = {
 };
 
 class AnalyticsService {
-  private isEnabled: boolean = process.env.NODE_ENV === 'production';
+  private isEnabled: boolean = false;
   private debug: boolean = process.env.NODE_ENV !== 'production';
   private sessionId: string = '';
   private gaId: string = getGaMeasurementId();

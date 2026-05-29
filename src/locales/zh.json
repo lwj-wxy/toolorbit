@@ -63,6 +63,19 @@
     "reasonsTitle": "为什么使用这个工具？",
     "relatedTools": "相关工具"
   },
+  "cookieConsent": {
+    "title": "Cookie 偏好设置",
+    "description": "ToolOrbit 会使用必要的浏览器存储来保存偏好设置。经您同意后，我们也会使用分析和广告 Cookie 来改进站点并支持免费工具。",
+    "privacyLink": "隐私政策",
+    "necessary": "必要",
+    "analytics": "分析统计",
+    "ads": "广告",
+    "manage": "管理",
+    "reject": "拒绝可选项",
+    "accept": "全部接受",
+    "save": "保存选择",
+    "footerLink": "Cookie 设置"
+  },
   "search": {
     "results": "搜索结果: \"{{query}}\"",
     "noResults": "没有找到相关工具",

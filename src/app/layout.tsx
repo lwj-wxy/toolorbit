@@ -1,8 +1,6 @@
 import type { Metadata } from 'next';
-import Script from 'next/script';
 import '../index.css';
 import JsonLd from '../components/JsonLd';
-import DelayedAdSenseScript from '../components/DelayedAdSenseScript';
 import HtmlRoot from '../components/HtmlRoot';
 import Layout from '../components/Layout';
 import Providers from './providers';
@@ -50,44 +48,18 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const gaMeasurementId = getGaMeasurementId();
   const toolTrackingData = getToolTrackingData();
-  const shouldLoadGoogleAnalytics = process.env.NODE_ENV === 'production' && Boolean(gaMeasurementId);
 
   return (
     <HtmlRoot>
-      <head>
-        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-        <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
-        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
-        <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossOrigin="anonymous" />
-      </head>
+      <head />
       <body suppressHydrationWarning>
         <JsonLd id="structured-data-organization" data={organizationJsonLd()} />
         <JsonLd id="structured-data-website" data={websiteJsonLd()} />
-        {shouldLoadGoogleAnalytics ? (
-          <>
-            <Script
-              id="toolorbit-ga-loader"
-              src={`https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(gaMeasurementId)}`}
-              strategy="afterInteractive"
-            />
-            <Script
-              id="toolorbit-ga-init"
-              strategy="afterInteractive"
-              dangerouslySetInnerHTML={{
-                __html: `
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);}
-                  window.gtag = window.gtag || gtag;
-                  gtag('js', new Date());
-                  gtag('config', ${JSON.stringify(gaMeasurementId)});
-                `,
-              }}
-            />
-          </>
-        ) : null}
-        <DelayedAdSenseScript client={googleAdsenseClient} />
-        <Providers toolTrackingData={toolTrackingData}>
+        <Providers
+          adsenseClient={googleAdsenseClient}
+          gaMeasurementId={gaMeasurementId}
+          toolTrackingData={toolTrackingData}
+        >
           <Layout>{children}</Layout>
         </Providers>
       </body>

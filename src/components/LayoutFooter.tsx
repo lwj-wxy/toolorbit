@@ -5,6 +5,9 @@ import { Link } from '../lib/navigation';
 
 export default function LayoutFooter() {
   const { t } = useTranslation();
+  const openCookiePreferences = () => {
+    window.dispatchEvent(new Event('toolorbit:open-cookie-preferences'));
+  };
 
   return (
     <footer className="relative z-10 mx-auto mt-auto flex w-full max-w-7xl flex-col items-center justify-center border-t border-slate-200/80 bg-transparent px-4 pb-10 pt-7 text-[13px] text-slate-600 dark:border-slate-800/80 dark:text-slate-400 sm:px-6 lg:px-8">
@@ -12,6 +15,13 @@ export default function LayoutFooter() {
         <Link to="/about" className="uppercase tracking-wide transition-colors hover:text-blue-600 dark:hover:text-blue-400">{t('common.nav_about')}</Link>
         <Link to="/privacy" className="uppercase tracking-wide transition-colors hover:text-blue-600 dark:hover:text-blue-400">{t('common.nav_privacy')}</Link>
         <Link to="/terms" className="uppercase tracking-wide transition-colors hover:text-blue-600 dark:hover:text-blue-400">{t('common.nav_terms')}</Link>
+        <button
+          type="button"
+          onClick={openCookiePreferences}
+          className="uppercase tracking-wide transition-colors hover:text-blue-600 dark:hover:text-blue-400"
+        >
+          {t('cookieConsent.footerLink', { defaultValue: 'Cookie settings' })}
+        </button>
       </div>
       <div className="flex flex-col items-center gap-2">
         <p className="text-center text-sm leading-6 text-slate-600 dark:text-slate-400">{t('common.footer_desc')}</p>

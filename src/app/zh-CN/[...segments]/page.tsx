@@ -10,6 +10,7 @@ import ToolSEOCard from '../../../components/ToolSEOCard';
 import ToolSearchContent from '../../../components/ToolSearchContent';
 import { BLOG_POSTS } from '../../../constants/blogData';
 import { AUTHORS, getAuthorByPath } from '../../../data/authors';
+import { FEATURED_TOOLS } from '../../../data/featured-tools';
 import { SEO_CONTENT_PATHS, getSeoContentPage } from '../../../data/seoContent';
 import { TOOLS } from '../../../data/tools';
 import { getTotalBlogPages, normalizeBlogPage } from '../../../lib/blog-pagination';
@@ -22,6 +23,8 @@ import {
   blogPostMetadata,
   categoryMetadata,
   homeMetadata,
+  SITE_NAME,
+  SITE_URL,
   staticPageMetadata,
   seoContentMetadata,
   toolMetadata,
@@ -48,6 +51,7 @@ const About = dynamic(() => import('../../../views/About')) as ComponentType;
 const Privacy = dynamic(() => import('../../../views/Privacy')) as ComponentType;
 const Terms = dynamic(() => import('../../../views/Terms')) as ComponentType;
 const FeaturedTools = dynamic(() => import('../../../views/FeaturedTools')) as ComponentType;
+const FeaturedToolDetail = dynamic(() => import('../../../views/FeaturedToolDetail')) as ComponentType<{ slug: string }>;
 const AllToolsPage = dynamic(() => import('../../../views/AllToolsPage')) as ComponentType<{ locale: string }>;
 const AuthorPage = dynamic(() => import('../../../views/AuthorPage')) as ComponentType<{ authorId?: string; locale?: typeof LOCALE }>;
 const SeoContentPageView = dynamic(() => import('../../../views/SeoContentPage')) as ComponentType<{ page: unknown; locale: string }>;
@@ -75,6 +79,7 @@ function allChineseSegments() {
     ['privacy'],
     ['terms'],
     ['featured-tools'],
+    ...FEATURED_TOOLS.map((tool) => ['featured-tools', tool.slug]),
     ...AUTHORS.map((author) => author.url.split('/').filter(Boolean)),
     ...SEO_CONTENT_PATHS.map((seoPath) => seoPath.split('/').filter(Boolean)),
     ...Array.from({ length: getTotalBlogPages() - 1 }, (_, index) => ['blog', 'page', String(index + 2)]),
@@ -105,6 +110,29 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (basePath === '/privacy') return staticPageMetadata('privacy', LOCALE);
   if (basePath === '/terms') return staticPageMetadata('terms', LOCALE);
   if (basePath === '/featured-tools') return staticPageMetadata('featured-tools', LOCALE);
+
+  if (segments[0] === 'featured-tools' && segments[1]) {
+    const tool = FEATURED_TOOLS.find((t) => t.slug === segments[1]);
+    if (!tool) return {};
+    const zhTitle = `${tool.titleZh} — 精选工具 | ${SITE_NAME}`;
+    return {
+      title: zhTitle,
+      description: tool.descriptionZh.join(' '),
+      openGraph: {
+        title: zhTitle,
+        description: tool.descriptionZh.join(' '),
+        type: 'website',
+        images: [{ url: `${SITE_URL}/featured-tools/${tool.slug}.png`, width: 1280, height: 720 }],
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: zhTitle,
+        description: tool.descriptionZh.join(' '),
+        images: [`${SITE_URL}/featured-tools/${tool.slug}.png`],
+      },
+    };
+  }
+
   const author = getAuthorByPath(basePath);
   if (author) return authorMetadata(author.id, LOCALE);
   if (SEO_CONTENT_PATHS.includes(basePath)) return seoContentMetadata(basePath, LOCALE);
@@ -233,6 +261,34 @@ export default async function Page({ params }: PageProps) {
       <>
         <JsonLd id="structured-data-featured-tools-zh" data={staticPageJsonLd('featured-tools', LOCALE)} />
         <FeaturedTools />
+      </>,
+    );
+  }
+
+  if (segments[0] === 'featured-tools' && segments[1]) {
+    const tool = FEATURED_TOOLS.find((t) => t.slug === segments[1]);
+    if (!tool) notFound();
+
+    return zhPage(
+      <>
+        <JsonLd
+          id={`structured-data-featured-tool-${segments[1]}-zh`}
+          data={[
+            {
+              '@context': 'https://schema.org',
+              '@type': 'WebPage',
+              name: `${tool.titleZh} — 精选工具`,
+              url: `${SITE_URL}/zh-CN/featured-tools/${segments[1]}`,
+              isPartOf: {
+                '@type': 'WebSite',
+                '@id': `${SITE_URL}/#website`,
+                name: SITE_NAME,
+                url: SITE_URL,
+              },
+            },
+          ]}
+        />
+        <FeaturedToolDetail slug={segments[1]} />
       </>,
     );
   }
