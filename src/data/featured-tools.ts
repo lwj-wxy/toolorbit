@@ -569,4 +569,740 @@ export const FEATURED_TOOLS: FeaturedTool[] = [
     category: 'open-source',
     tags: ['SSG', 'framework', 'content'],
   },
+
+  // ══════════════════════════════════════════════════════
+  // ─── Developer Tools (continued) ────────────────────
+  // ══════════════════════════════════════════════════════
+  {
+    title: 'Bun',
+    titleZh: 'Bun',
+    description:
+      'Fast all-in-one JavaScript runtime, bundler, test runner, and package manager — drop-in Node.js replacement with native TypeScript support.',
+    descriptionZh:
+      '极速一体化 JavaScript 运行时，集打包器、测试运行器和包管理器于一身，原生支持 TypeScript，可替代 Node.js。',
+    url: 'https://bun.sh/',
+    category: 'developer-tools',
+    tags: ['runtime', 'JavaScript', 'bundler'],
+  },
+  {
+    title: 'Biome',
+    titleZh: 'Biome',
+    description:
+      'Fast formatter and linter for JavaScript, TypeScript, JSX, and JSON — unified toolchain replacing ESLint + Prettier with near-instant performance.',
+    descriptionZh:
+      '极速的 JS/TS/JSX/JSON 格式化和 Lint 工具，统一替代 ESLint + Prettier 组合，性能接近即时完成。',
+    url: 'https://biomejs.dev/',
+    category: 'developer-tools',
+    tags: ['formatter', 'linter', 'toolchain'],
+  },
+  {
+    title: 'Playwright',
+    titleZh: 'Playwright',
+    description:
+      'Microsoft\'s end-to-end testing framework with auto-wait, trace viewer, and cross-browser support (Chromium, Firefox, WebKit) — reliable UI testing at scale.',
+    descriptionZh:
+      '微软出品的端到端测试框架，支持自动等待、Trace 回放和跨浏览器（Chromium/Firefox/WebKit），是可靠的规模化 UI 测试方案。',
+    url: 'https://playwright.dev/',
+    category: 'developer-tools',
+    tags: ['testing', 'e2e', 'Microsoft'],
+  },
+  {
+    title: 'Prisma',
+    titleZh: 'Prisma',
+    description:
+      'Next-generation Node.js and TypeScript ORM with auto-generated type-safe query builder, schema migrations, and a visual database browser.',
+    descriptionZh:
+      '新一代 Node.js/TypeScript ORM，自动生成类型安全的查询构建器，支持 Schema 迁移和可视化数据库浏览器。',
+    url: 'https://www.prisma.io/',
+    category: 'developer-tools',
+    tags: ['ORM', 'database', 'TypeScript'],
+  },
+  {
+    title: 'Turborepo',
+    titleZh: 'Turborepo',
+    description:
+      'High-performance monorepo build system with intelligent caching, parallel task execution, and incremental builds — built by the Vercel team.',
+    descriptionZh:
+      '高性能 Monorepo 构建系统，具备智能缓存、并行任务执行和增量构建能力，由 Vercel 团队打造。',
+    url: 'https://turbo.build/',
+    category: 'developer-tools',
+    tags: ['monorepo', 'build', 'Vercel'],
+  },
+  {
+    title: 'Storybook',
+    titleZh: 'Storybook',
+    description:
+      'Frontend workshop for building UI components and pages in isolation — develop, document, and test components for React, Vue, Angular, and Svelte.',
+    descriptionZh:
+      '前端组件开发工作坊，在隔离环境中开发、文档化和测试 React/Vue/Angular/Svelte 组件，是 UI 组件库开发和设计系统的基础设施。',
+    url: 'https://storybook.js.org/',
+    category: 'developer-tools',
+    tags: ['UI', 'components', 'testing'],
+  },
+  {
+    title: 'ngrok',
+    titleZh: 'ngrok',
+    description:
+      'Secure localhost tunneling service that exposes local servers to the internet with HTTPS — essential for webhook testing and demo previews.',
+    descriptionZh:
+      '安全的内网穿透服务，一键将本地服务暴露到公网并自带 HTTPS，是 Webhook 调试和 Demo 演示的必备工具。',
+    url: 'https://ngrok.com/',
+    category: 'developer-tools',
+    tags: ['tunneling', 'webhook', 'debugging'],
+  },
+  {
+    title: 'Cloudflare',
+    titleZh: 'Cloudflare',
+    description:
+      'Global network platform offering CDN, DDoS protection, Workers (serverless edge computing), Pages (Jamstack hosting), R2 (object storage), and D1 (edge database).',
+    descriptionZh:
+      '全球网络平台，提供 CDN、DDoS 防护、Workers 边缘计算、Pages 静态托管、R2 对象存储和 D1 边缘数据库，是独立开发者的全能基础设施。',
+    url: 'https://www.cloudflare.com/',
+    category: 'developer-tools',
+    tags: ['CDN', 'edge', 'serverless'],
+  },
+  {
+    title: 'Transform Tools',
+    titleZh: 'Transform Tools',
+    description:
+      'Polyglot code transformation playground — convert between JSX, TypeScript, JSON, GraphQL, CSS, and more with instant, copy-pasteable output.',
+    descriptionZh:
+      '多语言代码转换沙盒，支持 JSX ↔ TypeScript ↔ JSON ↔ GraphQL ↔ CSS 等格式即时互转，复制粘贴即得结果。',
+    url: 'https://transform.tools/',
+    category: 'developer-tools',
+    tags: ['conversion', 'code', 'playground'],
+  },
+  {
+    title: 'BundlePhobia',
+    titleZh: 'BundlePhobia',
+    description:
+      'Check the install size, minified size, and gzipped cost of any npm package before adding it to your project — plus tree-shaking analysis.',
+    descriptionZh:
+      '在安装前查 npm 包的体积大小（安装大小、压缩大小、gzip 大小）和 Tree-shaking 分析，帮助控制前端打包体积。',
+    url: 'https://bundlephobia.com/',
+    category: 'developer-tools',
+    tags: ['npm', 'bundle-size', 'performance'],
+  },
+  {
+    title: 'Can I Use',
+    titleZh: 'Can I Use',
+    description:
+      'Up-to-date browser support tables for HTML, CSS, JS, SVG, and Web APIs — the go-to reference for checking cross-browser compatibility.',
+    descriptionZh:
+      '最新的 HTML/CSS/JS/SVG/Web API 浏览器兼容性速查表，前端开发者判断特性可用性的首选参考站。',
+    url: 'https://caniuse.com/',
+    category: 'developer-tools',
+    tags: ['compatibility', 'browser', 'reference'],
+  },
+  {
+    title: 'cURL Converter',
+    titleZh: 'cURL Converter',
+    description:
+      'Convert cURL commands to Python, JavaScript, Go, PHP, Java, and more — paste a curl command and get idiomatic code for your preferred language.',
+    descriptionZh:
+      '将 cURL 命令转换为 Python、JavaScript、Go、PHP、Java 等语言的代码，粘贴 curl 即得惯用语法代码。',
+    url: 'https://curlconverter.com/',
+    category: 'developer-tools',
+    tags: ['curl', 'conversion', 'API'],
+  },
+  {
+    title: 'JSONPlaceholder',
+    titleZh: 'JSONPlaceholder',
+    description:
+      'Free fake REST API for testing and prototyping — returns realistic JSON data for posts, comments, users, todos, and photos without authentication.',
+    descriptionZh:
+      '免费的假数据 REST API，返回 posts、comments、users、todos、photos 等真实结构的 JSON 数据，无需鉴权即可用于测试和原型开发。',
+    url: 'https://jsonplaceholder.typicode.com/',
+    category: 'developer-tools',
+    tags: ['API', 'mock', 'testing'],
+  },
+  {
+    title: 'Drizzle ORM',
+    titleZh: 'Drizzle ORM',
+    description:
+      'Lightweight TypeScript ORM with SQL-like syntax, zero dependencies, and maximum type safety — designed for serverless and edge environments.',
+    descriptionZh:
+      '轻量级 TypeScript ORM，采用类 SQL 语法、零依赖和极致类型安全，专为 Serverless 和边缘环境设计。',
+    url: 'https://orm.drizzle.team/',
+    category: 'developer-tools',
+    tags: ['ORM', 'TypeScript', 'database'],
+  },
+
+  // ══════════════════════════════════════════════════════
+  // ─── Design Resources (continued) ───────────────────
+  // ══════════════════════════════════════════════════════
+  {
+    title: 'Lucide',
+    titleZh: 'Lucide',
+    description:
+      'Beautifully crafted open-source icon library with 1,500+ consistent icons for React, Vue, Svelte, and more — the default for modern web projects.',
+    descriptionZh:
+      '精美的开源图标库，1500+ 风格统一的图标，支持 React、Vue、Svelte 等框架，是现代 Web 项目的默认图标方案。',
+    url: 'https://lucide.dev/',
+    category: 'design-resources',
+    tags: ['icons', 'open-source', 'React'],
+  },
+  {
+    title: 'remove.bg',
+    titleZh: 'remove.bg',
+    description:
+      'AI-powered background removal tool — upload any photo and get a transparent PNG in seconds, no design skills required.',
+    descriptionZh:
+      'AI 驱动的背景去除工具，上传任意照片秒级生成透明 PNG，无需任何设计技巧即可获得专业抠图效果。',
+    url: 'https://www.remove.bg/',
+    category: 'design-resources',
+    tags: ['background-removal', 'AI', 'photo'],
+  },
+  {
+    title: 'TinyPNG',
+    titleZh: 'TinyPNG',
+    description:
+      'Smart lossy compression for WebP, PNG, and JPEG images — reduces file size dramatically while preserving visual quality.',
+    descriptionZh:
+      '智能有损压缩 WebP/PNG/JPEG 图片，在保持视觉质量的前提下大幅减小文件体积，是网页性能优化的常用工具。',
+    url: 'https://tinypng.com/',
+    category: 'design-resources',
+    tags: ['compression', 'images', 'performance'],
+  },
+  {
+    title: 'Squoosh',
+    titleZh: 'Squoosh',
+    description:
+      'Google\'s open-source image compression web app with side-by-side comparison, format conversion, and advanced codec options (MozJPEG, AVIF, WebP).',
+    descriptionZh:
+      'Google 出品的开源图片压缩 Web 应用，支持左右对比、格式转换和高级编码器选项（MozJPEG、AVIF、WebP），所有处理在浏览器本地完成。',
+    url: 'https://squoosh.app/',
+    category: 'design-resources',
+    tags: ['compression', 'images', 'Google'],
+  },
+  {
+    title: 'ColorHunt',
+    titleZh: 'ColorHunt',
+    description:
+      'Curated collection of beautiful color palettes updated daily — browse, save, and copy hex codes for your next design project.',
+    descriptionZh:
+      '每日更新的精选配色方案集合，浏览、收藏和复制十六进制色码，为设计项目快速找到协调的色彩组合。',
+    url: 'https://colorhunt.co/',
+    category: 'design-resources',
+    tags: ['color', 'palette', 'inspiration'],
+  },
+  {
+    title: 'Heroicons',
+    titleZh: 'Heroicons',
+    description:
+      'Beautiful hand-crafted SVG icons by the makers of Tailwind CSS — available in outline, solid, and mini styles for React and Vue.',
+    descriptionZh:
+      'Tailwind CSS 团队出品的精美手绘 SVG 图标，提供 outline、solid 和 mini 三种风格，原生支持 React 和 Vue。',
+    url: 'https://heroicons.com/',
+    category: 'design-resources',
+    tags: ['icons', 'SVG', 'Tailwind'],
+  },
+  {
+    title: 'Haikei',
+    titleZh: 'Haikei',
+    description:
+      'Online SVG generators for creating blob shapes, waves, gradients, and abstract backgrounds — export as SVG or PNG, no sign-up needed.',
+    descriptionZh:
+      '在线 SVG 生成器，一键生成流体形状、波浪、渐变和抽象背景，可导出 SVG 或 PNG，无需注册即可使用。',
+    url: 'https://app.haikei.app/',
+    category: 'design-resources',
+    tags: ['SVG', 'generator', 'background'],
+  },
+  {
+    title: 'Phosphor Icons',
+    titleZh: 'Phosphor Icons',
+    description:
+      'Flexible icon family with 1,400+ icons in 6 weights (thin, light, regular, bold, fill, duotone) — consistent, pixel-perfect, and framework-agnostic.',
+    descriptionZh:
+      '灵活的图标家族，1400+ 图标 × 6 种粗细（thin/light/regular/bold/fill/duotone），风格统一、像素精确且跨框架友好。',
+    url: 'https://phosphoricons.com/',
+    category: 'design-resources',
+    tags: ['icons', 'SVG', 'design-system'],
+  },
+
+  // ══════════════════════════════════════════════════════
+  // ─── Productivity (continued) ───────────────────────
+  // ══════════════════════════════════════════════════════
+  {
+    title: 'Warp',
+    titleZh: 'Warp',
+    description:
+      'Modern terminal with IDE-like editing, AI command suggestions, and collaborative workflows — reimagining the command line for the 2020s.',
+    descriptionZh:
+      '现代化终端，支持 IDE 级文本编辑、AI 命令建议和协作工作流，重新定义了命令行工具的使用体验。',
+    url: 'https://www.warp.dev/',
+    category: 'productivity',
+    tags: ['terminal', 'AI', 'macOS'],
+  },
+  {
+    title: 'Loom',
+    titleZh: 'Loom',
+    description:
+      'Instant screen and camera recording with shareable links — record product demos, bug reports, and async updates in one click.',
+    descriptionZh:
+      '即时屏幕和摄像头录制工具，一键录制产品演示、Bug 复现和异步更新，通过链接即时分享，告别冗长的文字说明。',
+    url: 'https://www.loom.com/',
+    category: 'productivity',
+    tags: ['video', 'async', 'communication'],
+  },
+  {
+    title: 'CleanShot X',
+    titleZh: 'CleanShot X',
+    description:
+      'Premium macOS screenshot and screen-recording app with annotation, scrolling capture, and instant cloud upload — the ultimate screen capture toolkit.',
+    descriptionZh:
+      'macOS 高端截图与录屏工具，支持标注、滚动截屏和即时云端上传，是屏幕捕捉的终极工具箱。',
+    url: 'https://cleanshot.com/',
+    category: 'productivity',
+    tags: ['screenshot', 'macOS', 'recording'],
+  },
+  {
+    title: 'Slack',
+    titleZh: 'Slack',
+    description:
+      'Team communication platform with channels, threads, app integrations, and workflow automation — the standard for async team collaboration.',
+    descriptionZh:
+      '团队沟通平台，支持频道、消息线程、应用集成和工作流自动化，是异步团队协作的行业标准工具。',
+    url: 'https://slack.com/',
+    category: 'productivity',
+    tags: ['communication', 'team', 'chat'],
+  },
+  {
+    title: 'Todoist',
+    titleZh: 'Todoist',
+    description:
+      'Cross-platform task manager with natural language input, project organization, priority levels, and karma productivity tracking.',
+    descriptionZh:
+      '跨平台任务管理工具，支持自然语言输入、项目组织、优先级划分和 Karma 效率统计，简洁而强大。',
+    url: 'https://todoist.com/',
+    category: 'productivity',
+    tags: ['tasks', 'GTD', 'cross-platform'],
+  },
+  {
+    title: 'Mermaid',
+    titleZh: 'Mermaid',
+    description:
+      'JavaScript-based diagramming and charting tool that renders Markdown-inspired text definitions into flowcharts, sequence diagrams, and Gantt charts.',
+    descriptionZh:
+      '基于 JavaScript 的图表工具，使用类似 Markdown 的文本语法即可生成流程图、时序图和甘特图，通过代码管理图表版本。',
+    url: 'https://mermaid.js.org/',
+    category: 'productivity',
+    tags: ['diagrams', 'markdown', 'documentation'],
+  },
+
+  // ══════════════════════════════════════════════════════
+  // ─── SEO & Marketing (continued) ────────────────────
+  // ══════════════════════════════════════════════════════
+  {
+    title: 'Semrush',
+    titleZh: 'Semrush',
+    description:
+      'All-in-one digital marketing platform covering SEO, PPC, content marketing, social media, and competitive research — enterprise-grade insights.',
+    descriptionZh:
+      '一站式数字营销平台，覆盖 SEO、PPC、内容营销、社交媒体和竞品研究，提供企业级数据洞察。',
+    url: 'https://www.semrush.com/',
+    category: 'seo-marketing',
+    tags: ['SEO', 'PPC', 'competitive-research'],
+  },
+  {
+    title: 'Google Trends',
+    titleZh: 'Google Trends',
+    description:
+      'Explore what the world is searching for — compare keyword popularity over time, by region, and discover rising topics for content inspiration.',
+    descriptionZh:
+      '探索全球搜索趋势，对比关键词随时间、地域的热度变化，发现上升话题为内容创作提供数据支撑。',
+    url: 'https://trends.google.com/',
+    category: 'seo-marketing',
+    tags: ['trends', 'Google', 'research'],
+  },
+  {
+    title: 'Moz',
+    titleZh: 'Moz',
+    description:
+      'Pioneer SEO software suite with Domain Authority (DA) metric, link explorer, keyword explorer, and on-page grader — trusted by marketers for over a decade.',
+    descriptionZh:
+      '老牌 SEO 工具套件，提供 Domain Authority（DA）权威度评分、链接分析、关键词研究和页面优化评分，深受营销人信赖。',
+    url: 'https://moz.com/',
+    category: 'seo-marketing',
+    tags: ['SEO', 'DA', 'link-research'],
+  },
+  {
+    title: 'Keyword Surfer',
+    titleZh: 'Keyword Surfer',
+    description:
+      'Free Chrome extension that shows search volume and keyword suggestions directly in Google search results — the fastest way to size up a query.',
+    descriptionZh:
+      '免费 Chrome 扩展，直接在 Google 搜索结果中显示搜索量和关键词建议，是最快的搜索需求评估方式。',
+    url: 'https://surferseo.com/keyword-surfer/',
+    category: 'seo-marketing',
+    tags: ['extension', 'keywords', 'free'],
+  },
+  {
+    title: 'Schema.org',
+    titleZh: 'Schema.org',
+    description:
+      'The collaborative standard for structured data markup — reference vocabulary, examples, and validation for JSON-LD, Microdata, and RDFa rich results.',
+    descriptionZh:
+      '结构化数据标记的协作标准，提供 JSON-LD、Microdata 和 RDFa 富媒体搜索结果的词汇表、示例和验证参考。',
+    url: 'https://schema.org/',
+    category: 'seo-marketing',
+    tags: ['structured-data', 'SEO', 'JSON-LD'],
+  },
+
+  // ══════════════════════════════════════════════════════
+  // ─── AI Tools (continued) ───────────────────────────
+  // ══════════════════════════════════════════════════════
+  {
+    title: 'Cursor',
+    titleZh: 'Cursor',
+    description:
+      'AI-first code editor built on VS Code — chat with your codebase, generate entire features with context-aware prompts, and apply edits inline.',
+    descriptionZh:
+      '基于 VS Code 的 AI 优先代码编辑器，可与整个代码库对话、根据上下文生成完整功能并内联应用修改，是 AI 编程的标杆工具。',
+    url: 'https://cursor.com/',
+    category: 'ai-tools',
+    tags: ['code-editor', 'AI', 'VS Code'],
+  },
+  {
+    title: 'GitHub Copilot',
+    titleZh: 'GitHub Copilot',
+    description:
+      'AI pair programmer by GitHub — provides inline code suggestions, chat assistance, and agent mode directly in VS Code, JetBrains, and GitHub.com.',
+    descriptionZh:
+      'GitHub 推出的 AI 结对编程助手，在 VS Code、JetBrains 和 GitHub.com 中提供行内代码建议、对话辅助和 Agent 模式。',
+    url: 'https://github.com/features/copilot',
+    category: 'ai-tools',
+    tags: ['code-gen', 'GitHub', 'pair-programming'],
+  },
+  {
+    title: 'Bolt.new',
+    titleZh: 'Bolt.new',
+    description:
+      'AI-powered full-stack app builder from StackBlitz — prompt, preview, and deploy web applications entirely in the browser with instant live previews.',
+    descriptionZh:
+      'StackBlitz 出品的 AI 全栈应用构建工具，在浏览器中用自然语言描述即可生成、预览和部署 Web 应用，所见即所得。',
+    url: 'https://bolt.new/',
+    category: 'ai-tools',
+    tags: ['app-builder', 'full-stack', 'browser'],
+  },
+  {
+    title: 'Replit',
+    titleZh: 'Replit',
+    description:
+      'Collaborative browser-based IDE with built-in hosting, AI code generation (Ghostwriter), and instant deployment — code from any device.',
+    descriptionZh:
+      '基于浏览器的协作式 IDE，内置托管、AI 代码生成和即时部署，无需本地环境即可在任何设备上编写和运行代码。',
+    url: 'https://replit.com/',
+    category: 'ai-tools',
+    tags: ['IDE', 'collaboration', 'browser'],
+  },
+  {
+    title: 'ElevenLabs',
+    titleZh: 'ElevenLabs',
+    description:
+      'State-of-the-art AI text-to-speech and voice cloning platform — generate lifelike narration, dubbing, and custom voices in 29+ languages.',
+    descriptionZh:
+      '最先进的 AI 文字转语音与声音克隆平台，生成逼真的旁白、配音和自定义语音，支持 29+ 语言，语音自然度行业领先。',
+    url: 'https://elevenlabs.io/',
+    category: 'ai-tools',
+    tags: ['TTS', 'voice', 'audio'],
+  },
+  {
+    title: 'Suno',
+    titleZh: 'Suno',
+    description:
+      'AI music generation platform — describe a style, mood, or lyrics and get full songs with vocals, instrumentation, and production in seconds.',
+    descriptionZh:
+      'AI 音乐生成平台，通过文字描述风格、情绪或歌词，秒级生成带人声、配器和制作的完整歌曲，让音乐创作变得人人可为。',
+    url: 'https://suno.com/',
+    category: 'ai-tools',
+    tags: ['music', 'generation', 'creative'],
+  },
+  {
+    title: 'Gemini',
+    titleZh: 'Gemini',
+    description:
+      'Google\'s multimodal AI model with deep integration into Google Workspace, Gmail, and Search — powerful reasoning across text, images, code, and audio.',
+    descriptionZh:
+      'Google 推出的多模态 AI 模型，深度集成 Google Workspace、Gmail 和搜索，在文本、图片、代码和音频推理方面表现强大。',
+    url: 'https://gemini.google.com/',
+    category: 'ai-tools',
+    tags: ['LLM', 'Google', 'multimodal'],
+  },
+  {
+    title: 'Lovable',
+    titleZh: 'Lovable',
+    description:
+      'AI-powered app builder that generates production-ready web apps from a single prompt with instant preview and one-click GitHub sync.',
+    descriptionZh:
+      'AI 驱动的应用构建工具，通过一行描述即可生成生产级 Web 应用，支持即时预览和一键同步 GitHub。',
+    url: 'https://lovable.dev/',
+    category: 'ai-tools',
+    tags: ['app-builder', 'full-stack', 'code-gen'],
+  },
+
+  // ══════════════════════════════════════════════════════
+  // ─── Ecommerce Tools (continued) ────────────────────
+  // ══════════════════════════════════════════════════════
+  {
+    title: 'WooCommerce',
+    titleZh: 'WooCommerce',
+    description:
+      'Open-source ecommerce plugin for WordPress — powers millions of online stores with extensions for subscriptions, bookings, and memberships.',
+    descriptionZh:
+      'WordPress 上的开源电商插件，支持订阅、预订和会员等扩展，驱动数百万个在线商店，适合已有 WordPress 站点的商家。',
+    url: 'https://woocommerce.com/',
+    category: 'ecommerce-tools',
+    tags: ['WordPress', 'plugin', 'open-source'],
+  },
+  {
+    title: 'Stripe Fee Calculator',
+    titleZh: 'Stripe Fee Calculator',
+    description:
+      'Estimate Stripe processing fees for any transaction amount and region — see exactly how much you will net after Stripe\'s per-transaction charges.',
+    descriptionZh:
+      '估算任意金额和地区的 Stripe 处理费用，清晰展示扣除手续费后的实际到账金额，帮助定价和利润核算。',
+    url: 'https://toolorbit.site/tools/ecommerce/stripe-fee-calculator',
+    category: 'ecommerce-tools',
+    tags: ['Stripe', 'fees', 'pricing'],
+  },
+  {
+    title: 'Jungle Scout',
+    titleZh: 'Jungle Scout',
+    description:
+      'All-in-one Amazon seller platform for product research, keyword tracking, competitor intelligence, and sales analytics — data-driven FBA decisions.',
+    descriptionZh:
+      '一站式 Amazon 卖家平台，覆盖产品调研、关键词追踪、竞品情报和销售分析，帮助 FBA 卖家做数据驱动的决策。',
+    url: 'https://www.junglescout.com/',
+    category: 'ecommerce-tools',
+    tags: ['Amazon', 'FBA', 'product-research'],
+  },
+  {
+    title: 'Lemon Squeezy',
+    titleZh: 'Lemon Squeezy',
+    description:
+      'All-in-one payments and merchant-of-record platform for SaaS and digital products — handles global tax compliance, invoicing, and subscriptions.',
+    descriptionZh:
+      '面向 SaaS 和数字产品的一站式支付与商家记录平台，处理全球税务合规、发票和订阅管理，让独立开发者无需操心合规事务。',
+    url: 'https://www.lemonsqueezy.com/',
+    category: 'ecommerce-tools',
+    tags: ['payments', 'SaaS', 'tax-compliance'],
+  },
+
+  // ══════════════════════════════════════════════════════
+  // ─── Learning Resources (continued) ─────────────────
+  // ══════════════════════════════════════════════════════
+  {
+    title: 'Roadmap.sh',
+    titleZh: 'Roadmap.sh',
+    description:
+      'Community-created developer roadmaps with step-by-step learning paths for frontend, backend, DevOps, AI, and more — see what to learn next.',
+    descriptionZh:
+      '社区创建的开发者学习路线图，覆盖前端、后端、DevOps、AI 等方向的循序渐进学习路径，帮助你明确下一步该学什么。',
+    url: 'https://roadmap.sh/',
+    category: 'learning-resources',
+    tags: ['roadmap', 'career', 'guide'],
+  },
+  {
+    title: 'Frontend Mentor',
+    titleZh: 'Frontend Mentor',
+    description:
+      'Real-world frontend coding challenges with professional design files — practice HTML, CSS, and JavaScript by building projects from Figma-style mockups.',
+    descriptionZh:
+      '真实前端编码挑战平台，提供专业设计稿，通过从 Figma 级原型构建项目来练习 HTML/CSS/JavaScript，即学即用。',
+    url: 'https://www.frontendmentor.io/',
+    category: 'learning-resources',
+    tags: ['frontend', 'challenges', 'practice'],
+  },
+  {
+    title: 'LeetCode',
+    titleZh: 'LeetCode',
+    description:
+      'Coding interview preparation platform with 3,000+ algorithmic problems — used by FAANG and top tech candidates for data structures and algorithms practice.',
+    descriptionZh:
+      '程序员面试刷题平台，3000+ 算法题目，FAANG 等顶级科技公司求职者的数据结构和算法练习首选。',
+    url: 'https://leetcode.com/',
+    category: 'learning-resources',
+    tags: ['algorithms', 'interviews', 'DSA'],
+  },
+  {
+    title: 'JavaScript.info',
+    titleZh: 'JavaScript.info',
+    description:
+      'Comprehensive modern JavaScript tutorial from basics to advanced — widely regarded as the most thorough and well-structured JS learning resource.',
+    descriptionZh:
+      '从基础到高级的现代 JavaScript 完整教程，被广泛认为是最全面、结构最清晰的 JS 学习资源。',
+    url: 'https://javascript.info/',
+    category: 'learning-resources',
+    tags: ['JavaScript', 'tutorial', 'beginner'],
+  },
+  {
+    title: 'Dev.to',
+    titleZh: 'Dev.to',
+    description:
+      'Inclusive developer community and blogging platform — thousands of articles daily on web dev, DevOps, AI, open source, and career topics.',
+    descriptionZh:
+      '包容的开发者社区与博客平台，每日数千篇关于 Web 开发、DevOps、AI、开源和职业发展的文章，技术氛围友好。',
+    url: 'https://dev.to/',
+    category: 'learning-resources',
+    tags: ['community', 'blog', 'discussion'],
+  },
+  {
+    title: 'TypeScript Handbook',
+    titleZh: 'TypeScript Handbook',
+    description:
+      'The official TypeScript documentation — thorough walkthrough of the type system, utility types, module resolution, and compiler configuration.',
+    descriptionZh:
+      'TypeScript 官方手册，深入讲解类型系统、工具类型、模块解析和编译器配置，是 TS 学习者从入门到精通的必读文档。',
+    url: 'https://www.typescriptlang.org/docs/',
+    category: 'learning-resources',
+    tags: ['TypeScript', 'documentation', 'reference'],
+  },
+  {
+    title: 'Exercism',
+    titleZh: 'Exercism',
+    description:
+      'Free coding practice platform with 70+ language tracks and human mentor feedback — solve exercises locally and get code reviews from volunteers.',
+    descriptionZh:
+      '免费编程练习平台，70+ 语言赛道，提供人工导师反馈——在本地解题，由志愿者 mentor 提供代码审查，适合刻意练习。',
+    url: 'https://exercism.org/',
+    category: 'learning-resources',
+    tags: ['practice', 'mentoring', 'polyglot'],
+  },
+
+  // ══════════════════════════════════════════════════════
+  // ─── Open Source (continued) ────────────────────────
+  // ══════════════════════════════════════════════════════
+  {
+    title: 'Svelte',
+    titleZh: 'Svelte',
+    description:
+      'Compiler-first UI framework that shifts work from the browser to the build step — ships minimal JavaScript and delivers exceptional runtime performance.',
+    descriptionZh:
+      '编译器优先的 UI 框架，将工作从浏览器转移到构建阶段，输出极少的 JavaScript，运行时性能卓越。',
+    url: 'https://svelte.dev/',
+    category: 'open-source',
+    tags: ['UI', 'compiler', 'framework'],
+  },
+  {
+    title: 'TanStack Query',
+    titleZh: 'TanStack Query',
+    description:
+      'Powerful async state management for React, Vue, Solid, and Svelte — handles caching, background refetching, pagination, and mutations out of the box.',
+    descriptionZh:
+      '强大的异步状态管理库，支持 React/Vue/Solid/Svelte，开箱即用地处理缓存、后台刷新、分页和变更操作，是服务端状态管理的事实标准。',
+    url: 'https://tanstack.com/query',
+    category: 'open-source',
+    tags: ['state-management', 'caching', 'React'],
+  },
+  {
+    title: 'Zod',
+    titleZh: 'Zod',
+    description:
+      'TypeScript-first schema declaration and validation library — define types once and get static type inference and runtime validation together.',
+    descriptionZh:
+      'TypeScript 优先的 Schema 声明与验证库，一次定义即可同时获得静态类型推导和运行时校验，是 API 边界验证的首选方案。',
+    url: 'https://zod.dev/',
+    category: 'open-source',
+    tags: ['validation', 'TypeScript', 'schema'],
+  },
+  {
+    title: 'Zustand',
+    titleZh: 'Zustand',
+    description:
+      'Tiny, fast, and scalable state management for React — minimal boilerplate, no providers, and excellent TypeScript support.',
+    descriptionZh:
+      '小巧、快速且可扩展的 React 状态管理库，几乎无需模板代码、无需 Provider 包裹，TypeScript 支持出色。',
+    url: 'https://zustand-demo.pmnd.rs/',
+    category: 'open-source',
+    tags: ['state-management', 'React', 'lightweight'],
+  },
+  {
+    title: 'Remix',
+    titleZh: 'Remix',
+    description:
+      'Full-stack React framework focused on web fundamentals with nested routing, server-side data loading, and progressive enhancement — now part of Shopify.',
+    descriptionZh:
+      '全栈 React 框架，聚焦 Web 基础，以嵌套路由、服务端数据加载和渐进增强为核心，现已并入 Shopify。',
+    url: 'https://remix.run/',
+    category: 'open-source',
+    tags: ['React', 'full-stack', 'Shopify'],
+  },
+  {
+    title: 'Nuxt',
+    titleZh: 'Nuxt',
+    description:
+      'The intuitive Vue.js framework with hybrid rendering, auto-imports, file-based routing, and a rich module ecosystem — the Vue counterpart to Next.js.',
+    descriptionZh:
+      '直观的 Vue.js 框架，支持混合渲染、自动导入、文件路由和丰富的模块生态，是 Vue 生态中的 Next.js 等价物。',
+    url: 'https://nuxt.com/',
+    category: 'open-source',
+    tags: ['Vue', 'SSR', 'framework'],
+  },
+  {
+    title: 'NestJS',
+    titleZh: 'NestJS',
+    description:
+      'Progressive Node.js framework for building scalable server-side applications — uses TypeScript, decorators, and dependency injection with an Angular-inspired architecture.',
+    descriptionZh:
+      '渐进式 Node.js 服务端框架，使用 TypeScript、装饰器和依赖注入，架构借鉴 Angular，适合构建企业级后端应用。',
+    url: 'https://nestjs.com/',
+    category: 'open-source',
+    tags: ['Node.js', 'backend', 'TypeScript'],
+  },
+  {
+    title: 'Hono',
+    titleZh: 'Hono',
+    description:
+      'Ultrafast, lightweight web framework for edge runtimes — runs on Cloudflare Workers, Deno, Bun, and Node.js with a simple, familiar API.',
+    descriptionZh:
+      '极速轻量的边缘运行时 Web 框架，可在 Cloudflare Workers、Deno、Bun 和 Node.js 上运行，API 简单易用。',
+    url: 'https://hono.dev/',
+    category: 'open-source',
+    tags: ['edge', 'framework', 'serverless'],
+  },
+  {
+    title: 'Solid.js',
+    titleZh: 'Solid.js',
+    description:
+      'Reactive UI library that compiles to direct DOM updates — React-like developer experience with no virtual DOM and fine-grained reactivity.',
+    descriptionZh:
+      '响应式 UI 库，编译为直接 DOM 更新——React 式的开发体验加上无虚拟 DOM 的细粒度响应式，性能极致。',
+    url: 'https://www.solidjs.com/',
+    category: 'open-source',
+    tags: ['UI', 'reactive', 'framework'],
+  },
+  {
+    title: 'Vitest',
+    titleZh: 'Vitest',
+    description:
+      'Blazing-fast unit test framework powered by Vite — Jest-compatible API with native ESM, TypeScript, and HMR for instant test feedback.',
+    descriptionZh:
+      '基于 Vite 的极速单元测试框架，API 兼容 Jest，原生支持 ESM、TypeScript 和 HMR 即时反馈，让 TDD 体验更流畅。',
+    url: 'https://vitest.dev/',
+    category: 'open-source',
+    tags: ['testing', 'Vite', 'JavaScript'],
+  },
+  {
+    title: 'Payload CMS',
+    titleZh: 'Payload CMS',
+    description:
+      'Open-source headless CMS and application framework built on Next.js — code-first configuration, TypeScript-native, with a powerful admin UI.',
+    descriptionZh:
+      '基于 Next.js 的开源无头 CMS 和应用框架，代码优先配置、TypeScript 原生，配备强大的管理后台，是内容型应用的现代化选择。',
+    url: 'https://payloadcms.com/',
+    category: 'open-source',
+    tags: ['CMS', 'Next.js', 'headless'],
+  },
+  {
+    title: 'Tabler Icons',
+    titleZh: 'Tabler Icons',
+    description:
+      '5,000+ customizable open-source SVG icons with a clean, consistent style — available as React, Vue, Svelte components and raw SVG.',
+    descriptionZh:
+      '5000+ 可定制的开源 SVG 图标，风格简洁统一，提供 React、Vue、Svelte 组件和原始 SVG 格式。',
+    url: 'https://tabler.io/icons',
+    category: 'open-source',
+    tags: ['icons', 'SVG', 'design-system'],
+  },
 ];

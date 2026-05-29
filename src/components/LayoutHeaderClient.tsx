@@ -6,7 +6,7 @@ import { FormEvent, useEffect, useRef, useState } from 'react';
 import { BookOpen, Bot, ChevronDown, Menu, Moon, Search, Star, Sun, Wrench } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../context/ThemeContext';
-import { detectLocaleFromPathname, localizedPath } from '../lib/i18n-routing';
+import { detectLocaleFromPathname, localizedPath, normalizePathname } from '../lib/i18n-routing';
 import { Link, useCurrentLocation } from '../lib/navigation';
 import { getNavigationMenuData, type NavigationMenuData } from '../lib/navigation-menu';
 import { cn } from '../lib/utils';
@@ -21,6 +21,15 @@ const AiMegaDropdown = dynamic(
   { ssr: false },
 );
 const MobileMenu = dynamic(() => import('./MobileMenu'), { ssr: false });
+
+const navItemBaseClass =
+  'relative mt-[3px] flex cursor-pointer items-center gap-1.5 self-center whitespace-nowrap px-2 pb-3 pt-2 text-[13px] font-semibold leading-none transition-colors duration-200 after:absolute after:bottom-0 after:left-2 after:right-2 after:h-0.5 after:rounded-full after:bg-transparent after:content-[""] lg:px-3 lg:after:left-3 lg:after:right-3';
+
+const navItemActiveClass =
+  'text-blue-600 after:bg-blue-600 dark:text-blue-400 dark:after:bg-blue-400';
+
+const navItemInactiveClass =
+  'text-slate-600 hover:text-slate-950 dark:text-slate-400 dark:hover:text-slate-100';
 
 export default function LayoutHeaderClient() {
   const router = useRouter();
@@ -67,12 +76,19 @@ export default function LayoutHeaderClient() {
     };
   }, []);
 
+  const normalizedPathname = normalizePathname(location.pathname);
   const aiCategoryPath = navigationMenu?.aiCategoryPath || '/category/ai-tools';
-  const isAiSection = location.pathname === aiCategoryPath || location.pathname.startsWith('/tools/ai/');
+  const normalizedAiCategoryPath = normalizePathname(aiCategoryPath);
+  const isAiSection =
+    normalizedPathname === normalizedAiCategoryPath ||
+    normalizedPathname === '/ai-tools' ||
+    normalizedPathname.startsWith('/tools/ai/');
   const isToolSection =
-    location.pathname === '/' ||
-    (location.pathname.startsWith('/category/') && location.pathname !== aiCategoryPath) ||
-    (location.pathname.startsWith('/tools/') && !location.pathname.startsWith('/tools/ai/'));
+    normalizedPathname === '/' ||
+    (normalizedPathname.startsWith('/category/') && normalizedPathname !== normalizedAiCategoryPath) ||
+    (normalizedPathname.startsWith('/tools/') && !normalizedPathname.startsWith('/tools/ai/'));
+  const isBlogSection = normalizedPathname.startsWith('/blog');
+  const isFeaturedToolsSection = normalizedPathname.startsWith('/featured-tools');
 
   const handleSearchSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -109,15 +125,18 @@ export default function LayoutHeaderClient() {
               <Link
                 to="/"
                 className={cn(
-                  'mt-[3px] flex h-full cursor-pointer items-center gap-1.5 whitespace-nowrap border-b-2 border-transparent px-2 text-[13px] font-semibold transition-colors duration-200 lg:px-3',
-                  isToolSection
-                    ? 'border-blue-600 text-blue-600 dark:border-blue-400 dark:text-blue-400'
-                    : 'text-slate-600 group-hover:text-slate-900 dark:text-slate-400 dark:group-hover:text-slate-100',
+                  navItemBaseClass,
+                  isToolSection ? navItemActiveClass : navItemInactiveClass,
                 )}
               >
                 <Wrench className="h-4 w-4" aria-hidden="true" />
                 {t('common.navTools')}
-                <ChevronDown className="h-3.5 w-3.5 text-slate-400 transition-transform duration-200 group-hover:rotate-180 lg:h-4 lg:w-4" />
+                <ChevronDown
+                  className={cn(
+                    'h-3.5 w-3.5 transition-transform duration-200 group-hover:rotate-180 lg:h-4 lg:w-4',
+                    isToolSection ? 'text-blue-500 dark:text-blue-300' : 'text-slate-400',
+                  )}
+                />
               </Link>
               <ToolsMegaDropdown categories={navigationMenu?.categories || []} />
             </div>
@@ -126,15 +145,18 @@ export default function LayoutHeaderClient() {
               <Link
                 to={aiCategoryPath}
                 className={cn(
-                  'mt-[3px] flex h-full cursor-pointer items-center gap-1.5 whitespace-nowrap border-b-2 border-transparent px-2 text-[13px] font-semibold transition-colors duration-200 lg:px-3',
-                  isAiSection
-                    ? 'border-blue-600 text-blue-600 dark:border-blue-400 dark:text-blue-400'
-                    : 'text-slate-600 group-hover:text-slate-900 dark:text-slate-400 dark:group-hover:text-slate-100',
+                  navItemBaseClass,
+                  isAiSection ? navItemActiveClass : navItemInactiveClass,
                 )}
               >
                 <Bot className="h-4 w-4" aria-hidden="true" />
                 {t('common.categories.AI 工具') || 'AI Tools'}
-                <ChevronDown className="h-3.5 w-3.5 text-slate-400 transition-transform duration-200 group-hover:rotate-180 lg:h-4 lg:w-4" />
+                <ChevronDown
+                  className={cn(
+                    'h-3.5 w-3.5 transition-transform duration-200 group-hover:rotate-180 lg:h-4 lg:w-4',
+                    isAiSection ? 'text-blue-500 dark:text-blue-300' : 'text-slate-400',
+                  )}
+                />
               </Link>
               <AiMegaDropdown aiCategoryPath={aiCategoryPath} aiTools={navigationMenu?.aiTools || []} />
             </div>
@@ -142,10 +164,8 @@ export default function LayoutHeaderClient() {
             <Link
               to="/blog"
               className={cn(
-                'mt-[3px] flex h-full cursor-pointer items-center gap-1.5 whitespace-nowrap border-b-2 border-transparent px-2 text-[13px] font-semibold transition-colors duration-200 lg:px-3',
-                location.pathname.startsWith('/blog')
-                  ? 'border-blue-600 text-blue-600 dark:border-blue-400 dark:text-blue-400'
-                  : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100',
+                navItemBaseClass,
+                isBlogSection ? navItemActiveClass : navItemInactiveClass,
               )}
             >
               <BookOpen className="h-4 w-4" aria-hidden="true" />
@@ -155,10 +175,8 @@ export default function LayoutHeaderClient() {
             <Link
               to="/featured-tools"
               className={cn(
-                'mt-[3px] flex h-full cursor-pointer items-center gap-1.5 whitespace-nowrap border-b-2 border-transparent px-2 text-[13px] font-semibold transition-colors duration-200 lg:px-3',
-                location.pathname.startsWith('/featured-tools')
-                  ? 'border-blue-600 text-blue-600 dark:border-blue-400 dark:text-blue-400'
-                  : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100',
+                navItemBaseClass,
+                isFeaturedToolsSection ? navItemActiveClass : navItemInactiveClass,
               )}
             >
               <Star className="h-4 w-4" aria-hidden="true" />

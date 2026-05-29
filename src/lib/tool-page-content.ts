@@ -5,7 +5,4 @@ export const INFO_CARD_TOOL_KEYS: Record<string, string> = {
   '/tools/ai/code-reviewer': 'ai-code-reviewer',
 };
 
-export const FALLBACK_TOOL_GUIDE_PATHS = new Set([
-  '/tools/dev/color-converter',
-  '/tools/dev/color-palette',
-]);
+export const FALLBACK_TOOL_GUIDE_PATHS = new Set<string>();

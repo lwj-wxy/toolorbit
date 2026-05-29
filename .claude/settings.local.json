@@ -70,7 +70,8 @@
       "Bash(npm *)",
       "Bash(uipro init *)",
       "Bash(python3 skills/ui-ux-pro-max/scripts/search.py \"developer blog tools saas modern professional clean\" --design-system -p \"ToolOrbit Blog\" -f markdown)",
-      "Bash(python skills/ui-ux-pro-max/scripts/search.py \"developer blog tools saas modern professional clean\" --design-system -p \"ToolOrbit Blog\" -f markdown)"
+      "Bash(python skills/ui-ux-pro-max/scripts/search.py \"developer blog tools saas modern professional clean\" --design-system -p \"ToolOrbit Blog\" -f markdown)",
+      "Bash(npx playwright *)"
     ]
   }
 }

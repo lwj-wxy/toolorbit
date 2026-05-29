@@ -32,12 +32,16 @@ const ALL_OVERVIEWS: Record<string, { zh: TechnicalOverview; en: TechnicalOvervi
 };
 
 const STANDALONE_FAQ_CATEGORY_SLUGS = new Set([
+  'ai-tools',
   'developer-tools',
+  'webmaster-tools',
   'generators',
   'text-tools',
   'ecommerce-tools',
   'pdf-tools',
   'image-tools',
+  'conversion-tools',
+  'utility-tools',
 ]);
 const CUSTOM_FAQ_TOOL_KEYS = new Set([
   'reverse-vat-calculator',
@@ -316,12 +320,18 @@ const ToolSEOCard: React.FC<ToolSEOCardProps> = ({ toolKey, overview }) => {
 
   if (isAiTool && !usesTechnicalOverview) {
     return (
-      <div className="mt-10 border-t border-slate-200 pt-10 transition-colors duration-300 dark:border-slate-800">
-        <p className="mb-3 text-[12px] font-semibold uppercase tracking-wide text-blue-700 dark:text-blue-300">
-          {t('toolGuide.label', { defaultValue: 'Tool guide' })}
-        </p>
-        {content}
-      </div>
+      <>
+        <div className="mt-10 border-t border-slate-200 pt-10 transition-colors duration-300 dark:border-slate-800">
+          <p className="mb-3 text-[12px] font-semibold uppercase tracking-wide text-blue-700 dark:text-blue-300">
+            {t('toolGuide.label', { defaultValue: 'Tool guide' })}
+          </p>
+          {content}
+        </div>
+
+        {shouldShowStandaloneFaq && faqList.length > 0 ? (
+          <StandaloneFaqCard title={t('common.faqTitle', { defaultValue: 'Frequently Asked Questions' })} faqList={faqList} />
+        ) : null}
+      </>
     );
   }
 
