@@ -4,7 +4,6 @@ const path = require('node:path');
 const releaseDir = path.resolve(process.argv[2] || path.join(__dirname, '..', 'deploy-output'));
 const scanRoots = [
   path.join(releaseDir, '.next', 'server'),
-  path.join(releaseDir, 'server.js'),
 ];
 const staticPrefix = '/_next/static/';
 const assetPattern = /\/_next\/static\/[^"'`\s<>)]+/g;
@@ -45,8 +44,8 @@ const normalizeAsset = (asset) => {
 };
 
 assertPath(releaseDir, `Release directory not found: ${releaseDir}`);
-assertPath(path.join(releaseDir, 'server.js'), 'Release is missing server.js');
 assertPath(path.join(releaseDir, '.next', 'static'), 'Release is missing .next/static');
+assertPath(path.join(releaseDir, '.next', 'server'), 'Release is missing .next/server');
 
 const scannedFiles = scanRoots
   .flatMap(walkFiles)

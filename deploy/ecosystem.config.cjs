@@ -3,7 +3,8 @@ module.exports = {
     {
       name: 'etsy-fee-calculator',
       cwd: '/var/www/etsy-fee-calculator/current',
-      script: 'server.js',
+      script: '/var/www/etsy-fee-calculator/node_modules/.bin/next',
+      args: 'start -p 3000 -H 127.0.0.1',
       env: {
         NODE_ENV: 'production',
         PORT: '3000',

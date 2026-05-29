@@ -20,12 +20,14 @@ fi
 mkdir -p "$RELEASE_DIR"
 tar -xzf "$SOURCE_DIR/deploy-release.tar.gz" -C "$RELEASE_DIR"
 
-if [ ! -f "$RELEASE_DIR/server.js" ]; then
-  echo "server.js not found after extracting deploy-release.tar.gz." >&2
+if [ ! -d "$RELEASE_DIR/.next/server" ] || [ ! -d "$RELEASE_DIR/.next/static" ]; then
+  echo ".next server/static output not found after extracting deploy-release.tar.gz." >&2
   exit 1
 fi
 
 node "$SOURCE_DIR/scripts/validate-deploy-release.cjs" "$RELEASE_DIR"
+
+cp "$SOURCE_DIR/deploy/ecosystem.config.cjs" "$APP_DIR/ecosystem.config.cjs"
 
 ln -sfn "$RELEASE_DIR" "$APP_DIR/current.new"
 mv -Tf "$APP_DIR/current.new" "$APP_DIR/current"
