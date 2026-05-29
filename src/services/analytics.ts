@@ -12,7 +12,7 @@ import { getGaMeasurementId } from '../lib/analytics-config';
 
 declare global {
   interface Window {
-    dataLayer?: GtagCommand[];
+    dataLayer?: Array<GtagCommand | IArguments | Record<string, unknown>>;
     gtag?: (...args: GtagCommand) => void;
   }
 }

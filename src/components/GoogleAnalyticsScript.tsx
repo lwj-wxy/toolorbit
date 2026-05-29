@@ -15,8 +15,8 @@ export default function GoogleAnalyticsScript({ measurementId }: GoogleAnalytics
     window.dataLayer = window.dataLayer || [];
     window.gtag =
       window.gtag ||
-      function gtag(command: string, ...args: unknown[]) {
-        window.dataLayer?.push([command, ...args]);
+      function gtag() {
+        window.dataLayer?.push(arguments);
       };
 
     if (!document.querySelector(`script[data-toolorbit-ga="${measurementId}"]`)) {
@@ -28,7 +28,9 @@ export default function GoogleAnalyticsScript({ measurementId }: GoogleAnalytics
     }
 
     window.gtag('js', new Date());
-    window.gtag('config', measurementId);
+    window.gtag('config', measurementId, {
+      page_path: window.location.pathname + window.location.search,
+    });
     analytics.enable();
   }, [measurementId]);
 

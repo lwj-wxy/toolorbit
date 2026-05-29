@@ -93,14 +93,6 @@ export default function CookieConsentManager({ adsenseClient }: CookieConsentMan
 
   useEffect(() => {
     if (process.env.NODE_ENV !== 'production') return;
-
-    window.gtag?.('consent', 'update', {
-      analytics_storage: consent?.analytics ? 'granted' : 'denied',
-    });
-  }, [consent?.analytics]);
-
-  useEffect(() => {
-    if (process.env.NODE_ENV !== 'production') return;
     if (!consent?.ads || !adsenseClient) {
       window.gtag?.('consent', 'update', {
         ad_storage: 'denied',
