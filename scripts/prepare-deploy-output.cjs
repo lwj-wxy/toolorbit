@@ -6,6 +6,7 @@ const rootDir = path.resolve(__dirname, '..');
 const nextDir = path.join(rootDir, '.next');
 const publicDir = path.join(rootDir, 'public');
 const outputDir = path.join(rootDir, 'deploy-output');
+const externalPublicDirs = new Set(['images', 'featured-tools']);
 
 const assertDir = (dirPath, message) => {
   if (!fs.existsSync(dirPath) || !fs.statSync(dirPath).isDirectory()) {
@@ -44,7 +45,20 @@ for (const fileName of ['package.json', 'package-lock.json', 'next.config.ts']) 
 }
 
 if (fs.existsSync(publicDir)) {
-  fs.cpSync(publicDir, path.join(outputDir, 'public'), { recursive: true });
+  const outputPublicDir = path.join(outputDir, 'public');
+
+  fs.cpSync(publicDir, path.join(outputDir, 'public'), {
+    recursive: true,
+    filter: (sourcePath) => {
+      const relativePath = path.relative(publicDir, sourcePath);
+      const [topLevelDir] = relativePath.split(path.sep);
+      return !externalPublicDirs.has(topLevelDir);
+    },
+  });
+
+  for (const dirName of externalPublicDirs) {
+    fs.rmSync(path.join(outputPublicDir, dirName), { recursive: true, force: true });
+  }
 }
 
 const releaseInfo = [

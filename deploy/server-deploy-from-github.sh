@@ -19,6 +19,16 @@ fi
 
 mkdir -p "$RELEASE_DIR"
 tar -xzf "$SOURCE_DIR/deploy-release.tar.gz" -C "$RELEASE_DIR"
+mkdir -p "$RELEASE_DIR/public"
+
+for PUBLIC_ASSET_DIR in images featured-tools; do
+  if [ ! -d "$SOURCE_DIR/public/$PUBLIC_ASSET_DIR" ]; then
+    echo "Missing public asset directory: $SOURCE_DIR/public/$PUBLIC_ASSET_DIR" >&2
+    exit 1
+  fi
+
+  cp -a "$SOURCE_DIR/public/$PUBLIC_ASSET_DIR" "$RELEASE_DIR/public/"
+done
 
 if [ ! -d "$RELEASE_DIR/.next/server" ] || [ ! -d "$RELEASE_DIR/.next/static" ]; then
   echo ".next server/static output not found after extracting deploy-release.tar.gz." >&2
