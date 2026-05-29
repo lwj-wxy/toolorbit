@@ -7,7 +7,6 @@ import { useTranslation } from 'react-i18next';
 import { Link } from '../lib/navigation';
 import { detectLocaleFromPathname, localeToI18nLanguage } from '../lib/i18n-routing';
 import { cn } from '../lib/utils';
-import { analytics } from '../services/analytics';
 
 const CONSENT_STORAGE_KEY = 'toolorbit_cookie_consent_v1';
 
@@ -18,7 +17,6 @@ type ConsentState = {
 };
 
 type CookieConsentManagerProps = {
-  gaMeasurementId?: string;
   adsenseClient?: string;
 };
 
@@ -47,26 +45,6 @@ function writeConsent(next: Omit<ConsentState, 'updatedAt'>): ConsentState {
   return value;
 }
 
-function loadGoogleAnalytics(measurementId: string) {
-  window.dataLayer = window.dataLayer || [];
-  window.gtag =
-    window.gtag ||
-    function gtag(command: string, ...args: unknown[]) {
-      window.dataLayer?.push([command, ...args]);
-    };
-
-  if (!document.querySelector(`script[data-toolorbit-ga="${measurementId}"]`)) {
-    const script = document.createElement('script');
-    script.async = true;
-    script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`;
-    script.dataset.toolorbitGa = measurementId;
-    document.head.appendChild(script);
-  }
-
-  window.gtag('js', new Date());
-  window.gtag('config', measurementId);
-}
-
 function loadAdSense(client: string) {
   if (document.querySelector(`script[data-toolorbit-adsense="${client}"]`)) return;
 
@@ -78,7 +56,7 @@ function loadAdSense(client: string) {
   document.head.appendChild(script);
 }
 
-export default function CookieConsentManager({ gaMeasurementId, adsenseClient }: CookieConsentManagerProps) {
+export default function CookieConsentManager({ adsenseClient }: CookieConsentManagerProps) {
   const { t } = useTranslation();
   const pathname = usePathname() || '/';
   const language = localeToI18nLanguage(detectLocaleFromPathname(pathname));
@@ -116,22 +94,10 @@ export default function CookieConsentManager({ gaMeasurementId, adsenseClient }:
   useEffect(() => {
     if (process.env.NODE_ENV !== 'production') return;
 
-    if (!consent?.analytics) {
-      if (gaMeasurementId) {
-        (window as unknown as Record<string, boolean>)[`ga-disable-${gaMeasurementId}`] = true;
-        window.gtag?.('consent', 'update', { analytics_storage: 'denied' });
-      }
-      analytics.disable();
-      return;
-    }
-
-    analytics.enable();
-    if (gaMeasurementId) {
-      (window as unknown as Record<string, boolean>)[`ga-disable-${gaMeasurementId}`] = false;
-      loadGoogleAnalytics(gaMeasurementId);
-    }
-    window.gtag?.('consent', 'update', { analytics_storage: 'granted' });
-  }, [consent?.analytics, gaMeasurementId]);
+    window.gtag?.('consent', 'update', {
+      analytics_storage: consent?.analytics ? 'granted' : 'denied',
+    });
+  }, [consent?.analytics]);
 
   useEffect(() => {
     if (process.env.NODE_ENV !== 'production') return;

@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { Toaster } from 'react-hot-toast';
 import CookieConsentManager from '../components/CookieConsentManager';
+import GoogleAnalyticsScript from '../components/GoogleAnalyticsScript';
 import RecentToolsTracker from '../components/RecentToolsTracker';
 import ScrollToTop from '../components/ScrollToTop';
 import { ThemeProvider } from '../context/ThemeContext';
@@ -54,12 +55,13 @@ export default function Providers({
   return (
     <ThemeProvider>
       <LanguageBootstrapper />
+      <GoogleAnalyticsScript measurementId={gaMeasurementId} />
       <ScrollToTop />
       <RecentToolsTracker tools={toolTrackingData} />
       <Toaster position="top-right" toastOptions={{ className: 'text-sm font-medium' }} />
       <AnalyticsTracker />
       {children}
-      <CookieConsentManager gaMeasurementId={gaMeasurementId} adsenseClient={adsenseClient} />
+      <CookieConsentManager adsenseClient={adsenseClient} />
     </ThemeProvider>
   );
 }

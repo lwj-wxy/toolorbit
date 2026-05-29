@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { analytics } from '../services/analytics';
 
 type GoogleAnalyticsScriptProps = {
   measurementId?: string;
@@ -28,6 +29,7 @@ export default function GoogleAnalyticsScript({ measurementId }: GoogleAnalytics
 
     window.gtag('js', new Date());
     window.gtag('config', measurementId);
+    analytics.enable();
   }, [measurementId]);
 
   return null;
