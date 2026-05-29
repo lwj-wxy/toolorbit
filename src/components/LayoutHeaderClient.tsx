@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useEffect, useRef, useState } from 'react';
-import { BookOpen, Bot, ChevronDown, Menu, Moon, Search, Sun, Wrench } from 'lucide-react';
+import { BookOpen, Bot, ChevronDown, Menu, Moon, Search, Star, Sun, Wrench } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../context/ThemeContext';
 import { detectLocaleFromPathname, localizedPath } from '../lib/i18n-routing';
@@ -150,6 +150,19 @@ export default function LayoutHeaderClient() {
             >
               <BookOpen className="h-4 w-4" aria-hidden="true" />
               {t('blog.nav')}
+            </Link>
+
+            <Link
+              to="/featured-tools"
+              className={cn(
+                'mt-[3px] flex h-full cursor-pointer items-center gap-1.5 whitespace-nowrap border-b-2 border-transparent px-2 text-[13px] font-semibold transition-colors duration-200 lg:px-3',
+                location.pathname.startsWith('/featured-tools')
+                  ? 'border-blue-600 text-blue-600 dark:border-blue-400 dark:text-blue-400'
+                  : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100',
+              )}
+            >
+              <Star className="h-4 w-4" aria-hidden="true" />
+              {t('featured-tools.nav')}
             </Link>
           </nav>
         </div>

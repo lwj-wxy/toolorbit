@@ -47,6 +47,7 @@ const BlogPost = dynamic(() => import('../../../views/BlogPost')) as ComponentTy
 const About = dynamic(() => import('../../../views/About')) as ComponentType;
 const Privacy = dynamic(() => import('../../../views/Privacy')) as ComponentType;
 const Terms = dynamic(() => import('../../../views/Terms')) as ComponentType;
+const FeaturedTools = dynamic(() => import('../../../views/FeaturedTools')) as ComponentType;
 const AllToolsPage = dynamic(() => import('../../../views/AllToolsPage')) as ComponentType<{ locale: string }>;
 const AuthorPage = dynamic(() => import('../../../views/AuthorPage')) as ComponentType<{ authorId?: string; locale?: typeof LOCALE }>;
 const SeoContentPageView = dynamic(() => import('../../../views/SeoContentPage')) as ComponentType<{ page: unknown; locale: string }>;
@@ -73,6 +74,7 @@ function allChineseSegments() {
     ['about'],
     ['privacy'],
     ['terms'],
+    ['featured-tools'],
     ...AUTHORS.map((author) => author.url.split('/').filter(Boolean)),
     ...SEO_CONTENT_PATHS.map((seoPath) => seoPath.split('/').filter(Boolean)),
     ...Array.from({ length: getTotalBlogPages() - 1 }, (_, index) => ['blog', 'page', String(index + 2)]),
@@ -102,6 +104,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (basePath === '/about') return staticPageMetadata('about', LOCALE);
   if (basePath === '/privacy') return staticPageMetadata('privacy', LOCALE);
   if (basePath === '/terms') return staticPageMetadata('terms', LOCALE);
+  if (basePath === '/featured-tools') return staticPageMetadata('featured-tools', LOCALE);
   const author = getAuthorByPath(basePath);
   if (author) return authorMetadata(author.id, LOCALE);
   if (SEO_CONTENT_PATHS.includes(basePath)) return seoContentMetadata(basePath, LOCALE);
@@ -221,6 +224,15 @@ export default async function Page({ params }: PageProps) {
       <>
         <JsonLd id="structured-data-terms-zh" data={staticPageJsonLd('terms', LOCALE)} />
         <Terms />
+      </>,
+    );
+  }
+
+  if (basePath === '/featured-tools') {
+    return zhPage(
+      <>
+        <JsonLd id="structured-data-featured-tools-zh" data={staticPageJsonLd('featured-tools', LOCALE)} />
+        <FeaturedTools />
       </>,
     );
   }

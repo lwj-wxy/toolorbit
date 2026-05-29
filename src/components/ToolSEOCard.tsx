@@ -6,6 +6,7 @@ import { BookText, ChevronDown } from 'lucide-react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { TOOLS } from '../data/tools';
+import { CATEGORY_SLUGS } from '../lib/category-paths';
 import { cn } from '../lib/utils';
 import type { TechnicalOverview } from '../types/tool-overview';
 import { DEV_TOOL_OVERVIEWS } from '../views/tools/dev/data';
@@ -29,6 +30,20 @@ const ALL_OVERVIEWS: Record<string, { zh: TechnicalOverview; en: TechnicalOvervi
   ...AI_TOOL_OVERVIEWS,
   ...UTILITY_TOOL_OVERVIEWS,
 };
+
+const STANDALONE_FAQ_CATEGORY_SLUGS = new Set([
+  'developer-tools',
+  'generators',
+  'text-tools',
+  'ecommerce-tools',
+  'pdf-tools',
+  'image-tools',
+]);
+const CUSTOM_FAQ_TOOL_KEYS = new Set([
+  'reverse-vat-calculator',
+  'vat-inclusive-exclusive-calculator',
+  'uk-vat-calculator',
+]);
 
 interface ToolSEOCardProps {
   toolKey: string;
@@ -143,8 +158,12 @@ const ToolSEOCard: React.FC<ToolSEOCardProps> = ({ toolKey, overview }) => {
       defaultValue: t(`tools.${toolKey}.description`, { defaultValue: tool?.description || '' }),
     }),
   });
-  const isAiTool = tool?.category === 'AI 工具';
-  const isDeveloperTool = tool?.category === '开发者工具';
+  const categorySlug = tool ? CATEGORY_SLUGS[tool.category] : undefined;
+  const isAiTool = categorySlug === 'ai-tools';
+  const isDeveloperTool = categorySlug === 'developer-tools';
+  const shouldShowStandaloneFaq = Boolean(
+    categorySlug && STANDALONE_FAQ_CATEGORY_SLUGS.has(categorySlug) && !CUSTOM_FAQ_TOOL_KEYS.has(toolKey),
+  );
   const overviewKey = toolKey === 'xml-to-json' ? 'xml-json' : toolKey;
   const hasStoredOverview = Boolean(ALL_OVERVIEWS[overviewKey]);
   const usesTechnicalOverview = Boolean(overview) || hasStoredOverview || isDeveloperTool || TECHNICAL_OVERVIEW_TOOL_KEYS.has(toolKey);
@@ -212,7 +231,7 @@ const ToolSEOCard: React.FC<ToolSEOCardProps> = ({ toolKey, overview }) => {
           </ul>
         </section>
 
-        {faqList.length > 0 && (
+        {!shouldShowStandaloneFaq && faqList.length > 0 && (
           <section className="mt-10 border-t border-slate-200 pt-9 dark:border-slate-800">
             <h3 className="mb-6 text-lg font-semibold text-slate-950 dark:text-white">{t('common.faqTitle', { defaultValue: 'Frequently Asked Questions' })}</h3>
             <div className="space-y-5">
@@ -348,7 +367,7 @@ const ToolSEOCard: React.FC<ToolSEOCardProps> = ({ toolKey, overview }) => {
         )}
       </section>
 
-      {isDeveloperTool && faqList.length > 0 ? (
+      {shouldShowStandaloneFaq && faqList.length > 0 ? (
         <StandaloneFaqCard title={t('common.faqTitle', { defaultValue: 'Frequently Asked Questions' })} faqList={faqList} />
       ) : null}
     </>

@@ -17,22 +17,26 @@ const TITLE_TEXT_LIMIT = 48;
 const DESCRIPTION_MIN_LENGTH = 120;
 const DESCRIPTION_MAX_LENGTH = 160;
 
-const STATIC_PAGE_DESCRIPTIONS: Record<'about' | 'privacy' | 'terms', string> = {
+const STATIC_PAGE_DESCRIPTIONS: Record<'about' | 'privacy' | 'terms' | 'featured-tools', string> = {
   about:
     'Learn how ToolOrbit builds fast, privacy-conscious online tools with local-first processing, practical review, and clear content standards.',
   privacy:
     'Read ToolOrbit privacy practices, including local-first browser processing, analytics, advertising, and contact information handling.',
   terms:
     'Review the ToolOrbit terms of service for using free online tools, generated outputs, external links, and platform limitations.',
+  'featured-tools':
+    'A curated collection of quality websites, online tools, and open-source GitHub projects organized by use case — developer tools, design resources, AI, ecommerce, SEO, and more.',
 };
 
-const STATIC_PAGE_DESCRIPTIONS_ZH: Record<'about' | 'privacy' | 'terms', string> = {
+const STATIC_PAGE_DESCRIPTIONS_ZH: Record<'about' | 'privacy' | 'terms' | 'featured-tools', string> = {
   about:
     '了解 ToolOrbit 如何通过本地优先处理、实用复核和清晰内容标准，构建快速且注重隐私的在线工具。',
   privacy:
     '阅读 ToolOrbit 隐私实践，了解本地优先的浏览器处理、分析、广告以及联系信息处理方式。',
   terms:
     '查看 ToolOrbit 服务条款，了解免费在线工具、生成结果、外部链接以及平台限制的使用规则。',
+  'featured-tools':
+    '精选优质网站、在线工具和 GitHub 开源项目，按开发工具、设计资源、AI、电商、SEO 等用途分类整理，助你发现好用利器。',
 };
 
 const BLOG_SEO_TITLE_OVERRIDES: Record<string, string> = {
@@ -242,7 +246,9 @@ export function homeMetadata(locale: Locale = 'en'): Metadata {
   );
 }
 
-export function staticPageMetadata(page: 'about' | 'privacy' | 'terms', locale: Locale = 'en'): Metadata {
+type StaticPageKey = 'about' | 'privacy' | 'terms' | 'featured-tools';
+
+export function staticPageMetadata(page: StaticPageKey, locale: Locale = 'en'): Metadata {
   const source = localeSource(locale);
   const title = readPath(source, `${page}.title`);
   const description = locale === 'zh-CN' ? STATIC_PAGE_DESCRIPTIONS_ZH[page] : STATIC_PAGE_DESCRIPTIONS[page];

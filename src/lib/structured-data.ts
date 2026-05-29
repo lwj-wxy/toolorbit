@@ -423,7 +423,7 @@ export function authorPageJsonLd(authorId?: string, locale: Locale = 'en') {
   ];
 }
 
-export function staticPageJsonLd(page: 'about' | 'privacy' | 'terms', locale: Locale = 'en') {
+export function staticPageJsonLd(page: 'about' | 'privacy' | 'terms' | 'featured-tools', locale: Locale = 'en') {
   const source = localeSource(locale);
   const title = readPath(source, `${page}.title`) || page;
   const url = absoluteUrl(`/${page}`, locale);

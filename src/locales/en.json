@@ -1011,7 +1011,13 @@
       "highlight2Desc": "Includes everything from decorative stars to complex mathematical symbols (calculus, matrices, etc.) for both creative writers and researchers.",
       "highlight3Title": "3. Unicode Standard Compliance:",
       "highlight3Desc": "Symbols copied here are native Unicode characters, not images, ensuring they render correctly across different platforms and documents.",
-      "seoFooter": "Note: Rare emojis may appear as hollow boxes if your operating system's font library is outdated."
+      "seoFooter": "Note: Rare emojis may appear as hollow boxes if your operating system's font library is outdated.",
+      "faq1Q": "Are these symbols images or text?",
+      "faq1A": "They are native Unicode text characters, not image stickers. You can paste them into HTML, Markdown, spreadsheets, social posts, code comments, and most plain text editors.",
+      "faq2Q": "Why do some emojis show as empty boxes?",
+      "faq2A": "Emoji rendering depends on your operating system, browser, and installed fonts. Very new or uncommon symbols may appear as boxes on older systems even though the copied Unicode character is valid.",
+      "faq3Q": "Can I use these symbols in product listings or documents?",
+      "faq3A": "Yes, but use them carefully. Some platforms limit decorative symbols in titles, ads, or marketplace listings, so preview the final text and follow the rules of the platform where you publish."
     },
     "qr-generator": {
       "name": "QR Generator",
@@ -1401,7 +1407,13 @@
       "totalFees": "Total Fees",
       "estimatedProfit": "Estimated Profit",
       "seoTitle": "Etsy Offsite Ads Fee Calculator",
-      "seoDesc": "Estimate Etsy Offsite Ads fees at 12% or 15%, optionally adding listing, transaction, and payment processing fees to see real profit impact."
+      "seoDesc": "Estimate Etsy Offsite Ads fees at 12% or 15%, optionally adding listing, transaction, and payment processing fees to see real profit impact.",
+      "faq1Q": "When does Etsy charge Offsite Ads fees?",
+      "faq1A": "Etsy charges an Offsite Ads fee only when an order is attributed to a shopper who clicked an eligible offsite ad. Regular organic orders are not charged this advertising fee.",
+      "faq2Q": "Should I use the 12% or 15% Offsite Ads rate?",
+      "faq2A": "Use 15% if your Etsy shop is below the annual sales threshold for the reduced rate, and 12% if your shop qualifies for the lower mandatory Offsite Ads rate. Check your Etsy dashboard for the rate that applies to your account.",
+      "faq3Q": "Does this calculator include all Etsy fees?",
+      "faq3A": "It can include common core Etsy fees when you enable that option, but it is still an estimate. Taxes, refunds, discounts, country-specific fees, and payment account differences can change the final statement."
     },
     "etsy-pricing-calculator": {
       "name": "Etsy Pricing Calculator",
@@ -1425,7 +1437,13 @@
       "feeRatio": "Fee Ratio",
       "finalProfit": "Reverse-Calculated Profit",
       "seoTitle": "Etsy Price and Target Profit Calculator",
-      "seoDesc": "Reverse-calculate an Etsy item price from product cost, shipping, target profit, Offsite Ads, regulatory fees, and currency conversion assumptions."
+      "seoDesc": "Reverse-calculate an Etsy item price from product cost, shipping, target profit, Offsite Ads, regulatory fees, and currency conversion assumptions.",
+      "faq1Q": "Why reverse-calculate an Etsy price?",
+      "faq1A": "Reverse pricing starts from the profit you want to keep, then works backward through product cost, shipping cost, Etsy fees, ad buffers, and optional currency conversion so the suggested price is easier to evaluate.",
+      "faq2Q": "Should shipping charged to the buyer be included?",
+      "faq2A": "Yes. Etsy fees often apply to the order total, not just the item price. Enter the shipping amount charged to the buyer and your real shipping cost so the profit estimate reflects both revenue and cost.",
+      "faq3Q": "Can this guarantee my final profit?",
+      "faq3A": "No. The result is a planning estimate based on the inputs and fee assumptions you choose. Promotions, refunds, taxes, regional fees, payment account settings, and currency movements can change actual profit."
     },
     "etsy-regulatory-fee-calculator": {
       "name": "Etsy Regulatory & Currency Fee Calculator",
@@ -1454,7 +1472,13 @@
         "canada": "Canada (0.50%)"
       },
       "seoTitle": "Etsy Regulatory Operating Fee and Currency Fee Calculator",
-      "seoDesc": "Estimate Etsy Regulatory Operating Fees from official country rates and optionally add the 2.5% currency conversion fee for cross-currency seller payouts."
+      "seoDesc": "Estimate Etsy Regulatory Operating Fees from official country rates and optionally add the 2.5% currency conversion fee for cross-currency seller payouts.",
+      "faq1Q": "What is Etsy's Regulatory Operating Fee?",
+      "faq1A": "It is an additional Etsy fee applied to sellers in certain countries to help cover local regulatory compliance costs. The rate depends on the seller location selected in the calculator.",
+      "faq2Q": "When should I include the 2.5% currency conversion fee?",
+      "faq2A": "Include it when the sale currency differs from your Etsy Payments account currency and Etsy may convert the payout. If you receive funds in the same currency, leave it off.",
+      "faq3Q": "Are these extra fees charged on every order?",
+      "faq3A": "They depend on seller location, payout currency, order currency, and Etsy account settings. Use the calculator as a quick estimate, then confirm the final charges in your Etsy payment account."
     },
     "stripe-fee-calculator": {
       "name": "Stripe Fee Calculator",
@@ -1918,7 +1942,13 @@
       "errorUnsupported": "Unsupported file format. Please upload a JPG, JPEG, PNG, or WEBP image.",
       "errorTooLarge": "The image is too large. Please upload an image under 8MB.",
       "errorReadFailed": "Failed to read the image. Please choose the file again.",
-      "errorSearchFailed": "Search failed. Please try again later."
+      "errorSearchFailed": "Search failed. Please try again later.",
+      "faq1Q": "What kind of image works best for anime source search?",
+      "faq1A": "Use a clean screenshot from an anime episode, preferably close to the original frame. Heavy crops, subtitles, filters, watermarks, and edited social media reposts can reduce match accuracy.",
+      "faq2Q": "Can it identify manga panels, fan art, or game CG?",
+      "faq2A": "This tool is optimized for anime scene screenshots. Manga, fan art, illustrations, key visuals, and game CG may not match well; image-search tools such as SauceNAO, IQDB, or Google Images can be better for those cases.",
+      "faq3Q": "Are uploaded screenshots stored by ToolOrbit?",
+      "faq3A": "The image is used only for the source-search request and result display. Avoid uploading private, unreleased, or sensitive images if you do not want them processed by an external lookup service."
     },
     "timestamp-converter": {
       "name": "Timestamp Converter",
@@ -3175,6 +3205,10 @@
   "image/png": "Image/png",
   "image/jpeg": "Image/jpeg",
   ",": ",",
+  "featured-tools": {
+    "nav": "Featured Tools",
+    "title": "Featured Tools & Resources"
+  },
   "privacy": {
     "title": "Privacy Policy",
     "lastUpdated": "Last Updated: May 18, 2026",

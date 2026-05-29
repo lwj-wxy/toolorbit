@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { Search, X, Sparkles } from 'lucide-react';
+import { Search, X, Sparkles, Star } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Link } from '../lib/navigation';
 import { cn } from '../lib/utils';
@@ -118,6 +118,17 @@ export default function MobileMenu({ onClose, pathname, searchParams, navigation
               )}
             >
               <span className="text-[16px]">{t('blog.nav')}</span>
+            </Link>
+            <Link
+              to="/featured-tools"
+              onClick={onClose}
+              className={cn(
+                "flex items-center gap-3 rounded-md px-4 py-3 font-semibold transition-colors",
+                pathname.startsWith('/featured-tools') ? "bg-amber-50 text-amber-600 dark:bg-amber-900/30 dark:text-amber-400" : "text-slate-600 hover:bg-white dark:text-slate-400 dark:hover:bg-slate-900"
+              )}
+            >
+              <Star className="h-5 w-5" />
+              <span className="text-[16px]">{t('featured-tools.nav')}</span>
             </Link>
           </div>
         </div>
