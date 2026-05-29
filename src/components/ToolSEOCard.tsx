@@ -35,6 +35,11 @@ interface ToolSEOCardProps {
   overview?: TechnicalOverview;
 }
 
+type ToolFaq = {
+  question: string;
+  answer: string;
+};
+
 function CodeExampleBlock({ code, language }: { code: string; language: string }) {
   return (
     <div className="overflow-hidden rounded-lg border border-slate-800 bg-slate-950">
@@ -63,6 +68,19 @@ function CodeExampleBlock({ code, language }: { code: string; language: string }
   );
 }
 
+const StandaloneFaqCard = ({ title, faqList }: { title: string; faqList: ToolFaq[] }) => (
+  <section className="mt-8 rounded-2xl border border-slate-200/90 bg-white px-5 py-7 shadow-sm dark:border-slate-800 dark:bg-[#282c34] sm:px-7">
+    <h2 className="mb-6 text-2xl font-semibold tracking-tight text-slate-950 dark:text-white">{title}</h2>
+    <div className="space-y-5">
+      {faqList.map((faq, index) => (
+        <div key={`${faq.question}-${index}`} className="border-b border-slate-200 pb-5 last:border-0 dark:border-slate-800">
+          <h3 className="mb-2 text-base font-semibold text-slate-950 dark:text-white">{faq.question}</h3>
+          <p className="leading-7 text-slate-600 dark:text-slate-400">{faq.answer}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+);
 
 const TECHNICAL_OVERVIEW_TOOL_KEYS = new Set([
   'uuid-generator',
@@ -136,14 +154,14 @@ const ToolSEOCard: React.FC<ToolSEOCardProps> = ({ toolKey, overview }) => {
   if (!title || title === `tools.${toolKey}.name`) return null;
 
   // Dynamically build FAQ content if FAQs exist
-  const faqList = [1, 2, 3].map(i => {
+  const faqList: ToolFaq[] = [1, 2, 3].map(i => {
     const question = t(`tools.${toolKey}.faq${i}Q`);
     const answer = t(`tools.${toolKey}.faq${i}A`);
     if (question && question !== `tools.${toolKey}.faq${i}Q`) {
       return { question, answer };
     }
     return null;
-  }).filter(Boolean);
+  }).filter((faq): faq is ToolFaq => Boolean(faq));
 
   const guideList = [1, 2, 3, 4].map(i => {
     const step = t(`tools.${toolKey}.guide${i}`);
@@ -273,6 +291,7 @@ const ToolSEOCard: React.FC<ToolSEOCardProps> = ({ toolKey, overview }) => {
           </div>
         </section>
       ) : null}
+
     </div>
   );
 
@@ -288,45 +307,51 @@ const ToolSEOCard: React.FC<ToolSEOCardProps> = ({ toolKey, overview }) => {
   }
 
   return (
-    <section className="mt-8 overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-sm dark:border-slate-800 dark:bg-[#282c34]">
-      <button
-        type="button"
-        onClick={() => setIsOpen((value) => !value)}
-        className="flex w-full items-center justify-between gap-4 bg-slate-50/80 px-5 py-4 text-left transition-colors hover:bg-slate-100/80 dark:bg-slate-900/50 dark:hover:bg-slate-900"
-        aria-expanded={isOpen}
-      >
-        <span className="inline-flex items-center gap-3 text-lg font-semibold text-slate-950 dark:text-white">
-          <span className="flex h-7 w-7 items-center justify-center rounded-md border border-blue-200 bg-blue-50 text-blue-600 dark:border-blue-900/60 dark:bg-blue-950/40 dark:text-blue-300">
-            <BookText className="h-4 w-4" aria-hidden="true" />
+    <>
+      <section className="mt-8 overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-sm dark:border-slate-800 dark:bg-[#282c34]">
+        <button
+          type="button"
+          onClick={() => setIsOpen((value) => !value)}
+          className="flex w-full items-center justify-between gap-4 bg-slate-50/80 px-5 py-4 text-left transition-colors hover:bg-slate-100/80 dark:bg-slate-900/50 dark:hover:bg-slate-900"
+          aria-expanded={isOpen}
+        >
+          <span className="inline-flex items-center gap-3 text-lg font-semibold text-slate-950 dark:text-white">
+            <span className="flex h-7 w-7 items-center justify-center rounded-md border border-blue-200 bg-blue-50 text-blue-600 dark:border-blue-900/60 dark:bg-blue-950/40 dark:text-blue-300">
+              <BookText className="h-4 w-4" aria-hidden="true" />
+            </span>
+            {isZh ? '概述' : 'Overview'}
           </span>
-          {isZh ? '概述' : 'Overview'}
-        </span>
-        <ChevronDown
-          className={cn('h-5 w-5 text-slate-500 transition-transform duration-200', isOpen && 'rotate-180')}
-          aria-hidden="true"
-        />
-      </button>
+          <ChevronDown
+            className={cn('h-5 w-5 text-slate-500 transition-transform duration-200', isOpen && 'rotate-180')}
+            aria-hidden="true"
+          />
+        </button>
 
-      {isOpen ? (
-        <div className="px-5 pb-6 pt-6 sm:px-7">
-          {usesTechnicalOverview ? developerContent : content}
-        </div>
-      ) : (
-        <div className="px-5 pb-6 pt-5 sm:px-7">
-          <p className="max-w-5xl text-[15px] leading-7 text-slate-600 dark:text-slate-400">
-            {description}
-          </p>
-          <button
-            type="button"
-            onClick={() => setIsOpen(true)}
-            className="mx-auto mt-7 flex items-center gap-1.5 text-sm font-semibold text-slate-500 transition-colors hover:text-blue-700 dark:text-slate-400 dark:hover:text-blue-300"
-          >
-            {isZh ? '展开更多' : 'Show more'}
-            <ChevronDown className="h-4 w-4" aria-hidden="true" />
-          </button>
-        </div>
-      )}
-    </section>
+        {isOpen ? (
+          <div className="px-5 pb-6 pt-6 sm:px-7">
+            {usesTechnicalOverview ? developerContent : content}
+          </div>
+        ) : (
+          <div className="px-5 pb-6 pt-5 sm:px-7">
+            <p className="max-w-5xl text-[15px] leading-7 text-slate-600 dark:text-slate-400">
+              {description}
+            </p>
+            <button
+              type="button"
+              onClick={() => setIsOpen(true)}
+              className="mx-auto mt-7 flex items-center gap-1.5 text-sm font-semibold text-slate-500 transition-colors hover:text-blue-700 dark:text-slate-400 dark:hover:text-blue-300"
+            >
+              {isZh ? '展开更多' : 'Show more'}
+              <ChevronDown className="h-4 w-4" aria-hidden="true" />
+            </button>
+          </div>
+        )}
+      </section>
+
+      {isDeveloperTool && faqList.length > 0 ? (
+        <StandaloneFaqCard title={t('common.faqTitle', { defaultValue: 'Frequently Asked Questions' })} faqList={faqList} />
+      ) : null}
+    </>
   );
 };
 

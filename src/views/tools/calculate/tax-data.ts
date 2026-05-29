@@ -4,19 +4,7 @@ export type TaxRatePreset = {
   label: string;
   rate: number;
   description?: string;
-};
-
-export type TaxJurisdiction = {
-  slug: string;
-  name: string;
-  countryCode: string;
-  currency: string;
-  rates: TaxRatePreset[];
-  sourceName: string;
-  sourceUrl: string;
-  lastChecked: string;
-  effectiveDate?: string;
-  note?: string;
+  descriptionZh?: string;
 };
 
 export type CurrencyOption = {
@@ -27,19 +15,14 @@ export type CurrencyOption = {
 export type TaxCalculatorConfig = {
   toolKey: string;
   title: string;
+  titleZh: string;
   description: string;
+  descriptionZh: string;
   defaultAmount: string;
   defaultRate: number;
   defaultCurrency: string;
   defaultMode: TaxCalculationMode;
   presets: TaxRatePreset[];
-  formulaHeading: string;
-  explainer: string;
-  source?: TaxJurisdiction;
-  faqs: Array<{
-    question: string;
-    answer: string;
-  }>;
 };
 
 export const TAX_CURRENCIES: CurrencyOption[] = [
@@ -53,116 +36,59 @@ export const TAX_CURRENCIES: CurrencyOption[] = [
 ];
 
 export const COMMON_TAX_RATE_PRESETS: TaxRatePreset[] = [
-  { label: '20%', rate: 20, description: 'Common VAT standard rate' },
-  { label: '19%', rate: 19, description: 'Common EU VAT rate' },
-  { label: '10%', rate: 10, description: 'Reduced or local sales tax example' },
-  { label: '8.875%', rate: 8.875, description: 'Decimal sales tax example' },
+  { label: '20%', rate: 20, description: 'Common VAT standard rate', descriptionZh: '常见 VAT 标准税率' },
+  { label: '19%', rate: 19, description: 'Common EU VAT rate', descriptionZh: '常见欧盟 VAT 税率' },
+  { label: '10%', rate: 10, description: 'Reduced or local sales tax example', descriptionZh: '减免税率或本地销售税示例' },
+  { label: '8.875%', rate: 8.875, description: 'Decimal sales tax example', descriptionZh: '小数销售税示例' },
 ];
 
-export const UK_VAT_JURISDICTION: TaxJurisdiction = {
-  slug: 'uk',
-  name: 'United Kingdom VAT',
-  countryCode: 'GB',
-  currency: 'GBP',
-  rates: [
-    { label: '20%', rate: 20, description: 'Standard rate' },
-    { label: '5%', rate: 5, description: 'Reduced rate' },
-    { label: '0%', rate: 0, description: 'Zero rate' },
-  ],
-  sourceName: 'GOV.UK VAT rates',
-  sourceUrl: 'https://www.gov.uk/vat-rates',
-  lastChecked: '2026-05-29',
-  effectiveDate: '20% standard rate effective from 4 January 2011',
-  note: 'The 20% standard rate applies to most goods and services unless they are reduced-rated, zero-rated, exempt, or outside the scope of VAT.',
-};
+export const UK_VAT_RATE_PRESETS: TaxRatePreset[] = [
+  { label: '20%', rate: 20, description: 'Standard rate', descriptionZh: '标准税率' },
+  { label: '5%', rate: 5, description: 'Reduced rate', descriptionZh: '优惠税率' },
+  { label: '0%', rate: 0, description: 'Zero rate', descriptionZh: '零税率' },
+];
 
 export const TAX_CALCULATOR_CONFIGS: Record<string, TaxCalculatorConfig> = {
   'reverse-vat-calculator': {
     toolKey: 'reverse-vat-calculator',
     title: 'Reverse VAT / Sales Tax Calculator',
+    titleZh: 'Reverse VAT / Sales Tax 反向税费计算器',
     description:
       'Enter a tax-inclusive price and tax rate to remove VAT or sales tax, then see the net amount, tax amount, and gross amount.',
+    descriptionZh:
+      '输入含税价格和税率，从价格中去除 VAT 或销售税，并查看税前金额、税额和含税金额。',
     defaultAmount: '120',
     defaultRate: 20,
     defaultCurrency: 'GBP',
     defaultMode: 'remove',
     presets: COMMON_TAX_RATE_PRESETS,
-    formulaHeading: 'Reverse VAT formula',
-    explainer:
-      'Reverse tax calculation treats the amount you enter as the gross price. The calculator divides the gross amount by 1 plus the tax rate to recover the net price.',
-    faqs: [
-      {
-        question: 'How do I remove VAT from a price?',
-        answer: 'Divide the VAT-inclusive price by 1 plus the VAT rate. For 20% VAT, divide the gross price by 1.20.',
-      },
-      {
-        question: 'What is the formula for reverse VAT?',
-        answer: 'Net amount = gross amount / (1 + VAT rate). Tax amount = gross amount - net amount.',
-      },
-      {
-        question: 'Can I use this for sales tax?',
-        answer: 'Yes. The same arithmetic works for sales tax when the price already includes tax and you know the tax rate.',
-      },
-    ],
   },
   'vat-inclusive-exclusive-calculator': {
     toolKey: 'vat-inclusive-exclusive-calculator',
     title: 'VAT Inclusive / Exclusive Price Calculator',
+    titleZh: 'VAT 含税价 / 税前价转换器',
     description:
       'Convert between VAT-exclusive and VAT-inclusive prices by adding tax to a net amount or removing tax from a gross amount.',
+    descriptionZh:
+      '在 VAT 税前价和含税价之间转换：可从税前价加税得到含税价，也可从含税价去税得到税前价。',
     defaultAmount: '100',
     defaultRate: 20,
     defaultCurrency: 'GBP',
     defaultMode: 'add',
     presets: COMMON_TAX_RATE_PRESETS,
-    formulaHeading: 'VAT inclusive and exclusive formulas',
-    explainer:
-      'Use Add tax when your input is the net price before tax. Use Remove tax when your input is already tax-inclusive and you need the net amount.',
-    faqs: [
-      {
-        question: 'What is VAT inclusive?',
-        answer: 'VAT inclusive means the displayed price already includes VAT, so you remove VAT to find the net price.',
-      },
-      {
-        question: 'What is VAT exclusive?',
-        answer: 'VAT exclusive means the displayed price is before VAT, so you add VAT to find the gross price.',
-      },
-      {
-        question: 'Does the formula support decimal tax rates?',
-        answer: 'Yes. Rates such as 8.875% are calculated directly without rounding intermediate steps.',
-      },
-    ],
   },
   'uk-vat-calculator': {
     toolKey: 'uk-vat-calculator',
     title: 'UK VAT Calculator',
+    titleZh: '英国 VAT 计算器',
     description:
       'Calculate UK VAT using the standard 20% rate, reduced 5% rate, or zero rate, with source notes and a quick estimate disclaimer.',
+    descriptionZh:
+      '使用英国 VAT 20% 标准税率、5% reduced rate 或 0% zero rate，计算税前金额、VAT 金额和含税金额。',
     defaultAmount: '100',
     defaultRate: 20,
     defaultCurrency: 'GBP',
     defaultMode: 'add',
-    presets: UK_VAT_JURISDICTION.rates,
-    formulaHeading: 'UK VAT calculation',
-    explainer:
-      'The UK standard VAT rate is 20% for most goods and services. Some supplies may use the reduced 5% rate or the 0% zero rate depending on the product or service.',
-    source: UK_VAT_JURISDICTION,
-    faqs: [
-      {
-        question: 'What is the current UK VAT standard rate?',
-        answer: 'The UK standard VAT rate is 20% for most goods and services, subject to product and transaction rules.',
-      },
-      {
-        question: 'What is the UK reduced VAT rate?',
-        answer: 'The UK reduced rate is 5% for some goods and services, such as examples listed by GOV.UK including children\'s car seats and home energy.',
-      },
-      {
-        question: 'Is this UK VAT calculator tax advice?',
-        answer: 'No. It is a quick estimate calculator. Actual VAT treatment can depend on product category, location, exemptions, and transaction details.',
-      },
-    ],
+    presets: UK_VAT_RATE_PRESETS,
   },
 };
-
-export const TAX_DISCLAIMER =
-  'This calculator is for general information and quick estimates only. Tax rates and rules can change, and actual tax treatment may depend on your location, product category, and transaction details. This is not tax advice.';

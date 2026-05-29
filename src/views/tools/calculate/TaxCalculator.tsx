@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Check, Copy, Percent, RotateCcw } from 'lucide-react';
 import ToolSEOCard from '../../../components/ToolSEOCard';
 import { cn } from '../../../lib/utils';
@@ -9,7 +10,6 @@ import {
 } from '../../../lib/tax-calculation';
 import {
   TAX_CURRENCIES,
-  TAX_DISCLAIMER,
   type TaxCalculatorConfig,
 } from './tax-data';
 
@@ -40,7 +40,43 @@ const ResultRow = ({ label, value, tone = 'default' }: ResultRowProps) => (
 
 const parseNumberField = (value: string) => Number(value.trim());
 
+const TaxFaqSection = ({ toolKey }: { toolKey: string }) => {
+  const { t } = useTranslation();
+  const faqList = [1, 2, 3, 4, 5, 6]
+    .map((index) => {
+      const question = t(`tools.${toolKey}.faq${index}Q`);
+      const answer = t(`tools.${toolKey}.faq${index}A`);
+
+      if (!question || question === `tools.${toolKey}.faq${index}Q`) {
+        return null;
+      }
+
+      return { question, answer };
+    })
+    .filter(Boolean);
+
+  if (!faqList.length) return null;
+
+  return (
+    <section className="mt-8 rounded-2xl border border-slate-200/90 bg-white px-5 py-7 shadow-sm dark:border-slate-800 dark:bg-[#282c34] sm:px-7">
+      <h2 className="text-2xl font-semibold tracking-tight text-slate-950 dark:text-white">
+        {t('common.faqTitle', { defaultValue: 'Frequently Asked Questions' })}
+      </h2>
+      <div className="mt-6 space-y-6">
+        {faqList.map((faq, index) => (
+          <div key={index} className="border-b border-slate-200 pb-6 last:border-b-0 last:pb-0 dark:border-slate-800">
+            <h3 className="text-base font-semibold text-slate-950 dark:text-white">{faq?.question}</h3>
+            <p className="mt-3 text-[15px] leading-7 text-slate-700 dark:text-slate-300">{faq?.answer}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+};
+
 const TaxCalculator = ({ config }: { config: TaxCalculatorConfig }) => {
+  const { i18n } = useTranslation();
+  const isZh = i18n.language?.startsWith('zh');
   const [amountInput, setAmountInput] = useState(config.defaultAmount);
   const [rateInput, setRateInput] = useState(String(config.defaultRate));
   const [currency, setCurrency] = useState(config.defaultCurrency);
@@ -49,22 +85,44 @@ const TaxCalculator = ({ config }: { config: TaxCalculatorConfig }) => {
 
   const amountValue = parseNumberField(amountInput);
   const rateValue = parseNumberField(rateInput);
+  const title = isZh ? config.titleZh : config.title;
+  const description = isZh ? config.descriptionZh : config.description;
+  const labels = {
+    addTax: isZh ? '加税' : 'Add tax',
+    removeTax: isZh ? '去税' : 'Remove tax',
+    amount: isZh ? '金额' : 'Amount',
+    taxRate: isZh ? '税率' : 'Tax rate',
+    currency: isZh ? '货币' : 'Currency',
+    presets: isZh ? '常用税率' : 'Tax rate presets',
+    result: isZh ? '计算结果' : 'Result',
+    inputAsNet: isZh ? '输入金额会被视为税前金额。' : 'Input is treated as net amount.',
+    inputAsGross: isZh ? '输入金额会被视为含税金额。' : 'Input is treated as gross amount.',
+    reset: isZh ? '重置' : 'Reset',
+    netAmount: isZh ? '税前金额' : 'Net amount',
+    taxAmount: isZh ? '税额' : 'Tax amount',
+    grossAmount: isZh ? '含税金额' : 'Gross amount',
+    formula: isZh ? '公式' : 'Formula',
+    copyResult: isZh ? '复制结果' : 'Copy result',
+    copied: isZh ? '已复制' : 'Copied',
+    fixInputs: isZh ? '请先修正高亮输入项，再查看计算结果。' : 'Fix the highlighted input before viewing the calculation result.',
+    mode: isZh ? '模式' : 'Mode',
+  };
 
   const errors: FieldErrors = {};
   if (!amountInput.trim()) {
-    errors.amount = 'Amount is required.';
+    errors.amount = isZh ? '金额不能为空。' : 'Amount is required.';
   } else if (!Number.isFinite(amountValue)) {
-    errors.amount = 'Amount must be a number.';
+    errors.amount = isZh ? '金额必须是数字。' : 'Amount must be a number.';
   } else if (amountValue < 0) {
-    errors.amount = 'Amount cannot be negative.';
+    errors.amount = isZh ? '金额不能为负数。' : 'Amount cannot be negative.';
   }
 
   if (!rateInput.trim()) {
-    errors.rate = 'Tax rate is required.';
+    errors.rate = isZh ? '税率不能为空。' : 'Tax rate is required.';
   } else if (!Number.isFinite(rateValue)) {
-    errors.rate = 'Tax rate must be a number.';
+    errors.rate = isZh ? '税率必须是数字。' : 'Tax rate must be a number.';
   } else if (rateValue < 0 || rateValue > 100) {
-    errors.rate = 'Tax rate must be between 0% and 100%.';
+    errors.rate = isZh ? '税率必须在 0% 到 100% 之间。' : 'Tax rate must be between 0% and 100%.';
   }
 
   const hasErrors = Boolean(errors.amount || errors.rate);
@@ -75,18 +133,22 @@ const TaxCalculator = ({ config }: { config: TaxCalculatorConfig }) => {
 
   const formulaText =
     mode === 'add'
-      ? 'gross = net x (1 + rate), tax = gross - net'
-      : 'net = gross / (1 + rate), tax = gross - net';
+      ? isZh
+        ? '含税金额 = 税前金额 x (1 + 税率)，税额 = 含税金额 - 税前金额'
+        : 'gross = net x (1 + rate), tax = gross - net'
+      : isZh
+        ? '税前金额 = 含税金额 / (1 + 税率)，税额 = 含税金额 - 税前金额'
+        : 'net = gross / (1 + rate), tax = gross - net';
 
   const copyText = result
     ? [
-        `${config.title}`,
-        `Mode: ${mode === 'add' ? 'Add tax' : 'Remove tax'}`,
-        `Tax rate: ${rateValue}%`,
-        `Net amount: ${formatCurrencyAmount(result.netAmount, currency)}`,
-        `Tax amount: ${formatCurrencyAmount(result.taxAmount, currency)}`,
-        `Gross amount: ${formatCurrencyAmount(result.grossAmount, currency)}`,
-        `Formula: ${formulaText}`,
+        `${title}`,
+        `${labels.mode}: ${mode === 'add' ? labels.addTax : labels.removeTax}`,
+        `${labels.taxRate}: ${rateValue}%`,
+        `${labels.netAmount}: ${formatCurrencyAmount(result.netAmount, currency)}`,
+        `${labels.taxAmount}: ${formatCurrencyAmount(result.taxAmount, currency)}`,
+        `${labels.grossAmount}: ${formatCurrencyAmount(result.grossAmount, currency)}`,
+        `${labels.formula}: ${formulaText}`,
       ].join('\n')
     : '';
 
@@ -109,10 +171,10 @@ const TaxCalculator = ({ config }: { config: TaxCalculatorConfig }) => {
     <div className="space-y-7">
       <section className="border-b border-slate-200 pb-6 dark:border-slate-800">
         <h1 className="text-3xl font-semibold tracking-tight text-slate-950 dark:text-white">
-          {config.title}
+          {title}
         </h1>
         <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-400">
-          {config.description}
+          {description}
         </p>
       </section>
 
@@ -131,7 +193,7 @@ const TaxCalculator = ({ config }: { config: TaxCalculatorConfig }) => {
                     : 'text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white',
                 )}
               >
-                {modeOption === 'add' ? 'Add tax' : 'Remove tax'}
+                {modeOption === 'add' ? labels.addTax : labels.removeTax}
               </button>
             ))}
           </div>
@@ -139,7 +201,7 @@ const TaxCalculator = ({ config }: { config: TaxCalculatorConfig }) => {
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
             <label className="space-y-2">
               <span className="block text-sm font-semibold text-slate-900 dark:text-slate-100">
-                Amount
+                {labels.amount}
               </span>
               <input
                 type="text"
@@ -158,7 +220,7 @@ const TaxCalculator = ({ config }: { config: TaxCalculatorConfig }) => {
 
             <label className="space-y-2">
               <span className="block text-sm font-semibold text-slate-900 dark:text-slate-100">
-                Tax rate
+                {labels.taxRate}
               </span>
               <div className="relative">
                 <input
@@ -181,7 +243,7 @@ const TaxCalculator = ({ config }: { config: TaxCalculatorConfig }) => {
 
           <label className="mt-5 block space-y-2">
             <span className="block text-sm font-semibold text-slate-900 dark:text-slate-100">
-              Currency
+              {labels.currency}
             </span>
             <select
               value={currency}
@@ -198,7 +260,7 @@ const TaxCalculator = ({ config }: { config: TaxCalculatorConfig }) => {
 
           <div className="mt-5">
             <div className="mb-2 text-sm font-semibold text-slate-900 dark:text-slate-100">
-              Tax rate presets
+              {labels.presets}
             </div>
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
               {config.presets.map((preset) => (
@@ -209,9 +271,9 @@ const TaxCalculator = ({ config }: { config: TaxCalculatorConfig }) => {
                   className="min-h-[58px] rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-left transition-colors hover:border-cyan-300 hover:bg-white dark:border-slate-700 dark:bg-slate-900 dark:hover:border-cyan-800"
                 >
                   <span className="block text-sm font-semibold text-slate-950 dark:text-white">{preset.label}</span>
-                  {preset.description ? (
+                  {(isZh ? preset.descriptionZh || preset.description : preset.description) ? (
                     <span className="mt-1 block text-xs leading-4 text-slate-500 dark:text-slate-400">
-                      {preset.description}
+                      {isZh ? preset.descriptionZh || preset.description : preset.description}
                     </span>
                   ) : null}
                 </button>
@@ -224,18 +286,18 @@ const TaxCalculator = ({ config }: { config: TaxCalculatorConfig }) => {
           <div className="mb-4 flex items-center justify-between gap-3">
             <div>
               <h2 className="text-lg font-semibold tracking-tight text-slate-950 dark:text-white">
-                Result
+                {labels.result}
               </h2>
               <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-                {mode === 'add' ? 'Input is treated as net amount.' : 'Input is treated as gross amount.'}
+                {mode === 'add' ? labels.inputAsNet : labels.inputAsGross}
               </p>
             </div>
             <button
               type="button"
               onClick={handleReset}
               className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-600 transition-colors hover:text-cyan-700 dark:border-slate-700 dark:bg-[#282c34] dark:text-slate-300 dark:hover:text-cyan-300"
-              aria-label="Reset calculator"
-              title="Reset"
+              aria-label={labels.reset}
+              title={labels.reset}
             >
               <RotateCcw className="h-4 w-4" />
             </button>
@@ -244,13 +306,13 @@ const TaxCalculator = ({ config }: { config: TaxCalculatorConfig }) => {
           {result ? (
             <>
               <div className="rounded-lg border border-slate-200 bg-white px-4 dark:border-slate-700 dark:bg-[#282c34]">
-                <ResultRow label="Net amount" value={formatCurrencyAmount(result.netAmount, currency)} />
-                <ResultRow label="Tax amount" value={formatCurrencyAmount(result.taxAmount, currency)} />
-                <ResultRow label="Gross amount" value={formatCurrencyAmount(result.grossAmount, currency)} tone="accent" />
+                <ResultRow label={labels.netAmount} value={formatCurrencyAmount(result.netAmount, currency)} />
+                <ResultRow label={labels.taxAmount} value={formatCurrencyAmount(result.taxAmount, currency)} />
+                <ResultRow label={labels.grossAmount} value={formatCurrencyAmount(result.grossAmount, currency)} tone="accent" />
               </div>
 
               <div className="mt-4 rounded-lg border border-cyan-100 bg-cyan-50 p-4 text-sm leading-6 text-cyan-950 dark:border-cyan-900/60 dark:bg-cyan-950/20 dark:text-cyan-100">
-                <span className="block font-semibold">Formula</span>
+                <span className="block font-semibold">{labels.formula}</span>
                 <span className="mt-1 block font-mono text-xs sm:text-sm">{formulaText}</span>
               </div>
 
@@ -260,92 +322,19 @@ const TaxCalculator = ({ config }: { config: TaxCalculatorConfig }) => {
                 className="mt-4 inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-slate-950 px-4 text-sm font-semibold text-white transition-colors hover:bg-cyan-700 dark:bg-cyan-600 dark:hover:bg-cyan-500"
               >
                 {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-                {copied ? 'Copied' : 'Copy result'}
+                {copied ? labels.copied : labels.copyResult}
               </button>
             </>
           ) : (
             <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-sm leading-6 text-red-700 dark:border-red-900/60 dark:bg-red-950/20 dark:text-red-200">
-              Fix the highlighted input before viewing the calculation result.
+              {labels.fixInputs}
             </div>
           )}
         </aside>
       </section>
 
-      <section className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(300px,0.55fr)]">
-        <div className="space-y-4">
-          <h2 className="text-xl font-semibold tracking-tight text-slate-950 dark:text-white">
-            {config.formulaHeading}
-          </h2>
-          <p className="text-sm leading-7 text-slate-600 dark:text-slate-400">
-            {config.explainer}
-          </p>
-          <div className="rounded-lg border border-slate-200 bg-white p-4 font-mono text-sm leading-7 text-slate-800 dark:border-slate-700 dark:bg-[#282c34] dark:text-slate-200">
-            <div>Add tax: gross = net x (1 + rate)</div>
-            <div>Remove tax: net = gross / (1 + rate)</div>
-            <div>Tax amount: gross - net</div>
-          </div>
-        </div>
-
-        <div className="rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm leading-6 text-amber-900 dark:border-amber-900/60 dark:bg-amber-950/20 dark:text-amber-100">
-          <strong className="block">Disclaimer</strong>
-          <span className="mt-2 block">{TAX_DISCLAIMER}</span>
-        </div>
-      </section>
-
-      {config.source ? (
-        <section className="rounded-lg border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-[#282c34]">
-          <h2 className="text-xl font-semibold tracking-tight text-slate-950 dark:text-white">
-            UK VAT rate source
-          </h2>
-          <dl className="mt-4 grid grid-cols-1 gap-4 text-sm md:grid-cols-2">
-            <div>
-              <dt className="font-semibold text-slate-900 dark:text-slate-100">Source</dt>
-              <dd className="mt-1">
-                <a
-                  href={config.source.sourceUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-cyan-700 underline-offset-4 hover:underline dark:text-cyan-300"
-                >
-                  {config.source.sourceName}
-                </a>
-              </dd>
-            </div>
-            <div>
-              <dt className="font-semibold text-slate-900 dark:text-slate-100">Last checked</dt>
-              <dd className="mt-1 text-slate-600 dark:text-slate-400">{config.source.lastChecked}</dd>
-            </div>
-            {config.source.effectiveDate ? (
-              <div>
-                <dt className="font-semibold text-slate-900 dark:text-slate-100">Effective date</dt>
-                <dd className="mt-1 text-slate-600 dark:text-slate-400">{config.source.effectiveDate}</dd>
-              </div>
-            ) : null}
-            {config.source.note ? (
-              <div>
-                <dt className="font-semibold text-slate-900 dark:text-slate-100">Note</dt>
-                <dd className="mt-1 text-slate-600 dark:text-slate-400">{config.source.note}</dd>
-              </div>
-            ) : null}
-          </dl>
-        </section>
-      ) : null}
-
-      <section className="border-t border-slate-200 pt-7 dark:border-slate-800">
-        <h2 className="text-xl font-semibold tracking-tight text-slate-950 dark:text-white">
-          Frequently asked questions
-        </h2>
-        <div className="mt-5 space-y-5">
-          {config.faqs.map((faq) => (
-            <div key={faq.question} className="border-b border-slate-200 pb-5 last:border-b-0 dark:border-slate-800">
-              <h3 className="text-base font-semibold text-slate-950 dark:text-white">{faq.question}</h3>
-              <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-400">{faq.answer}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
       <ToolSEOCard toolKey={config.toolKey} />
+      <TaxFaqSection toolKey={config.toolKey} />
     </div>
   );
 };

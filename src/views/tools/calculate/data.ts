@@ -48,7 +48,7 @@ export const CALCULATE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
   'reverse-vat-calculator': {
     zh: {
       summary:
-        'Reverse VAT / Sales Tax Calculator 用于从含税价格中反推出税前金额和税额，适合核对发票、商品标价、跨境订单或销售税已包含在价格中的场景。用户输入含税金额和税率后，工具按反向公式恢复 net amount，并同步显示 tax amount 与 gross amount。',
+        'Reverse VAT / Sales Tax Calculator（反向增值税/销售税计算器）是一款专注于从含税价格中反推出税前金额和税额的专业工具，适用于跨境电商卖家核对平台含税订单、财务人员审核供应商含税发票、个人消费者查验购物小票中的税费构成、以及任何需要从已含税标价中剥离税费的商业场景。用户只需输入含税总价和目标税率，工具即自动套用反向去税公式 net = gross / (1 + rate) 计算出税前净额，并同步展示税额与含税总额的完整对账信息。支持英国 VAT（20%）、欧盟各国 VAT（19% 起）、美国各州 sales tax（如纽约 8.875%）等全球常见税率，同时内置 GBP、EUR、USD、AUD、CAD、NZD、SGD 七种主流结算货币的格式化展示，确保跨境电商和外贸场景中的金额表达规范统一。无论是电商卖家核对 Amazon、eBay、Etsy、Shopify 等平台的含税销售收入，还是进出口贸易商核算关税完税价格，亦或是普通消费者想了解购物小票中实际税费占比，均可通过本工具快速获得精准的税费拆解结果，无需手动推导公式或在 Excel 中建立计算表格。',
       input:
         '输入金额、税率百分比、计算模式和货币。该工具默认使用 Remove tax 模式，并提供 20%、19%、10%、8.875% 等常见税率按钮，支持小数税率和多币种展示。',
       output:
@@ -66,7 +66,7 @@ export const CALCULATE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
     },
     en: {
       summary:
-        'The Reverse VAT / Sales Tax Calculator removes tax from a tax-inclusive price and recovers the net amount and tax amount. It is useful for checking invoices, listed prices, ecommerce orders, and any situation where sales tax or VAT is already included in the displayed price.',
+        'The Reverse VAT / Sales Tax Calculator is a specialized tool for stripping value-added tax or sales tax from a tax-inclusive price to recover the pre-tax net amount and the tax component. It is essential for cross-border ecommerce sellers reconciling platform orders that include VAT, accountants and bookkeepers verifying supplier invoices with embedded tax, business owners separating deductible VAT from gross revenue, and consumers who want to understand how much tax they are actually paying on a purchase. Enter the gross (tax-inclusive) amount and the applicable tax rate, and the tool applies the standard reverse-VAT formula — net = gross / (1 + rate) — to calculate the net price and the tax amount in real time. It supports global tax rates including UK VAT (20%), EU member state VAT (from 17% to 27%), US state and local sales tax (e.g. 8.875% for New York City), Australian GST (10%), and Canadian GST/HST, making it a versatile companion for international trade and ecommerce. Seven major settlement currencies — GBP, EUR, USD, AUD, CAD, NZD, and SGD — are available with locale-aware formatting (symbols, thousands separators, and two-decimal-place precision). Whether you are a seller on Amazon, eBay, Etsy, or Shopify tracking tax-inclusive revenue, an importer or exporter verifying duty-paid values, or an individual checking a receipt to see the embedded tax, this calculator delivers a clean, instant tax breakdown without the need for manual formulas or spreadsheet setup.',
       input:
         'Enter an amount, tax rate percentage, calculation mode, and currency. The tool defaults to Remove tax and includes common presets such as 20%, 19%, 10%, and 8.875%, with support for decimal tax rates and multiple currency display formats.',
       output:
@@ -87,7 +87,7 @@ export const CALCULATE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
   'vat-inclusive-exclusive-calculator': {
     zh: {
       summary:
-        'VAT Inclusive / Exclusive Price Calculator 用于在含税价和税前价之间切换。用户可以从税前金额加税得到含税价，也可以从含税金额去税得到税前价，适合报价、订单核对和价格换算。',
+        'VAT Inclusive / Exclusive Price Calculator（含税/不含税价格换算器）是一款帮助用户在含税价（VAT-inclusive）与不含税价（VAT-exclusive）之间双向转换的专业工具，特别适合跨境电商卖家和外贸企业在不同定价体系之间快速切换。在 B2B 批发和国际贸易场景中，报价通常采用不含税价格（net price / VAT-exclusive），而面向终端消费者的 B2C 零售场景中，标价大多已包含 VAT（gross price / VAT-inclusive）——两种定价模式之间的换算常常成为订单核对、报价比对和利润核算中的痛点。本工具提供 Add tax（加税）和 Remove tax（去税）两种模式，一键切换即可完成税前 ↔ 含税的双向转换，无需在多个计算器之间来回操作。用户输入金额和税率后，工具同步输出净额（net amount）、税额（tax amount）和含税总额（gross amount）三项完整数据，并随模式变化展示对应的计算公式，方便审计和核对。支持 0% 到 100% 之间任意小数税率（如 8.875%、19.6% 等各国实际税率），覆盖 UK VAT、EU VAT、GST、sales tax 等全球主流税制，内置 GBP、EUR、USD 等七种货币的本地化金额格式。适合电商卖家在平台定价时统一含税/不含税表达、采购人员在比价时将不同供应商的含税报价标准化为税前价、财务人员在制作报价单和形式发票时快速核验金额一致性、以及外贸从业者在不同税制国家之间进行价格对标和利润测算。',
       input:
         '输入金额、税率、货币并选择 Add tax 或 Remove tax。Add tax 将输入视为税前价；Remove tax 将输入视为含税价。税率支持 0 到 100 之间的小数。',
       output:
@@ -105,7 +105,7 @@ export const CALCULATE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
     },
     en: {
       summary:
-        'The VAT Inclusive / Exclusive Price Calculator converts between tax-exclusive and tax-inclusive prices. It can add tax to a net amount or remove tax from a gross amount, making it useful for quotes, order checks, and price comparisons.',
+        'The VAT Inclusive / Exclusive Price Calculator is a dual-mode conversion tool that lets you switch seamlessly between tax-inclusive (gross) and tax-exclusive (net) pricing — a daily necessity for cross-border ecommerce sellers, international B2B traders, procurement professionals, and accountants working across jurisdictions with different VAT display conventions. In B2B wholesale and international trade, quotes are typically presented as net prices (VAT-exclusive), whereas B2C retail prices shown to consumers almost always include VAT (gross / VAT-inclusive). Reconciling these two pricing conventions is a frequent source of confusion and spreadsheet errors. This tool solves that with two clear modes: Add tax — enter a net amount to calculate the gross (tax-inclusive) price; and Remove tax — enter a gross amount to strip out the VAT and recover the net price. Both modes display the full three-figure breakdown (net amount, tax amount, and gross amount) along with the active formula so you can audit the calculation at a glance. Decimal tax rates from 0% to 100% are supported with full precision — enter 8.875% for New York sales tax, 19.6% for historical French VAT, or any jurisdiction-specific rate. Seven currencies (GBP, EUR, USD, AUD, CAD, NZD, SGD) are available with proper locale formatting including currency symbols, thousands separators, and two-decimal-place precision. Ideal for ecommerce sellers normalizing platform prices to a consistent tax-display convention, procurement teams standardizing supplier quotes for comparison, accountants preparing pro-forma invoices and quotations, and international traders performing price benchmarking and margin analysis across tax regimes.',
       input:
         'Enter an amount, tax rate, currency, and choose Add tax or Remove tax. Add tax treats the input as the net price; Remove tax treats the input as the tax-inclusive gross price. Decimal rates from 0 to 100 are supported.',
       output:
@@ -126,7 +126,7 @@ export const CALCULATE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
   'uk-vat-calculator': {
     zh: {
       summary:
-        'UK VAT Calculator 用于按英国常见 VAT 税率快速计算税前金额、VAT 金额和含税金额。页面内置 20% standard rate、5% reduced rate 和 0% zero rate，并展示来源、最后核对日期和非税务建议声明。',
+        'UK VAT Calculator（英国增值税计算器）是一款专为英国增值税（Value Added Tax, VAT）场景设计的计算工具，内置 HMRC 官方规定的三档 VAT 税率快捷预设——标准税率 20%（Standard rate，适用于大多数商品和服务）、减免税率 5%（Reduced rate，适用于儿童汽车座椅、家用燃料和电力、节能材料安装、戒烟辅助产品、卫生防护用品等特定品类）以及零税率 0%（Zero rate，适用于大多数食品、童装、书籍报刊、公共交通、处方药等）——用户点击即可填入对应税率，无需记忆或查询 GOV.UK。工具同时支持 Add tax（从税前价推算含税价）和 Remove tax（从含税价反推税前价）两种计算模式，覆盖英国本地卖家在 Amazon、eBay、Etsy、Shopify 等电商平台的 VAT 核算、跨境电商卖家向英国消费者销售商品时的 VAT 合规定价（特别是脱欧后英国 VAT 政策调整涉及的进口 VAT 和平台代收代缴规则）、英国注册企业的进项税和销项税对账、自由职业者和承包商在申报 VAT 时的收入拆分，以及消费者在英国购物时了解实际税费占比。页面明确标注税率数据来源为 GOV.UK 官方 VAT 指南、展示本站最后核对日期、并在醒目位置发布非税务建议免责声明，确保用户知晓计算结果仅供快速估算参考，不构成正式税务建议。默认使用英镑（GBP）作为结算货币展示，同时支持切换至 EUR、USD 等六种其他主流货币的格式化输出，方便跨境场景下的等值金额表达。',
       input:
         '输入金额、选择 Add tax 或 Remove tax、选择 GBP 或其他展示货币，并使用英国 VAT preset 填入税率。默认税率为 20%，默认货币为 GBP。',
       output:
@@ -144,7 +144,7 @@ export const CALCULATE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
     },
     en: {
       summary:
-        'The UK VAT Calculator estimates net amount, VAT amount, and gross amount using common UK VAT rates. It includes presets for the 20% standard rate, 5% reduced rate, and 0% zero rate, plus source, last-checked date, and a non-tax-advice disclaimer.',
+        'The UK VAT Calculator is a purpose-built tool for computing Value Added Tax under the United Kingdom\'s VAT regime as administered by HM Revenue & Customs (HMRC). It features one-click presets for the three statutory UK VAT rates: the 20% standard rate — applicable to most goods and services; the 5% reduced rate — applicable to specific categories such as children\'s car seats, domestic fuel and power, energy-saving materials installation, smoking cessation products, and sanitary protection products; and the 0% zero rate — applicable to most food (excluding catering and certain luxury items), children\'s clothing and footwear, books and newspapers, public transport fares, and prescription medicines. Both Add tax (calculate gross from net) and Remove tax (calculate net from gross) modes are supported, covering the needs of UK-based sellers on Amazon, eBay, Etsy, and Shopify reconciling VAT on marketplace sales, international sellers pricing goods for UK consumers under post-Brexit VAT rules (including import VAT and marketplace deemed-supplier provisions), UK VAT-registered businesses performing input and output tax reconciliation, freelancers and contractors preparing VAT returns under the Flat Rate Scheme or standard accounting, and consumers checking the tax embedded in UK purchases. The page prominently displays the GOV.UK VAT guide as the official rate source, shows the last-checked date for transparency, and carries a clear disclaimer that results are quick estimates only and do not constitute tax advice. The default display currency is GBP, with optional switching to EUR, USD, AUD, CAD, NZD, and SGD for cross-border price equivalence.',
       input:
         'Enter an amount, choose Add tax or Remove tax, choose GBP or another display currency, and use the UK VAT presets to set the rate. The default rate is 20% and the default currency is GBP.',
       output:

@@ -54,6 +54,7 @@ const GENERATED_TOOL_COVER_IDS = new Set([
   'qr-generator',
   'qr-scanner',
   'regex-tester',
+  'reverse-vat-calculator',
   'rmb-converter',
   'short-url',
   'stripe-fee-calculator',
@@ -68,7 +69,9 @@ const GENERATED_TOOL_COVER_IDS = new Set([
   'unit-converter',
   'unicode-converter',
   'url-encoder',
+  'uk-vat-calculator',
   'uuid-generator',
+  'vat-inclusive-exclusive-calculator',
   'world-timezone-compare',
   'xml-json',
 ]);
