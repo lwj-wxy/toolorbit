@@ -262,6 +262,10 @@
         "title": "June 2026: Four AI Labs Are About to Ship New Models in the Same Month",
         "summary": "GPT-5.6, Claude Sonnet 4.8, Gemini 3.5 Pro, and Grok 5 are all targeting June releases. What this unprecedented convergence means for developers and the industry."
       },
+      "claude-opus-4-8-2026": {
+        "title": "Claude Opus 4.8: AI Finally Learns to Say \"I'm Not Sure\"",
+        "summary": "Anthropic drops Opus 4.8 with two historic zeroes on honesty, Dynamic Workflows that turn Claude Code into an engineering team, and a Mythos teaser that hints at what's next."
+      },
       "ai-security-code-audit": {
         "title": "After Finding 23,000 Bugs: When AI Code Audits Outrun the Humans Who Fix Them",
         "summary": "Claude Mythos scanned 1,000+ open-source projects and found 23,019 vulnerabilities with a 90.6% accuracy rate — but less than 15% have been patched. AI-powered auditing is reshaping security."

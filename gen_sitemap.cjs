@@ -93,10 +93,12 @@ function absoluteLocalizedUrl(localPath, locale) {
 }
 
 function hreflangXml(localPath) {
+  const englishUrl = absoluteLocalizedUrl(localPath, 'en');
   const alternates = [
-    ['en', absoluteLocalizedUrl(localPath, 'en')],
+    ['en', englishUrl],
+    ['en-US', englishUrl],
     ['zh-CN', absoluteLocalizedUrl(localPath, 'zh-CN')],
-    ['x-default', absoluteLocalizedUrl(localPath, 'en')],
+    ['x-default', englishUrl],
   ];
 
   return alternates

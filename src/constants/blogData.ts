@@ -11,6 +11,12 @@ const defaultAuthorId = 'luo-wj';
 
 const posts: BlogPost[] = [
   {
+    slug: 'claude-opus-4-8-2026',
+    date: '2026-05-29',
+    category: 'AI',
+    image: blogImage('claude-opus-4-8-2026'),
+  },
+  {
     slug: 'ai-model-war-2026',
     date: '2026-05-28',
     category: 'AI',

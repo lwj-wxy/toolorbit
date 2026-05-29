@@ -54,6 +54,7 @@ const BLOG_SEO_TITLE_OVERRIDES: Record<string, string> = {
   'image-compression-techniques': 'Image Compression Techniques',
   'svg-to-png-conversion-tips': 'SVG to PNG Conversion Guide',
   'image-converter-web-formats': 'JPG, PNG, and WebP Formats Guide',
+  'claude-opus-4-8-2026': 'Claude Opus 4.8: AI Learns Honesty',
 };
 
 export { readPath };
@@ -161,10 +162,13 @@ function absoluteLocalizedUrl(path: string, locale: Locale) {
 }
 
 function alternateLanguages(path: string) {
+  const englishUrl = absoluteLocalizedUrl(path, 'en');
+
   return {
-    [HREFLANG_CODES.en]: absoluteLocalizedUrl(path, 'en'),
+    [HREFLANG_CODES.en]: englishUrl,
+    'en-US': englishUrl,
     [HREFLANG_CODES['zh-CN']]: absoluteLocalizedUrl(path, 'zh-CN'),
-    'x-default': absoluteLocalizedUrl(path, 'en'),
+    'x-default': englishUrl,
   };
 }
 

@@ -3015,6 +3015,10 @@
         "title": "2026 年 6 月 AI 大乱斗：四家大厂一个月内扎堆发新模型",
         "summary": "GPT-5.6、Claude Sonnet 4.8、Gemini 3.5 Pro、Grok 5 同时剑指 6 月发布。四家顶级 AI 实验室的集体亮剑，对开发者和行业意味着什么。"
       },
+      "claude-opus-4-8-2026": {
+        "title": "Claude Opus 4.8 深夜炸场：AI 终于学会说「我不确定」了",
+        "summary": "Anthropic 发布 Opus 4.8，诚实度两项历史性 0%、Dynamic Workflows 把 Claude Code 变成一支 AI 工程队、Mythos 预告暗示更大的还在后面。"
+      },
       "ai-security-code-audit": {
         "title": "AI 找到 23000 个漏洞之后：当代码审计快到人类跟不上的那一天",
         "summary": "Claude Mythos 扫描 1000+ 开源项目找出 23019 个漏洞，90.6% 为真实漏洞，但修复率不到 15%。AI 驱动的代码审计正在颠覆安全行业的底层逻辑。"
