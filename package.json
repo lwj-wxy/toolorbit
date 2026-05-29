@@ -6,9 +6,10 @@
   "scripts": {
     "dev": "next dev",
     "build": "node gen_sitemap.cjs && next build && node gen_sitemap.cjs && node scripts/precompress-static.cjs",
+    "clean:deploy": "node scripts/clean-deploy-artifacts.cjs",
     "deploy:pack": "node scripts/prepare-deploy-output.cjs",
     "deploy:archive": "tar -czf deploy-release.tar.gz -C deploy-output .",
-    "deploy:local": "npm run build && npm run deploy:pack && npm run deploy:archive",
+    "deploy:local": "npm run clean:deploy && npm run build && npm run deploy:pack && npm run deploy:archive",
     "start": "next start",
     "preview": "next dev",
     "clean": "node -e \"require('fs').rmSync('.next',{recursive:true,force:true})\"",

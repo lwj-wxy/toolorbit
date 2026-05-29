@@ -82,4 +82,9 @@ if (!fs.existsSync(path.join(outputDir, 'server.js'))) {
   throw new Error('Packed output is missing server.js. Check Next standalone output.');
 }
 
+execSync('node scripts/validate-deploy-release.cjs deploy-output', {
+  cwd: rootDir,
+  stdio: 'inherit',
+});
+
 console.log(`Deploy output prepared at ${path.relative(rootDir, outputDir)}`);

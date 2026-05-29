@@ -60,6 +60,9 @@ const nextConfig: NextConfig = {
   compress: true,
   poweredByHeader: false,
   productionBrowserSourceMaps: false,
+  turbopack: {
+    root: process.cwd(),
+  },
   experimental: {
     optimizePackageImports: [
       'lucide-react',

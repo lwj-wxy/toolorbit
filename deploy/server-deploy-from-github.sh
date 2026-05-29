@@ -25,6 +25,8 @@ if [ ! -f "$RELEASE_DIR/server.js" ]; then
   exit 1
 fi
 
+node "$SOURCE_DIR/scripts/validate-deploy-release.cjs" "$RELEASE_DIR"
+
 ln -sfn "$RELEASE_DIR" "$APP_DIR/current.new"
 mv -Tf "$APP_DIR/current.new" "$APP_DIR/current"
 

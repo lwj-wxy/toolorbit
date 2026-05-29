@@ -45,6 +45,123 @@ export const CALCULATE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
     },
   },
 
+  'reverse-vat-calculator': {
+    zh: {
+      summary:
+        'Reverse VAT / Sales Tax Calculator 用于从含税价格中反推出税前金额和税额，适合核对发票、商品标价、跨境订单或销售税已包含在价格中的场景。用户输入含税金额和税率后，工具按反向公式恢复 net amount，并同步显示 tax amount 与 gross amount。',
+      input:
+        '输入金额、税率百分比、计算模式和货币。该工具默认使用 Remove tax 模式，并提供 20%、19%、10%、8.875% 等常见税率按钮，支持小数税率和多币种展示。',
+      output:
+        '输出税前金额、税额、含税金额和当前公式。金额统一保留两位小数、带货币符号并使用千分位展示；非法输入会显示字段级错误，不展示误导性结果。',
+      processing:
+        'Remove tax 模式使用 net = gross / (1 + rate)，tax = gross - net。rate 以百分比输入，在计算时转换为小数；内部计算保留 number 精度，展示层统一格式化。复制结果会把模式、税率、三项金额和公式写入剪贴板。',
+      modes: ['反向去税', 'Add tax / Remove tax 切换', '小数税率', '税率 preset', '多币种格式化', '字段级校验', '复制结果'],
+      example: {
+        title: '反向 VAT 计算示例',
+        input: 'Amount: 120\nTax rate: 20%\nMode: Remove tax\nCurrency: GBP',
+        output: 'Net amount: £100.00\nTax amount: £20.00\nGross amount: £120.00',
+        inputLanguage: 'text',
+        outputLanguage: 'text',
+      },
+    },
+    en: {
+      summary:
+        'The Reverse VAT / Sales Tax Calculator removes tax from a tax-inclusive price and recovers the net amount and tax amount. It is useful for checking invoices, listed prices, ecommerce orders, and any situation where sales tax or VAT is already included in the displayed price.',
+      input:
+        'Enter an amount, tax rate percentage, calculation mode, and currency. The tool defaults to Remove tax and includes common presets such as 20%, 19%, 10%, and 8.875%, with support for decimal tax rates and multiple currency display formats.',
+      output:
+        'The result shows net amount, tax amount, gross amount, and the active formula. Values are formatted with currency symbols, thousands separators, and two decimal places. Invalid input displays inline validation and suppresses calculation output.',
+      processing:
+        'Remove tax uses net = gross / (1 + rate), tax = gross - net. The rate is entered as a percentage and converted to a decimal for calculation. Internal calculations use numeric precision and formatting is centralized at display time. Copy result writes the mode, rate, three amounts, and formula to the clipboard.',
+      modes: ['Reverse tax removal', 'Add tax / Remove tax toggle', 'Decimal tax rates', 'Rate presets', 'Multi-currency formatting', 'Inline validation', 'Copy result'],
+      example: {
+        title: 'Reverse VAT calculation example',
+        input: 'Amount: 120\nTax rate: 20%\nMode: Remove tax\nCurrency: GBP',
+        output: 'Net amount: £100.00\nTax amount: £20.00\nGross amount: £120.00',
+        inputLanguage: 'text',
+        outputLanguage: 'text',
+      },
+    },
+  },
+
+  'vat-inclusive-exclusive-calculator': {
+    zh: {
+      summary:
+        'VAT Inclusive / Exclusive Price Calculator 用于在含税价和税前价之间切换。用户可以从税前金额加税得到含税价，也可以从含税金额去税得到税前价，适合报价、订单核对和价格换算。',
+      input:
+        '输入金额、税率、货币并选择 Add tax 或 Remove tax。Add tax 将输入视为税前价；Remove tax 将输入视为含税价。税率支持 0 到 100 之间的小数。',
+      output:
+        '输出 net amount、tax amount、gross amount 和随模式变化的公式说明。结果可复制，重置按钮会恢复默认金额、税率、货币和模式。',
+      processing:
+        'Add tax 模式计算 gross = net x (1 + rate)，Remove tax 模式计算 net = gross / (1 + rate)。两种模式复用同一个 tax calculation engine，避免后续国家税率页面重复实现公式。',
+      modes: ['含税价换算', '税前价换算', 'Add tax', 'Remove tax', '税率 preset', '多币种展示', '复制结果'],
+      example: {
+        title: '含税/税前价格换算示例',
+        input: 'Amount: 100\nTax rate: 20%\nMode: Add tax',
+        output: 'Net amount: £100.00\nTax amount: £20.00\nGross amount: £120.00',
+        inputLanguage: 'text',
+        outputLanguage: 'text',
+      },
+    },
+    en: {
+      summary:
+        'The VAT Inclusive / Exclusive Price Calculator converts between tax-exclusive and tax-inclusive prices. It can add tax to a net amount or remove tax from a gross amount, making it useful for quotes, order checks, and price comparisons.',
+      input:
+        'Enter an amount, tax rate, currency, and choose Add tax or Remove tax. Add tax treats the input as the net price; Remove tax treats the input as the tax-inclusive gross price. Decimal rates from 0 to 100 are supported.',
+      output:
+        'The result shows net amount, tax amount, gross amount, and the formula for the selected mode. Results can be copied, and reset restores the default amount, rate, currency, and mode.',
+      processing:
+        'Add tax calculates gross = net x (1 + rate), while Remove tax calculates net = gross / (1 + rate). Both modes reuse the same tax calculation engine so future country and regional tax pages can share the formula layer.',
+      modes: ['VAT inclusive conversion', 'VAT exclusive conversion', 'Add tax', 'Remove tax', 'Rate presets', 'Multi-currency display', 'Copy result'],
+      example: {
+        title: 'Inclusive/exclusive price example',
+        input: 'Amount: 100\nTax rate: 20%\nMode: Add tax',
+        output: 'Net amount: £100.00\nTax amount: £20.00\nGross amount: £120.00',
+        inputLanguage: 'text',
+        outputLanguage: 'text',
+      },
+    },
+  },
+
+  'uk-vat-calculator': {
+    zh: {
+      summary:
+        'UK VAT Calculator 用于按英国常见 VAT 税率快速计算税前金额、VAT 金额和含税金额。页面内置 20% standard rate、5% reduced rate 和 0% zero rate，并展示来源、最后核对日期和非税务建议声明。',
+      input:
+        '输入金额、选择 Add tax 或 Remove tax、选择 GBP 或其他展示货币，并使用英国 VAT preset 填入税率。默认税率为 20%，默认货币为 GBP。',
+      output:
+        '输出 net amount、tax amount、gross amount、公式、英国税率说明、来源链接、Last checked 日期、Effective date 和适用范围备注。',
+      processing:
+        '计算逻辑与通用 tax engine 一致：Add tax 从税前价推导含税价，Remove tax 从含税价反推税前价。税率数据独立存放在 TaxJurisdiction 结构中，方便后续扩展 EU、US 和 GST 页面。',
+      modes: ['UK VAT 20%', 'Reduced rate 5%', 'Zero rate 0%', 'Add tax', 'Remove tax', '来源与更新时间', '免责声明'],
+      example: {
+        title: 'UK VAT 计算示例',
+        input: 'Amount: 100\nTax rate: 20%\nMode: Add tax\nCurrency: GBP',
+        output: 'Net amount: £100.00\nVAT amount: £20.00\nGross amount: £120.00',
+        inputLanguage: 'text',
+        outputLanguage: 'text',
+      },
+    },
+    en: {
+      summary:
+        'The UK VAT Calculator estimates net amount, VAT amount, and gross amount using common UK VAT rates. It includes presets for the 20% standard rate, 5% reduced rate, and 0% zero rate, plus source, last-checked date, and a non-tax-advice disclaimer.',
+      input:
+        'Enter an amount, choose Add tax or Remove tax, choose GBP or another display currency, and use the UK VAT presets to set the rate. The default rate is 20% and the default currency is GBP.',
+      output:
+        'The result shows net amount, tax amount, gross amount, formula, UK rate notes, source link, last checked date, effective date, and scope note.',
+      processing:
+        'The calculation uses the shared tax engine: Add tax derives gross price from net price, while Remove tax derives net price from gross price. UK rate data is stored in a TaxJurisdiction structure so EU, US, and GST pages can reuse the same pattern later.',
+      modes: ['UK VAT 20%', 'Reduced rate 5%', 'Zero rate 0%', 'Add tax', 'Remove tax', 'Source and update date', 'Disclaimer'],
+      example: {
+        title: 'UK VAT calculation example',
+        input: 'Amount: 100\nTax rate: 20%\nMode: Add tax\nCurrency: GBP',
+        output: 'Net amount: £100.00\nVAT amount: £20.00\nGross amount: £120.00',
+        inputLanguage: 'text',
+        outputLanguage: 'text',
+      },
+    },
+  },
+
   'time-converter': {
     zh: {
       summary:
