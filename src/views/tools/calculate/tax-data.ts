@@ -7,6 +7,22 @@ export type TaxRatePreset = {
   descriptionZh?: string;
 };
 
+export type TaxJurisdiction = {
+  slug: string;
+  name: string;
+  nameZh: string;
+  countryCode: string;
+  currency: string;
+  rates: TaxRatePreset[];
+  sourceName: string;
+  sourceUrl: string;
+  lastChecked: string;
+  effectiveDate?: string;
+  effectiveDateZh?: string;
+  note?: string;
+  noteZh?: string;
+};
+
 export type CurrencyOption = {
   code: string;
   label: string;
@@ -23,6 +39,7 @@ export type TaxCalculatorConfig = {
   defaultCurrency: string;
   defaultMode: TaxCalculationMode;
   presets: TaxRatePreset[];
+  jurisdiction?: TaxJurisdiction;
 };
 
 export const TAX_CURRENCIES: CurrencyOption[] = [
@@ -43,10 +60,43 @@ export const COMMON_TAX_RATE_PRESETS: TaxRatePreset[] = [
 ];
 
 export const UK_VAT_RATE_PRESETS: TaxRatePreset[] = [
-  { label: '20%', rate: 20, description: 'Standard rate', descriptionZh: '标准税率' },
-  { label: '5%', rate: 5, description: 'Reduced rate', descriptionZh: '优惠税率' },
-  { label: '0%', rate: 0, description: 'Zero rate', descriptionZh: '零税率' },
+  {
+    label: '20%',
+    rate: 20,
+    description: 'Standard rate - most goods and services',
+    descriptionZh: '标准税率 - 多数商品和服务',
+  },
+  {
+    label: '5%',
+    rate: 5,
+    description: 'Reduced rate - qualifying goods and services',
+    descriptionZh: '优惠税率 - 符合条件的商品和服务',
+  },
+  {
+    label: '0%',
+    rate: 0,
+    description: 'Zero rate - qualifying zero-rated supplies',
+    descriptionZh: '零税率 - 符合条件的 zero-rated 供应',
+  },
 ];
+
+export const UK_VAT_JURISDICTION: TaxJurisdiction = {
+  slug: 'uk',
+  name: 'United Kingdom',
+  nameZh: '英国',
+  countryCode: 'GB',
+  currency: 'GBP',
+  rates: UK_VAT_RATE_PRESETS,
+  sourceName: 'GOV.UK VAT rates',
+  sourceUrl: 'https://www.gov.uk/vat-rates',
+  lastChecked: '2026-06-01',
+  effectiveDate: '20% standard rate effective since 2011-01-04',
+  effectiveDateZh: '20% 标准税率自 2011-01-04 起生效',
+  note:
+    'The 20% standard rate applies to most goods and services. The 5% reduced rate and 0% zero rate apply only to qualifying categories. Exempt and out-of-scope supplies are not modeled by this calculator.',
+  noteZh:
+    '20% 标准税率适用于多数商品和服务。5% reduced rate 和 0% zero rate 仅适用于符合条件的品类。本计算器不覆盖 exempt 或 out-of-scope 场景。',
+};
 
 export const TAX_CALCULATOR_CONFIGS: Record<string, TaxCalculatorConfig> = {
   'reverse-vat-calculator': {
@@ -90,5 +140,6 @@ export const TAX_CALCULATOR_CONFIGS: Record<string, TaxCalculatorConfig> = {
     defaultCurrency: 'GBP',
     defaultMode: 'add',
     presets: UK_VAT_RATE_PRESETS,
+    jurisdiction: UK_VAT_JURISDICTION,
   },
 };

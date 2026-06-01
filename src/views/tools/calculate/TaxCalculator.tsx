@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Check, Copy, Percent, RotateCcw } from 'lucide-react';
+import { Check, Copy, ExternalLink, Percent, RotateCcw } from 'lucide-react';
 import ToolSEOCard from '../../../components/ToolSEOCard';
 import { cn } from '../../../lib/utils';
 import {
@@ -39,6 +39,91 @@ const ResultRow = ({ label, value, tone = 'default' }: ResultRowProps) => (
 );
 
 const parseNumberField = (value: string) => Number(value.trim());
+
+const TaxJurisdictionPanel = ({ config, isZh }: { config: TaxCalculatorConfig; isZh: boolean }) => {
+  const jurisdiction = config.jurisdiction;
+
+  if (!jurisdiction) return null;
+
+  const labels = {
+    title: isZh ? `${jurisdiction.nameZh} VAT 税率来源` : `${jurisdiction.name} VAT rate source`,
+    subtitle: isZh
+      ? '本页使用以下公开税率 preset，适合快速估算含税价、税前价和 VAT 金额。'
+      : 'This page uses the public rate presets below for quick net, VAT, and gross price estimates.',
+    country: isZh ? '地区' : 'Jurisdiction',
+    currency: isZh ? '默认货币' : 'Default currency',
+    source: isZh ? '来源' : 'Source',
+    lastChecked: isZh ? '最后核对' : 'Last checked',
+    effectiveDate: isZh ? '生效信息' : 'Effective date',
+    note: isZh ? '适用说明' : 'Scope note',
+  };
+
+  return (
+    <section className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-[#282c34] sm:p-6">
+      <div className="flex flex-col gap-3 border-b border-slate-200 pb-5 dark:border-slate-800 lg:flex-row lg:items-start lg:justify-between">
+        <div>
+          <h2 className="text-xl font-semibold tracking-tight text-slate-950 dark:text-white">
+            {labels.title}
+          </h2>
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-400">
+            {labels.subtitle}
+          </p>
+        </div>
+        <a
+          href={jurisdiction.sourceUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="inline-flex h-10 items-center justify-center gap-2 rounded-lg border border-slate-200 px-3 text-sm font-semibold text-slate-700 transition-colors hover:border-cyan-300 hover:text-cyan-700 dark:border-slate-700 dark:text-slate-200 dark:hover:border-cyan-700 dark:hover:text-cyan-300"
+        >
+          {labels.source}
+          <ExternalLink className="h-4 w-4" aria-hidden="true" />
+        </a>
+      </div>
+
+      <div className="grid grid-cols-1 gap-5 py-5 md:grid-cols-3">
+        {jurisdiction.rates.map((preset) => (
+          <div key={`${jurisdiction.slug}-${preset.label}`} className="border-l-2 border-cyan-200 pl-4 dark:border-cyan-800">
+            <div className="font-mono text-2xl font-semibold text-slate-950 dark:text-white">{preset.label}</div>
+            <div className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
+              {isZh ? preset.descriptionZh || preset.description : preset.description}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <dl className="grid grid-cols-1 gap-x-6 gap-y-4 border-t border-slate-200 pt-5 text-sm dark:border-slate-800 md:grid-cols-2">
+        <div>
+          <dt className="font-semibold text-slate-950 dark:text-white">{labels.country}</dt>
+          <dd className="mt-1 text-slate-600 dark:text-slate-300">
+            {isZh ? jurisdiction.nameZh : jurisdiction.name} ({jurisdiction.countryCode})
+          </dd>
+        </div>
+        <div>
+          <dt className="font-semibold text-slate-950 dark:text-white">{labels.currency}</dt>
+          <dd className="mt-1 text-slate-600 dark:text-slate-300">{jurisdiction.currency}</dd>
+        </div>
+        <div>
+          <dt className="font-semibold text-slate-950 dark:text-white">{labels.lastChecked}</dt>
+          <dd className="mt-1 text-slate-600 dark:text-slate-300">{jurisdiction.lastChecked}</dd>
+        </div>
+        {jurisdiction.effectiveDate ? (
+          <div>
+            <dt className="font-semibold text-slate-950 dark:text-white">{labels.effectiveDate}</dt>
+            <dd className="mt-1 text-slate-600 dark:text-slate-300">
+              {isZh ? jurisdiction.effectiveDateZh || jurisdiction.effectiveDate : jurisdiction.effectiveDate}
+            </dd>
+          </div>
+        ) : null}
+        <div className="md:col-span-2">
+          <dt className="font-semibold text-slate-950 dark:text-white">{labels.note}</dt>
+          <dd className="mt-1 text-slate-600 dark:text-slate-300">
+            {isZh ? jurisdiction.noteZh || jurisdiction.note : jurisdiction.note}
+          </dd>
+        </div>
+      </dl>
+    </section>
+  );
+};
 
 const TaxFaqSection = ({ toolKey }: { toolKey: string }) => {
   const { t } = useTranslation();
@@ -106,6 +191,8 @@ const TaxCalculator = ({ config }: { config: TaxCalculatorConfig }) => {
     copied: isZh ? '已复制' : 'Copied',
     fixInputs: isZh ? '请先修正高亮输入项，再查看计算结果。' : 'Fix the highlighted input before viewing the calculation result.',
     mode: isZh ? '模式' : 'Mode',
+    source: isZh ? '来源' : 'Source',
+    lastChecked: isZh ? '最后核对' : 'Last checked',
   };
 
   const errors: FieldErrors = {};
@@ -148,6 +235,12 @@ const TaxCalculator = ({ config }: { config: TaxCalculatorConfig }) => {
         `${labels.netAmount}: ${formatCurrencyAmount(result.netAmount, currency)}`,
         `${labels.taxAmount}: ${formatCurrencyAmount(result.taxAmount, currency)}`,
         `${labels.grossAmount}: ${formatCurrencyAmount(result.grossAmount, currency)}`,
+        ...(config.jurisdiction
+          ? [
+              `${labels.source}: ${config.jurisdiction.sourceName}`,
+              `${labels.lastChecked}: ${config.jurisdiction.lastChecked}`,
+            ]
+          : []),
         `${labels.formula}: ${formulaText}`,
       ].join('\n')
     : '';
@@ -333,6 +426,7 @@ const TaxCalculator = ({ config }: { config: TaxCalculatorConfig }) => {
         </aside>
       </section>
 
+      <TaxJurisdictionPanel config={config} isZh={isZh} />
       <ToolSEOCard toolKey={config.toolKey} />
       <TaxFaqSection toolKey={config.toolKey} />
     </div>
