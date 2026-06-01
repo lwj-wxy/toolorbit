@@ -33,7 +33,12 @@ fs.cpSync(nextDir, path.join(outputDir, '.next'), {
   recursive: true,
   filter: (sourcePath) => {
     const relativePath = path.relative(nextDir, sourcePath);
-    return relativePath !== 'cache' && !relativePath.startsWith(`cache${path.sep}`);
+    return (
+      relativePath !== 'cache' &&
+      !relativePath.startsWith(`cache${path.sep}`) &&
+      relativePath !== 'dev' &&
+      !relativePath.startsWith(`dev${path.sep}`)
+    );
   },
 });
 
