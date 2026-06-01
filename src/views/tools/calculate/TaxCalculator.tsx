@@ -11,6 +11,7 @@ import {
 import {
   TAX_CURRENCIES,
   type TaxCalculatorConfig,
+  type TaxJurisdiction,
 } from './tax-data';
 
 type FieldErrors = {
@@ -40,9 +41,7 @@ const ResultRow = ({ label, value, tone = 'default' }: ResultRowProps) => (
 
 const parseNumberField = (value: string) => Number(value.trim());
 
-const TaxJurisdictionPanel = ({ config, isZh }: { config: TaxCalculatorConfig; isZh: boolean }) => {
-  const jurisdiction = config.jurisdiction;
-
+const TaxJurisdictionPanel = ({ jurisdiction, isZh }: { jurisdiction?: TaxJurisdiction; isZh: boolean }) => {
   if (!jurisdiction) return null;
 
   const labels = {
@@ -162,11 +161,19 @@ const TaxFaqSection = ({ toolKey }: { toolKey: string }) => {
 const TaxCalculator = ({ config }: { config: TaxCalculatorConfig }) => {
   const { i18n } = useTranslation();
   const isZh = i18n.language?.startsWith('zh');
+  const jurisdictionOptions = config.jurisdictions ?? (config.jurisdiction ? [config.jurisdiction] : []);
+  const defaultJurisdictionSlug =
+    config.defaultJurisdictionSlug ?? config.jurisdiction?.slug ?? jurisdictionOptions[0]?.slug ?? '';
   const [amountInput, setAmountInput] = useState(config.defaultAmount);
   const [rateInput, setRateInput] = useState(String(config.defaultRate));
   const [currency, setCurrency] = useState(config.defaultCurrency);
   const [mode, setMode] = useState<TaxCalculationMode>(config.defaultMode);
+  const [selectedJurisdictionSlug, setSelectedJurisdictionSlug] = useState(defaultJurisdictionSlug);
   const [copied, setCopied] = useState(false);
+  const selectedJurisdiction =
+    jurisdictionOptions.find((jurisdiction) => jurisdiction.slug === selectedJurisdictionSlug) ??
+    config.jurisdiction;
+  const activePresets = selectedJurisdiction?.rates ?? config.presets;
 
   const amountValue = parseNumberField(amountInput);
   const rateValue = parseNumberField(rateInput);
@@ -176,6 +183,7 @@ const TaxCalculator = ({ config }: { config: TaxCalculatorConfig }) => {
     addTax: isZh ? '加税' : 'Add tax',
     removeTax: isZh ? '去税' : 'Remove tax',
     amount: isZh ? '金额' : 'Amount',
+    country: isZh ? '国家 / 地区' : 'Country / jurisdiction',
     taxRate: isZh ? '税率' : 'Tax rate',
     currency: isZh ? '货币' : 'Currency',
     presets: isZh ? '常用税率' : 'Tax rate presets',
@@ -235,10 +243,11 @@ const TaxCalculator = ({ config }: { config: TaxCalculatorConfig }) => {
         `${labels.netAmount}: ${formatCurrencyAmount(result.netAmount, currency)}`,
         `${labels.taxAmount}: ${formatCurrencyAmount(result.taxAmount, currency)}`,
         `${labels.grossAmount}: ${formatCurrencyAmount(result.grossAmount, currency)}`,
-        ...(config.jurisdiction
+        ...(selectedJurisdiction
           ? [
-              `${labels.source}: ${config.jurisdiction.sourceName}`,
-              `${labels.lastChecked}: ${config.jurisdiction.lastChecked}`,
+              `${labels.country}: ${isZh ? selectedJurisdiction.nameZh : selectedJurisdiction.name}`,
+              `${labels.source}: ${selectedJurisdiction.sourceName}`,
+              `${labels.lastChecked}: ${selectedJurisdiction.lastChecked}`,
             ]
           : []),
         `${labels.formula}: ${formulaText}`,
@@ -252,10 +261,27 @@ const TaxCalculator = ({ config }: { config: TaxCalculatorConfig }) => {
     window.setTimeout(() => setCopied(false), 1600);
   };
 
+  const handleJurisdictionChange = (slug: string) => {
+    const nextJurisdiction = jurisdictionOptions.find((jurisdiction) => jurisdiction.slug === slug);
+
+    setSelectedJurisdictionSlug(slug);
+    setCopied(false);
+
+    if (!nextJurisdiction) return;
+
+    setCurrency(nextJurisdiction.currency);
+    setRateInput(String(nextJurisdiction.rates[0]?.rate ?? config.defaultRate));
+  };
+
   const handleReset = () => {
+    const resetJurisdiction =
+      jurisdictionOptions.find((jurisdiction) => jurisdiction.slug === defaultJurisdictionSlug) ??
+      config.jurisdiction;
+
     setAmountInput(config.defaultAmount);
-    setRateInput(String(config.defaultRate));
-    setCurrency(config.defaultCurrency);
+    setSelectedJurisdictionSlug(defaultJurisdictionSlug);
+    setRateInput(String(resetJurisdiction?.rates[0]?.rate ?? config.defaultRate));
+    setCurrency(resetJurisdiction?.currency ?? config.defaultCurrency);
     setMode(config.defaultMode);
     setCopied(false);
   };
@@ -290,6 +316,25 @@ const TaxCalculator = ({ config }: { config: TaxCalculatorConfig }) => {
               </button>
             ))}
           </div>
+
+          {jurisdictionOptions.length > 1 ? (
+            <label className="mb-5 block space-y-2">
+              <span className="block text-sm font-semibold text-slate-900 dark:text-slate-100">
+                {labels.country}
+              </span>
+              <select
+                value={selectedJurisdictionSlug}
+                onChange={(event) => handleJurisdictionChange(event.target.value)}
+                className="h-12 w-full rounded-lg border border-slate-200 bg-slate-50 px-4 text-sm font-semibold text-slate-900 outline-none transition-colors focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
+              >
+                {jurisdictionOptions.map((jurisdiction) => (
+                  <option key={jurisdiction.slug} value={jurisdiction.slug}>
+                    {isZh ? jurisdiction.nameZh : jurisdiction.name} ({jurisdiction.currency})
+                  </option>
+                ))}
+              </select>
+            </label>
+          ) : null}
 
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
             <label className="space-y-2">
@@ -355,8 +400,16 @@ const TaxCalculator = ({ config }: { config: TaxCalculatorConfig }) => {
             <div className="mb-2 text-sm font-semibold text-slate-900 dark:text-slate-100">
               {labels.presets}
             </div>
-            <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-              {config.presets.map((preset) => (
+            <div
+              className={cn(
+                'grid gap-2',
+                activePresets.length === 1 && 'grid-cols-1',
+                activePresets.length === 2 && 'grid-cols-1 sm:grid-cols-2',
+                activePresets.length === 3 && 'grid-cols-1 sm:grid-cols-3',
+                activePresets.length >= 4 && 'grid-cols-2 sm:grid-cols-4',
+              )}
+            >
+              {activePresets.map((preset) => (
                 <button
                   key={`${preset.label}-${preset.rate}`}
                   type="button"
@@ -426,7 +479,7 @@ const TaxCalculator = ({ config }: { config: TaxCalculatorConfig }) => {
         </aside>
       </section>
 
-      <TaxJurisdictionPanel config={config} isZh={isZh} />
+      <TaxJurisdictionPanel jurisdiction={selectedJurisdiction} isZh={isZh} />
       <ToolSEOCard toolKey={config.toolKey} />
       <TaxFaqSection toolKey={config.toolKey} />
     </div>

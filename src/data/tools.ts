@@ -116,7 +116,7 @@ const iconMap: Record<string, ComponentType<any>> = {
   'unit-converter': Calculator,
   'reverse-vat-calculator': Calculator,
   'vat-inclusive-exclusive-calculator': Calculator,
-  'uk-vat-calculator': Banknote,
+  'country-vat-calculator': Banknote,
   'time-converter': Calculator,
   'archive-converter': RefreshCcw,
   'rmb-converter': Banknote,

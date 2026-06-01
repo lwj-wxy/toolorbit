@@ -54,3 +54,9 @@
 1. 修改代码后默认不允许自行执行 `npm run dev`、 `npm run build`、`npm run build:prod`、`npm run build:testing` 等构建命令。
 2. 仅当用户明确要求构建、验证构建、跑生产包或指定执行相关命令时，才允许运行构建。
 3. 如需验证变更，优先使用局部检查、类型定位或说明未执行构建；不得把每次修改后的自动构建作为默认交付流程。
+
+## 21. 新工具描述维护规范
+1. 新增工具的“概述/描述区域”必须优先采用现有内部 overview 数据结构维护，例如 `src/views/tools/dev/data.ts` 中 `/tools/dev/json-formatter` 的格式。
+2. 计算类工具应在 `src/views/tools/calculate/data.ts` 的 `CALCULATE_TOOL_OVERVIEWS` 中维护 `summary`、`input`、`output`、`processing`、`modes`、`example` 等内容。
+3. `src/locales/*.json` 只保留页面标题、基础描述、SEO 标题/描述和工具运行所需 UI 文案；禁止为新工具随意堆砌 FAQ/highlight 作为主要描述区内容。
+4. 若新增工具需要 FAQ 或 highlight，必须确认现有页面结构确实需要该展示方式，并保持与同类工具既有模式一致。

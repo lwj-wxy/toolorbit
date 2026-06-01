@@ -1996,32 +1996,12 @@
       "highlight3Desc": "支持 GBP、EUR、USD、AUD、CAD、NZD、SGD 输出格式。",
       "disclaimer": "本计算器仅用于一般信息和快速估算，不构成税务建议。"
     },
-    "uk-vat-calculator": {
-      "name": "UK VAT Calculator",
-      "description": "按英国 20%、5%、0% VAT preset 计算税前金额、VAT 金额和含税金额。",
-      "title": "UK VAT Calculator",
-      "seoTitle": "UK VAT Calculator",
-      "seoDesc": "使用英国 VAT 20%、5%、0% 常见税率计算含税价或反推税前价，并展示 GOV.UK 来源和最后核对日期。",
-      "faq1Q": "当前 UK VAT 标准税率是多少？",
-      "faq1A": "英国标准 VAT 税率为 20%，通常适用于多数商品和服务，具体仍取决于商品和交易规则。",
-      "faq2Q": "UK reduced VAT rate 是多少？",
-      "faq2A": "英国 reduced rate 为 5%，适用于 GOV.UK 所列的部分商品和服务示例，例如儿童汽车座椅和家庭能源。",
-      "faq3Q": "这个 UK VAT 计算器是税务建议吗？",
-      "faq3A": "不是。它只用于快速估算。实际 VAT 处理可能取决于商品类别、地点、豁免和交易细节。",
-      "faq4Q": "英国 5% 减免 VAT 税率适用于哪些商品和服务？",
-      "faq4A": "根据 GOV.UK 官方信息，5% 减免税率适用于有限的特定品类，包括：儿童汽车座椅、家用燃料和电力（如居民用气和电）、节能材料安装、戒烟辅助产品（尼古丁贴片和口香糖）、卫生防护用品以及老年人行动辅助设备等。该清单可能随政策调整而变化，建议在使用前查阅最新的 HMRC VAT 指南以确认当前适用品类。",
-      "faq5Q": "英国的 zero-rated（零税率）和 exempt（免税）有什么区别？",
-      "faq5A": "Zero-rated（0% VAT 零税率）是指商品或服务属于 VAT 征税范围但适用 0% 税率——销售零税率商品的企业仍可抵扣相关采购中支付的进项 VAT。典型例子包括大多数食品、童装、书籍和公共交通。Exempt（免税）是指该供应完全不在 VAT 征税范围内——从事免税供应的企业通常无法抵扣相关成本的进项 VAT。典型例子包括金融服务、保险、教育和注册专业人员提供的医疗服务。这个区别对 VAT 注册企业非常重要，因为它直接影响进项税抵扣权利。",
-      "faq6Q": "英国 VAT 税率历史上有过变化吗？未来还会变吗？",
-      "faq6A": "英国标准 VAT 税率自 2011 年 1 月 4 日起维持在 20%（此前从 17.5% 上调）。2008-2009 年金融危机期间曾临时降至 15%。虽然 20% 的标准税率已稳定超过十年，但政府在财政预算中仍有权调整 VAT 税率。减免税率最近一次变更为 2021 年 10 月（COVID-19 期间针对酒店餐饮行业的临时 12.5% 税率到期，恢复为永久性的 5%）。本计算器页面展示了最后核对日期和 GOV.UK VAT 指南链接，方便你确认当前使用的税率是否仍为最新。",
-      "highlightsTitle": "UK VAT 计算器亮点",
-      "highlight1Title": "英国税率 preset",
-      "highlight1Desc": "内置 20% standard rate、5% reduced rate 和 0% zero rate。",
-      "highlight2Title": "展示来源",
-      "highlight2Desc": "页面展示 GOV.UK 来源链接和本站最后核对日期。",
-      "highlight3Title": "加税或去税",
-      "highlight3Desc": "既可从税前价计算含税价，也可从含税价反推税前价。",
-      "disclaimer": "本计算器仅用于一般信息和快速估算，不构成税务建议。"
+    "country-vat-calculator": {
+      "name": "Country VAT Calculator",
+      "description": "在同一个计算器内选择英国、德国、法国、西班牙、意大利、荷兰或爱尔兰 VAT preset。",
+      "title": "Country VAT Calculator",
+      "seoTitle": "Country VAT Calculator",
+      "seoDesc": "按国家选择 UK 或 EU VAT preset，计算税前价、VAT 金额和含税价，并展示来源说明。"
     },
     "time-converter": {
       "name": "时间转换器",

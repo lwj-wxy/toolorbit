@@ -123,20 +123,20 @@ export const CALCULATE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
     },
   },
 
-  'uk-vat-calculator': {
+  'country-vat-calculator': {
     zh: {
       summary:
-        'UK VAT Calculator（英国增值税计算器）是一款专为英国增值税（Value Added Tax, VAT）场景设计的计算工具，内置 HMRC 官方规定的三档 VAT 税率快捷预设——标准税率 20%（Standard rate，适用于大多数商品和服务）、减免税率 5%（Reduced rate，适用于儿童汽车座椅、家用燃料和电力、节能材料安装、戒烟辅助产品、卫生防护用品等特定品类）以及零税率 0%（Zero rate，适用于大多数食品、童装、书籍报刊、公共交通、处方药等）——用户点击即可填入对应税率，无需记忆或查询 GOV.UK。工具同时支持 Add tax（从税前价推算含税价）和 Remove tax（从含税价反推税前价）两种计算模式，覆盖英国本地卖家在 Amazon、eBay、Etsy、Shopify 等电商平台的 VAT 核算、跨境电商卖家向英国消费者销售商品时的 VAT 合规定价（特别是脱欧后英国 VAT 政策调整涉及的进口 VAT 和平台代收代缴规则）、英国注册企业的进项税和销项税对账、自由职业者和承包商在申报 VAT 时的收入拆分，以及消费者在英国购物时了解实际税费占比。页面明确标注税率数据来源为 GOV.UK 官方 VAT 指南、展示本站最后核对日期、并在醒目位置发布非税务建议免责声明，确保用户知晓计算结果仅供快速估算参考，不构成正式税务建议。默认使用英镑（GBP）作为结算货币展示，同时支持切换至 EUR、USD 等六种其他主流货币的格式化输出，方便跨境场景下的等值金额表达。',
+        'Country VAT Calculator（国家 VAT 计算器）将英国、德国、法国、西班牙、意大利、荷兰和爱尔兰的 VAT preset 收敛到同一个工具中。用户先选择国家或地区，再使用该国家维护的标准税率、优惠税率或零税率 preset 进行 Add tax（从税前价推导含税价）或 Remove tax（从含税价反推税前价）计算。该结构避免把相同计算逻辑拆成多个重复工具，同时保留每个国家独立的税率、默认货币、来源链接、最后核对日期和适用范围说明，适合跨境电商定价、供应商报价核对、B2B/B2C 含税展示转换和财务快速估算。',
       input:
-        '输入金额、选择 Add tax 或 Remove tax、选择 GBP 或其他展示货币，并使用英国 VAT preset 填入税率。默认税率为 20%，默认货币为 GBP。',
+        '输入金额、选择国家或地区、选择 Add tax 或 Remove tax、选择展示货币，并使用当前国家的 VAT preset 填入税率。默认国家为英国，默认税率为 20%，默认货币为 GBP；切换到欧盟国家时会自动切换为 EUR 并加载对应税率 preset。',
       output:
-        '输出 net amount、tax amount、gross amount、公式、英国税率说明、来源链接、Last checked 日期、Effective date 和适用范围备注。',
+        '输出 net amount、tax amount、gross amount、当前公式、所选国家税率说明、来源链接、Last checked 日期、Effective date（如有）和适用范围备注。',
       processing:
-        '计算逻辑与通用 tax engine 一致：Add tax 从税前价推导含税价，Remove tax 从含税价反推税前价。税率数据独立存放在 TaxJurisdiction 结构中，方便后续扩展 EU、US 和 GST 页面。',
-      modes: ['UK VAT 20%', 'Reduced rate 5%', 'Zero rate 0%', 'Add tax', 'Remove tax', '来源与更新时间', '免责声明'],
+        'Add tax 模式使用 gross = net x (1 + rate)，Remove tax 模式使用 net = gross / (1 + rate)。税率以百分比输入，在计算时转换为小数。各国家税率 preset 和来源信息通过 TaxJurisdiction 数组维护，切换国家时同步替换 preset、默认货币和来源说明，计算逻辑保持同一套实现。',
+      modes: ['国家切换', 'UK VAT preset', 'EU VAT preset', 'Add tax', 'Remove tax', '多币种格式化', '来源与更新时间', '复制结果'],
       example: {
-        title: 'UK VAT 计算示例',
-        input: 'Amount: 100\nTax rate: 20%\nMode: Add tax\nCurrency: GBP',
+        title: '国家 VAT 计算示例',
+        input: 'Country: United Kingdom\nAmount: 100\nTax rate: 20%\nMode: Add tax\nCurrency: GBP',
         output: 'Net amount: £100.00\nVAT amount: £20.00\nGross amount: £120.00',
         inputLanguage: 'text',
         outputLanguage: 'text',
@@ -144,17 +144,17 @@ export const CALCULATE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
     },
     en: {
       summary:
-        'The UK VAT Calculator is a purpose-built tool for computing Value Added Tax under the United Kingdom\'s VAT regime as administered by HM Revenue & Customs (HMRC). It features one-click presets for the three statutory UK VAT rates: the 20% standard rate — applicable to most goods and services; the 5% reduced rate — applicable to specific categories such as children\'s car seats, domestic fuel and power, energy-saving materials installation, smoking cessation products, and sanitary protection products; and the 0% zero rate — applicable to most food (excluding catering and certain luxury items), children\'s clothing and footwear, books and newspapers, public transport fares, and prescription medicines. Both Add tax (calculate gross from net) and Remove tax (calculate net from gross) modes are supported, covering the needs of UK-based sellers on Amazon, eBay, Etsy, and Shopify reconciling VAT on marketplace sales, international sellers pricing goods for UK consumers under post-Brexit VAT rules (including import VAT and marketplace deemed-supplier provisions), UK VAT-registered businesses performing input and output tax reconciliation, freelancers and contractors preparing VAT returns under the Flat Rate Scheme or standard accounting, and consumers checking the tax embedded in UK purchases. The page prominently displays the GOV.UK VAT guide as the official rate source, shows the last-checked date for transparency, and carries a clear disclaimer that results are quick estimates only and do not constitute tax advice. The default display currency is GBP, with optional switching to EUR, USD, AUD, CAD, NZD, and SGD for cross-border price equivalence.',
+        'The Country VAT Calculator consolidates UK, Germany, France, Spain, Italy, Netherlands, and Ireland VAT presets into one tool. Users choose a country or jurisdiction, then apply that country\'s maintained standard, reduced, super-reduced, or zero-rate presets in Add tax or Remove tax mode. This avoids splitting identical calculation logic into many duplicate tools while preserving country-specific rates, default currency, official source links, last checked dates, and scope notes. It is designed for cross-border ecommerce pricing, supplier quote checks, B2B/B2C tax-display conversion, and quick finance estimates.',
       input:
-        'Enter an amount, choose Add tax or Remove tax, choose GBP or another display currency, and use the UK VAT presets to set the rate. The default rate is 20% and the default currency is GBP.',
+        'Enter an amount, choose a country or jurisdiction, choose Add tax or Remove tax, choose a display currency, and click the active country VAT preset. The default country is the United Kingdom with a 20% rate and GBP currency; switching to EU countries loads EUR and the selected country rates.',
       output:
-        'The result shows net amount, tax amount, gross amount, formula, UK rate notes, source link, last checked date, effective date, and scope note.',
+        'The result shows net amount, VAT amount, gross amount, formula, selected-country rate notes, source link, last checked date, effective date when available, and scope note.',
       processing:
-        'The calculation uses the shared tax engine: Add tax derives gross price from net price, while Remove tax derives net price from gross price. UK rate data is stored in a TaxJurisdiction structure so EU, US, and GST pages can reuse the same pattern later.',
-      modes: ['UK VAT 20%', 'Reduced rate 5%', 'Zero rate 0%', 'Add tax', 'Remove tax', 'Source and update date', 'Disclaimer'],
+        'Add tax uses gross = net x (1 + rate), while Remove tax uses net = gross / (1 + rate). The rate is entered as a percentage and converted to a decimal for calculation. Country presets and source data are maintained through a TaxJurisdiction array, so changing country updates presets, default currency, and source notes while keeping one calculation implementation.',
+      modes: ['Country switcher', 'UK VAT presets', 'EU VAT presets', 'Add tax', 'Remove tax', 'Multi-currency formatting', 'Source and update date', 'Copy result'],
       example: {
-        title: 'UK VAT calculation example',
-        input: 'Amount: 100\nTax rate: 20%\nMode: Add tax\nCurrency: GBP',
+        title: 'Country VAT calculation example',
+        input: 'Country: United Kingdom\nAmount: 100\nTax rate: 20%\nMode: Add tax\nCurrency: GBP',
         output: 'Net amount: £100.00\nVAT amount: £20.00\nGross amount: £120.00',
         inputLanguage: 'text',
         outputLanguage: 'text',

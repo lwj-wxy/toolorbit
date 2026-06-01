@@ -488,11 +488,11 @@ const RAW_TOOLS_META = [
     color: 'emerald',
   },
   {
-    id: 'uk-vat-calculator',
-    name: 'UK VAT Calculator',
-    description: 'Calculate UK VAT with 20%, 5%, and 0% presets, showing net amount, VAT amount, gross price, source, and disclaimer.',
+    id: 'country-vat-calculator',
+    name: 'Country VAT Calculator',
+    description: 'Choose UK or EU VAT rate presets by country, then calculate net amount, VAT amount, and gross price with add-tax or remove-tax modes.',
     category: '电商工具',
-    path: '/tools/ecommerce/uk-vat-calculator',
+    path: '/tools/ecommerce/country-vat-calculator',
     color: 'emerald',
   },
   {

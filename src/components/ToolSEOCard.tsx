@@ -46,7 +46,6 @@ const STANDALONE_FAQ_CATEGORY_SLUGS = new Set([
 const CUSTOM_FAQ_TOOL_KEYS = new Set([
   'reverse-vat-calculator',
   'vat-inclusive-exclusive-calculator',
-  'uk-vat-calculator',
 ]);
 
 interface ToolSEOCardProps {
