@@ -47,7 +47,7 @@ Digital downloads need photos too. Use mockups, preview pages, included-file dia
 
 Product photography affects perceived value. If your price is higher than competitors, photos need to justify it. Show material quality, handmade process, packaging, customization options, and the emotional use case.
 
-For example, a $48 handmade candle cannot rely on one white-background image. It needs to show the vessel, wax finish, scent notes, gift packaging, scale, and the mood it creates in a room. Then use the [Etsy Pricing Calculator](/tools/ecommerce/etsy-pricing-calculator) to confirm that the premium price still covers materials, shipping, fees, and target profit.
+For example, a $48 handmade candle cannot rely on one white-background image. It needs to show the vessel, wax finish, scent notes, gift packaging, scale, and the mood it creates in a room. Then use the [Etsy Pricing Calculator](/tools/ecommerce/etsy-pricing-calculator) to confirm that the higher price still covers materials, shipping, fees, and target profit.
 
 ## Avoid Common Photo Mistakes
 

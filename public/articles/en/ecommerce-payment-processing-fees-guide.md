@@ -8,7 +8,7 @@ The useful question is not "Which fee is lowest?" The useful question is: "After
 
 Etsy is a marketplace. Its fees help fund search visibility, buyer trust, marketplace infrastructure, and payment handling. A standalone website using Stripe or PayPal does not automatically bring buyers. You may pay less per transaction but spend more on traffic, content, ads, email, and support.
 
-Here is the broad distinction:
+The broad distinction:
 
 | Channel | What the fee pays for |
 |---------|-----------------------|
@@ -20,7 +20,7 @@ That is why comparing Etsy's all-in fee to Stripe's payment fee can be misleadin
 
 ### Etsy's fee structure in detail
 
-To understand what you actually pay on Etsy, you need the full list:
+To understand what you pay on Etsy, include the full list:
 
 | Fee | Typical amount | Applied to |
 |-----|---------------|------------|
@@ -135,7 +135,7 @@ Selling internationally adds cost layers that can surprise sellers:
 | Regulatory operating fee | Yes (varies by buyer country) | No | No |
 | Shipping complexity | Etsy labels available for some international routes | Self-managed | Self-managed |
 
-Etsy's flat 6.5% transaction fee is actually an advantage for international orders — it does not increase for cross-border transactions. The main international cost on Etsy is the 2.5% currency conversion fee and any applicable regulatory operating fees.
+Etsy's flat 6.5% transaction fee can help on international orders because it does not increase for cross-border transactions. The main international cost on Etsy is the 2.5% currency conversion fee and any applicable regulatory operating fees.
 
 On a standalone store, international orders carry the additional 1.5% card surcharge and currency conversion. If your store is 30%+ international, factor these costs into your pricing or consider geolocation-based pricing that adjusts displayed prices by buyer country.
 
@@ -178,7 +178,7 @@ Marketplace facilitator laws in the US, EU, and UK mean that marketplaces like E
 
 ## Multi-Channel Strategy: When to Use Which
 
-Most successful small ecommerce businesses use more than one channel. A common pattern:
+Many small ecommerce businesses use more than one channel. A common pattern:
 
 1. **Etsy** for discovery and new customer acquisition. Accept the higher fees as a customer acquisition cost.
 2. **Standalone store (Shopify/WooCommerce + Stripe)** for repeat customers and higher-margin direct sales. Include a card in shipments inviting buyers to the standalone store for future purchases.
@@ -204,7 +204,7 @@ The key is tracking customer acquisition source. If an Etsy buyer becomes a repe
 2. Stripe and PayPal reduce the payment-processing layer, not the traffic-acquisition layer.
 3. Net margin depends on order value, direct cost, conversion, refunds, ads, fraud, taxes, and repeat purchase behavior.
 4. BNPL costs more per transaction but can increase AOV enough to justify the fee.
-5. International orders carry additional cost layers on every channel — Etsy's flat transaction fee is actually an advantage here.
+5. International orders carry additional cost layers on every channel. Etsy's flat transaction fee can help here.
 6. Payout timing and tax compliance are hidden costs that affect working capital and operational complexity.
 7. Sellers should compare channels with real scenarios, not headline percentages.
 8. A healthy ecommerce strategy may use Etsy for discovery, a standalone store for repeat margin, and PayPal as a checkout complement.

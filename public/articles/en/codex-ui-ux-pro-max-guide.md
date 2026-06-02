@@ -2,7 +2,7 @@
 
 ## TL;DR
 
-ui-ux-pro-max is useful when Codex needs design judgment, not just code completion. Use it before building or fixing a frontend screen so Codex can choose a design system, color direction, typography, layout pattern, UX constraints, and stack-specific implementation guidance. The skill covers 67 visual styles, 96 color palettes, 57 font pairings, 25 chart types, and 13 frontend stacks. Give it product context, audience, and the UX problem — not just "make it look good."
+ui-ux-pro-max is useful when Codex needs design judgment as well as code completion. Use it before building or fixing a frontend screen so Codex can choose a design system, color direction, typography, layout pattern, UX constraints, and stack-specific implementation guidance. The skill covers 67 visual styles, 96 color palettes, 57 font pairings, 25 chart types, and 13 frontend stacks. Give it product context, audience, and the UX problem rather than only saying "make it look good."
 
 Last reviewed: 2026-05-27. Maintained by the [ToolOrbit Editorial Team](/authors/toolorbit-editorial-team).
 
@@ -104,7 +104,7 @@ Anti-patterns (do NOT use):
   - No glassmorphism or neumorphism effects.
 ```
 
-This is concrete enough to implement and constrains enough to prevent common AI design mistakes. The anti-patterns section is especially valuable — it tells Codex what the page is not.
+This is concrete enough to implement and constrained enough to prevent common AI design mistakes. The anti-patterns section is useful because it tells Codex what the page is not.
 
 ## Why the design system step matters
 
@@ -203,7 +203,7 @@ Before sending a ui-ux-pro-max request, check that you have covered:
 5. **Constraints** — What must not change (existing behavior, copy, data flow).
 6. **Problem statement** — What is actually wrong with the current UI?
 
-Skipping any of these makes the output less predictable. The most commonly skipped is the problem statement — and it is the most important.
+Skipping any of these makes the output less predictable. The problem statement is the most commonly skipped input and often the most important.
 
 ## Framework-specific integration
 
@@ -339,4 +339,4 @@ The sixth mistake is treating the design system as an afterthought. Asking ui-ux
 
 ## Bottom line
 
-Use `ui-ux-pro-max` early, before Codex writes a lot of UI code. It is most effective when it shapes the design direction, not when it is asked to decorate a finished screen. Give it product context, constraints, stack, and the UX problem you are trying to solve. The skill is not a design replacement — it is a design reasoning layer that helps Codex make consistent, contextual decisions instead of guessing.
+Use `ui-ux-pro-max` early, before Codex writes a lot of UI code. It works best when it shapes the design direction, not when it decorates a finished screen. Give it product context, constraints, stack, and the UX problem you are trying to solve. The skill is a design reasoning layer that helps Codex make consistent, contextual decisions instead of guessing.

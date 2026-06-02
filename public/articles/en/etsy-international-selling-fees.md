@@ -106,7 +106,7 @@ These laws simplify compliance for sellers — you do not need to register, coll
 
 ### 1. Match Your Listing Currency to Your Bank Currency
 
-The simplest fix: list in the same currency your bank account uses. If your bank is in GBP, list in GBP. Yes, you might lose some price transparency for international buyers, but you save 2.5% on every order. For many sellers, that's worth more than the potential conversion-rate improvement from listing in USD.
+The simplest fix: list in the same currency your bank account uses. If your bank is in GBP, list in GBP. You might lose some price transparency for international buyers, but you save 2.5% on every order. For many sellers, that savings beats the possible conversion-rate lift from listing in USD.
 
 To evaluate the trade-off: track your conversion rate by buyer country. If US buyers convert at 3.5% when you list in GBP vs. 4.0% when you list in USD, the 0.5 percentage point improvement needs to generate enough additional revenue to offset the 2.5% fee on all USD-listed sales. Usually, it does not.
 
@@ -122,7 +122,7 @@ Setup steps:
 
 ### 3. Factor the Fees into Your Pricing
 
-If you choose to keep a currency mismatch (for example, because listing in USD genuinely increases your conversion rate), build the 2.5% into your pricing model. The [Etsy Pricing Calculator](/tools/ecommerce/etsy-pricing-calculator) includes both a regulatory fee input and a currency conversion toggle so you can model these costs before setting a price.
+If you choose to keep a currency mismatch because listing in USD increases your conversion rate, build the 2.5% into your pricing model. The [Etsy Pricing Calculator](/tools/ecommerce/etsy-pricing-calculator) includes both a regulatory fee input and a currency conversion toggle so you can model these costs before setting a price.
 
 ### 4. Cross-Check Your Etsy Bill
 

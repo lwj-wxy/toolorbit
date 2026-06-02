@@ -2,7 +2,7 @@
 
 Etsy SEO is no longer about stuffing every possible keyword into a long title. Etsy's own 2025 search guidance is clearer: search looks across the whole listing, including titles, tags, attributes, descriptions, photos, reviews, and buyer behavior. That means the practical job is not "add more words." It is to make every field do a specific job.
 
-This guide focuses on the parts sellers can control before a listing goes live: title structure, tags, attributes, and the first lines of the description.
+Focus on the parts sellers can control before a listing goes live: title structure, tags, attributes, and the first lines of the description.
 
 ## How Etsy Search Ranks Listings
 
@@ -121,11 +121,11 @@ The [Keyword Analyzer](/tools/ai/keyword-analyzer) can help you group seed phras
 
 ## Treat Attributes as Search Data
 
-Attributes are not just form fields. They give Etsy structured information about color, material, occasion, recipient, size, and other category-specific traits. Fill out every relevant attribute accurately, especially when a trait is a common buying filter.
+Attributes give Etsy structured information about color, material, occasion, recipient, size, and other category-specific traits. Fill out every relevant attribute accurately, especially when a trait is a common buying filter.
 
 For example, a candle listing might use attributes for scent family, color, occasion, and room. A printable wall art listing might use style, room, orientation, and subject. If a buyer filters by these traits, a missing attribute can reduce your visibility even when your title and tags are strong.
 
-Accuracy matters. Do not add an occasion, recipient, or material that does not genuinely apply just to appear in more searches. Irrelevant matches can hurt engagement because buyers click, realize it is not what they wanted, and leave.
+Accuracy matters. Do not add an occasion, recipient, or material that does not apply just to appear in more searches. Irrelevant matches can hurt engagement because buyers click, realize it is not what they wanted, and leave.
 
 ### Category selection strategy
 

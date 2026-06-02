@@ -6,10 +6,10 @@ The 16 MBTI types are combinations of four preference pairs. Treat each type as 
 
 The 16 types fall into four role groups based on shared temperament patterns:
 
-- **Analysts (NT):** INTJ, INTP, ENTJ, ENTP — drawn to systems, strategy, and conceptual understanding.
-- **Diplomats (NF):** INFJ, INFP, ENFJ, ENFP — drawn to meaning, connection, and human potential.
-- **Sentinels (SJ):** ISTJ, ISFJ, ESTJ, ESFJ — drawn to order, responsibility, and reliable process.
-- **Explorers (SP):** ISTP, ISFP, ESTP, ESFP — drawn to experience, action, and real-time adaptation.
+- **Analysts (NT):** INTJ, INTP, ENTJ, ENTP. Drawn to systems, strategy, and conceptual understanding.
+- **Diplomats (NF):** INFJ, INFP, ENFJ, ENFP. Drawn to meaning, connection, and human potential.
+- **Sentinels (SJ):** ISTJ, ISFJ, ESTJ, ESFJ. Drawn to order, responsibility, and reliable process.
+- **Explorers (SP):** ISTP, ISFP, ESTP, ESFP. Drawn to experience, action, and real-time adaptation.
 
 Each group shares two middle letters (N+T, N+F, S+J, or S+P), which creates shared values and approaches despite differences in energy direction (E/I) and lifestyle orientation (J/P).
 
@@ -39,7 +39,7 @@ Analysts approach the world through the lens of systems, logic, and strategic th
 
 **Under stress:** An overextended INTP may become uncharacteristically emotional, irritable, or fixated on minor details. Recovery requires returning to their natural mode: uninterrupted time to think, explore ideas without pressure, and re-establish their internal framework.
 
-**Growth path:** Turn exploration into deliverables. The intellectual insight that stays in your head benefits no one. Practice producing minimum viable outputs — a written note, a prototype, a model diagram — that offload your thinking into the external world where it can be shared and built upon.
+**Growth path:** Turn exploration into deliverables. Practice producing minimum viable outputs, such as a written note, a prototype, or a model diagram, that move your thinking into a form others can review and use.
 
 ### ENTJ — Goal Commander
 
@@ -67,7 +67,7 @@ Analysts approach the world through the lens of systems, logic, and strategic th
 
 ## Diplomats: INFJ, INFP, ENFJ, ENFP
 
-Diplomats approach the world through the lens of meaning, connection, and human potential (NF). They want to understand themselves deeply and help others grow. They value authenticity, empathy, and purposeful direction. Their growth work is making care more bounded and actionable — turning deep feeling into sustainable, structured contribution.
+Diplomats approach the world through meaning, connection, and human potential (NF). They want to understand themselves and help others grow. They value authenticity, empathy, and purposeful direction. Their growth work is making care more bounded and actionable, so concern turns into sustainable contribution.
 
 ### INFJ — Insight Advocate
 
@@ -83,7 +83,7 @@ Diplomats approach the world through the lens of meaning, connection, and human 
 
 ### INFP — Ideal Harmonizer
 
-**Core drive:** To live in alignment with authentic personal values and express inner truth through creative work. INFPs have a deeply calibrated inner compass — they feel when something is right and when something is off, often before they can articulate why.
+**Core drive:** To live in alignment with personal values and express inner truth through creative work. INFPs often notice when something feels right or wrong before they can explain why.
 
 **At work:** INFPs excel in writing, counseling, design, non-profit work, and any role where personal values align with professional purpose. They thrive in environments that respect individuality, allow creative expression, and connect daily work to meaningful outcomes. They may struggle in highly structured, impersonal, or purely profit-driven environments.
 
@@ -91,7 +91,7 @@ Diplomats approach the world through the lens of meaning, connection, and human 
 
 **Under stress:** An overextended INFP may become uncharacteristically critical, rigid, or focused on external productivity at the expense of inner well-being. Recovery requires returning to activities that feel authentic and meaningful — creative expression, time in nature, connection with trusted confidants.
 
-**Growth path:** Break ideals into actionable steps. A beautiful vision that stays in your heart benefits no one. For each value you hold, identify one concrete action you can take this week that expresses it. The gap between ideal and reality shrinks not through wishing, but through small, consistent acts.
+**Growth path:** Break ideals into actionable steps. For each value you hold, identify one concrete action you can take this week that expresses it. Small, consistent acts shrink the gap between ideal and reality.
 
 ### ENFJ — Relational Guide
 
@@ -103,11 +103,11 @@ Diplomats approach the world through the lens of meaning, connection, and human 
 
 **Under stress:** An overextended ENFJ may become uncharacteristically withdrawn, self-critical, or rigid in their judgments of others. Recovery requires stepping back from caretaking mode and reconnecting with their own needs — rest, reflection, and receiving rather than giving.
 
-**Growth path:** Do not turn everyone's expectations into your own tasks. Your desire to help is generous, but it becomes unsustainable when you absorb responsibility for outcomes that are not yours. Practice saying "I believe you can handle this" — sometimes the most helpful thing you can do is let someone find their own way.
+**Growth path:** Do not turn everyone's expectations into your own tasks. Your desire to help becomes unsustainable when you absorb responsibility for outcomes that are not yours. Practice saying "I believe you can handle this" when someone needs room to solve a problem themselves.
 
 ### ENFP — Possibility Starter
 
-**Core drive:** To explore new ideas, connect with diverse people, and discover what is possible. ENFPs bring infectious enthusiasm and curiosity to everything they do. They see potential everywhere — in people, in ideas, in situations — and their excitement often catalyzes others into action.
+**Core drive:** To explore new ideas, connect with diverse people, and discover what is possible. ENFPs bring energy and curiosity to many settings. They often notice potential in people, ideas, and situations, and that excitement can move others into action.
 
 **At work:** ENFPs excel in creative fields, entrepreneurship, journalism, counseling, and any role requiring adaptability, people skills, and idea generation. They thrive in environments that offer variety, autonomy, and meaningful human connection. They may struggle with routine, excessive structure, and roles requiring sustained focus on a single project.
 
@@ -115,7 +115,7 @@ Diplomats approach the world through the lens of meaning, connection, and human 
 
 **Under stress:** An overextended ENFP may become uncharacteristically withdrawn, anxious, or fixated on worst-case scenarios and minor details. Recovery requires stepping back from overcommitment, reconnecting with core priorities, and allowing time for unstructured reflection.
 
-**Growth path:** Pair enthusiasm with a closing mechanism. For every new project you start, define what "done" looks like and who is responsible for getting there. The goal is not to suppress your generative energy — it is to channel it so your best ideas actually reach completion.
+**Growth path:** Pair enthusiasm with a closing mechanism. For every new project you start, define what "done" looks like and who is responsible for getting there. Use structure so your strongest ideas reach completion.
 
 ## Sentinels: ISTJ, ISFJ, ESTJ, ESFJ
 
@@ -123,7 +123,7 @@ Sentinels approach the world through the lens of order, responsibility, and prac
 
 ### ISTJ — Order Executor
 
-**Core drive:** To ensure that commitments are met, standards are upheld, and things are done correctly. ISTJs are the backbone of organizations — they are the people who remember what was promised, notice when processes are drifting, and quietly ensure that important work gets completed to specification.
+**Core drive:** To ensure that commitments are met, standards are upheld, and work is completed correctly. ISTJs remember what was promised, notice when processes drift, and keep important work moving to specification.
 
 **At work:** ISTJs excel in operations, finance, quality assurance, compliance, administration, and any role requiring accuracy, consistency, and follow-through. They thrive in structured environments with clear expectations and accountability. They may struggle in chaotic, constantly changing, or ambiguous environments where rules shift without explanation.
 
@@ -131,7 +131,7 @@ Sentinels approach the world through the lens of order, responsibility, and prac
 
 **Under stress:** An overextended ISTJ may become uncharacteristically anxious about worst-case scenarios or rigidly insistent on following rules even when the situation calls for flexibility. Recovery requires stepping back, reconnecting with facts rather than fears, and allowing small experiments with new approaches.
 
-**Growth path:** Reserve space for experiments. Not every new method needs to prove itself before being tried. Budget a small portion of your time or resources for "test and learn" — approaches that might fail but might also improve on established practice.
+**Growth path:** Reserve space for experiments. Not every new method needs to prove itself before being tried. Budget a small portion of your time or resources for "test and learn" approaches that might fail but might also improve established practice.
 
 ### ISFJ — Gentle Steward
 
@@ -143,11 +143,11 @@ Sentinels approach the world through the lens of order, responsibility, and prac
 
 **Under stress:** An overextended ISFJ may become uncharacteristically rigid, critical, or withdrawn into martyr-like exhaustion. Recovery requires consciously stepping back from caretaking, accepting help from others, and reconnecting with activities that replenish rather than deplete.
 
-**Growth path:** Name your own depletion early. Your willingness to help is a gift to those around you, but it becomes a trap when you consistently put your own needs last. Practice saying "I am at capacity right now" before you reach the point of exhaustion.
+**Growth path:** Name your own depletion early. Your willingness to help becomes a trap when you consistently put your own needs last. Practice saying "I am at capacity right now" before you reach exhaustion.
 
 ### ESTJ — Practical Organizer
 
-**Core drive:** To create order, efficiency, and accountability in the external world. ESTJs see what needs to be done and organize people and resources to get it done. They are natural managers — not because they seek titles, but because they cannot tolerate preventable inefficiency.
+**Core drive:** To create order, efficiency, and accountability in the external world. ESTJs see what needs to be done and organize people and resources to get it done. They often move into management because they notice preventable inefficiency and act on it.
 
 **At work:** ESTJs excel in management, operations, project leadership, and any role requiring organization, decisiveness, and follow-through. They thrive in environments with clear hierarchies, defined processes, and measurable outcomes. They may struggle in flat organizations with ambiguous authority or in cultures that prioritize consensus over action.
 
@@ -159,7 +159,7 @@ Sentinels approach the world through the lens of order, responsibility, and prac
 
 ### ESFJ — Community Builder
 
-**Core drive:** To create harmony, connection, and mutual support in the groups they belong to. ESFJs are the social glue of teams and communities — they notice who needs support, organize gatherings, maintain traditions, and ensure everyone feels included.
+**Core drive:** To create harmony, connection, and mutual support in the groups they belong to. ESFJs notice who needs support, organize gatherings, maintain traditions, and help people feel included.
 
 **At work:** ESFJs excel in human resources, customer relations, event planning, healthcare, education, and any role where interpersonal skills and organizational reliability combine. They thrive in collaborative, appreciative environments. They may struggle in isolated, purely analytical, or conflict-heavy roles where their relational strengths are underutilized.
 
@@ -167,7 +167,7 @@ Sentinels approach the world through the lens of order, responsibility, and prac
 
 **Under stress:** An overextended ESFJ may become uncharacteristically critical, withdrawn, or anxious about social approval. Recovery requires stepping back from caretaking, seeking honest feedback from trusted people, and reconnecting with activities that feel intrinsically rewarding.
 
-**Growth path:** Make what is inconvenient explicit. Your desire to maintain harmony is valuable, but it becomes self-defeating when real problems go unaddressed. Practice stating a difficulty clearly: "I want to help, and I also need X." Setting boundaries does not weaken your reliability — it makes your care sustainable.
+**Growth path:** Make what is inconvenient explicit. Your desire to maintain harmony becomes self-defeating when real problems go unaddressed. Practice stating a difficulty clearly: "I want to help, and I also need X." Setting boundaries keeps your care sustainable.
 
 ## Explorers: ISTP, ISFP, ESTP, ESFP
 
@@ -211,7 +211,7 @@ Explorers approach the world through direct experience, hands-on engagement, and
 
 ### ESFP — Live Energizer
 
-**Core drive:** To bring joy, energy, and authentic presence to every moment, and to connect with people through shared experience. ESFPs light up rooms — not because they try to be the center of attention, but because their genuine engagement with the present moment is magnetic.
+**Core drive:** To bring energy and presence to shared experience. ESFPs often connect through what is happening now: conversation, movement, humor, food, music, or practical help.
 
 **At work:** ESFPs excel in entertainment, hospitality, sales, teaching, healthcare, and any role requiring interpersonal warmth, adaptability, and the ability to read and respond to people in real time. They thrive in social, varied, and action-oriented environments. They may struggle in isolated, repetitive, or highly abstract roles.
 
@@ -219,11 +219,11 @@ Explorers approach the world through direct experience, hands-on engagement, and
 
 **Under stress:** An overextended ESFP may become uncharacteristically withdrawn, anxious about the future, or overly focused on others' approval. Recovery requires stepping back from overstimulation, reconnecting with simple pleasures, and allowing time for unstructured relaxation.
 
-**Growth path:** Turn enthusiasm into a repeatable rhythm. Your spontaneity is a gift, but it becomes unreliable when important commitments depend on your mood. For the things that matter most — relationships, career goals, personal projects — establish simple, regular habits that keep you on track even when inspiration is low.
+**Growth path:** Turn enthusiasm into a repeatable rhythm. Spontaneity becomes unreliable when important commitments depend on your mood. For relationships, career goals, and personal projects, establish simple habits that keep you on track when inspiration is low.
 
 ## How to Use This Guide Well
 
-Do not only look for the parts that fit. Notice what does not fit too. If a type description feels 70% accurate, it can still be useful as a reflection tool. The 30% that does not fit is often the most valuable — it points to areas where you have developed range beyond your default preferences, or where your self-perception differs from how others might describe you.
+Do not only look for the parts that fit. Notice what does not fit too. If a type description feels 70% accurate, it can still be useful as a reflection tool. The 30% that does not fit may point to areas where you have developed range beyond your default preferences, or where your self-perception differs from how others might describe you.
 
 Ask three questions:
 
@@ -231,6 +231,6 @@ Ask three questions:
 - Which type of person do I most often misunderstand? If you are an NT who finds "emotional" people frustrating, or an SF who finds "cold" people difficult, those reactions are information — they point to preferences you have not yet learned to work with effectively.
 - Which opposite preference would reduce friction in my work or relationships? If you are a strong J, practicing even 10% more P-like flexibility in one relationship could change its trajectory. If you are a strong T, consciously asking "how will this affect people?" before one decision per week builds a muscle that serves you for life.
 
-MBTI should not limit you. It should remind you that your default mode is useful, but it is not your only mode. The goal is not to become a different type — it is to have access to a wider range when the situation calls for it.
+MBTI should not limit you. It should remind you that your default mode is useful, but it is not your only mode. The goal is access to a wider range when the situation calls for it.
 
 References: Myers-Briggs on [how the 16 types are formed](https://www.myersbriggs.org/my-mbti-personality-type/myers-briggs-overview/) and The Myers-Briggs Company on [MBTI facts and boundaries](https://www.themyersbriggs.com/en-us/support/mbti-facts).

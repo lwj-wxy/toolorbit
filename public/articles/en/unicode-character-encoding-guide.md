@@ -30,7 +30,7 @@ Use normalization deliberately at the boundary where text enters the system. Doc
 
 ### Practical debugging workflow
 
-Start by inspecting the exact string, not just what the browser renders. Copy a suspicious value into the [Unicode Converter](/tools/dev/unicode-converter) to view escaped code points. If the text came through an API, format the payload with the [JSON Formatter](/tools/dev/json-formatter) and check whether characters are real characters or literal escape sequences.
+Start by inspecting the exact string, not only what the browser renders. Copy a suspicious value into the [Unicode Converter](/tools/dev/unicode-converter) to view escaped code points. If the text came through an API, format the payload with the [JSON Formatter](/tools/dev/json-formatter) and check whether characters are real characters or literal escape sequences.
 
 If the string is embedded in a URL, decode it with the [URL Encoder](/tools/dev/url-encoder). If you are comparing two versions of the same text, use the [Text Diff Tool](/tools/dev/text-diff) so invisible changes become easier to spot. This workflow separates display problems from transport problems.
 
@@ -57,6 +57,6 @@ The goal is not to memorize every Unicode rule. The goal is to stop assuming tha
 
 Use UTF-8 by default for HTML, JSON, APIs, source files, and databases unless a legacy system forces another choice. Declare encoding explicitly in HTTP headers and document exports. Normalize user-generated text where comparison matters. Avoid truncating strings by byte length unless you are working at a storage boundary and understand the risk.
 
-Finally, test with the languages and symbols your users actually use. English-only test data hides encoding problems. International names, emoji, currency symbols, mathematical notation, and right-to-left text are not edge cases on the modern web; they are ordinary user input.
+Test with the languages and symbols your users use. English-only test data hides encoding problems. International names, emoji, currency symbols, mathematical notation, and right-to-left text are ordinary user input on the modern web.
 
 Unicode is a success story, but it rewards developers who respect the layers. Treat characters, code points, encodings, escapes, and normalization as separate concerns, and text stops being mysterious.

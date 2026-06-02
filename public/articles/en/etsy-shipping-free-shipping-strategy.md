@@ -1,8 +1,8 @@
 # Etsy Shipping Strategy: Free Shipping, Buyer-Paid Shipping, and Profit Math
 
-Shipping is not just a fulfillment decision on Etsy. It affects buyer trust, search visibility in some contexts, conversion rate, and profit. The right shipping strategy is not always "free shipping" and not always "charge the exact carrier cost." It depends on item weight, order value, buyer expectations, and margin.
+Shipping affects buyer trust, search visibility in some contexts, conversion rate, and profit on Etsy. The right strategy depends on item weight, order value, buyer expectations, and margin.
 
-This guide explains how to compare free shipping and buyer-paid shipping without losing sight of profit.
+Use the fee math below to compare free shipping and buyer-paid shipping without losing sight of profit.
 
 ## Why Shipping Price Changes Conversion
 
@@ -12,7 +12,7 @@ That does not mean every seller should absorb shipping blindly. Heavy, fragile, 
 
 ### Etsy's free shipping guarantee
 
-For US buyers, Etsy offers a free shipping guarantee: orders of $35+ from eligible shops ship free. Sellers can enroll and offer free shipping on orders $35+ while keeping buyer-paid shipping on orders below that threshold. This is a middle-ground strategy — it captures the search preference and conversion benefit of free shipping for most orders while protecting margin on low-value single-item purchases.
+For US buyers, Etsy offers a free shipping guarantee: orders of $35+ from eligible shops ship free. Sellers can enroll and offer free shipping on orders $35+ while keeping buyer-paid shipping on orders below that threshold. This middle-ground strategy captures the search preference and conversion benefit of free shipping for most orders while protecting margin on low-value single-item purchases.
 
 If you enroll in the guarantee, make sure your $35+ order economics work. A $35 order with $6 in shipping cost absorbed means you are effectively discounting the product by 17%. Run the numbers through the [Etsy Pricing Calculator](/tools/ecommerce/etsy-pricing-calculator) before enrolling.
 
@@ -74,7 +74,7 @@ Suppose you sell a handmade ceramic bowl:
 | Buyer-paid shipping | $34 | $8 | $42 |
 | Partial shipping | $38 | $4.95 | $42.95 |
 
-The buyer total is nearly identical, but the psychology differs. The free-shipping version looks simplest. The buyer-paid version looks cheapest in the item price but may create friction at checkout. The partial version splits the difference — competitive item price, seemingly reasonable shipping.
+The buyer total is nearly identical, but the psychology differs. The free-shipping version looks simplest. The buyer-paid version looks cheapest in the item price but may create friction at checkout. The partial version splits the difference: competitive item price, seemingly reasonable shipping.
 
 Use the [Etsy Pricing Calculator](/tools/ecommerce/etsy-pricing-calculator) to model all three. Enter the real shipping cost, then test whether charging the buyer $0, part of the shipping, or the full amount produces the best balance of conversion and profit.
 
@@ -114,7 +114,7 @@ For a $34 item with $8 buyer-paid shipping, Etsy fee calculations generally use 
 
 ### The real cost of "recovering" shipping
 
-Here is what actually happens when you charge $8 for shipping on a US Etsy order:
+An $8 shipping charge on a US Etsy order breaks down like this:
 
 ```text
 Shipping charged to buyer: $8.00
@@ -185,7 +185,7 @@ International shipping on Etsy requires a different approach than domestic:
 
 International orders may require customs forms. Etsy generates basic customs information from your listing data, but the accuracy depends on what you entered. Misdeclared customs values or item descriptions can cause delays, returns, or fines.
 
-Buyers are responsible for import duties and taxes — state this clearly in your shop policies and listing descriptions. Some buyers will be surprised by customs fees. A clear disclaimer reduces disputes.
+Buyers are responsible for import duties and taxes. State this clearly in your shop policies and listing descriptions. Some buyers will be surprised by customs fees. A clear disclaimer reduces disputes.
 
 ## Shipping Insurance: When It Makes Sense
 
@@ -215,7 +215,7 @@ Etsy payment processing (3% + $0.25): $1.99
 Total Etsy fees: $12.72 (25.4% of item price)
 ```
 
-If this item has $20 in direct cost, the margin after fees and cost is $17.28 on a $50 item — reasonable but tight. If the same item had free shipping (item priced at $58), the fee structure is identical but the item price absorbed the shipping cost. Either way, the Offsite Ads fee amplifies the total fee burden. Run the numbers for your actual products before setting shipping strategy.
+If this item has $20 in direct cost, the margin after fees and cost is $17.28 on a $50 item. That margin is workable but tight. If the same item had free shipping with the item priced at $58, the fee structure would be identical and the item price would absorb the shipping cost. Either way, the Offsite Ads fee amplifies the total fee burden. Run the numbers for your actual products before setting shipping strategy.
 
 ## Carrier Selection Guide
 

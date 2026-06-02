@@ -24,20 +24,20 @@ Modern AI meeting minutes tools go well beyond voice-to-text transcription:
 - **Action item extraction with owners:** The AI detects commitments: "I'll follow up on that" gets parsed and tagged to the speaker with a deadline when one is mentioned.
 - **Keyword indexing:** Technical terms, project names, and decision points become searchable, so you do not have to scroll through a raw transcript to find one sentence.
 
-### 3. The Productivity Multiplier
+### 3. Where AI Minutes Save Time
 
-The real value emerges in the workflow around the meeting:
+The value comes from the workflow around the meeting:
 
 - **Pre-meeting alignment:** Share the AI-generated summary of the last meeting before the next one starts. Everyone arrives on the same page.
 - **Stakeholder visibility:** Forward a concise summary to managers who need awareness but not attendance. They stay informed without the meeting tax.
 - **Accountability tracking:** Action items don't vanish after the meeting ends. They're logged, attributed, and searchable.
-- **Async-first culture:** When meeting outcomes are systematically documented and distributed, the pressure to have synchronous meetings for every decision drops. The meeting footprint shrinks.
+- **Async-first culture:** When teams document and distribute meeting outcomes, they need fewer follow-up meetings for the same decision.
 
 ### 4. Privacy and Security Considerations
 
 Not every meeting belongs in an AI tool. Before adopting any AI minutes solution, verify:
 
-- **Local processing preference:** Does the tool process audio on-device, or does it ship raw audio to a cloud service? For sensitive meetings (legal, HR, financial), this distinction matters enormously.
+- **Local processing preference:** Does the tool process audio on-device, or does it ship raw audio to a cloud service? For sensitive meetings (legal, HR, financial), this distinction matters.
 - **Data retention policy:** How long are recordings and transcripts stored? Can you configure automatic deletion?
 - **Consent workflow:** Does the tool notify participants that the meeting is being recorded and summarized? This is both a legal requirement in many jurisdictions and a basic courtesy.
 

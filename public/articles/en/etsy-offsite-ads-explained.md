@@ -1,6 +1,6 @@
 # Etsy Offsite Ads Explained: The Program You Can't Always Opt Out Of
 
-Etsy Offsite Ads are one of the most misunderstood aspects of selling on the platform. They're not optional for everyone, they charge a hefty percentage, and they apply to the *entire* order total — not just the item price. This guide explains exactly how they work and how to manage their impact on your bottom line.
+Etsy Offsite Ads can apply a 12% or 15% fee to the entire order total, including shipping and extras. Some sellers can opt out; sellers above the $10,000 annual threshold cannot.
 
 ## What Are Etsy Offsite Ads?
 
@@ -28,7 +28,7 @@ Your Offsite Ads rate depends on a single factor: your shop's annual Etsy revenu
 | Under $10,000 | 15% | Yes |
 | $10,000 and above | 12% | **No** — participation is mandatory |
 
-This is the critical detail most new sellers miss: once you cross $10,000 in a 12-month period, you are permanently opted into Offsite Ads. Etsy considers your shop "established" and requires participation. The only way to stop paying these fees is to close your shop.
+Many new sellers miss the threshold rule: once you cross $10,000 in a 12-month period, Etsy permanently opts you into Offsite Ads. Etsy considers your shop "established" and requires participation. The only way to stop paying these fees is to close your shop.
 
 ### The $10,000 crossover: what to do before you reach it
 
@@ -129,7 +129,7 @@ You cannot directly control which products Etsy advertises. However, improving l
 
 ## Building Offsite Ads into Your Pricing
 
-If you're above the $10K threshold and can't opt out, the responsible approach is to build the expected ad cost into your pricing model. Here's how:
+If you are above the $10K threshold and cannot opt out, build the expected ad cost into your pricing model:
 
 1. Estimate what percentage of your sales come through Offsite Ads (check your Etsy Stats dashboard)
 2. If 30% of your orders are ad-attributed, the 12% rate effectively adds ~3.6% to your blended fee rate (12% × 30%)
@@ -146,7 +146,7 @@ For most sellers above $10K, average case pricing strikes the right balance. If 
 
 ## Should You Turn Off Offsite Ads (If You Can)?
 
-If you're still below $10,000 and have the option to opt out, here's the trade-off:
+If you are still below $10,000 and can opt out, compare these trade-offs:
 
 **Keep them on if:**
 - You're actively trying to grow your shop and want maximum exposure

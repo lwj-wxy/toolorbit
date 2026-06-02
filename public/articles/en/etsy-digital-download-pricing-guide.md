@@ -2,7 +2,7 @@
 
 Digital downloads are attractive because there is no physical inventory, no postage label, and no packing table. But "no shipping" does not mean "no cost." Etsy fees still apply, listing work still takes time, and low prices can make paid traffic or discounts unprofitable.
 
-This guide explains how to price digital downloads such as printable planners, wall art, sewing patterns, SVG bundles, templates, and made-to-order digital files.
+Use the pricing steps below for digital downloads such as printable planners, wall art, sewing patterns, SVG bundles, templates, and made-to-order digital files.
 
 ## Understand the Two Digital Product Models
 
@@ -131,7 +131,7 @@ Below $8, the effective fee rate exceeds 15%. That does not mean you should not 
 
 For example, a $3 instant download may look high-margin, but after listing fee, transaction fee, payment processing, discounts, and possible Offsite Ads, the net can be much smaller than expected. Use the [Etsy Fee Calculator](/tools/ecommerce/etsy-fee-calculator) to test realistic order sizes.
 
-If your shop often sells bundles of multiple files, model the average order value, not just the single-item price.
+If your shop often sells bundles of multiple files, model the average order value instead of only the single-item price.
 
 ## Decide Whether Discounts Fit the Product
 
@@ -162,7 +162,7 @@ Digital products on Etsy are prone to price deflation. When one seller drops a p
 
 - **Differentiate, do not discount.** Instead of lowering your price to match a competitor, add value: better instructions, more formats, a bonus file, a video walkthrough. Buyers pay for confidence and completeness.
 - **Compete on listing quality, not price.** Better mockups, clearer descriptions, and more convincing preview images convert better at the same price. A $12 listing with professional mockups often outsells a $6 listing with screenshots.
-- **Build a shop brand.** Shops with a recognizable style, consistent quality, and good reviews command higher prices. Buyers pay a premium for reliability.
+- **Build a shop brand.** Shops with a recognizable style, consistent quality, and good reviews can charge higher prices because buyers trust reliability.
 - **Exit categories that have collapsed to sub-$3 pricing.** If the top 20 listings in your niche are all under $3 with thousands of reviews, competing on the same terms is nearly impossible. Find a related niche with healthier pricing.
 
 ## A Practical Pricing Workflow

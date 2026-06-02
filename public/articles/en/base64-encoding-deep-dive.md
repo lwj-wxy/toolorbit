@@ -107,7 +107,7 @@ Use Base64 image data when the asset is tiny, stable, and truly benefits from in
 
 ## How can teams debug Base64 safely?
 
-First, determine whether the string is actually Base64. Look for length, padding, and alphabet clues, but do not rely only on appearance. Try decoding locally. If the result is readable text, inspect it. If the result looks like binary, identify the media type before copying it elsewhere.
+First, determine whether the string is Base64. Look for length, padding, and alphabet clues, but do not rely only on appearance. Try decoding locally. If the result is readable text, inspect it. If the result looks like binary, identify the media type before copying it elsewhere.
 
 Second, sanitize before sharing. Encoded strings can contain private data. Decode locally, remove sensitive fields, and share a minimal reproduction instead of the full payload.
 
@@ -122,4 +122,3 @@ That makes Base64 an important spoke in the [free online developer tools](/devel
 ## Conclusion
 
 Base64 is simple, but the decisions around it are not always simple. Use it to make bytes text-safe. Do not use it as security. Be careful with file size overhead. Decode locally when data may be sensitive. And when Base64 appears inside a larger workflow, pair it with formatting, URL handling, image optimization, and security review.
-

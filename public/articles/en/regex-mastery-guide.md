@@ -1,15 +1,15 @@
-## Mastering RegEx Without Making It Unreadable
+## Write RegEx Without Making It Unreadable
 
 Regular Expressions (RegEx) solve text matching, validation, and extraction problems in a compact form. The same compactness also makes them easy to misuse. A pattern like `/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/` needs tests and review before it belongs in production.
 
-### 1. The Danger of Re-inventing the Wheel
+### 1. Do Not Rebuild Simple Pattern Matching
 Developers often write long `for` loops and `if/else` chains to check whether a password contains a capital letter, a number, and a symbol. A single RegEx lookahead `^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$` can handle that check. The tradeoff is readability: if the pattern becomes hard to explain, split the validation into smaller checks.
 
-### 2. The Trap of Catastrophic Backtracking
-Poorly optimized matching sequences, especially deeply nested quantifiers like `(a+)+`, can trigger catastrophic backtracking. A malicious input can force the RegEx engine through many dead-end combinations and tie up a Node.js event loop or browser CPU.
+### 2. Avoid Catastrophic Backtracking
+Poorly optimized matching sequences, especially nested quantifiers like `(a+)+`, can trigger catastrophic backtracking. A malicious input can force the RegEx engine through many dead-end combinations and tie up a Node.js event loop or browser CPU.
 
 ### Conclusion
-Regular expressions can replace repetitive string manipulation, but production patterns need tests. Use modern testing tools and visualizers to check edge cases, performance, and hostile inputs.
+Regular expressions can replace repetitive string manipulation, but production patterns need tests. Use testing tools and visualizers to check edge cases, performance, and hostile inputs.
 
 ### 3. Readability Beats Cleverness
 A production regular expression should be understandable by the next developer who has to maintain it. Prefer named constants, comments around tricky patterns, and small composable checks when the expression becomes too dense. A login form password rule, for example, may be clearer as several simple validation messages instead of one intimidating pattern that no one wants to edit.

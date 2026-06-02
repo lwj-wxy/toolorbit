@@ -2,7 +2,7 @@
 
 PayPal fees look simple until you compare two transactions that have the same order value but different payment types. One customer pays through PayPal Checkout, another uses a card, another pays an invoice, and the fixed fee changes again when the receiving currency changes. The headline percentage is only part of the story.
 
-This guide explains the PayPal fee layers that matter most for sellers, freelancers, creators, and small ecommerce teams. If you need quick math while quoting a client, use the [PayPal Fee Calculator](/tools/ecommerce/paypal-fee-calculator) and then confirm final account-specific fees in your PayPal statement.
+PayPal fee layers matter for sellers, freelancers, creators, and small ecommerce teams. If you need quick math while quoting a client, use the [PayPal Fee Calculator](/tools/ecommerce/paypal-fee-calculator) and then confirm final account-specific fees in your PayPal statement.
 
 ## The PayPal Fee Stack
 
@@ -55,7 +55,7 @@ On a $100 payment, a $0.49 fixed fee is easy to overlook. On a $7 digital produc
 
 ### Effective fee rate across price points
 
-The effective rate tells the real story. Here is how PayPal Checkout (3.49% + $0.49) plays out at different transaction sizes:
+The effective rate tells the real story. PayPal Checkout (3.49% + $0.49) plays out like this at different transaction sizes:
 
 | Customer payment | Percentage fee | Fixed fee | Total fee | Effective rate | Net payout |
 |---:|---:|---:|---:|---:|---:|

@@ -54,7 +54,7 @@ description: Generate and optimize project images using GPT Image 2.
 
 The frontmatter block (between `---` delimiters) holds the skill name and a one-line description. Codex reads this first to decide whether the skill matches the current request. Make the description concrete and search-like: include the keywords a user would naturally type.
 
-The body sections — when to use, workflow, constraints, references — form the operating procedure. Each section reduces ambiguity. A well-written skill leaves little room for interpretation about what to do and what not to do.
+The body sections, when to use, workflow, constraints, and references, form the operating procedure. Each section reduces ambiguity. A well-written skill leaves little room for interpretation about what to do and what to avoid.
 
 ### Skills vs. prompts: the key difference
 
@@ -106,7 +106,7 @@ Some system skills, such as image generation helpers, may already be present. If
 
 Curated skills are maintained by the platform or trusted publishers. They have been reviewed for safety, follow conventions, and are typically versioned. Community skills come from individual developers or teams and may vary in quality and maintenance.
 
-For production workflows, prefer curated skills when available. For experimental or team-specific workflows, community or self-authored skills are the right choice — just apply the same review standards you would for any dependency.
+For production workflows, prefer curated skills when available. For experimental or team-specific workflows, community or self-authored skills can work. Apply the same review standards you would use for any dependency.
 
 ## Installing from GitHub
 
@@ -194,7 +194,7 @@ After writing the skill, test it immediately:
 4. Make a request that should trigger the skill.
 5. Check that Codex follows the workflow, respects the constraints, and produces the expected output.
 
-If the skill does not trigger, the description is probably too vague. Add more specific keywords and try again. If the skill triggers but produces wrong behavior, the workflow section likely has gaps — add more explicit steps and constraints.
+If the skill does not trigger, the description is probably too vague. Add more specific keywords and try again. If the skill triggers but produces wrong behavior, the workflow section likely has gaps. Add more explicit steps and constraints.
 
 ## How to invoke a skill
 
@@ -388,4 +388,4 @@ The sixth mistake is never updating skills. As project conventions change, skill
 
 ## Bottom line
 
-Codex skills are most valuable when they turn repeated judgment into a repeatable workflow. Install only what you need, restart Codex, invoke skills clearly, and review skill content with the same care you give project automation. For teams, the investment in a well-written skill pays off every time someone avoids repeating the same long instruction — or avoids making the same mistake.
+Codex skills are most valuable when they turn repeated judgment into a repeatable workflow. Install only what you need, restart Codex, invoke skills clearly, and review skill content with the same care you give project automation. For teams, a well-written skill saves repeated instructions and reduces repeated mistakes.

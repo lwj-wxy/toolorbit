@@ -12,7 +12,7 @@ A server without rate limiting lets one client consume too much capacity. Add IP
 Treat each incoming payload as untrusted input. Validate request shape, enforce authorization on every object access, and add rate limits before expensive work runs.
 
 ### 3. Authentication Is Not Authorization
-Many API incidents happen because a system verifies who the caller is but forgets to verify what that caller may do. A valid token should not automatically grant access to every object in a database. Every request that reads or mutates user-owned resources should check object-level authorization: does this user, service account, or tenant actually own the record being requested?
+Many API incidents happen because a system verifies who the caller is but forgets to verify what that caller may do. A valid token should not automatically grant access to every object in a database. Every request that reads or mutates user-owned resources should check object-level authorization: does this user, service account, or tenant own the requested record?
 
 This matters most in predictable URL patterns such as `/api/invoices/1842` or `/api/users/73/settings`. Attackers will enumerate identifiers and watch for inconsistent responses. Return precise errors internally, but avoid leaking sensitive object existence details to unauthorized clients. Logging should capture enough context for investigation without storing secrets, tokens, or full personal records.
 

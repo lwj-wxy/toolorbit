@@ -2,7 +2,7 @@
 
 Freelancers, agencies, consultants, and sellers often ask a practical question: "If I need to receive $500 after payment fees, how much should I invoice?" This is a reverse fee calculation. It is different from simply adding the estimated fee on top of the net amount.
 
-Use the [PayPal Fee Calculator](/tools/ecommerce/paypal-fee-calculator) or [Stripe Fee Calculator](/tools/ecommerce/stripe-fee-calculator) to run the calculation instantly. This guide explains the math behind the result.
+Use the [PayPal Fee Calculator](/tools/ecommerce/paypal-fee-calculator) or [Stripe Fee Calculator](/tools/ecommerce/stripe-fee-calculator) to run the calculation. The sections below explain the math behind the result.
 
 ## Why Adding the Fee Is Not Enough
 
@@ -147,7 +147,7 @@ If asked why your rate is $1,035 instead of $1,000:
 - **Option A (transparent):** "The project fee is $1,000, and the invoice includes a 3.5% processing allowance so the net project amount is preserved."
 - **Option B (bundled):** "The project price is $1,035, inclusive of all payment processing." No separate line item.
 
-Option B is simpler for most client relationships. Option A works when the client is cost-sensitive and wants to understand the breakdown — but it also invites negotiation on the fee portion.
+Option B is simpler for most client relationships. Option A works when the client is cost-sensitive and wants to understand the breakdown, but it also invites negotiation on the fee portion.
 
 ## Batch Calculation for Agencies
 

@@ -2,11 +2,11 @@
 
 ## TL;DR
 
-Use Codex image generation when the output is a real raster asset: blog covers, hero images, product mockups, thumbnails, textures, or reference visuals. Keep prompts specific, inspect the result, copy the chosen asset into the project, and update the consuming code so the site never depends on a temporary generation path. For repeatable results, document your house style and treat generated images like code — versioned, reviewed, and optimized.
+Use Codex image generation when the output is a real raster asset: blog covers, hero images, product mockups, thumbnails, textures, or reference visuals. Keep prompts specific, inspect the result, copy the chosen asset into the project, and update the consuming code so the site never depends on a temporary generation path. For repeatable results, document your house style and treat generated images like code: versioned, reviewed, and optimized.
 
 Last reviewed: 2026-05-27. Maintained by the [ToolOrbit Editorial Team](/authors/toolorbit-editorial-team).
 
-Codex can be a useful bridge between design intent and shipped assets. Instead of treating image generation as a separate creative task, you can ask Codex to generate the image, inspect it, resize or convert it, save it into the repository, and update the page that uses it — all in one continuous conversation.
+Codex can connect design intent to shipped assets. You can ask Codex to generate the image, inspect it, resize or convert it, save it into the repository, and update the page that uses it in one conversation.
 
 OpenAI's [GPT Image 2 model documentation](https://developers.openai.com/api/docs/models/gpt-image-2) is the reference point for model capabilities. In a Codex workflow, the important practical distinction is simpler: use the built-in image generation path for normal project images, and use a CLI/API path only when you explicitly need model-level controls, automation, or fallback behavior.
 
@@ -37,9 +37,9 @@ For ToolOrbit work, a good split is:
 
 ### The bitmap vs. vector decision
 
-This distinction is worth making explicit because it avoids a lot of rework. If you can describe the asset as a set of shapes, paths, and colors — an icon, a diagram, a chart — build it in code or SVG. The result will be resolution-independent, accessible, and easy to modify.
+This distinction avoids rework. If you can describe the asset as a set of shapes, paths, and colors, such as an icon, a diagram, or a chart, build it in code or SVG. The result will be resolution-independent, accessible, and easy to modify.
 
-If the asset depends on photography, texture, lighting, or organic composition — a hero image, a product scene, a mood board — generation is the better path. Generated images are inherently raster. Accept that tradeoff upfront.
+If the asset depends on photography, texture, lighting, or organic composition, generation is usually the better path. Hero images, product scenes, and mood boards fit this category. Generated images are raster assets, so accept that tradeoff upfront.
 
 ### When stock photography is the better choice
 
@@ -205,7 +205,7 @@ The best workflow is short and iterative:
 
 Avoid generating many unrelated variants before you know what is wrong. If the issue is "too much 3D illustration," say that directly and ask for a photorealistic editorial desk scene. If the issue is "does not match the existing blog covers," provide a reference screenshot or describe the common elements.
 
-### Iteration prompts that actually work
+### Iteration Prompts That Work
 
 Vague feedback produces random changes. Specific feedback produces targeted fixes. Compare:
 
@@ -222,7 +222,7 @@ The pattern is the same: identify the symptom, name the fix, and keep everything
 
 ### When to start over vs. iterate
 
-If the first generation is fundamentally wrong — wrong subject, wrong style, wrong composition — start over with a rewritten prompt. Iterating on a bad base wastes time and the model may struggle to escape the initial composition.
+If the first generation has the wrong subject, style, or composition, start over with a rewritten prompt. Iterating on a bad base wastes time and the model may struggle to escape the initial composition.
 
 If the first generation is close but has specific issues — lighting, color cast, one misplaced object — iterate with targeted feedback. One or two revision rounds is normal. More than three rounds usually means the initial prompt needs rethinking.
 
@@ -336,4 +336,4 @@ For repeatable content production, document your house style: aspect ratio, ligh
 
 ## Conclusion
 
-Codex with GPT Image 2 is most effective when you treat image generation as an engineering workflow, not a creative lottery. Write specific prompts with clear constraints. Save assets into versioned project paths. Optimize for the actual display size. Iterate with targeted feedback rather than random regeneration. And document your house style so every image in the project feels like it belongs to the same family. The goal is not one perfect image — it is a repeatable process that produces consistent, production-ready assets.
+Codex with GPT Image 2 works best when you treat image generation as an engineering workflow. Write specific prompts with clear constraints. Save assets into versioned project paths. Optimize for the actual display size. Iterate with targeted feedback rather than random regeneration. Document your house style so images in the project follow the same visual rules.

@@ -1,8 +1,8 @@
 # Stripe vs PayPal Fees: Which Payment Processor Is Cheaper?
 
-Stripe and PayPal are often compared as if the answer is simply "2.9% vs 3.49%." That shortcut is not enough. The cheaper processor depends on the payment method, transaction size, fixed fee, international status, currency conversion, buyer trust, and the checkout experience you need.
+Stripe and PayPal are often compared as "2.9% vs 3.49%." That shortcut is not enough. The cheaper processor depends on the payment method, transaction size, fixed fee, international status, currency conversion, buyer trust, and the checkout experience you need.
 
-This guide focuses on fee math and net payout. To run your own numbers, open the [Stripe vs PayPal Fee Calculator](/tools/ecommerce/stripe-vs-paypal-fee-calculator) and enter the same order amount you plan to charge.
+Use the fee math below to compare net payout. To run your own numbers, open the [Stripe vs PayPal Fee Calculator](/tools/ecommerce/stripe-vs-paypal-fee-calculator) and enter the same order amount you plan to charge.
 
 ## Baseline US Fee Comparison
 
@@ -27,7 +27,7 @@ That does not mean Stripe is always the right choice. It means the fee compariso
 
 ### Fee comparison across price points
 
-A single $100 comparison hides how the gap changes with order size. Here is the full picture for domestic US transactions:
+A single $100 comparison hides how the gap changes with order size. Domestic US transactions look like this:
 
 | Order amount | Stripe (2.9% + $0.30) | PayPal Checkout (3.49% + $0.49) | PayPal Card (2.99% + $0.49) | Difference (Stripe vs PP Checkout) |
 |---:|---:|---:|---:|---:|
@@ -73,7 +73,7 @@ PayPal's micropayments rate (5% + $0.05) changes the low-ticket comparison signi
 | $12.00 | $0.65 | $0.65 | Tie |
 | $15.00 | $0.74 | $0.80 | Stripe |
 
-For transactions under $12, PayPal micropayments can actually be cheaper than Stripe. If your business model involves many sub-$10 transactions, PayPal with micropayments pricing may be your lowest-fee option among mainstream processors.
+For transactions under $12, PayPal micropayments can be cheaper than Stripe. If your business model involves many sub-$10 transactions, PayPal with micropayments pricing may be your lowest-fee option among mainstream processors.
 
 ## International Cards and Currency Conversion
 

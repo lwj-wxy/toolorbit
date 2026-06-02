@@ -1,10 +1,10 @@
-# Etsy Pricing Strategy: How to Price for Profit (Not Just Revenue)
+# Etsy Pricing Strategy: Price for Profit, Not Revenue
 
-Revenue is vanity. Profit is sanity. Too many Etsy sellers celebrate a $100 order without realizing that $35 of it belongs to Etsy, shipping, and material costs. This guide walks through a systematic approach to pricing that ensures you actually make money on every sale.
+Many Etsy sellers celebrate a $100 order before subtracting Etsy fees, payment processing, shipping, packaging, materials, and labor. Price from the margin you need, not from the revenue number Etsy shows in the order view.
 
 ## Start with Your Costs, Not the Market
 
-The most common pricing mistake on Etsy is looking at competitors first. You search for similar products, see prices ranging from $25–40, and price yours at $30. The problem? Your competitors might have lower material costs, different fee structures, or — more likely — they haven't done the math either and are losing money on every order.
+The most common pricing mistake on Etsy is looking at competitors first. You search for similar products, see prices ranging from $25-40, and price yours at $30. Your competitors might have lower material costs, different fee structures, or weak margins of their own.
 
 Instead, work from the bottom up:
 
@@ -30,7 +30,7 @@ The [Etsy Pricing Calculator](/tools/ecommerce/etsy-pricing-calculator) supports
 
 ### Step 3: Account for Every Etsy Fee
 
-There are more fees than most sellers realize. Here's the full list to include in your pricing model:
+Include each of these fees in your pricing model:
 
 | Fee | Rate | Applies To |
 |-----|------|------------|
@@ -47,7 +47,7 @@ For a complete fee estimate on any order scenario, plug your numbers into the [E
 
 This is the step most sellers skip. Instead of pricing at market rate and hoping for profit, decide **how much profit you want per sale**, then calculate backward.
 
-Here's the reverse formula your price needs to satisfy:
+Use this reverse formula:
 
 > **Required Order Revenue = (Total Cost + Target Profit + Fixed Fees) ÷ (1 − Sum of All Percentage Fee Rates)**
 
@@ -55,7 +55,7 @@ Where:
 - **Fixed fees** = $0.20 (listing) + $0.25 (payment processing fixed)
 - **Percentage fees** = 6.5% (transaction) + 3% (payment processing) + any optional add-ons like Offsite Ads (12–15%), regulatory fees (0.35–1.1%), and currency conversion (2.5%)
 
-Don't want to do the algebra? The [Etsy Pricing Calculator](/tools/ecommerce/etsy-pricing-calculator) does it all for you in real time.
+The [Etsy Pricing Calculator](/tools/ecommerce/etsy-pricing-calculator) runs this formula in real time.
 
 ## Psychological Pricing Tactics for Etsy
 
@@ -142,7 +142,7 @@ Sale types ranked by profit preservation:
 
 ## Should You Build Offsite Ads into Your Base Price?
 
-This is a strategic question with no one-size-fits-all answer. Here's the framework:
+Model both options before changing your base price.
 
 **Build it in if:**
 - You're above the $10,000 annual threshold and can't opt out

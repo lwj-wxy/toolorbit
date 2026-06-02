@@ -1,6 +1,6 @@
-# The Complete Guide to Etsy Fees in 2026: What Every Seller Actually Pays
+# Etsy Fees in 2026: What Sellers Actually Pay
 
-If you sell on Etsy, you've probably looked at your payment account and wondered: "Where did my profit go?" The answer lies in Etsy's multi-layered fee structure. Understanding every fee is the first step to profitable selling.
+If you sell on Etsy, the payment account can show less profit than the order total suggests. Etsy fees include listing fees, transaction fees, payment processing, Offsite Ads, regulatory fees, and currency conversion in some cases.
 
 ## The Three Core Etsy Fees
 
@@ -39,7 +39,7 @@ To see how core fees scale, here is the breakdown at different order totals (US 
 
 The effective rate improves with order size because the fixed components ($0.20 listing + $0.25 payment fixed) become a smaller share of the total. Below $25, the effective rate exceeds 11%. This is why low-priced items need careful margin analysis.
 
-## The "Hidden" Add-On Fees
+## Add-On Fees Sellers Often Miss
 
 Beyond the core three, there are additional fees that catch many sellers off guard:
 
@@ -50,7 +50,7 @@ Etsy automatically enrolls most sellers in Offsite Ads. If a buyer clicks on an 
 - **15%** for shops making less than $10,000 per year
 - **12%** for shops above the $10,000 threshold
 
-Once you surpass $10,000 in a 12-month period, you're permanently opted in — you cannot disable Offsite Ads. The good news: there's a $100 cap per attributed order. Estimate your exposure with the [Etsy Offsite Ads Calculator](/tools/ecommerce/etsy-offsite-ads-calculator).
+Once you surpass $10,000 in a 12-month period, you are permanently opted in and cannot disable Offsite Ads. Etsy caps the fee at $100 per attributed order. Estimate your exposure with the [Etsy Offsite Ads Calculator](/tools/ecommerce/etsy-offsite-ads-calculator).
 
 ### Regulatory Operating Fee — Varies by country
 
