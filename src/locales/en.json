@@ -91,6 +91,10 @@
     "editorial_note": "Each guide is reviewed for practical workflow accuracy and connected to the browser tools that help you apply it.",
     "editorial_policy": "Editorial standards",
     "posts": {
+      "claude-code-cli-deepseek-api-guide": {
+        "title": "Run Claude Code CLI with the DeepSeek API: A Lower-Cost Terminal Coding Assistant Setup",
+        "summary": "Keep the Claude Code CLI workflow while routing requests through DeepSeek's Anthropic-compatible API endpoint, auth token, main model, and fast model settings."
+      },
       "mbti-personality-test-guide": {
         "title": "How to Read an MBTI Personality Test: From Four Letters to Self-Understanding",
         "summary": "Understand the four MBTI preference pairs, how ToolOrbit's MBTI tool scores answers, how to interpret result cards, and why the outcome is best used for reflection rather than labeling."

@@ -1,4 +1,5 @@
 export const BLOG_RELATED_TOOLS: Record<string, string[]> = {
+  'claude-code-cli-deepseek-api-guide': ['/tools/dev/json-formatter', '/tools/dev/text-diff', '/tools/ai/code-reviewer'],
   'mbti-personality-test-guide': ['/tools/utility/mbti-personality-test', '/tools/text/text-analyzer', '/tools/ai/text-polisher'],
   'mbti-four-dimensions-explained': ['/tools/utility/mbti-personality-test', '/tools/text/text-analyzer', '/tools/ai/prompt-generator'],
   'mbti-16-personality-types-guide': ['/tools/utility/mbti-personality-test', '/tools/ai/text-polisher', '/tools/text/text-analyzer'],
