@@ -9,36 +9,36 @@ export const ECOMMERCE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
   'etsy-fee-calculator': {
     zh: {
       summary:
-        'Etsy 利润计算器用于在浏览器中实时估算 Etsy 订单的真实利润，自动扣除平台费用和商品成本。适合 Etsy 卖家在定价前验证利润空间、为促销折扣测算可接受的最低售价、对比不同运费设定对利润的影响、在新品上架时评估多个成本方案的盈利能力，以及为批量订单快速生成费用明细。工具基于美国 Etsy 费用标准（固定上架费 $0.20、交易费 6.5%、支付处理费 3% + $0.25）计算三项平台扣费，并从总收入中扣除商品成本后得出净利润和利润率，所有计算在本地实时完成。',
+        'Etsy 手续费与利润计算器用于在浏览器中估算 Etsy 订单从买家付款到卖家净利润的完整路径。它不仅计算基础 Etsy 费用（$0.20 刊登费、6.5% 交易费、3% + $0.25 支付处理费），还把数量、买家支付运费、订单折扣、商品成本、实际运费成本、额外成本以及可选 Offsite Ads 费率纳入同一张利润表。适合 Etsy 卖家在上架新品前测算售价、验证包邮或折扣是否仍有利润、评估 12% / 15% 站外广告订单的最坏情况、比较不同成本结构下的盈亏平衡点，以及在采购材料或接受定制订单前快速判断是否值得成交。所有计算本地完成，不需要登录或上传财务数据。',
       input:
-        '三个金额输入：商品售价（买家支付的单品价格）、向买家收取的运费（可与商品价格合并计算总收入）、商品成本（包含采购价、材料、包装和人工等直接成本）。所有输入以美元为单位，支持小数输入。售价和运费自动合并为订单总收入（Total Revenue），商品成本在扣除所有平台费用后再从剩余金额中减去，以确保利润反映真实到手收入。',
+        '输入包括商品单价、数量、买家支付运费、订单折扣、商品单位成本、实际运费成本、额外成本以及 Offsite Ads 费率。商品单价与数量用于计算商品销售额，买家支付运费会并入 Etsy 计费口径的订单收入，折扣会从销售额中扣除。商品成本、实际运费成本和额外成本代表卖家真实支出，用于利润计算。Offsite Ads 支持 0%、12% 和 15% 场景，用于模拟自然订单、达到 $10,000 门槛后的广告归因订单，以及未达到门槛时的 15% 广告费。',
       output:
-        '以分组明细展示完整的费用结构：收入部分列出商品售价、运费和合并后的总收入；平台费用部分逐项显示上架费（固定 $0.20）、交易费（总收入的 6.5%）和支付处理费（总收入的 3% + $0.25），每项标为红色扣款；净利润和利润率在底部高亮展示，正值显示绿色、负值显示红色，便于一眼判断是否盈利。',
+        '输出按收入、成本、平台费用和利润分组展示。收入部分显示商品销售额、折扣、买家支付运费和最终计费收入；成本部分汇总商品成本、运费成本与额外成本；费用部分逐项列出 Etsy 刊登费、交易费、支付处理费和可选 Offsite Ads 费用；底部展示净利润、利润率、费用率、ROI 和盈亏平衡价。正利润和负利润使用不同颜色提示，便于卖家快速识别是否需要调价。',
       processing:
-        '所有计算在浏览器端同步执行，无需服务器请求。计算逻辑：总收入 = 商品售价 + 运费；上架费 = $0.20（固定值）；交易费 = 总收入 × 6.5%；支付处理费 = 总收入 × 3% + $0.25；总费用 = 上架费 + 交易费 + 支付处理费；净利润 = 总收入 - 总费用 - 商品成本；利润率 = (净利润 / 总收入) × 100%。注意：以上费率为美国 Etsy 常见标准，不同地区的 Etsy 平台可能有不同费率，计算结果仅供参考。',
-      modes: ['商品售价输入', '运费收入输入', '商品成本输入', '三项费用拆分展示', '净利润 / 利润率计算', '正负利润颜色标识', '实时计算'],
+        '所有计算在浏览器端同步执行。核心逻辑：商品销售额 = 商品单价 × 数量；折后商品收入 = max(商品销售额 - 折扣, 0)；订单总收入 = 折后商品收入 + 买家支付运费；直接成本 = 商品单位成本 × 数量 + 实际运费成本 + 额外成本；Etsy 基础费用 = $0.20 刊登费 + 订单总收入 × 6.5% 交易费 + 订单总收入 × 3% + $0.25 支付处理费；Offsite Ads 费用 = 订单总收入 × 所选广告费率；净利润 = 订单总收入 - 直接成本 - 基础费用 - Offsite Ads 费用；利润率 = 净利润 / 订单总收入 × 100%。结果用于定价和运营估算，实际账单仍以 Etsy 后台为准。',
+      modes: ['商品单价与数量', '买家支付运费', '订单折扣', '商品 / 运费 / 额外成本', 'Etsy 基础费用拆分', 'Offsite Ads 0% / 12% / 15%', '净利润 / 利润率 / ROI', '盈亏平衡价', '本地实时计算'],
       example: {
         title: 'Etsy 利润计算示例',
-        input: '商品售价: 35.00\n向买家收取运费: 5.00\n商品成本: 12.00',
-        output: '总收入: $40.00\n上架费: -$0.20\n交易费 (6.5%): -$2.60\n支付处理费 (3% + $0.25): -$1.45\n总费用: $4.25\n净利润: $23.75\n利润率: 59.38%',
+        input: '商品单价: 35.00\n数量: 2\n买家支付运费: 5.00\n折扣: 10.00\n商品单位成本: 12.00\n实际运费成本: 6.00\n额外成本: 2.00\nOffsite Ads: 12%',
+        output: '订单总收入: $65.00\n直接成本: $32.00\nEtsy 基础费用: $6.63\nOffsite Ads: $7.80\n净利润: $18.58\n利润率: 28.58%',
         inputLanguage: 'text',
         outputLanguage: 'text',
       },
     },
     en: {
       summary:
-        'The Etsy Fee Calculator estimates real net profit for Etsy orders in real time in the browser, automatically deducting platform fees and item costs. Ideal for Etsy sellers to verify profit margins before setting prices, test the lowest acceptable sale price during promotions, compare how different shipping charges affect profitability, evaluate multiple cost scenarios before listing new products, and quickly generate fee breakdowns for batch orders. The calculator computes three platform deductions using standard US Etsy fees (fixed $0.20 listing fee, 6.5% transaction fee, 3% + $0.25 payment processing fee), then subtracts item cost from the remaining revenue to yield net profit and profit margin. All calculations run locally in real time.',
+        'The Etsy Fee and Profit Calculator estimates the full path from buyer payment to seller net profit directly in the browser. It covers core Etsy fees ($0.20 listing fee, 6.5% transaction fee, 3% + $0.25 payment processing), then layers in quantity, buyer-paid shipping, order discounts, item cost, actual shipping cost, extra costs, and optional Offsite Ads rates in one profit model. It is built for Etsy sellers who need to price new listings, test whether free shipping or discounts still leave margin, model the worst case for 12% or 15% Offsite Ads attributed orders, compare cost scenarios, and decide whether a custom order is worth accepting. All calculations run locally without account login or financial data uploads.',
       input:
-        'Three monetary inputs: Sale Price (the per-item price paid by the buyer), Shipping Charge (charged to the buyer, combined with sale price for total revenue), and Item Cost (direct costs including procurement, materials, packaging, and labor). All inputs are in USD and support decimal values. Sale price and shipping are automatically combined into Total Revenue, while item cost is deducted after all platform fees are subtracted, ensuring profit reflects real take-home earnings.',
+        'Inputs include item price, quantity, buyer-paid shipping, order discount, per-item cost, actual shipping cost, extra cost, and Offsite Ads rate. Item price and quantity produce gross item revenue; buyer-paid shipping is included in the Etsy chargeable order total; discount reduces the sale amount. Item cost, actual shipping cost, and extra cost represent the seller’s real expenses. Offsite Ads supports 0%, 12%, and 15% scenarios for organic orders, shops above the $10,000 threshold, and shops below the threshold.',
       output:
-        'A complete fee structure displayed in grouped detail: the Revenue section lists sale price, shipping charge, and combined total revenue; the Platform Fees section itemizes the listing fee (fixed $0.20), transaction fee (6.5% of total revenue), and payment processing fee (3% + $0.25 of total revenue), each shown as a red deduction. Net profit and profit margin are highlighted at the bottom — positive values in green, negative in red — for an instant at-a-glance profitability assessment.',
+        'The output is grouped into revenue, costs, platform fees, and profit. Revenue shows item sales, discount, buyer-paid shipping, and final chargeable revenue. Costs summarize item cost, shipping cost, and extra cost. Fees itemize the Etsy listing fee, transaction fee, payment processing fee, and optional Offsite Ads fee. The summary highlights net profit, profit margin, fee rate, ROI, and break-even price, with color cues for profitable versus loss-making scenarios.',
       processing:
-        'All calculations run synchronously in the browser with no server requests. Calculation logic: Total Revenue = Sale Price + Shipping Charge; Listing Fee = $0.20 (fixed); Transaction Fee = Total Revenue × 6.5%; Payment Processing Fee = Total Revenue × 3% + $0.25; Total Fees = Listing Fee + Transaction Fee + Payment Processing Fee; Net Profit = Total Revenue − Total Fees − Item Cost; Profit Margin = (Net Profit / Total Revenue) × 100%. Note: the fee rates above reflect standard US Etsy fees; Etsy platforms in different regions may use different rates. Results are for estimation purposes only.',
-      modes: ['Sale price input', 'Shipping charge input', 'Item cost input', 'Three-fee breakdown display', 'Net profit / margin calculation', 'Color-coded profit sign', 'Real-time calculation'],
+        'All calculations run synchronously in the browser. Core logic: gross item revenue = item price × quantity; discounted item revenue = max(gross item revenue - discount, 0); total order revenue = discounted item revenue + buyer-paid shipping; direct costs = per-item cost × quantity + actual shipping cost + extra cost; core Etsy fees = $0.20 listing fee + total order revenue × 6.5% transaction fee + total order revenue × 3% + $0.25 payment processing fee; Offsite Ads fee = total order revenue × selected ad rate; net profit = total order revenue - direct costs - core Etsy fees - Offsite Ads fee; profit margin = net profit / total order revenue × 100%. Results are pricing and operations estimates; Etsy account statements remain the source of truth.',
+      modes: ['Item price and quantity', 'Buyer-paid shipping', 'Order discount', 'Item / shipping / extra costs', 'Core Etsy fee breakdown', 'Offsite Ads 0% / 12% / 15%', 'Net profit / margin / ROI', 'Break-even price', 'Real-time local calculation'],
       example: {
         title: 'Etsy fee calculation example',
-        input: 'Sale price: 35.00\nShipping charged to buyer: 5.00\nItem cost: 12.00',
-        output: 'Total revenue: $40.00\nListing fee: -$0.20\nTransaction fee (6.5%): -$2.60\nPayment processing (3% + $0.25): -$1.45\nTotal fees: $4.25\nNet profit: $23.75\nProfit margin: 59.38%',
+        input: 'Item price: 35.00\nQuantity: 2\nBuyer-paid shipping: 5.00\nDiscount: 10.00\nPer-item cost: 12.00\nActual shipping cost: 6.00\nExtra cost: 2.00\nOffsite Ads: 12%',
+        output: 'Total order revenue: $65.00\nDirect costs: $32.00\nCore Etsy fees: $6.63\nOffsite Ads: $7.80\nNet profit: $18.58\nProfit margin: 28.58%',
         inputLanguage: 'text',
         outputLanguage: 'text',
       },
