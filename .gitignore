@@ -22,6 +22,7 @@ public/**/*.br
 screenshots/
 claude-seo/
 SEO-OPTIMIZATION-PRD.md
+docs/
 scripts/capture_screenshot.py
 scripts/detail_audit.py
 scripts/page_check.py
