@@ -1,4 +1,4 @@
-## AI Excel Formula Generator: Speak Spreadsheet, Not Syntax
+## AI Excel Formula Generator: Turn Plain English Into Formulas
 
 Excel and Google Sheets are daily tools for many knowledge workers, but formulas still slow people down. The gap between "I know what I want to calculate" and "I know the formula to make it happen" can be wide. VLOOKUP, INDEX-MATCH, nested IFs, and array formulas behave like a small programming language that many users never formally learn.
 
@@ -6,7 +6,7 @@ AI Excel formula generators help by turning plain-language intent into a formula
 
 ### 1. The Formula Knowledge Problem
 
-Excel contains over 500 built-in functions. Even power users rarely command more than 30-40. The result is widespread inefficiency:
+Excel contains over 500 built-in functions. Even power users know only a fraction of them. That gap creates common spreadsheet problems:
 
 - **Manual work where automation belongs:** People manually scan rows and highlight cells because they don't know CONDITIONAL FORMATTING formulas exist.
 - **Brittle workarounds:** Nested IF statements with 10+ conditions because SWITCH or IFS was introduced in a version the user skipped.
@@ -43,9 +43,9 @@ One underrated feature of a good AI formula generator is platform awareness. It 
 
 Specify your platform so the tool returns a formula that matches your spreadsheet version.
 
-### 5. The Learning Accelerator Effect
+### 5. Use the Explanation to Learn the Formula
 
-The most valuable outcome may be the explanation. A good generated formula includes a breakdown:
+A good generated formula includes a breakdown:
 
 - What each function does
 - Why this function was chosen over alternatives

@@ -1,18 +1,18 @@
-## HTTP Status Codes: The Nervous System of the Web
+## HTTP Status Codes: Practical Rules for APIs and Pages
 
-Whenever you request a website or query an API, there is a silent, instantaneous transaction that happens behind the scenes. The server replies with a three-digit integer known as the HTTP Status Code. Understanding this taxonomy is non-negotiable for building resilient software.
+Every website request and API call returns a three-digit HTTP status code. That code tells browsers, clients, crawlers, CDNs, monitoring tools, and support teams how to treat the response.
 
 ### 1. The Universal Taxonomy
-*   **2xx (Success):** Everything is well. `200 OK` is standard, but `201 Created` is vital for RESTful APIs to confirm database insertion.
-*   **3xx (Redirection):** Look elsewhere. The subtle difference between `301 Moved Permanently` and `302 Found` massively impacts SEO and browser caching rules.
-*   **4xx (Client Error):** You messed up. `400 Bad Request` means invalid JSON. `401 Unauthorized` means you lack an API key, while `403 Forbidden` means your key is valid, but your access tier prohibits this action. And of course, the legendary `404 Not Found`.
-*   **5xx (Server Error):** We messed up. A `500 Internal Server Error` is a generic crash, while a `502 Bad Gateway` usually indicates an Nginx reverse-proxy failure or a disconnected trailing microservice.
+*   **2xx (Success):** The request worked. `200 OK` is standard, and `201 Created` tells an API client that the server created a new resource.
+*   **3xx (Redirection):** The client needs another URL. `301 Moved Permanently` and `302 Found` affect SEO and browser caching in different ways.
+*   **4xx (Client Error):** The client sent something the server cannot accept. `400 Bad Request` can mean invalid JSON. `401 Unauthorized` points to missing authentication. `403 Forbidden` means the user or key lacks permission. `404 Not Found` means the resource does not exist at that URL.
+*   **5xx (Server Error):** The server or upstream service failed. `500 Internal Server Error` signals a generic server crash, while `502 Bad Gateway` often points to a proxy or upstream service problem.
 
-### 2. The Tragedy of Muting Errors
-The worst architectural sin a developer can commit is wrapping a failed database lookup in a `try/catch` block and returning a generic `200 OK` with a payload like `{"success": false, "error": "Not Found"}`. This fundamentally breaks CDN caching layers, obfuscates analytic monitoring, and destroys the standardized routing mechanisms that modern web infrastructure relies on.
+### 2. Do Not Hide Errors Behind 200
+Avoid wrapping a failed database lookup in a `try/catch` block and returning `200 OK` with a payload like `{"success": false, "error": "Not Found"}`. That pattern breaks CDN caching rules, makes monitoring noisy, and forces every client to invent custom error handling.
 
 ### Conclusion
-Respect the codes. By ensuring your backend accurately reflects its state through standard HTTP codes, you empower frontend apps and external integration partners to handle failures gracefully.
+Return the status code that matches the failure. Frontend apps, API clients, and monitoring systems can then react without parsing a custom error convention first.
 
 ### 3. Status Codes as Product Signals
 Status codes are not only for backend engineers. They shape how browsers, crawlers, monitoring tools, and customer support teams understand the health of a product. A checkout page that returns `500` during a payment provider outage should trigger a different alert than a login form returning `401` because a password expired. When the code is accurate, the whole stack can react with the right severity.

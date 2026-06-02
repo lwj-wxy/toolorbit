@@ -1,12 +1,12 @@
-## Color Theory for Developers: Building Interfaces That Feel Premium
+## Color Theory for Developers: Practical Interface Color Rules
 
-Most developers treat color as an afterthought. We import a Tailwind preset, use `bg-blue-500` for primary buttons, `text-red-600` for errors, and call it a day. But digital interfaces communicate fundamentally through color before a user ever reads a single word. Building truly premium, polished UI requires moving beyond generic defaults and understanding the principles that make interfaces feel cohesive rather than assembled from a component library.
+Many developers start with a Tailwind preset, use `bg-blue-500` for primary buttons, `text-red-600` for errors, and move on. That can work for prototypes, but production interfaces need color choices that support hierarchy, accessibility, state, and brand.
 
-This guide covers the practical color theory developers need: how to think in HSL, build professional palettes, meet accessibility standards, handle dark mode, and use modern CSS tooling effectively.
+The practical work is HSL thinking, palette structure, contrast checks, dark mode, and CSS tokens.
 
-### 1. The HSL Mindset: Why You Should Stop Thinking in HEX
+### 1. Think in HSL, Not Only HEX
 
-To master interface coloring, stop thinking in HEX (`#FF0000`) or RGB. Conceptualize color through HSL: Hue, Saturation, and Lightness. This mental model maps directly to how designers adjust color in professional tools, and it makes programmatic color manipulation far more intuitive.
+HEX and RGB describe values. HSL describes how designers adjust color: Hue, Saturation, and Lightness. That mental model makes palette changes easier to reason about in code.
 
 - **Hue (0-360):** The actual color pigment. 0 and 360 are red, 120 is green, 240 is blue, and everything in between fills the spectrum. Thinking in hue lets you rotate a palette systematically — add 30 to every hue and you have a new palette with the same relationships.
 - **Saturation (0-100%):** The intensity or purity of the color. This is where most developer UIs go wrong. In high-end design, true gray (0% saturation) is rarely used because it feels dead and artificial. Instead, add subtle temperature by keeping saturation at 3-8% and shifting the hue toward blue (for cold, technical vibes) or warm gray (for approachable, human interfaces).
@@ -24,7 +24,7 @@ In CSS, HSL is straightforward:
 }
 ```
 
-Notice how the neutral palette shares the same hue as the primary — just with drastically reduced saturation. This creates a subtle, invisible harmony. The alternative, using pure grays (`hsl(0 0% X%)`), feels sterile by comparison.
+Notice how the neutral palette shares the same hue as the primary, with much lower saturation. This keeps the neutral palette related to the primary color. Pure grays (`hsl(0 0% X%)`) often feel detached from the rest of the interface.
 
 ### 2. Building Professional Color Palettes
 
@@ -116,4 +116,4 @@ The cardinal rule: never use a rainbow/spectral scale for quantitative data. Hum
 
 ### Conclusion
 
-Color is architecture, not decoration. By thinking in HSL, using tinted neutrals instead of dead grays, restricting saturated colors to focal points, building accessibility checks into the workflow, and managing color systematically through CSS custom properties, a developer can elevate an interface from "basic template" to "premium product." The tools on ToolOrbit — [Color Palette Generator](/tools/dev/color-palette) and [Color Converter](/tools/dev/color-converter) — support these workflows, and the broader [developer tools hub](/developer-tools) connects color work to related tasks like image optimization and SVG export.
+Good interface color comes from consistent choices, not isolated swatches. Think in HSL, use tinted neutrals, reserve saturated colors for focal points, check contrast, and manage colors through CSS custom properties. ToolOrbit's [Color Palette Generator](/tools/dev/color-palette) and [Color Converter](/tools/dev/color-converter) support those workflows, and the broader [developer tools hub](/developer-tools) connects color work to image optimization and SVG export.

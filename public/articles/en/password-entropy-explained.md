@@ -1,8 +1,8 @@
 ## Password Entropy Explained: Why "P@ssword123" Is Not a Strong Password
 
-Every data breach investigation reveals the same uncomfortable truth: the most common password in the leaked dataset is almost always "123456," followed closely by "password" and "qwerty." Despite decades of security awareness campaigns, human password habits remain catastrophically weak.
+Leaked password datasets still contain "123456," "password," and "qwerty" near the top. Security awareness campaigns have not changed the basic pattern: many users choose short, predictable passwords.
 
-The problem isn't just laziness — it's a fundamental misunderstanding of what makes a password strong. Most people think complexity (adding a `!` and a capital letter) equals security. The mathematics tells a different story entirely. The metric that actually matters is **entropy**.
+The problem is a misunderstanding of strength. Many users treat complexity, such as adding a `!` and a capital letter, as the main defense. The metric that matters is **entropy**.
 
 ### 1. What Is Password Entropy?
 
@@ -18,7 +18,7 @@ So a password's entropy is determined by two things: **character set size** and 
 
 To build intuition: every additional character multiplies the search space by N. Adding one lowercase letter multiplies the possible combinations by 26. Adding a second multiplies by 26 again — 676 possibilities. By the time you reach 12 lowercase characters, you have 26¹² ≈ 9.5 × 10¹⁶ possible passwords. An attacker trying a billion guesses per second would need over three years to exhaust that space.
 
-### 2. The Brutal Math: How Fast Can Your Password Be Cracked?
+### 2. Crack Time Depends on the Threat Model
 
 Let's put numbers on the board. Assume an attacker can try 1 billion guesses per second (a realistic figure for offline attacks against fast hash functions like MD5 or SHA-1, using consumer GPU hardware — a single NVIDIA RTX 4090 can compute over 160 billion SHA-1 hashes per second):
 
@@ -29,7 +29,7 @@ Let's put numbers on the board. Assume an attacker can try 1 billion guesses per
 | `Tr0ub4dor&3` | 95 | 11 | ~72 bits | ~4,000 years |
 | `correct horse battery staple` | 27 | 28 | ~133 bits | Effectively forever |
 
-Notice: `correct horse battery staple` (from the famous XKCD comic) is vastly stronger than `Tr0ub4dor&3` — not because it's more "complex," but because it's longer. Length always beats character gymnastics.
+Notice: `correct horse battery staple` (from the famous XKCD comic) is stronger than `Tr0ub4dor&3` because it is longer. Length beats character gymnastics.
 
 The threat model matters too. An **online attack** (trying passwords against a live login form) is rate-limited and slow — even a moderately weak password survives because the server throttles attempts. An **offline attack** (cracking a stolen password hash database) has no such limit. The attacker downloads the hash file and throws GPU clusters at it. This is why database breaches are so dangerous: weak passwords fall in seconds once the hashes are offline.
 
@@ -43,14 +43,14 @@ Many corporate password policies are actively counterproductive:
 
 NIST's current guidelines (SP 800-63B) explicitly recommend against these outdated practices, favoring length over complexity and eliminating forced rotation. Their key recommendations: minimum 8 characters (with a strong preference for 15+), no complexity rules, screening new passwords against known compromised password lists, and no periodic mandatory resets.
 
-### 4. The Four Pillars of Actual Password Security
+### 4. Four Controls That Protect Passwords
 
-Here is what actually protects passwords:
+Use these controls:
 
 1.  **Length over complexity:** A 16-character all-lowercase password (entropy ~75 bits) is stronger than an 8-character password using every symbol on the keyboard (entropy ~52 bits). Every additional character doubles the attack surface.
 2.  **Uniqueness across services:** Password reuse is the #1 cause of account compromise. If Service A is breached and you reused its password on Service B, no amount of entropy saves you. Credential stuffing attacks — where attackers take leaked email/password pairs and try them on other services — are automated, relentless, and effective precisely because reuse is so common.
 3.  **A password manager:** Human brains cannot generate and remember 50 unique, high-entropy passwords. A password manager generates true random strings and stores them encrypted behind a single strong master password. The cognitive burden drops from "remember 50 strong passwords" to "remember one exceptionally strong passphrase."
-4.  **Multi-factor authentication (MFA):** Even if a password is compromised, MFA prevents account access. A stolen password plus a required TOTP code or hardware key is a solved problem for the attacker only if they compromise both factors. Time-based one-time passwords (TOTP) and hardware security keys (FIDO2/WebAuthn) provide substantially different security properties — hardware keys resist phishing in ways that TOTP codes cannot.
+4.  **Multi-factor authentication (MFA):** Even if a password is compromised, MFA can block account access. A stolen password plus a required TOTP code or hardware key helps only if the attacker compromises both factors. Time-based one-time passwords (TOTP) and hardware security keys (FIDO2/WebAuthn) provide different security properties; hardware keys resist phishing in ways that TOTP codes cannot.
 
 ### 5. Choosing and Using a Password Manager
 
@@ -89,4 +89,4 @@ Passkeys are still rolling out across the ecosystem. Apple, Google, and Microsof
 
 ### Conclusion
 
-Password strength is math, not vibes. "P@ssword123" is weak not because it lacks special characters (it doesn't), but because it's short, predictable, and exists in every attacker's dictionary. The fix isn't more exclamation marks — it's more characters, more randomness, using a password manager, enabling MFA, and never reusing the same password twice.
+Password strength comes from entropy, uniqueness, and account controls. "P@ssword123" is weak because it is short, predictable, and present in attacker dictionaries. Use longer random passwords, store them in a password manager, enable MFA, and never reuse the same password twice.

@@ -4,12 +4,12 @@ Writing usually takes more than one pass. An executive summary, marketing email,
 
 AI text polishing helps with that editing pass. Use it to tighten sentences, clarify tone, and find repetition before you send the draft.
 
-### 1. Beyond Grammar: Semantic Enhancement
+### 1. Beyond Grammar: Meaning and Pacing
 Traditional grammar checkers operate on rigid lookup tables. They highlight misspelled words or flag passive voice based on hardcoded rules. 
 
 Modern AI polishers use language models to review meaning, not only grammar. They can spot a sentence that is technically correct but too long, vague, or repetitive.
-An advanced polisher can:
-*   **Diagnose clunky pacing:** Suggest breaking a 40-word run-on sentence into two punchy assertions.
+An AI polisher can:
+*   **Fix clunky pacing:** Suggest breaking a 40-word run-on sentence into two direct sentences.
 *   **Improve word choice:** Replace vague phrases such as "very good" with a more precise description.
 *   **Eliminate redundancy:** Detect when you've restated the same concept three times and condense it.
 
@@ -17,10 +17,9 @@ An advanced polisher can:
 One useful feature of an AI polisher is tone control.
 Suppose you wrote a bug report at 2:00 AM. The facts are right, but the wording sounds angry. Ask the tool to make it professional, then check that it kept the technical details intact.
 
-### 3. Overcoming Blank Page Syndrome
+### 3. When a Draft Stalls
 Although "polishing" implies text already exists, these tools can also help when a draft stalls.
-The modern writing workflow is: "Rough Draft $\rightarrow$ AI Polish $\rightarrow$ Human Review." 
-Type the fragments first. Let the tool organize them, then decide what stays.
+One useful workflow is: "rough draft $\rightarrow$ AI polish $\rightarrow$ human review." Type the fragments first. Let the tool organize them, then decide what stays.
 
 ### Conclusion
 AI text polishing works best as an editing aid. It can clean up sentence structure and tone, but you should still review the result for accuracy, voice, and intent.

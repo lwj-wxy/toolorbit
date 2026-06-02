@@ -1,12 +1,12 @@
-## Timezones and Unix Timestamps: Why Time Is the Hardest Problem in Programming
+## Timezones and Unix Timestamps: Practical Rules for Developers
 
-Time seems simple. It ticks forward at a constant rate, universally and inescapably. Then you try to write software that handles it — and discover that human timekeeping is a labyrinth of political decisions, astronomical corrections, and historical accidents, all layered on top of a surprisingly elegant base representation: the Unix timestamp.
+Time bugs usually start when code treats local clock time as a stable fact. Timezones, daylight saving rules, leap seconds, and historical changes all sit on top of one useful base representation: the Unix timestamp.
 
 ### 1. The Unix Timestamp: Time as a Single Integer
 
-At its core, the Unix timestamp is beautifully minimal: **the number of seconds elapsed since 00:00:00 UTC on January 1, 1970** — the Unix epoch. Not counting leap seconds (more on that later).
+The Unix timestamp is **the number of seconds elapsed since 00:00:00 UTC on January 1, 1970**, the Unix epoch. It does not count leap seconds.
 
-This single 32-bit (or now 64-bit) integer has remarkable properties:
+This 32-bit or 64-bit integer has useful properties:
 
 - **Monotonic and sortable:** A larger timestamp always means a later moment. Sorting events chronologically requires comparing integers, not parsing date strings.
 - **Arithmetic-friendly:** The difference between two timestamps is just subtraction. Adding 86,400 means "tomorrow at the same time" (most of the time — see DST below).
@@ -43,7 +43,7 @@ SELECT TO_TIMESTAMP(1700000000);             -- timestamp → readable
 SELECT NOW() AT TIME ZONE 'Asia/Shanghai';   -- convert timezone
 ```
 
-The critical pattern in every language: store and transmit in UTC, convert to local time only at the display layer. Any deviation from this eventually produces a bug.
+Use the same pattern in every language: store and transmit in UTC, then convert to local time at the display layer.
 
 ### 3. The Timezone Layer: Political, Not Astronomical
 
@@ -76,7 +76,7 @@ For the Unix timestamp, this creates a fundamental tension. Unix time is defined
 - Different systems handle this differently. Google's NTP servers "smear" the leap second across a 24-hour window. Many financial systems pause trading during leap seconds to avoid timestamp ambiguity in transactions. AWS and Azure use leap smearing. Linux systems typically step the clock.
 - Code that measures elapsed time by subtracting two Unix timestamps can be off by one second across a leap second event. For most applications this is harmless; for sub-second financial or scientific applications, it matters.
 
-This is a genuinely hard problem with no universally accepted solution — which is why the global community is moving toward abolishing leap seconds entirely by 2035.
+No single leap-second strategy works for every system, which is why standards bodies are moving toward abolishing leap seconds by 2035.
 
 ### 6. Common Pitfalls Developers Hit
 
@@ -111,4 +111,4 @@ A few principles that prevent most time-related bugs:
 
 ### Conclusion
 
-Time is the classic example of a problem that's trivial for humans and brutally hard for computers. The Unix timestamp is the one layer that's genuinely clean — a single integer that means one unambiguous thing everywhere in the universe. Everything built on top of it (timezones, DST, leap seconds, calendar systems) is a monument to the glorious messiness of human civilization. Handle it with care, store it in UTC, use IANA timezone identifiers, test across DST boundaries, and never write your own date library.
+Unix timestamps give you one unambiguous instant. Timezones, DST, leap seconds, and calendar systems add the complexity. Store time in UTC, use IANA timezone identifiers, test across DST boundaries, keep tzdata updated, and avoid writing your own date library.

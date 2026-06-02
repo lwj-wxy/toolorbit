@@ -22,9 +22,9 @@ An AI regex generator can draft the pattern and explain the reasoning:
 
 The explanation matters because it gives reviewers a way to inspect the pattern instead of treating it as magic.
 
-### 3. Practical Use Cases Beyond the Obvious
+### 3. Practical Use Cases
 
-Beyond form validation (emails, phone numbers), AI-generated regexes shine in:
+AI-generated regexes help with more than email and phone validation:
 
 - **Log parsing at scale:** Describe the log format: "Apache combined log format, extract status code and response time." Then test the generated pattern against real log lines.
 - **Data migration scripts:** "Find all SQL INSERT statements that reference the deprecated `users_old` table and extract the column values." The AI handles the multi-line matching and escaping.
@@ -41,7 +41,7 @@ AI-generated regex is fast, but it's not infallible. Always pair it with a regex
 
 This human-in-the-loop approach gives you the best of both worlds: AI speed with human oversight.
 
-### 5. Leveling Up: From Consumer to Craftsman
+### 5. Use the Explanation to Learn
 
 Using an AI regex generator can improve your regex fluency if you read the explanation. You see how the pattern handles anchors, groups, character classes, and escaping, then reuse that knowledge in the next task.
 

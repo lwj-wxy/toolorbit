@@ -1,14 +1,14 @@
-## How QR Codes Actually Work: The Mathematics in Your Pocket
+## How QR Codes Work: Structure, Capacity, and Safety
 
-You scan dozens of QR codes every week — restaurant menus, payment terminals, WiFi logins, event tickets. They've become so ubiquitous that we barely register them. But hidden inside those pixelated squares is an ingenious feat of engineering: a self-correcting, orientation-agnostic, high-density data storage system that any phone camera can decode in milliseconds.
+You scan QR codes for menus, payment terminals, WiFi logins, and event tickets. A QR code is a two-dimensional data format with orientation markers, version metadata, masking, and Reed-Solomon error correction.
 
-Let's unpack how QR codes actually work, from the big alignment squares down to the error-correcting mathematics, and cover what developers need to know to generate and use them safely.
+Developers need to understand the structure, capacity limits, error correction trade-offs, and security risks before generating codes for real users.
 
 ### 1. The Anatomy of a QR Code
 
 Every QR code is built from a fixed set of structural elements that a scanner uses to orient itself before extracting data:
 
-- **Finder Patterns (the three big squares in the corners):** These tell the scanner "here I am, and here's my orientation." They're designed with a specific 1:1:3:1:1 black-white-black-white-black ratio that virtually never occurs naturally, so the scanner can locate them instantly. Even if the QR code is rotated 90 degrees, upside down, or partially tilted, the finder patterns give the scanner an unambiguous reference frame.
+- **Finder Patterns (the three big squares in the corners):** These give the scanner orientation. They use a specific 1:1:3:1:1 black-white-black-white-black ratio that rarely occurs in surrounding content, so the scanner can locate the code even when it is rotated or tilted.
 - **Alignment Pattern (the smaller square):** Used in larger QR codes to correct for lens distortion and curvature. Version 1 codes (21×21 modules) don't need them. As the code gets bigger, more alignment markers are added in a grid pattern. A Version 40 code (177×177) contains 46 alignment patterns distributed across its surface.
 - **Timing Pattern (the alternating dotted lines):** These run between the finder patterns and tell the scanner the size of each module (the individual black/white cells). They act as a ruler — the scanner counts the alternating modules to determine the code's version and module pitch.
 - **Format Information:** Encodes the error correction level and mask pattern — critical metadata that determines how the data is decoded, stored redundantly in two locations so it survives partial damage.
@@ -31,7 +31,7 @@ For most practical applications — URLs, WiFi credentials, contact cards — Ve
 
 ### 3. How Data Is Encoded
 
-QR codes transform text into a binary grid using a surprisingly sophisticated pipeline:
+QR codes turn text into a binary grid through a fixed pipeline:
 
 1.  **Character encoding:** The input text is converted to bytes. QR codes support four encoding modes — Numeric (0-9, 3.33 bits per character), Alphanumeric (0-9, A-Z, and a few symbols, 5.5 bits per char), Byte (any data, including UTF-8, 8 bits per char), and Kanji (optimized for Japanese Shift JIS characters, 13 bits per char). The encoder automatically selects the most efficient mode for each segment of input, and can switch modes mid-code.
 2.  **Data structuring:** The bytes are arranged into codewords (8-bit chunks). Error correction codewords are calculated using Reed-Solomon mathematics and appended. The number of error correction codewords depends on the chosen level.
@@ -40,7 +40,7 @@ QR codes transform text into a binary grid using a surprisingly sophisticated pi
 
 ### 4. Reed-Solomon Error Correction
 
-This is the magic that makes QR codes work even when partially damaged, obscured, or poorly lit. Reed-Solomon codes are a class of error-correcting codes originally developed for deep-space communications — the same mathematics that protected data from the Voyager probes.
+Reed-Solomon error correction lets QR codes work when part of the code is damaged, obscured, or poorly lit. Reed-Solomon codes were also used in deep-space communications, including systems that protected data from the Voyager probes.
 
 QR codes offer four levels of error correction:
 - **L (Low):** ~7% of codewords can be restored
@@ -54,7 +54,7 @@ A QR code with Level H correction can lose up to 30% of its modules — holes pu
 
 ### 5. Why QR Codes Beat Barcodes
 
-One-dimensional barcodes store data horizontally in varying-width bars. A QR code stores data in two dimensions — both horizontally and vertically. This seemingly simple change has profound consequences:
+One-dimensional barcodes store data horizontally in varying-width bars. A QR code stores data both horizontally and vertically. That design changes capacity and scanning behavior:
 
 - **Density:** A standard UPC barcode holds 12 numeric digits. A Version 40 QR code (the maximum) can hold up to 7,089 numeric characters or 4,296 alphanumeric characters.
 - **Error correction:** Barcodes have no error correction. A single smudge on a critical bar renders the entire code unreadable.
@@ -68,7 +68,7 @@ Defensive practices: preview the URL before opening it (most modern camera apps 
 
 ToolOrbit's [QR Scanner](/tools/dev/qr-scanner) decodes QR codes locally in the browser without uploading images to a server, and the [Barcode Generator](/tools/dev/barcode-generator) creates scannable codes for both one-dimensional and two-dimensional formats.
 
-### 7. The QR Code Renaissance
+### 7. Why QR Codes Became Common
 
 QR codes were invented in 1994 by Denso Wave, a subsidiary of Toyota, to track automotive parts. They languished in relative obscurity (at least in Western markets) for two decades. Three things changed that:
 
@@ -80,4 +80,4 @@ Denso Wave made a prescient decision: they open-sourced the QR code specificatio
 
 ### Conclusion
 
-The QR code is a quiet masterpiece of information theory. It packs encoding efficiency, physical robustness, and mathematical elegance into a square that fits on a postage stamp. Every time you scan one, you're executing a real-time Reed-Solomon decode — and it works so flawlessly that you never think about it. For developers, understanding how they work opens up better generation, safer scanning habits, and a deeper appreciation for one of the most successful open standards in computing history — a technology that quietly handles hundreds of millions of scans every day without anyone thinking about the mathematics making it possible.
+QR codes work because the format combines clear orientation markers, compact encoding, and error correction in a small printed area. For developers, that means generation choices matter: keep the quiet zone, choose an error correction level that fits the environment, preview URLs, and treat public QR codes as a phishing surface.

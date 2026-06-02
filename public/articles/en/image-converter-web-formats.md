@@ -2,7 +2,7 @@
 
 JPEG, PNG, GIF, WebP, and AVIF each solve a different image problem. Choose the format based on the content, browser support, file size, and whether you need transparency or animation.
 
-This guide compares the main web image formats and gives you a practical decision matrix for production projects.
+Use the matrix below to choose a format for production projects.
 
 ### 1. JPEG: Still Best for Many Photos
 
@@ -18,7 +18,7 @@ JPEG relies on lossy compression, primarily using the Discrete Cosine Transform 
 
 Portable Network Graphics (PNG) was created as a patent-free alternative to GIF and supports true alpha-channel transparency.
 
-**Technical Breakdown:**
+**How it works:**
 PNG is a lossless format (using DEFLATE compression). This means every single pixel is preserved exactly as created.
 
 * **PNG-8 vs PNG-24:** PNG-8 supports up to 256 colors (like GIF, but better compression). PNG-24 supports millions of colors and partial transparency.
@@ -40,7 +40,7 @@ According to Google's data, WebP lossless images are 26% smaller in size compare
 
 AV1 Image File Format (AVIF) comes from the open-source AV1 video codec.
 
-**The AVIF Advantage:**
+**Why AVIF matters:**
 AVIF consistently outperforms even WebP in compression efficiency, especially at lower bitrates. It supports HDR (High Dynamic Range) natively and wide color gamuts.
 
 * **Pros:** Excellent compression for the web, especially for photographic images.
@@ -48,7 +48,7 @@ AVIF consistently outperforms even WebP in compression efficiency, especially at
 
 ### Decision Matrix: Which Format Should You Choose?
 
-Here is a practical breakdown for choosing image formats in 2026:
+Use this breakdown for common web projects:
 
 | Content Type | Primary Choice | Fallback Choice | Reason |
 | :--- | :--- | :--- | :--- |
