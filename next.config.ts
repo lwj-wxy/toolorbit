@@ -17,6 +17,29 @@ const REMOVED_BLOG_SLUGS = [
   'benefits-of-chinese-crypto-sm',
 ];
 
+const LEGACY_BLOG_REDIRECTS = [
+  {
+    source: 'what-fees-does-etsy-charge-sellers',
+    destination: 'etsy-fee-complete-guide',
+  },
+  {
+    source: 'etsy-shipping-cost-profit-impact',
+    destination: 'etsy-shipping-free-shipping-strategy',
+  },
+  {
+    source: 'etsy-offsite-ads-fee-profit-impact',
+    destination: 'etsy-offsite-ads-explained',
+  },
+  {
+    source: 'etsy-payment-processing-fees-by-country',
+    destination: 'etsy-international-selling-fees',
+  },
+  {
+    source: 'maximizing-profit-on-etsy',
+    destination: 'etsy-pricing-strategy-guide',
+  },
+];
+
 const scriptSrc = [
   "'self'",
   "'unsafe-inline'",
@@ -86,6 +109,23 @@ const nextConfig: NextConfig = {
           permanent: true,
         },
       ]),
+      ...LEGACY_BLOG_REDIRECTS.flatMap(({ source, destination }) => [
+        {
+          source: `/blog/${source}`,
+          destination: `/blog/${destination}`,
+          permanent: true,
+        },
+        {
+          source: `/zh-CN/blog/${source}`,
+          destination: `/zh-CN/blog/${destination}`,
+          permanent: true,
+        },
+      ]),
+      {
+        source: '/:locale(ja-JP|zh-Hant)/:path*',
+        destination: '/',
+        permanent: true,
+      },
       {
         source: '/tools/shared/placeholder',
         destination: '/tools',

@@ -42,6 +42,10 @@ fs.cpSync(nextDir, path.join(outputDir, '.next'), {
   },
 });
 
+for (const dirName of ['cache', 'dev']) {
+  fs.rmSync(path.join(outputDir, '.next', dirName), { recursive: true, force: true });
+}
+
 for (const fileName of ['package.json', 'package-lock.json', 'next.config.ts']) {
   const sourcePath = path.join(rootDir, fileName);
   if (fs.existsSync(sourcePath)) {

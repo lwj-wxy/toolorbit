@@ -418,7 +418,7 @@ export function authorPageJsonLd(authorId?: string, locale: Locale = 'en') {
       '@type': 'ProfilePage',
       name: author.name,
       url,
-      dateModified: '2026-05-18',
+      dateModified: '2026-05-18T00:00:00+00:00',
       mainEntity: authorEntity(author, locale),
       publisher: organizationEntity(),
     },
