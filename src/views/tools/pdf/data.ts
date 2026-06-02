@@ -48,7 +48,7 @@ export const PDF_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
   'pdf-split': {
     zh: {
       summary:
-        'PDF 拆分工具用于将一个多页 PDF 文件按页拆分为多个独立的单页 PDF 文件，并打包为 ZIP 压缩包下载。适合将扫描好的多页合同按页拆开以便分别归档或发送、把批量扫描的证书和票据逐页提取后存入独立档案、将培训教材或资料手册拆分为单页方便按需分发某一章节、为需要逐页提交的政府表格或申请材料分别准备独立文件，以及从大型 PDF 文档中提取指定页面用于特定用途。工具基于 pdf-lib 逐页创建新 PDFDocument，通过 JSZip 将生成的文件统一打包，所有处理在浏览器本地完成。',
+        'PDF 拆分工具用于将一个多页 PDF 文件按页拆分为多个独立的单页 PDF 文件，并打包为 ZIP 压缩包下载。适合将扫描好的多页合同按页拆开以便分别归档或发送、把批量扫描的证书和票据逐页提取后存入独立档案、将培训教材或资料手册拆成单页后再按需分发、为需要逐页提交的政府表格或申请材料分别准备独立文件，以及把大型 PDF 统一拆成可单独管理的页面文件。工具基于 pdf-lib 逐页创建新 PDFDocument，通过 JSZip 将生成的文件统一打包，所有处理在浏览器本地完成。',
       input:
         '上传一个 PDF 文件（仅支持 PDF 格式）。工具会读取并展示文件名、文件大小和总页数信息，确认文件可处理后进入拆分流程。上传前自动校验文件类型，非 PDF 文件会弹出提示。',
       output:
@@ -66,7 +66,7 @@ export const PDF_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
     },
     en: {
       summary:
-        'The PDF Split tool separates a multi-page PDF into individual single-page PDF files and packages them as a downloadable ZIP archive. Suitable for splitting scanned multi-page contracts into individual pages for separate archiving or sending, extracting batch-scanned certificates and receipts page by page into independent files, breaking training materials or reference handbooks into single pages for selective distribution, preparing independent files for government forms or application materials that require page-by-page submission, and extracting specific pages from large PDF documents for targeted use. Based on pdf-lib for per-page PDFDocument creation and JSZip for packaging, all processing runs locally in the browser.',
+        'The PDF Split tool separates a multi-page PDF into individual single-page PDF files and packages them as a downloadable ZIP archive. Suitable for splitting scanned multi-page contracts into individual pages for separate archiving or sending, extracting batch-scanned certificates and receipts page by page into independent files, breaking training materials or reference handbooks into single pages before selective distribution, preparing independent files for government forms or application materials that require page-by-page submission, and turning a large PDF into separately manageable page files. Based on pdf-lib for per-page PDFDocument creation and JSZip for packaging, all processing runs locally in the browser.',
       input:
         'Upload one PDF file (PDF format only). The tool reads and displays the filename, file size, and total page count information, then confirms the file is processable before entering the split workflow. File type validation runs on upload; non-PDF files trigger an alert.',
       output:

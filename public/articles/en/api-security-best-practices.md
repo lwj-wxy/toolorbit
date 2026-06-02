@@ -1,15 +1,15 @@
-## API Security: Hardening Your Endpoints Against the Dark Web
+## API Security: Practical Endpoint Hardening
 
-If an application is a vault, APIs are the doors. Over 80% of modern web traffic flows through APIs, making them the primary target for malicious actors, botnets, and automated vulnerability scanners. Securing them is not an IT problem; it is an existential business necessity.
+APIs carry user data, payment events, account changes, and internal automation. Attackers target them because a single weak endpoint can expose records, trigger expensive work, or bypass business rules.
 
 ### 1. The Principle of Least Privilege
-Never expose an endpoint that allows unrestricted mass data retrieval. A classic vulnerability is the "Mass Assignment" flaw. If a user sends a `POST /api/user/update` request and includes `"isAdmin": true` in the JSON payload, a poorly secured ORM might blindly map that property to the database, instantly granting the attacker administrative rights. Strict payload validation schemas (using tools like Zod or Joi) are mandatory.
+Never expose an endpoint that allows unrestricted mass data retrieval. A classic vulnerability is the "Mass Assignment" flaw. If a user sends a `POST /api/user/update` request and includes `"isAdmin": true` in the JSON payload, a poorly secured ORM might map that property to the database and grant the attacker administrative rights. Use strict payload validation schemas with tools like Zod or Joi.
 
 ### 2. Rate Limiting and Volumetric Defenses
-A server without rate limiting is a server waiting to be crushed by a DDoS attack. Implementing robust IP-based, or better yet, Token-based rate limiting guarantees that a bad actor looping a script cannot exhaust your database connections or violently inflate your AWS billing metrics. In modern stacks, this is handled via Redis token buckets at the proxy edge layer.
+A server without rate limiting lets one client consume too much capacity. Add IP-based and token-based limits so a script cannot exhaust database connections or inflate cloud costs. Modern stacks often handle this with Redis token buckets at the proxy edge layer.
 
 ### Conclusion
-API security is an adversarial game. By treating every incoming payload as inherently hostile and locking down the ingress points with strict validation schemas and rate throttles, systems can withstand the chaos of the public internet.
+Treat each incoming payload as untrusted input. Validate request shape, enforce authorization on every object access, and add rate limits before expensive work runs.
 
 ### 3. Authentication Is Not Authorization
 Many API incidents happen because a system verifies who the caller is but forgets to verify what that caller may do. A valid token should not automatically grant access to every object in a database. Every request that reads or mutates user-owned resources should check object-level authorization: does this user, service account, or tenant actually own the record being requested?
