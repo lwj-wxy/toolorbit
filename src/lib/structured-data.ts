@@ -28,6 +28,7 @@ export function organizationEntity() {
     '@type': 'Organization',
     '@id': `${SITE_URL}/#organization`,
     name: SITE_NAME,
+    alternateName: ['ToolOrbit.site', 'Tool Orbit'],
     url: SITE_URL,
     logo: {
       '@type': 'ImageObject',
@@ -191,6 +192,7 @@ export function websiteJsonLd() {
     '@type': 'WebSite',
     '@id': `${SITE_URL}/#website`,
     name: SITE_NAME,
+    alternateName: ['ToolOrbit.site', 'Tool Orbit'],
     url: SITE_URL,
     description: BRAND_DESCRIPTION,
     publisher: organizationEntity(),

@@ -97,6 +97,26 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: '/tools/etsy/:path*',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/zh-CN/tools/etsy/:path*',
+        destination: '/zh-CN',
+        permanent: true,
+      },
+      {
+        source: '/solutions/:path*',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/zh-CN/solutions/:path*',
+        destination: '/zh-CN',
+        permanent: true,
+      },
+      {
         source: '/tools/dev/chinese-crypto',
         destination: '/tools/dev/crypto-symmetric',
         permanent: true,
