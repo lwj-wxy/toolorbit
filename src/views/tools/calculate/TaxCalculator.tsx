@@ -44,11 +44,12 @@ const parseNumberField = (value: string) => Number(value.trim());
 const TaxJurisdictionPanel = ({ jurisdiction, isZh }: { jurisdiction?: TaxJurisdiction; isZh: boolean }) => {
   if (!jurisdiction) return null;
 
+  const taxName = isZh ? jurisdiction.taxNameZh || jurisdiction.taxName || 'VAT' : jurisdiction.taxName || 'VAT';
   const labels = {
-    title: isZh ? `${jurisdiction.nameZh} VAT 税率来源` : `${jurisdiction.name} VAT rate source`,
+    title: isZh ? `${jurisdiction.nameZh} ${taxName} 税率来源` : `${jurisdiction.name} ${taxName} rate source`,
     subtitle: isZh
-      ? '本页使用以下公开税率 preset，适合快速估算含税价、税前价和 VAT 金额。'
-      : 'This page uses the public rate presets below for quick net, VAT, and gross price estimates.',
+      ? `本页使用以下公开税率 preset，适合快速估算含税价、税前价和 ${taxName} 金额。`
+      : `This page uses the public rate presets below for quick net, ${taxName}, and gross price estimates.`,
     country: isZh ? '地区' : 'Jurisdiction',
     currency: isZh ? '默认货币' : 'Default currency',
     source: isZh ? '来源' : 'Source',

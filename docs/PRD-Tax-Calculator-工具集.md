@@ -25,8 +25,7 @@
 1. Reverse VAT / Sales Tax Calculator
 2. VAT Inclusive / Exclusive Price Calculator
 3. Country VAT Calculator Pages
-4. US Sales Tax by State Calculator
-5. GST Calculator Pages
+4. GST Calculator Pages
 
 ---
 
@@ -88,18 +87,16 @@ MVP 需要抽出通用 tax calculation engine，供后续 EU、US、GST 页面�
 
 第三阶段：
 
-- California Sales Tax Calculator
-- Texas Sales Tax Calculator
-- Florida Sales Tax Calculator
-- New York Sales Tax Calculator
-
-第四阶段：
-
-- Australia GST Calculator
-- Canada GST / HST Calculator
-- New Zealand GST Calculator
-- Singapore GST Calculator
-- India GST Calculator
+- `GST Calculator`
+  - 支持国家切换：Australia / Canada / New Zealand / Singapore / India
+  - 复用统一 tax calculation engine
+  - 根据国家切换默认税率、货币、税种名称与说明文案
+- 国家落地页：
+  - Australia GST Calculator
+  - Canada GST / HST Calculator
+  - New Zealand GST Calculator
+  - Singapore GST Calculator
+  - India GST Calculator
 
 ---
 
@@ -485,8 +482,7 @@ type TaxJurisdiction = {
 5. 开发 `UK VAT Calculator` 页面。
 6. 补充 FAQ、source、last updated、disclaimer。
 7. 扩展 EU country VAT pages。
-8. 扩展 US sales tax by state pages。
-9. 扩展 GST country pages。
+8. 扩展 GST country pages。
 
 ---
 
@@ -512,4 +508,3 @@ Programmatic 页面要避免只有税率数字不同。每个国家或州页面�
 - 本地来源。
 - 适用范围说明。
 - 常见问题或限制说明。
-

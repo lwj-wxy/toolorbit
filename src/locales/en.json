@@ -2206,6 +2206,13 @@
       "seoTitle": "Country VAT Calculator",
       "seoDesc": "Choose UK or EU VAT presets by country, then add VAT to a net price or remove VAT from a gross price with source notes."
     },
+    "gst-calculator": {
+      "name": "GST Calculator",
+      "description": "Switch between Australia, Canada, New Zealand, Singapore, and India GST or HST presets inside one calculator.",
+      "title": "GST Calculator",
+      "seoTitle": "GST Calculator",
+      "seoDesc": "Choose Australia, Canada, New Zealand, Singapore, or India GST presets, then add tax to a net price or remove tax from a gross price with source notes."
+    },
     "time-converter": {
       "name": "Time Converter",
       "description": "Convert between time zones and dates instantly.",

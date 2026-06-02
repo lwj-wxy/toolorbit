@@ -43,6 +43,7 @@ export const toolComponentMap: Record<string, ToolComponent> = {
   '/tools/ai/market-insights': lazyTool(() => import('../views/tools/ai/MarketInsights')),
   '/tools/calculate/archive-converter': lazyTool(() => import('../views/tools/calculate/ArchiveConverter')),
   '/tools/ecommerce/country-vat-calculator': lazyTool(() => import('../views/tools/calculate/CountryVatCalculator')),
+  '/tools/ecommerce/gst-calculator': lazyTool(() => import('../views/tools/calculate/GstCalculator')),
   '/tools/calculate/ppi-calculator': lazyTool(() => import('../views/tools/calculate/PpiCalculator')),
   '/tools/ecommerce/reverse-vat-calculator': lazyTool(() => import('../views/tools/calculate/ReverseVatCalculator')),
   '/tools/calculate/rmb-converter': lazyTool(() => import('../views/tools/calculate/RmbConverter')),

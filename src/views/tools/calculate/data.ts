@@ -162,6 +162,45 @@ export const CALCULATE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
     },
   },
 
+  'gst-calculator': {
+    zh: {
+      summary:
+        'GST Calculator（GST 计算器）将澳大利亚、加拿大、新西兰、新加坡和印度的 GST / HST 预设收敛到同一个工具中。用户先切换国家，再使用该国家维护的标准税率或常见税档 preset 进行 Add tax（从税前价推导含税价）或 Remove tax（从含税价反推税前价）计算。该结构复用同一套 tax calculation engine，避免为每个国家重复实现公式，同时保留国家级默认货币、来源链接、最后核对日期和适用范围说明，适合跨境电商定价、报价核对、含税/税前展示切换和财务快速估算。',
+      input:
+        '输入金额，选择 Australia、Canada、New Zealand、Singapore 或 India，选择 Add tax 或 Remove tax，并点击当前国家的 GST / HST preset 填入税率。默认国家为 Australia，默认税率为 10%，默认货币为 AUD；切换国家时会自动切换到对应货币和首个常用税率。',
+      output:
+        '输出 net amount、tax amount、gross amount、当前公式、所选国家税率说明、来源链接、Last checked 日期、Effective date（如有）和适用范围备注。',
+      processing:
+        'Add tax 模式使用 gross = net x (1 + rate)，Remove tax 模式使用 net = gross / (1 + rate)。税率以百分比输入，在计算时转换为小数。各国家 GST / HST 预设和来源信息通过 TaxJurisdiction 数组维护，切换国家时同步替换 preset、默认货币和来源说明，计算逻辑始终复用同一套实现。',
+      modes: ['国家切换', 'Australia GST preset', 'Canada GST/HST preset', 'India GST slab preset', 'Add tax', 'Remove tax', '多币种格式化', '来源与更新时间', '复制结果'],
+      example: {
+        title: 'GST 计算示例',
+        input: 'Country: Australia\nAmount: 100\nTax rate: 10%\nMode: Add tax\nCurrency: AUD',
+        output: 'Net amount: A$100.00\nTax amount: A$10.00\nGross amount: A$110.00',
+        inputLanguage: 'text',
+        outputLanguage: 'text',
+      },
+    },
+    en: {
+      summary:
+        'The GST Calculator consolidates Australia, Canada, New Zealand, Singapore, and India GST or HST presets into one tool. Users switch country first, then apply the maintained standard rate or common tax-slab presets in Add tax or Remove tax mode. This reuses one tax calculation engine instead of duplicating the same formula across many pages, while still preserving country-specific default currency, official source links, last checked dates, and scope notes. It is designed for cross-border ecommerce pricing, quote checks, tax-inclusive versus tax-exclusive conversion, and quick finance estimates.',
+      input:
+        'Enter an amount, choose Australia, Canada, New Zealand, Singapore, or India, choose Add tax or Remove tax, choose a display currency, and click the active GST or HST preset. The default country is Australia with a 10% rate and AUD currency; switching country updates the default currency and the first maintained rate preset.',
+      output:
+        'The result shows net amount, tax amount, gross amount, formula, selected-country rate notes, source link, last checked date, effective date when available, and scope note.',
+      processing:
+        'Add tax uses gross = net x (1 + rate), while Remove tax uses net = gross / (1 + rate). The rate is entered as a percentage and converted to a decimal for calculation. Country GST or HST presets and source data are maintained through a TaxJurisdiction array, so changing country updates presets, default currency, and source notes while keeping one calculation implementation.',
+      modes: ['Country switcher', 'Australia GST presets', 'Canada GST/HST presets', 'India GST slab presets', 'Add tax', 'Remove tax', 'Multi-currency formatting', 'Source and update date', 'Copy result'],
+      example: {
+        title: 'GST calculation example',
+        input: 'Country: Australia\nAmount: 100\nTax rate: 10%\nMode: Add tax\nCurrency: AUD',
+        output: 'Net amount: A$100.00\nTax amount: A$10.00\nGross amount: A$110.00',
+        inputLanguage: 'text',
+        outputLanguage: 'text',
+      },
+    },
+  },
+
   'time-converter': {
     zh: {
       summary:

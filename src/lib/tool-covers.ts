@@ -29,6 +29,7 @@ const GENERATED_TOOL_COVER_IDS = new Set([
   'etsy-offsite-ads-calculator',
   'etsy-pricing-calculator',
   'etsy-regulatory-fee-calculator',
+  'gst-calculator',
   'hash-generator',
   'hex-string-converter',
   'image-compressor',

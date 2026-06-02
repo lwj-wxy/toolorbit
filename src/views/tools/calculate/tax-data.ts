@@ -13,6 +13,8 @@ export type TaxJurisdiction = {
   nameZh: string;
   countryCode: string;
   currency: string;
+  taxName?: string;
+  taxNameZh?: string;
   rates: TaxRatePreset[];
   sourceName: string;
   sourceUrl: string;
@@ -50,6 +52,7 @@ export const TAX_CURRENCIES: CurrencyOption[] = [
   { code: 'USD', label: 'USD - US dollar' },
   { code: 'AUD', label: 'AUD - Australian dollar' },
   { code: 'CAD', label: 'CAD - Canadian dollar' },
+  { code: 'INR', label: 'INR - Indian rupee' },
   { code: 'NZD', label: 'NZD - New Zealand dollar' },
   { code: 'SGD', label: 'SGD - Singapore dollar' },
 ];
@@ -330,6 +333,209 @@ export const COUNTRY_VAT_JURISDICTIONS: TaxJurisdiction[] = [
   IRELAND_VAT_JURISDICTION,
 ];
 
+export const AUSTRALIA_GST_RATE_PRESETS: TaxRatePreset[] = [
+  {
+    label: '10%',
+    rate: 10,
+    description: 'Standard GST rate - most goods and services',
+    descriptionZh: '标准 GST 税率 - 适用于多数商品和服务',
+  },
+  {
+    label: '0%',
+    rate: 0,
+    description: 'GST-free example - qualifying supplies only',
+    descriptionZh: 'GST-free 示例 - 仅限符合条件的供应',
+  },
+];
+
+export const CANADA_GST_RATE_PRESETS: TaxRatePreset[] = [
+  {
+    label: '5%',
+    rate: 5,
+    description: 'Federal GST rate used in non-HST provinces and territories',
+    descriptionZh: '联邦 GST 税率，适用于非 HST 省份和地区',
+  },
+  {
+    label: '13%',
+    rate: 13,
+    description: 'HST rate used in Ontario',
+    descriptionZh: 'Ontario 常见 HST 税率',
+  },
+  {
+    label: '14%',
+    rate: 14,
+    description: 'HST rate used in Nova Scotia from 2025-04-01',
+    descriptionZh: 'Nova Scotia 自 2025-04-01 起适用的 HST 税率',
+  },
+  {
+    label: '15%',
+    rate: 15,
+    description: 'HST rate used in NB, NL, and PEI',
+    descriptionZh: 'New Brunswick、Newfoundland and Labrador、Prince Edward Island 常见 HST 税率',
+  },
+];
+
+export const NEW_ZEALAND_GST_RATE_PRESETS: TaxRatePreset[] = [
+  {
+    label: '15%',
+    rate: 15,
+    description: 'Standard GST rate - broad-based supply',
+    descriptionZh: '标准 GST 税率 - 广泛适用于多数供应',
+  },
+  {
+    label: '0%',
+    rate: 0,
+    description: 'Zero-rated example - qualifying supplies only',
+    descriptionZh: 'Zero-rated 示例 - 仅限符合条件的供应',
+  },
+];
+
+export const SINGAPORE_GST_RATE_PRESETS: TaxRatePreset[] = [
+  {
+    label: '9%',
+    rate: 9,
+    description: 'Prevailing GST rate from 2024-01-01',
+    descriptionZh: '自 2024-01-01 起适用的现行 GST 税率',
+  },
+  {
+    label: '0%',
+    rate: 0,
+    description: 'Zero-rated example - exports and qualifying services',
+    descriptionZh: 'Zero-rated 示例 - 出口和符合条件的服务',
+  },
+];
+
+export const INDIA_GST_RATE_PRESETS: TaxRatePreset[] = [
+  {
+    label: '18%',
+    rate: 18,
+    description: 'Common standard slab for many goods and services',
+    descriptionZh: '许多商品和服务使用的常见标准税档',
+  },
+  {
+    label: '12%',
+    rate: 12,
+    description: 'Middle GST slab for selected categories',
+    descriptionZh: '部分品类适用的中间 GST 税档',
+  },
+  {
+    label: '5%',
+    rate: 5,
+    description: 'Lower GST slab for selected essentials',
+    descriptionZh: '部分基础商品适用的较低 GST 税档',
+  },
+  {
+    label: '28%',
+    rate: 28,
+    description: 'Higher GST slab for selected goods',
+    descriptionZh: '部分指定商品适用的较高 GST 税档',
+  },
+];
+
+export const AUSTRALIA_GST_JURISDICTION: TaxJurisdiction = {
+  slug: 'australia',
+  name: 'Australia',
+  nameZh: '澳大利亚',
+  countryCode: 'AU',
+  currency: 'AUD',
+  taxName: 'GST',
+  taxNameZh: 'GST',
+  rates: AUSTRALIA_GST_RATE_PRESETS,
+  sourceName: 'Australian Taxation Office GST overview',
+  sourceUrl: 'https://www.ato.gov.au/about-ato/research-and-statistics/in-detail/tax-gap/goods-and-services-tax-gap/overview',
+  lastChecked: '2026-06-02',
+  effectiveDate: '10% GST rate in effect since 2000-07-01',
+  effectiveDateZh: '10% GST 税率自 2000-07-01 起实施',
+  note:
+    'Australia generally applies 10% GST to most goods and services. GST-free and input-taxed supplies such as some food, health, education, and exports are not modeled by this calculator.',
+  noteZh:
+    '澳大利亚通常对多数商品和服务征收 10% GST。部分食品、医疗、教育和出口等 GST-free 或 input-taxed 场景不在本计算器覆盖范围内。',
+};
+
+export const CANADA_GST_JURISDICTION: TaxJurisdiction = {
+  slug: 'canada',
+  name: 'Canada',
+  nameZh: '加拿大',
+  countryCode: 'CA',
+  currency: 'CAD',
+  taxName: 'GST/HST',
+  taxNameZh: 'GST / HST',
+  rates: CANADA_GST_RATE_PRESETS,
+  sourceName: 'Canada Revenue Agency GST/HST calculator and rates',
+  sourceUrl: 'https://www.canada.ca/en/revenue-agency/services/tax/businesses/topics/gst-hst-businesses/charge-collect-which-rate/calculator.html',
+  lastChecked: '2026-06-02',
+  effectiveDate: 'Nova Scotia HST changed to 14% on 2025-04-01',
+  effectiveDateZh: 'Nova Scotia HST 已于 2025-04-01 调整为 14%',
+  note:
+    'Use 5% for federal GST in non-HST provinces and territories. Use 13% to 15% where HST applies. Provincial sales taxes such as PST and QST are not included in this GST/HST-only calculator.',
+  noteZh:
+    '非 HST 省份和地区通常使用 5% 联邦 GST；HST 省份通常使用 13% 到 15%。本工具仅覆盖 GST/HST，不包含 PST、QST 等省级销售税。',
+};
+
+export const NEW_ZEALAND_GST_JURISDICTION: TaxJurisdiction = {
+  slug: 'new-zealand',
+  name: 'New Zealand',
+  nameZh: '新西兰',
+  countryCode: 'NZ',
+  currency: 'NZD',
+  taxName: 'GST',
+  taxNameZh: 'GST',
+  rates: NEW_ZEALAND_GST_RATE_PRESETS,
+  sourceName: 'Inland Revenue New Zealand - What GST is',
+  sourceUrl: 'https://www.ird.govt.nz/gst/what-gst-is',
+  lastChecked: '2026-06-02',
+  note:
+    'New Zealand GST is generally charged at 15% on most goods and services. Zero-rated and exempt supplies still depend on transaction type and tax status, so use this page for quick estimates only.',
+  noteZh:
+    '新西兰通常对多数商品和服务征收 15% GST。Zero-rated 和 exempt 供应仍取决于交易类型和税务状态，因此本页仅适合快速估算。',
+};
+
+export const SINGAPORE_GST_JURISDICTION: TaxJurisdiction = {
+  slug: 'singapore',
+  name: 'Singapore',
+  nameZh: '新加坡',
+  countryCode: 'SG',
+  currency: 'SGD',
+  taxName: 'GST',
+  taxNameZh: 'GST',
+  rates: SINGAPORE_GST_RATE_PRESETS,
+  sourceName: 'IRAS Current GST rates',
+  sourceUrl: 'https://www.iras.gov.sg/taxes/goods-services-tax-%28gst%29/basics-of-gst/current-gst-rates',
+  lastChecked: '2026-06-02',
+  effectiveDate: '9% GST rate effective from 2024-01-01',
+  effectiveDateZh: '9% GST 税率自 2024-01-01 起生效',
+  note:
+    'Singapore currently applies 9% GST on standard-rated supplies. Zero-rated and exempt supplies such as qualifying exports and financial services are not fully modeled here.',
+  noteZh:
+    '新加坡目前对 standard-rated 供应征收 9% GST。符合条件的出口、金融服务等 zero-rated 或 exempt 场景未在此完整建模。',
+};
+
+export const INDIA_GST_JURISDICTION: TaxJurisdiction = {
+  slug: 'india',
+  name: 'India',
+  nameZh: '印度',
+  countryCode: 'IN',
+  currency: 'INR',
+  taxName: 'GST',
+  taxNameZh: 'GST',
+  rates: INDIA_GST_RATE_PRESETS,
+  sourceName: 'CBIC GST rate schedules and GST rates FAQ',
+  sourceUrl: 'https://www.cbic.gov.in/htdocs-cbec/gst/gst-rate-schedules',
+  lastChecked: '2026-06-02',
+  note:
+    'India GST uses multiple slabs by HSN or SAC classification. This calculator exposes common headline slabs such as 5%, 12%, 18%, and 28%, but actual liability depends on the exact product or service category.',
+  noteZh:
+    '印度 GST 按 HSN 或 SAC 分类采用多档税率。本工具提供 5%、12%、18%、28% 等常见主税档，但实际税率仍取决于具体商品或服务分类。',
+};
+
+export const COUNTRY_GST_JURISDICTIONS: TaxJurisdiction[] = [
+  AUSTRALIA_GST_JURISDICTION,
+  CANADA_GST_JURISDICTION,
+  NEW_ZEALAND_GST_JURISDICTION,
+  SINGAPORE_GST_JURISDICTION,
+  INDIA_GST_JURISDICTION,
+];
+
 export const TAX_CALCULATOR_CONFIGS: Record<string, TaxCalculatorConfig> = {
   'reverse-vat-calculator': {
     toolKey: 'reverse-vat-calculator',
@@ -390,6 +596,23 @@ export const TAX_CALCULATOR_CONFIGS: Record<string, TaxCalculatorConfig> = {
     jurisdiction: UK_VAT_JURISDICTION,
     jurisdictions: COUNTRY_VAT_JURISDICTIONS,
     defaultJurisdictionSlug: 'uk',
+  },
+  'gst-calculator': {
+    toolKey: 'gst-calculator',
+    title: 'GST Calculator',
+    titleZh: 'GST 计算器',
+    description:
+      'Switch between Australia, Canada, New Zealand, Singapore, and India, then calculate GST or HST using country-specific presets, source notes, and add-tax or remove-tax modes.',
+    descriptionZh:
+      '在澳大利亚、加拿大、新西兰、新加坡和印度之间切换，按国家 GST / HST preset 计算税前金额、税额和含税金额。',
+    defaultAmount: '100',
+    defaultRate: 10,
+    defaultCurrency: 'AUD',
+    defaultMode: 'add',
+    presets: AUSTRALIA_GST_RATE_PRESETS,
+    jurisdiction: AUSTRALIA_GST_JURISDICTION,
+    jurisdictions: COUNTRY_GST_JURISDICTIONS,
+    defaultJurisdictionSlug: 'australia',
   },
   'germany-vat-calculator': {
     toolKey: 'germany-vat-calculator',

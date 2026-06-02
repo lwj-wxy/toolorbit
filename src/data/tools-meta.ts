@@ -496,6 +496,14 @@ const RAW_TOOLS_META = [
     color: 'emerald',
   },
   {
+    id: 'gst-calculator',
+    name: 'GST Calculator',
+    description: 'Switch between Australia, Canada, New Zealand, Singapore, and India, then calculate GST or HST with country-specific presets and source notes.',
+    category: '电商工具',
+    path: '/tools/ecommerce/gst-calculator',
+    color: 'emerald',
+  },
+  {
     id: 'time-converter',
     name: '时间转换器',
     description: '全球各大时区时间、时间差及标准时间戳极速互转工具。',

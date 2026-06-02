@@ -2003,6 +2003,13 @@
       "seoTitle": "Country VAT Calculator",
       "seoDesc": "按国家选择 UK 或 EU VAT preset，计算税前价、VAT 金额和含税价，并展示来源说明。"
     },
+    "gst-calculator": {
+      "name": "GST Calculator",
+      "description": "在同一个计算器内切换澳大利亚、加拿大、新西兰、新加坡和印度的 GST / HST preset。",
+      "title": "GST Calculator",
+      "seoTitle": "GST Calculator",
+      "seoDesc": "按国家选择 GST / HST preset，计算税前价、税额和含税价，并展示来源说明。"
+    },
     "time-converter": {
       "name": "时间转换器",
       "description": "全球各大时区时间、时间差及标准时间戳极速互转工具。",
