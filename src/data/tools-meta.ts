@@ -17,7 +17,7 @@ function expandDescription(tool: ToolMeta): ToolMeta {
   const isAscii = /^[\x00-\x7F]+$/.test(tool.description);
   const suffix = isAscii
     ? ` Use ${tool.name} in ToolOrbit for quick browser-based workflows, clear controls, and privacy-friendly processing without extra software.`
-    : ` 使用 ${tool.name} 可在浏览器中快速完成常见工作流，提供清晰控件、即时结果和无需安装的本地优先体验。`;
+    : ` 使用 ${tool.name} 可在浏览器中完成常见工作流，提供清晰控件、即时结果和无需安装的本地优先体验。`;
 
   return {
     ...tool,
@@ -29,7 +29,7 @@ const RAW_TOOLS_META = [
   {
     id: 'ai-youtube-generator',
     name: 'YouTube Title & Description Generator',
-    description: 'AI-powered tool to generate catchy, click-worthy titles, SEO-optimized descriptions, and high-volume tags for your YouTube videos.',
+    description: 'Generate YouTube titles, descriptions, and tags from a topic, audience, and video angle.',
     category: 'AI 工具',
     path: '/tools/ai/youtube-generator',
     color: 'rose',
@@ -38,7 +38,7 @@ const RAW_TOOLS_META = [
   {
     id: 'ai-prompt-generator',
     name: 'AI 绘画提示词生成',
-    description: 'Midjourney/SD 专属提示词工程师，一键生成高质量、细节丰富的作图 Prompt。',
+    description: '为 Midjourney 和 Stable Diffusion 生成包含主体、风格、镜头和细节的作图 Prompt。',
     category: 'AI 工具',
     path: '/tools/ai/prompt-generator',
     color: 'fuchsia',
@@ -47,7 +47,7 @@ const RAW_TOOLS_META = [
   {
     id: 'ai-weekly-report',
     name: 'AI 周报生成器',
-    description: '告别周报内耗！将零散的工作记录自动转化为格式规范、专业精炼的汇报总结。',
+    description: '将零散工作记录整理成周报草稿，包含进展、问题、计划和可复核事项。',
     category: 'AI 工具',
     path: '/tools/ai/weekly-report',
     color: 'blue',
@@ -56,7 +56,7 @@ const RAW_TOOLS_META = [
   {
     id: 'ai-code-reviewer',
     name: 'AI 代码审查 (Code Review)',
-    description: '资深 AI 架构师为您进行 Code Review，发现潜在 Bug、安全隐患并提供重构建议。',
+    description: '检查代码片段中的潜在 Bug、安全风险和可读性问题，并给出修改建议。',
     category: 'AI 工具',
     path: '/tools/ai/code-reviewer',
     color: 'green',
@@ -65,7 +65,7 @@ const RAW_TOOLS_META = [
   {
     id: 'ai-video-script',
     name: '短视频脚本生成',
-    description: 'AI 帮你一键生成爆款短视频脚本，包含分镜头、画面描述、字幕与旁白。',
+    description: '根据主题生成短视频脚本草稿，包含分镜、画面描述、字幕和旁白。',
     category: 'AI 工具',
     path: '/tools/ai/video-script',
     color: 'rose',
@@ -74,7 +74,7 @@ const RAW_TOOLS_META = [
   {
     id: 'ai-meeting-minutes',
     name: 'AI 会议纪要生成',
-    description: '自动对冗杂的会议记录、访谈文字进行提取和梳理，生成重点突出、条理清晰的会议纪要。',
+    description: '从会议记录或访谈文本中提取议题、结论、待办和负责人。',
     category: 'AI 工具',
     path: '/tools/ai/meeting-minutes',
     color: 'blue',
@@ -83,7 +83,7 @@ const RAW_TOOLS_META = [
   {
     id: 'ai-excel-formula',
     name: 'AI Excel 公式助手',
-    description: '用自然语言描述需求，AI 自动为你生成复杂的 Excel 或 Google Sheets 公式，提升办公效率。',
+    description: '用自然语言描述表格需求，生成 Excel 或 Google Sheets 公式并说明用法。',
     category: 'AI 工具',
     path: '/tools/ai/excel-formula',
     color: 'emerald',
@@ -92,7 +92,7 @@ const RAW_TOOLS_META = [
   {
     id: 'ai-regex',
     name: 'AI 正则生成器',
-    description: '不再为编写复杂的正则表达式发愁。输入匹配要求，AI 给出精准的正则表达式及原理解释。',
+    description: '输入匹配要求，生成正则表达式、测试样例和关键语法说明。',
     category: 'AI 工具',
     path: '/tools/ai/regex',
     color: 'indigo',
@@ -101,7 +101,7 @@ const RAW_TOOLS_META = [
   {
     id: 'logo-generator',
     name: 'AI 头像/Logo 设计师',
-    description: '根据品牌名称和行业诉求，生成简约、扁平或者极简风格的 Logo、网站 Icon 或个性头像。',
+    description: '根据品牌名称、行业和风格要求生成 Logo、网站 Icon 或头像方案。',
     category: 'AI 工具',
     path: '/tools/ai/logo-generator',
     color: 'indigo',
@@ -110,7 +110,7 @@ const RAW_TOOLS_META = [
   {
     id: 'ai-image-generator',
     name: 'AI 万能图像生成',
-    description: '通过文字描述生成高质量的真实图片或艺术画作，支持多种比例和风格。',
+    description: '通过文字描述生成图片草稿，支持多种比例、主题和视觉风格。',
     category: 'AI 工具',
     path: '/tools/ai/image-generator',
     color: 'amber',
@@ -119,7 +119,7 @@ const RAW_TOOLS_META = [
   {
     id: 'ai-svg-generator',
     name: 'AI SVG 矢量图生成',
-    description: '通过文字描述直接生成可伸缩、高质量的 SVG 矢量插画或图标代码。',
+    description: '通过文字描述生成可伸缩的 SVG 插画或图标代码。',
     category: 'AI 工具',
     path: '/tools/ai/svg-generator',
     color: 'pink',
@@ -128,7 +128,7 @@ const RAW_TOOLS_META = [
   {
     id: 'ai-xiaohongshu',
     name: '小红书文案生成',
-    description: '深谙爆款逻辑，一键生成自带网感、包含 Emoji 和话题标签的小红书图文笔记文案。',
+    description: '根据主题、受众和卖点生成小红书图文笔记草稿、Emoji 和话题标签。',
     category: 'AI 工具',
     path: '/tools/ai/xiaohongshu',
     color: 'rose',
@@ -137,7 +137,7 @@ const RAW_TOOLS_META = [
   {
     id: 'ai-text-polisher',
     name: 'AI 智能润色',
-    description: '采用顶尖大模型，一键优化文章、邮件或文案，提升表达专业度和流畅度。',
+    description: '润色文章、邮件或营销文案，调整语气、结构和表达清晰度。',
     category: 'AI 工具',
     path: '/tools/ai/text-polisher',
     color: 'violet',
@@ -146,7 +146,7 @@ const RAW_TOOLS_META = [
   {
     id: 'ai-translator',
     name: 'AI 智能翻译',
-    description: '超越传统翻译引擎！基于 AI 重写，提供更具母语感、符合语境的高质量翻译。',
+    description: '翻译文本并按语境调整语气、用词和表达习惯。',
     category: 'AI 工具',
     path: '/tools/ai/translator',
     color: 'violet',
@@ -155,7 +155,7 @@ const RAW_TOOLS_META = [
   {
     id: 'json-formatter',
     name: 'JSON 格式化',
-    description: '提供美化、压缩、验证等全方位 JSON 数据处理服务。',
+    description: '格式化、压缩和校验 JSON 数据，方便阅读、复制和排错。',
     category: '开发者工具',
     path: '/tools/dev/json-formatter',
     color: 'green',
@@ -164,7 +164,7 @@ const RAW_TOOLS_META = [
   {
     id: 'xml-json',
     name: 'XML / JSON 互转',
-    description: '强大的数据格式转换器，实现 XML 与 JSON 之间的双向极速转换。',
+    description: '在 XML 与 JSON 之间双向转换，保留层级结构和字段内容。',
     category: '开发者工具',
     path: '/tools/dev/xml-to-json',
     color: 'fuchsia',
@@ -172,7 +172,7 @@ const RAW_TOOLS_META = [
   {
     id: 'text-diff',
     name: '文本对比 Diff',
-    description: '快速找出两段文本或代码的差异点，支持逐词与逐行比对分析。',
+    description: '对比两段文本或代码，按行或按词查看差异。',
     category: '开发者工具',
     path: '/tools/dev/text-diff',
     color: 'emerald',
@@ -181,7 +181,7 @@ const RAW_TOOLS_META = [
   {
     id: 'base64',
     name: 'Base64 编解码',
-    description: '网页端快速编解码工具，完美支持 UTF-8 中文字符集。',
+    description: '在浏览器中进行 Base64 编码和解码，支持 UTF-8 中文文本。',
     category: '开发者工具',
     path: '/tools/dev/base64',
     color: 'amber',
@@ -205,7 +205,7 @@ const RAW_TOOLS_META = [
   {
     id: 'hash-generator',
     name: '哈希生成器',
-    description: '快速生成安全的 MD5 等同类的 SHA-1、SHA-256、SHA-512 会话摘要信息。',
+    description: '生成 MD5、SHA-1、SHA-256 和 SHA-512 摘要，用于校验与对比。',
     category: '开发者工具',
     path: '/tools/dev/hash-generator',
     color: 'green',
@@ -246,7 +246,7 @@ const RAW_TOOLS_META = [
   {
     id: 'symbol-library',
     name: '特殊符号大全',
-    description: 'Emoji、数学公式、货币等长尾排版符号一键式点选复制。',
+    description: '查找 Emoji、数学符号、货币符号和排版字符，并点选复制。',
     category: '文本排版',
     path: '/tools/text/symbol-library',
     color: 'indigo',
@@ -254,7 +254,7 @@ const RAW_TOOLS_META = [
   {
     id: 'qr-generator',
     name: '二维码生成器',
-    description: '一键生成可下载二维码。',
+    description: '根据文本、链接或联系方式生成可下载二维码。',
     category: '生成器',
     path: '/tools/generator/qr-generator',
     color: 'orange',
@@ -278,7 +278,7 @@ const RAW_TOOLS_META = [
   {
     id: 'etsy-fee-calculator',
     name: 'Etsy 利润计算器',
-    description: '精确计算 Etsy 的上架费、交易费及支付处理费，掌握真实利润。',
+    description: '计算 Etsy 上架费、交易费和支付处理费，查看订单利润。',
     category: '电商工具',
     path: '/tools/ecommerce/etsy-fee-calculator',
     color: 'emerald',
@@ -310,7 +310,7 @@ const RAW_TOOLS_META = [
   {
     id: 'stripe-fee-calculator',
     name: 'Stripe 手续费计算器',
-    description: '计算 Stripe 收款产生的手续费用，快速预估实际到账金额。',
+    description: '计算 Stripe 收款手续费、净到账金额和反推开票金额。',
     category: '电商工具',
     path: '/tools/ecommerce/stripe-fee-calculator',
     color: 'emerald',
@@ -334,7 +334,7 @@ const RAW_TOOLS_META = [
   {
     id: 'listing-generator',
     name: 'Listing Generator',
-    description: 'AI-driven e-commerce listing generator. Creates titles, descriptions and tags in seconds.',
+    description: 'Create ecommerce listing titles, descriptions, and tags from product details.',
     category: 'AI 工具',
     path: '/tools/ai/listing-generator',
     color: 'emerald',
@@ -343,7 +343,7 @@ const RAW_TOOLS_META = [
   {
     id: 'keyword-analyzer',
     name: 'Keyword Analyzer',
-    description: 'Deep-dive into e-commerce long-tail keywords, discovering hidden profitable niches.',
+    description: 'Analyze ecommerce long-tail keywords, search intent, and product angle ideas.',
     category: 'AI 工具',
     path: '/tools/ai/keyword-analyzer',
     color: 'emerald',
@@ -352,7 +352,7 @@ const RAW_TOOLS_META = [
   {
     id: 'competitor-tracker',
     name: 'Competitor Tracker',
-    description: 'Analyze competitors, find weaknesses, and identify opportunities for your products.',
+    description: 'Compare competitor listings and identify gaps in positioning, copy, and offers.',
     category: 'AI 工具',
     path: '/tools/ai/competitor-tracker',
     color: 'emerald',
@@ -360,7 +360,7 @@ const RAW_TOOLS_META = [
   {
     id: 'market-insights',
     name: 'Market Insights',
-    description: 'Acquire platform-specific market research reports, trends, and category dynamics.',
+    description: 'Generate market notes for a platform, category, trend, or product idea.',
     category: 'AI 工具',
     path: '/tools/ai/market-insights',
     color: 'emerald',
@@ -368,7 +368,7 @@ const RAW_TOOLS_META = [
   {
     id: 'pdf-merge',
     name: 'PDF合并',
-    description: '免费、快速地将多个PDF文件合并为一个文件。',
+    description: '将多个 PDF 文件按顺序合并为一个文档。',
     category: 'PDF工具',
     path: '/tools/pdf/pdf-merge',
     color: 'rose',
@@ -377,7 +377,7 @@ const RAW_TOOLS_META = [
   {
     id: 'pdf-split',
     name: 'PDF拆分',
-    description: '轻松提取PDF页面，或将大型PDF拆分为多个小文件。',
+    description: '提取指定 PDF 页面，或将大 PDF 拆分为多个小文件。',
     category: 'PDF工具',
     path: '/tools/pdf/pdf-split',
     color: 'rose',
@@ -385,7 +385,7 @@ const RAW_TOOLS_META = [
   {
     id: 'pdf-to-image',
     name: 'PDF转图片',
-    description: '将PDF文档的每一页高质量转换为 JPG 或 PNG 格式图片。',
+    description: '将 PDF 文档页面转换为 JPG 或 PNG 图片。',
     category: 'PDF工具',
     path: '/tools/pdf/pdf-to-image',
     color: 'rose',
@@ -393,7 +393,7 @@ const RAW_TOOLS_META = [
   {
     id: 'image-to-pdf',
     name: '图片转PDF',
-    description: '上传JPG、PNG图片文件并快速打包合并成一个PDF文档。',
+    description: '上传 JPG、PNG 图片，并按顺序合并成一个 PDF 文档。',
     category: 'PDF工具',
     path: '/tools/pdf/image-to-pdf',
     color: 'rose',
@@ -401,7 +401,7 @@ const RAW_TOOLS_META = [
   {
     id: 'image-compressor',
     name: '图片在线压缩',
-    description: '在保持画质的前提下，大幅缩小图片体积，提升网页加载速度。',
+    description: '压缩图片体积，保留适合网页展示的清晰度。',
     category: '图片处理',
     path: '/tools/image/image-compressor',
     color: 'fuchsia',
@@ -410,7 +410,7 @@ const RAW_TOOLS_META = [
   {
     id: 'image-converter',
     name: '图片格式转换',
-    description: '在本地瞬间将图片互转为 JPG、PNG、WebP 等格式。',
+    description: '在本地将图片转换为 JPG、PNG、WebP 等格式。',
     category: '图片处理',
     path: '/tools/image/image-converter',
     color: 'fuchsia',
@@ -434,7 +434,7 @@ const RAW_TOOLS_META = [
   {
     id: 'image-cropper',
     name: '图片裁剪选区',
-    description: '通过可视化选区自由裁剪您的图片，并精准提取缩略图。',
+    description: '通过可视化选区裁剪图片，并导出缩略图或指定区域。',
     category: '图片处理',
     path: '/tools/image/image-cropper',
     color: 'fuchsia',
@@ -466,7 +466,7 @@ const RAW_TOOLS_META = [
   {
     id: 'unit-converter',
     name: '单位转换器',
-    description: '快速在长度、重量、体积、温度等各类计量单位间换算。',
+    description: '在长度、重量、体积、温度等常见计量单位间换算。',
     category: '计算转换',
     path: '/tools/calculate/unit-converter',
     color: 'amber',
@@ -506,7 +506,7 @@ const RAW_TOOLS_META = [
   {
     id: 'time-converter',
     name: '时间转换器',
-    description: '全球各大时区时间、时间差及标准时间戳极速互转工具。',
+    description: '转换全球时区时间、时间差和标准时间戳。',
     category: '计算转换',
     path: '/tools/calculate/time-converter',
     color: 'amber',
@@ -522,7 +522,7 @@ const RAW_TOOLS_META = [
   {
     id: 'rmb-converter',
     name: '人民币大写转换',
-    description: '阿拉伯数字金额一键转为标准财务人民币大写（含角分）。',
+    description: '将阿拉伯数字金额转换为标准财务人民币大写（含角分）。',
     category: '计算转换',
     path: '/tools/calculate/rmb-converter',
     color: 'amber',
@@ -570,7 +570,7 @@ const RAW_TOOLS_META = [
   {
     id: "color-converter",
     name: "颜色代码转换",
-    description: "HEX, RGB, HSL, HSV, CMYK 等多种工业色彩规格之间无损互转，支持透明度提取。",
+    description: "在 HEX、RGB、HSL、HSV、CMYK 等色彩格式之间转换，并提取透明度。",
     category: "计算转换",
     path: "/tools/dev/color-converter",
     color: "amber"
@@ -578,7 +578,7 @@ const RAW_TOOLS_META = [
   {
     id: "color-palette",
     name: "阶梯调色板推演工具",
-    description: "针对主色调自动演化同色系更具层次的高级 Tints 与 Shades。",
+    description: "根据主色生成同色系 Tints 与 Shades，供界面配色参考。",
     category: "计算转换",
     path: "/tools/dev/color-palette",
     color: "amber"
@@ -594,7 +594,7 @@ const RAW_TOOLS_META = [
   {
     id: "image-to-ico",
     name: "图片转 ico 图标",
-    description: "生成正规带 Header 的 ICO 系统级专用图标封装格式。",
+    description: "将图片生成带 Header 的 ICO 图标文件。",
     category: "图片处理",
     path: "/tools/image/image-to-ico",
     color: "fuchsia"
@@ -602,7 +602,7 @@ const RAW_TOOLS_META = [
   {
     id: "short-url",
     name: "短链接生成",
-    description: "将长链接转换为极简短链接，方便分享与社交媒体传播。",
+    description: "将长链接转换为短链接，便于分享和社交媒体发布。",
     category: "站长工具",
     path: "/tools/net/short-url",
     color: "blue"
@@ -610,7 +610,7 @@ const RAW_TOOLS_META = [
   {
     id: "password-generator",
     name: "强密码生成器",
-    description: "本地随机生成高强度复杂密码，保护您的账户隐私安全。",
+    description: "在本地生成高强度随机密码，减少账户被猜测风险。",
     category: "生成器",
     path: "/tools/dev/password-generator",
     color: "orange"
@@ -618,7 +618,7 @@ const RAW_TOOLS_META = [
   {
     id: "jwt-debugger",
     name: "JWT 在线解码",
-    description: "解析 JSON Web Token 内容内容，本地解码，安全无忧。",
+    description: "在本地解析 JSON Web Token 的 Header、Payload 和签名部分。",
     category: "开发者工具",
     path: "/tools/dev/jwt-debugger",
     color: "green"
@@ -634,7 +634,7 @@ const RAW_TOOLS_META = [
   {
     id: "json-to-ts",
     name: "JSON 转 TypeScript",
-    description: "依据 JSON 数据自动推导并生成精准的 TypeScript 接口定义代码。",
+    description: "根据 JSON 数据推导 TypeScript 接口定义代码。",
     category: "开发者工具",
     path: "/tools/dev/json-to-ts",
     color: "green"
