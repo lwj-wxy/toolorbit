@@ -1,4 +1,9 @@
 export const BLOG_RELATED_TOOLS: Record<string, string[]> = {
+  "codex-claude-code-skills-must-install": [
+    "/tools/dev/json-formatter",
+    "/tools/dev/text-diff",
+    "/tools/ai/code-reviewer",
+  ],
   "claude-code-cli-deepseek-api-guide": [
     "/tools/dev/json-formatter",
     "/tools/dev/text-diff",

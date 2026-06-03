@@ -11,6 +11,13 @@ const defaultAuthorId = 'luo-wj';
 
 const posts: BlogPost[] = [
   {
+    slug: 'codex-claude-code-skills-must-install',
+    date: '2026-06-03',
+    category: 'AI',
+    image: '/images/blog/codex-claude-code-skills-must-install.png',
+    authorId: 'toolorbit-editorial-team',
+  },
+  {
     slug: 'claude-code-cli-deepseek-api-guide',
     date: '2026-06-02',
     category: 'AI',

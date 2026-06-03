@@ -91,6 +91,10 @@
     "editorial_note": "Each guide is reviewed for practical workflow accuracy and connected to the browser tools that help you apply it.",
     "editorial_policy": "Editorial standards",
     "posts": {
+      "codex-claude-code-skills-must-install": {
+        "title": "10 Skills to Install First for Codex and Claude Code",
+        "summary": "Set up reusable skills for code review, CI repair, official docs lookup, browser checks, frontend design, documentation, prose cleanup, and security checks."
+      },
       "claude-code-cli-deepseek-api-guide": {
         "title": "Run Claude Code CLI with the DeepSeek API: A Lower-Cost Terminal Coding Assistant Setup",
         "summary": "Keep the Claude Code CLI workflow while routing requests through DeepSeek's Anthropic-compatible API endpoint, auth token, main model, and fast model settings."

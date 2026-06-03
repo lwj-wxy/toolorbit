@@ -3020,6 +3020,10 @@
     "editorial_note": "每篇指南都会围绕实际工作流准确性进行检查，并连接到可直接应用的浏览器工具。",
     "editorial_policy": "编辑标准",
     "posts": {
+      "codex-claude-code-skills-must-install": {
+        "title": "Codex 和 Claude Code 该先装的 10 个 Skill",
+        "summary": "把 code review、CI 修复、官方文档查询、浏览器验收、前端设计、文档写作、文案清理和安全检查做成可复用 Skill。"
+      },
       "claude-code-cli-deepseek-api-guide": {
         "title": "用 DeepSeek API 跑 Claude Code CLI：更省钱的终端编程助手配置方案",
         "summary": "保留 Claude Code CLI 的终端工作流，同时通过 DeepSeek 的 Anthropic 兼容接口配置 API 地址、认证 Token、主模型和快速模型。"
