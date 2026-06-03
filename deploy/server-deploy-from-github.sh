@@ -7,6 +7,49 @@ BRANCH="main"
 RELEASE_ID="$(date +%Y%m%d%H%M%S)"
 SOURCE_DIR="$APP_DIR/sources/$RELEASE_ID"
 RELEASE_DIR="$APP_DIR/releases/$RELEASE_ID"
+DEPLOY_RETAIN_RELEASES="${DEPLOY_RETAIN_RELEASES:-3}"
+DEPLOY_RETAIN_SOURCES="${DEPLOY_RETAIN_SOURCES:-3}"
+
+cleanup_old_dirs() {
+  local target_dir="$1"
+  local keep_count="$2"
+  local label="$3"
+
+  if [ ! -d "$target_dir" ]; then
+    return
+  fi
+
+  if ! [[ "$keep_count" =~ ^[0-9]+$ ]]; then
+    echo "Refusing to clean $label because keep count is not numeric: $keep_count" >&2
+    return
+  fi
+
+  if [ "$keep_count" -lt 1 ]; then
+    echo "Refusing to clean $label because keep count is less than 1: $keep_count" >&2
+    return
+  fi
+
+  mapfile -t entries < <(find "$target_dir" -mindepth 1 -maxdepth 1 -type d -printf '%f\n' | sort -r)
+
+  if [ "${#entries[@]}" -le "$keep_count" ]; then
+    echo "No old $label to clean. Kept ${#entries[@]} item(s)."
+    return
+  fi
+
+  for ((index = keep_count; index < ${#entries[@]}; index++)); do
+    local old_dir="$target_dir/${entries[$index]}"
+
+    case "$old_dir" in
+      "$APP_DIR"/releases/*|"$APP_DIR"/sources/*)
+        echo "Removing old $label: $old_dir"
+        rm -rf -- "$old_dir"
+        ;;
+      *)
+        echo "Refusing to remove unexpected path: $old_dir" >&2
+        ;;
+    esac
+  done
+}
 
 mkdir -p "$APP_DIR/sources" "$APP_DIR/releases"
 
@@ -44,5 +87,8 @@ mv -Tf "$APP_DIR/current.new" "$APP_DIR/current"
 
 pm2 startOrReload "$APP_DIR/ecosystem.config.cjs" --update-env
 pm2 save
+
+cleanup_old_dirs "$APP_DIR/releases" "$DEPLOY_RETAIN_RELEASES" "release"
+cleanup_old_dirs "$APP_DIR/sources" "$DEPLOY_RETAIN_SOURCES" "source"
 
 echo "Deploy success: $RELEASE_ID"
