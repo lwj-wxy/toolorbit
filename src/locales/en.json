@@ -279,21 +279,9 @@
         "title": "Etsy Digital Download Pricing: How to Price Printables, Templates, and Files",
         "summary": "Digital downloads still have costs. Learn how to price instant downloads and made-to-order files with tiers, fee modeling, discounts, and clearer listing content."
       },
-      "ai-model-war-2026": {
-        "title": "June 2026: Four AI Labs Are About to Ship New Models in the Same Month",
-        "summary": "GPT-5.6, Claude Sonnet 4.8, Gemini 3.5 Pro, and Grok 5 are all targeting June releases. What this unprecedented convergence means for developers and the industry."
-      },
       "claude-opus-4-8-2026": {
         "title": "Claude Opus 4.8: AI Finally Learns to Say \"I'm Not Sure\"",
         "summary": "Anthropic drops Opus 4.8 with two historic zeroes on honesty, Dynamic Workflows that turn Claude Code into an engineering team, and a Mythos teaser that hints at what's next."
-      },
-      "ai-security-code-audit": {
-        "title": "AI Code Audits Change the Patch Queue",
-        "summary": "AI auditing can surface risky paths faster, but security still depends on reproduction, triage, patching, releases, and downstream notification."
-      },
-      "ai-frontend-revolution": {
-        "title": "AI Is Rewriting the Rules of Frontend: From 62% Job Losses to a $1,100 Next.js Clone",
-        "summary": "Junior frontend roles dropped 62%, but top-tier talent salaries surged 70%. Cloudflare rebuilt Next.js for $1,100 in API fees. Three major frameworks just shipped game-changing releases — frontend is undergoing a forced evolution."
       }
     },
     "categories": {
