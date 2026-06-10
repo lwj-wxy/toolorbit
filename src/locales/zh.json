@@ -3217,8 +3217,8 @@
         "summary": "Anthropic 发布 Opus 4.8，诚实度两项历史性 0%、Dynamic Workflows 把 Claude Code 变成一支 AI 工程队、Mythos 预告暗示更大的还在后面。"
       },
       "ai-security-code-audit": {
-        "title": "AI 找到 23000 个漏洞之后：当代码审计快到人类跟不上的那一天",
-        "summary": "Claude Mythos 扫描 1000+ 开源项目找出 23019 个漏洞，90.6% 为真实漏洞，但修复率不到 15%。AI 驱动的代码审计正在颠覆安全行业的底层逻辑。"
+        "title": "AI 代码审计真正改变的是修复队列",
+        "summary": "AI 审计能更快发现可疑路径，但安全水平取决于复现、排序、修复、发布和通知。团队需要先把漏洞处理流程搭起来。"
       },
       "ai-frontend-revolution": {
         "title": "AI 正在重写前端规则：从 62% 岗位消失到 1100 美元复刻 Next.js",
