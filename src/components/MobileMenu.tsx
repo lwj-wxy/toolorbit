@@ -66,6 +66,26 @@ export default function MobileMenu({ onClose, pathname, searchParams, navigation
             />
           </form>
 
+          <div className="flex flex-col gap-3">
+            <h4 className="flex items-center gap-1.5 border-b border-violet-100 pb-2 text-[14px] font-semibold text-violet-600 dark:border-violet-900/50 dark:text-violet-400">
+              <Sparkles size={16} />
+              {t('common.categories.AI 工具') || 'AI Tools'}
+            </h4>
+            <div className="flex flex-col gap-2">
+              {(navigationMenu?.aiTools || []).map(tool => (
+                <Link
+                  key={tool.id}
+                  to={tool.path}
+                  onClick={onClose}
+                  className="flex items-center gap-3 rounded-md px-2 py-2 text-slate-600 transition-colors hover:bg-violet-50 hover:text-violet-600 dark:text-slate-400 dark:hover:bg-violet-900/20 dark:hover:text-violet-400"
+                >
+                  <ToolNavIcon id={tool.id} size={16} />
+                  <span className="text-[14px] font-medium">{t(`tools.${tool.id}.name`, { defaultValue: tool.name })}</span>
+                </Link>
+              ))}
+            </div>
+          </div>
+
           {(navigationMenu?.categories || []).map(({ category, tools }) => {
             return (
               <div key={category} className="flex flex-col gap-3">
@@ -86,27 +106,6 @@ export default function MobileMenu({ onClose, pathname, searchParams, navigation
               </div>
             );
           })}
-
-          {/* Special AI Category for Mobile */}
-          <div className="flex flex-col gap-3">
-            <h4 className="flex items-center gap-1.5 border-b border-violet-100 pb-2 text-[14px] font-semibold text-violet-600 dark:border-violet-900/50 dark:text-violet-400">
-              <Sparkles size={16} />
-              {t('common.categories.AI 工具') || 'AI Tools'}
-            </h4>
-            <div className="flex flex-col gap-2">
-              {(navigationMenu?.aiTools || []).map(tool => (
-                <Link
-                  key={tool.id}
-                  to={tool.path}
-                  onClick={onClose}
-                  className="flex items-center gap-3 rounded-md px-2 py-2 text-slate-600 transition-colors hover:bg-violet-50 hover:text-violet-600 dark:text-slate-400 dark:hover:bg-violet-900/20 dark:hover:text-violet-400"
-                >
-                  <ToolNavIcon id={tool.id} size={16} />
-                  <span className="text-[14px] font-medium">{t(`tools.${tool.id}.name`, { defaultValue: tool.name })}</span>
-                </Link>
-              ))}
-            </div>
-          </div>
 
           <div className="mt-4 flex flex-col gap-3 border-t border-slate-200 pt-4 dark:border-slate-800">
             <Link

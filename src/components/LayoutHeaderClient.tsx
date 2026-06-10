@@ -80,11 +80,12 @@ export default function LayoutHeaderClient() {
   const aiCategoryPath = navigationMenu?.aiCategoryPath || '/category/ai-tools';
   const normalizedAiCategoryPath = normalizePathname(aiCategoryPath);
   const isAiSection =
+    normalizedPathname === '/' ||
     normalizedPathname === normalizedAiCategoryPath ||
     normalizedPathname === '/ai-tools' ||
     normalizedPathname.startsWith('/tools/ai/');
   const isToolSection =
-    normalizedPathname === '/' ||
+    normalizedPathname === '/tools' ||
     (normalizedPathname.startsWith('/category/') && normalizedPathname !== normalizedAiCategoryPath) ||
     (normalizedPathname.startsWith('/tools/') && !normalizedPathname.startsWith('/tools/ai/'));
   const isBlogSection = normalizedPathname.startsWith('/blog');
@@ -126,26 +127,6 @@ export default function LayoutHeaderClient() {
                 to="/"
                 className={cn(
                   navItemBaseClass,
-                  isToolSection ? navItemActiveClass : navItemInactiveClass,
-                )}
-              >
-                <Wrench className="h-4 w-4" aria-hidden="true" />
-                {t('common.navTools')}
-                <ChevronDown
-                  className={cn(
-                    'h-3.5 w-3.5 transition-transform duration-200 group-hover:rotate-180 lg:h-4 lg:w-4',
-                    isToolSection ? 'text-blue-500 dark:text-blue-300' : 'text-slate-400',
-                  )}
-                />
-              </Link>
-              <ToolsMegaDropdown categories={navigationMenu?.categories || []} />
-            </div>
-
-            <div className="group flex h-full items-center">
-              <Link
-                to={aiCategoryPath}
-                className={cn(
-                  navItemBaseClass,
                   isAiSection ? navItemActiveClass : navItemInactiveClass,
                 )}
               >
@@ -159,6 +140,26 @@ export default function LayoutHeaderClient() {
                 />
               </Link>
               <AiMegaDropdown aiCategoryPath={aiCategoryPath} aiTools={navigationMenu?.aiTools || []} />
+            </div>
+
+            <div className="group flex h-full items-center">
+              <Link
+                to="/tools"
+                className={cn(
+                  navItemBaseClass,
+                  isToolSection ? navItemActiveClass : navItemInactiveClass,
+                )}
+              >
+                <Wrench className="h-4 w-4" aria-hidden="true" />
+                {t('common.navTools')}
+                <ChevronDown
+                  className={cn(
+                    'h-3.5 w-3.5 transition-transform duration-200 group-hover:rotate-180 lg:h-4 lg:w-4',
+                    isToolSection ? 'text-blue-500 dark:text-blue-300' : 'text-slate-400',
+                  )}
+                />
+              </Link>
+              <ToolsMegaDropdown categories={navigationMenu?.categories || []} />
             </div>
 
             <Link

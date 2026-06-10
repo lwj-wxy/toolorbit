@@ -314,7 +314,9 @@ export function categoryPageJsonLd(category: Category, locale: Locale = 'en') {
 
 export function allToolsPageJsonLd(locale: Locale = 'en') {
   const url = absoluteUrl('/tools', locale);
-  const pageName = locale === 'zh-CN' ? '所有免费在线工具' : 'All Free Online Tools';
+  const visibleTools = TOOLS.filter((tool) => !tool.isNoIndex && tool.category !== 'AI 工具');
+  const visibleToolCount = visibleTools.length;
+  const pageName = locale === 'zh-CN' ? '其它免费在线工具' : 'Other Free Online Tools';
 
   return [
     breadcrumb([
@@ -327,8 +329,8 @@ export function allToolsPageJsonLd(locale: Locale = 'en') {
       name: pageName,
       description:
         locale === 'zh-CN'
-          ? `浏览 ToolOrbit 的 ${TOOLS.length} 个免费浏览器工具，覆盖开发者、AI、PDF、图片、电商、文本、生成器和计算转换工作流。`
-          : `Browse all ${TOOLS.length} free ToolOrbit browser tools across developer, AI, PDF, image, ecommerce, text, generator, and conversion workflows.`,
+          ? `浏览 ToolOrbit 的 ${visibleToolCount} 个其它免费浏览器工具，覆盖开发者、PDF、图片、电商、文本、生成器和计算转换工作流。`
+          : `Browse ${visibleToolCount} other free ToolOrbit browser tools across developer, PDF, image, ecommerce, text, generator, and conversion workflows.`,
       url,
       isPartOf: {
         '@type': 'WebSite',
@@ -340,7 +342,7 @@ export function allToolsPageJsonLd(locale: Locale = 'en') {
       reviewedBy: organizationEntity(),
     },
     itemList(
-      TOOLS.map((tool) => ({
+      visibleTools.map((tool) => ({
         name: toolName(tool.id, tool.name, locale),
         description: toolDescription(tool.id, tool.description, locale),
         url: absoluteUrl(tool.path, locale),

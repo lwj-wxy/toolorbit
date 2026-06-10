@@ -279,13 +279,13 @@ export function blogListMetadata(locale: Locale = 'en', page = 1): Metadata {
 }
 
 export function allToolsMetadata(locale: Locale = 'en'): Metadata {
-  const visibleToolCount = TOOLS.filter((tool) => !tool.isNoIndex).length;
+  const visibleToolCount = TOOLS.filter((tool) => !tool.isNoIndex && tool.category !== 'AI 工具').length;
 
   return pageMetadata(
-    locale === 'zh-CN' ? '所有免费在线工具' : 'All Free Online Tools',
+    locale === 'zh-CN' ? '其它免费在线工具' : 'Other Free Online Tools',
     locale === 'zh-CN'
-      ? `浏览 ToolOrbit 的 ${visibleToolCount} 个免费在线工具，覆盖开发者、AI、PDF、图片、电商、文本、生成器和计算转换工作流。`
-      : `Browse all ${visibleToolCount} free ToolOrbit online tools for developer, AI, PDF, image, ecommerce, text, generator, and conversion workflows.`,
+      ? `浏览 ToolOrbit 的 ${visibleToolCount} 个其它免费在线工具，覆盖开发者、PDF、图片、电商、文本、生成器和计算转换工作流。`
+      : `Browse ${visibleToolCount} other free ToolOrbit online tools for developer, PDF, image, ecommerce, text, generator, and conversion workflows.`,
     '/tools',
     locale,
   );

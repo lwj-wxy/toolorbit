@@ -237,7 +237,13 @@ function streamChat(model: string, messages: ChatMessage[], options: Record<stri
 }
 
 function targetLanguage(language?: string) {
-  return language?.startsWith('zh') || language === '中文' ? 'Simplified Chinese' : 'English';
+  const normalizedLanguage = language?.toLowerCase();
+  return normalizedLanguage?.startsWith('zh') ||
+    normalizedLanguage === '中文' ||
+    normalizedLanguage === 'chinese' ||
+    normalizedLanguage === 'simplified chinese'
+    ? 'Simplified Chinese'
+    : 'English';
 }
 
 async function shorten(body: any) {

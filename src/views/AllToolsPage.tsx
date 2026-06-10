@@ -1,18 +1,29 @@
 import NextLink from 'next/link';
-import { ArrowRight, Boxes, CheckCircle2 } from 'lucide-react';
+import type { CSSProperties } from 'react';
+import { ArrowRight, Boxes } from 'lucide-react';
 import { TOOLS, type Category } from '../data/tools';
 import en from '../locales/en.json';
 import zh from '../locales/zh.json';
 import { CATEGORY_SLUGS, getCategoryPath } from '../lib/category-paths';
 import { localizedPath, type Locale } from '../lib/i18n-routing';
 import { readPath, SITE_NAME } from '../lib/metadata';
-import { getToolCoverPath, hasGeneratedToolCover } from '../lib/tool-covers';
 
 type AllToolsPageProps = {
   locale?: Locale;
 };
 
-const CATEGORY_ORDER = Object.keys(CATEGORY_SLUGS) as Category[];
+const OTHER_TOOLS_EXCLUDED_CATEGORY: Category = 'AI 工具';
+const twoLineDescriptionStyle: CSSProperties = {
+  display: '-webkit-box',
+  WebkitBoxOrient: 'vertical',
+  WebkitLineClamp: 2,
+  overflow: 'hidden',
+  minHeight: '2.5rem',
+  maxHeight: '2.5rem',
+};
+const CATEGORY_ORDER = (Object.keys(CATEGORY_SLUGS) as Category[]).filter(
+  (category) => category !== OTHER_TOOLS_EXCLUDED_CATEGORY,
+);
 
 function localeSource(locale: Locale) {
   return locale === 'zh-CN' ? zh : en;
@@ -38,7 +49,9 @@ function categoryName(category: Category, locale: Locale) {
 
 export default function AllToolsPage({ locale = 'en' }: AllToolsPageProps) {
   const isZh = locale === 'zh-CN';
-  const visibleTools = TOOLS.filter((tool) => !tool.isNoIndex);
+  const visibleTools = TOOLS.filter(
+    (tool) => !tool.isNoIndex && tool.category !== OTHER_TOOLS_EXCLUDED_CATEGORY,
+  );
   const totalTools = visibleTools.length;
 
   return (
@@ -49,12 +62,12 @@ export default function AllToolsPage({ locale = 'en' }: AllToolsPageProps) {
           {isZh ? `${totalTools} 个浏览器工具` : `${totalTools} browser tools`}
         </div>
         <h1 className="max-w-3xl text-3xl font-semibold tracking-tight text-slate-950 dark:text-white sm:text-4xl">
-          {isZh ? '所有免费在线工具' : 'All Free Online Tools'}
+          {isZh ? '其它免费在线工具' : 'Other Free Online Tools'}
         </h1>
         <p className="mt-4 max-w-3xl text-[15px] leading-7 text-slate-600 dark:text-slate-300">
           {isZh
-            ? '浏览 ToolOrbit 的开发者、AI、PDF、图片、电商、文本、生成器、计算转换和日常实用工具。每个工具都可从浏览器直接打开，适合快速完成日常工作流。'
-            : 'Browse every ToolOrbit developer, AI, PDF, image, ecommerce, text, generator, conversion, and everyday utility tool from one crawlable hub. Open each utility directly in the browser for fast everyday workflows.'}
+            ? '这里收纳开发者、PDF、图片、电商、文本、生成器、计算转换和日常实用工具。AI 工具从首页进入。'
+            : 'Browse ToolOrbit developer, PDF, image, ecommerce, text, generator, conversion, and everyday utility tools. AI tools live on the home entry.'}
         </p>
       </section>
 
@@ -106,44 +119,22 @@ export default function AllToolsPage({ locale = 'en' }: AllToolsPageProps) {
                     <li key={tool.id}>
                       <NextLink
                         href={localizedPath(tool.path, locale)}
-                        className="group flex h-full min-h-[232px] flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition-colors hover:border-cyan-300 hover:bg-cyan-50/20 dark:border-slate-800 dark:bg-[#282c34] dark:hover:border-cyan-700 dark:hover:bg-cyan-950/10"
+                        className="flex overflow-hidden rounded-lg border border-slate-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-md dark:border-slate-800 dark:bg-[#282c34]"
                       >
-                        {hasGeneratedToolCover(tool.id) ? (
-                          <span className="relative aspect-[16/10] overflow-hidden rounded-t-lg border-b border-slate-100 bg-slate-50 dark:border-white/10 dark:bg-slate-900">
-                            <img
-                              src={getToolCoverPath(tool.id)}
-                              alt={toolName(tool, locale)}
-                              className="block h-full w-full origin-bottom scale-[1.14] object-cover"
-                              loading="lazy"
-                            />
+                        <span className="flex min-w-0 items-start gap-3">
+                          <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-cyan-50 text-cyan-700 dark:bg-cyan-950/40 dark:text-cyan-200">
+                            <Icon className="h-5 w-5" aria-hidden="true" />
                           </span>
-                        ) : (
-                          <span className="relative flex aspect-[16/10] overflow-hidden rounded-t-lg border-b border-cyan-100 bg-gradient-to-br from-cyan-50 via-white to-sky-50 p-3 text-cyan-700 shadow-inner dark:border-white/10 dark:from-cyan-950/40 dark:via-slate-900 dark:to-sky-950/20 dark:text-cyan-200">
-                            <span className="absolute -right-6 -top-6 h-20 w-20 rounded-full bg-white/70 blur-2xl dark:bg-white/10" />
-                            <span className="relative flex h-full w-full flex-col justify-between">
-                              <span className="w-fit rounded-full bg-white/80 px-2 py-1 text-[11px] font-semibold text-slate-600 shadow-sm dark:bg-slate-950/50 dark:text-slate-300">
-                                {categoryName(tool.category, locale)}
-                              </span>
-                              <span className="flex items-end justify-between gap-3">
-                                <span className="line-clamp-2 text-[13px] font-semibold leading-5 text-slate-900 dark:text-white">
-                                  {toolName(tool, locale)}
-                                </span>
-                                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/90 shadow-sm dark:bg-slate-950/70">
-                                  <Icon className="h-5 w-5" aria-hidden="true" />
-                                </span>
-                              </span>
+                          <span className="min-w-0">
+                            <span className="line-clamp-1 text-[15px] font-semibold text-slate-950 dark:text-white">
+                              {toolName(tool, locale)}
                             </span>
-                          </span>
-                        )}
-                        <span className="min-w-0 p-3 pt-4">
-                          <span className="flex items-center gap-2 text-[15px] font-semibold text-slate-950 transition-colors group-hover:text-cyan-700 dark:text-white dark:group-hover:text-cyan-300">
-                            <span>{toolName(tool, locale)}</span>
-                            {tool.isPopular ? (
-                              <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-500" aria-hidden="true" />
-                            ) : null}
-                          </span>
-                          <span className="mt-2 line-clamp-3 block text-sm leading-6 text-slate-600 dark:text-slate-300">
-                            {toolDescription(tool, locale)}
+                            <span
+                              className="mt-2 block text-[13px] leading-5 text-slate-600 dark:text-slate-300"
+                              style={twoLineDescriptionStyle}
+                            >
+                              {toolDescription(tool, locale)}
+                            </span>
                           </span>
                         </span>
                       </NextLink>
