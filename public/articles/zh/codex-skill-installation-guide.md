@@ -48,7 +48,7 @@ description: 使用 GPT Image 2 生成和优化项目图片。
 - 不为 UI 元素生成图片。
 
 ## 参考资料
-- 项目图片路径规范：public/images/blog/{slug}.jpg
+- 项目图片路径规范：public/images/articles/{slug}.jpg
 - 风格规范：编辑类摄影，深海军蓝 + 暖色点缀，16:9，无文字。
 ```
 

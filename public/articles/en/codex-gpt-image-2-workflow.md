@@ -102,7 +102,7 @@ Constraints: no recognizable shapes, no text, no sharp edges.
 Generated files are usually created outside the repository first. That is fine for preview, but project pages should not reference temporary paths. After selecting the final image, copy it into the repository, normally under a stable path such as:
 
 ```text
-public/images/blog/codex-gpt-image-2-workflow.jpg
+public/images/articles/codex-gpt-image-2-workflow.jpg
 ```
 
 Then update the data source that powers the page. For a blog list, that might be a `blogData.ts` entry. For a hero image, it may be a component prop or asset import.
@@ -111,11 +111,11 @@ This step is easy to miss. If the image only exists in a local generated-images 
 
 ### Framework-specific integration patterns
 
-**Next.js (pages or app router):** Place images in `public/images/` and reference them with a leading slash: `/images/blog/cover.jpg`. For optimized images, use the `next/image` component with the static import or public path.
+**Next.js (pages or app router):** Place images in `public/images/` and reference them with a leading slash: `/images/articles/cover.jpg`. For optimized images, use the `next/image` component with the static import or public path.
 
 ```tsx
 import Image from 'next/image';
-import coverImg from '@/public/images/blog/cover.jpg';
+import coverImg from '@/public/images/articles/cover.jpg';
 
 <Image src={coverImg} alt="Blog cover" width={1200} height={675} priority />
 ```
@@ -123,7 +123,7 @@ import coverImg from '@/public/images/blog/cover.jpg';
 Or for public directory references:
 
 ```tsx
-<Image src="/images/blog/cover.jpg" alt="Blog cover" width={1200} height={675} />
+<Image src="/images/articles/cover.jpg" alt="Blog cover" width={1200} height={675} />
 ```
 
 **Plain HTML or static sites:** Place images in an `images/` or `assets/` directory and reference them with a relative or root-relative path. Use the `<img>` tag with explicit `width` and `height` to prevent layout shift.
@@ -144,7 +144,6 @@ For ToolOrbit and similar sites, blog images often live in a data file rather th
 {
   slug: 'codex-gpt-image-2-workflow',
   title: 'Codex and GPT Image 2: A Practical Workflow for Project Assets',
-  image: '/images/blog/codex-gpt-image-2-workflow.jpg',
   // ...
 }
 ```
@@ -190,7 +189,7 @@ A realistic optimization pipeline for a blog cover:
 4. Convert to the target format (JPG at 85% quality is a good default for photos).
 5. Optionally create a WebP copy for browsers that support it.
 6. Run both through [Image Compressor](/tools/image/image-compressor) for a final size pass.
-7. Save both versions into `public/images/blog/`.
+7. Save both versions into `public/images/articles/`.
 
 ## A good Codex review loop
 

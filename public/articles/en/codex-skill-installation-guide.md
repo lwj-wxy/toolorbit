@@ -48,7 +48,7 @@ description: Generate and optimize project images using GPT Image 2.
 - Do not generate images for UI elements.
 
 ## References
-- Project image path convention: public/images/blog/{slug}.jpg
+- Project image path convention: public/images/articles/{slug}.jpg
 - House style: editorial photography, dark navy + warm accent, 16:9, no text.
 ```
 

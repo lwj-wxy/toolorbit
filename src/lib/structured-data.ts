@@ -558,8 +558,6 @@ export function blogPostJsonLd(slug: string, locale: Locale = 'en') {
       description,
       articleSection: post.category,
       wordCount,
-      image: assetUrl(post.image),
-      thumbnailUrl: assetUrl(post.image),
       url,
       mainEntityOfPage: url,
       datePublished: post.date,

@@ -102,7 +102,7 @@ Constraints: no recognizable shapes, no text, no sharp edges.
 生成图片通常会先出现在项目外部的生成目录。这适合预览，但不能直接作为生产页面引用。选定最终图片后，应该复制到项目里的稳定路径，例如：
 
 ```text
-public/images/blog/codex-gpt-image-2-workflow.jpg
+public/images/articles/codex-gpt-image-2-workflow.jpg
 ```
 
 然后更新页面数据源。博客列表一般改 `blogData.ts`，落地页 Hero 图则可能改组件属性或资源引用。
@@ -111,11 +111,11 @@ public/images/blog/codex-gpt-image-2-workflow.jpg
 
 ### 不同框架的集成方式
 
-**Next.js（pages 或 app router）：** 图片放在 `public/images/`，用前导斜杠引用：`/images/blog/cover.jpg`。需要优化加载时，使用 `next/image` 组件配合静态导入或 public 路径。
+**Next.js（pages 或 app router）：** 图片放在 `public/images/`，用前导斜杠引用：`/images/articles/cover.jpg`。需要优化加载时，使用 `next/image` 组件配合静态导入或 public 路径。
 
 ```tsx
 import Image from 'next/image';
-import coverImg from '@/public/images/blog/cover.jpg';
+import coverImg from '@/public/images/articles/cover.jpg';
 
 <Image src={coverImg} alt="博客封面" width={1200} height={675} priority />
 ```
@@ -123,7 +123,7 @@ import coverImg from '@/public/images/blog/cover.jpg';
 或者直接引用 public 目录路径：
 
 ```tsx
-<Image src="/images/blog/cover.jpg" alt="博客封面" width={1200} height={675} />
+<Image src="/images/articles/cover.jpg" alt="博客封面" width={1200} height={675} />
 ```
 
 **原生 HTML 或静态站点：** 图片放在 `images/` 或 `assets/` 目录，用相对路径或根相对路径引用。`<img>` 标签要加上明确的 `width` 和 `height` 属性，防止加载时的布局偏移。
@@ -144,7 +144,6 @@ import coverImg from './assets/blog-cover.jpg';
 {
   slug: 'codex-gpt-image-2-workflow',
   title: 'Codex 如何使用 GPT Image 2 生成项目图片',
-  image: '/images/blog/codex-gpt-image-2-workflow.jpg',
   // ...
 }
 ```
@@ -190,7 +189,7 @@ import coverImg from './assets/blog-cover.jpg';
 4. 转换为目标格式（照片类用 JPG，85% 质量是良好默认值）。
 5. 可选：为支持 WebP 的浏览器额外生成一份 WebP。
 6. 将两个版本都用 [图片压缩工具](/tools/image/image-compressor) 做最终体积优化。
-7. 保存到 `public/images/blog/`。
+7. 保存到 `public/images/articles/`。
 
 ## 一个稳定的 Codex 迭代流程
 
