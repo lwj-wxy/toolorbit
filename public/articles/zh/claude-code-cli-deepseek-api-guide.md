@@ -16,7 +16,7 @@ Claude Code 是 Anthropic 推出的终端编程助手。它可以在项目目录
 
 DeepSeek 官方已经提供 Anthropic API 兼容接口，并且给出了 Claude Code 的配置方式。也就是说，我们可以让 Claude Code CLI 继续作为终端工具使用，但把请求转发到 DeepSeek 的模型服务。
 
-## 一、你需要准备什么
+## 准备本地环境
 
 开始之前，本机需要准备好这几样东西：
 
@@ -41,7 +41,7 @@ DeepSeek API Key 可以在 DeepSeek Platform 后台创建。
 
 API Key 是敏感信息，不要提交到 Git 仓库，也不要截图发给别人。
 
-## 二、核心配置原理
+## Claude Code 如何接到 DeepSeek
 
 Claude Code 支持通过环境变量修改 API 请求地址、认证 Token 和默认模型。
 
@@ -76,7 +76,7 @@ API 地址：https://api.deepseek.com/anthropic
 
 其中 `deepseek-v4-pro[1m]` 适合复杂代码任务和长上下文项目，`deepseek-v4-flash` 更适合子任务、快速响应和轻量场景。
 
-## 三、macOS / Linux / WSL 配置方法
+## macOS、Linux 和 WSL 的临时配置
 
 如果你使用 macOS、Linux 或 WSL，可以在终端里执行：
 
@@ -114,7 +114,7 @@ source ~/.zshrc
 
 不过从安全角度看，API Key 不建议随意写进会被同步或共享的配置文件里。
 
-## 四、Windows PowerShell 配置方法
+## Windows PowerShell 的临时配置
 
 如果你使用 Windows，可以在 PowerShell 里执行：
 
@@ -138,7 +138,7 @@ claude
 
 注意：PowerShell 里的 `$env:` 配置只对当前窗口生效。关闭这个 PowerShell 窗口后，下次需要重新设置。如果你想长期生效，可以设置用户级环境变量，但 API Key 仍然要注意保密。
 
-## 五、推荐做法：写到项目本地配置
+## 项目本地配置更稳
 
 如果你只想让某个项目使用 DeepSeek，而不是全局影响所有 Claude Code 项目，可以使用 Claude Code 的本地配置文件。
 
@@ -169,7 +169,7 @@ claude
 
 但要注意：`.claude/settings.local.json` 里如果写了 API Key，就不要提交到 Git。可以检查一下 `.gitignore` 是否已经忽略了本地配置文件。
 
-## 六、为什么用 `ANTHROPIC_AUTH_TOKEN`，不是 `ANTHROPIC_API_KEY`
+## DeepSeek 鉴权优先用 `ANTHROPIC_AUTH_TOKEN`
 
 这是一个容易踩坑的地方。
 
@@ -189,7 +189,7 @@ ANTHROPIC_AUTH_TOKEN=<你的 DeepSeek API Key>
 
 这样可以减少鉴权方式不匹配的问题。
 
-## 七、如何验证是否配置成功
+## 检查 Claude Code 是否连到 DeepSeek
 
 配置完成后，在项目目录里启动：
 
@@ -227,7 +227,7 @@ echo $env:ANTHROPIC_BASE_URL
 echo $env:ANTHROPIC_MODEL
 ```
 
-## 八、兼容性注意事项
+## 兼容边界
 
 虽然 DeepSeek 提供了 Anthropic API 兼容接口，但它不等于原生 Anthropic API 的所有能力都完整一致。
 
@@ -239,7 +239,7 @@ echo $env:ANTHROPIC_MODEL
 
 如果你主要用 Claude Code 做代码阅读、项目重构、Bug 修复、测试生成，这套方案通常很实用。如果你依赖原生 Claude 的特殊能力，就需要按实际效果判断是否继续使用。
 
-## 九、适合什么人使用
+## 这套方案适合谁
 
 这套方案比较适合这几类人：
 
@@ -251,7 +251,7 @@ echo $env:ANTHROPIC_MODEL
 
 简单说，如果你喜欢 Claude Code 的使用方式，但又想试试 DeepSeek 的成本和上下文优势，这个配置值得尝试。
 
-## 十、总结
+## 保留 CLI 工作流，替换模型后端
 
 用 DeepSeek API 跑 Claude Code CLI，本质上只需要三步：
 

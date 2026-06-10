@@ -66,6 +66,15 @@ summary {
   @apply border-y border-slate-200/80 py-8 dark:border-slate-800/80;
 }
 
+.scrollbar-hidden {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+
 :where(a, button, summary):focus-visible {
   outline: 2px solid color-mix(in srgb, var(--app-accent) 70%, transparent);
   outline-offset: 3px;

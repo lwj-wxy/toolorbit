@@ -16,7 +16,7 @@ Yes.
 
 DeepSeek provides an Anthropic-compatible API and documents a Claude Code configuration path. That means Claude Code CLI can remain your terminal interface while requests are routed to DeepSeek's model service.
 
-## 1. What you need first
+## Prepare the Local Environment
 
 Before starting, make sure you have:
 
@@ -41,7 +41,7 @@ Create your DeepSeek API key in the DeepSeek Platform dashboard.
 
 API keys are sensitive. Do not commit them to Git and do not share screenshots that expose them.
 
-## 2. The core configuration
+## Route Claude Code Through DeepSeek
 
 Claude Code supports environment variables for the API endpoint, auth token, and default models.
 
@@ -76,7 +76,7 @@ API endpoint: https://api.deepseek.com/anthropic
 
 `deepseek-v4-pro[1m]` is better suited to complex coding tasks and long-context projects. `deepseek-v4-flash` is a better fit for subagents, fast responses, and lighter work.
 
-## 3. macOS / Linux / WSL setup
+## Temporary Setup for macOS, Linux, and WSL
 
 On macOS, Linux, or WSL, run:
 
@@ -114,7 +114,7 @@ source ~/.zshrc
 
 From a security perspective, avoid putting API keys in files that are synced, shared, or committed.
 
-## 4. Windows PowerShell setup
+## Temporary Setup for Windows PowerShell
 
 On Windows, run this in PowerShell:
 
@@ -138,7 +138,7 @@ claude
 
 PowerShell `$env:` assignments only apply to the current window. After closing that window, you need to set them again. You can use user-level environment variables for persistence, but still handle API keys carefully.
 
-## 5. Recommended approach: local project settings
+## Project-Local Settings Are Safer
 
 If only one project should use DeepSeek, use Claude Code's local settings file instead of changing your global shell environment.
 
@@ -169,7 +169,7 @@ This is useful for project-level routing. Project A can use DeepSeek while Proje
 
 If `.claude/settings.local.json` contains an API key, do not commit it. Check that `.gitignore` excludes local Claude settings.
 
-## 6. Why `ANTHROPIC_AUTH_TOKEN` instead of `ANTHROPIC_API_KEY`
+## Use `ANTHROPIC_AUTH_TOKEN` for DeepSeek
 
 This is an easy place to make a mistake.
 
@@ -189,7 +189,7 @@ ANTHROPIC_AUTH_TOKEN=<your DeepSeek API key>
 
 That reduces the chance of using the wrong authentication header.
 
-## 7. How to verify the setup
+## Check Whether Claude Code Is Using DeepSeek
 
 After configuration, start Claude Code in your project directory:
 
@@ -227,7 +227,7 @@ echo $env:ANTHROPIC_BASE_URL
 echo $env:ANTHROPIC_MODEL
 ```
 
-## 8. Compatibility notes
+## Compatibility Boundaries
 
 DeepSeek's Anthropic-compatible API is not identical to the native Anthropic API.
 
@@ -239,7 +239,7 @@ The practical takeaway:
 
 If you mainly use Claude Code for code reading, refactoring, bug fixes, and test generation, the setup is often useful. If you rely on native Claude-only capabilities, test the workflow before making it your default.
 
-## 9. Who this setup is for
+## Who Should Use This Setup
 
 This configuration is useful if you:
 
@@ -251,7 +251,7 @@ This configuration is useful if you:
 
 In short, if you like how Claude Code works but want to try DeepSeek's cost and context advantages, this setup is worth testing.
 
-## 10. Summary
+## Keep the CLI Workflow, Swap the Model Backend
 
 Running Claude Code CLI with the DeepSeek API comes down to three steps.
 

@@ -6,7 +6,7 @@
 
 ---
 
-## 一、诚实度：两个 0% 指标
+## 诚实度指标比跑分更重要
 
 很多开发者都遇到过这种情况：AI 指出代码有 Bug，解释看起来完整，但你检查后发现问题并不存在。
 
@@ -41,7 +41,7 @@ Anthropic 把这类能力归因于**不确定性校准（Uncertainty Calibration
 
 ---
 
-## 二、编程能力：12 项基准全面领先
+## 基准领先只是能力底座
 
 诚实不仅是态度，也建立在实力之上。在纯编程能力的对决中，Opus 4.8 在 12 项行业基准中实现了全面领先。
 
@@ -67,7 +67,7 @@ Anthropic 把这类能力归因于**不确定性校准（Uncertainty Calibration
 
 ---
 
-## 三、Dynamic Workflows：多 agent 协作
+## Dynamic Workflows 把 Claude Code 变成编排器
 
 **Dynamic Workflows** 目前以 Research Preview 形态内置在 Claude Code 中。
 
@@ -110,7 +110,7 @@ Bun 的作者 Jarred Sumner 表示，这个过程几乎是"**没有人类逐行�
 
 ---
 
-## 四、Effort Control：把"多想一步"变成可调节的旋钮
+## Effort Control 把推理预算交给用户
 
 Opus 4.8 新增了一个非常实用的功能：**五档努力程度控制**。
 
@@ -142,7 +142,7 @@ Messages API 还支持**对话中途插入系统指令**。关键是，这个操
 
 ---
 
-## 五、Fast Mode：便宜三倍，快三倍
+## Fast Mode 重新划分速度和成本
 
 性能和价格的改进同样值得一提：
 
@@ -157,7 +157,7 @@ Fast Mode 的速度提升至标准模式的 **2.5 倍**，而价格降至 4.7 �
 
 ---
 
-## 六、Mythos 预告
+## Mythos 预告指向更强的安全审计能力
 
 Anthropic 同时预告了 **Claude Mythos**。
 
@@ -176,7 +176,7 @@ Mythos 是一个定位在 Opus 之上的**更高层级的新模型系列**，预
 
 ---
 
-## 七、行业影响与展望
+## 这次更新更像工程系统升级
 
 Opus 4.8 的发布传递了一个信号：Anthropic 正在强调模型的工程执行能力，而不只强调基础推理分数。当几个头部模型的分数差距缩小时，实际价值会更多取决于三个维度：
 

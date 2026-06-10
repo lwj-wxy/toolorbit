@@ -253,10 +253,10 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, initialMarkdown = '' }) => {
 
         {articleHeadings.length > 0 && (
           <aside
-            className="hidden self-start lg:sticky lg:top-[88px] lg:block"
+            className="hidden self-start overflow-hidden lg:sticky lg:top-[88px] lg:block"
             aria-label="Article table of contents"
           >
-            <nav className="max-h-[calc(100vh-7rem)] overflow-y-auto border-l border-slate-200 pl-5 pr-1 dark:border-slate-800">
+            <nav className="scrollbar-hidden -mr-6 max-h-[calc(100vh-7rem)] overflow-y-auto border-l border-slate-200 pl-5 pr-7 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden dark:border-slate-800">
               <p className="mb-3 text-base font-bold text-slate-950 dark:text-white">
                 {i18n.language && i18n.language.startsWith('zh') ? '目录' : 'Contents'}
               </p>

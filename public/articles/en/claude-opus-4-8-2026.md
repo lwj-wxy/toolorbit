@@ -6,7 +6,7 @@ The release arrived 43 days after Opus 4.7. The main change for developers is no
 
 ---
 
-## 1. Two Reported Zeros in Code Review Tests
+## Honesty Metrics Matter More Than Another Score
 
 Anyone who's written code with AI assistance knows this frustration: the AI confidently points out a "bug" in your code, explains it in convincing detail, and after twenty minutes of investigation, you discover — it doesn't exist.
 
@@ -37,7 +37,7 @@ Anthropic frames this as **uncertainty calibration**: the model should judge how
 
 ---
 
-## 2. Coding Prowess: Leading Across All 12 Benchmarks
+## Benchmark Leads Are the Capability Floor
 
 Honesty isn't just attitude — it's backed by raw capability. In pure coding performance, Opus 4.8 leads across all 12 industry benchmarks.
 
@@ -63,7 +63,7 @@ On these engineering challenges, Opus 4.8 tops the leaderboard with an **83% win
 
 ---
 
-## 3. Dynamic Workflows: Multi-Agent Coding Tasks
+## Dynamic Workflows Turn Claude Code Into an Orchestrator
 
 **Dynamic Workflows** is available as a Research Preview inside Claude Code.
 
@@ -106,7 +106,7 @@ But the company is candid: **"Extremely capable, but also expensive."** Dynamic 
 
 ---
 
-## 4. Effort Control: Turning "Think Harder" Into a Dial
+## Effort Control Makes Reasoning Budget Explicit
 
 Opus 4.8 introduces **five levels of effort control**.
 
@@ -138,7 +138,7 @@ Developers can adjust a task's permission level, token budget, or context enviro
 
 ---
 
-## 5. Fast Mode: Three Times Cheaper, Three Times Faster
+## Fast Mode Changes the Speed and Cost Tradeoff
 
 The performance and pricing improvements deserve mention:
 
@@ -153,7 +153,7 @@ Standard mode pricing is unchanged, but capability is up across the board — **
 
 ---
 
-## 6. Claude Mythos Preview
+## Mythos Points Toward Stronger Security Audits
 
 Anthropic also previewed **Claude Mythos**.
 
@@ -172,7 +172,7 @@ For security practitioners, Mythos's zero-day discovery capability creates both 
 
 ---
 
-## 7. Industry Impact and What Comes Next
+## The Update Looks More Like an Engineering System Upgrade
 
 The Opus 4.8 release points to a product strategy:
 
