@@ -9,7 +9,7 @@ interface LayoutProps {
 
 export default function Layout({ children }: LayoutProps) {
   return (
-    <div className="relative flex min-h-screen flex-col overflow-x-hidden bg-[#f7f8fb] font-sans text-slate-900 transition-colors duration-300 dark:bg-slate-950 dark:text-slate-200">
+    <div className="relative flex min-h-screen flex-col overflow-x-clip bg-[#f7f8fb] font-sans text-slate-900 transition-colors duration-300 dark:bg-slate-950 dark:text-slate-200">
       <a
         href="#main-content"
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[999] focus:rounded-md focus:bg-blue-600 focus:px-4 focus:py-2 focus:font-semibold focus:text-white focus:outline-none"

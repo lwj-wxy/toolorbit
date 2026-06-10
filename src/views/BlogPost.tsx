@@ -1,15 +1,14 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import type { MouseEvent } from 'react';
 import dynamic from 'next/dynamic';
-import Image from 'next/image';
 import { Link } from '../lib/navigation';
 import { useTranslation } from 'react-i18next';
-import { Calendar, Clock, Tag, Wrench, ArrowLeft, ChevronRight } from 'lucide-react';
+import { ArrowLeft, ChevronRight } from 'lucide-react';
 import { BLOG_POSTS } from '../constants/blogData';
-import { BLOG_RELATED_TOOLS } from '../data/blogRelatedTools';
-import { TOOLS } from '../data/tools';
-import { getAuthorById } from '../data/authors';
+import { createHeadingId, extractMarkdownH2Headings } from '../lib/markdown-headings';
+import type { MarkdownHeading } from '../lib/markdown-headings';
 
 interface BlogPostProps {
   slug: string;
@@ -31,14 +30,43 @@ const MarkdownContent = dynamic(() => import('../components/MarkdownContent'), {
 });
 
 const markdownCache = new Map<string, string>();
+const ARTICLE_ANCHOR_OFFSET = 88;
+
+const getCurrentHashHeadingId = () => {
+  const rawHash = window.location.hash.slice(1);
+  if (!rawHash) return '';
+
+  try {
+    return decodeURIComponent(rawHash);
+  } catch {
+    return rawHash;
+  }
+};
+
+const findHeadingElement = (heading: MarkdownHeading) => {
+  const targetById = document.getElementById(heading.id);
+  if (targetById) return targetById;
+
+  const baseHeadingId = createHeadingId(heading.text);
+  const renderedHeadings = Array.from(document.querySelectorAll<HTMLElement>('.prose h2'));
+
+  return renderedHeadings.find((element) => createHeadingId(element.textContent || '') === baseHeadingId) || null;
+};
+
+const scrollHeadingIntoPosition = (targetHeading: HTMLElement) => {
+  const targetTop = Math.max(targetHeading.getBoundingClientRect().top + window.scrollY - ARTICLE_ANCHOR_OFFSET, 0);
+
+  window.scrollTo({ top: targetTop, behavior: 'auto' });
+  document.documentElement.scrollTop = targetTop;
+  document.body.scrollTop = targetTop;
+};
 
 const BlogPost: React.FC<BlogPostProps> = ({ slug, initialMarkdown = '' }) => {
   const { t, i18n } = useTranslation();
   const [markdown, setMarkdown] = useState<string>(initialMarkdown);
+  const [activeHeadingId, setActiveHeadingId] = useState('');
 
   const post = BLOG_POSTS.find((p) => p.slug === slug);
-  const authorLocale = i18n.language && i18n.language.startsWith('zh') ? 'zh-CN' : 'en';
-  const author = getAuthorById(post?.authorId, authorLocale);
 
   useEffect(() => {
     if (!slug) return;
@@ -72,6 +100,42 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, initialMarkdown = '' }) => {
       .catch(() => setMarkdown(t(`blog.posts.${slug}.content`)));
   }, [slug, i18n.language, t]);
 
+  useEffect(() => {
+    if (!markdown) return;
+
+    const currentHeadingId = getCurrentHashHeadingId();
+    if (!currentHeadingId) return;
+
+    const hashHeading = extractMarkdownH2Headings(markdown).find((heading) => heading.id === currentHeadingId);
+    if (!hashHeading) return;
+
+    let retryCount = 0;
+    let retryTimer: number | undefined;
+
+    const scrollToHashHeading = () => {
+      const targetHeading = findHeadingElement(hashHeading);
+
+      if (targetHeading) {
+        setActiveHeadingId(hashHeading.id);
+        scrollHeadingIntoPosition(targetHeading);
+        return;
+      }
+
+      retryCount += 1;
+      if (retryCount <= 8) {
+        retryTimer = window.setTimeout(scrollToHashHeading, 50);
+      }
+    };
+
+    retryTimer = window.setTimeout(scrollToHashHeading, 0);
+
+    return () => {
+      if (retryTimer) {
+        window.clearTimeout(retryTimer);
+      }
+    };
+  }, [markdown]);
+
   if (!post) {
     return (
       <div className="flex min-h-[60vh] items-center justify-center">
@@ -98,19 +162,21 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, initialMarkdown = '' }) => {
     })
     .slice(0, 3);
 
-  const relatedTools = (BLOG_RELATED_TOOLS[slug] || [])
-    .map((path) => TOOLS.find((tool) => tool.path === path))
-    .filter((tool) => tool && !tool.isNoIndex) as typeof TOOLS;
-
   const title = t(`blog.posts.${post.slug}.title`);
-  const readingTime = Math.max(3, Math.ceil(markdown.length / 800));
-  const readingTimeLabel = t('blog.reading_time', {
-    count: readingTime,
-    defaultValue: '{{count}} min read',
-  });
+  const articleHeadings = markdown ? extractMarkdownH2Headings(markdown) : [];
+  const handleHeadingClick = (event: MouseEvent<HTMLAnchorElement>, heading: MarkdownHeading) => {
+    event.preventDefault();
+
+    const targetHeading = findHeadingElement(heading);
+    if (!targetHeading) return;
+
+    setActiveHeadingId(heading.id);
+    window.history.pushState(null, '', `#${heading.id}`);
+    scrollHeadingIntoPosition(targetHeading);
+  };
 
   return (
-    <article className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
+    <article className="mx-auto max-w-[1180px] px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
       {/* Breadcrumb */}
       <nav className="mb-8 flex items-center gap-2 overflow-x-auto whitespace-nowrap pb-2 text-sm font-medium text-slate-400 dark:text-slate-500">
         <Link to="/" className="flex-shrink-0 transition-colors hover:text-cyan-600 dark:hover:text-cyan-400">
@@ -126,74 +192,16 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, initialMarkdown = '' }) => {
         </span>
       </nav>
 
-      {/* Article Header */}
-      <header className="mb-10">
-        <div className="flex flex-wrap items-center gap-2 mb-4">
-          <span className="inline-flex items-center gap-1.5 rounded-md bg-cyan-50 px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-cyan-700 dark:bg-cyan-950/40 dark:text-cyan-300">
-            <Tag size={13} />
-            {t(`blog.categories.${post.category.toLowerCase()}`, { defaultValue: post.category })}
-          </span>
-          <span className="inline-flex items-center gap-1.5 text-xs text-slate-400">
-            <Calendar size={13} />
-            {post.date}
-          </span>
-          <span className="inline-flex items-center gap-1.5 text-xs text-slate-400">
-            <Clock size={13} />
-            {readingTimeLabel}
-          </span>
-        </div>
-
-        <h1 className="max-w-3xl text-2xl font-bold leading-tight text-slate-900 dark:text-slate-100 sm:text-3xl lg:text-4xl">
-          {title}
-        </h1>
-
-        <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-500 dark:text-slate-400">
-          {t(`blog.posts.${post.slug}.summary`, { defaultValue: '' })}
-        </p>
-
-        {/* Author row */}
-        <div className="mt-6 flex flex-col gap-4 border-y border-slate-100 py-4 dark:border-slate-800 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-cyan-50 text-sm font-bold text-cyan-700 dark:bg-cyan-950/40 dark:text-cyan-300">
-              {author.avatarInitials}
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">{author.name}</p>
-              <p className="text-xs text-slate-400 dark:text-slate-500">{author.bio}</p>
-            </div>
-          </div>
-          <Link
-            to={author.url}
-            className="inline-flex flex-shrink-0 items-center gap-1.5 self-start rounded-md border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-600 transition-colors hover:border-cyan-200 hover:text-cyan-700 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400 dark:hover:border-cyan-800 dark:hover:text-cyan-400"
-          >
-            {t('blog.author_profile', { defaultValue: 'Author profile' })}
-          </Link>
-        </div>
-      </header>
-
-      {/* Main content + sidebar */}
-      <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-start">
+      <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_260px] lg:items-start">
         {/* Article content */}
         <div className="min-w-0">
-          {/* Featured image */}
-          <div className="relative mb-8 aspect-[2/1] overflow-hidden rounded-xl bg-slate-100 dark:bg-slate-800">
-            <Image
-              src={post.image}
-              alt={title}
-              fill
-              priority
-              sizes="(min-width: 1024px) 780px, 100vw"
-              className="object-cover"
-            />
-          </div>
-
           {/* Markdown body */}
           {markdown ? (
             <div
               className="prose prose-slate max-w-none
                 dark:prose-invert
                 prose-headings:scroll-mt-24 prose-headings:font-bold prose-headings:tracking-tight
-                prose-h2:mt-10 prose-h2:border-t prose-h2:border-slate-100 prose-h2:pt-8 prose-h2:text-xl prose-h2:leading-tight dark:prose-h2:border-slate-800 sm:prose-h2:text-2xl
+                prose-h2:mt-10 prose-h2:flex prose-h2:items-center prose-h2:gap-3 prose-h2:border-t prose-h2:border-slate-100 prose-h2:pt-8 prose-h2:text-xl prose-h2:leading-tight prose-h2:before:block prose-h2:before:h-8 prose-h2:before:w-1 prose-h2:before:shrink-0 prose-h2:before:rounded-full prose-h2:before:bg-cyan-500 prose-h2:before:content-[''] dark:prose-h2:border-slate-800 sm:prose-h2:text-2xl
                 prose-h3:mt-8 prose-h3:text-lg prose-h3:leading-snug sm:prose-h3:text-xl
                 prose-p:text-[15px] prose-p:leading-7 prose-p:text-slate-600 dark:prose-p:text-slate-300
                 prose-li:text-[15px] prose-li:leading-7 prose-li:text-slate-600 dark:prose-li:text-slate-300
@@ -201,8 +209,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, initialMarkdown = '' }) => {
                 prose-strong:text-slate-900 dark:prose-strong:text-slate-100
                 prose-a:font-semibold prose-a:text-cyan-600 prose-a:no-underline hover:prose-a:text-cyan-700 hover:prose-a:underline dark:prose-a:text-cyan-400 dark:hover:prose-a:text-cyan-300
                 prose-blockquote:rounded-r-lg prose-blockquote:border-l-[3px] prose-blockquote:border-cyan-400 prose-blockquote:bg-cyan-50/60 prose-blockquote:px-5 prose-blockquote:py-2 prose-blockquote:text-[15px] prose-blockquote:not-italic prose-blockquote:text-slate-600 dark:prose-blockquote:bg-cyan-950/20 dark:prose-blockquote:text-slate-300
-                prose-code:rounded-md prose-code:bg-slate-100 prose-code:px-1.5 prose-code:py-0.5 prose-code:text-sm prose-code:font-medium prose-code:text-cyan-700 prose-code:before:content-none prose-code:after:content-none dark:prose-code:bg-slate-800 dark:prose-code:text-cyan-300
-                prose-pre:rounded-lg prose-pre:border prose-pre:border-slate-200 prose-pre:bg-slate-50 prose-pre:text-sm dark:prose-pre:border-slate-800 dark:prose-pre:bg-slate-950
+                prose-code:before:content-none prose-code:after:content-none
                 prose-hr:border-slate-100 dark:prose-hr:border-slate-800"
             >
               <MarkdownContent markdown={markdown} />
@@ -234,7 +241,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, initialMarkdown = '' }) => {
                   'noopener,noreferrer',
                 );
               }}
-              className="mt-3 inline-flex items-center gap-2 rounded-lg bg-slate-900 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-slate-800 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-white"
+              className="mt-3 inline-flex min-h-10 items-center gap-2 rounded-lg bg-slate-900 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-slate-800 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-white"
             >
               <svg className="h-4 w-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
@@ -244,92 +251,46 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, initialMarkdown = '' }) => {
           </div>
         </div>
 
-        {/* Sidebar */}
-        <aside className="space-y-5 lg:sticky lg:top-24">
-          {/* Post meta card */}
-          <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-            <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
-              {t('blog.about_article', { defaultValue: 'About this article' })}
-            </p>
-            <div className="mt-4 space-y-4">
-              <div className="flex items-start gap-3">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-cyan-50 text-cyan-600 dark:bg-cyan-950/40 dark:text-cyan-400">
-                  <Tag size={15} />
-                </div>
-                <div className="min-w-0">
-                  <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">
-                    {t(`blog.categories.${post.category.toLowerCase()}`, { defaultValue: post.category })}
-                  </p>
-                  <p className="text-xs text-slate-400 dark:text-slate-500">
-                    {t('blog.topic_label', { defaultValue: 'Topic' })}
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400">
-                  <Clock size={15} />
-                </div>
-                <div className="min-w-0">
-                  <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">{readingTimeLabel}</p>
-                  <p className="text-xs text-slate-400 dark:text-slate-500">
-                    {markdown.length > 2000
-                      ? t('blog.in_depth_guide', { defaultValue: 'In-depth guide' })
-                      : t('blog.focused_article', { defaultValue: 'Focused article' })}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Related tools */}
-          {relatedTools.length > 0 && (
-            <div className="rounded-xl border border-cyan-100 bg-cyan-50/50 p-5 shadow-sm dark:border-cyan-950/50 dark:bg-cyan-950/15">
-              <div className="mb-4 flex items-center gap-2">
-                <Wrench size={16} className="text-cyan-600 dark:text-cyan-400" />
-                <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">
-                  {t('blog.related_tools', { defaultValue: 'Related tools' })}
-                </p>
-              </div>
-              <div className="space-y-2.5">
-                {relatedTools.map((tool) => {
-                  const Icon = tool.icon;
-                  return (
-                    <Link
-                      key={tool.id}
-                      to={tool.path}
-                      className="group flex items-start gap-3 rounded-lg border border-white/80 bg-white/80 p-3 transition-colors hover:border-cyan-200 hover:bg-white dark:border-slate-800 dark:bg-slate-900/80 dark:hover:border-cyan-900 dark:hover:bg-slate-900"
-                    >
-                      <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-md bg-cyan-50 text-cyan-600 dark:bg-cyan-950/40 dark:text-cyan-400">
-                        <Icon size={16} />
-                      </div>
-                      <div className="min-w-0">
-                        <p className="text-sm font-semibold text-slate-900 transition-colors group-hover:text-cyan-700 dark:text-slate-100 dark:group-hover:text-cyan-400">
-                          {t(`tools.${tool.id}.name`, { defaultValue: tool.name })}
-                        </p>
-                        <p className="mt-0.5 line-clamp-2 text-xs leading-5 text-slate-500 dark:text-slate-400">
-                          {t(`tools.${tool.id}.description`, { defaultValue: tool.description })}
-                        </p>
-                      </div>
-                    </Link>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-
-          {/* Back to blog link */}
-          <Link
-            to="/blog"
-            className="flex items-center gap-1.5 text-sm font-medium text-slate-500 transition-colors hover:text-cyan-600 dark:text-slate-400 dark:hover:text-cyan-400"
+        {articleHeadings.length > 0 && (
+          <aside
+            className="hidden self-start lg:sticky lg:top-[88px] lg:block"
+            aria-label="Article table of contents"
           >
-            <ArrowLeft size={15} />
-            {t('blog.back_to_all_articles', { defaultValue: 'Back to all articles' })}
-          </Link>
-        </aside>
+            <nav className="max-h-[calc(100vh-7rem)] overflow-y-auto border-l border-slate-200 pl-5 pr-1 dark:border-slate-800">
+              <p className="mb-3 text-base font-bold text-slate-950 dark:text-white">
+                {i18n.language && i18n.language.startsWith('zh') ? '目录' : 'Contents'}
+              </p>
+              <div className="space-y-1">
+                {articleHeadings.map((heading) => (
+                  <a
+                    key={heading.id}
+                    href={`#${heading.id}`}
+                    onClick={(event) => handleHeadingClick(event, heading)}
+                    className={`block rounded-md px-3 py-2 text-sm font-medium leading-6 transition-colors ${
+                      activeHeadingId === heading.id
+                        ? 'bg-cyan-50 text-cyan-700 dark:bg-cyan-950/20 dark:text-cyan-300'
+                        : 'text-slate-500 hover:bg-cyan-50 hover:text-cyan-700 dark:text-slate-400 dark:hover:bg-cyan-950/20 dark:hover:text-cyan-300'
+                    }`}
+                  >
+                    {heading.text}
+                  </a>
+                ))}
+              </div>
+            </nav>
+          </aside>
+        )}
       </div>
 
+      <Link
+        to="/blog"
+        className="mt-6 inline-flex min-h-10 items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 text-sm font-medium text-slate-600 transition-colors hover:border-cyan-200 hover:text-cyan-700 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400 dark:hover:border-cyan-800 dark:hover:text-cyan-400"
+      >
+        <ArrowLeft size={15} />
+        {t('blog.back_to_all_articles', { defaultValue: 'Back to all articles' })}
+      </Link>
+
       {/* Related posts */}
-      <section className="mt-14 border-t border-slate-100 pt-10 dark:border-slate-800">
+      <section className="mt-10 border-t border-slate-100 pt-8 dark:border-slate-800">
         <div className="mb-6 flex items-end justify-between gap-4">
           <div>
             <p className="text-xs font-semibold uppercase tracking-wider text-cyan-600 dark:text-cyan-400">
@@ -348,33 +309,26 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, initialMarkdown = '' }) => {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
           {relatedPosts.map((related) => (
             <Link
               key={related.slug}
               to={`/blog/${related.slug}`}
-              className="group flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md dark:border-slate-800 dark:bg-slate-900"
+              className="group rounded-lg border border-slate-200 bg-white p-4 shadow-sm transition-colors hover:border-cyan-200 hover:bg-cyan-50/30 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-cyan-900/70 dark:hover:bg-cyan-950/10"
             >
-              <div className="relative aspect-[16/9] overflow-hidden bg-slate-100 dark:bg-slate-800">
-                <Image
-                  src={related.image}
-                  alt={t(`blog.posts.${related.slug}.title`)}
-                  fill
-                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-              </div>
-              <div className="flex flex-1 flex-col p-4">
-                <span className="text-xs font-semibold uppercase tracking-wide text-cyan-600 dark:text-cyan-400">
-                  {t(`blog.categories.${related.category.toLowerCase()}`, { defaultValue: related.category })}
-                </span>
-                <h3 className="mt-1 line-clamp-2 text-sm font-bold leading-snug text-slate-900 transition-colors group-hover:text-cyan-700 dark:text-slate-100 dark:group-hover:text-cyan-400">
-                  {t(`blog.posts.${related.slug}.title`)}
-                </h3>
-                <p className="mt-1 line-clamp-2 text-[13px] leading-relaxed text-slate-500 dark:text-slate-400">
-                  {t(`blog.posts.${related.slug}.summary`)}
-                </p>
-              </div>
+              <span className="text-xs font-semibold uppercase tracking-wide text-orange-700 dark:text-orange-300">
+                {t(`blog.categories.${related.category.toLowerCase()}`, { defaultValue: related.category })}
+              </span>
+              <h3 className="mt-2 line-clamp-2 text-sm font-bold leading-snug text-slate-950 transition-colors group-hover:text-cyan-700 dark:text-white dark:group-hover:text-cyan-300">
+                {t(`blog.posts.${related.slug}.title`)}
+              </h3>
+              <p className="mt-2 line-clamp-2 text-[13px] leading-6 text-slate-600 dark:text-slate-300">
+                {t(`blog.posts.${related.slug}.summary`)}
+              </p>
+              <span className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-cyan-700 dark:text-cyan-300">
+                {t('blog.readMore', { defaultValue: 'Read More' })}
+                <ChevronRight size={13} />
+              </span>
             </Link>
           ))}
         </div>

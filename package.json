@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 8001",
     "build": "node gen_sitemap.cjs && next build && node gen_sitemap.cjs && node scripts/precompress-static.cjs",
     "clean:deploy": "node scripts/clean-deploy-artifacts.cjs",
     "deploy:pack": "node scripts/prepare-deploy-output.cjs",

@@ -135,11 +135,11 @@ export default function CookieConsentManager({ adsenseClient }: CookieConsentMan
 
   return (
     <section
-      className="fixed inset-x-0 bottom-0 z-[120] border-t border-slate-200 bg-white/95 px-4 py-4 shadow-[0_-8px_30px_rgba(15,23,42,0.08)] backdrop-blur dark:border-slate-800 dark:bg-slate-950/95"
+      className="pointer-events-none fixed inset-x-0 bottom-4 z-[120] flex justify-center px-4 sm:bottom-6"
       aria-label={tr('cookieConsent.title', 'Cookie preferences')}
     >
-      <div className="mx-auto flex max-w-7xl flex-col gap-4 md:flex-row md:items-end md:justify-between">
-        <div className="max-w-3xl">
+      <div className="pointer-events-auto w-full max-w-2xl rounded-lg border border-slate-200 bg-white/95 p-4 text-center shadow-[0_16px_48px_rgba(15,23,42,0.16)] backdrop-blur dark:border-slate-800 dark:bg-slate-950/95 sm:p-5">
+        <div>
           <h2 className="text-sm font-semibold text-slate-950 dark:text-white">
             {tr('cookieConsent.title', 'Cookie preferences')}
           </h2>
@@ -154,7 +154,7 @@ export default function CookieConsentManager({ adsenseClient }: CookieConsentMan
           </p>
 
           {isCustomizing ? (
-            <div className="mt-3 flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-5">
+            <div className="mt-4 flex flex-col items-center justify-center gap-2 sm:flex-row sm:gap-5">
               <label className="inline-flex items-center gap-2 text-sm font-medium text-slate-700 dark:text-slate-200">
                 <input
                   type="checkbox"
@@ -186,7 +186,7 @@ export default function CookieConsentManager({ adsenseClient }: CookieConsentMan
           ) : null}
         </div>
 
-        <div className="flex shrink-0 flex-wrap gap-2">
+        <div className="mt-4 flex flex-wrap justify-center gap-2">
           {isCustomizing ? (
             <button
               type="button"
