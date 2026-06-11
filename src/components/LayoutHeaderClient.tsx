@@ -26,10 +26,10 @@ const navItemBaseClass =
   'relative mt-[3px] flex cursor-pointer items-center gap-1.5 self-center whitespace-nowrap px-2 pb-3 pt-2 text-[13px] font-semibold leading-none transition-colors duration-200 after:absolute after:bottom-0 after:left-2 after:right-2 after:h-0.5 after:rounded-full after:bg-transparent after:content-[""] lg:px-3 lg:after:left-3 lg:after:right-3';
 
 const navItemActiveClass =
-  'text-blue-600 after:bg-blue-600 dark:text-blue-400 dark:after:bg-blue-400';
+  'text-[var(--app-accent-ink)] after:bg-[var(--app-accent)] dark:text-[var(--app-accent-ink)] dark:after:bg-[var(--app-accent)]';
 
 const navItemInactiveClass =
-  'text-slate-600 hover:text-slate-950 dark:text-slate-400 dark:hover:text-slate-100';
+  'text-[var(--app-muted)] hover:text-[var(--app-text)] dark:text-[var(--app-muted)] dark:hover:text-[var(--app-text)]';
 
 export default function LayoutHeaderClient() {
   const router = useRouter();
@@ -109,13 +109,13 @@ export default function LayoutHeaderClient() {
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-50 flex h-[58px] items-center justify-between border-b border-slate-200/80 bg-[#f7f8fb]/90 px-4 backdrop-blur-md dark:border-slate-800/80 dark:bg-slate-950/88 sm:px-6 lg:px-8">
+      <header className="fixed inset-x-0 top-0 z-50 flex h-[58px] items-center justify-between border-b border-[var(--app-border)] bg-[color-mix(in_srgb,var(--app-surface)_88%,transparent)] px-4 backdrop-blur-md dark:border-[var(--app-border)] dark:bg-[color-mix(in_srgb,var(--app-bg-soft)_86%,transparent)] sm:px-6 lg:px-8">
         <div className="flex min-w-0 items-center gap-4 lg:gap-6 xl:gap-8">
           <Link
             to="/"
-            className="flex shrink-0 items-center gap-2 text-[16px] font-bold tracking-tight text-slate-950 transition-colors hover:text-blue-700 dark:text-white dark:hover:text-blue-300 lg:gap-[10px]"
+            className="flex shrink-0 items-center gap-2 text-[16px] font-bold tracking-tight text-[var(--app-text)] transition-colors hover:text-[var(--app-accent-ink)] dark:text-[var(--app-text)] dark:hover:text-[var(--app-accent-ink)] lg:gap-[10px]"
           >
-            <div className="flex h-7 w-7 items-center justify-center rounded-md bg-blue-600 text-[11px] font-bold text-white lg:h-8 lg:w-8">
+            <div className="flex h-7 w-7 items-center justify-center rounded-md bg-[linear-gradient(180deg,var(--app-accent),var(--app-accent-strong))] text-[11px] font-bold text-white lg:h-8 lg:w-8">
               TO
             </div>
             <span className="hidden sm:inline">{t('common.logoName')}</span>
@@ -135,7 +135,7 @@ export default function LayoutHeaderClient() {
                 <ChevronDown
                   className={cn(
                     'h-3.5 w-3.5 transition-transform duration-200 group-hover:rotate-180 lg:h-4 lg:w-4',
-                    isAiSection ? 'text-blue-500 dark:text-blue-300' : 'text-slate-400',
+                    isAiSection ? 'text-[var(--app-accent)] dark:text-[var(--app-accent)]' : 'text-[var(--app-muted)]',
                   )}
                 />
               </Link>
@@ -155,7 +155,7 @@ export default function LayoutHeaderClient() {
                 <ChevronDown
                   className={cn(
                     'h-3.5 w-3.5 transition-transform duration-200 group-hover:rotate-180 lg:h-4 lg:w-4',
-                    isToolSection ? 'text-blue-500 dark:text-blue-300' : 'text-slate-400',
+                    isToolSection ? 'text-[var(--app-accent)] dark:text-[var(--app-accent)]' : 'text-[var(--app-muted)]',
                   )}
                 />
               </Link>
@@ -195,7 +195,7 @@ export default function LayoutHeaderClient() {
           >
             <form onSubmit={handleSearchSubmit}>
               <Search
-                className="pointer-events-none absolute left-[14px] top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"
+                className="pointer-events-none absolute left-[14px] top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--app-muted)]"
                 aria-hidden="true"
               />
               <input
@@ -204,10 +204,10 @@ export default function LayoutHeaderClient() {
                 onFocus={() => setIsSearchFocused(true)}
                 onBlur={() => setIsSearchFocused(false)}
                 className={cn(
-                  'w-full rounded-md border border-slate-200/80 bg-white/80 py-[8px] pl-[38px] pr-[16px] text-[13px] text-slate-800 outline-none transition-all placeholder:text-slate-400 dark:border-slate-700 dark:bg-slate-900/70 dark:text-slate-100 dark:placeholder:text-slate-500',
+                  'w-full rounded-md border border-[var(--app-border)] bg-[color-mix(in_srgb,var(--app-surface)_86%,transparent)] py-[8px] pl-[38px] pr-[16px] text-[13px] text-[var(--app-text)] outline-none transition-all placeholder:text-[var(--app-muted)] dark:border-[var(--app-border)] dark:bg-[color-mix(in_srgb,var(--app-surface)_82%,transparent)] dark:text-[var(--app-text)] dark:placeholder:text-[var(--app-muted)]',
                   isSearchFocused
-                    ? 'border-blue-500 bg-white ring-[3px] ring-blue-500/10 dark:bg-slate-900'
-                    : 'cursor-pointer hover:border-slate-300 dark:hover:border-slate-600',
+                    ? 'border-[var(--app-accent)] bg-[var(--app-surface)] ring-[3px] ring-[color-mix(in_srgb,var(--app-accent)_16%,transparent)] dark:bg-[var(--app-surface)]'
+                    : 'cursor-pointer hover:border-[color-mix(in_srgb,var(--app-accent)_38%,var(--app-border))]',
                 )}
                 placeholder={isSearchFocused || isWideDesktop ? t('common.searchPlaceholder') : ''}
                 type="search"
@@ -216,7 +216,7 @@ export default function LayoutHeaderClient() {
               />
               {!isSearchFocused && (
                 <div className="pointer-events-none absolute right-3 top-1/2 hidden -translate-y-1/2 items-center xl:flex">
-                  <kbd className="rounded border border-slate-200 bg-slate-200/50 px-1.5 py-[2px] font-sans text-[10px] font-medium text-slate-400 dark:border-slate-700 dark:bg-slate-700/50 dark:text-slate-300">
+                  <kbd className="rounded border border-[var(--app-border)] bg-[var(--app-accent-soft)] px-1.5 py-[2px] font-sans text-[10px] font-medium text-[var(--app-accent-ink)] dark:border-[var(--app-border)] dark:bg-[var(--app-accent-soft)] dark:text-[var(--app-accent-ink)]">
                     Ctrl K
                   </kbd>
                 </div>
@@ -230,7 +230,7 @@ export default function LayoutHeaderClient() {
 
           <button
             onClick={() => setTheme(isDark ? 'light' : 'dark')}
-            className="rounded-md p-2 text-slate-500 transition-colors hover:bg-slate-200/70 dark:text-slate-400 dark:hover:bg-slate-800"
+            className="rounded-md p-2 text-[var(--app-muted)] transition-colors hover:bg-[var(--app-accent-soft)] hover:text-[var(--app-accent-ink)] dark:text-[var(--app-muted)] dark:hover:bg-[var(--app-accent-soft)]"
             aria-label={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
           >
             {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
@@ -240,7 +240,7 @@ export default function LayoutHeaderClient() {
             type="button"
             aria-label={t('common.mobileMenu')}
             aria-expanded={mobileMenuOpen}
-            className="rounded-md p-2 text-slate-500 transition-colors hover:bg-slate-200/70 dark:text-slate-400 dark:hover:bg-slate-800 md:hidden"
+            className="rounded-md p-2 text-[var(--app-muted)] transition-colors hover:bg-[var(--app-accent-soft)] hover:text-[var(--app-accent-ink)] dark:text-[var(--app-muted)] dark:hover:bg-[var(--app-accent-soft)] md:hidden"
             onClick={() => setMobileMenuOpen(true)}
           >
             <Menu className="h-6 w-6" />

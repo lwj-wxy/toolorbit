@@ -171,7 +171,7 @@ const YoutubeHeroTrial = ({ isZh }: { isZh: boolean }) => {
       <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_240px]">
         <div className="min-w-0">
           <div className="mb-3 flex items-center gap-2">
-            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-cyan-50 text-cyan-700 dark:bg-cyan-950/40 dark:text-cyan-300">
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[var(--app-accent-soft)] text-[var(--app-accent-ink)] dark:bg-[var(--app-accent-soft)] dark:text-[var(--app-accent-ink)]">
               <Clapperboard className="h-5 w-5" aria-hidden="true" />
             </span>
             <div>
@@ -191,7 +191,7 @@ const YoutubeHeroTrial = ({ isZh }: { isZh: boolean }) => {
             value={topic}
             onChange={(event) => setTopic(event.target.value)}
             placeholder={isZh ? '例如：新手如何拍出好看的咖啡拉花' : 'e.g. How beginners can film better latte art'}
-            className="min-h-[112px] w-full resize-none rounded-lg border border-slate-200 bg-slate-50 px-3 py-3 text-sm leading-6 text-slate-950 outline-none transition-colors placeholder:text-slate-400 focus:border-cyan-600 focus:bg-white focus:ring-2 focus:ring-cyan-600/10 dark:border-slate-700 dark:bg-slate-950/40 dark:text-white dark:focus:border-cyan-500"
+            className="min-h-[112px] w-full resize-none rounded-lg border border-[var(--app-border)] bg-[var(--app-surface)] px-3 py-3 text-sm leading-6 text-[var(--app-text)] outline-none transition-colors placeholder:text-[var(--app-muted)] focus:border-[var(--app-accent)] focus:bg-[var(--app-surface-strong)] focus:ring-2 focus:ring-[color-mix(in_srgb,var(--app-accent)_14%,transparent)] dark:border-[var(--app-border)] dark:bg-[var(--app-surface)] dark:text-[var(--app-text)] dark:focus:border-[var(--app-accent)]"
           />
         </div>
 
@@ -199,7 +199,7 @@ const YoutubeHeroTrial = ({ isZh }: { isZh: boolean }) => {
           <button
             type="submit"
             disabled={loading || !topic.trim()}
-            className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-cyan-700 px-4 text-sm font-semibold text-white transition-colors hover:bg-cyan-800 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-[#4183c4] dark:hover:bg-[#4f93d5]"
+            className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-[linear-gradient(180deg,var(--app-accent),var(--app-accent-strong))] px-4 text-sm font-semibold text-white transition-colors hover:bg-[var(--app-accent-strong)] disabled:cursor-not-allowed disabled:opacity-50 dark:bg-[var(--app-accent)] dark:hover:bg-[var(--app-accent-strong)]"
           >
             {loading ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> : <Sparkles className="h-4 w-4" aria-hidden="true" />}
             {loading ? (isZh ? '生成中' : 'Generating') : isZh ? '生成文案' : 'Generate copy'}
@@ -220,7 +220,7 @@ const YoutubeHeroTrial = ({ isZh }: { isZh: boolean }) => {
             <p className="text-[13px] font-semibold text-slate-800 dark:text-slate-100">
               {isZh ? '生成结果' : 'Generated copy'}
             </p>
-            {loading ? <Loader2 className="h-4 w-4 animate-spin text-cyan-700 dark:text-cyan-300" aria-hidden="true" /> : null}
+            {loading ? <Loader2 className="h-4 w-4 animate-spin text-[var(--app-accent-ink)] dark:text-[var(--app-accent-ink)]" aria-hidden="true" /> : null}
           </div>
 
           {loading && !result ? (
@@ -243,7 +243,7 @@ const YoutubeHeroTrial = ({ isZh }: { isZh: boolean }) => {
 
                 return (
                   <section key={key} className="border-b border-slate-200 pb-3 last:border-b-0 last:pb-0 dark:border-slate-800">
-                    <h3 className="text-[12px] font-semibold text-cyan-700 dark:text-cyan-300">{label}</h3>
+                    <h3 className="text-[12px] font-semibold text-[var(--app-accent-ink)] dark:text-[var(--app-accent-ink)]">{label}</h3>
                     <p className="mt-1 whitespace-pre-wrap text-[13px] leading-6 text-slate-700 dark:text-slate-300">{content}</p>
                   </section>
                 );
@@ -261,17 +261,17 @@ const YoutubeHeroTrial = ({ isZh }: { isZh: boolean }) => {
 };
 
 const categoryStyles: Record<string, { badge: string; icon: string }> = {
-  'AI 工具': { badge: 'bg-sky-50 text-sky-700 ring-sky-200 dark:bg-sky-950/30 dark:text-sky-300 dark:ring-sky-900', icon: 'text-sky-700 bg-sky-50 dark:bg-sky-950/40 dark:text-sky-300' },
-  '开发者工具': { badge: 'bg-cyan-50 text-cyan-700 ring-cyan-200 dark:bg-cyan-950/30 dark:text-cyan-300 dark:ring-cyan-900', icon: 'text-cyan-700 bg-cyan-50 dark:bg-cyan-950/40 dark:text-cyan-300' },
-  '站长工具': { badge: 'bg-blue-50 text-blue-700 ring-blue-200 dark:bg-blue-950/30 dark:text-blue-300 dark:ring-blue-900', icon: 'text-blue-700 bg-blue-50 dark:bg-blue-950/40 dark:text-blue-300' },
-  '文本排版': { badge: 'bg-violet-50 text-violet-700 ring-violet-200 dark:bg-violet-950/30 dark:text-violet-300 dark:ring-violet-900', icon: 'text-violet-700 bg-violet-50 dark:bg-violet-950/40 dark:text-violet-300' },
-  '生成器': { badge: 'bg-fuchsia-50 text-fuchsia-700 ring-fuchsia-200 dark:bg-fuchsia-950/30 dark:text-fuchsia-300 dark:ring-fuchsia-900', icon: 'text-fuchsia-700 bg-fuchsia-50 dark:bg-fuchsia-950/40 dark:text-fuchsia-300' },
-  '电商工具': { badge: 'bg-emerald-50 text-emerald-700 ring-emerald-200 dark:bg-emerald-950/30 dark:text-emerald-300 dark:ring-emerald-900', icon: 'text-emerald-700 bg-emerald-50 dark:bg-emerald-950/40 dark:text-emerald-300' },
-  'PDF工具': { badge: 'bg-rose-50 text-rose-700 ring-rose-200 dark:bg-rose-950/30 dark:text-rose-300 dark:ring-rose-900', icon: 'text-rose-700 bg-rose-50 dark:bg-rose-950/40 dark:text-rose-300' },
-  '图片处理': { badge: 'bg-pink-50 text-pink-700 ring-pink-200 dark:bg-pink-950/30 dark:text-pink-300 dark:ring-pink-900', icon: 'text-pink-700 bg-pink-50 dark:bg-pink-950/40 dark:text-pink-300' },
-  '计算转换': { badge: 'bg-amber-50 text-amber-700 ring-amber-200 dark:bg-amber-950/30 dark:text-amber-300 dark:ring-amber-900', icon: 'text-amber-700 bg-amber-50 dark:bg-amber-950/40 dark:text-amber-300' },
-  '实用工具': { badge: 'bg-teal-50 text-teal-700 ring-teal-200 dark:bg-teal-950/30 dark:text-teal-300 dark:ring-teal-900', icon: 'text-teal-700 bg-teal-50 dark:bg-teal-950/40 dark:text-teal-300' },
-  default: { badge: 'bg-slate-100 text-slate-700 ring-slate-200 dark:bg-slate-900 dark:text-slate-300 dark:ring-slate-800', icon: 'text-slate-600 bg-slate-100 dark:bg-slate-900 dark:text-slate-300' },
+  'AI 工具': { badge: 'bg-[var(--app-accent-soft)] text-[var(--app-accent-ink)] ring-[color-mix(in_srgb,var(--app-accent)_26%,transparent)] dark:bg-[var(--app-accent-soft)] dark:text-[var(--app-accent-ink)] dark:ring-[color-mix(in_srgb,var(--app-accent)_32%,transparent)]', icon: 'text-[var(--app-accent-ink)] bg-[var(--app-accent-soft)] dark:bg-[var(--app-accent-soft)] dark:text-[var(--app-accent-ink)]' },
+  '开发者工具': { badge: 'bg-[var(--app-accent-soft)] text-[var(--app-accent-ink)] ring-[color-mix(in_srgb,var(--app-accent)_26%,transparent)] dark:bg-[var(--app-accent-soft)] dark:text-[var(--app-accent-ink)] dark:ring-[color-mix(in_srgb,var(--app-accent)_32%,transparent)]', icon: 'text-[var(--app-accent-ink)] bg-[var(--app-accent-soft)] dark:bg-[var(--app-accent-soft)] dark:text-[var(--app-accent-ink)]' },
+  '站长工具': { badge: 'bg-[var(--app-accent-soft)] text-[var(--app-accent-ink)] ring-[color-mix(in_srgb,var(--app-accent)_26%,transparent)] dark:bg-[var(--app-accent-soft)] dark:text-[var(--app-accent-ink)] dark:ring-[color-mix(in_srgb,var(--app-accent)_32%,transparent)]', icon: 'text-[var(--app-accent-ink)] bg-[var(--app-accent-soft)] dark:bg-[var(--app-accent-soft)] dark:text-[var(--app-accent-ink)]' },
+  '文本排版': { badge: 'bg-[var(--app-accent-soft)] text-[var(--app-accent-ink)] ring-[color-mix(in_srgb,var(--app-accent)_26%,transparent)] dark:bg-[var(--app-accent-soft)] dark:text-[var(--app-accent-ink)] dark:ring-[color-mix(in_srgb,var(--app-accent)_32%,transparent)]', icon: 'text-[var(--app-accent-ink)] bg-[var(--app-accent-soft)] dark:bg-[var(--app-accent-soft)] dark:text-[var(--app-accent-ink)]' },
+  '生成器': { badge: 'bg-[var(--app-accent-soft)] text-[var(--app-accent-ink)] ring-[color-mix(in_srgb,var(--app-accent)_26%,transparent)] dark:bg-[var(--app-accent-soft)] dark:text-[var(--app-accent-ink)] dark:ring-[color-mix(in_srgb,var(--app-accent)_32%,transparent)]', icon: 'text-[var(--app-accent-ink)] bg-[var(--app-accent-soft)] dark:bg-[var(--app-accent-soft)] dark:text-[var(--app-accent-ink)]' },
+  '电商工具': { badge: 'bg-[var(--app-accent-warm-soft)] text-[var(--app-accent-warm)] ring-[color-mix(in_srgb,var(--app-accent-warm)_24%,transparent)] dark:bg-[var(--app-accent-warm-soft)] dark:text-[var(--app-accent-warm)] dark:ring-[color-mix(in_srgb,var(--app-accent-warm)_28%,transparent)]', icon: 'text-[var(--app-accent-warm)] bg-[var(--app-accent-warm-soft)] dark:bg-[var(--app-accent-warm-soft)] dark:text-[var(--app-accent-warm)]' },
+  'PDF工具': { badge: 'bg-[var(--app-accent-soft)] text-[var(--app-accent-ink)] ring-[color-mix(in_srgb,var(--app-accent)_26%,transparent)] dark:bg-[var(--app-accent-soft)] dark:text-[var(--app-accent-ink)] dark:ring-[color-mix(in_srgb,var(--app-accent)_32%,transparent)]', icon: 'text-[var(--app-accent-ink)] bg-[var(--app-accent-soft)] dark:bg-[var(--app-accent-soft)] dark:text-[var(--app-accent-ink)]' },
+  '图片处理': { badge: 'bg-[var(--app-accent-soft)] text-[var(--app-accent-ink)] ring-[color-mix(in_srgb,var(--app-accent)_26%,transparent)] dark:bg-[var(--app-accent-soft)] dark:text-[var(--app-accent-ink)] dark:ring-[color-mix(in_srgb,var(--app-accent)_32%,transparent)]', icon: 'text-[var(--app-accent-ink)] bg-[var(--app-accent-soft)] dark:bg-[var(--app-accent-soft)] dark:text-[var(--app-accent-ink)]' },
+  '计算转换': { badge: 'bg-[var(--app-accent-warm-soft)] text-[var(--app-accent-warm)] ring-[color-mix(in_srgb,var(--app-accent-warm)_24%,transparent)] dark:bg-[var(--app-accent-warm-soft)] dark:text-[var(--app-accent-warm)] dark:ring-[color-mix(in_srgb,var(--app-accent-warm)_28%,transparent)]', icon: 'text-[var(--app-accent-warm)] bg-[var(--app-accent-warm-soft)] dark:bg-[var(--app-accent-warm-soft)] dark:text-[var(--app-accent-warm)]' },
+  '实用工具': { badge: 'bg-[var(--app-accent-soft)] text-[var(--app-accent-ink)] ring-[color-mix(in_srgb,var(--app-accent)_26%,transparent)] dark:bg-[var(--app-accent-soft)] dark:text-[var(--app-accent-ink)] dark:ring-[color-mix(in_srgb,var(--app-accent)_32%,transparent)]', icon: 'text-[var(--app-accent-ink)] bg-[var(--app-accent-soft)] dark:bg-[var(--app-accent-soft)] dark:text-[var(--app-accent-ink)]' },
+  default: { badge: 'bg-[var(--app-accent-soft)] text-[var(--app-accent-ink)] ring-[color-mix(in_srgb,var(--app-accent)_24%,transparent)] dark:bg-[var(--app-accent-soft)] dark:text-[var(--app-accent-ink)] dark:ring-[color-mix(in_srgb,var(--app-accent)_30%,transparent)]', icon: 'text-[var(--app-accent-ink)] bg-[var(--app-accent-soft)] dark:bg-[var(--app-accent-soft)] dark:text-[var(--app-accent-ink)]' },
 };
 
 function getCategoryStyles(category: Category) {
@@ -299,11 +299,11 @@ const ToolCard = ({
         ease: 'easeOut',
         delay: Math.min(revealIndex * TOOL_CARD_REVEAL_DELAY_STEP, TOOL_CARD_REVEAL_DELAY_MAX),
       }}
-      className="group relative h-full overflow-hidden rounded-lg border border-slate-200/80 bg-white/95 shadow-[0_1px_2px_rgba(15,23,42,0.05)] transition-all duration-200 hover:-translate-y-0.5 hover:border-sky-200 hover:bg-white hover:shadow-[0_14px_30px_rgba(15,23,42,0.08)] dark:border-slate-800 dark:bg-[#282c34]/95 dark:hover:border-sky-800 dark:hover:bg-[#2d333d]"
+      className="group relative h-full overflow-hidden rounded-lg border border-slate-200/80 bg-white/95 transition-colors duration-200 hover:border-[color-mix(in_srgb,var(--app-accent)_34%,var(--app-border))] hover:bg-white dark:border-slate-800 dark:bg-[#282c34]/95 dark:hover:border-[var(--app-accent)] dark:hover:bg-[#2d333d]"
     >
       <Link
         to={tool.path}
-        className="flex h-full min-h-[118px] p-5 outline-none focus-visible:ring-2 focus-visible:ring-sky-500/30"
+        className="flex h-full min-h-[118px] p-5 outline-none focus-visible:ring-2 focus-visible:ring-[color-mix(in_srgb,var(--app-accent)_30%,transparent)]"
       >
         <div className="flex min-w-0 flex-1 items-start gap-4">
           <span
@@ -316,7 +316,7 @@ const ToolCard = ({
           </span>
           <div className="min-w-0 flex-1">
             <div className="flex items-start justify-between gap-3">
-              <h3 className="line-clamp-1 text-[15px] font-semibold tracking-normal text-slate-950 transition-colors group-hover:text-sky-700 dark:text-white dark:group-hover:text-sky-200">
+              <h3 className="line-clamp-1 text-[15px] font-semibold tracking-normal text-slate-950 transition-colors group-hover:text-[var(--app-accent-ink)] dark:text-white dark:group-hover:text-[var(--app-accent-ink)]">
                 {t(`tools.${tool.id}.name`, { defaultValue: tool.name })}
               </h3>
               <ArrowRight
@@ -358,16 +358,16 @@ const AiWorkflowToolCard = ({
         ease: 'easeOut',
         delay: Math.min(revealIndex * 0.025, 0.1),
       }}
-      className="group rounded-lg border border-slate-200/75 bg-white/75 transition-all duration-200 hover:-translate-y-0.5 hover:border-sky-200 hover:bg-white hover:shadow-[0_12px_24px_rgba(15,23,42,0.07)] dark:border-slate-800 dark:bg-[#282c34]/80 dark:hover:border-sky-800 dark:hover:bg-[#2d333d]"
+      className="group rounded-lg border border-slate-200/75 bg-white/75 transition-colors duration-200 hover:border-[color-mix(in_srgb,var(--app-accent)_34%,var(--app-border))] hover:bg-white dark:border-slate-800 dark:bg-[#282c34]/80 dark:hover:border-[var(--app-accent)] dark:hover:bg-[#2d333d]"
     >
-      <Link to={tool.path} className="flex h-full min-h-[112px] flex-col p-4 outline-none focus-visible:ring-2 focus-visible:ring-sky-500/30">
+      <Link to={tool.path} className="flex h-full min-h-[112px] flex-col p-4 outline-none focus-visible:ring-2 focus-visible:ring-[color-mix(in_srgb,var(--app-accent)_30%,transparent)]">
         <div className="flex items-start justify-between gap-3">
           <span className={cn('inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-md', styles.icon)}>
             <Icon size={17} strokeWidth={2.2} />
           </span>
           <ArrowRight className="h-4 w-4 translate-x-1 text-slate-300 opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100 dark:text-slate-500" aria-hidden="true" />
         </div>
-        <h3 className="mt-4 line-clamp-2 text-[15px] font-semibold leading-5 text-slate-950 transition-colors group-hover:text-sky-700 dark:text-white dark:group-hover:text-sky-200">
+        <h3 className="mt-4 line-clamp-2 text-[15px] font-semibold leading-5 text-slate-950 transition-colors group-hover:text-[var(--app-accent-ink)] dark:text-white dark:group-hover:text-[var(--app-accent-ink)]">
           {t(`tools.${tool.id}.name`, { defaultValue: tool.name })}
         </h3>
         <p className="mt-2 line-clamp-2 text-[13px] leading-5 text-slate-600 dark:text-slate-400">
@@ -432,7 +432,7 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
       <div className="flex flex-col gap-8">
         <header className="border-b border-slate-200 pb-7 dark:border-slate-800">
           {!categoryFilter ? (
-            <p className="mb-3 text-[12px] font-semibold uppercase tracking-wide text-blue-700 dark:text-blue-300">
+            <p className="mb-3 text-[12px] font-semibold uppercase tracking-wide text-[var(--app-accent-ink)] dark:text-[var(--app-accent-ink)]">
               {t('search.results', { query: searchQuery })}
             </p>
           ) : null}
@@ -449,7 +449,7 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
                     <Link
                       key={page.href}
                       to={page.href}
-                      className="inline-flex items-center gap-1.5 rounded-lg border border-blue-200 bg-blue-50 px-3 py-1.5 text-[13px] font-medium text-blue-700 transition-colors hover:border-blue-300 hover:bg-blue-100 dark:border-blue-900/60 dark:bg-blue-950/30 dark:text-blue-300 dark:hover:border-blue-800 dark:hover:bg-blue-950/50"
+                      className="inline-flex items-center gap-1.5 rounded-lg border border-[color-mix(in_srgb,var(--app-accent)_32%,var(--app-border))] bg-[var(--app-accent-soft)] px-3 py-1.5 text-[13px] font-medium text-[var(--app-accent-ink)] transition-colors hover:border-[var(--app-accent)] hover:bg-[color-mix(in_srgb,var(--app-accent-soft)_72%,white)] dark:border-[color-mix(in_srgb,var(--app-accent)_40%,var(--app-border))] dark:bg-[var(--app-accent-soft)] dark:text-[var(--app-accent-ink)] dark:hover:border-[var(--app-accent)] dark:hover:bg-[var(--app-accent-soft)]"
                     >
                       {page.label}
                       <ArrowRight size={14} />
@@ -482,9 +482,9 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
 
   return (
     <div className="flex flex-col gap-8 pb-12">
-      <section className="bg-[radial-gradient(circle_at_50%_0%,rgba(230,247,255,0.34)_0%,rgba(244,248,251,0.66)_46%,rgba(244,248,251,0)_82%)] px-4 py-10 text-center dark:bg-[radial-gradient(circle_at_50%_0%,rgba(65,131,196,0.08)_0%,rgba(54,54,54,0.48)_48%,rgba(54,54,54,0)_82%)] sm:px-6 sm:py-12">
+      <section className="bg-[linear-gradient(180deg,rgba(255,255,255,0.78)_0%,rgba(247,251,243,0.62)_100%)] px-4 py-10 text-center dark:bg-[linear-gradient(180deg,rgba(20,41,31,0.82)_0%,rgba(16,32,24,0.72)_100%)] sm:px-6 sm:py-12">
         <div className="mx-auto max-w-4xl">
-          <p className="mb-3 text-[12px] font-semibold uppercase tracking-wide text-cyan-700 dark:text-cyan-300">
+          <p className="mb-3 text-[12px] font-semibold uppercase tracking-wide text-[var(--app-accent-ink)] dark:text-[var(--app-accent-ink)]">
             {isZh ? 'YouTube AI 工具' : 'YouTube AI tool'}
           </p>
           <h1 className="mx-auto max-w-3xl text-3xl font-semibold leading-tight tracking-tight text-slate-950 dark:text-white sm:text-4xl">
@@ -531,7 +531,7 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
           </div>
           <Link
             to={getCategoryPath(HOME_PRIMARY_CATEGORY)}
-            className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-sky-700 transition-colors hover:text-sky-800 dark:text-sky-300 dark:hover:text-sky-200"
+            className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-[var(--app-accent-ink)] transition-colors hover:text-[var(--app-accent-strong)] dark:text-[var(--app-accent-ink)] dark:hover:text-[var(--app-accent-strong)]"
           >
             {t('common.viewMore')}
             <ArrowRight className="h-4 w-4" aria-hidden="true" />

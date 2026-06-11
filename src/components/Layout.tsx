@@ -9,16 +9,16 @@ interface LayoutProps {
 
 export default function Layout({ children }: LayoutProps) {
   return (
-    <div className="relative flex min-h-screen flex-col overflow-x-clip bg-[#f7f8fb] font-sans text-slate-900 transition-colors duration-300 dark:bg-slate-950 dark:text-slate-200">
+    <div className="relative flex min-h-screen flex-col overflow-x-clip bg-[var(--app-bg)] font-sans text-[var(--app-text)] transition-colors duration-300 dark:bg-[var(--app-bg)] dark:text-[var(--app-text)]">
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[999] focus:rounded-md focus:bg-blue-600 focus:px-4 focus:py-2 focus:font-semibold focus:text-white focus:outline-none"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[999] focus:rounded-md focus:bg-[var(--app-accent-strong)] focus:px-4 focus:py-2 focus:font-semibold focus:text-white focus:outline-none"
       >
         Skip to main content
       </a>
 
-      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden bg-[linear-gradient(to_bottom,#f7f8fb_0%,#f2f5f9_42%,#f7f8fb_100%)] dark:bg-[linear-gradient(to_bottom,#0b1120_0%,#0f172a_45%,#0b1120_100%)]">
-        <div className="absolute inset-x-0 top-0 h-px bg-slate-200/80 dark:bg-slate-800/80" />
+      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden bg-[linear-gradient(to_bottom,var(--app-bg-soft)_0%,var(--app-bg)_52%,#f3f8f1_100%)] dark:bg-[linear-gradient(to_bottom,var(--app-bg-soft)_0%,var(--app-bg)_100%)]">
+        <div className="absolute inset-x-0 top-0 h-px bg-[color-mix(in_srgb,var(--app-accent)_34%,transparent)]" />
       </div>
 
       <LayoutHeaderClient />

@@ -5,36 +5,52 @@
 
 :root {
   color-scheme: light;
-  --app-bg: #f4f8fb;
-  --app-text: #0f172a;
-  --app-muted: #475569;
-  --app-border: #dcdee0;
-  --app-accent: #249ffd;
-  --app-accent-strong: #0891b2;
-  --app-accent-soft: #e6f7ff;
-  --app-success: #52de97;
-  --app-danger: #fa5477;
-  --app-info: #9ed0ff;
-  --app-warning: #ffdd98;
+  --app-bg: #f6faf5;
+  --app-bg-soft: #fbfcf7;
+  --app-surface: #ffffff;
+  --app-surface-strong: #ffffff;
+  --app-text: #26323f;
+  --app-muted: #718096;
+  --app-border: #e0e8dc;
+  --app-accent: #35ad72;
+  --app-accent-strong: #218557;
+  --app-accent-ink: #176c49;
+  --app-accent-soft: #e7f6ee;
+  --app-accent-warm: #f08a3c;
+  --app-accent-warm-soft: #fff0e3;
+  --app-success: #2f7d4f;
+  --app-danger: #b42318;
+  --app-info: #315f8c;
+  --app-warning: #b7791f;
 }
 
 :root.dark {
   color-scheme: dark;
-  --app-bg: #363636;
-  --app-text: #e5e7eb;
-  --app-muted: #9aa4b2;
-  --app-border: #6a6a6a;
-  --app-accent: #4183c4;
-  --app-accent-strong: #6fb4e8;
-  --app-accent-soft: #1f3448;
-  --app-success: #52de97;
-  --app-danger: #fa5477;
+  --app-bg: #102018;
+  --app-bg-soft: #14291f;
+  --app-surface: #17271f;
+  --app-surface-strong: #1d3026;
+  --app-text: #e8f2ec;
+  --app-muted: #adc2b6;
+  --app-border: #2d4a3a;
+  --app-accent: #52c98d;
+  --app-accent-strong: #8be2b2;
+  --app-accent-ink: #b8f1ce;
+  --app-accent-soft: #193d2b;
+  --app-accent-warm: #f2a35d;
+  --app-accent-warm-soft: #412817;
+  --app-success: #52c98d;
+  --app-danger: #f87171;
   --app-info: #9ed0ff;
-  --app-warning: #ffdd98;
+  --app-warning: #f4bf70;
 }
 
 body {
-  @apply bg-[#f4f8fb] text-slate-900 antialiased transition-colors duration-300 dark:bg-[#363636] dark:text-slate-100;
+  @apply antialiased transition-colors duration-300;
+  min-height: 100svh;
+  background:
+    linear-gradient(180deg, var(--app-bg-soft) 0%, var(--app-bg) 48%, #f3f8f1 100%);
+  color: var(--app-text);
   font-family:
     "Plus Jakarta Sans",
     Inter,
@@ -48,6 +64,13 @@ body {
   letter-spacing: 0;
 }
 
+:root.dark body {
+  background:
+    radial-gradient(circle at 12% 0%, color-mix(in srgb, var(--app-accent) 12%, transparent), transparent 32rem),
+    radial-gradient(circle at 86% 8%, color-mix(in srgb, var(--app-accent-warm) 10%, transparent), transparent 28rem),
+    linear-gradient(180deg, var(--app-bg-soft) 0%, var(--app-bg) 100%);
+}
+
 ::selection {
   background: color-mix(in srgb, var(--app-accent) 18%, transparent);
 }
@@ -59,11 +82,14 @@ summary {
 }
 
 .tool-surface {
-  @apply rounded-lg border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900;
+  @apply rounded-lg;
+  border: 1px solid color-mix(in srgb, var(--app-border) 88%, transparent);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--app-surface-strong) 94%, transparent), var(--app-surface));
 }
 
 .info-band {
-  @apply border-y border-slate-200/80 py-8 dark:border-slate-800/80;
+  @apply border-y py-8;
+  border-color: color-mix(in srgb, var(--app-border) 82%, transparent);
 }
 
 .scrollbar-hidden {
@@ -78,6 +104,107 @@ summary {
 :where(a, button, summary):focus-visible {
   outline: 2px solid color-mix(in srgb, var(--app-accent) 70%, transparent);
   outline-offset: 3px;
+}
+
+.text-blue-800,
+.text-blue-700,
+.text-blue-600,
+.text-blue-500,
+.text-cyan-950,
+.text-cyan-800,
+.text-cyan-700,
+.text-cyan-600,
+.text-cyan-500,
+.text-sky-800,
+.text-sky-700,
+.text-sky-600,
+.text-sky-500 {
+  color: var(--app-accent-ink) !important;
+}
+
+.hover\:text-blue-800:hover,
+.hover\:text-blue-700:hover,
+.hover\:text-blue-600:hover,
+.hover\:text-cyan-800:hover,
+.hover\:text-cyan-700:hover,
+.hover\:text-cyan-600:hover,
+.hover\:text-sky-800:hover,
+.hover\:text-sky-700:hover,
+.hover\:text-sky-600:hover {
+  color: var(--app-accent-strong) !important;
+}
+
+.bg-blue-700,
+.bg-blue-600,
+.bg-blue-500,
+.bg-cyan-800,
+.bg-cyan-700,
+.bg-cyan-600,
+.bg-cyan-500,
+.bg-sky-700,
+.bg-sky-600,
+.bg-sky-500 {
+  background: linear-gradient(180deg, var(--app-accent), var(--app-accent-strong)) !important;
+  color: #ffffff !important;
+}
+
+.hover\:bg-blue-700:hover,
+.hover\:bg-blue-600:hover,
+.hover\:bg-cyan-800:hover,
+.hover\:bg-cyan-700:hover,
+.hover\:bg-cyan-600:hover,
+.hover\:bg-sky-800:hover,
+.hover\:bg-sky-700:hover,
+.hover\:bg-sky-600:hover {
+  background: var(--app-accent-strong) !important;
+  color: #ffffff !important;
+}
+
+.bg-blue-100,
+.bg-blue-50,
+.bg-cyan-100,
+.bg-cyan-50,
+.bg-cyan-50\/30,
+.bg-cyan-50\/40,
+.bg-cyan-50\/50,
+.bg-cyan-50\/60,
+.bg-cyan-50\/70,
+.bg-sky-100,
+.bg-sky-50,
+.bg-sky-50\/30,
+.bg-sky-50\/40,
+.bg-sky-50\/50 {
+  background-color: var(--app-accent-soft) !important;
+}
+
+.border-blue-300,
+.border-blue-200,
+.border-blue-100,
+.border-cyan-600,
+.border-cyan-500,
+.border-cyan-400,
+.border-cyan-300,
+.border-cyan-200,
+.border-cyan-100,
+.border-sky-300,
+.border-sky-200,
+.border-sky-100 {
+  border-color: color-mix(in srgb, var(--app-accent) 34%, var(--app-border)) !important;
+}
+
+.focus\:border-blue-500:focus,
+.focus\:border-cyan-600:focus,
+.focus\:border-cyan-500:focus,
+.focus\:border-sky-500:focus {
+  border-color: var(--app-accent) !important;
+}
+
+.focus\:ring-blue-500:focus,
+.focus\:ring-cyan-600:focus,
+.focus\:ring-cyan-500:focus,
+.focus\:ring-sky-500:focus,
+.focus-visible\:ring-sky-500\/30:focus-visible {
+  --tw-ring-color: color-mix(in srgb, var(--app-accent) 22%, transparent) !important;
 }
 
 #main-content input:focus,
@@ -101,7 +228,7 @@ summary {
 }
 
 #main-content :where([class*="shadow-xl"], [class*="shadow-2xl"]) {
-  box-shadow: 0 1px 2px 0 rgb(15 23 42 / 0.06) !important;
+  box-shadow: none !important;
 }
 
 #main-content :where([class*="rounded-3xl"], [class*="rounded-[2rem]"]) {
@@ -135,6 +262,59 @@ summary {
   border-color: transparent !important;
   box-shadow: none !important;
   outline: none !important;
+}
+
+#main-content :where(.bg-white, .bg-white\/95, .bg-white\/90, .bg-white\/80, .bg-white\/75, .bg-slate-50, .bg-slate-100) {
+  background-color: color-mix(in srgb, var(--app-surface) 94%, white) !important;
+}
+
+#main-content :where(.border-slate-100, .border-slate-200, .border-slate-200\/75, .border-slate-200\/80, .border-slate-200\/90, .border-slate-300) {
+  border-color: color-mix(in srgb, var(--app-border) 92%, transparent) !important;
+}
+
+#main-content :where(.text-slate-950, .text-slate-900, .text-slate-800, .text-slate-700) {
+  color: var(--app-text) !important;
+}
+
+#main-content :where(.text-slate-600, .text-slate-500, .text-slate-400) {
+  color: var(--app-muted) !important;
+}
+
+#main-content :where(.text-blue-700, .text-blue-600, .text-blue-500, .text-cyan-700, .text-cyan-600, .text-cyan-500, .text-sky-700, .text-sky-600, .text-sky-500) {
+  color: var(--app-accent-ink) !important;
+}
+
+#main-content :where(.bg-blue-600, .bg-blue-700, .bg-cyan-600, .bg-cyan-700, .bg-sky-600, .bg-sky-700) {
+  background: linear-gradient(180deg, var(--app-accent), var(--app-accent-strong)) !important;
+  color: #ffffff !important;
+}
+
+#main-content :where(.bg-blue-50, .bg-cyan-50, .bg-sky-50, .bg-emerald-50, .bg-teal-50) {
+  background-color: var(--app-accent-soft) !important;
+}
+
+#main-content :where(.border-blue-200, .border-cyan-200, .border-sky-200, .border-emerald-200, .border-teal-200) {
+  border-color: color-mix(in srgb, var(--app-accent) 30%, var(--app-border)) !important;
+}
+
+#main-content :where(.ring-blue-200, .ring-cyan-200, .ring-sky-200, .ring-emerald-200, .ring-teal-200) {
+  --tw-ring-color: color-mix(in srgb, var(--app-accent) 26%, transparent) !important;
+}
+
+#main-content :where(.hover\:text-blue-700:hover, .hover\:text-cyan-700:hover, .hover\:text-sky-700:hover, .hover\:text-emerald-700:hover) {
+  color: var(--app-accent-strong) !important;
+}
+
+#main-content :where(.hover\:border-blue-200:hover, .hover\:border-cyan-200:hover, .hover\:border-sky-200:hover, .hover\:border-emerald-200:hover) {
+  border-color: color-mix(in srgb, var(--app-accent) 42%, var(--app-border)) !important;
+}
+
+#main-content :where(.hover\:bg-blue-50:hover, .hover\:bg-cyan-50:hover, .hover\:bg-sky-50:hover, .hover\:bg-emerald-50:hover) {
+  background-color: color-mix(in srgb, var(--app-accent-soft) 78%, white) !important;
+}
+
+#main-content :where(.shadow-sm, .shadow-md) {
+  box-shadow: none !important;
 }
 
 @media (prefers-reduced-motion: reduce) {

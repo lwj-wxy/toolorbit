@@ -48,15 +48,15 @@ export default function LanguageSwitcher() {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="group flex min-w-[100px] items-center justify-center gap-1.5 whitespace-nowrap rounded-md border border-slate-200/80 bg-white/80 px-3 py-2 text-slate-600 transition-all duration-200 hover:border-blue-500/50 hover:bg-white hover:text-slate-900 hover:ring-[3px] hover:ring-blue-500/10 dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-300"
+        className="group flex min-w-[100px] items-center justify-center gap-1.5 whitespace-nowrap rounded-md border border-[var(--app-border)] bg-[color-mix(in_srgb,var(--app-surface)_82%,transparent)] px-3 py-2 text-[var(--app-muted)] transition-all duration-200 hover:border-[color-mix(in_srgb,var(--app-accent)_46%,var(--app-border))] hover:bg-[var(--app-surface)] hover:text-[var(--app-text)] hover:ring-[3px] hover:ring-[color-mix(in_srgb,var(--app-accent)_12%,transparent)] dark:border-[var(--app-border)] dark:bg-[color-mix(in_srgb,var(--app-surface)_78%,transparent)] dark:text-[var(--app-muted)]"
       >
-        <Languages className="w-4 h-4 text-slate-400 group-hover:text-blue-500 shrink-0" />
+        <Languages className="w-4 h-4 text-[var(--app-muted)] group-hover:text-[var(--app-accent)] shrink-0" />
         <span className="text-[13px] font-bold">{currentLanguage.name}</span>
         <ChevronDown className={cn("w-3.5 h-3.5 text-slate-400 transition-transform duration-200 shrink-0", isOpen && "rotate-180")} />
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 z-[100] mt-2 w-48 overflow-hidden rounded-lg border border-slate-200/80 bg-white/95 shadow-sm backdrop-blur-md duration-200 animate-in fade-in zoom-in-95 dark:border-slate-800 dark:bg-slate-900/95">
+        <div className="absolute right-0 z-[100] mt-2 w-48 overflow-hidden rounded-lg border border-[var(--app-border)] bg-[color-mix(in_srgb,var(--app-surface)_96%,transparent)] backdrop-blur-md duration-200 animate-in fade-in zoom-in-95 dark:border-[var(--app-border)] dark:bg-[color-mix(in_srgb,var(--app-surface)_96%,transparent)]">
           <div className="p-1.5">
             {languages.map((lang) => (
               <button
@@ -65,8 +65,8 @@ export default function LanguageSwitcher() {
                 className={cn(
                   "w-full flex items-center justify-between rounded-md px-3 py-2 text-[14px] font-medium transition-colors",
                   i18n.language.startsWith(lang.code) 
-                    ? "bg-blue-50 text-blue-600 dark:bg-blue-950/40 dark:text-blue-300" 
-                    : "text-slate-600 hover:bg-slate-50 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+                    ? "bg-[var(--app-accent-soft)] text-[var(--app-accent-ink)] dark:bg-[var(--app-accent-soft)] dark:text-[var(--app-accent-ink)]"
+                    : "text-[var(--app-muted)] hover:bg-[var(--app-accent-soft)] hover:text-[var(--app-text)] dark:text-[var(--app-muted)] dark:hover:bg-[var(--app-accent-soft)] dark:hover:text-[var(--app-text)]"
                 )}
               >
                 {lang.name}

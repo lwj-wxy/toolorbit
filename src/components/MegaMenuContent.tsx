@@ -144,13 +144,13 @@ export function ToolsMegaDropdown({ categories }: { categories: NavCategory[] })
   const { t } = useTranslation();
 
   return (
-    <div className="absolute left-0 top-[58px] z-50 invisible w-full -translate-y-1 border-b border-slate-200/80 bg-[#f7f8fb]/95 opacity-0 backdrop-blur-md transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 dark:border-slate-800/80 dark:bg-slate-950/95">
+    <div className="absolute left-0 top-[58px] z-50 invisible w-full -translate-y-1 border-b border-[var(--app-border)] bg-[color-mix(in_srgb,var(--app-surface)_94%,transparent)] opacity-0 backdrop-blur-md transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 dark:border-[var(--app-border)] dark:bg-[color-mix(in_srgb,var(--app-bg-soft)_94%,transparent)]">
       <div className="mx-auto max-w-[1536px] px-4 py-7 sm:px-6 lg:px-8">
         <div className="grid grid-cols-4 lg:grid-cols-5 xl:grid-cols-8 gap-6">
           {categories.map(({ category, path, tools }) => {
             return (
               <div key={category} className="flex flex-col gap-3">
-                <h3 className="mb-2 px-2 text-[12px] font-bold uppercase tracking-wide text-slate-500 dark:text-slate-500">
+                <h3 className="mb-2 px-2 text-[12px] font-bold uppercase tracking-wide text-[var(--app-muted)] dark:text-[var(--app-muted)]">
                   {t(`common.categories.${category}`)}
                 </h3>
                 <div className="flex flex-col gap-1">
@@ -158,12 +158,12 @@ export function ToolsMegaDropdown({ categories }: { categories: NavCategory[] })
                     <Link
                       key={tool.id}
                       to={tool.path}
-                      className="group/item flex items-center gap-2 rounded-md p-2 transition-colors hover:bg-white dark:hover:bg-slate-900"
+                      className="group/item flex items-center gap-2 rounded-md p-2 transition-colors hover:bg-[var(--app-accent-soft)] dark:hover:bg-[var(--app-accent-soft)]"
                     >
-                      <div className="w-6 h-6 rounded flex items-center justify-center text-slate-400 group-hover/item:text-blue-600 dark:group-hover/item:text-blue-400 transition-colors">
+                      <div className="w-6 h-6 rounded flex items-center justify-center text-[var(--app-muted)] group-hover/item:text-[var(--app-accent-ink)] dark:group-hover/item:text-[var(--app-accent-ink)] transition-colors">
                         <ToolNavIcon id={tool.id} size={16} />
                       </div>
-                      <span className="truncate text-[13px] font-medium text-slate-700 transition-colors group-hover/item:text-blue-600 dark:text-slate-300 dark:group-hover/item:text-blue-400">
+                      <span className="truncate text-[13px] font-medium text-[var(--app-text)] transition-colors group-hover/item:text-[var(--app-accent-ink)] dark:text-[var(--app-text)] dark:group-hover/item:text-[var(--app-accent-ink)]">
                         {t(`tools.${tool.id}.name`, { defaultValue: tool.name })}
                       </span>
                     </Link>
@@ -171,7 +171,7 @@ export function ToolsMegaDropdown({ categories }: { categories: NavCategory[] })
                   {tools.length > 6 && (
                     <Link
                       to={path}
-                      className="mt-1 px-2 text-[12px] font-semibold text-blue-600 hover:text-blue-700 dark:text-blue-400"
+                      className="mt-1 px-2 text-[12px] font-semibold text-[var(--app-accent-ink)] hover:text-[var(--app-accent-strong)] dark:text-[var(--app-accent-ink)]"
                     >
                       {t('common.viewMore')}
                     </Link>
@@ -190,15 +190,15 @@ export function AiMegaDropdown({ aiCategoryPath, aiTools }: { aiCategoryPath: st
   const { t } = useTranslation();
 
   return (
-    <div className="absolute left-0 top-[58px] z-50 invisible w-full -translate-y-1 border-b border-slate-200/80 bg-[#f7f8fb]/95 opacity-0 backdrop-blur-md transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 dark:border-slate-800/80 dark:bg-slate-950/95">
+    <div className="absolute left-0 top-[58px] z-50 invisible w-full -translate-y-1 border-b border-[var(--app-border)] bg-[color-mix(in_srgb,var(--app-surface)_94%,transparent)] opacity-0 backdrop-blur-md transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 dark:border-[var(--app-border)] dark:bg-[color-mix(in_srgb,var(--app-bg-soft)_94%,transparent)]">
       <div className="mx-auto max-w-[1536px] px-4 py-7 sm:px-6 lg:px-8">
         <div className="mb-4 flex items-center justify-between gap-4">
-          <h3 className="text-[13px] font-extrabold uppercase tracking-wider text-slate-500 dark:text-slate-500">
+          <h3 className="text-[13px] font-extrabold uppercase tracking-wider text-[var(--app-muted)] dark:text-[var(--app-muted)]">
             {t('common.categories.AI 工具') || 'AI Tools'}
           </h3>
           <Link
             to={aiCategoryPath}
-            className="text-[12px] font-semibold text-blue-600 hover:text-blue-700 dark:text-blue-400"
+            className="text-[12px] font-semibold text-[var(--app-accent-ink)] hover:text-[var(--app-accent-strong)] dark:text-[var(--app-accent-ink)]"
           >
             {t('common.viewMore')} &rarr;
           </Link>
@@ -208,12 +208,12 @@ export function AiMegaDropdown({ aiCategoryPath, aiTools }: { aiCategoryPath: st
             <Link
               key={tool.id}
               to={tool.path}
-              className="group/item flex items-center gap-2 rounded-md p-2 transition-colors hover:bg-white dark:hover:bg-slate-900"
+              className="group/item flex items-center gap-2 rounded-md p-2 transition-colors hover:bg-[var(--app-accent-soft)] dark:hover:bg-[var(--app-accent-soft)]"
             >
-              <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded text-slate-400 transition-colors group-hover/item:text-blue-600 dark:group-hover/item:text-blue-400">
+              <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded text-[var(--app-muted)] transition-colors group-hover/item:text-[var(--app-accent-ink)] dark:group-hover/item:text-[var(--app-accent-ink)]">
                 <ToolNavIcon id={tool.id} size={15} />
               </div>
-              <span className="min-w-0 truncate text-[13px] font-medium text-slate-700 transition-colors group-hover/item:text-blue-600 dark:text-slate-300 dark:group-hover/item:text-blue-400">
+              <span className="min-w-0 truncate text-[13px] font-medium text-[var(--app-text)] transition-colors group-hover/item:text-[var(--app-accent-ink)] dark:text-[var(--app-text)] dark:group-hover/item:text-[var(--app-accent-ink)]">
                 {t(`tools.${tool.id}.name`, { defaultValue: tool.name })}
               </span>
             </Link>
