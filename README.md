@@ -10,18 +10,15 @@ No sign-up required. Most tools process text, images, PDFs, encodings, crypto op
 
 ## Tool Catalog
 
-ToolOrbit currently includes **77 tools** across 10 categories.
+ToolOrbit currently includes **74 tools** across 10 categories.
 
-### AI Tools (18)
+### AI Tools (15)
 
 | Tool | Description | Link |
 |------|-------------|------|
 | YouTube Title & Description Generator | Generate YouTube titles, descriptions, and tags from a topic, audience, and video angle. | [Open](https://toolorbit.site/tools/ai/youtube-generator) |
 | AI Prompt Generator | Generate Midjourney and Stable Diffusion prompts with subject, style, camera, and detail guidance. | [Open](https://toolorbit.site/tools/ai/prompt-generator) |
-| AI Weekly Report | Turn scattered work notes into a weekly report draft with progress, issues, plans, and reviewable items. | [Open](https://toolorbit.site/tools/ai/weekly-report) |
-| AI Code Reviewer | Check code snippets for bugs, security risks, readability issues, and refactor suggestions. | [Open](https://toolorbit.site/tools/ai/code-reviewer) |
 | Video Script Generator | Generate short-video script drafts with scene notes, visuals, subtitles, and narration. | [Open](https://toolorbit.site/tools/ai/video-script) |
-| AI Meeting Minutes | Extract topics, decisions, action items, and owners from meeting notes or transcripts. | [Open](https://toolorbit.site/tools/ai/meeting-minutes) |
 | AI Excel Formula Generator | Describe a spreadsheet task in plain language and get an Excel or Google Sheets formula with usage notes. | [Open](https://toolorbit.site/tools/ai/excel-formula) |
 | AI Regex Generator | Generate regular expressions, test examples, and syntax notes from matching requirements. | [Open](https://toolorbit.site/tools/ai/regex) |
 | AI Logo & Avatar Designer | Generate logo, site icon, or avatar ideas from brand name, industry, and style requirements. | [Open](https://toolorbit.site/tools/ai/logo-generator) |

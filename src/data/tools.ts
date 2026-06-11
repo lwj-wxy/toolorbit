@@ -44,7 +44,6 @@ import {
   Wand2,
   Languages,
   Clapperboard,
-  Mic,
   FileSpreadsheet,
   Terminal,
   Image,
@@ -63,10 +62,7 @@ void [Gamepad2, Bomb];
 const iconMap: Record<string, ComponentType<any>> = {
   'ai-youtube-generator': Clapperboard,
   'ai-prompt-generator': ImageIcon,
-  'ai-weekly-report': FileText,
-  'ai-code-reviewer': FileCode2,
   'ai-video-script': Clapperboard,
-  'ai-meeting-minutes': Mic,
   'ai-resume-optimizer': FileText,
   'ai-excel-formula': FileSpreadsheet,
   'ai-regex': Terminal,

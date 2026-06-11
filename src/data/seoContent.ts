@@ -211,7 +211,7 @@ export const SEO_CONTENT_PAGES: SeoContentPage[] = [
     path: '/ai-tools',
     title: 'Free AI Content Creation Tools',
     description:
-      'A practical hub for free AI tools that help with text polishing, translation, video scripts, prompts, code review, meeting notes, ecommerce listings, and content planning.',
+      'A practical hub for free AI tools that help with text polishing, translation, video scripts, prompts, ecommerce listings, formulas, regex, and content planning.',
     eyebrow: 'AI Tools Hub',
     audience:
       'Built for creators, marketers, founders, ecommerce operators, engineers, educators, and small teams that need fast AI assistance without building prompts from scratch every time.',
@@ -219,7 +219,7 @@ export const SEO_CONTENT_PAGES: SeoContentPage[] = [
     type: 'pillar',
     targetKeyword: 'free AI content creation tools',
     summary: [
-      'AI tools are most useful when they are attached to a concrete job: polish this paragraph, translate this message, write a product listing, draft a video script, review a code diff, or summarize meeting notes. ToolOrbit organizes AI utilities by workflow rather than by model hype.',
+      'AI tools are most useful when they are attached to a concrete job: polish this paragraph, translate this message, write a product listing, draft a video script, generate a formula, or create a regex. ToolOrbit organizes AI utilities by workflow rather than by model hype.',
       'This hub helps users choose the right AI tool for the task and then move into related browser utilities for cleanup, validation, formatting, and publishing.',
       'Every AI tool on this page is free and requires no API key. Use them for repeatable content tasks rather than open-ended chat. Structured inputs produce structured outputs, and each tool sits near deterministic utilities for verification, cleanup, and publishing.',
     ],
@@ -238,8 +238,8 @@ export const SEO_CONTENT_PAGES: SeoContentPage[] = [
       },
       {
         label: 'Technical work',
-        bestFor: 'Code review, regex generation, formulas, and structured output',
-        tools: 'AI code reviewer, AI regex generator, Excel formula assistant',
+        bestFor: 'Regex generation, formulas, and structured output',
+        tools: 'AI regex generator, Excel formula assistant',
         note: 'Treat outputs as review candidates, not automatic truth.',
       },
       {
@@ -247,12 +247,6 @@ export const SEO_CONTENT_PAGES: SeoContentPage[] = [
         bestFor: 'Marketplace descriptions, keywords, and competitor notes',
         tools: 'Listing generator, keyword analyzer, competitor tracker, market insights',
         note: 'Validate AI-generated claims against platform rules and real SERPs.',
-      },
-      {
-        label: 'Meetings and reports',
-        bestFor: 'Capturing notes, summarizing discussions, and drafting status updates',
-        tools: 'Meeting minutes generator, weekly report generator',
-        note: 'AI summaries are drafts; always verify action items and decisions.',
       },
     ],
     sections: [
@@ -270,7 +264,7 @@ export const SEO_CONTENT_PAGES: SeoContentPage[] = [
         body: [
           'A practical creator workflow might begin with a video script generator, move to a YouTube title and description generator, polish the final copy, translate it for a second audience, and then use a text analyzer to check length and repetition. Each step is small, but the combined workflow removes a large amount of blank-page friction.',
           'For ecommerce operators, the chain is different: draft a listing, analyze keywords, inspect competitor angles, polish the description, and prepare marketplace-specific copy. Good AI work usually comes from a sequence of focused transformations, not one oversized prompt.',
-          'For engineers, AI code review and AI regex generation should sit beside deterministic tools like regex testing, text diff, JSON formatting, and API security guidance. The AI suggests; the deterministic tools verify.',
+          'For engineers, AI regex generation should sit beside deterministic tools like regex testing, text diff, JSON formatting, and API security guidance. The AI suggests; the deterministic tools verify.',
           'The common thread is that AI output is never the final step. After generation comes review, after review comes cleanup, and after cleanup comes formatting or conversion for the target platform. ToolOrbit places the AI tools and the post-processing tools on the same site so creators do not need to export from one service and import into another.',
         ],
       },
@@ -278,7 +272,7 @@ export const SEO_CONTENT_PAGES: SeoContentPage[] = [
         heading: 'Where AI should not be used blindly',
         body: [
           'Do not treat AI-generated legal, medical, tax, security, or financial advice as a final answer. Do not publish product claims that cannot be substantiated. Do not paste private customer data or credentials into any AI-powered workflow unless the team has reviewed the data handling path.',
-          'The safer pattern is to remove sensitive identifiers, provide the minimum context needed, and review final output against source material. For code review, use AI to catch mechanical risks and then rely on human reviewers for architecture, product intent, and domain invariants.',
+          'The safer pattern is to remove sensitive identifiers, provide the minimum context needed, and review final output against source material. For technical drafts, use AI to speed up mechanical work and then rely on human reviewers for architecture, product intent, and domain invariants.',
           'AI also struggles with very recent events, niche domain knowledge, and highly specific numerical claims. If the output includes a statistic, a date, a price, or a technical specification, verify it independently. AI models are pattern matchers, not databases, and they can produce confident-sounding text that is factually wrong.',
           'For content destined for platforms with strict guidelines (marketplaces, app stores, regulated industries), AI-generated drafts should pass through the same compliance review as human-written content. The fact that AI wrote it does not excuse inaccuracies, and the fact that a human reviewed it does not excuse failing to check the details.',
         ],
@@ -324,12 +318,9 @@ export const SEO_CONTENT_PAGES: SeoContentPage[] = [
       '/tools/ai/video-script',
       '/tools/ai/youtube-generator',
       '/tools/ai/prompt-generator',
-      '/tools/ai/code-reviewer',
       '/tools/ai/regex',
       '/tools/ai/excel-formula',
-      '/tools/ai/meeting-minutes',
       '/tools/ai/resume-optimizer',
-      '/tools/ai/weekly-report',
       '/tools/ai/xiaohongshu',
       '/tools/ai/listing-generator',
       '/tools/ai/keyword-analyzer',
@@ -340,11 +331,9 @@ export const SEO_CONTENT_PAGES: SeoContentPage[] = [
       '/tools/dev/json-formatter',
     ],
     blogSlugs: [
-      'ai-code-reviewer-guide',
       'ai-text-polisher-guide',
       'ai-translator-future',
       'ai-video-script-guide',
-      'ai-meeting-minutes-guide',
       'ai-regex-generator-guide',
       'ai-excel-formula-guide',
     ],
@@ -357,7 +346,7 @@ export const SEO_CONTENT_PAGES: SeoContentPage[] = [
       {
         question: 'Which AI tool should I use first?',
         answer:
-          'Start with the tool closest to the job: text polishing for existing copy, video scripts for content planning, listing generation for ecommerce, and code review for diffs. The structured inputs on each tool page will guide you through the specific requirements.',
+          'Start with the tool closest to the job: text polishing for existing copy, video scripts for content planning, listing generation for ecommerce, formulas for spreadsheets, and regex generation for matching rules. The structured inputs on each tool page will guide you through the specific requirements.',
       },
       {
         question: 'Can AI tools replace deterministic utilities?',
@@ -979,7 +968,7 @@ export const SEO_CONTENT_PAGES: SeoContentPage[] = [
       {
         heading: 'When ToolOrbit is a good fit',
         body: [
-          'ToolOrbit is useful for practical content steps: polish rough text, translate a draft, generate video scripts, create YouTube titles and descriptions, write ecommerce listings, summarize meetings, and draft weekly reports.',
+          'ToolOrbit is useful for practical content steps: polish rough text, translate a draft, generate video scripts, create YouTube titles and descriptions, write ecommerce listings, build formulas, and draft regex patterns.',
           'It also pairs AI output with deterministic tools. After generating copy, creators can clean text, analyze word count, convert images, compress assets, or prepare QR codes without leaving the same tool ecosystem.',
         ],
       },
@@ -1005,9 +994,7 @@ export const SEO_CONTENT_PAGES: SeoContentPage[] = [
       '/tools/ai/youtube-generator',
       '/tools/ai/listing-generator',
       '/tools/ai/keyword-analyzer',
-      '/tools/ai/meeting-minutes',
       '/tools/ai/resume-optimizer',
-      '/tools/ai/weekly-report',
       '/tools/text/text-analyzer',
       '/tools/text/text-cleaner',
     ],
@@ -1015,7 +1002,6 @@ export const SEO_CONTENT_PAGES: SeoContentPage[] = [
       'ai-text-polisher-guide',
       'ai-translator-future',
       'ai-video-script-guide',
-      'ai-meeting-minutes-guide',
     ],
     faqs: [
       {

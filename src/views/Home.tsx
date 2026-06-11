@@ -45,7 +45,7 @@ const AI_WORKFLOW_GROUPS = [
     id: 'work',
     titleZh: '办公与开发',
     titleEn: 'Work',
-    toolIds: ['ai-weekly-report', 'ai-meeting-minutes', 'ai-resume-optimizer', 'ai-excel-formula', 'ai-code-reviewer', 'ai-regex'],
+    toolIds: ['ai-resume-optimizer', 'ai-excel-formula', 'ai-regex'],
   },
   {
     id: 'commerce',

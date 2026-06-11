@@ -31,7 +31,6 @@ import {
   Link as LinkIcon,
   Link2,
   Lock,
-  Mic,
   MonitorSmartphone,
   Palette,
   Pipette,
@@ -58,10 +57,7 @@ import type { NavCategory, NavTool } from '../lib/navigation-menu';
 const iconMap: Record<string, ComponentType<{ size?: number; className?: string }>> = {
   'ai-youtube-generator': Clapperboard,
   'ai-prompt-generator': ImageIcon,
-  'ai-weekly-report': FileText,
-  'ai-code-reviewer': FileCode2,
   'ai-video-script': Clapperboard,
-  'ai-meeting-minutes': Mic,
   'ai-resume-optimizer': FileText,
   'ai-excel-formula': FileSpreadsheet,
   'ai-regex': Terminal,

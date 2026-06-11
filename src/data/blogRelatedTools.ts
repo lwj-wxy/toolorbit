@@ -1,28 +1,28 @@
 export const BLOG_RELATED_TOOLS: Record<string, string[]> = {
   "ai-coding-code-verification": [
-    "/tools/ai/code-reviewer",
     "/tools/dev/text-diff",
     "/tools/dev/json-formatter",
+    "/tools/dev/regex-tester",
   ],
   "claude-code-configuration-guide": [
-    "/tools/ai/code-reviewer",
     "/tools/dev/text-diff",
     "/tools/dev/json-formatter",
+    "/tools/dev/regex-tester",
   ],
   "codex-cli-configuration-guide": [
-    "/tools/ai/code-reviewer",
     "/tools/dev/text-diff",
     "/tools/dev/json-formatter",
+    "/tools/dev/regex-tester",
   ],
   "codex-claude-code-skills-must-install": [
     "/tools/dev/json-formatter",
     "/tools/dev/text-diff",
-    "/tools/ai/code-reviewer",
+    "/tools/dev/regex-tester",
   ],
   "claude-code-cli-deepseek-api-guide": [
     "/tools/dev/json-formatter",
     "/tools/dev/text-diff",
-    "/tools/ai/code-reviewer",
+    "/tools/dev/regex-tester",
   ],
   "mbti-personality-test-guide": [
     "/tools/utility/mbti-personality-test",
@@ -62,7 +62,7 @@ export const BLOG_RELATED_TOOLS: Record<string, string[]> = {
   "why-text-diff-matters": [
     "/tools/dev/text-diff",
     "/tools/dev/json-formatter",
-    "/tools/ai/code-reviewer",
+    "/tools/dev/regex-tester",
   ],
   "modern-pdf-workflow-efficiency": [
     "/tools/pdf/pdf-merge",
@@ -134,9 +134,9 @@ export const BLOG_RELATED_TOOLS: Record<string, string[]> = {
     "/tools/image/svg-to-png",
   ],
   "ai-code-reviewer-guide": [
-    "/tools/ai/code-reviewer",
     "/tools/dev/text-diff",
     "/tools/dev/regex-tester",
+    "/tools/dev/json-formatter",
   ],
   "ai-regex-generator-guide": [
     "/tools/ai/regex",
@@ -144,9 +144,9 @@ export const BLOG_RELATED_TOOLS: Record<string, string[]> = {
     "/tools/dev/text-diff",
   ],
   "ai-meeting-minutes-guide": [
-    "/tools/ai/meeting-minutes",
-    "/tools/ai/weekly-report",
     "/tools/ai/text-polisher",
+    "/tools/ai/translator",
+    "/tools/text/text-analyzer",
   ],
   "ai-video-script-guide": [
     "/tools/ai/video-script",

@@ -25,10 +25,7 @@ const lazyTool = (loader: ToolLoader) =>
 export const toolComponentMap: Record<string, ToolComponent> = {
   '/tools/ai/youtube-generator': lazyTool(() => import('../views/tools/ai/YoutubeGenerator')),
   '/tools/ai/prompt-generator': lazyTool(() => import('../views/tools/ai/PromptGenerator')),
-  '/tools/ai/weekly-report': lazyTool(() => import('../views/tools/ai/WeeklyReport')),
-  '/tools/ai/code-reviewer': lazyTool(() => import('../views/tools/ai/CodeReviewer')),
   '/tools/ai/video-script': lazyTool(() => import('../views/tools/ai/VideoScript')),
-  '/tools/ai/meeting-minutes': lazyTool(() => import('../views/tools/ai/MeetingMinutes')),
   '/tools/ai/resume-optimizer': lazyTool(() => import('../views/tools/ai/ResumeOptimizer')),
   '/tools/ai/excel-formula': lazyTool(() => import('../views/tools/ai/ExcelFormula')),
   '/tools/ai/regex': lazyTool(() => import('../views/tools/ai/RegexGenerator')),

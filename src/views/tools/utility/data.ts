@@ -98,7 +98,7 @@ export const UTILITY_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       example: {
         title: 'MBTI 测试示例',
         input: 'E/I 维度：偏独处整理、高质量独处恢复注意力\nS/N 维度：偏模式和趋势、从细节联想到更大可能性\nT/F 维度：偏逻辑一致性和客观代价、公平规则优先\nJ/P 维度：偏提前规划、用清单降低不确定性',
-        output: '结果类型：INTJ（分析型 · 战略设计者）\n性格定向：长期战略规划 / 独立深度思考 / 系统性优化\n维度分布：I 倾向强、N 倾向强、T 倾向中、J 倾向强\n推荐工具：AI 代码审查、JSON 格式化、正则表达式测试、文本对比 Diff',
+        output: '结果类型：INTJ（分析型 · 战略设计者）\n性格定向：长期战略规划 / 独立深度思考 / 系统性优化\n维度分布：I 倾向强、N 倾向强、T 倾向中、J 倾向强\n推荐工具：JSON 格式化、正则表达式测试、文本对比 Diff、JWT 在线解码',
         inputLanguage: 'text',
         outputLanguage: 'text',
       },
@@ -116,7 +116,7 @@ export const UTILITY_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       example: {
         title: 'MBTI test example',
         input: 'E/I dimension: prefers private reflection, quality alone time restores focus\nS/N dimension: prefers patterns and trends, details spark larger possibilities\nT/F dimension: prioritizes logical consistency and objective costs, fair rules first\nJ/P dimension: prefers early planning, uses lists to reduce uncertainty',
-        output: 'Result type: INTJ (Analyst · Strategic Designer)\nStyle orientation: Long-range strategic planning / independent deep thinking / systematic optimization\nDimension distribution: strong I preference, strong N preference, moderate T preference, strong J preference\nRecommended tools: AI Code Reviewer, JSON Formatter, Regex Tester, Text Diff',
+        output: 'Result type: INTJ (Analyst · Strategic Designer)\nStyle orientation: Long-range strategic planning / independent deep thinking / systematic optimization\nDimension distribution: strong I preference, strong N preference, moderate T preference, strong J preference\nRecommended tools: JSON Formatter, Regex Tester, Text Diff, JWT Debugger',
         inputLanguage: 'text',
         outputLanguage: 'text',
       },

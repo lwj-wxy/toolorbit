@@ -25,14 +25,11 @@ const AI_TOOL_CATEGORIES: Record<string, AiToolCategory> = {
   'ai-polisher': 'copy',
   'ai-translator': 'copy',
   'ai-prompt-generator': 'copy',
-  'ai-weekly-report': 'document',
   'ai-video-script': 'copy',
   'youtube-generator': 'copy',
-  'ai-meeting-minutes': 'document',
   'ai-resume-optimizer': 'document',
   'ai-excel-formula': 'document',
   'ai-regex': 'code',
-  'ai-code-reviewer': 'code',
   'ai-image-generator': 'image',
   'ai-svg-generator': 'image',
   'ai-vision-describe': 'vision',
@@ -367,14 +364,6 @@ Please generate a comprehensive listing including title, bullet points, SEO desc
           { role: 'user', content: `Topic: ${body.topic}\nStyle: ${body.style}` },
         ],
       };
-    case 'ai-weekly-report':
-      return {
-        model: DEEPSEEK_TEXT_MODEL,
-        messages: [
-          { role: 'system', content: `You are a professional project manager. Generate a polished weekly report in ${targetLanguage(body.language)}. Tone: ${body.tone}. Output only the report body.` },
-          { role: 'user', content: `Done:\n${body.done}\n\nTodo:\n${body.todo}\n\nProblems/Risks:\n${body.problems}` },
-        ],
-      };
     case 'ai-video-script':
       return {
         model: DEEPSEEK_TEXT_MODEL,
@@ -391,20 +380,6 @@ Please generate a comprehensive listing including title, bullet points, SEO desc
           { role: 'user', content: `Video Topic / Details:\n${body.topic}` },
         ],
       };
-    case 'ai-meeting-minutes': {
-      const formatInstruction = body.formatType === 'action'
-        ? 'Focus heavily on Action Items with owners and deadlines.'
-        : body.formatType === 'executive'
-          ? 'Provide a very concise executive summary, decisions, and outcome.'
-          : 'Provide a detailed summary with discussion points, decisions, and action items.';
-      return {
-        model: DEEPSEEK_TEXT_MODEL,
-        messages: [
-          { role: 'system', content: `You are a professional executive assistant. ${formatInstruction} Use Markdown and output only meeting minutes in ${targetLanguage(body.language)}.` },
-          { role: 'user', content: `Raw Meeting Notes:\n${body.rawInput}` },
-        ],
-      };
-    }
     case 'ai-resume-optimizer': {
       const outputLanguage = body.targetLanguage === 'zh' ? 'Simplified Chinese' : 'English';
       const templateInstructions: Record<string, string> = {
@@ -460,14 +435,6 @@ Please generate a comprehensive listing including title, bullet points, SEO desc
         messages: [
           { role: 'system', content: `You are a Senior Regex Architect. Regex flavor: ${(body.flavor || 'javascript').toUpperCase()}. Provide regex, breakdown, 3 matching and 3 non-matching cases. Output in ${targetLanguage(body.language)}.` },
           { role: 'user', content: `Requirement to match:\n${body.requirement}` },
-        ],
-      };
-    case 'ai-code-reviewer':
-      return {
-        model: DEEPSEEK_TEXT_MODEL,
-        messages: [
-          { role: 'system', content: `You are a senior software engineer conducting a code review. Analyze bugs, performance, security, and code smells. Tone: ${body.tone}. Output in ${targetLanguage(body.language)}.` },
-          { role: 'user', content: `Code:\n\`\`\`${body.codeLang}\n${body.code}\n\`\`\`` },
         ],
       };
     default:
