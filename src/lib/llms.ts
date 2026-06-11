@@ -52,7 +52,7 @@ ToolOrbit is a browser-first collection of free online tools for developers, cre
 ## Core Tool Areas
 
 - Developer tools: JSON formatter, XML to JSON converter, text diff, Base64 encoder/decoder, URL encoder, hash generator, UUID generator, JWT debugger, regex tester, JSON to TypeScript converter, symmetric crypto tools, ASCII table, Unicode converter, timestamp converter, color converters.
-- AI tools: YouTube title and description generator, AI prompt generator, weekly report generator, code reviewer, video script generator, meeting minutes generator, Excel formula assistant, AI regex generator, logo generator, image generator, SVG generator, Xiaohongshu copywriter, text polisher, translator.
+- AI tools: YouTube title and description generator, AI prompt generator, weekly report generator, AI resume generator, code reviewer, video script generator, meeting minutes generator, Excel formula assistant, AI regex generator, logo generator, image generator, SVG generator, Xiaohongshu copywriter, text polisher, translator.
 - PDF tools: PDF merge, PDF split, PDF to image, image to PDF.
 - Image tools: image compressor, image converter, SVG to PNG, image to Base64, image cropper, image to ICO.
 - Ecommerce tools: Etsy fee calculator, Stripe fee calculator, PayPal fee calculator, Stripe vs PayPal fee comparison, listing generator, keyword analyzer, competitor tracker, market insights.
@@ -75,6 +75,7 @@ ToolOrbit is a browser-first collection of free online tools for developers, cre
 - https://toolorbit.site/tools/ai/text-polisher
 - https://toolorbit.site/tools/ai/translator
 - https://toolorbit.site/tools/ai/excel-formula
+- https://toolorbit.site/tools/ai/resume-optimizer
 - https://toolorbit.site/tools/ai/code-reviewer
 - https://toolorbit.site/tools/ecommerce/stripe-fee-calculator
 - https://toolorbit.site/tools/ecommerce/paypal-fee-calculator

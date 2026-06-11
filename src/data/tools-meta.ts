@@ -81,6 +81,15 @@ const RAW_TOOLS_META = [
     isPopular: true,
   },
   {
+    id: 'ai-resume-optimizer',
+    name: 'AI 简历生成器',
+    description: '上传 PDF 或 Word 简历，结合岗位 JD 生成一版可复制的优化后简历。',
+    category: 'AI 工具',
+    path: '/tools/ai/resume-optimizer',
+    color: 'cyan',
+    isPopular: true,
+  },
+  {
     id: 'ai-excel-formula',
     name: 'AI Excel 公式助手',
     description: '用自然语言描述表格需求，生成 Excel 或 Google Sheets 公式并说明用法。',

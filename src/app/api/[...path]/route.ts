@@ -29,6 +29,7 @@ const AI_TOOL_CATEGORIES: Record<string, AiToolCategory> = {
   'ai-video-script': 'copy',
   'youtube-generator': 'copy',
   'ai-meeting-minutes': 'document',
+  'ai-resume-optimizer': 'document',
   'ai-excel-formula': 'document',
   'ai-regex': 'code',
   'ai-code-reviewer': 'code',
@@ -401,6 +402,47 @@ Please generate a comprehensive listing including title, bullet points, SEO desc
         messages: [
           { role: 'system', content: `You are a professional executive assistant. ${formatInstruction} Use Markdown and output only meeting minutes in ${targetLanguage(body.language)}.` },
           { role: 'user', content: `Raw Meeting Notes:\n${body.rawInput}` },
+        ],
+      };
+    }
+    case 'ai-resume-optimizer': {
+      const outputLanguage = body.targetLanguage === 'zh' ? 'Simplified Chinese' : 'English';
+      const templateInstructions: Record<string, string> = {
+        classic: 'Use a clean single-column resume structure with clear section headings.',
+        compact: 'Use a concise one-page-style resume structure with shorter bullets and dense spacing.',
+        modern: 'Use a polished modern resume structure with a strong summary, skills grouped by theme, and crisp section headings.',
+      };
+      const templateInstruction = templateInstructions[String(body.templateStyle || 'classic')] || templateInstructions.classic;
+
+      return {
+        model: DEEPSEEK_TEXT_MODEL,
+        messages: [
+          {
+            role: 'system',
+            content: [
+              'You are a careful resume writer. Your analysis is internal. The user must only see the finished resume.',
+              `Output language: ${outputLanguage}.`,
+              `Role type: ${body.roleType || 'general'}.`,
+              templateInstruction,
+              'Return only a polished resume body in Markdown. Do not output analysis, advice, match score, keyword gaps, cover letter, checklist, or explanations.',
+              'Use one H1 for the candidate name if present. Put contact details in one short line only if they appear in the input. Then use second-level headings for resume sections.',
+              'Recommended sections: Professional Summary, Skills, Work Experience, Project Experience, Education, Certifications. Omit sections that have no source information.',
+              'Do not add horizontal rules or divider lines between sections.',
+              'For work, internship, and project entries, write the first line as "Organization or project | Role or responsibility | Date range", then place achievements in bullets below it.',
+              'For education entries, keep school, major, degree, dates, and coursework in regular prose. Do not force education into the work-entry line pattern.',
+              'Tailor wording to the target job description when provided, but keep the resume factual and ready to copy into Word, Notion, or a document editor.',
+              'Do not invent companies, degrees, certifications, metrics, dates, titles, tools, or project results.',
+              'If a useful metric is missing, improve the wording without fake numbers. Do not leave bracketed placeholders unless they already exist in the input.',
+              'Use tight resume bullets with action verbs, scope, tools, and outcomes when the source text supports them.',
+            ].join('\n'),
+          },
+          {
+            role: 'user',
+            content: [
+              `Resume text:\n${body.resumeText || ''}`,
+              `\nTarget job description:\n${body.jobDescription || ''}`,
+            ].join('\n'),
+          },
         ],
       };
     }

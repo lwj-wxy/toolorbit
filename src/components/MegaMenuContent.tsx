@@ -62,6 +62,7 @@ const iconMap: Record<string, ComponentType<{ size?: number; className?: string 
   'ai-code-reviewer': FileCode2,
   'ai-video-script': Clapperboard,
   'ai-meeting-minutes': Mic,
+  'ai-resume-optimizer': FileText,
   'ai-excel-formula': FileSpreadsheet,
   'ai-regex': Terminal,
   'logo-generator': Hexagon,

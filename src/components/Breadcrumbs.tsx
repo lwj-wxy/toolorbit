@@ -21,6 +21,7 @@ const TOOL_ID_BY_SLUG: Record<string, string> = {
   'code-reviewer': 'ai-code-reviewer',
   'video-script': 'ai-video-script',
   'meeting-minutes': 'ai-meeting-minutes',
+  'resume-optimizer': 'ai-resume-optimizer',
   'excel-formula': 'ai-excel-formula',
   regex: 'ai-regex',
   'image-generator': 'ai-image-generator',

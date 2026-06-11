@@ -136,7 +136,7 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       input:
         '四个核心参数：视频主题或核心信息（必填）、预计时长（60s 以内 / 3-5 分钟 / 5-10 分钟）、目标平台（抖音 / TikTok / YouTube Shorts / Instagram Reels / Bilibili / 小红书 / YouTube）和脚本语气（教育型 / 娱乐型 / 故事叙述型 / 产品推销型 / 励志型）。主题输入框支持多行文本，可包含目标观众画像、产品核心卖点或功能介绍、故事冲突或情节线索、知识点大纲、转化目标（如引导点击链接、关注、评论互动、购买转化）和品牌调性约束（如"保持幽默风趣""突出科技专业感""温暖治愈系"）。时长选择直接影响脚本的信息密度和节奏起伏——60 秒以内短视频强调 3 秒黄金开场、密集信息点和强结尾钩子；3-5 分钟中视频为每 30-60 秒一个节奏点、中间可设小高潮；5-10 分钟长视频有更充分的时间铺垫、展开和收束。平台选择影响开场策略和口播方式——抖音/TikTok 强调前 3 秒抓人、Bilibili 可适当铺垫、YouTube 长视频可更从容地引导订阅。',
       output:
-        '一份 Markdown 格式的视频拍摄脚本，通常按以下结构组织（AI 根据时长和平台自动调整板块密度和数量）：开场钩子——前 3-5 秒的注意力抓取设计（一个反常识问题、数据冲击、视觉冲突或利益承诺），附建议的画面和字幕配合；分镜段落——按时间线分段的拍摄单元，每段包含：镜号、时长、画面描述（构图、运镜、色彩、关键视觉元素）、旁白 / 口播文案、字幕关键提示词、音效 / 背景音乐建��和转场方式；节奏标注——在关键转折点标注节奏变化（加快、放缓、静默、冲击）以引导剪辑师后期处理；结尾行动号召——引导观众点赞、关注、评论、转发或点击链接的结束语。输出以 react-markdown + remark-gfm 渲染，阅读体验清晰分层，支持一键复制完整脚本全文，便于直接分享到飞书文档、Notion 等协作平台供拍摄和剪辑团队参照执行。生成失败时输出面板展示具体错误信息，输入参数保留不动方便修改后重试。',
+        '一份 Markdown 格式的视频拍摄脚本，通常按以下结构组织（AI 根据时长和平台自动调整板块密度和数量）：开场钩子——前 3-5 秒的注意力抓取设计（一个反常识问题、数据冲击、视觉冲突或利益承诺），附建议的画面和字幕配合；分镜段落——按时间线分段的拍摄单元，每段包含：镜号、时长、画面描述（构图、运镜、色彩、关键视觉元素）、旁白 / 口播文案、字幕关键提示词、音效 / 背景音乐建议和转场方式；节奏标注——在关键转折点标注节奏变化（加快、放缓、静默、冲击）以引导剪辑师后期处理；结尾行动号召——引导观众点赞、关注、评论、转发或点击链接的结束语。输出以 react-markdown + remark-gfm 渲染，阅读体验清晰分层，支持一键复制完整脚本全文，便于直接分享到飞书文档、Notion 等协作平台供拍摄和剪辑团队参照执行。生成失败时输出面板展示具体错误信息，输入参数保留不动方便修改后重试。',
       processing:
         '用户点击生成后，页面将四个输入参数——视频主题文本（topic）、时长选项（duration，如 "short""medium""long"）、平台标识（platform，如 "tiktok""youtube""bilibili" 等）、语气选项（tone）——连同当前界面语言 locale 组装为 JSON 载荷，通过 fetch API 以 POST 方式发送至 /api/ai-video-script 端点，Content-Type 设为 application/json。服务端接收到参数后构建 AI 模型 system prompt：根据所选时长约束脚本的总分镜数和每镜大约长度，根据平台调整开场策略和口播风格，根据语气控制整体语言色彩。模型按 SSE 流式逐步返回脚本内容，前端通过 ReadableStream 并发读取每个 SSE 事件：TextDecoder 将字节流解码为字符串，JSON.parse 提取 content 字段作为增量文本，通过 React 状态函数 prev + chunk.content 实时追加到累积结果中。流式传输完成后 react-markdown（配合 remark-gfm 插件支持 GitHub Flavored Markdown 的表格、任务列表等扩展）对完整 Markdown 文本进行渲染，生成带层级标题、列表和代码块的格式化文档。全文复制按钮通过 navigator.clipboard.writeText 将完整 Markdown 源码写入剪贴板，按钮反馈"已复制"后通过 setTimeout 在 2 秒后恢复默认文本。请求失败或服务端错误在 fetch catch 块中统一处理：error 状态设置为后端返回的错误消息或通用提示"生成失败，请稍后重试"，输出区域渲染红色背景错误卡片。',
       modes: ['视频主题多行输入（含受众/卖点/转化目标）', '时长选择（60s 内 / 3-5min / 5-10min）', '七大平台适配（抖音/TikTok/Shorts/Reels/B站/小红书/YouTube）', '五种语气预设（教育/娱乐/故事/推销/励志）', '分镜脚本（镜号+画面+旁白+字幕+音效）', '节奏标注', 'SSE 流式 Markdown 渲染', '全文一键复制'],
@@ -179,7 +179,7 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         '一份结构化的 Markdown 格式会议纪要，根据所选输出格式包含不同板块组合。详细纪要模式下通常包含：会议基本信息（日期、参会人、时长占位）；会议摘要（一段 3-5 句的总览段落概括会议目的和核心结论）；关键讨论与要点（按议题分段，每段含有讨论背景、各方观点和达成的共识或分歧）；决策结论（明确列出会议中做出的每项决策、决策依据和表决情况）；行动项（每项包含任务描述、负责人、截止时间和优先级标记）；待澄清问题（会议中提出但未解决、需要在后续跟进的问题）。仅行动项模式下只输出行动项列表和简要的风险/阻塞备注。高管摘要模式下输出 3-5 个要点段落——每段一句话总结 + 关键背景 + 需要关注的风险或决策请求。输出以 react-markdown + remark-gfm 渲染为格式化可视文档，支持一键复制全文 Markdown 源码，便于粘贴至 Confluence、Notion、飞书文档、邮件正文或项目管理系统评论区。生成失败时在输出面板展示具体错误信息，输入文本保留在表单中供用户调整后重新提交。',
       processing:
-        '用户点击生成后，页面将两个核心参数——原始会议文本（rawInput）和输出格式选项（formatType，如 "detailed""actions""executive"）——连同当前界面语言 locale 组装为 JSON 载荷，通过 fetch API 以 POST 方式发送至 /api/ai-meeting-minutes 端点。服务端首先检查参数完整性：原始文本不能为空，格式选项必须在支持列表中。通过后服务端构建 AI 模型 system prompt："You are a professional meeting minutes writer. Based on the raw meeting transcript or notes provided, generate structured meeting minutes in the specified format... The output must be in well-formatted Markdown." 根据格式类型不同，system prompt 中会加入不同的输出约束——"详细纪要"模式下强调"完整记录所有讨论点和决策过程，不得省略关键论据"；"仅行动项"模式下强调"严格只输出行动项列表，每条包含 who/what/when 三要素"；"高管摘要"模式下强调"限制在 5 个要点以内，每个要点的背景不超过 2 句话，聚焦业务影响和需要的决策"。模型按 SSE 流式逐步返回纪要内容，前端通过 ReadableStream 并发读取每个事件块：TextDecoder 解码字节流为字符串，JSON.parse 提取 content 字段，通过 React setState 函数 prev + chunk.content 将增量文本实时追加到输出面板。流式传输结束后，react-markdown（配合 remark-gfm 支持 GFM 表格、任务列表等扩展语法）渲染完整 Markdown 文本。复制按钮通过 navigator.clipboard.writeText 复制 Markdown 全文，复制成功后短��反馈"已复制"并在 2 秒后通过 setTimeout 恢复。错误处理统一在 fetch catch 块中：设置 error 状态并在输出区展示红色错误卡片，输入表单保留以便修改后重试。',
+        '用户点击生成后，页面将两个核心参数——原始会议文本（rawInput）和输出格式选项（formatType，如 "detailed""actions""executive"）——连同当前界面语言 locale 组装为 JSON 载荷，通过 fetch API 以 POST 方式发送至 /api/ai-meeting-minutes 端点。服务端首先检查参数完整性：原始文本不能为空，格式选项必须在支持列表中。通过后服务端构建 AI 模型 system prompt："You are a professional meeting minutes writer. Based on the raw meeting transcript or notes provided, generate structured meeting minutes in the specified format... The output must be in well-formatted Markdown." 根据格式类型不同，system prompt 中会加入不同的输出约束——"详细纪要"模式下强调"完整记录所有讨论点和决策过程，不得省略关键论据"；"仅行动项"模式下强调"严格只输出行动项列表，每条包含 who/what/when 三要素"；"高管摘要"模式下强调"限制在 5 个要点以内，每个要点的背景不超过 2 句话，聚焦业务影响和需要的决策"。模型按 SSE 流式逐步返回纪要内容，前端通过 ReadableStream 并发读取每个事件块：TextDecoder 解码字节流为字符串，JSON.parse 提取 content 字段，通过 React setState 函数 prev + chunk.content 将增量文本实时追加到输出面板。流式传输结束后，react-markdown（配合 remark-gfm 支持 GFM 表格、任务列表等扩展语法）渲染完整 Markdown 文本。复制按钮通过 navigator.clipboard.writeText 复制 Markdown 全文，复制成功后短暂反馈"已复制"并在 2 秒后通过 setTimeout 恢复。错误处理统一在 fetch catch 块中：设置 error 状态并在输出区展示红色错误卡片，输入表单保留以便修改后重试。',
       modes: ['原始会议文本输入（支持转写稿/速记/聊天记录/多语言混合）', '三种输出格式（详细纪要 / 仅行动项 / 高管摘要）', '议题分段与主题聚合', '决策结论独立列出', '行动项（who/what/when/priority）', 'SSE 流式 Markdown 渲染', '全文一键复制', '格式切换不丢失输入'],
       example: {
         title: 'AI 会议纪要生成输入到输出示例',
@@ -298,7 +298,7 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       summary:
         'AI Logo & Avatar Generator 用于根据品牌描述、核心符号、配色偏好和设计风格，通过 AI 图像模型生成适合直接使用的方形 Logo 或头像图。适合独立开发者在新项目启动阶段快速获取应用图标（节省从零设计或外包设计的时间成本和沟通成本），电商卖家为店铺主页、商品系列或新品线探索与品牌调性一致的视觉标识并提供多方向候选方案，内容创作者（YouTuber、播客主播、GitHub 开源项目维护者等）生成统一风格的个人频道或项目头像，品牌设计师在正式投入大量时间出图前通过快速生成多个视觉方向来验证创意方向和缩小风格选择范围（八种风格预设覆盖极简字母、扁平图形、卡通吉祥物、抽象几何、3D 立体、复古纹理和水彩手绘），以及需要将手绘草图、参考图片或竞品 Logo 中的视觉元素通过 AI 重新提炼和再创作为全新 Logo 概念的场景。工具支持文字描述生成和参考图识别两种入口，参考图模式下会先通过 GLM-4V-Flash 视觉模型自动提取图片的视觉特征（色彩、构图、主体、风格）并回填到描述框中作为生成提示的一部分。生成结果以正方形 1:1 图片形式在预览面板展示并带有棋盘格背景校验透明区域效果，支持直接下载（PNG 格式），也可复制或二次编辑后用于更精细的设计工具中。',
       input:
-        '三个核心输入参数和一个可选输入：颜色偏好（选填）——支持自由文本输入，可以是具体色名（如"Navy Blue and Gold""珊瑚橙搭配象牙白"）、品牌色 HEX 值组合、情绪色板描述（如"温暖木色调""冷色科技蓝灰"）或场景色彩关键词（如"海洋主题蓝绿色"）；核心概念描述（必填）——建议写清行业背景（如"SaaS 云端开发工具""手工烘焙甜品店"）、品牌个性与定位（如"极简专业""亲和有趣""高端奢华""环保自然"）、主体符号创意（如"轨道、星球、齿轮代表自动化""咖啡豆和书本代表慢生活阅读"）、目标用户画像（如"面向年轻开发者""面向高端茶饮消费者"）和使用场景（网站 favicon、App 启动图标、社交媒体头像等）；设计风格（从 8 种预设中选择一项）——Minimalist（极简风，强调留白与几何概括）、Flat Design（扁平化，强调色块与无阴影）、Mascot（卡通吉祥物，拟人化形象）、Abstract Geometry（抽象几何，非具象图形）、Lettermark（字母标志，文字变形）、3D Render（3D 立��，光影质感）、Vintage（复古风，旧化肌理）、Watercolor（水彩风，柔和晕染）；可选参考图片——支持上传 JPG/PNG/WebP 格式（限制 5MB 以内），通过 GLM-4V-Flash 视觉模型提取颜色、主体、构图和风格特征后自动填入描述框并触发带图生成。',
+        '三个核心输入参数和一个可选输入：颜色偏好（选填）——支持自由文本输入，可以是具体色名（如"Navy Blue and Gold""珊瑚橙搭配象牙白"）、品牌色 HEX 值组合、情绪色板描述（如"温暖木色调""冷色科技蓝灰"）或场景色彩关键词（如"海洋主题蓝绿色"）；核心概念描述（必填）——建议写清行业背景（如"SaaS 云端开发工具""手工烘焙甜品店"）、品牌个性与定位（如"极简专业""亲和有趣""高端奢华""环保自然"）、主体符号创意（如"轨道、星球、齿轮代表自动化""咖啡豆和书本代表慢生活阅读"）、目标用户画像（如"面向年轻开发者""面向高端茶饮消费者"）和使用场景（网站 favicon、App 启动图标、社交媒体头像等）；设计风格（从 8 种预设中选择一项）——Minimalist（极简风，强调留白与几何概括）、Flat Design（扁平化，强调色块与无阴影）、Mascot（卡通吉祥物，拟人化形象）、Abstract Geometry（抽象几何，非具象图形）、Lettermark（字母标志，文字变形）、3D Render（3D 立体，光影质感）、Vintage（复古风，旧化肌理）、Watercolor（水彩风，柔和晕染）；可选参考图片——支持上传 JPG/PNG/WebP 格式（限制 5MB 以内），通过 GLM-4V-Flash 视觉模型提取颜色、主体、构图和风格特征后自动填入描述框并触发带图生成。',
       output:
         '一张适合 Logo、头像或应用图标使用的 1:1 正方形图片，生成后在右侧预览面板以大尺寸展示，并辅以棋盘格背景（checkerboard pattern）方便直观判断透明/半透明区域的视觉边界。预览区顶部提供模型信息标识（显示当前使用的 AI 生成模型名称，若有 fallback 情况则额外标注），以及一个下载按钮。下载逻辑按结果 URL 类型选择最优策略：若结果为 data:image 协议则直接创建 \<a\> 标签触发浏览器下载；若结果为远程图片地址则通过 fetch 获取 Blob 后创建 Object URL 触发下载，下载完成后释放 Object URL；若两种方式均失败则在新标签页打开图片地址作为兜底方案。生成失败时输出面板展示红色背景错误卡片（含 RotateCcw 图标和具体错误消息），用户可修改描述、颜色或风格后重新点击生成。生成过程中显示加载动画和"AI is designing..."呼吸灯文字，旧数据 URL 不会被重复释放以避免内存泄漏。',
       processing:
@@ -456,7 +456,7 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       input:
         '两个核心参数：待润色的原始文本（必填，多行文本输入框，高度 16 行 / h-64）——支持粘贴中英文、中英混合、技术文档段落、会议发言转写稿、社交媒体草稿、邮件草稿、产品描述、简历要点或任何结构松散、措辞口语化、逻辑不清晰、需要统一语气或优化表达的文本内容；目标语气（下拉选择器，六选一）——Professional / 正式专业（用词规范、表达严谨、结构分明，适合向上汇报和对外商务沟通）、Casual & Friendly / 轻松友好（口语化自然、亲和力强、适合内部分享和社群互动）、Academic / 学术严谨（论文级语言标准，适合期刊摘要和学术邮件）、Persuasive / 营销转化（强调利益点和行动号召，适合广告和 Landing Page 写作）、Concise / 简明扼要（去繁就简、信息密度高，适合消息通知和摘要输出）、Humorous / 幽默风趣（带梗表达、轻松调侃，适合社交媒体帖子和创意内容）。用户在修改语气后可以直接点击润色按钮触发重新生成而不需要重新输入原文。输入区域不做自动保存或持久化，生成结果的复制由用户手动操作完成。',
       output:
-        '润色后的文本结果在右侧结果面板中以流式动画（motion.div + initial opacity 0 → animate opacity 1）逐步出现，最终以纯文本形式在白色卡片中展示并附带 Prose 排版样式确保各种语言的可读性。面板顶部标题栏在结果非空时显示复制按钮（Copy 图标），点击后通过 navigator.clipboard.writeText 将最终润色文本写入系统剪贴板，复制成功后按钮图标切换为 Check 且文字变为"Copied"并在 2 秒后自动恢复。生成过程中结果区域实时追加 SSE 流式文本（以 React 状态 prev + data.content 方式累积），用户在生成过程中即可开始预览结果方向。若请求失败（如服务端不可用或网络超时），结果面板展示红色错误消息（RotateCcw 图标 + error 文本），左���的原始输入文本在此期间不会被清空或修改，用户可在排除网络问题后直接重新点击生成。',
+        '润色后的文本结果在右侧结果面板中以流式动画（motion.div + initial opacity 0 → animate opacity 1）逐步出现，最终以纯文本形式在白色卡片中展示并附带 Prose 排版样式确保各种语言的可读性。面板顶部标题栏在结果非空时显示复制按钮（Copy 图标），点击后通过 navigator.clipboard.writeText 将最终润色文本写入系统剪贴板，复制成功后按钮图标切换为 Check 且文字变为"Copied"并在 2 秒后自动恢复。生成过程中结果区域实时追加 SSE 流式文本（以 React 状态 prev + data.content 方式累积），用户在生成过程中即可开始预览结果方向。若请求失败（如服务端不可用或网络超时），结果面板展示红色错误消息（RotateCcw 图标 + error 文本），左侧的原始输入文本在此期间不会被清空或修改，用户可在排除网络问题后直接重新点击生成。',
       processing:
         '用户点击润色按钮后，页面执行空值校验（!input.trim() → 直接 return），然后进入状态清理：setLoading(true) → setResult(\'\') → setError(\'\')。之后通过 fetch 以 POST 方式将三个参数（text: input, tone, language: i18n.language）序列化为 JSON 发送至 /api/ai-polisher 端点。前端通过 response.body.getReader() 获取 ReadableStream 读取器，TextDecoder 逐步解码字节流。对每个 chunk 按 \'\\n\' 分割行后，遍历所有以 "data: " 开头且不等于 "data: [DONE]" 的行：对每行调用 JSON.parse(line.slice(6)) 提取 content 或 error 字段——如果 response.ok 为 false 则通过 data.error 抛出异常；否则通过 React 函数式 setState（setResult(prev => prev + data.content)）将增量文本追加到累积结果中。SSE 流结束（done === true）后，setLoading(false) 关闭加载态，页面保留完整的润色结果供用户阅读和复制。异常处理在 catch 块中统一设置 error 状态（err.message），保留用户的原始输入不变以便重试。复制操作通过 Clipboard API 实现，完成后通过 setTimeout 在 2 秒后重置 copied 状态，motion 动画提供结果出现时的视觉过渡效果。',
       modes: ['多行文本粘贴（中文/英文/混合皆可）', '六种语气预设（专业/轻松/学术/营销/简明/幽默）', 'SSE 流式逐字实时输出', '原意保留润色（不改变语义核心）', 'motion.div 淡入动画结果呈现', '一键复制 + 2 秒状态反馈', '错误隔离（原始输入不丢失）'],
@@ -571,7 +571,7 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       summary:
         '关键词分析器（Keyword Analyzer）用于根据用户输入的种子产品词，通过 AI 深度分析电商平台的搜索词生态，自动生成该品类下的长尾关键词、竞争程度评估、TOP 推荐词和按语义分类的关键词组。适合电商卖家在新品选品阶段为潜在品类进行关键词调研，通过分析搜索量和竞争度判断哪些细分方向更值得切入；Listing 优化人员围绕核心产品词发现更多高转化、低竞争的长尾关键词以优化商品标题和描述提升自然搜索排名；广告投放运营人员在设置 PPC（按点击付费）广告时快速获取一批候选关键词进行测试投放；市场研究人员对不同语种的市场进行跨语言关键词初筛（中文 / 英文），评估同一品类在不同语言市场的搜索需求差异；以及内容营销和 SEO 人员在规划产品对比页、选购指南和博客内容时发现用户实际搜索的关键词分布以确定内容主题优先排序。分析结果以三个摘要指标卡（Total 总量 / Avg Competition 平均竞争度 / Top Rec 首选推荐词）和多组分类关键词列表呈现，每个关键词附搜索量（volume）和评分（score），支持逐行点击复制。',
       input:
-        '两个核心参数：种子产品词（必填，单行输入框）——可以是简单商品名称（如"纯银项链""皮革托特包""手工香薰蜡烛"）、品类词（如"瑜伽服""宠物用品""办公桌收纳"）、材质或工艺词（如"真丝""手作陶瓷""再生皮革"）或场景/需求组合词（如"冬季婚礼伴娘礼""露营装备""学生党平价彩妆"），输入越具体 AI 的分析方向越聚焦；输出语言（下拉选择，中文 / English 两种）——决定分析报告的总���摘要、分类名称和关键词建议的输出语种，便于面向中文运营团队或直接用于英文市场搜索广告平台（如 Google Ads Keyword Planner）的导入。种子词修改后重新点击分析按钮即可获得针对新品类的新一轮分析结果。',
+        '两个核心参数：种子产品词（必填，单行输入框）——可以是简单商品名称（如"纯银项链""皮革托特包""手工香薰蜡烛"）、品类词（如"瑜伽服""宠物用品""办公桌收纳"）、材质或工艺词（如"真丝""手作陶瓷""再生皮革"）或场景/需求组合词（如"冬季婚礼伴娘礼""露营装备""学生党平价彩妆"），输入越具体 AI 的分析方向越聚焦；输出语言（下拉选择，中文 / English 两种）——决定分析报告的总体摘要、分类名称和关键词建议的输出语种，便于面向中文运营团队或直接用于英文市场搜索广告平台（如 Google Ads Keyword Planner）的导入。种子词修改后重新点击分析按钮即可获得针对新品类的新一轮分析结果。',
       output:
         '结构化关键词分析结果在右侧结果面板分两个层级展示：第一层——三个横向排列的摘要指标卡片（grid grid-cols-3），依次展示：Total（该种子词触达的关键词总量，以特大号黑色字体突出）、Avg Competition（平台评估的平均竞争程度，如 Low / Medium / High，以灰色字体展示）、Top Rec（AI 根据搜索量与竞争度比综合评分推荐的 TOP 1 首选关键词，单行截断（line-clamp-1）避免溢出）；第二层——按语义分类维度的关键词列表（result.categories 数组遍历），每个分类以分类名称（cat.name，如"礼物场景词""材质长尾词""风格关键词""节日热词""人群词"）为标题，分类内的每个关键词以一行展示：左侧展示关键词本身（k.term，黑色粗体）以及搜索量/热度标签（k.volume）和 AI 评分（k.score），右侧提供一个独立复制按钮——点击后通过 navigator.clipboard.writeText 将该关键词写入剪贴板，按钮图标短暂切换为绿色对勾反馈（2 秒后复原）。当服务端返回的数据不是完美 JSON 结构时，前端实现了 JSON 提取兜底策略：先尝试全文本 JSON.parse，若失败则通过正则匹配 /\\{[\\s\\S]*\\}/ 提取第一个 JSON 对象后再解析，最大限度保证数据可用性。加载状态时右侧面板展示居中的旋转动画图标，空状态展示 Zap 闪电图标。出错时在结果面板顶部展示玫瑰红背景错误卡片。',
       processing:
@@ -719,6 +719,47 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
         output:
           '## Key Issues\n- `filter(...)[0]` traverses the full array even after the target user has been found.\n- `users` and `id` have no type annotations, making invalid caller data harder to catch.\n\n## Suggestion\n```ts\nfunction findUser(users: User[], id: string) {\n  return users.find((user) => user.id === id);\n}\n```',
         inputLanguage: 'typescript',
+        outputLanguage: 'markdown',
+      },
+    },
+  },
+
+  'ai-resume-optimizer': {
+    zh: {
+      summary:
+        'AI 简历生成器用于从 PDF 或 DOCX 简历中提取文本，并结合目标岗位 JD 生成一版可直接复制的新版简历。适合应届生、转行求职者、海外投递用户和需要针对不同岗位准备多个简历版本的候选人。工具先在浏览器本地解析文件，用户可检查并修正提取文本；AI 会在内部分析岗位匹配、关键词和经历表达，最终只输出排版后的简历正文。',
+      input:
+        '一个 PDF 或 DOCX 简历文件，或手动粘贴的简历文本；可选的目标岗位 JD；岗位类型选择（通用、产品、运营、前端、后端、数据分析、设计、市场、电商）；简历版式选择（经典单栏、紧凑单页、现代重点版）；输出语言选择（中文或英文）。',
+      output:
+        '一份 Markdown 格式的优化后简历正文，通常包含姓名与联系方式、个人优势、技能、工作经历、项目经历、教育经历和证书等模块。页面以纸张式预览展示结果，支持一键复制，也可以直接生成并下载 PDF。模型会根据岗位描述调整表达顺序和关键词，但不会输出匹配报告、求职信、核对清单或外显建议。',
+      processing:
+        '上传 PDF 时，页面通过 pdfjs-dist 在浏览器中逐页读取文本内容；上传 DOCX 时，页面通过 JSZip 读取 word/document.xml 并提取段落文本。解析结果写入可编辑文本框，用户检查后点击生成。前端将 resumeText、jobDescription、roleType、templateStyle、targetLanguage 和当前界面语言通过 fetch POST 发送至 /api/ai-resume-optimizer，服务端构建简历写作提示词并通过 SSE 流式返回 Markdown 简历。页面通过 react-markdown 渲染为纸张式简历预览，并支持完整简历复制和 PDF 下载。PDF 导出通过 jsPDF 将当前预览节点渲染为 A4 PDF 并触发浏览器下载。',
+      modes: ['PDF 文本提取', 'DOCX 文本提取', '手动粘贴兜底', 'JD 定向重写', '经典单栏版式', '紧凑单页版式', '现代重点版式', 'PDF 保存', 'SSE 流式生成'],
+      example: {
+        title: 'AI 简历生成输入到输出示例',
+        input: '简历文本: 前端开发实习，负责 React 页面开发和接口联调。\n岗位 JD: 需要熟悉 React、TypeScript、性能优化和跨团队协作。\n岗位类型: 前端\n简历版式: 经典单栏',
+        output:
+          '# 张三\n前端开发工程师 | React / TypeScript / Web 性能优化\n\n## 个人优势\n具备 React 页面开发、接口联调和业务流程落地经验，熟悉前端工程协作流程，能够围绕用户流程完成模块开发与问题定位。\n\n## 技能\n- 前端框架: React, TypeScript, JavaScript\n- 工程协作: 接口联调, 需求拆解, 跨团队沟通\n\n## 项目经历\n- 参与 React 业务页面开发和接口联调，配合后端完成核心流程上线。\n- 根据岗位要求补充 TypeScript 使用范围和性能优化案例后，可进一步强化岗位匹配度。',
+        inputLanguage: 'text',
+        outputLanguage: 'markdown',
+      },
+    },
+    en: {
+      summary:
+        'The AI Resume Generator extracts text from PDF or DOCX resumes, then uses a target job description to generate a polished resume version you can copy. It is useful for students, career switchers, international applicants, and candidates preparing tailored versions for different roles. File parsing happens in the browser first, allowing users to inspect and edit extracted text; the AI analyzes fit, keywords, and phrasing internally, then outputs only the formatted resume body.',
+      input:
+        'A PDF or DOCX resume file, or manually pasted resume text; an optional target job description; role type selection (general, product, operations, frontend, backend, data analysis, design, marketing, ecommerce); resume layout selection (classic single column, compact one-page style, modern focused layout); and output language selection (Chinese or English).',
+      output:
+        'A Markdown resume body that usually includes name and contact line, professional summary, skills, work experience, project experience, education, and certifications when source information exists. The page renders the result as a document-style resume preview, provides one-click copy, and lets users generate and download a PDF directly. The model may tailor wording and section order to the job description, but it does not output match reports, cover letters, checklists, or visible advice.',
+      processing:
+        'For PDF uploads, the page uses pdfjs-dist in the browser to read text content page by page. For DOCX uploads, it uses JSZip to read word/document.xml and extract paragraph text. The parsed result is placed into an editable text area for user review. When generation starts, the frontend sends resumeText, jobDescription, roleType, templateStyle, targetLanguage, and UI language to /api/ai-resume-optimizer via fetch POST. The server builds a resume-writing prompt and streams a Markdown resume back through SSE. The page renders the result through react-markdown as a document-style resume preview and supports full-resume copying plus PDF download. PDF export uses jsPDF to render the current preview node into an A4 PDF and trigger a browser download.',
+      modes: ['PDF text extraction', 'DOCX text extraction', 'Manual paste fallback', 'JD-tailored rewrite', 'Classic single-column layout', 'Compact one-page style', 'Modern focused layout', 'PDF saving', 'SSE streaming generation'],
+      example: {
+        title: 'AI resume generation input-to-output example',
+        input: 'Resume text: Frontend development intern, worked on React page development and API integration.\nJob description: Requires React, TypeScript, performance optimization, and cross-functional collaboration.\nRole type: Frontend\nResume layout: Classic single column',
+        output:
+          '# Jane Zhang\nFrontend Developer | React / TypeScript / Web Performance\n\n## Professional Summary\nFrontend developer with experience building React pages, integrating APIs, and shipping business workflows with backend teams.\n\n## Skills\n- Frontend: React, TypeScript, JavaScript\n- Collaboration: API integration, requirement breakdown, cross-functional communication\n\n## Project Experience\n- Built React business pages and integrated backend APIs to support a complete user flow.\n- Add verified TypeScript scope or performance work before submission if those details exist in the source resume.',
+        inputLanguage: 'text',
         outputLanguage: 'markdown',
       },
     },
