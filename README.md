@@ -1,187 +1,210 @@
-[中文版本 →](README_zh.md)
+[中文版本 ->](README_zh.md)
 
-# ToolOrbit — Free Online Toolbox
+# ToolOrbit - Free Online Toolbox
 
-**[toolorbit.site](https://toolorbit.site)** · Privacy-first, browser-based utilities for developers, creators, and online sellers.
+**[toolorbit.site](https://toolorbit.site)** provides browser-based utilities for developers, creators, ecommerce sellers, and everyday productivity work.
 
-No sign-up. No uploads to a server. Every tool runs locally in your browser using Web APIs and client-side computation. Your data stays on your device.
+No sign-up required. Most tools process text, images, PDFs, encodings, crypto operations, and calculations directly in your browser. AI tools send the input you provide to model services to generate results.
 
 ---
 
-## What's Included
+## Tool Catalog
+
+ToolOrbit currently includes **77 tools** across 10 categories.
 
 ### AI Tools (18)
-AI-powered generators and assistants for content creation, code review, and e-commerce.
 
-| Tool | Description |
-|------|-------------|
-| AI 万能图像生成 | Text-to-image generation with multiple styles and aspect ratios |
-| AI SVG 矢量图生成 | Generate SVG illustrations and icons from text descriptions |
-| AI 绘画提示词生成 | Midjourney / Stable Diffusion prompt engineering |
-| AI 头像/Logo 设计师 | Brand logo, site icon, and avatar generation |
-| AI 智能翻译 | Context-aware translation with native-level fluency |
-| AI 智能润色 | Polish articles, emails, and copy for professional tone |
-| AI 代码审查 (Code Review) | AI-powered bug detection, security audit, and refactor suggestions |
-| AI 周报生成器 | Turn scattered work notes into structured weekly reports |
-| AI Excel 公式助手 | Generate complex Excel / Google Sheets formulas from natural language |
-| AI 正则生成器 | Generate regex patterns with explanations from plain descriptions |
-| YouTube Title & Description Generator | SEO-optimized YouTube metadata generation |
-| 短视频脚本生成 | Viral short-video scripts with scene breakdowns and narration |
-| AI 会议纪要生成 | Extract structured meeting minutes from transcripts and notes |
-| 小红书文案生成 | Xiaohongshu post copy with emojis and trending hashtags |
-| Listing Generator | AI-driven e-commerce titles, descriptions, and tags |
-| Keyword Analyzer | Long-tail keyword discovery for e-commerce niches |
-| Competitor Tracker | Competitive analysis and opportunity identification |
-| Market Insights | Platform-specific market research and trend reports |
+| Tool | Description | Link |
+|------|-------------|------|
+| YouTube Title & Description Generator | Generate YouTube titles, descriptions, and tags from a topic, audience, and video angle. | [Open](https://toolorbit.site/tools/ai/youtube-generator) |
+| AI Prompt Generator | Generate Midjourney and Stable Diffusion prompts with subject, style, camera, and detail guidance. | [Open](https://toolorbit.site/tools/ai/prompt-generator) |
+| AI Weekly Report | Turn scattered work notes into a weekly report draft with progress, issues, plans, and reviewable items. | [Open](https://toolorbit.site/tools/ai/weekly-report) |
+| AI Code Reviewer | Check code snippets for bugs, security risks, readability issues, and refactor suggestions. | [Open](https://toolorbit.site/tools/ai/code-reviewer) |
+| Video Script Generator | Generate short-video script drafts with scene notes, visuals, subtitles, and narration. | [Open](https://toolorbit.site/tools/ai/video-script) |
+| AI Meeting Minutes | Extract topics, decisions, action items, and owners from meeting notes or transcripts. | [Open](https://toolorbit.site/tools/ai/meeting-minutes) |
+| AI Excel Formula Generator | Describe a spreadsheet task in plain language and get an Excel or Google Sheets formula with usage notes. | [Open](https://toolorbit.site/tools/ai/excel-formula) |
+| AI Regex Generator | Generate regular expressions, test examples, and syntax notes from matching requirements. | [Open](https://toolorbit.site/tools/ai/regex) |
+| AI Logo & Avatar Designer | Generate logo, site icon, or avatar ideas from brand name, industry, and style requirements. | [Open](https://toolorbit.site/tools/ai/logo-generator) |
+| AI Image Generator | Generate image drafts from text prompts with multiple ratios, themes, and visual styles. | [Open](https://toolorbit.site/tools/ai/image-generator) |
+| AI SVG Generator | Generate scalable SVG illustration or icon code from a text prompt. | [Open](https://toolorbit.site/tools/ai/svg-generator) |
+| Xiaohongshu AI Copywriter | Generate Xiaohongshu post drafts with audience, selling points, emoji, and hashtags. | [Open](https://toolorbit.site/tools/ai/xiaohongshu) |
+| AI Text Polisher | Polish articles, emails, or marketing copy for tone, structure, and clarity. | [Open](https://toolorbit.site/tools/ai/text-polisher) |
+| AI Translator | Translate text and adapt tone, wording, and phrasing to the target context. | [Open](https://toolorbit.site/tools/ai/translator) |
+| Listing Generator | Create ecommerce listing titles, descriptions, and tags from product details. | [Open](https://toolorbit.site/tools/ai/listing-generator) |
+| Keyword Analyzer | Analyze ecommerce long-tail keywords, search intent, and product angle ideas. | [Open](https://toolorbit.site/tools/ai/keyword-analyzer) |
+| Competitor Tracker | Compare competitor listings and identify gaps in positioning, copy, and offers. | [Open](https://toolorbit.site/tools/ai/competitor-tracker) |
+| Market Insights | Generate market notes for a platform, category, trend, or product idea. | [Open](https://toolorbit.site/tools/ai/market-insights) |
 
 ### Developer Tools (13)
-JSON, encoding, crypto, and debugging utilities that run entirely in the browser.
 
-| Tool | Description |
-|------|-------------|
-| JSON 格式化 | Validate, beautify, and compress JSON with syntax error highlighting |
-| JSON 转 TypeScript | Auto-generate TypeScript interfaces from JSON data |
-| XML / JSON 互转 | Bidirectional XML ↔ JSON conversion |
-| 文本对比 Diff | Line-by-line and word-by-word text/code comparison |
-| Base64 编解码 | Encode and decode with full UTF-8 and emoji support |
-| URL 编解码 | Safe URL encoding/decoding with redirect deobfuscation |
-| 哈希生成器 | MD5, SHA-1, SHA-256, SHA-512 hash generation |
-| ASCII 编码表 | Full ASCII reference with binary, octal, decimal, hex, and HTML entities |
-| Unicode 转换 | Native characters ↔ \\uXXXX Unicode escape sequences |
-| JWT 在线解码 | Decode and inspect JSON Web Token payloads locally |
-| 正则表达式测试 | Live regex editing with match highlighting and capture groups |
-| 对称加密 (AES/DES) | AES, DES, RC4 symmetric encryption with configurable modes |
-| 国密算法 (SM2/3/4) | Chinese national cryptographic standards |
+| Tool | Description | Link |
+|------|-------------|------|
+| JSON Formatter | Format, minify, and validate JSON for easier reading, copying, and debugging. | [Open](https://toolorbit.site/tools/dev/json-formatter) |
+| XML / JSON Converter | Convert between XML and JSON while preserving structure and field content. | [Open](https://toolorbit.site/tools/dev/xml-to-json) |
+| Text Diff | Compare two text or code blocks line by line or word by word. | [Open](https://toolorbit.site/tools/dev/text-diff) |
+| Base64 Codec | Encode and decode Base64 in the browser with UTF-8 text support. | [Open](https://toolorbit.site/tools/dev/base64) |
+| ASCII Table | Look up standard ASCII and control characters across common numeric bases. | [Open](https://toolorbit.site/tools/dev/ascii-table) |
+| URL Encoder / Decoder | Encode URL components safely or decode them into readable text. | [Open](https://toolorbit.site/tools/dev/url-encoder) |
+| Hash Generator | Generate MD5, SHA-1, SHA-256, and SHA-512 digests for checks and comparisons. | [Open](https://toolorbit.site/tools/dev/hash-generator) |
+| Unicode Converter | Convert native characters to `\uXXXX` Unicode escapes and back. | [Open](https://toolorbit.site/tools/dev/unicode-converter) |
+| JWT Debugger | Decode JSON Web Token header, payload, and signature sections locally. | [Open](https://toolorbit.site/tools/dev/jwt-debugger) |
+| Regex Tester | Write and debug regular expressions with match highlighting, capture groups, and modifiers. | [Open](https://toolorbit.site/tools/dev/regex-tester) |
+| JSON to TypeScript | Infer TypeScript interface definitions from JSON data. | [Open](https://toolorbit.site/tools/dev/json-to-ts) |
+| Symmetric Crypto | Encrypt and decrypt with AES, DES, and RC4 using configurable modes and padding. | [Open](https://toolorbit.site/tools/dev/crypto-symmetric) |
+| SM Crypto (SM2/3/4) | Use Chinese national cryptography algorithms SM2, SM3, and SM4. | [Open](https://toolorbit.site/tools/dev/chinese-crypto) |
 
 ### Generators (5)
-Codes, IDs, and security credentials generated client-side.
 
-| Tool | Description |
-|------|-------------|
-| 二维码生成器 | Customizable QR codes with color rendering |
-| 二维码识别 | Upload and decode QR code content |
-| 条形码生成 | CODE128, CODE39, EAN, UPC barcode generation and PNG export |
-| UUID 在线生成 | Batch-generate RFC 4122 version 4 UUIDs |
-| 强密码生成器 | High-entropy random password generation |
+| Tool | Description | Link |
+|------|-------------|------|
+| UUID Generator | Batch-generate random RFC 4122 version 4 UUIDs. | [Open](https://toolorbit.site/tools/dev/uuid-generator) |
+| QR Code Generator | Generate downloadable QR codes from text, links, or contact details. | [Open](https://toolorbit.site/tools/generator/qr-generator) |
+| QR Scanner | Upload a QR code image and decode its content. | [Open](https://toolorbit.site/tools/generator/qr-scanner) |
+| Barcode Generator | Generate CODE128, CODE39, EAN, and UPC barcodes. | [Open](https://toolorbit.site/tools/generator/barcode-generator) |
+| Password Generator | Generate high-entropy random passwords locally. | [Open](https://toolorbit.site/tools/dev/password-generator) |
 
-### E-commerce Tools (5)
-Fee calculators for Etsy and Stripe sellers with real-time local computation.
+### E-commerce Tools (11)
 
-| Tool | Description |
-|------|-------------|
-| Etsy 利润计算器 | Full Etsy fee breakdown — listing, transaction, and payment processing |
-| Etsy 站外广告费计算器 | Estimate Offsite Ads fees (12% or 15%) with $100 per-order cap |
-| Etsy 目标售价计算器 | Reverse-calculate item price from target profit including all fee layers |
-| Etsy 监管与汇率费计算器 | Regulatory Operating Fee and 2.5% currency conversion estimates by country |
-| Stripe 手续费计算器 | Forward and reverse Stripe fee calculation (2.9% + $0.30) |
+| Tool | Description | Link |
+|------|-------------|------|
+| Etsy Fee Calculator | Calculate Etsy listing fees, transaction fees, payment processing fees, and order profit. | [Open](https://toolorbit.site/tools/ecommerce/etsy-fee-calculator) |
+| Etsy Offsite Ads Calculator | Estimate 12% or 15% Etsy Offsite Ads attributed-order fees and profit impact. | [Open](https://toolorbit.site/tools/ecommerce/etsy-offsite-ads-calculator) |
+| Etsy Pricing Calculator | Reverse-calculate item price from cost, shipping, target profit, and Etsy fees. | [Open](https://toolorbit.site/tools/ecommerce/etsy-pricing-calculator) |
+| Etsy Regulatory & Currency Fee Calculator | Estimate Etsy Regulatory Operating Fee by seller location plus the 2.5% currency conversion fee. | [Open](https://toolorbit.site/tools/ecommerce/etsy-regulatory-fee-calculator) |
+| Stripe Fee Calculator | Calculate Stripe processing fees, net payout, and reverse invoice amount. | [Open](https://toolorbit.site/tools/ecommerce/stripe-fee-calculator) |
+| PayPal Fee Calculator | Estimate PayPal Checkout, card payment, and Goods & Services fees with net payout and reverse invoice amount. | [Open](https://toolorbit.site/tools/ecommerce/paypal-fee-calculator) |
+| Stripe vs PayPal Fee Calculator | Compare Stripe and PayPal fees, net payouts, and differences for the same payment amount. | [Open](https://toolorbit.site/tools/ecommerce/stripe-vs-paypal-fee-calculator) |
+| Reverse VAT / Sales Tax Calculator | Remove VAT or sales tax from a tax-inclusive price and calculate net amount, tax amount, and gross amount. | [Open](https://toolorbit.site/tools/ecommerce/reverse-vat-calculator) |
+| VAT Inclusive / Exclusive Calculator | Convert between tax-inclusive and tax-exclusive prices with add-tax and remove-tax modes. | [Open](https://toolorbit.site/tools/ecommerce/vat-inclusive-exclusive-calculator) |
+| Country VAT Calculator | Choose UK or EU VAT rate presets by country, then calculate net amount, VAT amount, and gross price. | [Open](https://toolorbit.site/tools/ecommerce/country-vat-calculator) |
+| GST Calculator | Switch between Australia, Canada, New Zealand, Singapore, and India GST / HST presets. | [Open](https://toolorbit.site/tools/ecommerce/gst-calculator) |
 
 ### PDF Tools (4)
-Merge, split, and convert PDFs without uploading files to a server.
 
-| Tool | Description |
-|------|-------------|
-| PDF 合并 | Combine multiple PDFs into one document |
-| PDF 拆分 | Extract pages or split large PDFs into smaller files |
-| PDF 转图片 | Convert PDF pages to high-quality JPG or PNG |
-| 图片转 PDF | Bundle JPG/PNG images into a single PDF |
+| Tool | Description | Link |
+|------|-------------|------|
+| PDF Merge | Combine multiple PDF files into one document. | [Open](https://toolorbit.site/tools/pdf/pdf-merge) |
+| PDF Split | Extract selected PDF pages or split a large PDF into smaller files. | [Open](https://toolorbit.site/tools/pdf/pdf-split) |
+| PDF to Image | Convert PDF pages to JPG or PNG images. | [Open](https://toolorbit.site/tools/pdf/pdf-to-image) |
+| Image to PDF | Upload JPG or PNG images and merge them into a PDF document. | [Open](https://toolorbit.site/tools/pdf/image-to-pdf) |
 
-### Image Tools (6)
-Compress, convert, and transform images in the browser.
+### Image Tools (7)
 
-| Tool | Description |
-|------|-------------|
-| 图片在线压缩 | Lossy/lossless compression to reduce file size |
-| 图片格式转换 | Convert between JPG, PNG, WebP, and other formats |
-| SVG 转 PNG | Rasterize SVG vector graphics to PNG |
-| 图片转 Base64 | Encode images to Base64 for inline HTML/CSS embedding |
-| 图片裁剪选区 | Visual crop tool with precise thumbnail extraction |
-| 图片转 ICO 图标 | Generate .ico files with proper headers for favicons |
+| Tool | Description | Link |
+|------|-------------|------|
+| Image Compressor | Reduce image file size while preserving clarity for web display. | [Open](https://toolorbit.site/tools/image/image-compressor) |
+| Image Converter | Convert local images to JPG, PNG, WebP, and other formats. | [Open](https://toolorbit.site/tools/image/image-converter) |
+| SVG to PNG | Export SVG vector graphics as PNG files. | [Open](https://toolorbit.site/tools/image/svg-to-png) |
+| Image to Base64 | Convert local images to Base64 for inline HTML or CSS usage. | [Open](https://toolorbit.site/tools/image/image-to-base64) |
+| Image Cropper | Crop an image with a visual selection area and export the selected region. | [Open](https://toolorbit.site/tools/image/image-cropper) |
+| Anime Screenshot Source Finder | Upload an anime screenshot and search for candidate titles, episodes, timestamps, and previews. | [Open](https://toolorbit.site/tools/image/anime-screenshot-source) |
+| Image to ICO | Generate ICO files with proper headers from images. | [Open](https://toolorbit.site/tools/image/image-to-ico) |
 
 ### Text Tools (3)
-Analyze, clean, and compose text.
 
-| Tool | Description |
-|------|-------------|
-| 文本分析器 | Word/character/paragraph count with frequency analysis |
-| 字符串清洗 | Strip whitespace, tabs, newlines, and normalize punctuation |
-| 特殊符号大全 | Emoji, math symbols, currency signs — click to copy |
+| Tool | Description | Link |
+|------|-------------|------|
+| Text Analyzer | Count words, characters, paragraphs, and frequency distribution. | [Open](https://toolorbit.site/tools/text/text-analyzer) |
+| Text Cleaner | Remove spaces, line breaks, tabs, and punctuation. | [Open](https://toolorbit.site/tools/text/text-cleaner) |
+| Symbol Library | Find emoji, math symbols, currency signs, and typography characters, then copy them. | [Open](https://toolorbit.site/tools/text/symbol-library) |
 
 ### Calculators & Converters (11)
-Unit conversion, time, color, and encoding utilities.
 
-| Tool | Description |
-|------|-------------|
-| 时间戳转换 | Unix timestamp ↔ human-readable date conversion |
-| 进制转换 | Base 2–36 arbitrary-radix conversion with big-integer support |
-| 单位转换器 | Length, weight, volume, temperature, and more |
-| 时间转换器 | Cross-timezone conversion with DST and UTC offsets |
-| 存档转换器 | ZIP/RAR/TAR archive packing and extraction in the browser |
-| 人民币大写转换 | Arabic numerals to formal Chinese financial capitalization |
-| 屏幕 PPI 计算器 | Pixel density from physical dimensions and resolution |
-| 颜色代码转换 | HEX ↔ RGB ↔ HSL ↔ HSV ↔ CMYK with alpha extraction |
-| 阶梯调色板推演工具 | Tints and shades generation from a base color |
-| 屏幕颜色拾取器 | Browser-native EyeDropper API for screen color picking |
-| 16 进制转字符串 | Text ↔ hexadecimal string encoding |
+| Tool | Description | Link |
+|------|-------------|------|
+| Timestamp Converter | Convert Unix timestamps to readable time and back. | [Open](https://toolorbit.site/tools/dev/timestamp-converter) |
+| Base Converter | Convert large integers between bases 2 through 36. | [Open](https://toolorbit.site/tools/dev/base-converter) |
+| Unit Converter | Convert length, weight, volume, temperature, and other common units. | [Open](https://toolorbit.site/tools/calculate/unit-converter) |
+| Time Converter | Convert global time zones, time differences, and timestamps. | [Open](https://toolorbit.site/tools/calculate/time-converter) |
+| Archive Converter | Pack, inspect, and extract ZIP, RAR, TAR, and related archive formats. | [Open](https://toolorbit.site/tools/calculate/archive-converter) |
+| RMB Converter | Convert Arabic numerals to formal Chinese financial capitalization. | [Open](https://toolorbit.site/tools/calculate/rmb-converter) |
+| PPI Calculator | Calculate screen pixel density from physical size and resolution. | [Open](https://toolorbit.site/tools/calculate/ppi-calculator) |
+| Color Converter | Convert between HEX, RGB, HSL, HSV, CMYK, and alpha values. | [Open](https://toolorbit.site/tools/dev/color-converter) |
+| Color Palette | Generate tints and shades from a base color for interface palettes. | [Open](https://toolorbit.site/tools/dev/color-palette) |
+| Color Picker | Use the browser EyeDropper API to pick colors from the screen. | [Open](https://toolorbit.site/tools/dev/color-picker) |
+| Hex String Converter | Convert text to hexadecimal encoding and back. | [Open](https://toolorbit.site/tools/dev/hex-string-converter) |
+
+### Utility Tools (4)
+
+| Tool | Description | Link |
+|------|-------------|------|
+| BMI Calculator | Calculate BMI, weight category, and healthy weight range from gender, age, height, and weight. | [Open](https://toolorbit.site/tools/utility/bmi-calculator) |
+| Age Calculator | Enter a birth date to calculate full age, total days, and days until the next birthday. | [Open](https://toolorbit.site/tools/utility/age-calculator) |
+| World Timezone Compare | Compare 38 fixed UTC offset time zones from UTC-12:00 to UTC+14:00 with a draggable timeline. | [Open](https://toolorbit.site/tools/utility/world-timezone-compare) |
+| MBTI Personality Test | Answer 24 original preference questions to get a 16-type personality reference result. | [Open](https://toolorbit.site/tools/utility/mbti-personality-test) |
 
 ### Webmaster Tools (1)
 
-| Tool | Description |
-|------|-------------|
-| 短链接生成 | URL shortening for social media and sharing |
+| Tool | Description | Link |
+|------|-------------|------|
+| Short URL | Convert long links into short links for sharing and social posts. | [Open](https://toolorbit.site/tools/net/short-url) |
 
 ---
 
 ## Blog
 
-31 in-depth articles covering tool mechanics, developer workflows, Etsy selling strategies, and AI productivity. [Browse the blog →](https://toolorbit.site/blog)
+The blog currently includes **49 articles** covering AI toolchains, developer workflows, ecommerce fees, image and PDF processing, encoding, and security.
+
+| Date | Category | Article |
+|------|----------|---------|
+| 2026-06-11 | AI | [Codex CLI Configuration Guide: Set Up These 6 Things Before Letting It Write Code](https://toolorbit.site/blog/codex-cli-configuration-guide) |
+| 2026-06-03 | AI | [10 Skills to Install First for Codex and Claude Code](https://toolorbit.site/blog/codex-claude-code-skills-must-install) |
+| 2026-06-02 | AI | [Run Claude Code CLI with the DeepSeek API: A Lower-Cost Terminal Coding Assistant Setup](https://toolorbit.site/blog/claude-code-cli-deepseek-api-guide) |
+| 2026-05-29 | AI | [Claude Opus 4.8: AI Finally Learns to Say "I'm Not Sure"](https://toolorbit.site/blog/claude-opus-4-8-2026) |
+| 2026-05-27 | Productivity | [How to Read an MBTI Personality Test: From Four Letters to Self-Understanding](https://toolorbit.site/blog/mbti-personality-test-guide) |
+| 2026-05-27 | Productivity | [MBTI Four Dimensions Explained: What E/I, S/N, T/F, and J/P Mean](https://toolorbit.site/blog/mbti-four-dimensions-explained) |
+| 2026-05-27 | Productivity | [16 MBTI Personality Types: Strengths, Blind Spots, and Communication Tips](https://toolorbit.site/blog/mbti-16-personality-types-guide) |
+| 2026-05-27 | AI | [Codex and GPT Image 2: A Practical Workflow for Project Assets](https://toolorbit.site/blog/codex-gpt-image-2-workflow) |
+| 2026-05-27 | AI | [How to Install and Use Codex Skills](https://toolorbit.site/blog/codex-skill-installation-guide) |
+| 2026-05-27 | AI | [How to Use ui-ux-pro-max with Codex for Better Frontend Design](https://toolorbit.site/blog/codex-ui-ux-pro-max-guide) |
+| 2026-05-27 | Business | [PayPal Fees in 2026: Checkout, Goods & Services, Invoices, and Fixed Fees](https://toolorbit.site/blog/paypal-fees-complete-guide) |
+| 2026-05-27 | Business | [Stripe vs PayPal Fees: Which Payment Processor Is Cheaper?](https://toolorbit.site/blog/stripe-vs-paypal-fees-guide) |
+| 2026-05-27 | Business | [Reverse Payment Fee Calculation: How Much Should You Invoice to Receive a Net Amount?](https://toolorbit.site/blog/reverse-payment-fee-calculator-guide) |
+| 2026-05-27 | Business | [Ecommerce Payment Processing Fees: Etsy, Stripe, PayPal, and Your Real Margin](https://toolorbit.site/blog/ecommerce-payment-processing-fees-guide) |
+| 2026-05-26 | Business | [Etsy SEO in 2026: Titles, Tags, Attributes, and Descriptions That Match Real Buyers](https://toolorbit.site/blog/etsy-seo-title-tags-guide) |
+| 2026-05-25 | Business | [Etsy Product Photos That Convert: A Practical Shot List for Sellers](https://toolorbit.site/blog/etsy-product-photography-conversion-guide) |
+| 2026-05-24 | Business | [Etsy Shipping Strategy: Free Shipping, Buyer-Paid Shipping, and Profit Math](https://toolorbit.site/blog/etsy-shipping-free-shipping-strategy) |
+| 2026-05-23 | Business | [Etsy Digital Download Pricing: How to Price Printables, Templates, and Files](https://toolorbit.site/blog/etsy-digital-download-pricing-guide) |
+| 2026-05-16 | Development | [UUID Demystified: The Math Behind Those 36-Character Identifiers](https://toolorbit.site/blog/uuid-demystified) |
+| 2026-05-16 | Development | [URL Encoding Demystified: Safe Characters, Query Strings, and Browser Behavior](https://toolorbit.site/blog/url-encoding-demystified) |
+| 2026-05-16 | Development | [Understanding Unicode: Why Character Encoding Still Breaks in Production](https://toolorbit.site/blog/unicode-character-encoding-guide) |
+| 2026-05-15 | Development | [Timezones & Unix Timestamps: Why Time Is the Hardest Problem in Programming](https://toolorbit.site/blog/timezone-unix-timestamp-guide) |
+| 2026-05-14 | Security | [Password Entropy Explained: Why Length Always Beats Complexity](https://toolorbit.site/blog/password-entropy-explained) |
+| 2026-05-13 | Productivity | [How QR Codes Actually Work: The Mathematics in Your Pocket](https://toolorbit.site/blog/how-qr-codes-work) |
+| 2026-05-12 | AI | [AI Excel Formula Generator: Speak Spreadsheet, Not Syntax](https://toolorbit.site/blog/ai-excel-formula-guide) |
+| 2026-05-11 | AI | [AI Video Script Generator: Scale Your Content Pipeline Without Burnout](https://toolorbit.site/blog/ai-video-script-guide) |
+| 2026-05-10 | AI | [AI Meeting Minutes: Never Miss a Critical Detail Again](https://toolorbit.site/blog/ai-meeting-minutes-guide) |
+| 2026-05-09 | AI | [AI Regex Generator: From Hours of Trial-and-Error to Milliseconds](https://toolorbit.site/blog/ai-regex-generator-guide) |
+| 2026-05-08 | AI | [AI Code Review: Your 24/7 Pair Programming Partner](https://toolorbit.site/blog/ai-code-reviewer-guide) |
+| 2026-05-07 | Development | [Navigating Web Image Formats: JPG, PNG, and WebP Explained](https://toolorbit.site/blog/image-converter-web-formats) |
+| 2026-05-06 | Design | [SVG vs PNG: When and How to Convert Vectors to Raster Graphics](https://toolorbit.site/blog/svg-to-png-conversion-tips) |
+| 2026-05-05 | Design | [Mastering Image Compression: Speed Up Your Website Without Losing Quality](https://toolorbit.site/blog/image-compression-techniques) |
+| 2026-05-04 | AI | [Beyond Word-for-Word: The Future of Contextual AI Translation](https://toolorbit.site/blog/ai-translator-future) |
+| 2026-05-03 | AI | [Elevate Your Writing: The Power of AI Text Polishers](https://toolorbit.site/blog/ai-text-polisher-guide) |
+| 2026-05-02 | Development | [The Data Bridge: Why We Need Powerful XML and JSON Converters](https://toolorbit.site/blog/xml-json-conversion-guide) |
+| 2026-04-30 | Development | [More Than Code: The Importance of Text Diff in Daily Office and Development Work](https://toolorbit.site/blog/why-text-diff-matters) |
+| 2026-04-29 | Development | [Modern PDF Workflows: Boosting Efficiency with Merge, Split, and Encryption](https://toolorbit.site/blog/modern-pdf-workflow-efficiency) |
+| 2026-04-27 | Security | [Why 'Local Processing' is the Future of Developer Tools](https://toolorbit.site/blog/secure-developer-tools-privacy) |
+| 2026-04-26 | Development | [In-depth Analysis: Why Developers Need Efficient JSON Formatting Tools](https://toolorbit.site/blog/why-use-json-formatter) |
+| 2026-04-24 | Productivity | [From Military Stealth to CTF Challenges: The Modern Aesthetics of Morse Code](https://toolorbit.site/blog/morse-code-guide) |
+| 2026-04-23 | Development | [Complete Base64 Guide: Principles, Pitfalls, and Binary Data Optimization](https://toolorbit.site/blog/base64-encoding-deep-dive) |
+| 2026-04-22 | Design | [Color Theory for Developers: Visual Magic from HEX to HSL](https://toolorbit.site/blog/color-theory-for-developers) |
+| 2026-04-21 | Development | [Mastering Regular Expressions: Precision Data Extraction in Text Chaos](https://toolorbit.site/blog/regex-mastery-guide) |
+| 2026-04-20 | Development | [HTTP Status Codes Explained: The Secrets Beyond 404 and 500](https://toolorbit.site/blog/http-status-codes-explained) |
+| 2026-04-19 | Security | [API Security in Practice: From JWT Leaks to SSRF Protection](https://toolorbit.site/blog/api-security-best-practices) |
+| 2026-05-20 | Business | [The Complete Guide to Etsy Fees in 2026: What Every Seller Actually Pays](https://toolorbit.site/blog/etsy-fee-complete-guide) |
+| 2026-05-19 | Business | [Etsy Pricing Strategy: How to Price for Profit (Not Just Revenue)](https://toolorbit.site/blog/etsy-pricing-strategy-guide) |
+| 2026-05-18 | Business | [Etsy Offsite Ads Explained: The Program You Can't Always Opt Out Of](https://toolorbit.site/blog/etsy-offsite-ads-explained) |
+| 2026-05-17 | Business | [Etsy International Selling Fees: Regulatory Charges and Currency Conversion](https://toolorbit.site/blog/etsy-international-selling-fees) |
 
 ---
 
 ## Privacy & Security
 
-- **All computation runs locally** — JSON parsing, hash generation, image processing, PDF manipulation, and encryption all execute in your browser via Web APIs. No data is ever uploaded to a server.
-- **No account required** — every tool works immediately without sign-up.
-- **Content Security Policy** headers restrict script sources and block inline execution.
-- **HTTPS only** with HSTS preload and secure defaults.
-
----
-
-## Tech Stack
-
-| Layer | Technology |
-|-------|------------|
-| Framework | [Next.js 16](https://nextjs.org/) (App Router) |
-| UI Library | [React 19](https://react.dev/) |
-| Language | TypeScript (strict mode) |
-| Styling | [Tailwind CSS 4](https://tailwindcss.com/) |
-| Icons | [Lucide React](https://lucide.dev/) |
-| Animations | [Motion](https://motion.dev/) |
-| Content | react-markdown + remark-gfm |
-| Charts | Recharts |
-| i18n | react-i18next (English / 简体中文) |
-| PDF | pdf-lib, pdfjs-dist, jspdf |
-| Compression | JSZip |
-| Deployment | Static export with pre-compressed assets |
-
----
-
-## Development
-
-```bash
-# Install dependencies
-npm install
-
-# Start dev server
-npm run dev
-
-# Production build
-npm run build
-
-# Start production server
-npm start
-```
-
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+- Most tools run locally in the browser, so files, text, and developer data stay on your device by default.
+- JSON, hashing, image, PDF, encoding, crypto, and calculator tools do not require an account.
+- AI tools send the prompt or source text you provide to model services to generate output.
+- The site uses HTTPS and basic security controls such as Content Security Policy.
 
 ---
 

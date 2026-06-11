@@ -1,4 +1,9 @@
 export const BLOG_RELATED_TOOLS: Record<string, string[]> = {
+  "claude-code-configuration-guide": [
+    "/tools/ai/code-reviewer",
+    "/tools/dev/text-diff",
+    "/tools/dev/json-formatter",
+  ],
   "codex-cli-configuration-guide": [
     "/tools/ai/code-reviewer",
     "/tools/dev/text-diff",

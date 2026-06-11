@@ -9,6 +9,12 @@ const defaultAuthorId = 'luo-wj';
 
 const posts: BlogPost[] = [
   {
+    slug: 'claude-code-configuration-guide',
+    date: '2026-06-11',
+    category: 'AI',
+    authorId: 'toolorbit-editorial-team',
+  },
+  {
     slug: 'codex-cli-configuration-guide',
     date: '2026-06-11',
     category: 'AI',

@@ -32,12 +32,42 @@ export const createUniqueHeadingId = (text: string, headingCounts: Map<string, n
   return count === 0 ? baseId : `${baseId}-${count + 1}`;
 };
 
+const removeFencedCodeBlocks = (markdown: string) => {
+  const lines = markdown.split(/\r?\n/);
+  const contentLines: string[] = [];
+  let fenceMarker = '';
+  let fenceLength = 0;
+
+  for (const line of lines) {
+    const fenceMatch = line.match(/^ {0,3}(`{3,}|~{3,})/);
+
+    if (fenceMarker) {
+      if (fenceMatch && fenceMatch[1].startsWith(fenceMarker) && fenceMatch[1].length >= fenceLength) {
+        fenceMarker = '';
+        fenceLength = 0;
+      }
+      continue;
+    }
+
+    if (fenceMatch) {
+      fenceMarker = fenceMatch[1][0];
+      fenceLength = fenceMatch[1].length;
+      continue;
+    }
+
+    contentLines.push(line);
+  }
+
+  return contentLines.join('\n');
+};
+
 export const extractMarkdownH2Headings = (markdown: string): MarkdownHeading[] => {
   const headingCounts = new Map<string, number>();
   const headings: MarkdownHeading[] = [];
   const h2Pattern = /^##(?!#)\s+(.+?)\s*#*\s*$/gm;
+  const markdownWithoutCodeBlocks = removeFencedCodeBlocks(markdown);
 
-  for (const match of markdown.matchAll(h2Pattern)) {
+  for (const match of markdownWithoutCodeBlocks.matchAll(h2Pattern)) {
     const text = normalizeHeadingText(match[1]);
     if (!text) continue;
 
