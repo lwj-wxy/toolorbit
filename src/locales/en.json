@@ -91,6 +91,10 @@
     "editorial_note": "Each guide is reviewed for practical workflow accuracy and connected to the browser tools that help you apply it.",
     "editorial_policy": "Editorial standards",
     "posts": {
+      "codex-cli-configuration-guide": {
+        "title": "Codex CLI Configuration Guide: Set Up These 6 Things Before Letting It Write Code",
+        "summary": "Configure the model, approval policy, sandbox mode, project config, profiles, and network access so Codex CLI works safely in daily development."
+      },
       "codex-claude-code-skills-must-install": {
         "title": "10 Skills to Install First for Codex and Claude Code",
         "summary": "Set up reusable skills for code review, CI repair, official docs lookup, browser checks, frontend design, documentation, prose cleanup, and security checks."
