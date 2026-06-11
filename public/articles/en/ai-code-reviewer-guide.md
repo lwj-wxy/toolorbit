@@ -2,7 +2,7 @@
 
 **TL;DR:** AI code review is best used as a fast first pass for mechanical issues, edge cases, suspicious patterns, and explanation. Human reviewers should still own architecture, product intent, domain rules, and final approval. Treat AI comments as review candidates, not automatic truth.
 
-Last reviewed: 2026-05-15. Maintained by the [ToolOrbit Editorial Team](/authors/toolorbit-editorial-team).
+Post updated: 2026-05-15. Maintained by the [ToolOrbit Editorial Team](/authors/toolorbit-editorial-team).
 
 Code review is one of the highest-leverage engineering habits, but it is also one of the easiest processes to overload. Senior engineers context-switch into pull requests, junior engineers wait for feedback, and teams debate style issues that could have been caught earlier. AI code review tools can reduce that friction when they are placed correctly in the workflow.
 

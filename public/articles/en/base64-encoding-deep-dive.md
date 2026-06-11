@@ -2,7 +2,7 @@
 
 **TL;DR:** Base64 is encoding, not encryption. It converts binary data into text-safe characters so data can pass through systems that expect text. Use it for transport compatibility, tiny embedded assets, and inspection workflows; do not use it to hide secrets or ship large images.
 
-Last reviewed: 2026-05-15. Maintained by the [ToolOrbit Editorial Team](/authors/toolorbit-editorial-team).
+Post updated: 2026-05-15. Maintained by the [ToolOrbit Editorial Team](/authors/toolorbit-editorial-team).
 
 Base64 is one of those technologies developers meet constantly but often misunderstand. It appears in data URLs, email attachments, JWT segments, API examples, certificates, images embedded in CSS, and copy-pasted blobs from logs. Because the output looks scrambled, beginners sometimes assume it is a security technique. It is not.
 

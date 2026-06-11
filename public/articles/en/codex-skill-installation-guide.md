@@ -4,7 +4,7 @@
 
 Codex skills are reusable instruction packs that teach Codex a workflow, tool convention, or domain-specific operating procedure. Install skills from a trusted source, restart Codex so they are picked up, then invoke them by name or by making a request that matches the skill description. For teams, treat skills like code: version them, review changes, and keep each skill focused on one workflow.
 
-Last reviewed: 2026-05-27. Maintained by the [ToolOrbit Editorial Team](/authors/toolorbit-editorial-team).
+Post updated: 2026-05-27. Maintained by the [ToolOrbit Editorial Team](/authors/toolorbit-editorial-team).
 
 Skills make Codex more consistent. Instead of repeating the same long instruction every time, a skill can define when it should be used, what files to inspect, which scripts to run, and how to report results. OpenAI's [Codex skills documentation](https://developers.openai.com/codex/skills) is the best official starting point for the concept.
 

@@ -2,7 +2,7 @@
 
 Codex CLI is OpenAI's local command-line coding agent. It can read your project, edit files, run commands, and help with development tasks directly from the terminal. The official GitHub README describes Codex CLI as a lightweight coding agent that "runs locally on your computer" and can be installed through the install script, npm, Homebrew, or binary releases.([GitHub][1])
 
-Last reviewed: 2026-06-11. Maintained by the [ToolOrbit Editorial Team](/authors/toolorbit-editorial-team).
+Post updated: 2026-06-11. Maintained by the [ToolOrbit Editorial Team](/authors/toolorbit-editorial-team).
 
 Many first-time users hit the same problem: Codex CLI runs, but the workflow feels uneven. It may ask for command approval too often, fail to write files, skip project-level settings, or use a model and permission setup you did not intend. The issue is often not Codex itself. The basic configuration is missing.
 

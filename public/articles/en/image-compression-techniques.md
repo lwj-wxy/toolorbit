@@ -2,7 +2,7 @@
 
 **TL;DR:** Compress images after choosing the right dimensions and format. Use SVG for vector graphics, WebP or AVIF for many web photos, PNG for transparency-heavy screenshots, and JPEG when compatibility or photographic workflows require it. Always verify visual quality, file size, and layout stability.
 
-Last reviewed: 2026-05-15. Maintained by the [ToolOrbit Editorial Team](/authors/toolorbit-editorial-team).
+Post updated: 2026-05-15. Maintained by the [ToolOrbit Editorial Team](/authors/toolorbit-editorial-team).
 
 Image bloat is one of the most common reasons web pages feel slow. A single unoptimized hero image can weigh more than the rest of the page combined. That affects user experience, conversion, crawl efficiency, and Core Web Vitals. Google's [web.dev image guidance](https://web.dev/learn/performance/image-performance) is clear on the basic principle: send images that are appropriately sized, compressed, and encoded for the user's device.
 

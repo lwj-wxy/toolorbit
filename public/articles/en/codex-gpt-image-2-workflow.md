@@ -4,7 +4,7 @@
 
 Use Codex image generation when the output is a real raster asset: blog covers, hero images, product mockups, thumbnails, textures, or reference visuals. Keep prompts specific, inspect the result, copy the chosen asset into the project, and update the consuming code so the site never depends on a temporary generation path. For repeatable results, document your house style and treat generated images like code: versioned, reviewed, and optimized.
 
-Last reviewed: 2026-05-27. Maintained by the [ToolOrbit Editorial Team](/authors/toolorbit-editorial-team).
+Post updated: 2026-05-27. Maintained by the [ToolOrbit Editorial Team](/authors/toolorbit-editorial-team).
 
 Codex can connect design intent to shipped assets. You can ask Codex to generate the image, inspect it, resize or convert it, save it into the repository, and update the page that uses it in one conversation.
 

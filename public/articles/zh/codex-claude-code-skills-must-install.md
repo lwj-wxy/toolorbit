@@ -6,7 +6,7 @@
 
 Skill 适合放可复用工作流。`AGENTS.md` 和 `CLAUDE.md` 放项目长期规则。MCP 连接外部系统和实时数据。Hook 做强制拦截和自动校验。把这几类东西分开，Agent 更容易选对上下文，你后面也更好维护。
 
-最后审校：2026-06-03。维护者：[ToolOrbit Editorial Team](/authors/toolorbit-editorial-team)。
+博文更新时间：2026-06-03。维护者：[ToolOrbit Editorial Team](/authors/toolorbit-editorial-team)。
 
 ## Skill 是什么
 

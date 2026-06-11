@@ -4,7 +4,7 @@
 
 Claude Code CLI 可以通过 DeepSeek 的 Anthropic API 兼容接口运行。核心配置是把 `ANTHROPIC_BASE_URL` 指向 `https://api.deepseek.com/anthropic`，用 `ANTHROPIC_AUTH_TOKEN` 放入 DeepSeek API Key，再把主模型和轻量模型设置为 DeepSeek 当前适配 Claude Code 的模型名。
 
-最后审校：2026-06-02。维护者：[ToolOrbit 编辑团队](/authors/toolorbit-editorial-team)。
+博文更新时间：2026-06-02。维护者：[ToolOrbit 编辑团队](/authors/toolorbit-editorial-team)。
 
 Claude Code 是 Anthropic 推出的终端编程助手。它可以在项目目录里读代码、改文件、执行命令、排查 Bug、重构模块，也能帮你生成测试和解释复杂代码。对于经常写代码的人来说，它已经不只是一个聊天机器人，更像是一个能直接参与工程工作的 AI 编程同事。
 

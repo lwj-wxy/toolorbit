@@ -4,7 +4,7 @@
 
 ui-ux-pro-max is useful when Codex needs design judgment as well as code completion. Use it before building or fixing a frontend screen so Codex can choose a design system, color direction, typography, layout pattern, UX constraints, and stack-specific implementation guidance. The skill covers 67 visual styles, 96 color palettes, 57 font pairings, 25 chart types, and 13 frontend stacks. Give it product context, audience, and the UX problem rather than only saying "make it look good."
 
-Last reviewed: 2026-05-27. Maintained by the [ToolOrbit Editorial Team](/authors/toolorbit-editorial-team).
+Post updated: 2026-05-27. Maintained by the [ToolOrbit Editorial Team](/authors/toolorbit-editorial-team).
 
 Many AI-built interfaces fail for the same reason: the code works, but the screen has no product judgment. Cards are too large, colors are one-note, spacing is inconsistent, controls do not match the task, and the first screen feels like a generic landing page.
 

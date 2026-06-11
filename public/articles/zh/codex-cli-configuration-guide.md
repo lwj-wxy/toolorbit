@@ -2,7 +2,7 @@
 
 Codex CLI 是 OpenAI 推出的本地命令行 coding agent，可以直接在你的终端里读取项目、修改文件、运行命令，并辅助完成开发任务。官方 GitHub README 也明确说明，Codex CLI 是一个 "runs locally on your computer" 的轻量级 coding agent，支持通过安装脚本、npm、Homebrew 或二进制包安装。([GitHub][1])
 
-最后审校：2026-06-11。维护者：[ToolOrbit Editorial Team](/authors/toolorbit-editorial-team)。
+博文更新时间：2026-06-11。维护者：[ToolOrbit Editorial Team](/authors/toolorbit-editorial-team)。
 
 很多人第一次用 Codex CLI 时会遇到同一个问题：工具能跑，但体验不稳定。有时它频繁问你要不要批准命令，有时它不能写文件，有时项目配置不生效，有时模型和权限不是你想要的默认值。问题不一定出在 Codex 本身，而是你还没把基础配置理顺。
 

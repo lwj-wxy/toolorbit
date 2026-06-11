@@ -2,7 +2,7 @@
 
 **TL;DR:** A JSON formatter validates syntax, improves readability, supports debugging, and prepares payloads for JSON-to-TypeScript generation, XML conversion, and text diffing. Use a formatter before comparing payloads, documenting APIs, or sharing examples with a team.
 
-Last reviewed: 2026-05-15. Maintained by the [ToolOrbit Editorial Team](/authors/toolorbit-editorial-team).
+Post updated: 2026-05-15. Maintained by the [ToolOrbit Editorial Team](/authors/toolorbit-editorial-team).
 
 JSON (JavaScript Object Notation) is the default data format for modern APIs, configuration files, webhooks, logs, and serverless events. The format is intentionally small and language-neutral, which is why it works across browsers, mobile apps, cloud workers, CLI scripts, and backend services. The official [JSON specification at JSON.org](https://www.json.org/json-en.html) is short enough to read in one sitting, but real production JSON is rarely short enough to inspect by eye.
 

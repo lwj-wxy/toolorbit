@@ -2,7 +2,7 @@
 
 Claude Code 能读代码、改文件、运行命令、调用工具，也能连续完成多步开发任务。它越主动，你越需要先把边界讲清楚。配置没做好时，常见问题通常不是模型不会写代码，而是它不知道项目规则、频繁打断你，或者碰到不该碰的文件。
 
-最后审校：2026-06-11。维护者：[ToolOrbit Editorial Team](/authors/toolorbit-editorial-team)。
+博文更新时间：2026-06-11。维护者：[ToolOrbit Editorial Team](/authors/toolorbit-editorial-team)。
 
 使用 Claude Code 前，建议先把这 7 件事配好：配置文件层级、权限、项目记忆、忽略规则、MCP、Hooks、环境变量。配完之后，它更像一个知道项目边界、遵守团队规范、能安全协作的结对程序员。
 

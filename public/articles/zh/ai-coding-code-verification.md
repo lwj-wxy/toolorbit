@@ -1,6 +1,6 @@
 # AI Coding 工具真正改变的不是写代码，而是验证代码
 
-最后审校：2026-06-11。维护者：[ToolOrbit Editorial Team](/authors/toolorbit-editorial-team)。
+博文更新时间：2026-06-11。维护者：[ToolOrbit Editorial Team](/authors/toolorbit-editorial-team)。
 
 ## 引言：代码生成变快了，但真正的难题没有消失
 

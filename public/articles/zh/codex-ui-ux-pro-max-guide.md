@@ -4,7 +4,7 @@
 
 ui-ux-pro-max 适合在 Codex 需要做设计判断时使用，而不是只补代码。做新页面、改工具区布局、优化仪表盘、检查移动端体验前，先让它给出设计系统、色彩、字体、布局模式、UX 约束和技术栈建议。这个 Skill 覆盖 67 种视觉风格、96 套色彩方案、57 种字体搭配、25 种图表类型和 13 个前端技术栈。给它产品上下文、用户群体和 UX 问题，而不是只说"做好看一点"。
 
-最后审校：2026-05-27。维护者：[ToolOrbit Editorial Team](/authors/toolorbit-editorial-team)。
+博文更新时间：2026-05-27。维护者：[ToolOrbit Editorial Team](/authors/toolorbit-editorial-team)。
 
 很多 AI 生成界面的问题不是代码跑不起来，而是缺少产品判断：卡片过大、颜色单一、间距不统一、控件不像真实工具、首屏像模板落地页。
 

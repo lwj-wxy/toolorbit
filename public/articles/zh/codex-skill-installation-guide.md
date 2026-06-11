@@ -4,7 +4,7 @@
 
 Codex Skill 是一组可复用的工作流说明，用来告诉 Codex 在某类任务中应该如何读文件、用工具、跑脚本、校验和交付。安装时要选择可信来源，安装后重启 Codex，再通过技能名称或匹配场景触发使用。团队使用时，把 Skill 当代码管理：版本化、审查变更、每个 Skill 只聚焦一个工作流。
 
-最后审校：2026-05-27。维护者：[ToolOrbit Editorial Team](/authors/toolorbit-editorial-team)。
+博文更新时间：2026-05-27。维护者：[ToolOrbit Editorial Team](/authors/toolorbit-editorial-team)。
 
 Skill 能让 Codex 的行为更稳定。你不需要每次重复一大段说明，而是把"什么时候用、怎么做、要避开什么、最后交付什么"写进一个 Skill。OpenAI 的 [Codex Skills 文档](https://developers.openai.com/codex/skills) 是理解这个机制的官方入口。
 

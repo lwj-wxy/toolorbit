@@ -6,7 +6,7 @@ If you keep pasting the same instructions into Codex or Claude Code, move those 
 
 Use skills for reusable workflows. Use `AGENTS.md` and `CLAUDE.md` for long-lived project rules. Use MCP for external systems and live data. Use hooks for hard stops and automated checks. Keeping those layers separate makes the agent easier to steer and the setup easier to maintain.
 
-Last reviewed: 2026-06-03. Maintained by the [ToolOrbit Editorial Team](/authors/toolorbit-editorial-team).
+Post updated: 2026-06-03. Maintained by the [ToolOrbit Editorial Team](/authors/toolorbit-editorial-team).
 
 ## What a Skill Is
 

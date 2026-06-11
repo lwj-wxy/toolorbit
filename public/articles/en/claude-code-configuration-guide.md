@@ -2,7 +2,7 @@
 
 Claude Code can read code, edit files, run commands, call tools, and complete multi-step development tasks. The more active it becomes, the more it needs clear boundaries. When the setup is weak, the problem is often not that the model cannot write code. It lacks project rules, interrupts too often, or reaches files it should not touch.
 
-Last reviewed: 2026-06-11. Maintained by the [ToolOrbit Editorial Team](/authors/toolorbit-editorial-team).
+Post updated: 2026-06-11. Maintained by the [ToolOrbit Editorial Team](/authors/toolorbit-editorial-team).
 
 Before using Claude Code in a real project, set up these 7 areas: settings scopes, permissions, project memory, ignore rules, MCP, hooks, and environment variables. Once they are in place, Claude Code behaves more like a pair programmer who understands project boundaries, team conventions, and safe collaboration.
 

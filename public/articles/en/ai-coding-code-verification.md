@@ -1,6 +1,6 @@
 # AI Coding Tools Change Code Verification More Than Code Writing
 
-Last reviewed: 2026-06-11. Maintained by [ToolOrbit Editorial Team](/authors/toolorbit-editorial-team).
+Post updated: 2026-06-11. Maintained by [ToolOrbit Editorial Team](/authors/toolorbit-editorial-team).
 
 ## Introduction: Code generation is faster, but the hard problem remains
 
