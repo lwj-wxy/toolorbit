@@ -91,6 +91,10 @@
     "editorial_note": "Each guide is reviewed for practical workflow accuracy and connected to the browser tools that help you apply it.",
     "editorial_policy": "Editorial standards",
     "posts": {
+      "ai-coding-code-verification": {
+        "title": "7 Key Insights: AI Coding Tools Change Code Verification More Than Code Writing",
+        "summary": "AI coding tools are changing code verification more than code writing. This article analyzes how AI programming tools reshape software development workflows, code review, test verification, engineering quality, and core developer skills."
+      },
       "claude-code-configuration-guide": {
         "title": "Claude Code Configuration Guide: Set Up These 7 Things First",
         "summary": "Configure permissions, project memory, ignore rules, MCP, hooks, environment variables, and team settings so Claude Code works safely in real projects."

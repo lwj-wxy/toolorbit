@@ -143,10 +143,12 @@
 
 ## 博客
 
-当前博客收录 **49 篇文章**，覆盖 AI 工具链、开发工作流、电商费用、图片与 PDF 处理、编码和安全等主题。
+当前博客收录 **51 篇文章**，覆盖 AI 工具链、开发工作流、电商费用、图片与 PDF 处理、编码和安全等主题。
 
 | 日期 | 分类 | 文章 |
 |------|------|------|
+| 2026-06-11 | AI | [7 个关键洞察：AI Coding 工具真正改变的不是写代码，而是验证代码](https://toolorbit.site/zh-CN/blog/ai-coding-code-verification) |
+| 2026-06-11 | AI | [Claude Code 配置指南：先把这 7 件事配好](https://toolorbit.site/zh-CN/blog/claude-code-configuration-guide) |
 | 2026-06-11 | AI | [Codex CLI 实用配置指南：先把这 6 件事配好，再开始让它写代码](https://toolorbit.site/zh-CN/blog/codex-cli-configuration-guide) |
 | 2026-06-03 | AI | [Codex 和 Claude Code 该先装的 10 个 Skill](https://toolorbit.site/zh-CN/blog/codex-claude-code-skills-must-install) |
 | 2026-06-02 | AI | [用 DeepSeek API 跑 Claude Code CLI：更省钱的终端编程助手配置方案](https://toolorbit.site/zh-CN/blog/claude-code-cli-deepseek-api-guide) |

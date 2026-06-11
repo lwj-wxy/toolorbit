@@ -143,10 +143,12 @@ ToolOrbit currently includes **77 tools** across 10 categories.
 
 ## Blog
 
-The blog currently includes **49 articles** covering AI toolchains, developer workflows, ecommerce fees, image and PDF processing, encoding, and security.
+The blog currently includes **51 articles** covering AI toolchains, developer workflows, ecommerce fees, image and PDF processing, encoding, and security.
 
 | Date | Category | Article |
 |------|----------|---------|
+| 2026-06-11 | AI | [7 Key Insights: AI Coding Tools Change Code Verification More Than Code Writing](https://toolorbit.site/blog/ai-coding-code-verification) |
+| 2026-06-11 | AI | [Claude Code Configuration Guide: Set Up These 7 Things First](https://toolorbit.site/blog/claude-code-configuration-guide) |
 | 2026-06-11 | AI | [Codex CLI Configuration Guide: Set Up These 6 Things Before Letting It Write Code](https://toolorbit.site/blog/codex-cli-configuration-guide) |
 | 2026-06-03 | AI | [10 Skills to Install First for Codex and Claude Code](https://toolorbit.site/blog/codex-claude-code-skills-must-install) |
 | 2026-06-02 | AI | [Run Claude Code CLI with the DeepSeek API: A Lower-Cost Terminal Coding Assistant Setup](https://toolorbit.site/blog/claude-code-cli-deepseek-api-guide) |
