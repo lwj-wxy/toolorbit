@@ -616,9 +616,6 @@ export default function ResumeOptimizer() {
               <h2 className="text-sm font-semibold text-slate-950 dark:text-white">
                 {t('tools.ai-resume-optimizer.resultTitle') || 'Optimized resume'}
               </h2>
-              <p className="mt-1 text-xs leading-5 text-slate-500 dark:text-slate-400">
-                {t('tools.ai-resume-optimizer.resultHint') || 'Copy the polished resume after checking all facts and dates.'}
-              </p>
             </div>
             {result ? (
               <div className="flex shrink-0 items-center gap-2">
@@ -658,7 +655,7 @@ export default function ResumeOptimizer() {
                 ref={resumePreviewRef}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className={`prose prose-slate mx-auto min-h-[920px] w-full max-w-[760px] bg-white px-8 py-10 text-[13.5px] leading-6 shadow-sm ring-1 ring-slate-200 dark:prose-invert dark:bg-[#282c34] dark:ring-slate-700 prose-headings:font-semibold prose-h1:mb-1 prose-h1:text-center prose-h1:text-3xl prose-h1:tracking-tight prose-h2:mt-7 prose-h2:mb-3 prose-h2:text-base prose-h2:uppercase prose-h2:tracking-wide prose-p:my-2 prose-ul:my-2 prose-li:my-1 ${
+                className={`prose prose-slate mx-auto min-h-[920px] w-full max-w-[760px] bg-white px-8 py-10 text-[13.5px] leading-6 shadow-sm ring-1 ring-slate-200 dark:prose-invert dark:bg-[#282c34] dark:ring-slate-700 prose-headings:font-semibold prose-h1:mb-1 prose-h1:text-center prose-h1:text-3xl prose-h1:tracking-tight prose-h2:mt-7 prose-h2:mb-3 prose-h2:text-base prose-h2:uppercase prose-h2:tracking-wide prose-p:my-2 prose-ul:my-2 prose-li:my-1 [&_h1+p]:text-center [&_h1+p+p]:text-center ${
                   templateStyle === 'compact'
                     ? 'px-7 py-8 text-[13px] leading-5 prose-h2:mt-5 prose-p:my-1 prose-ul:my-1 prose-li:my-0.5'
                     : templateStyle === 'modern'
