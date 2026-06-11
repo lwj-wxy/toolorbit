@@ -5,51 +5,50 @@
 
 :root {
   color-scheme: light;
-  --app-bg: #f6faf5;
-  --app-bg-soft: #fbfcf7;
+  --app-bg: #ffffff;
+  --app-bg-soft: #f7f7f9;
   --app-surface: #ffffff;
   --app-surface-strong: #ffffff;
-  --app-text: #26323f;
-  --app-muted: #718096;
-  --app-border: #e0e8dc;
-  --app-accent: #35ad72;
-  --app-accent-strong: #218557;
-  --app-accent-ink: #176c49;
-  --app-accent-soft: #e7f6ee;
-  --app-accent-warm: #f08a3c;
-  --app-accent-warm-soft: #fff0e3;
-  --app-success: #2f7d4f;
+  --app-text: #111827;
+  --app-muted: #6b7280;
+  --app-border: #e5e7eb;
+  --app-accent: #6366f1;
+  --app-accent-strong: #4f46e5;
+  --app-accent-ink: #4f46e5;
+  --app-accent-soft: #eef2ff;
+  --app-accent-warm: #7c3aed;
+  --app-accent-warm-soft: #f3efff;
+  --app-success: #16a34a;
   --app-danger: #b42318;
-  --app-info: #315f8c;
+  --app-info: #6366f1;
   --app-warning: #b7791f;
 }
 
 :root.dark {
   color-scheme: dark;
-  --app-bg: #102018;
-  --app-bg-soft: #14291f;
-  --app-surface: #17271f;
-  --app-surface-strong: #1d3026;
-  --app-text: #e8f2ec;
-  --app-muted: #adc2b6;
-  --app-border: #2d4a3a;
-  --app-accent: #52c98d;
-  --app-accent-strong: #8be2b2;
-  --app-accent-ink: #b8f1ce;
-  --app-accent-soft: #193d2b;
-  --app-accent-warm: #f2a35d;
-  --app-accent-warm-soft: #412817;
-  --app-success: #52c98d;
+  --app-bg: #0f1220;
+  --app-bg-soft: #15182a;
+  --app-surface: #181b2e;
+  --app-surface-strong: #1f2338;
+  --app-text: #eef2ff;
+  --app-muted: #a7adbd;
+  --app-border: #2c3148;
+  --app-accent: #818cf8;
+  --app-accent-strong: #a5b4fc;
+  --app-accent-ink: #c7d2fe;
+  --app-accent-soft: #252a4a;
+  --app-accent-warm: #c084fc;
+  --app-accent-warm-soft: #302243;
+  --app-success: #22c55e;
   --app-danger: #f87171;
-  --app-info: #9ed0ff;
+  --app-info: #a5b4fc;
   --app-warning: #f4bf70;
 }
 
 body {
   @apply antialiased transition-colors duration-300;
   min-height: 100svh;
-  background:
-    linear-gradient(180deg, var(--app-bg-soft) 0%, var(--app-bg) 48%, #f3f8f1 100%);
+  background: var(--app-bg);
   color: var(--app-text);
   font-family:
     "Plus Jakarta Sans",
@@ -65,10 +64,7 @@ body {
 }
 
 :root.dark body {
-  background:
-    radial-gradient(circle at 12% 0%, color-mix(in srgb, var(--app-accent) 12%, transparent), transparent 32rem),
-    radial-gradient(circle at 86% 8%, color-mix(in srgb, var(--app-accent-warm) 10%, transparent), transparent 28rem),
-    linear-gradient(180deg, var(--app-bg-soft) 0%, var(--app-bg) 100%);
+  background: var(--app-bg);
 }
 
 ::selection {
@@ -84,7 +80,7 @@ summary {
 .tool-surface {
   @apply rounded-lg;
   border: 1px solid color-mix(in srgb, var(--app-border) 88%, transparent);
-  background: linear-gradient(180deg, color-mix(in srgb, var(--app-surface-strong) 94%, transparent), var(--app-surface));
+  background: var(--app-surface);
 }
 
 .info-band {
@@ -144,7 +140,7 @@ summary {
 .bg-sky-700,
 .bg-sky-600,
 .bg-sky-500 {
-  background: linear-gradient(180deg, var(--app-accent), var(--app-accent-strong)) !important;
+  background-color: var(--app-accent) !important;
   color: #ffffff !important;
 }
 
@@ -285,7 +281,7 @@ summary {
 }
 
 #main-content :where(.bg-blue-600, .bg-blue-700, .bg-cyan-600, .bg-cyan-700, .bg-sky-600, .bg-sky-700) {
-  background: linear-gradient(180deg, var(--app-accent), var(--app-accent-strong)) !important;
+  background-color: var(--app-accent) !important;
   color: #ffffff !important;
 }
 

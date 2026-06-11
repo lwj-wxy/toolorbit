@@ -115,7 +115,7 @@ export default function LayoutHeaderClient() {
             to="/"
             className="flex shrink-0 items-center gap-2 text-[16px] font-bold tracking-tight text-[var(--app-text)] transition-colors hover:text-[var(--app-accent-ink)] dark:text-[var(--app-text)] dark:hover:text-[var(--app-accent-ink)] lg:gap-[10px]"
           >
-            <div className="flex h-7 w-7 items-center justify-center rounded-md bg-[linear-gradient(180deg,var(--app-accent),var(--app-accent-strong))] text-[11px] font-bold text-white lg:h-8 lg:w-8">
+            <div className="flex h-7 w-7 items-center justify-center rounded-md bg-[var(--app-accent)] text-[11px] font-bold text-white lg:h-8 lg:w-8">
               TO
             </div>
             <span className="hidden sm:inline">{t('common.logoName')}</span>

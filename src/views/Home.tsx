@@ -176,10 +176,10 @@ const YoutubeHeroTrial = ({ isZh }: { isZh: boolean }) => {
             </span>
             <div>
               <h2 className="text-base font-semibold text-slate-950 dark:text-white">
-                {isZh ? 'YouTube 标题与简介生成器' : 'YouTube Title & Description Generator'}
+                {isZh ? 'YouTube 发布文案生成器' : 'YouTube Upload Copy Generator'}
               </h2>
               <p className="mt-0.5 text-[13px] text-slate-500 dark:text-slate-400">
-                {isZh ? '输入主题，先生成一版可修改草稿。' : 'Enter a topic and get an editable draft.'}
+                {isZh ? '根据视频主题生成标题、简介和标签建议。' : 'Generate title, description, and tag suggestions from a video topic.'}
               </p>
             </div>
           </div>
@@ -199,16 +199,16 @@ const YoutubeHeroTrial = ({ isZh }: { isZh: boolean }) => {
           <button
             type="submit"
             disabled={loading || !topic.trim()}
-            className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-[linear-gradient(180deg,var(--app-accent),var(--app-accent-strong))] px-4 text-sm font-semibold text-white transition-colors hover:bg-[var(--app-accent-strong)] disabled:cursor-not-allowed disabled:opacity-50 dark:bg-[var(--app-accent)] dark:hover:bg-[var(--app-accent-strong)]"
+            className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-[var(--app-accent)] px-4 text-sm font-semibold text-white transition-colors hover:bg-[var(--app-accent-strong)] disabled:cursor-not-allowed disabled:opacity-50 dark:bg-[var(--app-accent)] dark:hover:bg-[var(--app-accent-strong)]"
           >
             {loading ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> : <Sparkles className="h-4 w-4" aria-hidden="true" />}
-            {loading ? (isZh ? '生成中' : 'Generating') : isZh ? '生成文案' : 'Generate copy'}
+            {loading ? (isZh ? '生成中' : 'Generating') : isZh ? '生成建议' : 'Generate suggestions'}
           </button>
           <Link
             to="/tools/ai/youtube-generator"
             className="inline-flex h-11 w-full items-center justify-center gap-1.5 rounded-lg border border-slate-200 bg-white px-4 text-sm font-semibold text-slate-700 transition-shadow hover:shadow-sm dark:border-slate-700 dark:bg-slate-900/50 dark:text-slate-200"
           >
-            {isZh ? '完整工具' : 'Full tool'}
+            {isZh ? '打开完整工具' : 'Open full tool'}
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>
         </div>
@@ -225,7 +225,7 @@ const YoutubeHeroTrial = ({ isZh }: { isZh: boolean }) => {
 
           {loading && !result ? (
             <p className="text-sm leading-6 text-slate-500 dark:text-slate-400">
-              {isZh ? '正在生成标题、简介和标签。' : 'Generating titles, description, and tags.'}
+              {isZh ? '正在生成标题、简介和标签建议。' : 'Generating title, description, and tag suggestions.'}
             </p>
           ) : null}
 
@@ -482,18 +482,18 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
 
   return (
     <div className="flex flex-col gap-8 pb-12">
-      <section className="bg-[linear-gradient(180deg,rgba(255,255,255,0.78)_0%,rgba(247,251,243,0.62)_100%)] px-4 py-10 text-center dark:bg-[linear-gradient(180deg,rgba(20,41,31,0.82)_0%,rgba(16,32,24,0.72)_100%)] sm:px-6 sm:py-12">
+      <section className="bg-transparent px-4 py-10 text-center sm:px-6 sm:py-12">
         <div className="mx-auto max-w-4xl">
           <p className="mb-3 text-[12px] font-semibold uppercase tracking-wide text-[var(--app-accent-ink)] dark:text-[var(--app-accent-ink)]">
-            {isZh ? 'YouTube AI 工具' : 'YouTube AI tool'}
+            {isZh ? 'YouTube 内容工具' : 'YouTube content tool'}
           </p>
           <h1 className="mx-auto max-w-3xl text-3xl font-semibold leading-tight tracking-tight text-slate-950 dark:text-white sm:text-4xl">
-            {isZh ? '输入视频主题，生成标题与简介' : 'Generate YouTube titles and descriptions from a topic'}
+            {isZh ? '生成适合发布的 YouTube 标题与简介' : 'Generate YouTube titles and descriptions for publishing'}
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-[15px] leading-7 text-slate-600 dark:text-slate-400">
             {isZh
-              ? '先生成一版标题、简介和标签草稿，再进入完整工具细调缩略图创意。'
-              : 'Create a first draft for titles, descriptions, and tags, then open the full tool for thumbnail ideas.'}
+              ? '输入视频主题，获取标题、简介和标签建议，减少发布前的元数据整理时间。'
+              : 'Enter a video topic to get title, description, and tag suggestions before you publish.'}
           </p>
 
           <YoutubeHeroTrial isZh={isZh} />
@@ -526,7 +526,7 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
               {t(`common.categories.${HOME_PRIMARY_CATEGORY}`)}
             </Link>
             <h2 className="mt-4 text-2xl font-semibold tracking-tight text-slate-950 dark:text-white">
-              {isZh ? '先选任务，再选工具' : 'Pick a task, then a tool'}
+              {isZh ? '按使用场景查找 AI 工具' : 'Find AI tools by use case'}
             </h2>
           </div>
           <Link

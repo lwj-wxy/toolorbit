@@ -17,7 +17,7 @@ export default function Layout({ children }: LayoutProps) {
         Skip to main content
       </a>
 
-      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden bg-[linear-gradient(to_bottom,var(--app-bg-soft)_0%,var(--app-bg)_52%,#f3f8f1_100%)] dark:bg-[linear-gradient(to_bottom,var(--app-bg-soft)_0%,var(--app-bg)_100%)]">
+      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden bg-[var(--app-bg)] dark:bg-[var(--app-bg)]">
         <div className="absolute inset-x-0 top-0 h-px bg-[color-mix(in_srgb,var(--app-accent)_34%,transparent)]" />
       </div>
 
