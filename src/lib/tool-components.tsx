@@ -27,6 +27,7 @@ export const toolComponentMap: Record<string, ToolComponent> = {
   '/tools/ai/prompt-generator': lazyTool(() => import('../views/tools/ai/PromptGenerator')),
   '/tools/ai/video-script': lazyTool(() => import('../views/tools/ai/VideoScript')),
   '/tools/ai/resume-optimizer': lazyTool(() => import('../views/tools/ai/ResumeOptimizer')),
+  '/tools/ai/hs-code-assistant': lazyTool(() => import('../views/tools/ai/HsCodeAssistant')),
   '/tools/ai/excel-formula': lazyTool(() => import('../views/tools/ai/ExcelFormula')),
   '/tools/ai/regex': lazyTool(() => import('../views/tools/ai/RegexGenerator')),
   '/tools/ai/svg-generator': lazyTool(() => import('../views/tools/ai/SvgGenerator')),

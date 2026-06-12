@@ -28,6 +28,7 @@ const AI_TOOL_CATEGORIES: Record<string, AiToolCategory> = {
   'ai-video-script': 'copy',
   'youtube-generator': 'copy',
   'ai-resume-optimizer': 'document',
+  'ai-hs-code-assistant': 'document',
   'ai-excel-formula': 'document',
   'ai-regex': 'code',
   'ai-image-generator': 'image',
@@ -416,6 +417,62 @@ Please generate a comprehensive listing including title, bullet points, SEO desc
             content: [
               `Resume text:\n${body.resumeText || ''}`,
               `\nTarget job description:\n${body.jobDescription || ''}`,
+            ].join('\n'),
+          },
+        ],
+      };
+    }
+    case 'ai-hs-code-assistant': {
+      const outputLanguage = body.outputLanguage === 'Simplified Chinese' || body.interfaceLanguage?.startsWith?.('zh')
+        ? 'Simplified Chinese'
+        : 'English';
+      const officialLookupLabel = body.officialLookup?.label || 'official tariff lookup';
+      const officialLookupUrl = body.officialLookup?.url || 'https://www.wcoomd.org/en/topics/nomenclature/overview/what-is-the-harmonized-system.aspx';
+
+      return {
+        model: DEEPSEEK_TEXT_MODEL,
+        messages: [
+          {
+            role: 'system',
+            content: [
+              'You are a customs documentation assistant for cross-border sellers.',
+              'You help prepare an AI-assisted product classification brief. You do not provide a final customs ruling.',
+              `Output language: ${outputLanguage}.`,
+              outputLanguage === 'Simplified Chinese'
+                ? 'For Simplified Chinese output: customsName and invoiceDescription must be clean English customs wording only; classificationBrief, whyItMayFit, whyItMayNotFit, questionsToConfirm, brokerQuestions, missingInformation, and disclaimer must be Simplified Chinese. Do not mix Chinese and English inside one sentence unless it is a product term, HS heading, agency name, or official database name.'
+                : 'For English output: write all text fields in English.',
+              'Return JSON only. Do not wrap the JSON in Markdown fences. Do not add any preface.',
+              'Never claim that a code is final, guaranteed, official, legally binding, or safe to use without verification.',
+              'Give 1 to 2 HS candidate directions by default. Use a third candidate only when the product facts clearly support another realistic direction.',
+              'Use code patterns such as "3924.xx" or "4202.xx" when exact target-market digits are uncertain.',
+              'Keep each candidate explanation concise: one sentence for whyItMayFit, one sentence for whyItMayNotFit, and no more than 3 questionsToConfirm.',
+              'Keep brokerQuestions and missingInformation practical. Each list should usually contain 3 to 5 items.',
+              'If the input lacks key facts, lower confidence and list missingInformation instead of forcing a confident answer.',
+              'For each candidate, explain why it may fit, why it may not fit, and questions to confirm.',
+              'Consider material, intended use, product form, function, set composition, food contact, batteries, electronics, children use, medical use, animal or plant materials, and destination market.',
+              'Do not calculate duties, VAT, import taxes, anti-dumping duties, or license requirements.',
+              'Use this exact JSON shape:',
+              '{"customsName":string,"invoiceDescription":string,"classificationBrief":string,"summary":{"material":string,"use":string,"market":string},"candidates":[{"codePattern":string,"confidence":"High"|"Medium"|"Low","whyItMayFit":string,"whyItMayNotFit":string,"questionsToConfirm":string[]}],"brokerQuestions":string[],"missingInformation":string[],"riskLevel":"Low"|"Medium"|"High","officialLookup":{"label":string,"url":string},"disclaimer":string}',
+            ].join('\n'),
+          },
+          {
+            role: 'user',
+            content: [
+              `Product name: ${body.productName || ''}`,
+              `Main material: ${body.material || ''}`,
+              `Product use: ${body.productUse || ''}`,
+              `Destination market: ${body.targetMarket || ''}`,
+              `Battery: ${body.battery || ''}`,
+              `Electronics: ${body.electronics || ''}`,
+              `Sold as set: ${body.setSold || ''}`,
+              `Package contents: ${body.packageContents || ''}`,
+              `Product form: ${body.productForm || ''}`,
+              `User group: ${body.userGroup || ''}`,
+              `Brand or model: ${body.brandModel || ''}`,
+              `Unit weight: ${body.unitWeight || ''}`,
+              `Risk flags: ${Array.isArray(body.riskFlags) ? body.riskFlags.join(', ') : ''}`,
+              `Official lookup label: ${officialLookupLabel}`,
+              `Official lookup URL: ${officialLookupUrl}`,
             ].join('\n'),
           },
         ],

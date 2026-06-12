@@ -33,7 +33,7 @@ const AI_WORKFLOW_GROUPS = [
     id: 'content',
     titleZh: '内容创作',
     titleEn: 'Content',
-    toolIds: ['ai-video-script', 'ai-xiaohongshu', 'ai-text-polisher', 'ai-translator'],
+    toolIds: ['ai-youtube-generator', 'ai-video-script', 'ai-xiaohongshu', 'ai-text-polisher', 'ai-translator'],
   },
   {
     id: 'visual',
@@ -49,9 +49,9 @@ const AI_WORKFLOW_GROUPS = [
   },
   {
     id: 'commerce',
-    titleZh: '电商增长',
-    titleEn: 'Commerce',
-    toolIds: ['listing-generator', 'keyword-analyzer', 'competitor-tracker', 'market-insights'],
+    titleZh: '出海与电商',
+    titleEn: 'Global commerce',
+    toolIds: ['ai-hs-code-assistant', 'listing-generator', 'keyword-analyzer', 'competitor-tracker', 'market-insights'],
   },
 ];
 
@@ -417,13 +417,29 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
   }, [categoryFilter, searchQuery, t, visibleTools]);
 
   const aiWorkflowGroups = useMemo(
-    () =>
-      AI_WORKFLOW_GROUPS.map((group) => ({
+    () => {
+      const groupedToolIds = new Set(AI_WORKFLOW_GROUPS.flatMap((group) => group.toolIds));
+      const configuredGroups = AI_WORKFLOW_GROUPS.map((group) => ({
         ...group,
         tools: group.toolIds
           .map((toolId) => primaryTools.find((tool) => tool.id === toolId))
           .filter((tool): tool is ToolItem => Boolean(tool)),
-      })).filter((group) => group.tools.length > 0),
+      })).filter((group) => group.tools.length > 0);
+      const ungroupedTools = primaryTools.filter((tool) => !groupedToolIds.has(tool.id));
+
+      if (ungroupedTools.length === 0) return configuredGroups;
+
+      return [
+        ...configuredGroups,
+        {
+          id: 'more',
+          titleZh: '更多 AI 工具',
+          titleEn: 'More AI tools',
+          toolIds: ungroupedTools.map((tool) => tool.id),
+          tools: ungroupedTools,
+        },
+      ];
+    },
     [primaryTools],
   );
 

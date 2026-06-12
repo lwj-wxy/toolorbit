@@ -63,6 +63,15 @@ const RAW_TOOLS_META = [
     isPopular: true,
   },
   {
+    id: 'ai-hs-code-assistant',
+    name: 'AI HS 编码与报关品名助手',
+    description: '根据商品名称、材质、用途和目标市场生成英文报关品名、HS 候选方向和复核问题。',
+    category: 'AI 工具',
+    path: '/tools/ai/hs-code-assistant',
+    color: 'amber',
+    isPopular: true,
+  },
+  {
     id: 'ai-excel-formula',
     name: 'AI Excel 公式助手',
     description: '用自然语言描述表格需求，生成 Excel 或 Google Sheets 公式并说明用法。',

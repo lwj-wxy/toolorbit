@@ -51,6 +51,7 @@ import {
   CalendarDays,
   Globe2,
   Brain,
+  PackageSearch,
 } from 'lucide-react';
 import { TOOLS_META, type Category, type ToolMeta } from './tools-meta';
 
@@ -64,6 +65,7 @@ const iconMap: Record<string, ComponentType<any>> = {
   'ai-prompt-generator': ImageIcon,
   'ai-video-script': Clapperboard,
   'ai-resume-optimizer': FileText,
+  'ai-hs-code-assistant': PackageSearch,
   'ai-excel-formula': FileSpreadsheet,
   'ai-regex': Terminal,
   'logo-generator': Hexagon,

@@ -6,6 +6,47 @@ type BilingualOverview = {
 };
 
 export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
+  'ai-hs-code-assistant': {
+    zh: {
+      summary:
+        'AI HS 编码与报关品名助手用于把商品名称、用途、材质、销售形态和目标市场整理成一份可交给报关行或内部合规同事复核的商品归类简报。它不直接给出最终 HS 编码，也不计算关税税率，而是输出英文报关品名、HS 候选方向、归类依据、缺失信息和需要人工确认的问题。适合跨境卖家、独立站运营、采购或产品上架人员在准备新品出海资料时，先把零散商品信息整理成规范的 customs description draft，再去目标市场官方查询系统或向报关行确认最终归类。',
+      input:
+        '核心输入包括商品名称、主要用途、材质或成分、目标市场、是否含电池、是否含电子元件、是否成套销售、包装内容、商品形态、用户群体、品牌型号、单件重量和风险标签。商品名称、用途、材质和目标市场是主要判断依据；电池、电子元件、套装销售、液体粉末、食品接触、儿童用品、磁性、无线通信、医疗宣称和化妆品接触等风险标签用于提醒模型识别可能触发额外申报、认证或人工复核的问题。输出语言可选中文或英文，便于中文团队内部沟通或直接准备英文报关沟通材料。',
+      output:
+        '工具返回一份结构化 JSON 结果，并在页面中拆分为多个可复制区域：customsName 是英文报关品名草稿，invoiceDescription 是商业发票描述，classificationBrief 是给货代或报关行阅读的商品归类说明；candidates 最多提供 3 个 HS 候选方向，每个候选项包含编码前缀、置信度、可能匹配原因、不适用风险和需要进一步确认的问题；brokerQuestions 列出应该向供应商、报关行或内部合规人员确认的问题；missingInformation 标出当前输入仍缺少的关键信息；riskLevel 标记整体风险级别；disclaimer 明确提醒用户必须以官方税则查询、BTI/CROSS 类裁定数据库或持牌报关意见为准。',
+      processing:
+        '用户填写表单后，前端将 productName、productUse、material、targetMarket、battery、electronics、setSold、packageContents、productForm、userGroup、brandModel、unitWeight、riskFlags、outputLanguage 和当前界面语言通过 fetch POST 发送到 /api/ai-hs-code-assistant。服务端根据目标市场选择对应的官方查询入口提示信息，例如美国 HTS Search、欧盟 TARIC、英国 Trade Tariff 或加拿大 Customs Tariff，再将商品资料和风险标签写入系统提示词。模型被约束为只返回 JSON，不允许输出最终裁定口吻，不允许计算税费，并且候选 HS 方向最多 3 个。前端读取 JSON 后渲染报关品名、候选表、复核问题、缺失信息和官方查询入口；如果 JSON 解析失败或接口异常，页面会显示错误提示并保留表单内容供用户修正后重试。',
+      modes: ['目标市场选择（US/EU/UK/Canada/Other）', '商品资料结构化输入', '电池/无线/儿童用品等风险标签', '英文报关品名草稿', '最多 3 个 HS 候选方向', '报关行复核问题', '官方查询入口提示', '单项复制'],
+      example: {
+        title: '硅胶折叠水杯归类简报示例',
+        input: '商品名称: Foldable silicone drinking cup\n用途: Reusable cup for outdoor travel and daily drinking\n材质: Food-grade silicone with plastic rim\n目标市场: US\n包装内容: 1 cup with lid\n商品形态: Finished consumer product\n风险标签: Food contact item',
+        output:
+          'Customs description: Foldable food-grade silicone drinking cup with plastic rim and lid, reusable household/travel drinking container, packed as one finished consumer product.\n\nCandidate 1: 3924 - tableware, kitchenware, other household articles of plastics. Confidence: medium. Reason: finished household drinking container made mainly from silicone/plastic material.\n\nQuestions for broker: Confirm material composition by weight; confirm whether silicone is treated as plastic under the target tariff schedule; confirm whether the lid changes the classification; confirm food-contact documentation requirements.',
+        inputLanguage: 'text',
+        outputLanguage: 'json',
+      },
+    },
+    en: {
+      summary:
+        'The AI HS Code & Customs Description Assistant turns product name, use, material, selling format, and destination market into a classification brief that can be reviewed by a customs broker or internal compliance owner. It does not issue a final HS code and does not calculate duties. Instead, it drafts an English customs description, candidate HS directions, classification reasoning, missing information, and human review questions. It is designed for cross-border sellers, DTC operators, sourcing teams, and listing teams preparing export documents before checking the official tariff system or asking a broker for the final classification.',
+      input:
+        'Core inputs include product name, primary use, material or composition, target market, battery status, electronics status, set/bundle status, package contents, product form, user group, brand/model, unit weight, and risk flags. Product name, use, material, and destination market are the main classification signals. Risk flags such as battery, electronics, liquid or powder, food contact, children product, magnet, wireless communication, medical claim, and cosmetic contact help the model surface extra declaration or compliance questions. Output language can be Chinese or English, supporting both internal review and direct English broker communication.',
+      output:
+        'The tool returns a structured JSON result and displays it as separate copyable sections. customsName is the English customs item name draft, invoiceDescription is the commercial invoice wording, and classificationBrief is the product classification note for a broker or freight forwarder. candidates provides up to 3 HS directions; each candidate includes a code prefix, confidence level, reason it may fit, reason it may not fit, and questions still needing confirmation. brokerQuestions lists questions to ask the supplier, broker, or compliance team. missingInformation highlights important fields absent from the current brief. riskLevel marks the overall review risk. disclaimer states that official tariff databases, BTI/CROSS-style rulings, or licensed broker advice must be used for final classification.',
+      processing:
+        'After the user submits the form, the frontend sends productName, productUse, material, targetMarket, battery, electronics, setSold, packageContents, productForm, userGroup, brandModel, unitWeight, riskFlags, outputLanguage, and interface language to /api/ai-hs-code-assistant via fetch POST. The server selects an official lookup hint for the chosen market, such as US HTS Search, EU TARIC, UK Trade Tariff, or Canada Customs Tariff, then inserts the product facts and risk flags into the system prompt. The model is constrained to return JSON only, avoid final-ruling language, avoid duty or tax calculations, and limit HS candidates to 3. The frontend parses the JSON and renders the customs description, candidate list, review questions, missing information, and official lookup link. If JSON parsing or the request fails, the page shows an error while keeping the form available for correction and retry.',
+      modes: ['Target market selection (US/EU/UK/Canada/Other)', 'Structured product fact input', 'Risk flags for battery/wireless/children products etc.', 'English customs description draft', 'Up to 3 HS candidate directions', 'Broker review questions', 'Official lookup hint', 'Per-section copy'],
+      example: {
+        title: 'Foldable silicone cup classification brief example',
+        input: 'Product name: Foldable silicone drinking cup\nPrimary use: Reusable cup for outdoor travel and daily drinking\nMaterial: Food-grade silicone with plastic rim\nTarget market: US\nPackage contents: 1 cup with lid\nProduct form: Finished consumer product\nRisk flags: Food contact item',
+        output:
+          'Customs description: Foldable food-grade silicone drinking cup with plastic rim and lid, reusable household/travel drinking container, packed as one finished consumer product.\n\nCandidate 1: 3924 - tableware, kitchenware, other household articles of plastics. Confidence: medium. Reason: finished household drinking container made mainly from silicone/plastic material.\n\nQuestions for broker: Confirm material composition by weight; confirm whether silicone is treated as plastic under the target tariff schedule; confirm whether the lid changes the classification; confirm food-contact documentation requirements.',
+        inputLanguage: 'text',
+        outputLanguage: 'json',
+      },
+    },
+  },
+
   'ai-youtube-generator': {
     zh: {
       summary:

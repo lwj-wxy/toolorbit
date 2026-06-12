@@ -19,6 +19,7 @@ const TOOL_ID_BY_SLUG: Record<string, string> = {
   'prompt-generator': 'ai-prompt-generator',
   'video-script': 'ai-video-script',
   'resume-optimizer': 'ai-resume-optimizer',
+  'hs-code-assistant': 'ai-hs-code-assistant',
   'excel-formula': 'ai-excel-formula',
   regex: 'ai-regex',
   'image-generator': 'ai-image-generator',
