@@ -32,8 +32,10 @@ const AI_TOOL_CATEGORIES: Record<string, AiToolCategory> = {
   'ai-excel-formula': 'document',
   'ai-regex': 'code',
   'ai-image-generator': 'image',
+  'ai-product-image-generator': 'image',
   'ai-svg-generator': 'image',
   'ai-vision-describe': 'vision',
+  'ai-product-asset-checker': 'vision',
 };
 
 const TEXT_AI_CATEGORIES = new Set<AiToolCategory>(['copy', 'document', 'code']);
@@ -109,6 +111,43 @@ function buildImagePrompt(body: any, mode: 'image' | 'svg' = 'image') {
   return base;
 }
 
+function productImageSize(ratio: string) {
+  if (ratio === '16:9') return '1440x960';
+  if (ratio === '9:16') return '960x1440';
+  if (ratio === '4:5') return '1024x1280';
+  return '1280x1280';
+}
+
+function buildProductImagePrompt(body: any, variantIndex: number) {
+  const productName = String(body.productName || '').trim();
+  const productDescription = String(body.productDescription || '').trim();
+  const sellingPoint = String(body.sellingPoint || '').trim();
+  const targetPlatform = String(body.targetPlatform || '').trim();
+  const targetMarket = String(body.targetMarket || '').trim();
+  const imageUse = String(body.imageUse || '').trim();
+  const style = String(body.style || '').trim();
+  const scene = String(body.scene || '').trim();
+  const background = String(body.background || '').trim();
+
+  return [
+    'Create a commercial product image for a cross-border ecommerce listing from the text brief only.',
+    'Build the product from the product name, description, selling point, platform use, style, scene, and background.',
+    'Make the product visually plausible and concrete. Do not treat the product name as text to render in the image.',
+    'Do not render visible headlines, Chinese characters, labels, price tags, discount badges, fake logos, watermarks, or UI text unless packaging text is explicitly requested.',
+    'The product must be the clear focal point and should look ready for marketplace listing or overseas ads.',
+    `Product name: ${productName}`,
+    `Product description: ${productDescription}`,
+    `Key selling point: ${sellingPoint}`,
+    `Target platform: ${targetPlatform}`,
+    `Target market: ${targetMarket}`,
+    `Image use: ${imageUse}`,
+    `Visual style: ${style}`,
+    `Scene direction: ${scene}`,
+    `Background: ${background}`,
+    `Variant: ${variantIndex + 1}. Change camera angle, composition, props, or lighting slightly while keeping the same real product.`,
+  ].join('\n');
+}
+
 function imageUrlToSvg(imageUrl: string, prompt: string) {
   const title = escapeSvgText(prompt || 'Generated SVG graphic');
   const href = escapeSvgText(imageUrl);
@@ -120,7 +159,7 @@ function imageUrlToSvg(imageUrl: string, prompt: string) {
 </svg>`;
 }
 
-async function requestZhipuImage(prompt: string, size: string, imageBase64?: string) {
+async function requestZhipuImage(prompt: string, size: string, imageBase64?: string, options?: { disableWatermark?: boolean }) {
   const zhipuApiKey = getZhipuApiKey();
 
   const createPayload = (model: string) => {
@@ -128,6 +167,10 @@ async function requestZhipuImage(prompt: string, size: string, imageBase64?: str
 
     if (imageBase64) {
       payload.image_base64 = imageBase64.replace(/^data:image\/(png|jpeg|webp|jpg);base64,/, '');
+    }
+
+    if (options?.disableWatermark) {
+      payload.watermark = false;
     }
 
     return payload;
@@ -550,6 +593,148 @@ async function visionDescribe(body: any) {
   return Response.json({ description: (response.data.choices[0]?.message?.content || '').trim() });
 }
 
+function parseJsonObject(text: string) {
+  try {
+    return JSON.parse(text);
+  } catch {
+    const jsonMatch = text.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) throw new Error('AI response was not valid JSON.');
+    return JSON.parse(jsonMatch[0]);
+  }
+}
+
+function hasEnglishNarrative(value: unknown): boolean {
+  if (typeof value === 'string') {
+    const checkedText = value
+      .replace(/\b(Google Shopping|Amazon|TikTok Shop|Shopify|Meta Ads|IPTC|HS|Low|Medium|High|pass|warning|fail)\b/gi, '')
+      .replace(/\S+\.(jpg|jpeg|png|webp)\b/gi, '')
+      .trim();
+    const latinWords = checkedText.match(/[A-Za-z]{3,}/g)?.length || 0;
+    const chineseChars = checkedText.match(/[\u4e00-\u9fff]/g)?.length || 0;
+
+    return checkedText.length >= 12 && latinWords >= 2 && chineseChars === 0;
+  }
+
+  if (Array.isArray(value)) return value.some((item) => hasEnglishNarrative(item));
+
+  if (value && typeof value === 'object') {
+    return Object.values(value as Record<string, unknown>).some((item) => hasEnglishNarrative(item));
+  }
+
+  return false;
+}
+
+async function localizeProductAssetResult(result: any, zhipuApiKey: string) {
+  const response = await axios.post(
+    'https://open.bigmodel.cn/api/paas/v4/chat/completions',
+    {
+      model: ZHIPU_VISION_MODEL,
+      messages: [
+        {
+          role: 'system',
+          content:
+            'Translate JSON string values into Simplified Chinese. Keep JSON keys unchanged. Keep enum values Low, Medium, High, pass, warning, and fail unchanged. Keep platform names, brand names, file names, and product model names unchanged. Return JSON only.',
+        },
+        {
+          role: 'user',
+          content: JSON.stringify(result),
+        },
+      ],
+    },
+    { headers: { Authorization: `Bearer ${zhipuApiKey}` } },
+  );
+
+  return parseJsonObject((response.data.choices[0]?.message?.content || '').trim());
+}
+
+async function productAssetChecker(body: any) {
+  const zhipuApiKey = getZhipuApiKey();
+  const images = Array.isArray(body.images) ? body.images.slice(0, 8) : [];
+  if (images.length === 0) {
+    return Response.json({ error: 'At least one product image is required.' }, { status: 400 });
+  }
+
+  const outputLanguage = body.outputLanguage === 'Simplified Chinese' || body.interfaceLanguage?.startsWith?.('zh')
+    ? 'Simplified Chinese'
+    : 'English';
+  const imageFacts = images.map((image: any, index: number) => ({
+    index: index + 1,
+    name: image.name || `image-${index + 1}`,
+    role: image.role || 'product image',
+    width: image.width || null,
+    height: image.height || null,
+    sizeBytes: image.size || null,
+    type: image.type || null,
+  }));
+
+  const prompt = [
+    'You are a product asset compliance reviewer for cross-border sellers.',
+    'Review uploaded product images for marketplace and advertising readiness. This is a risk screening, not a final platform decision.',
+    `Output language: ${outputLanguage}.`,
+    outputLanguage === 'Simplified Chinese'
+      ? 'Critical language rule: keep JSON keys and enum values in English, but write every user-facing string value in Simplified Chinese. This includes verdict, assetSummary, imageFindings.issues, imageFindings.fixes, checks.label, checks.evidence, checks.fix, nextActions, and disclaimer. Keep platform names, file names, brand names, product model names, and policy terms such as Google Shopping, Amazon, TikTok Shop, Shopify, Meta Ads, IPTC, and HS in English.'
+      : 'For English output, write all explanatory text in English.',
+    'Return JSON only. Do not wrap the JSON in Markdown fences. Do not add any preface.',
+    'Use platform-specific risk reasoning when the target platform is provided, but do not claim official approval or rejection.',
+    'Check visual and text risks: low resolution, blurred product, cropping, product too small, missing full product view, placeholder/generic image, logo/icon instead of product, promotional overlays, price/free shipping/best/cheap text, watermark, border, barcode overlay, brand/manufacturer logo not inherent to product, AI-generated image metadata concern, bundle mismatch, product-title mismatch, variant mismatch, packaging or label text problems, untranslated packaging text, regulated claims, health/medical claims, children product cues, food-contact cues, dangerous goods cues, counterfeit or brand-authorization risk.',
+    'For Google Shopping image checks, consider these current public rules: image should meet size/file limits, show the product accurately, avoid placeholder/generic images, avoid promotional overlays/watermarks/borders, and frame the product clearly.',
+    'Keep the result concise. Prefer 3 to 6 high-signal findings over long commentary.',
+    'Use this exact JSON shape:',
+    '{"overallRisk":"Low"|"Medium"|"High","verdict":string,"assetSummary":string,"imageFindings":[{"imageIndex":number,"imageName":string,"role":string,"risk":"Low"|"Medium"|"High","issues":string[],"fixes":string[]}],"checks":[{"label":string,"status":"pass"|"warning"|"fail","evidence":string,"fix":string}],"nextActions":string[],"disclaimer":string}',
+    '',
+    `Product title: ${body.productTitle || ''}`,
+    `Product description: ${body.productDescription || ''}`,
+    `Target platform: ${body.targetPlatform || ''}`,
+    `Target market: ${body.targetMarket || ''}`,
+    `Image file facts: ${JSON.stringify(imageFacts)}`,
+  ].join('\n');
+
+  const content: any[] = [{ type: 'text', text: prompt }];
+  images.forEach((image: any) => {
+    if (image.imageBase64) {
+      content.push({ type: 'image_url', image_url: { url: image.imageBase64 } });
+    }
+  });
+
+  const response = await axios.post(
+    'https://open.bigmodel.cn/api/paas/v4/chat/completions',
+    {
+      model: ZHIPU_VISION_MODEL,
+      messages: [
+        {
+          role: 'system',
+          content: outputLanguage === 'Simplified Chinese'
+            ? 'You return valid JSON only. All user-facing JSON string values must be Simplified Chinese unless they are platform names, file names, brand names, model names, or fixed enum values.'
+            : 'You return valid JSON only. All user-facing JSON string values must be English.',
+        },
+        {
+          role: 'user',
+          content,
+        },
+      ],
+    },
+    { headers: { Authorization: `Bearer ${zhipuApiKey}` } },
+  );
+
+  const rawText = (response.data.choices[0]?.message?.content || '').trim();
+  const parsedResult = parseJsonObject(rawText);
+  let finalResult = parsedResult;
+
+  if (outputLanguage === 'Simplified Chinese' && hasEnglishNarrative(parsedResult)) {
+    try {
+      finalResult = await localizeProductAssetResult(parsedResult, zhipuApiKey);
+    } catch {
+      finalResult = parsedResult;
+    }
+  }
+
+  return Response.json({
+    ...finalResult,
+    model: ZHIPU_VISION_MODEL,
+    provider: 'zhipu-vision',
+  });
+}
+
 async function imageGenerator(body: any) {
   const startedAt = Date.now();
 
@@ -573,6 +758,44 @@ async function imageGenerator(body: any) {
     {
       headers: {
         'Server-Timing': `image;dur=${Date.now() - startedAt}`,
+      },
+    },
+  );
+}
+
+async function productImageGenerator(body: any) {
+  const startedAt = Date.now();
+
+  const requestedVariants = Number(body.variantCount || 1);
+  const variantCount = Math.min(3, Math.max(1, Number.isFinite(requestedVariants) ? requestedVariants : 1));
+  const size = productImageSize(String(body.ratio || '1:1'));
+  const imageRequests = Array.from({ length: variantCount }, async (_, index) => {
+    const prompt = buildProductImagePrompt(body, index);
+    const imageResult = await requestZhipuImage(prompt, size, undefined, { disableWatermark: true });
+
+    return {
+      imageUrl: imageResult.imageUrl,
+      prompt,
+      model: imageResult.model,
+      fallbackUsed: imageResult.fallbackUsed,
+      watermarkDisabled: true,
+      variant: index + 1,
+    };
+  });
+
+  const images = await Promise.all(imageRequests);
+
+  return Response.json(
+    {
+      images,
+      elapsedMs: Date.now() - startedAt,
+      size,
+      category: getAiToolCategory('ai-product-image-generator'),
+      provider: 'zhipu-image',
+    },
+    {
+      headers: {
+        'Server-Timing': `product-image;dur=${Date.now() - startedAt}`,
       },
     },
   );
@@ -752,11 +975,13 @@ export async function POST(request: Request) {
       markUsage(rateLimitKey);
       if (path === 'ai-svg-generator') return await svgGenerator(body);
       if (path === 'ai-image-generator') return await imageGenerator(body);
+      if (path === 'ai-product-image-generator') return await productImageGenerator(body);
     }
 
     if (category === 'vision') {
       markUsage(rateLimitKey);
       if (path === 'ai-vision-describe') return await visionDescribe(body);
+      if (path === 'ai-product-asset-checker') return await productAssetChecker(body);
     }
 
     const config = streamConfig(path, body);

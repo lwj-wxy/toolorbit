@@ -66,6 +66,8 @@ const iconMap: Record<string, ComponentType<any>> = {
   'ai-video-script': Clapperboard,
   'ai-resume-optimizer': FileText,
   'ai-hs-code-assistant': PackageSearch,
+  'ai-product-asset-checker': ShieldCheck,
+  'ai-product-image-generator': ImageIcon,
   'ai-excel-formula': FileSpreadsheet,
   'ai-regex': Terminal,
   'logo-generator': Hexagon,

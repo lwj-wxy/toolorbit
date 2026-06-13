@@ -51,7 +51,15 @@ const AI_WORKFLOW_GROUPS = [
     id: 'commerce',
     titleZh: '出海与电商',
     titleEn: 'Global commerce',
-    toolIds: ['ai-hs-code-assistant', 'listing-generator', 'keyword-analyzer', 'competitor-tracker', 'market-insights'],
+    toolIds: [
+      'ai-product-image-generator',
+      'ai-product-asset-checker',
+      'ai-hs-code-assistant',
+      'listing-generator',
+      'keyword-analyzer',
+      'competitor-tracker',
+      'market-insights',
+    ],
   },
 ];
 

@@ -47,6 +47,88 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
     },
   },
 
+  'ai-product-asset-checker': {
+    zh: {
+      summary:
+        'AI 商品素材合规质检器用于在跨境商品上架或投放广告前，对商品主图、场景图、包装图、标签图和详情图做一次素材风险预检。它不是平台审核接口，也不输出法律结论，而是根据图片内容、商品描述、目标平台和目标市场，指出可能影响上架或广告审核的视觉问题、包装信息缺口、文字覆盖、水印边框、商品一致性和监管敏感信号。适合跨境卖家、独立站运营、素材设计、供应链和代运营团队在素材交付前先做一次统一检查。',
+      input:
+        '核心输入包括商品名称、商品描述、目标平台、目标市场和最多 8 张商品素材图片。图片可标记为主图、场景图、包装图、标签图或细节图；前端会读取文件名、格式、大小、宽高和 base64 图像内容后提交给服务端。商品名称和描述用于判断图片里的商品是否一致；平台和市场用于让模型关注不同使用场景，例如 Google Shopping 主图限制、Amazon 上架图、TikTok Shop 素材、Shopify 商品页或 Meta Ads 广告初稿。工具限制单张图片体积，避免把超大图片直接发送给模型。',
+      output:
+        '工具返回结构化 JSON，并在页面中拆成可复制的检查结果：overallRisk 标记整体风险等级；verdict 给出简短结论；assetSummary 概括已上传素材的可用性；imageFindings 按图片列出图片角色、风险等级、具体问题和修复建议；checks 汇总尺寸、清晰度、文字覆盖、促销信息、水印边框、商品一致性、包装标签和目标市场风险等检查项；nextActions 形成后续处理清单；disclaimer 提醒用户结果仅用于素材预检，不能替代平台审核、法律意见或正式合规认证。',
+      processing:
+        '用户上传图片后，前端用 FileReader 读取图片为 data URL，并通过浏览器 Image 对象获取像素宽高，再把图片元数据和 base64 内容随商品资料一起 POST 到 /api/ai-product-asset-checker。服务端验证至少存在一张图片，限制最多处理 8 张，然后把商品信息、平台市场、图片清单和公开素材规则提示写入视觉模型提示词。模型被要求只返回 JSON，且所有说明必须使用当前输出语言。前端解析返回结果后渲染整体风险、每张图的问题、检查项和下一步动作；如果请求失败或 JSON 无法解析，页面显示错误并保留上传素材供用户调整后重试。',
+      modes: ['最多 8 张图片上传', '主图/场景图/包装图/标签图/细节图角色标记', '目标平台选择', '目标市场选择', '整体风险等级', '逐图问题与修复建议', '检查项清单', '下一步动作复制'],
+      example: {
+        title: '陶瓷杯商品素材预检示例',
+        input: '商品名称: 手工陶瓷杯\n商品描述: Handmade ceramic drinking cup for hot beverages\n目标平台: Google Shopping\n目标市场: United States\n图片: 主图 1 张、包装图 1 张、标签图 1 张',
+        output:
+          '整体风险: Medium\n\n结论: 主图商品清晰，但包装图缺少材质和容量信息，标签图未显示是否为食品接触用途。若用于 Google Shopping，主图还需要避免促销文字、水印或边框。\n\n图片问题: 主图通过；包装图需要补拍完整外盒侧面；标签图需要补充容量、材质、产地或供应商提供的食品接触说明。\n\n下一步: 重新导出无文字覆盖主图；向供应商索取包装和标签高清图；确认目标市场是否需要食品接触声明。',
+        inputLanguage: 'image+text',
+        outputLanguage: 'json',
+      },
+    },
+    en: {
+      summary:
+        'The AI Product Asset Compliance Checker reviews product images before cross-border listing or ad submission. It checks main images, lifestyle images, packaging photos, label shots, and detail images for asset risks. It is not a platform review API and does not issue legal conclusions. Instead, it uses the product description, target platform, target market, and image content to surface visual issues, packaging information gaps, text overlays, watermarks, borders, product mismatch, and regulated-product signals. It is designed for cross-border sellers, DTC teams, designers, suppliers, and marketplace operators who need a pre-listing asset checklist.',
+      input:
+        'Core inputs include product name, product description, target platform, target market, and up to 8 uploaded product images. Each image can be labeled as a main image, lifestyle image, packaging image, label image, or detail image. The frontend reads file name, format, file size, pixel dimensions, and base64 image content before sending the request. Product name and description help detect product mismatch. Platform and market selection shape the review context, such as Google Shopping image constraints, Amazon listing photos, TikTok Shop assets, Shopify product pages, or Meta Ads drafts. Per-image file size limits prevent very large images from being sent directly to the model.',
+      output:
+        'The tool returns structured JSON and renders it as copyable sections. overallRisk marks the overall risk level; verdict provides a short conclusion; assetSummary summarizes whether the uploaded materials are usable; imageFindings lists each image role, risk level, concrete issues, and fixes; checks summarizes review items such as dimensions, clarity, text overlays, promotional elements, watermarks, borders, product consistency, packaging labels, and market-facing risks; nextActions turns the result into a follow-up checklist; disclaimer reminds users that the output is only a pre-check and cannot replace platform review, legal advice, or formal product compliance certification.',
+      processing:
+        'When images are uploaded, the frontend reads each file as a data URL with FileReader and gets pixel width and height through the browser Image object. It then POSTs image metadata and base64 content with the product brief to /api/ai-product-asset-checker. The server verifies that at least one image exists, limits the batch to 8 images, and inserts the product facts, platform, market, image list, and public asset-rule guidance into the vision-model prompt. The model is constrained to return JSON only, with all explanatory text in the selected output language. The frontend parses the response and displays overall risk, per-image findings, checklist items, and next actions. If the request fails or JSON parsing fails, the page shows an error while keeping the uploaded assets available for correction and retry.',
+      modes: ['Up to 8 uploaded images', 'Main/lifestyle/packaging/label/detail role labels', 'Target platform selection', 'Target market selection', 'Overall risk level', 'Per-image issues and fixes', 'Review checklist', 'Copyable next actions'],
+      example: {
+        title: 'Ceramic cup asset pre-check example',
+        input: 'Product title: Handmade ceramic cup\nDescription: Handmade ceramic drinking cup for hot beverages\nTarget platform: Google Shopping\nTarget market: United States\nImages: 1 main image, 1 packaging image, 1 label image',
+        output:
+          'Overall risk: Medium\n\nVerdict: The main image clearly shows the product, but the packaging image does not show material or capacity information, and the label image does not confirm food-contact use. For Google Shopping use, the main image should avoid promotional text, watermarks, or borders.\n\nImage findings: Main image passes; packaging image needs a full side-panel photo; label image needs capacity, material, origin, or supplier food-contact confirmation.\n\nNext actions: Export a clean main image without overlay text; ask the supplier for high-resolution packaging and label photos; confirm whether the target market requires food-contact documentation.',
+        inputLanguage: 'image+text',
+        outputLanguage: 'json',
+      },
+    },
+  },
+
+  'ai-product-image-generator': {
+    zh: {
+      summary:
+        'AI 出海商品图生成器用于根据商品名称、材质、卖点和使用场景生成适合跨境上架、广告投放和独立站展示的商品图片。它是文本到商品图工具，不要求用户上传参考图。用户选择目标平台、图片用途、比例、视觉风格和背景后，工具生成白底主图、生活方式场景图、独立站首屏图、社媒广告图或平台辅图草稿。适合跨境卖家、独立站运营、DTC 品牌、供应商和素材设计人员在缺少拍摄资源时先获得视觉方向。',
+      input:
+        '核心输入包括商品名称、商品说明、核心卖点、目标平台、目标市场、图片用途、比例、视觉风格、背景、场景补充和生成张数。商品名称是必填项；商品说明和核心卖点用于补充材质、颜色、结构、尺寸、用途、目标人群和包装信息。平台选项覆盖 Amazon、Google Shopping、Shopify、TikTok Shop 和 Meta Ads；图片用途覆盖白底主图、生活方式场景图、独立站首屏图、社媒广告图和平台辅图；比例支持 1:1、4:5、16:9、9:16；生成张数支持 1-3 张。',
+      output:
+        '工具返回一组生成图片结果，每张图包含 imageUrl、生成提示词、模型名称、是否使用 fallback 模型和变体序号。页面在右侧结果区展示图片预览、生成耗时、输出尺寸、下载按钮和提示词复制按钮。用户可以下载图片用于继续修图，也可以复制提示词到其他设计工具或下一轮生成中复用。页面底部保留复核提示，提醒用户发布前检查产品结构、颜色、Logo、包装文字、品牌授权和目标平台图片规则。',
+      processing:
+        '用户点击生成后，前端校验必须存在商品名称，然后将产品资料、平台用途、比例、视觉风格、背景、场景补充和生成张数发送到 /api/ai-product-image-generator。服务端根据比例映射生成尺寸，并为每个变体构造一条商品图提示词：要求模型根据文本商品信息生成可信的产品画面，不把商品名渲染成画面文字，不添加价格、促销徽章、水印、假品牌或无关 UI 文案。服务端最多并行生成 3 张图，返回图片 URL、提示词、模型信息和耗时。若接口失败，页面保留表单内容并显示错误。',
+      modes: ['商品资料文本输入', '目标平台选择', '图片用途选择', '1:1 / 4:5 / 16:9 / 9:16 比例', '视觉风格和背景选择', '1-3 张变体生成', '图片下载', '提示词复制'],
+      example: {
+        title: '手工陶瓷杯商品图生成示例',
+        input: '商品名称: 手工陶瓷杯\n商品说明: 米白色釉面，适合咖啡和热饮\n核心卖点: 手工釉面、送礼场景\n目标平台: Shopify product page\n图片用途: Product page hero image\n比例: 4:5\n视觉风格: Premium DTC brand photography',
+        output:
+          '输出 2 张商品图：第一张为浅色家居桌面上的陶瓷杯首屏图，第二张为自然光下的咖啡使用场景。每张图提供下载按钮和对应提示词，用户可以继续修图或交给设计同事调整。',
+        inputLanguage: 'text',
+        outputLanguage: 'image',
+      },
+    },
+    en: {
+      summary:
+        'The AI Product Image Generator for Global Listings creates product images from product name, material, selling point, and scene notes. It is a text-to-product-image tool and does not require a reference upload. The user selects target platform, image use, aspect ratio, visual style, and background, then generates draft white-background product images, lifestyle scenes, storefront hero images, social ad creatives, or marketplace secondary images. It fits cross-border sellers, DTC operators, suppliers, and designers who need a first visual direction before a full photoshoot.',
+      input:
+        'Core inputs include product name, product description, key selling point, target platform, target market, image use, aspect ratio, visual style, background, scene notes, and variant count. Product name is required. Product description and key selling point should cover material, color, structure, size, use case, target buyer, and packaging when relevant. Platform options include Amazon, Google Shopping, Shopify, TikTok Shop, and Meta Ads. Image uses include white-background main image, lifestyle scene, product page hero, social ad creative, and marketplace secondary image. Aspect ratios include 1:1, 4:5, 16:9, and 9:16. Variant count supports 1-3 outputs.',
+      output:
+        'The tool returns generated image results. Each image includes imageUrl, generation prompt, model name, fallback status, and variant number. The page displays image previews, generation time, output size, download buttons, and prompt copy buttons. Users can download images for editing or copy prompts for reuse in another design workflow or another generation pass. A review note reminds users to check product shape, color, logos, packaging text, brand rights, and target-platform image rules before publishing.',
+      processing:
+        'When the user clicks Generate, the frontend verifies that product name exists, then sends product facts, platform, image use, ratio, visual style, background, scene notes, and variant count to /api/ai-product-image-generator. The server maps the ratio to an image size and builds one prompt per variant. Each prompt tells the model to create a plausible product image from the text brief, avoid rendering the product name as visible image text, and avoid price tags, discount badges, watermarks, fake brands, or unrelated UI copy. The server generates up to 3 images in parallel and returns image URLs, prompts, model metadata, and elapsed time. On failure, the page keeps the form data and shows an error.',
+      modes: ['Product brief text input', 'Target platform selection', 'Image use selection', '1:1 / 4:5 / 16:9 / 9:16 ratios', 'Visual style and background selection', '1-3 variant generation', 'Image download', 'Prompt copy'],
+      example: {
+        title: 'Handmade ceramic cup product image example',
+        input: 'Product name: Handmade ceramic cup\nDescription: off-white glaze for coffee and hot beverages\nKey selling point: handmade glaze, gift-ready look\nTarget platform: Shopify product page\nImage use: Product page hero image\nRatio: 4:5\nVisual style: Premium DTC brand photography',
+        output:
+          'The tool generates 2 product images: one ceramic-cup hero image on a light home tabletop and one natural-light coffee-use scene. Each image includes a download button and the prompt used for generation.',
+        inputLanguage: 'text',
+        outputLanguage: 'image',
+      },
+    },
+  },
+
   'ai-youtube-generator': {
     zh: {
       summary:
