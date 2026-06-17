@@ -3,7 +3,8 @@
     "allow": [
       "PowerShell(npx next build 2>&1)",
       "Bash(python -c ' *)",
-      "Bash(python -)"
+      "Bash(python -)",
+      "Bash(python _verify_online.py)"
     ]
   }
 }
