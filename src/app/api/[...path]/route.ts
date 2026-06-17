@@ -1,6 +1,7 @@
 import axios from 'axios';
 import OpenAI from 'openai';
 import { getNavigationMenuData } from '../../../lib/navigation-menu';
+import { buildAiRuntimeStreamConfig } from '../../../lib/ai-runtime';
 
 export const runtime = 'nodejs';
 export const maxDuration = 60;
@@ -324,33 +325,6 @@ function streamConfig(path: string, body: any): { model: string; messages: ChatM
   if (category && !TEXT_AI_CATEGORIES.has(category)) return null;
 
   switch (path) {
-    case 'listing-craft': {
-      const lang = targetLanguage(body.language);
-      const prompt = body.isDeepAnalysis
-        ? `Please analyze the following text in depth:\n\n${body.details || body.productInfo}`
-        : `Product Name: ${body.productInfo}
-Key Features: ${body.details || 'Standard features based on name'}
-Keywords to Include: ${body.keywords || 'Most relevant SEO terms'}
-Tone: ${body.tone || 'Professional and Persuasive'}
-Target Audience: ${body.targetAudience || 'General consumers'}
-
-Please generate a comprehensive listing including title, bullet points, SEO description, tags, and conversion tips.`;
-      const system = body.isDeepAnalysis
-        ? `You are an expert Linguistic Analyst and Sentiment Architect. Analyze tone, sentiment, themes, structure, and improvements. Always output in ${lang} using Markdown.`
-        : `You are an elite E-commerce Copywriting Specialist and SEO Expert. Use the required markers [TITLE], [DESCRIPTION], [TAGS], [SOCIAL]. Output in ${lang}.`;
-
-      return { model: DEEPSEEK_TEXT_MODEL, messages: [{ role: 'system', content: system }, { role: 'user', content: prompt }], rateMs: 24 * 60 * 60 * 1000 };
-    }
-    case 'keywords': {
-      const lang = body.language?.toLowerCase?.() === '中文' || body.language?.toLowerCase?.().startsWith('zh') ? 'Simplified Chinese' : body.language || 'English';
-      return {
-        model: DEEPSEEK_TEXT_MODEL,
-        messages: [
-          { role: 'system', content: `You are a Keyword Research Expert. Generate keyword analysis in JSON only with summary and categories. Output in ${lang}.` },
-          { role: 'user', content: `Product: ${body.productName}` },
-        ],
-      };
-    }
     case 'competitor': {
       const lang = body.language?.toLowerCase?.() === '中文' || body.language?.toLowerCase?.().startsWith('zh') ? 'Simplified Chinese' : body.language || 'English';
       return {
@@ -414,14 +388,6 @@ Please generate a comprehensive listing including title, bullet points, SEO desc
         messages: [
           { role: 'system', content: `You are a viral short-video director and scriptwriter. Create a script for ${body.platform}, around ${body.duration}, in a ${body.tone} tone. Include hook, scenes, CTA, and BGM suggestions where appropriate. Output in ${targetLanguage(body.language)}.` },
           { role: 'user', content: `Topic/Core Message:\n${body.topic}` },
-        ],
-      };
-    case 'youtube-generator':
-      return {
-        model: DEEPSEEK_TEXT_MODEL,
-        messages: [
-          { role: 'system', content: `You are an expert YouTube SEO specialist. Output exactly these four labeled sections, in this order, with no extra preface: [TITLE], [DESCRIPTION], [TAGS], [THUMBNAIL_IDEAS]. Keep the bracket labels exactly as written. Audience: ${body.targetAudience || 'General'}. Tone: ${body.tone || 'Engaging'}. Output section content in ${targetLanguage(body.language)}.` },
-          { role: 'user', content: `Video Topic / Details:\n${body.topic}` },
         ],
       };
     case 'ai-resume-optimizer': {
@@ -561,6 +527,56 @@ async function svgGenerator(body: any) {
     {
       headers: {
         'Server-Timing': `svg;dur=${Date.now() - startedAt}`,
+      },
+    },
+  );
+}
+
+function streamBufferedChat(
+  model: string,
+  messages: ChatMessage[],
+  options: Record<string, unknown> = {},
+  validateOutput?: (content: string) => string,
+) {
+  const encoder = new TextEncoder();
+  const upstreamRequest = {
+    model,
+    messages,
+    ...options,
+    stream: false as const,
+  };
+
+  return new Response(
+    new ReadableStream({
+      async start(controller) {
+        try {
+          if (process.env.NODE_ENV !== 'production') {
+            controller.enqueue(
+              encoder.encode(`event: ai-runtime-debug\ndata: ${JSON.stringify({ upstreamRequest })}\n\n`),
+            );
+          }
+
+          const deepseek = getDeepseekClient();
+          const completion = await deepseek.chat.completions.create(upstreamRequest);
+
+          const rawContent = completion.choices[0]?.message?.content || '';
+          const content = validateOutput ? validateOutput(rawContent) : rawContent;
+          if (content) {
+            controller.enqueue(encoder.encode(`data: ${JSON.stringify({ content })}\n\n`));
+          }
+          controller.enqueue(encoder.encode('data: [DONE]\n\n'));
+        } catch (error: any) {
+          controller.enqueue(encoder.encode(`data: ${JSON.stringify({ error: error.message || 'Error' })}\n\n`));
+        } finally {
+          controller.close();
+        }
+      },
+    }),
+    {
+      headers: {
+        'Content-Type': 'text/event-stream',
+        'Cache-Control': 'no-cache',
+        Connection: 'keep-alive',
       },
     },
   );
@@ -982,6 +998,26 @@ export async function POST(request: Request) {
       markUsage(rateLimitKey);
       if (path === 'ai-vision-describe') return await visionDescribe(body);
       if (path === 'ai-product-asset-checker') return await productAssetChecker(body);
+    }
+
+    const runtimeConfig = buildAiRuntimeStreamConfig(path, body, DEEPSEEK_TEXT_MODEL);
+    if (runtimeConfig.handled) {
+      if (!runtimeConfig.ok) {
+        return Response.json(
+          { success: false, error: runtimeConfig.message, errorCode: runtimeConfig.errorCode },
+          { status: runtimeConfig.status },
+        );
+      }
+
+      const limited = rateLimit(rateLimitKey, runtimeConfig.config.rateMs, runtimeConfig.config.rateMessage || 'Too many requests');
+      if (limited) return limited;
+      markUsage(rateLimitKey);
+      return streamBufferedChat(
+        runtimeConfig.config.model,
+        runtimeConfig.config.messages,
+        runtimeConfig.config.options,
+        runtimeConfig.config.validateOutput,
+      );
     }
 
     const config = streamConfig(path, body);

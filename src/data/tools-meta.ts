@@ -24,7 +24,7 @@ const RAW_TOOLS_META = [
   {
     id: 'ai-youtube-generator',
     name: 'YouTube Title & Description Generator',
-    description: 'Generate YouTube titles, descriptions, and tags from a topic, audience, and video angle.',
+    description: 'Draft YouTube titles, descriptions, tags, and thumbnail ideas from one video brief.',
     category: 'AI 工具',
     path: '/tools/ai/youtube-generator',
     color: 'rose',
@@ -337,8 +337,8 @@ const RAW_TOOLS_META = [
   },
   {
     id: 'listing-generator',
-    name: 'Listing Generator',
-    description: 'Create ecommerce listing titles, descriptions, and tags from product details.',
+    name: 'AI Listing Generator',
+    description: 'Draft product titles, descriptions, tags, and social copy from product details and marketplace.',
     category: 'AI 工具',
     path: '/tools/ai/listing-generator',
     color: 'emerald',
@@ -346,8 +346,8 @@ const RAW_TOOLS_META = [
   },
   {
     id: 'keyword-analyzer',
-    name: 'Keyword Analyzer',
-    description: 'Analyze ecommerce long-tail keywords, search intent, and product angle ideas.',
+    name: 'Ecommerce Keyword Analyzer',
+    description: 'Turn a product seed keyword into long-tail groups, search intent notes, and listing copy angles.',
     category: 'AI 工具',
     path: '/tools/ai/keyword-analyzer',
     color: 'emerald',
