@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ArrowDownUp, Check, Copy } from 'lucide-react';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 import { cn } from '../../../lib/utils';
 
 export default function Base64() {
@@ -156,7 +155,6 @@ export default function Base64() {
           </div>
         </div>
       </div>
-      <ToolSEOCard toolKey="base64" />
     </div>
   );
 }

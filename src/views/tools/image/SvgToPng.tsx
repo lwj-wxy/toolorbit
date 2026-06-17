@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FileImage, UploadCloud, Download, Code, Image as ImageIcon, Trash2 } from 'lucide-react';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function SvgToPng() {
   const { t } = useTranslation();
@@ -323,7 +322,6 @@ export default function SvgToPng() {
         </div>
       </div>
 
-      <ToolSEOCard toolKey="svg-to-png" />
     </div>
   );
 }

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CreditCard, DollarSign, Globe2 } from 'lucide-react';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 import { cn } from '../../../lib/utils';
 
 type PayPalFeeProfile = {
@@ -204,7 +203,6 @@ const PayPalFeeCalculator = () => {
         </div>
       </div>
 
-      <ToolSEOCard toolKey="paypal-fee-calculator" />
     </div>
   );
 };

@@ -2,7 +2,6 @@ import { useState, useRef } from 'react';
 import { Archive, UploadCloud, Download, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { analytics } from '../../../services/analytics';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 
 interface FileItem {
   name: string;
@@ -301,7 +300,6 @@ export default function ArchiveConverter() {
         </div>
       </div>
 
-      <ToolSEOCard toolKey="archive-converter" />
     </div>
   );
 }

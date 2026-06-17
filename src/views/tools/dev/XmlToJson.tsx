@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { Copy, Trash2, ArrowRightLeft } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { xml2json, json2xml } from 'xml-js';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 import { cn } from '../../../lib/utils';
 
 type JsonNode = {
@@ -197,7 +196,6 @@ export default function XmlToJson() {
         </section>
       </div>
 
-      <ToolSEOCard toolKey="xml-json" />
     </div>
   );
 }

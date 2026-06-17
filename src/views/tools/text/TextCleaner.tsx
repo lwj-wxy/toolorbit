@@ -1,7 +1,6 @@
 import { useState, useMemo } from 'react';
 import { Eraser, Copy, Trash2, Check, Download } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 
 
 export default function TextCleaner() {
@@ -184,7 +183,6 @@ export default function TextCleaner() {
 
       </div>
 
-      <ToolSEOCard toolKey="text-cleaner" />
     </div>
   );
 }

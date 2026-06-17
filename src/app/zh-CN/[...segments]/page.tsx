@@ -6,7 +6,7 @@ import path from 'path';
 import JsonLd from '../../../components/JsonLd';
 import ScopedI18nProvider from '../../../components/ScopedI18nProvider';
 import ToolPageClient from '../../../components/ToolPageClient';
-import ToolSEOCard from '../../../components/ToolSEOCard';
+import ToolContent from '../../../components/ToolContent';
 import ToolSearchContent from '../../../components/ToolSearchContent';
 import { BLOG_POSTS } from '../../../constants/blogData';
 import { AUTHORS, getAuthorByPath } from '../../../data/authors';
@@ -40,7 +40,7 @@ import {
   staticPageJsonLd,
   toolJsonLd,
 } from '../../../lib/structured-data';
-import { FALLBACK_TOOL_GUIDE_PATHS, INFO_CARD_TOOL_KEYS } from '../../../lib/tool-page-content';
+import { FALLBACK_TOOL_GUIDE_PATHS } from '../../../lib/tool-page-content';
 import { ComponentType } from 'react';
 import dynamic from 'next/dynamic';
 
@@ -386,7 +386,7 @@ export default async function Page({ params }: PageProps) {
       <>
         <JsonLd id={`structured-data-tool-${segments[2]}`} data={toolJsonLd(basePath, LOCALE)} />
         <ToolPageClient path={basePath} />
-        {INFO_CARD_TOOL_KEYS[basePath] ? <ToolSEOCard toolKey={INFO_CARD_TOOL_KEYS[basePath]} /> : null}
+        <ToolContent path={basePath} locale="zh" />
         {FALLBACK_TOOL_GUIDE_PATHS.has(basePath) ? <ToolSearchContent path={basePath} /> : null}
       </>,
     );

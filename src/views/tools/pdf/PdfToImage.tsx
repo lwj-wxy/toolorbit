@@ -10,7 +10,6 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
-import ToolSEOCard from '../../../components/ToolSEOCard';
 
 interface PageImage {
   pageNumber: number;
@@ -267,7 +266,6 @@ export default function PdfToImage() {
         </div>
       </div>
 
-      <ToolSEOCard toolKey="pdf-to-image" />
     </div>
   );
 }

@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Copy, Check } from 'lucide-react';
 import tinycolor from 'tinycolor2';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function ColorConverter() {
   const { t } = useTranslation();
@@ -119,7 +118,6 @@ export default function ColorConverter() {
           </div>
         </div>
       </div>
-      <ToolSEOCard toolKey="color-converter" />
     </div>
   );
 }

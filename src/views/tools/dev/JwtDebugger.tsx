@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Layers, Info, AlertTriangle, CheckCircle2, Hash, Database, Clock } from 'lucide-react';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function JwtDebugger() {
   const { t } = useTranslation();
@@ -154,7 +153,6 @@ export default function JwtDebugger() {
           </div>
         </div>
       </div>
-      <ToolSEOCard toolKey="jwt-debugger" />
     </div>
   );
 }

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Copy, Check, ExternalLink, Loader2, Globe, Link2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function ShortUrl() {
   const { t } = useTranslation();
@@ -162,7 +161,6 @@ export default function ShortUrl() {
             </div>
         </div>
       </div>
-      <ToolSEOCard toolKey="short-url" />
     </div>
   );
 }

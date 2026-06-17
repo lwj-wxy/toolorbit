@@ -14,7 +14,6 @@ import {
 } from 'lucide-react';
 import { PDFDocument } from 'pdf-lib';
 import { motion, AnimatePresence } from 'motion/react';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 
 interface PdfMetadata {
   file: File;
@@ -263,7 +262,6 @@ export default function PdfSplit() {
         </div>
       </div>
 
-      <ToolSEOCard toolKey="pdf-split" />
     </div>
   );
 }

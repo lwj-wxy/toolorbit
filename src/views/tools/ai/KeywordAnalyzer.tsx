@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Zap, Loader2, Copy, Check } from 'lucide-react';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function KeywordAnalyzer() {
   const { t, i18n } = useTranslation();
@@ -173,7 +172,6 @@ export default function KeywordAnalyzer() {
           </div>
         </div>
       </div>
-      <ToolSEOCard toolKey="keyword-analyzer" />
     </div>
   );
 }

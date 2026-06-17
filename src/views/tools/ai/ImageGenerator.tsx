@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Loader2, Download, Image as ImageIcon, RotateCcw, Monitor, Smartphone, Square } from 'lucide-react';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function ImageGenerator() {
   const { t, i18n } = useTranslation();
@@ -245,7 +244,6 @@ export default function ImageGenerator() {
 
       </div>
 
-      <ToolSEOCard toolKey="ai-image-generator" />
     </div>
   );
 }

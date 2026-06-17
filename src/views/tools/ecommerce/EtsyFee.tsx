@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DollarSign, Hash } from 'lucide-react';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 
 const EtsyFeeCalculator = () => {
   const { t } = useTranslation();
@@ -276,7 +275,6 @@ const EtsyFeeCalculator = () => {
         </div>
       </div>
 
-      <ToolSEOCard toolKey="etsy-fee-calculator" />
     </div>
   );
 };

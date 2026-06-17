@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Loader2, Copy, Check, RotateCcw, Image, Download } from 'lucide-react';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function SvgGenerator() {
   const { t, i18n } = useTranslation();
@@ -230,7 +229,6 @@ export default function SvgGenerator() {
 
       </div>
 
-      <ToolSEOCard toolKey="ai-svg-generator" />
     </div>
   );
 }

@@ -2,7 +2,6 @@ import { useMemo, useState, type ChangeEvent } from 'react';
 import Fuse from 'fuse.js';
 import { CalendarClock, Clock3, Globe2, LayoutGrid, ListFilter, RotateCcw, Search, Timer } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 import { cn } from '../../../lib/utils';
 
 type ViewMode = 'cards' | 'timeline';
@@ -418,7 +417,6 @@ export default function WorldTimezoneCompare() {
         <p className="mt-1">{t('tools.world-timezone-compare.fixedOffsetText')}</p>
       </section>
 
-      <ToolSEOCard toolKey="world-timezone-compare" />
     </div>
   );
 }

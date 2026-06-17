@@ -1,7 +1,6 @@
 import { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Fingerprint, Copy, RefreshCcw, Check, Download } from 'lucide-react';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function UuidGenerator() {
   const { t } = useTranslation();
@@ -215,7 +214,6 @@ export default function UuidGenerator() {
         </div>
 
       </div>
-      <ToolSEOCard toolKey="uuid-generator" />
     </div>
   );
 }

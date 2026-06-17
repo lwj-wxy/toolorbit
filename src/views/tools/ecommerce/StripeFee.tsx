@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DollarSign } from 'lucide-react';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function StripeFeeCalculator() {
   const { t } = useTranslation();
@@ -77,7 +76,6 @@ export default function StripeFeeCalculator() {
         </div>
       </div>
 
-      <ToolSEOCard toolKey="stripe-fee-calculator" />
     </div>
   );
 }

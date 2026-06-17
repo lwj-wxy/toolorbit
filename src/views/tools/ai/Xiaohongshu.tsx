@@ -5,7 +5,6 @@ import toast from 'react-hot-toast';
 import { cn } from '../../../lib/utils';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function Xiaohongshu() {
   const { t, i18n } = useTranslation();
@@ -238,7 +237,6 @@ export default function Xiaohongshu() {
               </div>
           </div>
         </div>
-        <ToolSEOCard toolKey="ai-xiaohongshu" />
     </div>
   );
 }

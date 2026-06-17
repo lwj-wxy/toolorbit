@@ -4,7 +4,6 @@ import { Loader2, Copy, Check, RotateCcw, Clapperboard } from 'lucide-react';
 import { motion } from 'motion/react';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function VideoScript() {
   const { t, i18n } = useTranslation();
@@ -240,7 +239,6 @@ export default function VideoScript() {
         </div>
       </div>
 
-      <ToolSEOCard toolKey="ai-video-script" />
     </div>
   );
 }

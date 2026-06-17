@@ -3,7 +3,6 @@ import { QRCodeCanvas } from 'qrcode.react';
 import { Download } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { analytics } from '../../../services/analytics';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 import { LoadingButton } from '../../../components/ui/LoadingButton';
 
 export default function QrGenerator() {
@@ -166,7 +165,6 @@ export default function QrGenerator() {
         </div>
       </div>
 
-      <ToolSEOCard toolKey="qr-generator" />
     </div>
   );
 }

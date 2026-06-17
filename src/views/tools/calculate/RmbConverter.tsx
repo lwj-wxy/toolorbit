@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Copy, Check } from 'lucide-react';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 import { useTranslation } from 'react-i18next';
 import { analytics } from '../../../services/analytics';
 
@@ -187,7 +186,6 @@ export default function RmbConverter() {
         </div>
       </div>
 
-      <ToolSEOCard toolKey="rmb-converter" />
     </div>
   );
 }

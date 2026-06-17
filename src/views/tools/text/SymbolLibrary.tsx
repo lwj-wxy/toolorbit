@@ -1,7 +1,6 @@
 import { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Check, Hash } from 'lucide-react';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 
 
 export default function SymbolLibrary() {
@@ -168,7 +167,6 @@ export default function SymbolLibrary() {
         </div>
       </div>
 
-      <ToolSEOCard toolKey="symbol-library" />
     </div>
   );
 }

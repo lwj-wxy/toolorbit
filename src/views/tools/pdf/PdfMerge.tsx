@@ -14,7 +14,6 @@ import {
 } from 'lucide-react';
 import { PDFDocument } from 'pdf-lib';
 import { motion, AnimatePresence } from 'motion/react';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 
 interface PdfMetadata {
   id: string;
@@ -291,7 +290,6 @@ export default function PdfMerge() {
         </div>
       </div>
 
-      <ToolSEOCard toolKey="pdf-merge" />
     </div>
   );
 }

@@ -2,7 +2,6 @@ import React, { useState, useRef } from 'react';
 import { Upload, Image as ImageIcon, Download, Trash2, CheckCircle2, Sliders } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { analytics } from '../../../services/analytics';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function ImageCompressor() {
   const { t } = useTranslation();
@@ -307,7 +306,6 @@ export default function ImageCompressor() {
         </div>
       </div>
 
-      <ToolSEOCard toolKey="image-compressor" />
     </div>
   );
 }

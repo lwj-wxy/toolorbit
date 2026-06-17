@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { ShieldCheck, Copy, CheckCircle2, Info, Lock, Unlock } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 // @ts-ignore
 import { sm2, sm3, sm4 } from 'sm-crypto';
 
@@ -169,7 +168,6 @@ export default function ChineseCrypto() {
             </div>
           </div>
         </div>
-        <ToolSEOCard toolKey="chinese-crypto" />
       </div>
     </div>
   );

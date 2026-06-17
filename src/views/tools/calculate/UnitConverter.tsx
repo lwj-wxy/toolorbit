@@ -2,7 +2,6 @@ import { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ArrowRightLeft } from 'lucide-react';
 import { analytics } from '../../../services/analytics';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 
 type UnitCategory = 'length' | 'weight' | 'volume' | 'temperature';
 
@@ -225,7 +224,6 @@ export default function UnitConverter() {
         </div>
       </div>
 
-      <ToolSEOCard toolKey="unit-converter" />
     </div>
   );
 }

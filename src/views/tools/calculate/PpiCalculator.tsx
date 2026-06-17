@@ -2,7 +2,6 @@ import { useState, useMemo } from 'react';
 import { LayoutPanelLeft } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { analytics } from '../../../services/analytics';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function PpiCalculator() {
   const { t } = useTranslation();
@@ -142,7 +141,6 @@ export default function PpiCalculator() {
         </div>
       </div>
 
-      <ToolSEOCard toolKey="ppi-calculator" />
     </div>
   );
 }

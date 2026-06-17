@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ArrowLeftRight, DollarSign } from 'lucide-react';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 import { cn } from '../../../lib/utils';
 
 type PayPalComparisonProfile = {
@@ -219,7 +218,6 @@ const StripeVsPayPalFeeCalculator = () => {
         </div>
       </div>
 
-      <ToolSEOCard toolKey="stripe-vs-paypal-fee-calculator" />
     </div>
   );
 };

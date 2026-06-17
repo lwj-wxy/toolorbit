@@ -2,7 +2,6 @@ import { useMemo, useState } from 'react';
 import { BarChart3, Brain, CheckCircle2, ChevronLeft, ChevronRight, Compass, RotateCcw, Target } from 'lucide-react';
 import { Button } from 'antd';
 import { useTranslation } from 'react-i18next';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 import { cn } from '../../../lib/utils';
 import {
   type AnswerValue,
@@ -292,7 +291,6 @@ const MbtiPersonalityTest = () => {
         </section>
       ) : null}
 
-      <ToolSEOCard toolKey="mbti-personality-test" />
     </div>
   );
 };

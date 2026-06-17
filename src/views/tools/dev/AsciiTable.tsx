@@ -1,7 +1,6 @@
 import { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Search, Check } from 'lucide-react';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 
 const CONTROL_CHARS: Record<number, string> = {
   0: 'NUL', 1: 'SOH', 2: 'STX', 3: 'ETX', 
@@ -148,7 +147,6 @@ export default function AsciiTable() {
           </table>
         </div>
       </div>
-      <ToolSEOCard toolKey="ascii-table" />
     </div>
   );
 }

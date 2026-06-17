@@ -5,7 +5,6 @@ import { Briefcase, Check, ClipboardCheck, Copy, Download, FileText, FileUp, Loa
 import { motion } from 'motion/react';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 
 const PDFJS_WORKER_SRC = new URL('pdfjs-dist/build/pdf.worker.mjs', import.meta.url).toString();
 const DOCX_MIME_TYPE = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
@@ -677,7 +676,6 @@ export default function ResumeOptimizer() {
         </section>
       </div>
 
-      <ToolSEOCard toolKey="ai-resume-optimizer" />
     </div>
   );
 }

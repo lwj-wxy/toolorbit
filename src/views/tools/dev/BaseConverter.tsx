@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ArrowRightLeft, Copy, Check } from 'lucide-react';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function BaseConverter() {
   const { t } = useTranslation();
@@ -237,7 +236,6 @@ export default function BaseConverter() {
           ))}
       </div>
 
-      <ToolSEOCard toolKey="base-converter" />
     </div>
   );
 }

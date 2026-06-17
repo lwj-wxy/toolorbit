@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Copy, Check, RefreshCw } from 'lucide-react';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function PasswordGenerator() {
   const { t } = useTranslation();
@@ -179,7 +178,6 @@ export default function PasswordGenerator() {
         </div>
       </div>
 
-      <ToolSEOCard toolKey="password-generator" />
     </div>
   );
 }

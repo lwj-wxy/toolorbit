@@ -1,6 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 import { 
   Code2,
   Text,
@@ -283,7 +282,6 @@ const RegexTester: React.FC = () => {
         </section>
       </div>
 
-      <ToolSEOCard toolKey="regex-tester" />
     </div>
   );
 };

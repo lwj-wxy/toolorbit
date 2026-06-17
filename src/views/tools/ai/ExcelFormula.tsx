@@ -4,7 +4,6 @@ import { Loader2, Copy, Check, RotateCcw, FileSpreadsheet } from 'lucide-react';
 import { motion } from 'motion/react';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function ExcelFormula() {
   const { t, i18n } = useTranslation();
@@ -206,7 +205,6 @@ export default function ExcelFormula() {
         </div>
       </div>
 
-      <ToolSEOCard toolKey="ai-excel-formula" />
     </div>
   );
 }

@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { CheckCircle2, Copy, Lock, RefreshCcw, Trash2, Unlock } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import CryptoJS from 'crypto-js';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 import { cn } from '../../../lib/utils';
 
 const ALGORITHMS = [
@@ -243,7 +242,6 @@ export default function CryptoSymmetric() {
         </section>
       </div>
 
-      <ToolSEOCard toolKey="crypto-symmetric" />
     </div>
   );
 }

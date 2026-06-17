@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { Check, Copy } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { analytics } from '../../../services/analytics';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 import { cn } from '../../../lib/utils';
 
 export default function JsonFormatter() {
@@ -163,7 +162,6 @@ export default function JsonFormatter() {
           </div>
         </div>
       </div>
-      <ToolSEOCard toolKey="json-formatter" />
     </div>
   );
 }

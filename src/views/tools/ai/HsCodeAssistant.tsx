@@ -12,7 +12,6 @@ import {
   SearchCheck,
   ShieldAlert,
 } from 'lucide-react';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 
 type Candidate = {
   codePattern?: string;
@@ -640,7 +639,6 @@ export default function HsCodeAssistant() {
         </div>
       </div>
 
-      <ToolSEOCard toolKey="ai-hs-code-assistant" />
     </div>
   );
 }

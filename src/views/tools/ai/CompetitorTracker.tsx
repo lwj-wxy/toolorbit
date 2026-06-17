@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Target, Loader2 } from 'lucide-react';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function CompetitorTracker() {
   const { t, i18n } = useTranslation();
@@ -253,7 +252,6 @@ export default function CompetitorTracker() {
           </div>
         </div>
       </div>
-      <ToolSEOCard toolKey="competitor-tracker" />
     </div>
   );
 }

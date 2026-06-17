@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Check, Copy } from 'lucide-react';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 import CryptoJS from 'crypto-js';
 import { cn } from '../../../lib/utils';
 
@@ -123,7 +122,6 @@ export default function HashGenerator() {
           </div>
         </section>
       </div>
-      <ToolSEOCard toolKey="hash-generator" />
     </div>
   );
 }

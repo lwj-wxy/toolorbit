@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pipette, Copy, AlertCircle, Check } from 'lucide-react';
 import tinycolor from 'tinycolor2';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function ColorPicker() {
   const { t } = useTranslation();
@@ -123,7 +122,6 @@ export default function ColorPicker() {
         </div>
       </div>
 
-      <ToolSEOCard toolKey="color-picker" />
     </div>
   );
 }

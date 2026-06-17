@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Clock, Copy, Check, RefreshCw } from 'lucide-react';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function TimestampConverter() {
   const { t } = useTranslation();
@@ -263,7 +262,6 @@ export default function TimestampConverter() {
           <li>{t('tools.timestamp-converter.instruction3')}</li>
         </ul>
       </div>
-      <ToolSEOCard toolKey="timestamp-converter" />
     </div>
   );
 }

@@ -4,7 +4,6 @@ import { AlertCircle, Check, Copy, Trash2 } from 'lucide-react';
 import JsonToTS from 'json-to-ts';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneLight } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 
 type HighlightedCodeInputProps = {
   value: string;
@@ -227,7 +226,6 @@ const JsonToTs: React.FC = () => {
         </section>
       </div>
 
-      <ToolSEOCard toolKey="json-to-ts" />
     </div>
   );
 };

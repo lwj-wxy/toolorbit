@@ -11,7 +11,6 @@ import {
   UploadCloud,
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 import { cn } from '../../../lib/utils';
 import { analytics } from '../../../services/analytics';
 
@@ -389,7 +388,6 @@ export default function AnimeScreenshotSource() {
         </div>
       </div>
 
-      <ToolSEOCard toolKey="anime-screenshot-source" />
     </div>
   );
 }

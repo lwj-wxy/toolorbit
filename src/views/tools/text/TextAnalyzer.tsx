@@ -9,7 +9,6 @@ import {
   TrendingUp
 } from 'lucide-react';
 import { motion } from 'motion/react';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 
 // Common stop words for filtering
 const STOP_WORDS = new Set([
@@ -237,7 +236,6 @@ export default function TextAnalyzer() {
         </div>
       </div>
 
-      <ToolSEOCard toolKey="text-analyzer" />
     </div>
   );
 }

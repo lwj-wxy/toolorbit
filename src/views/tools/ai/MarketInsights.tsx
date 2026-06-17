@@ -1,7 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BarChart3, Loader2 } from 'lucide-react';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function MarketInsights() {
   const { t, i18n } = useTranslation();
@@ -183,7 +182,6 @@ export default function MarketInsights() {
           </div>
         </div>
       </div>
-      <ToolSEOCard toolKey="market-insights" />
     </div>
   );
 }

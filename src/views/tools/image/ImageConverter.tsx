@@ -2,7 +2,6 @@ import React, { useState, useRef } from 'react';
 import { Upload, Download, Trash2, CheckCircle2, RefreshCcw } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { analytics } from '../../../services/analytics';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function ImageConverter() {
   const { t } = useTranslation();
@@ -294,7 +293,6 @@ export default function ImageConverter() {
         </div>
       </div>
 
-      <ToolSEOCard toolKey="image-converter" />
     </div>
   );
 }

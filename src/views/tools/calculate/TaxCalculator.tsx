@@ -1,7 +1,6 @@
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Check, Copy, ExternalLink, Percent, RotateCcw } from 'lucide-react';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 import { cn } from '../../../lib/utils';
 import {
   calculateTaxResult,
@@ -481,7 +480,6 @@ const TaxCalculator = ({ config }: { config: TaxCalculatorConfig }) => {
       </section>
 
       <TaxJurisdictionPanel jurisdiction={selectedJurisdiction} isZh={isZh} />
-      <ToolSEOCard toolKey={config.toolKey} />
       <TaxFaqSection toolKey={config.toolKey} />
     </div>
   );

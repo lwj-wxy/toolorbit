@@ -9,7 +9,6 @@ import {
   Loader2,
   Sparkles,
 } from 'lucide-react';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 
 type GeneratedImage = {
   imageUrl: string;
@@ -402,7 +401,6 @@ export default function ProductImageGenerator() {
         </section>
       </div>
 
-      <ToolSEOCard toolKey="ai-product-image-generator" />
     </div>
   );
 }

@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Wand2, Loader2, Copy, Check, RotateCcw } from 'lucide-react';
 import { motion } from 'motion/react';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function TextPolisher() {
   const { t, i18n } = useTranslation();
@@ -202,7 +201,6 @@ export default function TextPolisher() {
 
       </div>
 
-      <ToolSEOCard toolKey="ai-text-polisher" />
     </div>
   );
 }

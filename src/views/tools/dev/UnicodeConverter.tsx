@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Copy, Check, ArrowRightLeft } from 'lucide-react';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 
 export default function UnicodeConverter() {
   const { t } = useTranslation();
@@ -148,7 +147,6 @@ export default function UnicodeConverter() {
           </div>
         </div>
       </div>
-      <ToolSEOCard toolKey="unicode-converter" />
     </div>
   );
 }

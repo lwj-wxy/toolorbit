@@ -1,7 +1,6 @@
 import { useMemo, useState } from 'react';
 import { AlertTriangle, Ruler, Scale, UserRound } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 import { cn } from '../../../lib/utils';
 
 type Gender = 'female' | 'male';
@@ -279,7 +278,6 @@ export default function BmiCalculator() {
         </section>
       </div>
 
-      <ToolSEOCard toolKey="bmi-calculator" />
     </div>
   );
 }

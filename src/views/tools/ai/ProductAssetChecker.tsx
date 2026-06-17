@@ -11,7 +11,6 @@ import {
   ShieldCheck,
   Trash2,
 } from 'lucide-react';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 
 type UploadedAsset = {
   id: string;
@@ -589,7 +588,6 @@ export default function ProductAssetChecker() {
         </div>
       </div>
 
-      <ToolSEOCard toolKey="ai-product-asset-checker" />
     </div>
   );
 }

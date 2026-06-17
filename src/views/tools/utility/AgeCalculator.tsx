@@ -6,7 +6,6 @@ import 'dayjs/locale/zh-cn';
 import type { Dayjs } from 'dayjs';
 import { CalendarDays, Clock3, Hourglass, TimerReset } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 
@@ -237,7 +236,6 @@ export default function AgeCalculator() {
         </section>
       </div>
 
-      <ToolSEOCard toolKey="age-calculator" />
     </div>
   );
 }

@@ -9,7 +9,6 @@ import {
   X,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import ToolSEOCard from '../../../components/ToolSEOCard';
 
 interface ImageMetadata {
   id: string;
@@ -358,7 +357,6 @@ export default function ImageToPdf() {
         </div>
       </div>
 
-      <ToolSEOCard toolKey="image-to-pdf" />
     </div>
   );
 }
