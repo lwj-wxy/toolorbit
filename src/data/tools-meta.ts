@@ -11,18 +11,13 @@ export interface ToolMeta {
   isNoIndex?: boolean;
 }
 
-function expandDescription(tool: ToolMeta): ToolMeta {
-  if (tool.description.length >= 50) return tool;
-
-  const isAscii = /^[\x00-\x7F]+$/.test(tool.description);
-  const suffix = isAscii
-    ? ` Use ${tool.name} in ToolOrbit for quick browser-based workflows, clear controls, and privacy-friendly processing without extra software.`
-    : ` 使用 ${tool.name} 可在浏览器中完成常见工作流，提供清晰控件、即时结果和无需安装的本地优先体验。`;
-
-  return {
-    ...tool,
-    description: `${tool.description}${suffix}`.slice(0, 160),
-  };
+// Short tool descriptions are intentionally kept concise and unique. We no longer append a
+// shared marketing suffix here — across dozens of cards it read as templated, low-value
+// boilerplate. The long-form, per-tool copy lives in each tool's overview/FAQ data and is
+// surfaced server-side by ToolContent. This identity map preserves the contextual typing of
+// the raw literal entries against ToolMeta.
+function normalizeToolMeta(tool: ToolMeta): ToolMeta {
+  return tool;
 }
 
 const RAW_TOOLS_META = [
@@ -675,4 +670,4 @@ const RAW_TOOLS_META = [
   }
 ] satisfies ToolMeta[];
 
-export const TOOLS_META: ToolMeta[] = RAW_TOOLS_META.map(expandDescription);
+export const TOOLS_META: ToolMeta[] = RAW_TOOLS_META.map(normalizeToolMeta);
