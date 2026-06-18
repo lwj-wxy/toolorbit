@@ -464,10 +464,10 @@ export default function ResumeOptimizer() {
       <div className="flex flex-col gap-4 border-b border-slate-200 pb-6 dark:border-slate-800 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <h1 className="text-3xl font-semibold tracking-tight text-slate-950 dark:text-white">
-            {t('tools.ai-resume-optimizer.title') || 'AI Resume Generator'}
+            {t('tools.ai-resume-optimizer.title') || 'AI Resume Optimizer'}
           </h1>
           <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-400">
-            {t('tools.ai-resume-optimizer.description') || 'Upload a PDF or DOCX resume, add a job description, and generate a polished resume version you can copy.'}
+            {t('tools.ai-resume-optimizer.description') || 'Improve resume wording, structure, and keyword fit from resume text and a target job description.'}
           </p>
         </div>
       </div>
