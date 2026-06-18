@@ -9,8 +9,8 @@ const config: AiRuntimeToolConfig = {
     zh: 'AI Listing 生成器',
   },
   subtitle: {
-    en: 'Create product titles, descriptions, tags, and social copy from product details, with platform rules applied on the server.',
-    zh: '根据商品信息生成标题、描述、标签和社媒文案，并在服务端加入平台规则约束。',
+    en: 'Draft Etsy, Amazon, Shopify, and eBay listing titles, descriptions, tags, and social copy from product details.',
+    zh: '根据商品信息生成 Etsy、Amazon、Shopify 和 eBay 商品标题、描述、标签和社媒文案。',
   },
   formTitle: {
     en: 'Product brief',
@@ -45,7 +45,7 @@ const config: AiRuntimeToolConfig = {
       key: 'productName',
       type: 'input',
       label: { en: 'Product name', zh: '产品名称' },
-      placeholder: { en: 'Handmade ceramic mug', zh: '手工陶瓷马克杯' },
+      placeholder: { en: 'Personalized leather tote bag for Etsy', zh: '适合 Etsy 上架的个性化皮革托特包' },
       required: true,
       helpText: { en: 'Chinese input is supported. Output can be professional English.', zh: '支持中文输入，可输出专业英文。' },
     },
@@ -54,8 +54,8 @@ const config: AiRuntimeToolConfig = {
       type: 'textarea',
       label: { en: 'Features and selling points', zh: '特色与卖点' },
       placeholder: {
-        en: 'Minimalist shape, microwave safe, gift packaging...',
-        zh: '极简造型，可用于微波炉，适合礼品包装...',
+        en: 'Handmade leather, custom initials, gift packaging, laptop compartment, free shipping angle...',
+        zh: '手工皮革，可定制首字母，礼品包装，电脑隔层，可突出包邮卖点...',
       },
     },
     {

@@ -67,8 +67,8 @@ export const videoScriptConfig: AiRuntimeToolConfig = {
   icon: 'clapperboard',
   title: { en: 'AI Video Script Generator', zh: 'AI 视频脚本生成器' },
   subtitle: {
-    en: 'Draft hooks, scenes, captions, voiceover notes, and CTAs for short videos.',
-    zh: '生成短视频开场钩子、分镜、字幕提示、口播和行动号召。',
+    en: 'Turn a video idea or short movie concept into hooks, scenes, captions, voiceover notes, and CTAs.',
+    zh: '把视频想法或短片创意整理成钩子、分镜、字幕、口播和行动号召。',
   },
   formTitle: { en: 'Video brief', zh: '视频简报' },
   generateLabel: { en: 'Generate script', zh: '生成脚本' },
@@ -79,7 +79,7 @@ export const videoScriptConfig: AiRuntimeToolConfig = {
       key: 'topic',
       type: 'textarea',
       label: { en: 'Video topic', zh: '视频主题' },
-      placeholder: { en: '5 productivity habits for office workers', zh: '打工人必备的 5 个提高效率习惯' },
+      placeholder: { en: 'A 60-second short movie idea about 5 productivity habits for office workers', zh: '一个关于打工人 5 个效率习惯的 60 秒短片创意' },
       required: true,
     },
     {

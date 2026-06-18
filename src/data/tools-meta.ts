@@ -42,7 +42,7 @@ const RAW_TOOLS_META = [
   {
     id: 'ai-video-script',
     name: 'AI Video Script Generator',
-    description: 'Create short-video scripts with hook, scene structure, captions, voiceover, and CTA notes.',
+    description: 'Turn a video idea or short movie concept into a script with scenes, captions, voiceover, and CTA notes.',
     category: 'AI 工具',
     path: '/tools/ai/video-script',
     color: 'rose',
@@ -338,7 +338,7 @@ const RAW_TOOLS_META = [
   {
     id: 'listing-generator',
     name: 'AI Listing Generator',
-    description: 'Draft product titles, descriptions, tags, and social copy from product details and marketplace.',
+    description: 'Draft Etsy, Amazon, and Shopify product listing titles, descriptions, tags, and social copy.',
     category: 'AI 工具',
     path: '/tools/ai/listing-generator',
     color: 'emerald',

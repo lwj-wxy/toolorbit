@@ -255,17 +255,17 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
   'ai-video-script': {
     zh: {
       summary:
-        'AI 视频脚本生成器用于把视频主题整理成可拍摄的脚本草稿。你可以选择平台、时长和语气，生成开场钩子、分镜段落、旁白、字幕提示和行动号召。',
+        'AI 视频脚本生成器用于把视频想法、短片创意或内容主题整理成可拍摄的脚本草稿。你可以选择平台、时长和语气，生成开场钩子、分镜段落、旁白、字幕提示和行动号召。',
       input:
-        '填写视频主题、目标平台、预计时长和语气。主题可以包含受众、产品卖点、故事线、拍摄限制、必须提到的信息或想避开的表达。',
+        '填写视频主题、短片创意、目标平台、预计时长和语气。主题可以包含受众、产品卖点、故事线、拍摄限制、必须提到的信息或想避开的表达。',
       output:
-        '结果是一份按段落组织的视频脚本，包含开场、主要内容、画面提示、口播或旁白、字幕重点和结尾引导。你可以复制后交给拍摄、剪辑或运营同事继续调整。',
+        '结果是一份按段落组织的视频或短片脚本，包含开场、主要内容、画面提示、口播或旁白、字幕重点和结尾引导。你可以复制后交给拍摄、剪辑或运营同事继续调整。',
       processing:
         '提交后，工具会根据平台和时长调整脚本密度与节奏。生成内容是拍摄草稿，发布前请核对事实、产品承诺、合规表述、品牌语气和平台规则。',
       modes: ['视频主题输入', '平台选择', '时长选择', '语气选择', '分镜脚本', '全文复制'],
       example: {
         title: 'AI 视频脚本生成输入到输出示例',
-        input: '主题: 5 个提升办公效率的隐藏技巧（第 1 个你绝对没想到）\n时长: 60s 以内\n平台: 抖音\n语气: 教育型 + 轻松幽默',
+        input: '主题: 一个 60 秒短片，讲 5 个提升办公效率的隐藏技巧\n时长: 60s 以内\n平台: 抖音\n语气: 教育型 + 轻松幽默',
         output:
           '## 开场钩子 (0-3s)\n画面: 桌面堆满文件和便利贴的快切 → 突然清空只留一台笔记本。\n旁白:「你有没有觉得——明明忙了一天，真正做完的事却不超过三件？」\n\n## 镜头 1 (3-15s)\n画面: 特写手指在键盘上按下 Win+V 键。屏幕弹出剪贴板历史面板。\n旁白:「第一个隐藏技巧：Win+V 打开剪贴板历史，再也不用来回 Ctrl+C/V 切换。」\n\n## 镜头 2 (15-28s)\n…（后续分镜略）\n\n## 结尾 CTA (55-60s)\n画面: 创作者面对镜头微笑 + 屏幕弹出关注动画。\n旁白:「收藏这条视频，周一上班第一个试!」\n字幕: 点击关注 → 每周解锁更多效率技巧',
         inputLanguage: 'text',
@@ -274,17 +274,17 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
     },
     en: {
       summary:
-        'The AI Video Script Generator turns a topic into a shootable script draft. Choose a platform, duration, and tone to get an opening hook, scene outline, voiceover, subtitle cues, and call to action.',
+        'The AI Video Script Generator turns a video idea, short movie concept, or content topic into a shootable script draft. Choose a platform, duration, and tone to get an opening hook, scene outline, voiceover, subtitle cues, and call to action.',
       input:
-        'Enter the video topic, target platform, expected duration, and tone. The topic can include audience, selling points, storyline, filming limits, required claims, or wording you want to avoid.',
+        'Enter the video topic, short movie idea, target platform, expected duration, and tone. The topic can include audience, selling points, storyline, filming limits, required claims, or wording you want to avoid.',
       output:
-        'The result is a sectioned video script with opening, main points, visual cues, spoken lines or voiceover, subtitle highlights, and closing prompt. Copy it into your production notes and adjust it for the real shoot.',
+        'The result is a sectioned video or short movie script with opening, main points, visual cues, spoken lines or voiceover, subtitle highlights, and closing prompt. Copy it into your production notes and adjust it for the real shoot.',
       processing:
         'After submission, the tool adjusts script density and pacing for the selected platform and duration. Treat the output as a production draft, then check facts, product claims, compliance wording, brand voice, and platform rules before publishing.',
       modes: ['Video topic input', 'Platform selection', 'Duration selection', 'Tone selection', 'Scene script draft', 'Full-text copy'],
       example: {
         title: 'AI video script generation input-to-output example',
-        input: 'Topic: 5 Hidden Productivity Hacks for Office Workers (you\'ll never believe #1)\nDuration: Under 60s\nPlatform: TikTok\nTone: Educational + Light Humor',
+        input: 'Topic: A 60-second short movie idea about 5 hidden productivity hacks for office workers\nDuration: Under 60s\nPlatform: TikTok\nTone: Educational + Light Humor',
         output:
           '## Opening Hook (0-3s)\nVisual: Fast cuts of a messy desk piled with papers and sticky notes → suddenly cleared to just one laptop.\nVoiceover: "Ever feel like you were busy all day — but actually finished fewer than three real things?"\n\n## Scene 1 (3-15s)\nVisual: Close-up of fingers pressing Win+V keys. Clipboard history panel pops up on screen.\nVoiceover: "First hidden hack: Win+V opens clipboard history. Never juggle Ctrl+C/V back and forth again."\n\n## Scene 2 (15-28s)\n… (remaining scenes truncated)\n\n## Closing CTA (55-60s)\nVisual: Creator smiles at camera + follow animation pops up on screen.\nVoiceover: "Save this video and try the first one Monday morning!"\nSubtitle: Follow for weekly productivity hacks →',
         inputLanguage: 'text',
@@ -653,36 +653,36 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
   'listing-generator': {
     zh: {
       summary:
-        'AI Listing 生成器用于把产品名称、卖点和销售平台整理成上架文案草稿。你可以先生成商品标题、描述、标签和社媒短文，再按真实规格、库存、物流和平台规则校对后发布。',
+        'AI Listing 生成器用于把产品名称、卖点和销售平台整理成 Etsy、Amazon、Shopify 或 eBay 上架文案草稿。你可以先生成商品标题、描述、标签和社媒短文，再按真实规格、库存、物流和平台规则校对后发布。',
       input:
-        '填写销售平台、产品名称、特色与卖点、输出语言和文案语气。产品名称写清商品类型；卖点可以补充材质、尺寸、使用场景、目标买家、礼品场景或定制信息。信息越具体，生成的标题和描述越容易贴近真实商品。',
+        '填写销售平台、产品名称、特色与卖点、输出语言和文案语气。产品名称写清商品类型和目标平台，例如 Etsy 个性化礼品、Amazon 家居用品或 Shopify 独立站新品。卖点可以补充材质、尺寸、使用场景、目标买家、礼品场景、关键词或定制信息。',
       output:
-        '结果分为标题、描述、标签和社媒文案四块。标题适合放在商品页；描述可以继续编辑后粘贴到平台；标签用于整理搜索词；社媒文案可作为 Instagram、Pinterest、TikTok 等渠道的短文草稿。每块内容都可以单独复制。',
+        '结果分为标题、描述、标签和社媒文案四块。标题适合放在商品页；描述可以继续编辑后粘贴到平台；标签用于整理 Etsy、Amazon 或独立站搜索词；社媒文案可作为 Instagram、Pinterest、TikTok 等渠道的短文草稿。每块内容都可以单独复制。',
       processing:
         '提交后，工具会根据你选择的平台、语言和语气组织文案方向，并把商品信息拆成四类结果。生成内容是初稿，发布前请确认商品规格、价格、库存、物流承诺、禁用词和平台政策。',
       modes: ['Etsy、Amazon、Shopify、eBay 平台选择', '产品名称和多行卖点输入', '中文、英文、日文、德文输出', '转化导向、专业、紧迫三种语气', '标题、描述、标签、社媒文案分块展示', '单块复制'],
       example: {
         title: 'Listing 文案生成输入到输出示例',
-        input: '平台: Etsy\n产品名称: 手工陶瓷马克杯\n特色与卖点: 极简造型，手工釉面，每只杯子的釉色纹理独一无二，适合咖啡爱好者和送礼，景德镇匠人制作\n语言: Chinese\n语气: Persuasive',
-        output: '[TITLE]\n景德镇手作陶瓷马克杯 | 极简釉面咖啡杯 | 独一无二伴手礼\n\n[DESCRIPTION]\n每一只手作陶瓷马克杯都由景德镇匠人手工拉坯、高温烧制而成……\n\n[TAGS]\n手工陶瓷杯, 马克杯, 咖啡杯, 伴手礼, 景德镇, 极简设计\n\n[SOCIAL]\n☕ 每天早晨的第一杯咖啡，值得用一只独一无二的手作陶瓷杯来迎接✨',
+        input: '平台: Etsy\n产品名称: 个性化皮革托特包\n特色与卖点: 手工皮革，可定制首字母，适合通勤和送礼，带电脑隔层，礼品包装，可突出包邮卖点\n语言: Chinese\n语气: Persuasive',
+        output: '[TITLE]\n个性化手工皮革托特包 | 可定制首字母通勤包 | 送礼包装\n\n[DESCRIPTION]\n这款个性化皮革托特包采用手工皮革制作，可定制首字母，适合通勤、上课、短途出行和节日送礼。内部电脑隔层方便收纳日常设备，礼品包装让它更适合作为生日、毕业季或职场礼物。\n\n[TAGS]\n皮革托特包, 个性化礼物, 通勤包, 手工皮具, 可定制包, Etsy 礼物\n\n[SOCIAL]\n一只可以刻上名字的皮革托特包，把通勤实用性和送礼心意放在一起。',
         inputLanguage: 'text',
         outputLanguage: 'markdown',
       },
     },
     en: {
       summary:
-        'The AI Listing Generator turns a product name, selling points, and marketplace into editable listing copy. Use it to draft product titles, descriptions, tags, and short social copy, then review the result against your real specs, stock, shipping terms, and marketplace rules.',
+        'The AI Listing Generator turns a product name, selling points, and marketplace into editable Etsy, Amazon, Shopify, or eBay listing copy. Use it to draft product titles, descriptions, tags, and short social copy, then review the result against your real specs, stock, shipping terms, and marketplace rules.',
       input:
-        'Fill in the marketplace, product name, selling points, output language, and tone. Keep the product name specific. Use the selling-points field for material, size, use case, buyer type, gift occasion, customization options, or other details buyers should know.',
+        'Fill in the marketplace, product name, selling points, output language, and tone. Keep the product name specific to the channel, such as an Etsy personalized gift, Amazon home item, or Shopify store launch. Use the selling-points field for material, size, use case, buyer type, gift occasion, keywords, customization options, or other details buyers should know.',
       output:
-        'The result is split into four copyable blocks: title, description, tags, and social copy. Use the title and description for your product page, the tags for search terms, and the social copy as a short draft for Instagram, Pinterest, TikTok, or similar channels.',
+        'The result is split into four copyable blocks: title, description, tags, and social copy. Use the title and description for your product page, the tags for Etsy, Amazon, or store search terms, and the social copy as a short draft for Instagram, Pinterest, TikTok, or similar channels.',
       processing:
         'After submission, the tool uses your marketplace, language, tone, and product details to draft four types of listing copy. Treat the output as a starting point. Check product facts, claims, prices, availability, shipping promises, restricted terms, and platform policy before publishing.',
       modes: ['Etsy, Amazon, Shopify, and eBay selection', 'Product name and selling-point input', 'English, Chinese, Japanese, and German output', 'Persuasive, professional, and urgent tones', 'Title, description, tags, and social-copy blocks', 'Copy each block separately'],
       example: {
         title: 'Listing copy generation input-to-output example',
-        input: 'Platform: Etsy\nProduct: Handmade Ceramic Mug\nFeatures: Minimalist silhouette, handmade glaze, each mug has a one-of-a-kind glaze pattern, suitable for coffee lovers and gifting, crafted by Jingdezhen artisans\nLanguage: English\nTone: Persuasive',
-        output: '[TITLE]\nHandmade Ceramic Mug | Minimalist Glazed Coffee Cup | One-of-a-Kind Gift\n\n[DESCRIPTION]\nEach handmade ceramic mug is thrown and high-temperature fired by artisans in Jingdezhen…\n\n[TAGS]\nhandmade ceramic mug, coffee cup, minimalist mug, gift, Jingdezhen, stoneware\n\n[SOCIAL]\n☕ Your morning coffee deserves a mug as unique as you are. Meet our Jingdezhen hand-thrown ceramic mug ✨',
+        input: 'Platform: Etsy\nProduct: Personalized Leather Tote Bag\nFeatures: Handmade leather, custom initials, laptop compartment, gift packaging, commuter-friendly, free shipping angle\nLanguage: English\nTone: Persuasive',
+        output: '[TITLE]\nPersonalized Leather Tote Bag | Custom Initials Work Bag | Gift-Ready Commuter Tote\n\n[DESCRIPTION]\nCarry work essentials in a handmade leather tote designed for daily commutes, gifting, and custom initials. The laptop compartment keeps your device organized, while gift-ready packaging makes it easy to send directly to a friend, graduate, coworker, or partner.\n\n[TAGS]\npersonalized leather tote, custom work bag, leather commuter tote, gift for her, laptop tote, Etsy gift\n\n[SOCIAL]\nA leather tote with custom initials, laptop space, and gift-ready packaging for workdays and milestones.',
         inputLanguage: 'text',
         outputLanguage: 'markdown',
       },
