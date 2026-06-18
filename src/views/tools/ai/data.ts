@@ -50,7 +50,7 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
   'ai-product-asset-checker': {
     zh: {
       summary:
-        'AI 商品素材合规质检器用于在跨境商品上架或投放广告前，对商品主图、场景图、包装图、标签图和详情图做一次素材风险预检。它不是平台审核接口，也不输出法律结论，而是根据图片内容、商品描述、目标平台和目标市场，指出可能影响上架或广告审核的视觉问题、包装信息缺口、文字覆盖、水印边框、商品一致性和监管敏感信号。适合跨境卖家、独立站运营、素材设计、供应链和代运营团队在素材交付前先做一次统一检查。',
+        'AI 商品素材合规质检器用于在跨境商品上架或投放广告前，对商品主图、场景图、包装图、标签图和详情图做一次素材风险预检。它不是平台审核系统，也不输出法律结论，而是根据图片内容、商品描述、目标平台和目标市场，指出可能影响上架或广告审核的视觉问题、包装信息缺口、文字覆盖、水印边框、商品一致性和监管敏感信号。适合跨境卖家、独立站运营、素材设计、供应链和代运营团队在素材交付前先做一次统一检查。',
       input:
         '核心输入包括商品名称、商品描述、目标平台、目标市场和最多 8 张商品素材图片。每张图片可以标记为主图、场景图、包装图、标签图或细节图。商品名称和描述用于判断图片里的商品是否一致；平台和市场会改变检查重点，例如 Google Shopping 主图限制、Amazon 上架图、TikTok Shop 素材、Shopify 商品页或 Meta Ads 广告初稿。上传前请压缩过大的原图，避免把未筛选的素材全部丢进来。',
       output:
@@ -138,7 +138,7 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         '结果分为标题、简介、标签和缩略图方向。标题可用于比较不同点击角度；简介适合继续编辑后粘贴到 YouTube；标签用于整理搜索词；缩略图方向可交给设计或剪辑同事参考。',
       processing:
-        '提交后，工具会根据主题、观众和语气生成一组可编辑的发布素材。发布前请核对视频内容、品牌合作信息、链接、时间戳、免责声明和频道固定格式。',
+        '视频上传前，标题、简介和缩略图方向通常决定第一波点击。输入主题、观众和语气后，工具会整理一组可编辑的发布素材。发布前请核对视频内容、品牌合作信息、链接、时间戳、免责声明和频道固定格式。',
       modes: ['视频主题输入', '目标观众描述', '多语言输出', '教育、吸引点击、戏剧化语气', '标题、简介、标签、缩略图方向分块展示', '单块复制'],
       example: {
         title: 'YouTube 素材生成输入到输出示例',
@@ -157,7 +157,7 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         'The result is split into title options, description, tags, and thumbnail directions. Use the titles to compare hooks, the description as an editable YouTube draft, the tags as keyword ideas, and the thumbnail notes as a design brief.',
       processing:
-        'After submission, the tool drafts publishing copy from your topic, audience, language, and tone. Before publishing, check the final video content, sponsorship details, links, timestamps, disclaimers, and channel format.',
+        'Before a video goes live, the title, description, and thumbnail angle often decide the first wave of clicks. Add the topic, audience, language, and tone, then use the draft as editable publishing copy. Check the final video content, sponsorship details, links, timestamps, disclaimers, and channel format before publishing.',
       modes: ['Video topic input', 'Target audience notes', 'Multilingual output', 'Educational, engaging, and dramatic tones', 'Title, description, tag, and thumbnail blocks', 'Copy each block separately'],
       example: {
         title: 'YouTube asset generation input-to-output example',
@@ -179,7 +179,7 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         '结果通常包含多套英文提示词和简短说明。你可以分别复制不同方案，测试哪一套更适合当前图片任务，再继续补充负面词、比例参数或品牌要求。',
       processing:
-        '提交后，工具会把主题和风格整理成更完整的视觉 brief，并生成几套可尝试的英文提示词。结果是创作草稿，正式商用前请检查版权、品牌元素、人物肖像和平台使用规则。',
+        '画面想法太短时，生图模型容易丢主体、风格或构图重点。输入主题和风格后，工具会整理成更完整的视觉 brief，并给出几套可尝试的英文提示词。结果是创作草稿，正式商用前请检查版权、品牌元素、人物肖像和平台使用规则。',
       modes: ['画面主题输入', '风格预设选择', '多套提示词方案', '英文主提示词', '中文说明', '单套复制'],
       example: {
         title: 'AI 绘画提示词生成输入到输出示例',
@@ -198,7 +198,7 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         'The result usually contains several prompt options with short notes. Copy one option at a time, test it in your image model, then add negative prompts, aspect ratio, brand constraints, or extra details as needed.',
       processing:
-        'After submission, the tool turns your idea and style choice into a fuller visual brief, then drafts several English prompt options. Treat the output as a starting point and review copyright, brand elements, likeness rights, and platform rules before commercial use.',
+        'Short image ideas often lose the subject, style, or composition once they reach an image model. Add the idea and style, then use the expanded visual brief and English prompt options as a creative starting point. Review copyright, brand elements, likeness rights, and platform rules before commercial use.',
       modes: ['Visual idea input', 'Style preset selection', 'Multiple prompt options', 'English main prompt', 'Short explanatory notes', 'Copy each option'],
       example: {
         title: 'AI prompt generation input-to-output example',
@@ -261,7 +261,7 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         '结果是一份按段落组织的视频或短片脚本，包含开场、主要内容、画面提示、口播或旁白、字幕重点和结尾引导。你可以复制后交给拍摄、剪辑或运营同事继续调整。',
       processing:
-        '提交后，工具会根据平台和时长调整脚本密度与节奏。生成内容是拍摄草稿，发布前请核对事实、产品承诺、合规表述、品牌语气和平台规则。',
+        '短视频卡住时，问题通常不是没有主题，而是不知道开头、转折和结尾该怎么排。选择平台和时长后，工具会把脚本密度、镜头节奏和口播重点整理成拍摄草稿。发布前请核对事实、产品承诺、合规表述、品牌语气和平台规则。',
       modes: ['视频主题输入', '平台选择', '时长选择', '语气选择', '分镜脚本', '全文复制'],
       example: {
         title: 'AI 视频脚本生成输入到输出示例',
@@ -280,7 +280,7 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         'The result is a sectioned video or short movie script with opening, main points, visual cues, spoken lines or voiceover, subtitle highlights, and closing prompt. Copy it into your production notes and adjust it for the real shoot.',
       processing:
-        'After submission, the tool adjusts script density and pacing for the selected platform and duration. Treat the output as a production draft, then check facts, product claims, compliance wording, brand voice, and platform rules before publishing.',
+        'Short-form videos often stall because the hook, turn, and ending are unclear. Choose the platform and duration, then use the draft to shape script density, pacing, and voiceover points. Check facts, product claims, compliance wording, brand voice, and platform rules before publishing.',
       modes: ['Video topic input', 'Platform selection', 'Duration selection', 'Tone selection', 'Scene script draft', 'Full-text copy'],
       example: {
         title: 'AI video script generation input-to-output example',
@@ -343,7 +343,7 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         '结果包含可复制公式和简短解释。复制到表格前，请确认区域引用、分隔符、语言版本和函数兼容性。',
       processing:
-        '提交后，工具会根据你的需求选择合适的函数组合。复杂财务、统计或合规计算仍需要人工验证。',
+        '表格问题写得清楚，公式才容易复核。描述目标、条件和数据范围后，工具会给出适合 Excel 或 Google Sheets 的公式思路。复杂财务、统计或合规计算仍需要人工验证。',
       modes: ['自然语言需求输入', 'Excel 公式', 'Google Sheets 公式', '公式解释', '示例用法', '一键复制'],
       example: {
         title: 'AI Excel 公式生成输入到输出示例',
@@ -362,7 +362,7 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         'The result includes a copyable formula and a short explanation. Before using it, check cell ranges, separators, locale settings, and function compatibility in your spreadsheet app.',
       processing:
-        'After submission, the tool chooses a formula approach based on your task and selected spreadsheet app. Verify complex finance, statistics, or compliance calculations by hand before relying on them.',
+        'A clear spreadsheet task makes the formula easier to review. Describe the goal, conditions, and data range, then use the generated approach in Excel or Google Sheets. Verify complex finance, statistics, or compliance calculations by hand before relying on them.',
       modes: ['Natural-language task input', 'Excel formula', 'Google Sheets formula', 'Formula explanation', 'Usage example', 'One-click copy'],
       example: {
         title: 'AI Excel formula generation input-to-output example',
@@ -384,7 +384,7 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         '结果包含正则表达式、测试样例和简短解释。复制到项目中前，请用真实数据测试，尤其注意多语言字符、换行和转义规则。',
       processing:
-        '提交后，工具会根据你的描述生成可测试的表达式。正则可能因语言或运行环境不同而表现不同，使用前需要在目标环境验证。',
+        '正则最怕只看起来能匹配。说明要匹配的文本、排除条件和目标环境后，工具会给出可测试的表达式和示例。正则可能因语言或运行环境不同而表现不同，使用前需要在目标环境验证。',
       modes: ['匹配需求输入', '示例文本', '正则表达式', '测试样例', '语法解释', '复制使用'],
       example: {
         title: 'AI 正则表达式生成输入到输出示例',
@@ -403,7 +403,7 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         'The result includes a regular expression, test examples, and a short explanation. Before using it in a project, test it with real data, especially for multilingual text, line breaks, and escaping rules.',
       processing:
-        'After submission, the tool drafts a testable expression from your description. Regex behavior can vary by language and runtime, so verify the pattern in your target environment before shipping it.',
+        'A regex should be tested against both matches and non-matches. Describe the text, exclusions, and target environment, then use the expression and examples as a reviewable draft. Regex behavior can vary by language and runtime, so verify the pattern in your target environment before shipping it.',
       modes: ['Matching requirement input', 'Sample text', 'Regular expression', 'Test examples', 'Syntax explanation', 'Copy to use'],
       example: {
         title: 'AI regex generation input-to-output example',
@@ -542,7 +542,7 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         '结果包含标题方向、正文草稿、话题标签和互动引导。你可以复制后按真实体验、图片素材和账号语气继续修改。',
       processing:
-        '提交后，工具会按所选风格组织内容结构。发布前请核对产品事实、价格、功效描述、广告合规和平台社区规则。',
+        '小红书笔记不能只堆卖点，还要有开头场景、体验顺序和可相信的细节。选择风格后，工具会整理标题、正文和标签方向。发布前请核对产品事实、价格、功效描述、广告合规和平台社区规则。',
       modes: ['主题输入', '关键词约束', '五种笔记风格', '标题和正文草稿', '话题标签', '全文复制'],
       example: {
         title: '小红书文案生成输入到输出示例',
@@ -560,7 +560,7 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         'The result includes title ideas, a body draft, hashtags, and an engagement prompt. Copy it, then adjust the wording to match your real experience, image set, and account voice.',
       processing:
-        'After submission, the tool organizes the draft around your selected style. Before posting, check product facts, prices, benefit claims, ad disclosure, and Xiaohongshu community rules.',
+        'A Xiaohongshu post needs more than a list of selling points; it needs a scene, a readable flow, and believable detail. Choose a style, then use the draft for title, body, and hashtag direction. Before posting, check product facts, prices, benefit claims, ad disclosure, and Xiaohongshu community rules.',
       modes: ['Topic input', 'Keyword constraints', 'Five note styles', 'Title and body draft', 'Hashtags', 'Full-text copy'],
       example: {
         title: 'Xiaohongshu copy generation input-to-output example',
@@ -581,7 +581,7 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         '结果会给出一版可复制的改写文本。你可以继续检查事实、删减不需要的句子，或再换一种语气生成。',
       processing:
-        '提交后，工具会围绕清晰度、语气和表达顺序改写文本，不应替你新增未提供的事实。对合同、医疗、金融或法律内容，请只把结果当作语言参考。',
+        '粗糙文本常见问题不是语法错，而是重点顺序不清、语气不稳或句子太绕。粘贴原文并选择目标语气后，工具会围绕清晰度、表达顺序和可读性改写文本，不应替你新增未提供的事实。对合同、医疗、金融或法律内容，请只把结果当作语言参考。',
       modes: ['原文输入', '语气选择', '清晰度改写', '语法和表达调整', '保留原意', '全文复制'],
       example: {
         title: 'AI 文本润色输入到输出示例',
@@ -599,7 +599,7 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         'The result is a copy-ready rewritten version. Review facts, remove anything unnecessary, or generate again with a different tone.',
       processing:
-        'After submission, the tool improves clarity, tone, and sentence order without adding facts you did not provide. For contracts, medical, financial, or legal text, treat the output as language support only.',
+        'Rough text often fails because the point order, tone, or sentence shape is unclear, not because every sentence is wrong. Paste the source text and choose a tone, then review the rewrite for clarity and readability. For contracts, medical, financial, or legal text, treat the output as language support only.',
       modes: ['Original text input', 'Tone selection', 'Clarity rewrite', 'Grammar and phrasing polish', 'Meaning preserved', 'Full-text copy'],
       example: {
         title: 'AI text polishing input-to-output example',
@@ -620,7 +620,7 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         '结果是一版可复制的译文。你可以继续检查术语、品牌语气、地区表达和敏感内容，再用于正式发布。',
       processing:
-        '提交后，工具会结合上下文翻译，而不是逐词替换。涉及合同、合规、医疗或财务内容时，请交给专业人员复核。',
+        '翻译商务邮件、商品文案或客服回复时，直译常会丢语气和使用场景。输入原文、目标语言和上下文后，工具会给出更贴近语境的译文。涉及合同、合规、医疗或财务内容时，请交给专业人员复核。',
       modes: ['源文本输入', '目标语言选择', '语气选择', '上下文翻译', '术语保留', '全文复制'],
       example: {
         title: 'AI 翻译输入到输出示例',
@@ -638,7 +638,7 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         'The result is a copy-ready translation. Check terminology, brand voice, regional phrasing, and sensitive wording before using it publicly.',
       processing:
-        'After submission, the tool translates with context instead of word-by-word replacement. For contracts, compliance, medical, or financial content, use a professional reviewer before publication.',
+        'Business emails, product copy, and support replies lose tone when translated word by word. Add the source text, target language, and context, then review the translation for meaning and usage. For contracts, compliance, medical, or financial content, use a professional reviewer before publication.',
       modes: ['Source text input', 'Target language selection', 'Tone selection', 'Context-aware translation', 'Terminology preservation', 'Full-text copy'],
       example: {
         title: 'AI translation input-to-output example',
@@ -659,7 +659,7 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         '结果分为标题、描述、标签和社媒文案四块。标题适合放在商品页；描述可以继续编辑后粘贴到平台；标签用于整理 Etsy、Amazon 或独立站搜索词；社媒文案可作为 Instagram、Pinterest、TikTok 等渠道的短文草稿。每块内容都可以单独复制。',
       processing:
-        '提交后，工具会根据你选择的平台、语言和语气组织文案方向，并把商品信息拆成四类结果。生成内容是初稿，发布前请确认商品规格、价格、库存、物流承诺、禁用词和平台政策。',
+        '上架文案要同时给买家和平台读：标题要清楚，描述要完整，标签要能被搜索，社媒文案要能引导点击。输入商品信息、平台、语言和语气后，工具会拆成四类结果。发布前请确认商品规格、价格、库存、物流承诺、禁用词和平台政策。',
       modes: ['Etsy、Amazon、Shopify、eBay 平台选择', '产品名称和多行卖点输入', '中文、英文、日文、德文输出', '转化导向、专业、紧迫三种语气', '标题、描述、标签、社媒文案分块展示', '单块复制'],
       example: {
         title: 'Listing 文案生成输入到输出示例',
@@ -677,7 +677,7 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         'The result is split into four copyable blocks: title, description, tags, and social copy. Use the title and description for your product page, the tags for Etsy, Amazon, or store search terms, and the social copy as a short draft for Instagram, Pinterest, TikTok, or similar channels.',
       processing:
-        'After submission, the tool uses your marketplace, language, tone, and product details to draft four types of listing copy. Treat the output as a starting point. Check product facts, claims, prices, availability, shipping promises, restricted terms, and platform policy before publishing.',
+        'Listing copy has to work for both buyers and platform search: the title must be clear, the description complete, tags searchable, and social copy clickable. Add product details, marketplace, language, and tone, then review the four copy blocks. Check product facts, claims, prices, availability, shipping promises, restricted terms, and platform policy before publishing.',
       modes: ['Etsy, Amazon, Shopify, and eBay selection', 'Product name and selling-point input', 'English, Chinese, Japanese, and German output', 'Persuasive, professional, and urgent tones', 'Title, description, tags, and social-copy blocks', 'Copy each block separately'],
       example: {
         title: 'Listing copy generation input-to-output example',
@@ -698,7 +698,7 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         '结果包含关键词摘要、推荐方向和多个关键词分组。你可以把长尾词用于标题、标签、商品描述、广告候选词或内容选题。重要词仍需要用平台搜索、广告后台或真实数据继续验证。',
       processing:
-        '提交后，工具会围绕种子词扩展相关表达，并按购买意图、材质、风格、场景或人群等方向分组。结果是选词草稿，不代表实时搜索量、广告成本或平台排名。',
+        '选词阶段不要急着把一个种子词塞进标题。先把它拆成购买意图、材质、风格、场景和人群等方向，再决定哪些词用于标题、标签、描述或广告测试。结果是选词草稿，不代表实时搜索量、广告成本或平台排名。',
       modes: ['种子产品词输入', '中文或英文输出', '关键词摘要', '长尾词分组', '搜索意图说明', '单个关键词复制'],
       example: {
         title: '关键词分析输入到输出示例',
@@ -716,7 +716,7 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         'The result includes a keyword summary, a recommended direction, and grouped keyword ideas. Use the terms in listing titles, tags, product descriptions, ad tests, or content planning. Validate important terms with marketplace search, ad tools, or your own analytics before treating them as demand signals.',
       processing:
-        'After submission, the tool expands the seed term into related phrases and groups them by buying intent, material, style, occasion, or audience. The result is a planning draft, not live search volume, ad cost, or marketplace ranking data.',
+        'Do not push a seed term straight into a listing title. First split it into buying intent, material, style, occasion, and audience groups, then decide which terms fit titles, tags, descriptions, or ad tests. The result is a planning draft, not live search volume, ad cost, or marketplace ranking data.',
       modes: ['Seed product term input', 'Chinese or English output', 'Keyword summary', 'Long-tail keyword groups', 'Search-intent notes', 'Copy individual keywords'],
       example: {
         title: 'Keyword analysis input-to-output example',
@@ -737,7 +737,7 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         '结果会按关键维度对比双方差异，并给出可继续验证的文案和产品建议。请结合真实评论、销量、价格和供应链情况判断优先级。',
       processing:
-        '提交后，工具会根据两段输入整理对比角度。结果是运营参考，不代表平台官方数据、真实销量或最终商业判断。',
+        '看竞品时，别只记录对方便宜还是贵。把自己的产品和竞品信息放在一起，工具会整理卖点差异、弱项和可测试的文案机会。结果是运营参考，不代表平台官方数据、真实销量或最终商业判断。',
       modes: ['我的产品描述', '竞品详情输入', '中英文输出', '卖点对比', '机会点建议', '报告复制'],
       example: {
         title: '竞品分析输入到输出示例',
@@ -755,7 +755,7 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         'The result compares both products across key dimensions and suggests copy or product angles worth checking. Use real reviews, sales, prices, and supply-chain constraints to decide priorities.',
       processing:
-        'After submission, the tool organizes comparison angles from the two inputs. Treat the result as operational reference, not official platform data, verified sales data, or a final business decision.',
+        'Competitor review should go beyond whether the other product is cheaper. Compare your product and competitor notes side by side, then use the result to find selling-point gaps, weaknesses, and copy angles to test. Treat it as operational reference, not official platform data, verified sales data, or a final business decision.',
       modes: ['My product description', 'Competitor detail input', 'Chinese or English output', 'Selling-point comparison', 'Opportunity suggestions', 'Report copy'],
       example: {
         title: 'Competitor analysis input-to-output example',
@@ -776,7 +776,7 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         '结果包含类目方向、趋势判断、机会点和下一步验证建议。请用平台搜索、广告工具、后台数据或真实订单继续确认。',
       processing:
-        '提交后，工具会基于你的输入生成研究草稿。它不是实时市场数据源，不能替代库存、采购、预算或投放决策。',
+        '选品早期最需要的是问题清单：这个方向谁会买、在哪个平台验证、风险在哪里。输入平台、时间范围和品类方向后，工具会整理市场研究草稿。它不是实时市场数据源，不能替代库存、采购、预算或投放决策。',
       modes: ['平台选择', '时间范围', '品类或产品方向', '机会点整理', '风险提醒', '验证建议'],
       example: {
         title: '市场洞察输入到输出示例',
@@ -794,7 +794,7 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         'The result includes category directions, trend notes, opportunity ideas, and next-step validation suggestions. Confirm the ideas with platform search, ad tools, store analytics, or real orders.',
       processing:
-        'After submission, the tool generates a research draft from your inputs. It is not a live market data source and should not replace inventory, sourcing, budget, or ad decisions.',
+        'Early product research needs a question list: who might buy, where to validate, and what risks to check. Add the platform, timeframe, and category direction, then use the research draft to plan validation. It is not a live market data source and should not replace inventory, sourcing, budget, or ad decisions.',
       modes: ['Platform selection', 'Timeframe', 'Category or product direction', 'Opportunity notes', 'Risk reminders', 'Validation suggestions'],
       example: {
         title: 'Market insight input-to-output example',
@@ -856,7 +856,7 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         '结果是一版可复制的简历草稿，可继续调整为单页版、经典版或重点突出版。发布或投递前，请逐条核对经历和量化数据。',
       processing:
-        '提交后，工具会围绕岗位要求重组表达和亮点。它不会替你证明不存在的经历；不要让 AI 添加虚假职位、技能、证书或成绩。',
+        '改简历时，最容易出问题的是把经历写得更好听，却离岗位要求更远。粘贴简历并补充 JD 后，工具会围绕岗位要求重组表达和亮点。它不会替你证明不存在的经历；不要让 AI 添加虚假职位、技能、证书或成绩。',
       modes: ['简历文本输入', '岗位 JD 对齐', '角色方向选择', '版式选择', '中英文输出', '复制或导出'],
       example: {
         title: 'AI 简历生成输入到输出示例',
@@ -875,7 +875,7 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         'The result is a copy-ready resume draft that you can refine into a one-page, classic, or highlight-focused version. Before sending it, verify every experience detail and metric.',
       processing:
-        'After submission, the tool reorganizes wording and highlights around the target role. It cannot verify work history for you, so do not let AI add roles, skills, certificates, or achievements that are not true.',
+        'Resume edits can sound better while drifting away from the target role. Paste the resume and add the job description, then use the draft to reorganize wording and highlights around the role. The tool cannot verify work history for you, so do not let AI add roles, skills, certificates, or achievements that are not true.',
       modes: ['Resume text input', 'Job description alignment', 'Role direction', 'Layout choice', 'Chinese or English output', 'Copy or export'],
       example: {
         title: 'AI resume generation input-to-output example',

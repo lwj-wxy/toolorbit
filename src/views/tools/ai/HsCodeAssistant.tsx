@@ -328,39 +328,44 @@ export default function HsCodeAssistant() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-6 xl:grid-cols-[420px_minmax(0,1fr)]">
+      <div className="space-y-6">
         <div className="space-y-5 rounded-lg border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-[#282c34]">
           <section className="space-y-4">
             <h2 className="flex items-center gap-2 text-sm font-semibold text-slate-950 dark:text-white">
               <PackageCheck className="h-4 w-4 text-amber-600 dark:text-amber-300" />
               {isZh ? '商品信息' : 'Product details'}
             </h2>
-            <div>
-              <label className="mb-1 block text-sm font-semibold text-slate-900 dark:text-slate-100">
-                {isZh ? '商品名称' : 'Product name'}
-              </label>
-              <input
-                value={form.productName}
-                onChange={(event) => setField('productName', event.target.value)}
-                placeholder={isZh ? '例如：可折叠硅胶水杯' : 'e.g. Foldable silicone drinking cup'}
-                className="h-11 w-full rounded-lg border border-slate-200 bg-white px-3 text-sm text-slate-900 shadow-sm outline-none placeholder:text-slate-400 focus:border-amber-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
-              />
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div>
+                <label className="mb-1 block text-sm font-semibold text-slate-900 dark:text-slate-100">
+                  {isZh ? '商品名称' : 'Product name'}
+                </label>
+                <input
+                  value={form.productName}
+                  onChange={(event) => setField('productName', event.target.value)}
+                  placeholder={isZh ? '例如：可折叠硅胶水杯' : 'e.g. Foldable silicone drinking cup'}
+                  className="h-11 w-full rounded-lg border border-slate-200 bg-white px-3 text-sm text-slate-900 shadow-sm outline-none placeholder:text-slate-400 focus:border-amber-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
+                />
+              </div>
+              <div>
+                <label className="mb-1 block text-sm font-semibold text-slate-900 dark:text-slate-100">
+                  {isZh ? '主要材质' : 'Main material'}
+                </label>
+                <input
+                  value={form.material}
+                  onChange={(event) => setField('material', event.target.value)}
+                  placeholder={isZh ? '例如：食品级硅胶杯身，塑料杯盖' : 'e.g. Food-grade silicone body, plastic lid'}
+                  className="h-11 w-full rounded-lg border border-slate-200 bg-white px-3 text-sm text-slate-900 shadow-sm outline-none placeholder:text-slate-400 focus:border-amber-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
+                />
+              </div>
             </div>
             <div>
-              <label className="mb-1 block text-sm font-semibold text-slate-900 dark:text-slate-100">
-                {isZh ? '主要材质' : 'Main material'}
-              </label>
-              <input
-                value={form.material}
-                onChange={(event) => setField('material', event.target.value)}
-                placeholder={isZh ? '例如：食品级硅胶杯身，塑料杯盖' : 'e.g. Food-grade silicone body, plastic lid'}
-                className="h-11 w-full rounded-lg border border-slate-200 bg-white px-3 text-sm text-slate-900 shadow-sm outline-none placeholder:text-slate-400 focus:border-amber-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
-              />
-            </div>
-            <div>
-              <label className="mb-1 block text-sm font-semibold text-slate-900 dark:text-slate-100">
-                {isZh ? '用途' : 'Product use'}
-              </label>
+              <div className="mb-1 flex items-center justify-between gap-3">
+                <label className="block text-sm font-semibold text-slate-900 dark:text-slate-100">
+                  {isZh ? '用途' : 'Product use'}
+                </label>
+                <span className="text-xs text-slate-400">{form.productUse.length}</span>
+              </div>
               <textarea
                 value={form.productUse}
                 onChange={(event) => setField('productUse', event.target.value)}
@@ -370,7 +375,7 @@ export default function HsCodeAssistant() {
             </div>
           </section>
 
-          <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-1">
+          <section className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
               <label className="mb-1 block text-sm font-semibold text-slate-900 dark:text-slate-100">
                 {isZh ? '目标市场' : 'Destination market'}
@@ -405,7 +410,12 @@ export default function HsCodeAssistant() {
             </div>
           </section>
 
-          <section className="grid grid-cols-1 gap-4 sm:grid-cols-3 xl:grid-cols-1">
+          <details className="rounded-lg border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-950/40">
+            <summary className="cursor-pointer text-sm font-semibold text-slate-900 dark:text-slate-100">
+              {isZh ? '更多选项（可选）' : 'More options (optional)'}
+            </summary>
+
+          <section className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
             {[
               ['battery', isZh ? '是否带电池' : 'Battery'],
               ['electronics', isZh ? '是否含电子元件' : 'Electronics'],
@@ -426,12 +436,12 @@ export default function HsCodeAssistant() {
             ))}
           </section>
 
-          <section className="space-y-3">
+          <section className="mt-5 space-y-3">
             <h2 className="flex items-center gap-2 text-sm font-semibold text-slate-950 dark:text-white">
               <ShieldAlert className="h-4 w-4 text-rose-600 dark:text-rose-300" />
               {isZh ? '风险因素' : 'Risk flags'}
             </h2>
-            <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 xl:grid-cols-1">
+            <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
               {riskFlagOptions.map((option) => (
                 <label
                   key={option.value}
@@ -449,7 +459,7 @@ export default function HsCodeAssistant() {
             </div>
           </section>
 
-          <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-1">
+          <section className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <input
               value={form.packageContents}
               onChange={(event) => setField('packageContents', event.target.value)}
@@ -475,6 +485,7 @@ export default function HsCodeAssistant() {
               className="h-11 rounded-lg border border-slate-200 bg-white px-3 text-sm text-slate-900 shadow-sm outline-none placeholder:text-slate-400 focus:border-amber-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
             />
           </section>
+          </details>
 
           <button
             onClick={analyzeProduct}
@@ -486,7 +497,7 @@ export default function HsCodeAssistant() {
           </button>
         </div>
 
-        <div className="min-h-[620px] rounded-lg border border-slate-200 bg-slate-50 p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+        <div className="rounded-lg border border-slate-200 bg-slate-50 p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
           {error ? (
             <div className="mb-4 rounded-lg border border-rose-200 bg-rose-50 p-4 text-sm font-medium text-rose-700 dark:border-rose-900 dark:bg-rose-950/30 dark:text-rose-300">
               {error}
@@ -494,15 +505,15 @@ export default function HsCodeAssistant() {
           ) : null}
 
           {loading ? (
-            <div className="flex min-h-[520px] flex-col items-center justify-center gap-3 text-slate-500 dark:text-slate-400">
+            <div className="flex flex-col items-center justify-center gap-3 py-12 text-slate-500 dark:text-slate-400">
               <Loader2 className="h-10 w-10 animate-spin text-amber-600" />
               <p className="text-sm font-medium">{isZh ? '正在整理候选方向和申报描述...' : 'Building candidate directions and customs text...'}</p>
             </div>
           ) : null}
 
           {!loading && !result ? (
-            <div className="flex min-h-[520px] flex-col items-center justify-center text-center text-slate-500 dark:text-slate-400">
-              <ClipboardList className="mb-4 h-14 w-14 text-slate-300 dark:text-slate-700" />
+            <div className="flex items-center gap-3 rounded-lg border border-dashed border-slate-200 bg-white px-4 py-4 text-slate-500 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-400">
+              <ClipboardList className="h-5 w-5 flex-none text-slate-300 dark:text-slate-700" />
               <p className="max-w-md text-sm leading-6">
                 {isZh
                   ? '填写商品名称、材质和用途后，工具会生成英文报关品名、商业发票描述、候选编码方向和需要确认的问题。'

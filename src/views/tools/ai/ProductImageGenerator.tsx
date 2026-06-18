@@ -324,9 +324,9 @@ export default function ProductImageGenerator() {
           </div>
         </section>
 
-        <section className="min-h-[420px] rounded-lg border border-slate-200 bg-slate-50 p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+        <section className="rounded-lg border border-slate-200 bg-slate-50 p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
           {loading ? (
-            <div className="flex min-h-[360px] flex-col items-center justify-center gap-3 text-center text-slate-500 dark:text-slate-400">
+            <div className="flex flex-col items-center justify-center gap-3 py-12 text-center text-slate-500 dark:text-slate-400">
               <Loader2 className="h-10 w-10 animate-spin text-violet-600" />
               <p className="text-sm font-medium">{isZh ? '正在根据商品信息生成出海商品图...' : 'Generating listing images from your product details...'}</p>
               <p className="max-w-md text-xs leading-5">{isZh ? '生成多张图会需要更长时间。请保留当前页面。' : 'Multiple variants may take longer. Keep this page open.'}</p>
@@ -334,8 +334,8 @@ export default function ProductImageGenerator() {
           ) : null}
 
           {!loading && !result ? (
-            <div className="flex min-h-[360px] flex-col items-center justify-center text-center text-slate-500 dark:text-slate-400">
-              <ImageIcon className="mb-4 h-14 w-14 text-slate-300 dark:text-slate-700" />
+            <div className="flex items-center gap-3 rounded-lg border border-dashed border-slate-200 bg-white px-4 py-4 text-slate-500 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-400">
+              <ImageIcon className="h-5 w-5 flex-none text-slate-300 dark:text-slate-700" />
               <p className="max-w-md text-sm leading-6">
                 {isZh ? '填写商品信息后，这里会显示生成结果、下载按钮和生成提示词。' : 'Enter product details to see generated images, download actions, and prompts.'}
               </p>

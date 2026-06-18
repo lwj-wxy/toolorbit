@@ -45,6 +45,8 @@ const LABELS: Record<Locale, {
   faq: string;
   inputExample: string;
   outputExample: string;
+  lastUpdated: (date: string) => string;
+  defaultMaintainer: string;
 }> = {
   en: {
     about: (n) => `About ${n}`,
@@ -57,6 +59,8 @@ const LABELS: Record<Locale, {
     faq: 'Frequently Asked Questions',
     inputExample: 'Input example',
     outputExample: 'Output example',
+    lastUpdated: (date) => `Last updated ${date}`,
+    defaultMaintainer: 'ToolOrbit Editorial Team',
   },
   zh: {
     about: (n) => `关于${n}`,
@@ -69,6 +73,8 @@ const LABELS: Record<Locale, {
     faq: '常见问题',
     inputExample: '输入示例',
     outputExample: '输出示例',
+    lastUpdated: (date) => `最近更新 ${date}`,
+    defaultMaintainer: 'ToolOrbit 编辑团队',
   },
 };
 
@@ -214,6 +220,12 @@ export default function ToolContent({ path, locale = 'en' }: { path: string; loc
       {copy.disclaimer ? (
         <p className="mt-8 border-t border-slate-200 pt-6 text-sm leading-6 text-slate-500 dark:border-slate-800 dark:text-slate-400">
           {copy.disclaimer}
+        </p>
+      ) : null}
+
+      {overview?.lastUpdated ? (
+        <p className={`mt-6 text-xs text-slate-400 dark:text-slate-500${copy.disclaimer ? '' : ' border-t border-slate-200 pt-6 dark:border-slate-800'}`}>
+          {L.lastUpdated(overview.lastUpdated)} · {overview.maintainer || L.defaultMaintainer}
         </p>
       ) : null}
     </section>

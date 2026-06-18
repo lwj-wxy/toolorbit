@@ -9,8 +9,8 @@ const keywordAnalyzerConfig: AiRuntimeToolConfig = {
     zh: '电商关键词分析器',
   },
   subtitle: {
-    en: 'Group product keyword ideas by search intent, listing angle, and copy use. No live search volume is claimed.',
-    zh: '按搜索意图、Listing 角度和文案用途整理商品关键词想法，不伪造实时搜索量。',
+    en: 'Group product keyword ideas by search intent, listing angle, and copy use. Use the result for planning, not live search volume.',
+    zh: '按搜索意图、Listing 角度和文案用途整理商品关键词想法；结果用于规划，不代表实时搜索量。',
   },
   formTitle: {
     en: 'Keyword brief',

@@ -287,7 +287,7 @@ export default function ProductAssetChecker() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-6 xl:grid-cols-[420px_minmax(0,1fr)]">
+      <div className="space-y-6">
         <div className="space-y-5 rounded-lg border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-[#282c34]">
           <section className="space-y-4">
             <h2 className="flex items-center gap-2 text-sm font-semibold text-slate-950 dark:text-white">
@@ -306,9 +306,12 @@ export default function ProductAssetChecker() {
               />
             </div>
             <div>
-              <label className="mb-1 block text-sm font-semibold text-slate-900 dark:text-slate-100">
-                {isZh ? '商品说明' : 'Product description'}
-              </label>
+              <div className="mb-1 flex items-center justify-between gap-3">
+                <label className="block text-sm font-semibold text-slate-900 dark:text-slate-100">
+                  {isZh ? '商品说明' : 'Product description'}
+                </label>
+                <span className="text-xs text-slate-400">{productDescription.length}</span>
+              </div>
               <textarea
                 value={productDescription}
                 onChange={(event) => setProductDescription(event.target.value)}
@@ -316,7 +319,7 @@ export default function ProductAssetChecker() {
                 className="min-h-[92px] w-full resize-y rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm leading-6 text-slate-900 shadow-sm outline-none placeholder:text-slate-400 focus:border-emerald-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
               />
             </div>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-1">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div>
                 <label className="mb-1 block text-sm font-semibold text-slate-900 dark:text-slate-100">
                   {isZh ? '目标平台' : 'Target platform'}
@@ -419,17 +422,17 @@ export default function ProductAssetChecker() {
           </button>
         </div>
 
-        <div className="min-h-[620px] rounded-lg border border-slate-200 bg-slate-50 p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+        <div className="rounded-lg border border-slate-200 bg-slate-50 p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
           {loading ? (
-            <div className="flex min-h-[520px] flex-col items-center justify-center gap-3 text-slate-500 dark:text-slate-400">
+            <div className="flex flex-col items-center justify-center gap-3 py-12 text-slate-500 dark:text-slate-400">
               <Loader2 className="h-10 w-10 animate-spin text-emerald-600" />
               <p className="text-sm font-medium">{isZh ? '正在检查图片、文字覆盖和平台风险...' : 'Checking images, overlays, and platform risks...'}</p>
             </div>
           ) : null}
 
           {!loading && !result ? (
-            <div className="flex min-h-[520px] flex-col items-center justify-center text-center text-slate-500 dark:text-slate-400">
-              <ShieldCheck className="mb-4 h-14 w-14 text-slate-300 dark:text-slate-700" />
+            <div className="flex items-center gap-3 rounded-lg border border-dashed border-slate-200 bg-white px-4 py-4 text-slate-500 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-400">
+              <ShieldCheck className="h-5 w-5 flex-none text-slate-300 dark:text-slate-700" />
               <p className="max-w-md text-sm leading-6">
                 {isZh
                   ? '上传商品主图、包装图或标签图后，工具会检查图片尺寸、文字覆盖、商品一致性、包装信息和平台素材风险。'

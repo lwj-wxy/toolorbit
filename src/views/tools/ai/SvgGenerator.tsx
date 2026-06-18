@@ -114,10 +114,10 @@ export default function SvgGenerator() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+      <div className="space-y-6">
             
             {/* Input Section */}
-            <div className="flex h-[500px] flex-col space-y-5 rounded-lg border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-[#282c34]">
+            <div className="space-y-5 rounded-lg border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-[#282c34]">
               <div>
                 <label className="mb-2 block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
                    {t('tools.ai-svg-generator.prompt') || 'Description'}
@@ -148,7 +148,7 @@ export default function SvgGenerator() {
               <button
                 onClick={handleGenerate}
                 disabled={!prompt.trim() || loading}
-                className="mt-auto inline-flex w-full items-center justify-center gap-2 rounded-lg bg-cyan-600 px-4 py-3 text-sm font-semibold text-white shadow-sm transition-colors duration-200 hover:bg-cyan-700 disabled:cursor-not-allowed disabled:bg-slate-300 dark:disabled:bg-slate-800"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-cyan-600 px-4 py-3 text-sm font-semibold text-white shadow-sm transition-colors duration-200 hover:bg-cyan-700 disabled:cursor-not-allowed disabled:bg-slate-300 dark:disabled:bg-slate-800 sm:w-auto sm:px-8"
               >
                 {loading ? (
                   <>
@@ -165,8 +165,8 @@ export default function SvgGenerator() {
             </div>
 
             {/* Output Section */}
-            <div className="flex h-[500px] flex-col space-y-3 rounded-lg border border-slate-200 bg-slate-50 p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
-              <div className="h-full flex flex-col">
+            <div className="space-y-3 rounded-lg border border-slate-200 bg-slate-50 p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+              <div className="flex flex-col">
                  <div className="mb-2 flex shrink-0 items-center justify-between">
                     <label className="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
                       {t('tools.ai-svg-generator.resultTitle') || 'Result'}
@@ -198,7 +198,7 @@ export default function SvgGenerator() {
                     </div>
                  </div>
                  
-                 <div className="relative flex-1 min-h-[400px]">
+                 <div className="relative min-h-[180px] sm:min-h-[320px]">
                     <div className={`absolute inset-0 overflow-hidden rounded-lg border transition-all
                       ${result 
                         ? 'bg-white dark:bg-slate-950 border-cyan-200 dark:border-cyan-900/40 text-slate-800 dark:text-slate-200'

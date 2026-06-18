@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type ComponentType } from 'react';
+import { useEffect, useMemo, useRef, useState, type ComponentType } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Check, Clapperboard, Copy, Loader2, Sparkles, Zap } from 'lucide-react';
 import Markdown from 'react-markdown';
@@ -121,6 +121,7 @@ const AiRuntimeTool = ({ config }: { config: AiRuntimeToolConfig }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [copiedField, setCopiedField] = useState<string | null>(null);
+  const resultRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setValues((currentValues) => {
@@ -150,6 +151,11 @@ const AiRuntimeTool = ({ config }: { config: AiRuntimeToolConfig }) => {
     setCopiedField(fieldKey);
     setTimeout(() => setCopiedField(null), 1600);
   };
+
+  useEffect(() => {
+    if (!result) return;
+    resultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, [result]);
 
   const updateValue = (key: string, value: string) => {
     setValues((currentValues) => ({ ...currentValues, [key]: value }));
@@ -185,24 +191,30 @@ const AiRuntimeTool = ({ config }: { config: AiRuntimeToolConfig }) => {
   const renderField = (field: AiRuntimeField) => {
     const commonClassName =
       'w-full rounded-lg border border-slate-200 bg-white px-3 text-sm text-slate-900 shadow-sm outline-none placeholder:text-slate-400 focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100';
+    const fieldValue = values[field.key] || '';
 
     return (
-      <div key={field.key}>
-        <label className="mb-1 block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
-          {text(field.label, isZh)}
-        </label>
+      <div key={field.key} className={field.type === 'textarea' ? 'sm:col-span-2' : ''}>
+        <div className="mb-1 flex items-center justify-between gap-3">
+          <label className="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
+            {text(field.label, isZh)}
+          </label>
+          {field.type === 'textarea' ? <span className="text-xs text-slate-400">{fieldValue.length}</span> : null}
+        </div>
         {field.type === 'textarea' ? (
           <textarea
-            value={values[field.key] || ''}
+            value={fieldValue}
             onChange={(event) => updateValue(field.key, event.target.value)}
             placeholder={field.placeholder ? text(field.placeholder, isZh) : undefined}
             className={`${commonClassName} min-h-[112px] resize-none py-3`}
+            aria-label={text(field.label, isZh)}
           />
         ) : field.type === 'select' || field.type === 'language' ? (
           <select
-            value={values[field.key] || ''}
+            value={fieldValue}
             onChange={(event) => updateValue(field.key, event.target.value)}
             className={`${commonClassName} h-11`}
+            aria-label={text(field.label, isZh)}
           >
             {field.options?.map((option) => (
               <option key={option.value} value={option.value}>
@@ -212,10 +224,11 @@ const AiRuntimeTool = ({ config }: { config: AiRuntimeToolConfig }) => {
           </select>
         ) : (
           <input
-            value={values[field.key] || ''}
+            value={fieldValue}
             onChange={(event) => updateValue(field.key, event.target.value)}
             placeholder={field.placeholder ? text(field.placeholder, isZh) : undefined}
             className={`${commonClassName} h-11`}
+            aria-label={text(field.label, isZh)}
           />
         )}
         {field.helpText ? (
@@ -228,9 +241,27 @@ const AiRuntimeTool = ({ config }: { config: AiRuntimeToolConfig }) => {
   const renderSectionResults = () => {
     if (config.result.type !== 'sections') return null;
     const sections = parseSections(result, config.result.sections);
+    const allSectionText = config.result.sections
+      .map((section) => {
+        const content = sections[section.key];
+        return content ? `${text(section.label, isZh)}\n${content}` : '';
+      })
+      .filter(Boolean)
+      .join('\n\n');
 
     return (
       <div className="space-y-4">
+        {allSectionText ? (
+          <div className="flex justify-end">
+            <button
+              onClick={() => copyToClipboard(allSectionText, 'all')}
+              className="inline-flex items-center gap-1.5 rounded-md border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-600 transition-colors hover:border-cyan-300 hover:text-cyan-700 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-300"
+            >
+              {copiedField === 'all' ? <Check size={14} className="text-emerald-500" /> : <Copy size={14} />}
+              {copiedField === 'all' ? (isZh ? '已复制' : 'Copied') : (isZh ? '复制全部' : 'Copy all')}
+            </button>
+          </div>
+        ) : null}
         {config.result.sections.map((section) => {
           const content = sections[section.key];
           if (!content) return null;
@@ -277,6 +308,15 @@ const AiRuntimeTool = ({ config }: { config: AiRuntimeToolConfig }) => {
 
     return (
       <div className="space-y-6">
+        <div className="flex justify-end">
+          <button
+            onClick={() => copyToClipboard(result, 'keyword-all')}
+            className="inline-flex items-center gap-1.5 rounded-md border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-600 transition-colors hover:border-cyan-300 hover:text-cyan-700 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-300"
+          >
+            {copiedField === 'keyword-all' ? <Check size={14} className="text-emerald-500" /> : <Copy size={14} />}
+            {copiedField === 'keyword-all' ? (isZh ? '已复制' : 'Copied') : (isZh ? '复制全部' : 'Copy all')}
+          </button>
+        </div>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
           <div className="rounded-lg border border-cyan-100 bg-cyan-50 p-4 dark:border-cyan-900/50 dark:bg-cyan-950/30">
             <p className="mb-1 text-xs font-bold text-cyan-700 dark:text-cyan-200">Total</p>
@@ -335,45 +375,50 @@ const AiRuntimeTool = ({ config }: { config: AiRuntimeToolConfig }) => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <div className="flex min-h-[500px] flex-col space-y-5 rounded-lg border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-[#282c34]">
+      <div className="space-y-6">
+        <div className="space-y-5 rounded-lg border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-[#282c34]">
           <h2 className="flex items-center gap-2 text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
             <Icon className="h-4 w-4 text-cyan-600 dark:text-cyan-300" />
             {text(config.formTitle, isZh)}
           </h2>
 
-          <div className="flex flex-1 flex-col space-y-4">
+          <div className="grid gap-4 sm:grid-cols-2">
             {config.fields.map(renderField)}
-            <button
-              onClick={requestGeneration}
-              disabled={loading || !canSubmit}
-              className="mt-auto inline-flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-cyan-600 text-sm font-semibold text-white shadow-sm transition-colors duration-200 hover:bg-cyan-700 disabled:cursor-not-allowed disabled:bg-slate-300 dark:disabled:bg-slate-800"
-            >
-              {loading ? <Loader2 className="animate-spin" size={18} /> : <Icon size={18} />}
-              {loading ? text(config.loadingLabel, isZh) : text(config.generateLabel, isZh)}
-            </button>
           </div>
+          <button
+            onClick={requestGeneration}
+            disabled={loading || !canSubmit}
+            className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-cyan-600 text-sm font-semibold text-white shadow-sm transition-colors duration-200 hover:bg-cyan-700 disabled:cursor-not-allowed disabled:bg-slate-300 dark:disabled:bg-slate-800 sm:w-auto sm:px-8"
+          >
+            {loading ? <Loader2 className="animate-spin" size={18} /> : <Icon size={18} />}
+            {loading ? text(config.loadingLabel, isZh) : text(config.generateLabel, isZh)}
+          </button>
         </div>
 
-        <div className="flex min-h-[500px] flex-col rounded-lg border border-slate-200 bg-slate-50 p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+        <div ref={resultRef} className="rounded-lg border border-slate-200 bg-slate-50 p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+          <div className="mb-4 flex items-center justify-between gap-3">
+            <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-100">{isZh ? '结果' : 'Result'}</h2>
+            {!result && !loading ? <span className="text-xs text-slate-400">{isZh ? '等待生成' : 'Waiting'}</span> : null}
+          </div>
+
           {error ? (
             <div className="mb-4 rounded-lg border border-rose-100 bg-rose-50 p-4 text-sm font-medium text-rose-600 dark:border-rose-900/70 dark:bg-rose-950/20 dark:text-rose-200">
               {error}
             </div>
           ) : null}
 
-          <div className="min-h-0 flex-1 overflow-y-auto">
+          <div>
             {loading && !result ? (
-              <div className="flex h-full flex-col items-center justify-center py-20 text-center text-slate-400">
-                <Loader2 className="mb-4 animate-spin text-cyan-500" size={44} />
+              <div className="flex flex-col items-center justify-center py-12 text-center text-slate-500 dark:text-slate-400">
+                <Loader2 className="mb-3 animate-spin text-cyan-500" size={34} />
                 <p className="text-sm font-semibold">{text(config.loadingLabel, isZh)}</p>
               </div>
             ) : null}
 
             {!loading && !result ? (
-              <div className="flex h-full flex-col items-center justify-center py-20 text-center opacity-40">
-                <Icon className="mb-4 text-slate-300" size={56} />
-                <p className="text-lg font-bold">{text(config.waitingLabel, isZh)}</p>
+              <div className="flex items-center gap-3 rounded-lg border border-dashed border-slate-200 bg-white px-4 py-4 text-slate-500 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-400">
+                <Icon className="h-5 w-5 flex-none text-slate-300 dark:text-slate-600" />
+                <p className="text-sm leading-6">{text(config.waitingLabel, isZh)}</p>
               </div>
             ) : null}
 

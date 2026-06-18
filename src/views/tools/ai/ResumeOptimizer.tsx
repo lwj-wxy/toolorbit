@@ -472,7 +472,7 @@ export default function ResumeOptimizer() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)]">
+      <div className="space-y-6">
         <section className="space-y-5 rounded-lg border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-[#282c34]">
           <div className="rounded-lg border border-dashed border-slate-300 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-900/60">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -609,7 +609,7 @@ export default function ResumeOptimizer() {
           </button>
         </section>
 
-        <section className="flex min-h-[680px] flex-col rounded-lg border border-slate-200 bg-slate-50 p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+        <section className="space-y-3 rounded-lg border border-slate-200 bg-slate-50 p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
           <div className="mb-3 flex items-center justify-between gap-3">
             <div>
               <h2 className="text-sm font-semibold text-slate-950 dark:text-white">
@@ -638,7 +638,7 @@ export default function ResumeOptimizer() {
           </div>
 
           <div
-            className={`min-h-0 flex-1 overflow-y-auto rounded-xl border p-5 ${
+            className={`min-h-[180px] overflow-y-auto rounded-xl border p-5 ${
               result
                 ? 'border-slate-200 bg-slate-100 text-slate-900 dark:border-slate-700 dark:bg-slate-950'
                 : 'flex items-center justify-center border-slate-200 bg-white text-slate-400 dark:border-slate-700 dark:bg-slate-800/50 dark:text-slate-500'
