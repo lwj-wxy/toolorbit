@@ -211,46 +211,6 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
     },
   },
 
-  'ai-weekly-report': {
-    zh: {
-      summary:
-        'AI 周报生成器用于将零散、口语化甚至不完整的工作记录整理为结构清晰、语气专业一致、可直接提交或经微调后使用的 Markdown 格式周报。适合需要定期向上级、团队或客户汇报进展的个人贡献者（开发工程师、产品经理、设计师、运营专员等），负责汇总团队多成员工作并合并为统一周报的项目经理或技术负责人，进行项目 Sprint 回顾和迭代复盘总结的敏捷团队，需要向导师或学校提交实习周报的实习生，以及希望将日常随手记录的任务碎片格式化为正式文档以便归档和绩效回顾的职场人士。工具支持四种输出语气——Professional（专业正式，适合向上汇报和对外交付）、Concise（简明扼要，适合快节奏团队和快速同步）、Detailed（详尽具体，包含背景、过程、成果和数据的完整叙事）和 Action-Oriented（结果导向，以成果和下一步行动为重心）——用户根据汇报对象和场景选择最合适的风格，AI 自动适配语言组织方式。',
-      input:
-        '三个核心文本输入字段和语气选择：本周完成事项（必填）——可输入任务列表、需求编号或用户故事 ID（如"STORY-1234 登录模块重构"）、项目里程碑节点（如"完成 V2.1 前端发布"）、口语化的随手记录（如"修了那个用户反馈的闪退 bug，跟后端对了下支付回调的格式"）；下周计划事项（选填，但推荐填写以获得更完整的周报结构）——用于生成规划段落，可列出待启动的需求、预期产出、关键里程碑和协作依赖；问题与风险（选填）——用于记录当前阻塞项、技术债、延期风险、外部依赖等待状态和需要协调的资源缺口；以及语气选项（Professional / Concise / Detailed / Action-Oriented），从预设值中选择一个以控制 AI 生成文本的措辞风格、段落密度和信息组织方式。输入不做本地持久化，切换页面或刷新后数据不保留，如需长期存档请将生成结果复制到文档工具中。',
-      output:
-        '结果是一份可复制的 Markdown 周报，通常包含本周完成、关键成果、下周计划、风险问题和需要支持。每个板块会根据你填写的内容取舍，不会硬塞空段落。你可以把全文粘贴到企业微信、飞书文档、邮件正文或项目管理平台，再按团队口径补充项目编号、链接和负责人。',
-      processing:
-        '周五临下班才补周报时，最难的不是写字，而是把一周零散记录整理成领导能扫读的结构。先把完成事项、下周计划和风险问题分别贴进去，再选一种语气；工具会把口语记录改成可汇报的段落，把成果、计划和风险分开写清楚。它不会替你核实数据或项目状态，提交前请补上真实链接、负责人、日期和量化结果。',
-      modes: ['本周完成事项（支持任务列表 / 项目编号 / 口语记录）', '下周计划事项', '问题风险与阻塞标记', '四种语气选择（专业 / 简明 / 详尽 / 结果导向）', 'Markdown 周报草稿', '全文一键复制', '空字段自动跳过对应板块'],
-      example: {
-        title: 'AI 周报生成输入到输出示例',
-        input: '本周完成: 1. 修复登录模块 session 过期后白屏问题；2. 完成用户中心接口文档 v2.0；3. 协助测试团队完成支付模块回归测试\n下周计划: 1. 接入微信支付 V3 回调接口；2. 重构订单列表查询性能（目标 < 200ms）\n问题风险: 第三方物流接口偶尔超时，已与对方技术对接排查中\n语气: 专业正式',
-        output:
-          '## 本周工作完成\n\n### 问题修复\n- 修复登录模块 session 过期后白屏问题，已上线生产环境。\n\n### 文档与协作\n- 完成用户中心接口文档 v2.0，已通过前后端联合评审。\n- 协助测试团队完成支付模块回归测试，覆盖 43 条用例。\n\n## 关键成果\n- 登录白屏问题修复后用户投诉量下降约 60%。\n\n## 下周计划\n- 接入微信支付 V3 回调接口，预计周三完成联调。\n- 重构订单列表查询，目标将响应时间优化至 200ms 以内。\n\n## 风险与问题\n- 第三方物流接口偶发超时，正在与对方技术团队联合排查。\n\n## 需要的支持\n- 暂无额外协调需求。',
-        inputLanguage: 'text',
-        outputLanguage: 'markdown',
-      },
-    },
-    en: {
-      summary:
-        'The AI Weekly Report Generator transforms scattered, conversational, and sometimes incomplete work notes into a well-structured, professionally toned Markdown weekly report ready to submit or use with minor edits. Suitable for individual contributors (developers, product managers, designers, operations specialists) who need to report progress to managers, teams, or clients on a regular cadence; project managers and tech leads who aggregate multi-member work into a unified team report; agile teams conducting Sprint reviews and iteration retrospectives; interns submitting weekly internship reports to mentors or schools; and professionals who want to format daily jotted task fragments into formal documents for archival and performance review. The tool supports four output tones — Professional (formal and polished, suitable for upward reporting and external delivery), Concise (brief and to the point, for fast-paced teams and rapid sync), Detailed (comprehensive narrative including background, process, results, and data), and Action-Oriented (focused on outcomes and next steps) — allowing users to select the most appropriate style based on the report audience and context, with the AI auto-adapting language and organization accordingly.',
-      input:
-        'Three core text input fields and a tone selector: Completed Work This Week (required) — accepts task lists, issue IDs or user story IDs (e.g. "STORY-1234 Login module refactor"), project milestones (e.g. "Completed V2.1 frontend release"), or conversational rough notes (e.g. "Fixed that crash bug users reported, synced with backend on payment callback format"); Next Week Plan (optional but recommended for a more complete report structure) — used to generate the planning section, can list upcoming requirements, expected deliverables, key milestones, and collaboration dependencies; Problems & Risks (optional) — for recording current blockers, technical debt, delay risks, external dependency wait states, and resource gaps requiring coordination; and the Tone option (Professional / Concise / Detailed / Action-Oriented) selected from a preset list to control the AI-generated wording style, paragraph density, and information organization. Input is not persisted locally — data is lost on page navigation or refresh; for long-term archiving, copy the generated result into a document tool.',
-      output:
-        'The result is a copy-ready Markdown weekly report, usually covering completed work, key results, next-week plan, risks, and support needed. Sections appear only when your notes support them, so the draft does not force empty headings. Paste it into WeCom, Feishu Docs, email, or a project-management comment, then add real links, owners, dates, and metrics.',
-      processing:
-        'When Friday reporting catches up with you, the hard part is not typing. It is turning scattered notes into a structure your manager can scan. Add completed work, next-week plans, and risks, then choose the tone. The tool turns rough notes into report-ready sections and separates outcomes, plans, and blockers. It does not verify the facts for you, so review project status, links, owners, dates, and metrics before sending.',
-      modes: ['Completed work (supports task lists / issue IDs / rough notes)', 'Next-week planning', 'Risks & blockers tracking', 'Four tone options (Professional / Concise / Detailed / Action-Oriented)', 'Markdown weekly-report draft', 'Full-text one-click copy', 'Auto-skip sections for empty input fields'],
-      example: {
-        title: 'AI weekly report generation input-to-output example',
-        input: 'Done: 1. Fixed login session-expiry white-screen issue; 2. Completed User Center API docs v2.0; 3. Assisted QA team with payment module regression testing\nNext: 1. Integrate WeChat Pay V3 callback; 2. Optimize order list query performance (target < 200ms)\nRisks: Third-party logistics API intermittent timeout, joint investigation underway with their tech team\nTone: Professional',
-        output:
-          '## Completed This Week\n\n### Bug Fixes\n- Fixed the login session-expiry white-screen issue; deployed to production.\n\n### Documentation & Collaboration\n- Completed User Center API documentation v2.0, approved in joint frontend/backend review.\n- Assisted QA team in completing payment module regression testing covering 43 test cases.\n\n## Key Results\n- User complaints dropped approximately 60% after the login white-screen fix.\n\n## Next Week Plan\n- Integrate WeChat Pay V3 callback API; target completion and joint debugging by Wednesday.\n- Refactor order list query to meet sub-200ms response-time target.\n\n## Risks & Issues\n- Third-party logistics API experiences intermittent timeouts; joint investigation ongoing with their engineering team.\n\n## Support Needed\n- No additional coordination needs at this time.',
-        inputLanguage: 'text',
-        outputLanguage: 'markdown',
-      },
-    },
-  },
 
   'ai-video-script': {
     zh: {
@@ -293,46 +253,6 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
     },
   },
 
-  'ai-meeting-minutes': {
-    zh: {
-      summary:
-        'AI 会议纪要生成器用于将原始会议录音转写文本、人工速记、会议聊天记录或多语言讨论片段整理为格式标准、重点突出的专业会议纪要，大幅降低会后手工整理的时间成本，确保讨论要点、决策结论和行动项无遗漏。适合项目推进例会（Sprint Planning、Daily Standup、Sprint Review 等敏捷会议）、客户需求沟通与方案评审会议、跨部门协作与对齐会议、产品需求评审（PRD Review）与技术方案讨论、项目复盘与事故回顾会（Retrospective / Postmortem）、面试记录归档和上级一对一面谈备忘、远程团队 Zoom/Teams/飞书会议的自动转写后处理，以及学术研讨会 / 行业分享会的笔记整理。工具支持三种输出格式——详细纪要（完整记录讨论背景、各方观点、论证过程和结论，适合需要存档备查或向未参会者传达完整语境）、仅提取行动项（去粗取精，只输出谁在什么时间前需要完成什么，并附优先级和依赖说明，适合直接导入 Jira、Linear、Asana 等项目管理工具）和高管摘要（将数十分钟的讨论浓缩为 3-5 个核心要点，适合向高层进行快速同步）——用户根据纪要的阅读对象和交付场景选择最合适的格式。',
-      input:
-        '两个核心参数：原始会议记录文本（必填）和输出纪要格式（详细纪要 / 仅行动项 / 高管摘要）。原始文本可以来自多种渠道：飞书妙记、腾讯会议云录制、Zoom Transcript、Otter.ai 等工具的语音转写导出文本（通常包含说话人标签和时间戳）；会议期间记录的人工速记或要点笔记；Slack/飞书/企业微信等群聊中的文字讨论历史（可包含 @ 提及、引用回复和文件分享记录）；以及混合中英文或多位发言人的分段讨论内容。输入文本的格式不做严格要求——无论是有序的转写稿还是杂乱的速记碎片，AI 模型均会先做语义理解和主题聚合再生成结构化纪要。格式选项决定最终输出的详略程度和组织方式：详细纪要（Detailed Minutes）输出完整讨论脉络，适合存档和内部分享；仅行动项（Action Items Only）输出纯列表形式的待办，适合直接跟进行动闭环；高管摘要（Executive Summary）输出高层视角的核心结论和风险，适合向上汇报。',
-      output:
-        '结果是一份可复制的 Markdown 会议纪要。详细纪要会保留会议背景、关键讨论、决策、行动项和待澄清问题；仅行动项模式会把谁做什么、何时完成和优先级列清楚；高管摘要会压缩成 3-5 个要点。你可以直接粘贴到 Confluence、Notion、飞书文档、邮件正文或项目管理系统，再补齐真实参会人、日期和链接。',
-      processing:
-        '一小时会议结束后，原始转写稿往往塞满口头语、重复讨论和没有归类的待办。把转写稿或速记贴进去，再选择详细纪要、仅行动项或高管摘要；工具会把讨论按议题归类，把决策和后续动作单独列出来。它不会知道谁后来改了结论，也不会替你确认负责人是否同意，所以发出前请回看会议记录，补齐真实时间、负责人和遗漏背景。',
-      modes: ['原始会议文本输入（支持转写稿/速记/聊天记录/多语言混合）', '三种输出格式（详细纪要 / 仅行动项 / 高管摘要）', '议题分段与主题聚合', '决策结论独立列出', '行动项（负责人/事项/时间/优先级）', 'Markdown 纪要草稿', '全文一键复制', '格式切换不丢失输入'],
-      example: {
-        title: 'AI 会议纪要生成输入到输出示例',
-        input: '原始记录:\n王明：登录页改版下周上线，我负责接口联调，这周五之前完成。\n李娜：好的，我这周把埋点加上。对了测试环境最近不太稳定，上周五挂了三次。\n王明：那我们周二先内部验证一遍，有问题提前修。\n张总：可以，周二验证完没问题周四灰度发布，先放 5% 流量观察。\n\n输出格式: 仅行动项',
-        output:
-          '## 行动项\n\n- **王明**: 完成登录接口联调（截止: 本周五），周二参与内部验证。\n- **李娜**: 完成登录页埋点添加（截止: 本周五），周二参与内部验证。\n- **张总**: 周二验证通过后，周四执行 5% 灰度发布。\n\n## 风险\n- 测试环境近一周稳定性较差（上周五三次宕机），需在周二验证前确认环境可用。',
-        inputLanguage: 'text',
-        outputLanguage: 'markdown',
-      },
-    },
-    en: {
-      summary:
-        'The AI Meeting Minutes Generator transforms raw meeting audio transcripts, manual shorthand notes, meeting chat logs, or multilingual discussion fragments into professionally formatted, well-structured meeting minutes — drastically reducing the manual post-meeting organization effort while ensuring that discussion points, decisions, and action items are fully captured. Suitable for regular project meetings (Sprint Planning, Daily Standups, Sprint Reviews, and other agile ceremonies), client requirement discussions and solution review sessions, cross-team collaboration and alignment meetings, product requirement reviews (PRD Review) and technical design discussions, retrospectives and postmortems, interview record archival and manager one-on-one memos, post-processing of auto-transcripts from remote meetings on Zoom / Teams / Feishu, and note consolidation for academic seminars and industry talks. The tool supports three output formats — Detailed Minutes (complete record of discussion background, all viewpoints, argumentation, and conclusions, suitable for archival or communicating full context to non-attendees), Action Items Only (distills the discussion to a pure list of who needs to complete what by when, with priority and dependency notes, suitable for direct import into Jira, Linear, Asana, etc.), and Executive Summary (condenses tens of minutes of discussion into 3-5 core takeaways, suitable for rapid sync with leadership) — allowing users to select the most appropriate format based on the minutes\' audience and delivery context.',
-      input:
-        'Two core parameters: the raw meeting record text (required) and the desired output format (Detailed Minutes / Action Items Only / Executive Summary). The raw text can come from a variety of sources: voice-transcription export text from tools such as Feishu Minutes, Tencent Meeting Cloud Recording, Zoom Transcript, or Otter.ai (typically containing speaker labels and timestamps); manual shorthand notes or key-point jottings taken during the meeting; text discussion history from group chats on Slack / Feishu / WeCom (which may include @ mentions, quoted replies, and file-sharing records); and segmented mixed Chinese-English or multi-speaker discussion content. The format of the input text is not strictly required — whether it is an ordered transcript or messy shorthand fragments, the AI model first performs semantic understanding and topic clustering before generating structured minutes. The format option determines the level of detail and organizational approach of the final output: Detailed Minutes produce the full discussion arc, suitable for archival and internal sharing; Action Items Only produce a pure list of todos, suitable for immediate action-loop follow-up; Executive Summary produces high-level core conclusions and risks, suitable for upward reporting.',
-      output:
-        'The result is a copy-ready Markdown meeting note. Detailed Minutes keeps context, discussion points, decisions, action items, and open questions. Action Items Only turns the meeting into a follow-up list with owner, task, deadline, and priority. Executive Summary compresses the discussion into 3-5 points for quick sharing. Paste the draft into Confluence, Notion, Feishu Docs, email, or a project-management comment, then add real attendees, dates, links, and missing context.',
-      processing:
-        'After a long meeting, the transcript usually contains repeated points, side comments, and action items buried in the middle. Paste the transcript or rough notes, then choose Detailed Minutes, Action Items Only, or Executive Summary. The tool groups the discussion by topic and separates decisions from next steps. It cannot know later changes or confirm stakeholder agreement, so review the original notes before sharing and add real owners, dates, links, and missing context.',
-      modes: ['Raw meeting text input (supports transcripts / shorthand / chat logs / mixed languages)', 'Three output formats (Detailed Minutes / Action Items Only / Executive Summary)', 'Agenda-based sectioning and topic clustering', 'Decisions listed independently', 'Action items (who / what / when / priority)', 'Markdown meeting-note draft', 'Full-text one-click copy', 'Format switching without losing input'],
-      example: {
-        title: 'AI meeting minutes generation input-to-output example',
-        input: 'Raw record:\nMing: The login page redesign launches next week. I\'ll handle API integration and finish before this Friday.\nLina: Got it. I\'ll add analytics this week. Also, the testing environment has been unstable — it went down three times last Friday.\nMing: Let\'s do an internal validation on Tuesday; fix any issues early.\nZhang: Agreed. If Tuesday validation passes, we\'ll do a 5% canary release on Thursday.\n\nFormat: Action Items Only',
-        output:
-          '## Action Items\n\n- **Ming**: Complete login API integration (due: this Friday). Participate in Tuesday internal validation.\n- **Lina**: Complete login page analytics instrumentation (due: this Friday). Participate in Tuesday internal validation.\n- **Zhang**: On successful Tuesday validation, execute 5% canary release on Thursday.\n\n## Risks\n- Testing environment stability concerns (three outages last Friday); environment availability must be confirmed before Tuesday validation.',
-        inputLanguage: 'text',
-        outputLanguage: 'markdown',
-      },
-    },
-  },
 
   'ai-excel-formula': {
     zh: {
@@ -419,7 +339,7 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
   'logo-generator': {
     zh: {
       summary:
-        'AI Logo & Avatar Generator 用于根据品牌描述、核心符号、配色偏好和设计风格，通过 AI 图像模型生成适合直接使用的方形 Logo 或头像图。适合独立开发者在新项目启动阶段快速获取应用图标（节省从零设计或外包设计的时间成本和沟通成本），电商卖家为店铺主页、商品系列或新品线探索与品牌调性一致的视觉标识并提供多方向候选方案，内容创作者（YouTuber、播客主播、GitHub 开源项目维护者等）生成统一风格的个人频道或项目头像，品牌设计师在正式投入大量时间出图前通过快速生成多个视觉方向来验证创意方向和缩小风格选择范围（八种风格预设覆盖极简字母、扁平图形、卡通吉祥物、抽象几何、3D 立体、复古纹理和水彩手绘），以及需要将手绘草图、参考图片或竞品 Logo 中的视觉元素通过 AI 重新提炼和再创作为全新 Logo 概念的场景。工具支持文字描述生成和参考图识别两种入口，参考图模式下会先通过 GLM-4V-Flash 视觉模型自动提取图片的视觉特征（色彩、构图、主体、风格）并回填到描述框中作为生成提示的一部分。生成结果以正方形 1:1 图片形式在预览面板展示并带有棋盘格背景校验透明区域效果，支持直接下载（PNG 格式），也可复制或二次编辑后用于更精细的设计工具中。',
+        'AI Logo & Avatar Generator 用于根据品牌描述、核心符号、配色偏好和设计风格，生成可直接使用的方形 Logo 或头像草稿。适合独立开发者找应用图标、电商卖家试店铺标识、创作者做频道头像，也适合设计师在正式出图前快速比几个方向。你可以直接写文字描述，也可以上传参考图提取视觉方向。生成结果是概念草稿，正式使用前仍需做品牌、商标和设计复核。',
       input:
         '三个核心输入参数和一个可选输入：颜色偏好（选填）——支持自由文本输入，可以是具体色名（如"Navy Blue and Gold""珊瑚橙搭配象牙白"）、品牌色 HEX 值组合、情绪色板描述（如"温暖木色调""冷色科技蓝灰"）或场景色彩关键词（如"海洋主题蓝绿色"）；核心概念描述（必填）——建议写清行业背景（如"SaaS 云端开发工具""手工烘焙甜品店"）、品牌个性与定位（如"极简专业""亲和有趣""高端奢华""环保自然"）、主体符号创意（如"轨道、星球、齿轮代表自动化""咖啡豆和书本代表慢生活阅读"）、目标用户画像（如"面向年轻开发者""面向高端茶饮消费者"）和使用场景（网站 favicon、App 启动图标、社交媒体头像等）；设计风格（从 8 种预设中选择一项）——Minimalist（极简风，强调留白与几何概括）、Flat Design（扁平化，强调色块与无阴影）、Mascot（卡通吉祥物，拟人化形象）、Abstract Geometry（抽象几何，非具象图形）、Lettermark（字母标志，文字变形）、3D Render（3D 立体，光影质感）、Vintage（复古风，旧化肌理）、Watercolor（水彩风，柔和晕染）；可选参考图片——支持上传 JPG/PNG/WebP 格式（限制 5MB 以内），通过 GLM-4V-Flash 视觉模型提取颜色、主体、构图和风格特征后自动填入描述框并触发带图生成。',
       output:
@@ -458,7 +378,7 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
   'ai-image-generator': {
     zh: {
       summary:
-        'AI Image Generator 用于把自然语言画面描述转换为图片草稿，并支持选择画幅比例和视觉风格。适合内容运营为博客封面、社交媒体配图、信息流广告素材、邮件 Banner 和短视频封面探索视觉方向；也适合产品经理、创业者、设计师和教育工作者快速准备概念图、课件插图或提案配图。它提供 1:1、16:9、9:16 三种常用画幅和六种艺术风格，生成结果可下载后继续修图。',
+        'AI Image Generator 用于把自然语言画面描述转换为图片草稿，可选画幅比例和视觉风格。适合为博客封面、社媒配图、广告素材和短视频封面快速探索视觉方向，再把满意的方向交给设计细化。提供 1:1、16:9、9:16 三种画幅和六种风格，结果可下载后继续修图。',
       input:
         '三个核心参数：画面描述、画幅比例和艺术风格。画面描述可以写主体、场景、动作、构图、光线、色彩、镜头、材质和最终用途，例如“适合博客封面”或“用于 Instagram 帖子”。画幅比例支持 1:1 方形、16:9 横向和 9:16 竖向；艺术风格包含摄影写实、动漫、数字艺术、油画、3D 渲染和赛博朋克。描述越具体，结果越容易贴近你的使用场景。',
       output:
@@ -476,7 +396,7 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
     },
     en: {
       summary:
-        'The AI Image Generator turns natural-language visual descriptions into image drafts with selectable aspect ratios and art styles. Use it to explore blog covers, social graphics, feed ads, email banners, short-video thumbnails, concept art, pitch-deck visuals, course illustrations, or campaign mockups before handing the best direction to a designer. It supports 1:1, 16:9, and 9:16 output plus six common art styles, with downloadable results for further editing.',
+        'The AI Image Generator turns natural-language descriptions into image drafts with selectable aspect ratios and art styles. Use it to explore visual directions for blog covers, social graphics, ads, and short-video thumbnails before handing the best one to a designer. It supports 1:1, 16:9, and 9:16 output and six art styles, with downloadable results for further editing.',
       input:
         'Three core parameters shape the result: image description, aspect ratio, and art style. The description can cover subject, scene, action, composition, lighting, color, lens feel, material, and intended use, such as "suitable for a blog cover" or "for an Instagram post." Aspect ratios cover 1:1 square, 16:9 landscape, and 9:16 portrait. Art styles include photorealistic, anime, digital art, oil painting, 3D render, and cyberpunk. More concrete details usually produce a more usable draft.',
       output:
@@ -809,7 +729,7 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
   'ai-code-reviewer': {
     zh: {
       summary:
-        'AI 代码审查工具用于对粘贴的代码片段进行质量、性能、安全性和可维护性审查，适合在正式提交 Pull Request 前做快速自查，也适合学习他人代码时获得结构化反馈。它可以帮助前端、后端和全栈开发者发现潜在空值问题、异常处理遗漏、重复逻辑、复杂度过高、命名不清、资源泄漏、异步竞态、性能浪费和常见安全风险。工具不会替代真实代码评审，但可以作为提交前的第一轮检查，把明显问题提前暴露出来。',
+        'AI 代码审查工具用于对粘贴的代码片段做质量、性能、安全和可维护性审查。适合提交 Pull Request 前快速自查，也适合读他人代码时获得结构化反馈，帮你提前发现空值、异常处理、重复逻辑、命名和常见安全问题。它不替代真实评审，更适合当作提交前的第一轮检查。',
       input:
         '待审查的代码文本、代码语言和审查关注点。代码可以是一个函数、组件、接口处理器、工具方法、样式片段或配置逻辑；语言选项支持自动识别，也可以指定 JavaScript、TypeScript、React、Python、Java、Go、Rust、C++、CSS/SCSS 等。审查关注点用于控制反馈语气和重点，例如建设性建议、严格挑剔、新手友好或性能优化导向。',
       output:

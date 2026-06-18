@@ -143,11 +143,6 @@ export const BLOG_RELATED_TOOLS: Record<string, string[]> = {
     "/tools/dev/regex-tester",
     "/tools/dev/text-diff",
   ],
-  "ai-meeting-minutes-guide": [
-    "/tools/ai/text-polisher",
-    "/tools/ai/translator",
-    "/tools/text/text-analyzer",
-  ],
   "ai-video-script-guide": [
     "/tools/ai/video-script",
     "/tools/ai/youtube-generator",

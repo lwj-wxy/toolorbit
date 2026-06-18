@@ -154,11 +154,6 @@ const posts: BlogPost[] = [
     category: 'AI',
   },
   {
-    slug: 'ai-meeting-minutes-guide',
-    date: '2026-05-10',
-    category: 'AI',
-  },
-  {
     slug: 'ai-regex-generator-guide',
     date: '2026-05-09',
     category: 'AI',
