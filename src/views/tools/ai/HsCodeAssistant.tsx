@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   AlertTriangle,
@@ -155,6 +155,7 @@ export default function HsCodeAssistant() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [copiedField, setCopiedField] = useState<string | null>(null);
+  const resultRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setForm((currentForm) => ({
@@ -162,6 +163,11 @@ export default function HsCodeAssistant() {
       outputLanguage: isZh ? 'Simplified Chinese' : 'English',
     }));
   }, [isZh]);
+
+  useEffect(() => {
+    if (!result) return;
+    resultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, [result]);
 
   const selectedOfficialLookup = officialLookupByMarket[form.targetMarket] || officialLookupByMarket.Other;
   const canSubmit = Boolean(form.productName.trim() && form.productUse.trim() && form.material.trim());
@@ -415,7 +421,7 @@ export default function HsCodeAssistant() {
               {isZh ? '更多选项（可选）' : 'More options (optional)'}
             </summary>
 
-          <section className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
+          <section className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
             {[
               ['battery', isZh ? '是否带电池' : 'Battery'],
               ['electronics', isZh ? '是否含电子元件' : 'Electronics'],
@@ -497,7 +503,7 @@ export default function HsCodeAssistant() {
           </button>
         </div>
 
-        <div className="rounded-lg border border-slate-200 bg-slate-50 p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+        <div ref={resultRef} className="rounded-lg border border-slate-200 bg-slate-50 p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
           {error ? (
             <div className="mb-4 rounded-lg border border-rose-200 bg-rose-50 p-4 text-sm font-medium text-rose-700 dark:border-rose-900 dark:bg-rose-950/30 dark:text-rose-300">
               {error}

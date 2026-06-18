@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Loader2, Download, Image as ImageIcon, RotateCcw, Monitor, Smartphone, Square } from 'lucide-react';
 
@@ -11,6 +11,7 @@ export default function ImageGenerator() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [aiMeta, setAiMeta] = useState<{ model?: string; fallbackUsed?: boolean; elapsedMs?: number } | null>(null);
+  const resultRef = useRef<HTMLDivElement>(null);
 
   const styles = [
     { value: 'photorealistic', label: 'Photorealistic / 真实感' },
@@ -26,6 +27,11 @@ export default function ImageGenerator() {
     { value: '16:9', label: '16:9', icon: Monitor },
     { value: '9:16', label: '9:16', icon: Smartphone },
   ];
+
+  useEffect(() => {
+    if (!resultUrl) return;
+    resultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, [resultUrl]);
 
   const handleGenerate = async () => {
     if (!prompt.trim()) return;
@@ -181,7 +187,7 @@ export default function ImageGenerator() {
             </div>
 
             {/* Output Section */}
-            <div className="space-y-3 rounded-lg border border-slate-200 bg-slate-50 p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+            <div ref={resultRef} className="space-y-3 rounded-lg border border-slate-200 bg-slate-50 p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
               <div className="flex flex-col">
                  <div className="mb-2 flex shrink-0 items-center justify-between">
                     <label className="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">

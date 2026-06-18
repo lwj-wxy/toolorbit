@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Check,
@@ -80,6 +80,7 @@ export default function ProductImageGenerator() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [copiedPrompt, setCopiedPrompt] = useState<number | null>(null);
+  const resultRef = useRef<HTMLElement>(null);
 
   const canGenerate = Boolean(productName.trim() && !loading);
   const selectedUse = imageUses.find((option) => option.value === imageUse);
@@ -93,6 +94,11 @@ export default function ProductImageGenerator() {
       ratio,
     ].filter(Boolean).join(' / ');
   }, [isZh, productName, ratio, selectedPlatform, selectedUse]);
+
+  useEffect(() => {
+    if (!result) return;
+    resultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, [result]);
 
   const generateImages = async () => {
     if (!canGenerate) return;
@@ -201,23 +207,16 @@ export default function ProductImageGenerator() {
             </div>
 
             <div>
-              <label className="mb-2 block text-sm font-semibold text-slate-950 dark:text-white">{isZh ? '商品说明' : 'Product description'}</label>
+              <div className="mb-2 flex items-center justify-between gap-3">
+                <label className="block text-sm font-semibold text-slate-950 dark:text-white">{isZh ? '商品说明' : 'Product description'}</label>
+                <span className="text-xs text-slate-400">{productDescription.length}</span>
+              </div>
               <textarea
                 value={productDescription}
                 onChange={(event) => setProductDescription(event.target.value)}
                 rows={3}
                 className="w-full resize-none rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-950 outline-none transition-colors focus:border-violet-500 focus:ring-2 focus:ring-violet-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white dark:focus:ring-violet-950"
                 placeholder={isZh ? '材质、颜色、用途、适用人群、包装情况' : 'Material, color, use case, audience, packaging'}
-              />
-            </div>
-
-            <div>
-              <label className="mb-2 block text-sm font-semibold text-slate-950 dark:text-white">{isZh ? '核心卖点' : 'Key selling point'}</label>
-              <input
-                value={sellingPoint}
-                onChange={(event) => setSellingPoint(event.target.value)}
-                className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-950 outline-none transition-colors focus:border-violet-500 focus:ring-2 focus:ring-violet-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white dark:focus:ring-violet-950"
-                placeholder={isZh ? '例如：手工釉面、适合咖啡热饮' : 'e.g. Handmade glaze, suitable for hot coffee'}
               />
             </div>
 
@@ -259,64 +258,82 @@ export default function ProductImageGenerator() {
               </div>
             </div>
 
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div className="sm:col-span-2">
-                <label className="mb-2 block text-sm font-semibold text-slate-950 dark:text-white">{isZh ? '图片比例' : 'Aspect ratio'}</label>
-                <div className="grid grid-cols-4 gap-2">
-                  {ratios.map((option) => (
-                    <button
-                      key={option.value}
-                      onClick={() => setRatio(option.value)}
-                      className={`cursor-pointer rounded-lg border px-3 py-2 text-sm font-semibold transition-colors duration-200 ${
-                        ratio === option.value ? 'border-violet-500 bg-violet-50 text-violet-800 dark:bg-violet-950/30 dark:text-violet-200' : 'border-slate-200 bg-white text-slate-700 hover:border-violet-300 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-300'
-                      }`}
-                    >
-                      {option.label}
-                    </button>
-                  ))}
+            <div>
+              <label className="mb-2 block text-sm font-semibold text-slate-950 dark:text-white">{isZh ? '图片比例' : 'Aspect ratio'}</label>
+              <div className="grid grid-cols-4 gap-2">
+                {ratios.map((option) => (
+                  <button
+                    key={option.value}
+                    onClick={() => setRatio(option.value)}
+                    className={`cursor-pointer rounded-lg border px-3 py-2 text-sm font-semibold transition-colors duration-200 ${
+                      ratio === option.value ? 'border-violet-500 bg-violet-50 text-violet-800 dark:bg-violet-950/30 dark:text-violet-200' : 'border-slate-200 bg-white text-slate-700 hover:border-violet-300 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-300'
+                    }`}
+                  >
+                    {option.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <details className="rounded-lg border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-950/40">
+              <summary className="cursor-pointer text-sm font-semibold text-slate-900 dark:text-slate-100">
+                {isZh ? '更多选项（可选）' : 'More options (optional)'}
+              </summary>
+
+              <div className="mt-4 space-y-4">
+                <div>
+                  <label className="mb-2 block text-sm font-semibold text-slate-950 dark:text-white">{isZh ? '核心卖点' : 'Key selling point'}</label>
+                  <input
+                    value={sellingPoint}
+                    onChange={(event) => setSellingPoint(event.target.value)}
+                    className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-950 outline-none transition-colors focus:border-violet-500 focus:ring-2 focus:ring-violet-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white dark:focus:ring-violet-950"
+                    placeholder={isZh ? '例如：手工釉面、适合咖啡热饮' : 'e.g. Handmade glaze, suitable for hot coffee'}
+                  />
+                </div>
+
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div>
+                    <label className="mb-2 block text-sm font-semibold text-slate-950 dark:text-white">{isZh ? '视觉风格' : 'Visual style'}</label>
+                    <select value={style} onChange={(event) => setStyle(event.target.value)} className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-950 outline-none focus:border-violet-500 dark:border-slate-700 dark:bg-slate-950 dark:text-white">
+                      {styles.map((option) => <option key={option.value} value={option.value}>{option[isZh ? 'zh' : 'en']}</option>)}
+                    </select>
+                  </div>
+                  <div>
+                    <label className="mb-2 block text-sm font-semibold text-slate-950 dark:text-white">{isZh ? '背景' : 'Background'}</label>
+                    <select value={background} onChange={(event) => setBackground(event.target.value)} className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-950 outline-none focus:border-violet-500 dark:border-slate-700 dark:bg-slate-950 dark:text-white">
+                      {backgrounds.map((option) => <option key={option.value} value={option.value}>{option[isZh ? 'zh' : 'en']}</option>)}
+                    </select>
+                  </div>
+                </div>
+
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div>
+                    <label className="mb-2 block text-sm font-semibold text-slate-950 dark:text-white">{isZh ? '场景补充' : 'Scene notes'}</label>
+                    <input
+                      value={scene}
+                      onChange={(event) => setScene(event.target.value)}
+                      className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-950 outline-none transition-colors focus:border-violet-500 focus:ring-2 focus:ring-violet-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white dark:focus:ring-violet-950"
+                      placeholder={isZh ? '例如：木质桌面、清晨自然光、咖啡旁边' : 'e.g. wooden desk, morning light, next to coffee'}
+                    />
+                  </div>
+                  <div>
+                    <label className="mb-2 block text-sm font-semibold text-slate-950 dark:text-white">{isZh ? '生成张数' : 'Variants'}</label>
+                    <select value={variantCount} onChange={(event) => setVariantCount(Number(event.target.value))} className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-950 outline-none focus:border-violet-500 dark:border-slate-700 dark:bg-slate-950 dark:text-white">
+                      <option value={1}>1</option>
+                      <option value={2}>2</option>
+                      <option value={3}>3</option>
+                    </select>
+                  </div>
                 </div>
               </div>
-              <div>
-                <label className="mb-2 block text-sm font-semibold text-slate-950 dark:text-white">{isZh ? '生成张数' : 'Variants'}</label>
-                <select value={variantCount} onChange={(event) => setVariantCount(Number(event.target.value))} className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-950 outline-none focus:border-violet-500 dark:border-slate-700 dark:bg-slate-950 dark:text-white">
-                  <option value={1}>1</option>
-                  <option value={2}>2</option>
-                  <option value={3}>3</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div>
-                <label className="mb-2 block text-sm font-semibold text-slate-950 dark:text-white">{isZh ? '视觉风格' : 'Visual style'}</label>
-                <select value={style} onChange={(event) => setStyle(event.target.value)} className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-950 outline-none focus:border-violet-500 dark:border-slate-700 dark:bg-slate-950 dark:text-white">
-                  {styles.map((option) => <option key={option.value} value={option.value}>{option[isZh ? 'zh' : 'en']}</option>)}
-                </select>
-              </div>
-              <div>
-                <label className="mb-2 block text-sm font-semibold text-slate-950 dark:text-white">{isZh ? '背景' : 'Background'}</label>
-                <select value={background} onChange={(event) => setBackground(event.target.value)} className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-950 outline-none focus:border-violet-500 dark:border-slate-700 dark:bg-slate-950 dark:text-white">
-                  {backgrounds.map((option) => <option key={option.value} value={option.value}>{option[isZh ? 'zh' : 'en']}</option>)}
-                </select>
-              </div>
-            </div>
-
-            <div>
-              <label className="mb-2 block text-sm font-semibold text-slate-950 dark:text-white">{isZh ? '场景补充' : 'Scene notes'}</label>
-              <input
-                value={scene}
-                onChange={(event) => setScene(event.target.value)}
-                className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-950 outline-none transition-colors focus:border-violet-500 focus:ring-2 focus:ring-violet-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white dark:focus:ring-violet-950"
-                placeholder={isZh ? '例如：木质桌面、清晨自然光、咖啡旁边' : 'e.g. wooden desk, morning light, next to coffee'}
-              />
-            </div>
+            </details>
 
             {error ? <div className="rounded-lg border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700 dark:border-rose-900 dark:bg-rose-950/30 dark:text-rose-200">{error}</div> : null}
 
             <button
               onClick={generateImages}
               disabled={!canGenerate}
-              className="inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-violet-600 px-5 py-3 text-sm font-semibold text-white transition-colors duration-200 hover:bg-violet-700 disabled:cursor-not-allowed disabled:bg-slate-300 dark:disabled:bg-slate-700"
+              className="inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-violet-600 px-5 py-3 text-sm font-semibold text-white transition-colors duration-200 hover:bg-violet-700 disabled:cursor-not-allowed disabled:bg-slate-300 dark:disabled:bg-slate-700 sm:w-auto sm:px-8"
             >
               {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />}
               {loading ? (isZh ? '正在生成商品图...' : 'Generating product images...') : (isZh ? '生成商品图' : 'Generate product images')}
@@ -324,7 +341,7 @@ export default function ProductImageGenerator() {
           </div>
         </section>
 
-        <section className="rounded-lg border border-slate-200 bg-slate-50 p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+        <section ref={resultRef} className="rounded-lg border border-slate-200 bg-slate-50 p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
           {loading ? (
             <div className="flex flex-col items-center justify-center gap-3 py-12 text-center text-slate-500 dark:text-slate-400">
               <Loader2 className="h-10 w-10 animate-spin text-violet-600" />
@@ -399,6 +416,7 @@ export default function ProductImageGenerator() {
             </div>
           ) : null}
         </section>
+
       </div>
 
     </div>

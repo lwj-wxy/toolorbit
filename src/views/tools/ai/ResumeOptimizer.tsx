@@ -1,4 +1,4 @@
-import { isValidElement, useRef, useState } from 'react';
+import { isValidElement, useEffect, useRef, useState } from 'react';
 import type { ChangeEvent, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Briefcase, Check, ClipboardCheck, Copy, Download, FileText, FileUp, Loader2, RotateCcw, ShieldAlert } from 'lucide-react';
@@ -233,6 +233,7 @@ export default function ResumeOptimizer() {
   const [error, setError] = useState('');
   const [copied, setCopied] = useState('');
   const resumePreviewRef = useRef<HTMLDivElement>(null);
+  const resultSectionRef = useRef<HTMLElement>(null);
 
   const roleOptions = [
     { value: 'general', label: t('tools.ai-resume-optimizer.roleGeneral') || 'General role' },
@@ -251,6 +252,11 @@ export default function ResumeOptimizer() {
     { value: 'compact', label: t('tools.ai-resume-optimizer.templateCompact') || 'Compact resume' },
     { value: 'modern', label: t('tools.ai-resume-optimizer.templateModern') || 'Modern resume' },
   ];
+
+  useEffect(() => {
+    if (!result) return;
+    resultSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, [result]);
 
   const extractPdfText = async (file: File) => {
     const pdfjs = await import('pdfjs-dist');
@@ -514,9 +520,12 @@ export default function ResumeOptimizer() {
           </div>
 
           <div>
-            <label className="mb-2 block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
-              {t('tools.ai-resume-optimizer.resumeText') || 'Extracted resume text'}
-            </label>
+            <div className="mb-2 flex items-center justify-between gap-3">
+              <label className="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
+                {t('tools.ai-resume-optimizer.resumeText') || 'Extracted resume text'}
+              </label>
+              <span className="text-xs text-slate-400">{resumeText.length}</span>
+            </div>
             <textarea
               value={resumeText}
               onChange={(event) => setResumeText(event.target.value)}
@@ -526,9 +535,12 @@ export default function ResumeOptimizer() {
           </div>
 
           <div>
-            <label className="mb-2 block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
-              {t('tools.ai-resume-optimizer.jobDescription') || 'Target job description'}
-            </label>
+            <div className="mb-2 flex items-center justify-between gap-3">
+              <label className="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
+                {t('tools.ai-resume-optimizer.jobDescription') || 'Target job description'}
+              </label>
+              <span className="text-xs text-slate-400">{jobDescription.length}</span>
+            </div>
             <textarea
               value={jobDescription}
               onChange={(event) => setJobDescription(event.target.value)}
@@ -537,58 +549,64 @@ export default function ResumeOptimizer() {
             />
           </div>
 
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-            <div>
-              <label className="mb-2 block text-sm font-semibold text-slate-900 dark:text-slate-100">
-                {t('tools.ai-resume-optimizer.roleType') || 'Role type'}
-              </label>
-              <select
-                value={roleType}
-                onChange={(event) => setRoleType(event.target.value)}
-                className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
-              >
-                {roleOptions.map((roleOption) => (
-                  <option key={roleOption.value} value={roleOption.value}>
-                    {roleOption.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label className="mb-2 block text-sm font-semibold text-slate-900 dark:text-slate-100">
-                {t('tools.ai-resume-optimizer.templateStyle') || 'Resume layout'}
-              </label>
-              <select
-                value={templateStyle}
-                onChange={(event) => setTemplateStyle(event.target.value)}
-                className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
-              >
-                {templateOptions.map((templateOption) => (
-                  <option key={templateOption.value} value={templateOption.value}>
-                    {templateOption.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label className="mb-2 block text-sm font-semibold text-slate-900 dark:text-slate-100">
-                {t('tools.ai-resume-optimizer.targetLanguage') || 'Output language'}
-              </label>
-              <select
-                value={targetLanguage}
-                onChange={(event) => setTargetLanguage(event.target.value)}
-                className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
-              >
-                <option value="zh">中文</option>
-                <option value="en">English</option>
-              </select>
-            </div>
-          </div>
+          <details className="rounded-lg border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-950/40">
+            <summary className="cursor-pointer text-sm font-semibold text-slate-900 dark:text-slate-100">
+              {t('common.moreOptions') || (i18n.language?.startsWith('zh') ? '更多选项（可选）' : 'More options (optional)')}
+            </summary>
 
-          <div className="rounded-lg border border-cyan-100 bg-cyan-50 p-3 text-xs leading-5 text-cyan-900 dark:border-cyan-900/50 dark:bg-cyan-950/30 dark:text-cyan-100">
-            {t('tools.ai-resume-optimizer.privacyNote') ||
-              'File text is extracted locally first. When you click generate, the resume text and job description are sent to the AI service. Remove ID numbers, addresses, phone numbers, and other sensitive details before generating.'}
-          </div>
+            <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div>
+                <label className="mb-2 block text-sm font-semibold text-slate-900 dark:text-slate-100">
+                  {t('tools.ai-resume-optimizer.roleType') || 'Role type'}
+                </label>
+                <select
+                  value={roleType}
+                  onChange={(event) => setRoleType(event.target.value)}
+                  className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
+                >
+                  {roleOptions.map((roleOption) => (
+                    <option key={roleOption.value} value={roleOption.value}>
+                      {roleOption.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="mb-2 block text-sm font-semibold text-slate-900 dark:text-slate-100">
+                  {t('tools.ai-resume-optimizer.templateStyle') || 'Resume layout'}
+                </label>
+                <select
+                  value={templateStyle}
+                  onChange={(event) => setTemplateStyle(event.target.value)}
+                  className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
+                >
+                  {templateOptions.map((templateOption) => (
+                    <option key={templateOption.value} value={templateOption.value}>
+                      {templateOption.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="mb-2 block text-sm font-semibold text-slate-900 dark:text-slate-100">
+                  {t('tools.ai-resume-optimizer.targetLanguage') || 'Output language'}
+                </label>
+                <select
+                  value={targetLanguage}
+                  onChange={(event) => setTargetLanguage(event.target.value)}
+                  className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
+                >
+                  <option value="zh">中文</option>
+                  <option value="en">English</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="mt-4 rounded-lg border border-cyan-100 bg-cyan-50 p-3 text-xs leading-5 text-cyan-900 dark:border-cyan-900/50 dark:bg-cyan-950/30 dark:text-cyan-100">
+              {t('tools.ai-resume-optimizer.privacyNote') ||
+                'File text is extracted locally first. When you click generate, the resume text and job description are sent to the AI service. Remove ID numbers, addresses, phone numbers, and other sensitive details before generating.'}
+            </div>
+          </details>
 
           <button
             onClick={handleGenerate}
@@ -609,7 +627,7 @@ export default function ResumeOptimizer() {
           </button>
         </section>
 
-        <section className="space-y-3 rounded-lg border border-slate-200 bg-slate-50 p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+        <section ref={resultSectionRef} className="space-y-3 rounded-lg border border-slate-200 bg-slate-50 p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
           <div className="mb-3 flex items-center justify-between gap-3">
             <div>
               <h2 className="text-sm font-semibold text-slate-950 dark:text-white">

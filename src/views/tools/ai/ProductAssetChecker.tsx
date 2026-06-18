@@ -1,4 +1,4 @@
-import { type ChangeEvent, useMemo, useState } from 'react';
+import { type ChangeEvent, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   AlertTriangle,
@@ -144,6 +144,7 @@ export default function ProductAssetChecker() {
   const [readingFiles, setReadingFiles] = useState(false);
   const [error, setError] = useState('');
   const [copied, setCopied] = useState(false);
+  const resultRef = useRef<HTMLDivElement>(null);
 
   const canAnalyze = Boolean(assets.length > 0 && productTitle.trim() && !loading && !readingFiles);
 
@@ -172,6 +173,11 @@ export default function ProductAssetChecker() {
       result.disclaimer,
     ].filter(Boolean).join('\n');
   }, [isZh, result]);
+
+  useEffect(() => {
+    if (!result) return;
+    resultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, [result]);
 
   const addImages = async (event: ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = Array.from(event.target.files || []);
@@ -422,7 +428,7 @@ export default function ProductAssetChecker() {
           </button>
         </div>
 
-        <div className="rounded-lg border border-slate-200 bg-slate-50 p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+        <div ref={resultRef} className="rounded-lg border border-slate-200 bg-slate-50 p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
           {loading ? (
             <div className="flex flex-col items-center justify-center gap-3 py-12 text-slate-500 dark:text-slate-400">
               <Loader2 className="h-10 w-10 animate-spin text-emerald-600" />
