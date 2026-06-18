@@ -615,8 +615,8 @@ export default function HsCodeAssistant() {
                 {reviewItems.length ? (
                   <ul className="space-y-2 text-sm leading-6 text-slate-700 dark:text-slate-300">
                     {reviewItems.map((item, index) => (
-                      <li key={`${item.label}-${item.text}-${index}`} className="flex gap-3">
-                        <span className={`mt-1.5 rounded-full px-2 py-0.5 text-[11px] font-semibold ${item.tone === 'rose' ? 'bg-rose-50 text-rose-700 dark:bg-rose-950/40 dark:text-rose-300' : 'bg-sky-50 text-sky-700 dark:bg-sky-950/40 dark:text-sky-300'}`}>
+                      <li key={`${item.label}-${item.text}-${index}`} className="grid grid-cols-[4.75rem_minmax(0,1fr)] items-start gap-3 sm:grid-cols-[5.25rem_minmax(0,1fr)]">
+                        <span className={`inline-flex min-h-6 w-full items-center justify-center rounded-full px-2 py-0.5 text-[11px] font-semibold ${item.tone === 'rose' ? 'bg-rose-50 text-rose-700 dark:bg-rose-950/40 dark:text-rose-300' : 'bg-sky-50 text-sky-700 dark:bg-sky-950/40 dark:text-sky-300'}`}>
                           {item.label}
                         </span>
                         <span className="flex-1">{item.text}</span>
