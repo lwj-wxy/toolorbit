@@ -15,7 +15,7 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         '按选定缩进（2 空格或 4 空格）重新格式化的 JSON 文本，键名与值按层级对齐，数组元素独立成行。当输入存在语法错误时，工具不会静默改写内容，而是输出包含行号与错误类型的解析提示（如 "Unexpected token } at position 42"），方便逐一定位修复。',
       processing:
-        '使用浏览器内置 JSON.parse 进行严格语法校验，捕获并展示解析异常；校验通过后通过 JSON.stringify 按用户选择的缩进空格数重新序列化。整个解析、校验与格式化流程均在本地浏览器中同步完成，输入内容不会离开用户设备。',
+        '工具会先严格校验 JSON 语法，并在发现错误时显示可读提示；校验通过后，再按用户选择的缩进空格数重新排版或压缩。整个校验与格式化过程在本地完成，输入内容不会离开用户设备。',
       modes: ['2 空格缩进', '4 空格缩进', '实时校验', '语法错误定位', '一键复制输出'],
       example: {
         title: 'JSON 格式化输入到输出示例',
@@ -34,7 +34,7 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         'Reformatted JSON text using the selected indentation (2-space or 4-space), with keys and values aligned by nesting level and array elements on separate lines. When the input contains a syntax error, the tool does not silently rewrite the content; instead it displays a parse error with the line number and error type (e.g. "Unexpected token } at position 42"), so you can locate and fix each issue.',
       processing:
-        'Uses the browser built-in JSON.parse for strict syntax validation, catching and displaying parse exceptions. Once validated, the data is re-serialized via JSON.stringify with the user-selected number of indentation spaces. The entire parse, validate, and format pipeline runs synchronously in the local browser; input content never leaves the device.',
+        'The tool strictly validates JSON syntax and shows readable errors when the input is invalid. Once validated, it reformats or compresses the JSON using the selected indentation setting. Validation and formatting run locally, and input content never leaves the device.',
       modes: ['2-space indent', '4-space indent', 'Real-time validation', 'Syntax error location', 'One-click copy output'],
       example: {
         title: 'JSON Formatter input-to-output example',
@@ -50,13 +50,13 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
   'xml-json': {
     zh: {
       summary:
-        'XML / JSON 转换工具用于在 XML 文档结构与 JSON 数据结构之间双向转换。适合处理 SOAP/XML-RPC 接口响应、RSS 订阅源、Sitemap 网站地图、SVG 矢量图形标记以及 Android 布局文件等 XML 内容；同时支持将 JSON 配置或接口返回体逆向转回 XML。粘贴 HTML 页面源码时，工具会自动识别并使用浏览器的 DOMParser 进行宽松容错解析，输出标准 DOM 树结构的 JSON 表示。',
+        'XML / JSON 转换工具用于在 XML 文档结构与 JSON 数据结构之间双向转换。适合处理 SOAP/XML-RPC 接口响应、RSS 订阅源、Sitemap 网站地图、SVG 矢量图形标记以及 Android 布局文件等 XML 内容；同时支持将 JSON 配置或接口返回体转回 XML。粘贴 HTML 页面源码时，工具会按文档结构输出可读的 JSON 表示。',
       input:
         '在 XML → JSON 模式下，输入标准 XML 文档、HTML 页面源码或 XML 片段（如 <root><item id="1">Hello</item></root>）。在 JSON → XML 模式下，输入合法的 JSON 对象字符串，工具会将其序列化为等价的 XML 标记。',
       output:
         '在 XML → JSON 模式下，输出紧凑型 JSON 对象，XML 属性映射为 _attributes 键，文本节点映射为 _text 键，子元素嵌套为同名属性。粘贴 HTML 源码时输出包含 documentType 和 root 节点的完整 DOM JSON 树。在 JSON → XML 模式下，输出带 2 空格缩进的可读 XML 文本。',
       processing:
-        'XML → JSON 方向先判断输入是否为 HTML（检测 <html> 标签或 <!DOCTYPE> 声明），HTML 使用浏览器原生 DOMParser 进行容错解析并递归遍历 DOM 树构建 JSON；标准 XML 通过 xml-js 库严格解析后输出紧凑 JSON。JSON → XML 方向先校验 JSON 合法性，再通过 xml-js 序列化为 XML 标记。全程在浏览器端执行。',
+        'XML 转 JSON 时，工具会保留元素、属性和文本节点的层级关系；JSON 转 XML 时，会先检查 JSON 是否有效，再生成对应 XML 标记。转换在本地完成，输入内容不会上传。',
       modes: ['XML 转 JSON', 'JSON 转 XML', 'HTML DOM 解析', '方向一键切换', '复制转换结果'],
       example: {
         title: 'XML 输入到 JSON 输出示例',
@@ -70,13 +70,13 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
     },
     en: {
       summary:
-        'The XML / JSON Converter performs bidirectional conversion between XML document structures and JSON data structures. Suitable for processing SOAP/XML-RPC API responses, RSS feeds, XML Sitemaps, SVG vector graphics markup, and Android layout files; it also supports converting JSON configurations or API response bodies back to XML. When pasting HTML page source code, the tool automatically detects it and uses the browser\'s native DOMParser for lenient fault-tolerant parsing, outputting a JSON representation of the standard DOM tree structure.',
+        'The XML / JSON Converter performs bidirectional conversion between XML document structures and JSON data structures. It is suitable for SOAP/XML-RPC API responses, RSS feeds, XML Sitemaps, SVG vector markup, Android layout files, JSON configurations, and API response bodies. When HTML source is pasted, the tool outputs a readable JSON representation of the document structure.',
       input:
         'In XML → JSON mode, provide a standard XML document, HTML page source, or XML fragment (e.g. <root><item id="1">Hello</item></root>). In JSON → XML mode, provide a valid JSON object string, and the tool will serialize it into equivalent XML markup.',
       output:
         'In XML → JSON mode, the output is a compact JSON object where XML attributes are mapped to _attributes keys, text nodes are mapped to _text keys, and child elements are nested as same-name properties. When pasting HTML source, the output includes a complete DOM JSON tree with documentType and root nodes. In JSON → XML mode, the output is readable XML text with 2-space indentation.',
       processing:
-        'In the XML → JSON direction, the tool first checks whether the input is HTML (by detecting <html> tags or <!DOCTYPE> declarations). HTML is parsed using the browser\'s native DOMParser with fault-tolerant parsing, then the DOM tree is recursively traversed to build JSON. Standard XML is strictly parsed via the xml-js library and output as compact JSON. In the JSON → XML direction, the tool validates the JSON first, then serializes it into XML markup via xml-js. All processing runs in the browser.',
+        'For XML to JSON, the tool preserves element, attribute, and text-node hierarchy. For JSON to XML, it first checks that the JSON is valid, then generates the corresponding XML markup. Conversion runs locally and input content is not uploaded.',
       modes: ['XML to JSON', 'JSON to XML', 'HTML DOM parsing', 'One-click direction switch', 'Copy conversion result'],
       example: {
         title: 'XML to JSON conversion example',
@@ -99,7 +99,7 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         '差异对比结果以颜色标记展示：绿色背景标识新增内容，红色背景加删除线标识移除内容，无背景色部分表示未变更内容。逐词模式会精确到单词级变化，适合文案校对；逐行模式按整行标记差异，适合代码和配置文件比较。',
       processing:
-        '基于 diff 库在浏览器内执行文本差异算法。逐词模式使用 diffWordsWithSpace 按空白分隔的单词粒度比较，能精确捕获单词增删和修改；逐行模式使用 diffLines 按换行符分隔后逐行比较，适合快速浏览结构性变更。不依赖服务端，输入内容完全保留在本地。',
+        '工具会按所选模式比较两段文本。逐词模式适合校对措辞变化；逐行模式适合检查代码、配置和结构化文本的整体差异。输入内容保留在本地，不会上传。',
       modes: ['逐词对比', '逐行对比', '新增高亮（绿）', '删除高亮（红）', '本地离线处理'],
       example: {
         title: '代码文本对比示例',
@@ -119,7 +119,7 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         'Diff results are displayed with color-coded highlighting: green background marks additions, red background with strikethrough marks removals, and uncolored sections represent unchanged content. Word-level mode captures changes at word granularity, suitable for copy editing. Line-level mode marks differences by entire lines, suitable for comparing code and configuration files.',
       processing:
-        'Runs the text diff algorithm in the browser using the diff library. Word-level mode uses diffWordsWithSpace to compare at whitespace-delimited word granularity, precisely capturing word insertions, deletions, and modifications. Line-level mode uses diffLines to split by newline characters and compare line-by-line, suitable for quickly scanning structural changes. No server dependency; all input stays entirely local.',
+        'The tool compares two text blocks using the selected mode. Word-level mode is best for wording changes, while line-level mode is better for code, configuration, and structured text. Input content stays local and is not uploaded.',
       modes: ['Word-level diff', 'Line-level diff', 'Addition highlight (green)', 'Deletion highlight (red)', 'Local offline processing'],
       example: {
         title: 'Code text diff example',
@@ -136,13 +136,13 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
   base64: {
     zh: {
       summary:
-        'Base64 编解码工具用于在普通文本和 Base64 编码字符串之间双向转换。适合处理 HTTP Basic Auth 认证头中的凭证编码、Data URL（如 data:image/png;base64,...）中的数据段提取、JSON Web Token 各段的 Base64URL 解码、邮件 MIME 附件编码，以及在 URL 参数和配置文件中传递二进制或非 ASCII 数据的编码场景。工具通过浏览器原生 TextEncoder/TextDecoder 正确处理中文、emoji 等多字节 UTF-8 字符。',
+        'Base64 编解码工具用于在普通文本和 Base64 编码字符串之间双向转换。适合处理 HTTP Basic Auth 认证头、Data URL 数据段、JSON Web Token 各段的 Base64URL 解码、邮件 MIME 附件编码，以及在 URL 参数和配置文件中传递二进制或非 ASCII 数据的场景。工具支持中文、emoji 等多字节 UTF-8 字符。',
       input:
         '编码模式下输入任意文本（支持中文、emoji、特殊符号等多字节 UTF-8 字符）；解码模式下输入标准 Base64 编码字符串。工具实时识别输入内容并在编码/解码两种方向间自由切换。',
       output:
         '编码模式下输出符合 RFC 4648 标准的 Base64 字符串；解码模式下输出还原后的原始 UTF-8 文本。当输入不是合法 Base64 格式时，工具会输出明确错误提示而非静默失败。编码结果可直接复制用于配置文件、API 请求头或 Data URL 拼接。',
       processing:
-        '编码方向：通过浏览器原生 TextEncoder 将 UTF-8 字符串编码为字节数组，再通过 btoa 将字节转为 Base64 字符串。解码方向：通过 atob 将 Base64 字符串解码为字节，再通过 TextDecoder 还原为 UTF-8 文本。双向处理均在本地浏览器同步完成，输入内容不会上传至任何服务器。',
+        '编码模式会把原始文本转为 Base64 字符串；解码模式会把合法 Base64 内容还原为 UTF-8 文本。若输入格式不合法，工具会显示错误提示而不是静默失败。双向处理均在本地完成，输入内容不会上传。',
       modes: ['文本 → Base64 编码', 'Base64 → 文本解码', 'UTF-8 多字节支持', '一键切换方向', '复制编解码结果'],
       example: {
         title: '文本编码为 Base64 输入到输出示例',
@@ -154,13 +154,13 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
     },
     en: {
       summary:
-        'The Base64 Codec tool performs bidirectional conversion between plain text and Base64-encoded strings. Ideal for handling credential encoding in HTTP Basic Auth headers, extracting data segments from Data URLs (e.g. data:image/png;base64,...), Base64URL decoding of JSON Web Token segments, MIME attachment encoding for email, and encoding binary or non-ASCII data passed in URL parameters and configuration files. The tool correctly handles multi-byte UTF-8 characters including Chinese, emoji, and other scripts via the browser\'s native TextEncoder/TextDecoder.',
+        'The Base64 Codec performs bidirectional conversion between plain text and Base64-encoded strings. It is useful for HTTP Basic Auth headers, Data URL segments, Base64URL decoding of JSON Web Token parts, MIME attachment encoding, and binary or non-ASCII data in URL parameters and configuration files. Chinese, emoji, and other multi-byte UTF-8 characters are supported.',
       input:
         'In encode mode, provide any text (supports multi-byte UTF-8 characters such as Chinese, emoji, and special symbols). In decode mode, provide a standard Base64-encoded string. The tool detects the input in real time and allows freely switching between encode and decode directions.',
       output:
         'In encode mode, the output is an RFC 4648-compliant Base64 string. In decode mode, the output is the restored original UTF-8 text. When the input is not valid Base64, the tool displays a clear error message rather than silently failing. Encoded results can be directly copied for use in configuration files, API request headers, or Data URL construction.',
       processing:
-        'Encode direction: the browser\'s native TextEncoder converts the UTF-8 string to a byte array, then btoa converts the bytes to a Base64 string. Decode direction: atob decodes the Base64 string to bytes, then TextDecoder restores the UTF-8 text. Both directions run synchronously in the local browser; input content is never uploaded to any server.',
+        'Encode mode turns plain text into a Base64 string. Decode mode restores valid Base64 input into UTF-8 text. Invalid input shows an error instead of failing silently. Both directions run locally and input content is not uploaded.',
       modes: ['Text to Base64 encode', 'Base64 to text decode', 'UTF-8 multi-byte support', 'One-click direction switch', 'Copy encode/decode result'],
       example: {
         title: 'Text to Base64 encode example',
@@ -218,7 +218,7 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
   'url-encoder': {
     zh: {
       summary:
-        'URL 编解码工具用于在原始文本和百分号编码（Percent-Encoding）之间双向转换，基于浏览器原生 encodeURIComponent / decodeURIComponent 实现。适合拼接含中文或特殊字符的 API 请求 URL（如搜索关键词参数）、解码浏览器地址栏中复制的 %E4%B8%AD%E6%96%87 编码串、处理 OAuth 回调地址中的 redirect_uri 编码、修复因未转义 & = # 等保留字符导致的 URL 解析错误，以及为前端 fetch/axios 请求手动构造安全的 query string。',
+        'URL 编解码工具用于在原始文本和百分号编码（Percent-Encoding）之间双向转换。适合拼接含中文或特殊字符的 API 请求 URL（如搜索关键词参数）、解码浏览器地址栏中复制的 %E4%B8%AD%E6%96%87 编码串、处理 OAuth 回调地址中的 redirect_uri 编码、修复因未转义 & = # 等保留字符导致的 URL 解析错误，以及为请求参数手动构造安全的 query string。',
       input:
         '编码模式下输入包含中文、空格或特殊符号（如 & = ? # %）的原始文本；解码模式下输入带有 %XX 百分号编码的 URL 片段。工具实时识别输入内容并根据当前模式进行转换，支持在编码和解码方向间随时切换。',
       output:
@@ -236,7 +236,7 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
     },
     en: {
       summary:
-        'The URL Encoder/Decoder performs bidirectional conversion between plain text and percent-encoding, powered by the browser\'s native encodeURIComponent and decodeURIComponent. Ideal for constructing API request URLs containing Chinese or special characters (such as search keyword parameters), decoding percent-encoded strings like %E4%B8%AD%E6%96%87 copied from the browser address bar, handling redirect_uri encoding in OAuth flows, fixing URL parsing errors caused by unescaped reserved characters such as &, =, and #, and manually constructing safe query strings for frontend fetch/axios requests.',
+        'The URL Encoder/Decoder performs bidirectional conversion between plain text and percent-encoding. It is useful for constructing API request URLs containing Chinese or special characters, decoding percent-encoded strings like %E4%B8%AD%E6%96%87 copied from the address bar, handling redirect_uri values in OAuth flows, fixing URL parsing errors caused by unescaped reserved characters such as &, =, and #, and manually constructing safe query strings.',
       input:
         'In encode mode, provide plain text containing Chinese characters, spaces, or special symbols (such as & = ? # %). In decode mode, provide a URL fragment with %XX percent-encoding. The tool detects the input in real time and converts according to the current mode, allowing on-the-fly switching between encode and decode directions.',
       output:
@@ -263,7 +263,7 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         '五种算法的十六进制小写摘要值：MD5（128 位）、SHA-1（160 位）、SHA-256（256 位）、SHA-384（384 位）和 SHA-512（512 位）。每个摘要均可独立一键复制。SHA-256 和 SHA-512 适用于安全性要求较高的场景，MD5 适合快速校验和非安全场景的摘要计算。',
       processing:
-        'MD5 摘要通过 CryptoJS 库在浏览器端计算；SHA-1 / SHA-256 / SHA-384 / SHA-512 通过浏览器原生 Web Crypto API（crypto.subtle.digest）计算，再将 ArrayBuffer 转换为十六进制字符串。所有计算均在本地完成，输入内容不会离开浏览器，也不会上传至任何服务器。',
+        '工具会按所选哈希算法计算输入内容的十六进制摘要。MD5、SHA-1、SHA-256、SHA-384、SHA-512 会同时输出，便于复制和比对。所有计算均在本地完成，输入内容不会上传。',
       modes: ['MD5', 'SHA-1', 'SHA-256', 'SHA-384', 'SHA-512', '十六进制小写输出', '逐项独立复制'],
       example: {
         title: '文本输入到哈希输出示例',
@@ -282,7 +282,7 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         'Lowercase hexadecimal digest values for five algorithms: MD5 (128-bit), SHA-1 (160-bit), SHA-256 (256-bit), SHA-384 (384-bit), and SHA-512 (512-bit). Each digest can be independently copied with one click. SHA-256 and SHA-512 are suitable for higher-security scenarios, while MD5 is appropriate for quick checksum verification and non-security digest computation.',
       processing:
-        'The MD5 digest is computed in the browser using the CryptoJS library. SHA-1 / SHA-256 / SHA-384 / SHA-512 are computed via the browser\'s native Web Crypto API (crypto.subtle.digest), then the resulting ArrayBuffer is converted to a hexadecimal string. All computation is performed locally; input content never leaves the browser and is never uploaded to any server.',
+        'The tool calculates hexadecimal digests for the input using the selected hash algorithms. MD5, SHA-1, SHA-256, SHA-384, and SHA-512 are shown together for copying and comparison. All calculation runs locally and input content is not uploaded.',
       modes: ['MD5', 'SHA-1', 'SHA-256', 'SHA-384', 'SHA-512', 'Lowercase hex output', 'Independent per-item copy'],
       example: {
         title: 'Text to hash output example',
@@ -343,7 +343,7 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         'Header 段解析为 JSON 对象（通常包含 alg 签名算法和 typ 令牌类型），Payload 段解析为 JSON 对象（包含自定义业务字段和标准声明）。同时展示 iss（签发者）、sub（主题）、exp（过期时间本地化显示）、iat（签发时间本地化显示）等关键声明的结构化视图。若 token 格式不合法或 Base64URL 解码失败，输出明确错误提示。',
       processing:
-        '在浏览器内按 "." 字符拆分 JWT 为三段，分别对前两段进行 Base64URL 解码（将 - 替换为 +、_ 替换为 / 后通过 atob 解码），再将解码后的 JSON 字符串通过 JSON.parse 解析为可读对象。注意：工具仅解码 Header 和 Payload 用于调试查看内容，不在浏览器端验证签名（Signature），不等同于服务端验签。',
+        '工具会按 JWT 的三段结构读取 Header、Payload 和 Signature，并把前两段还原为可读 JSON。注意：本工具只用于查看 Header 和 Payload 内容，不验证 Signature，也不能替代服务端验签。',
       modes: ['Header 解析', 'Payload 解析', '标准声明提取', '过期时间本地化', 'Token 格式校验', '本地解码'],
       example: {
         title: 'JWT 输入到解码输出示例',
@@ -363,7 +363,7 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         'The Header segment is parsed into a JSON object (typically containing the alg signing algorithm and typ token type). The Payload segment is parsed into a JSON object (containing custom business fields and standard claims). A structured view of key claims is also displayed, including iss (issuer), sub (subject), exp (expiration time, shown as localized date), and iat (issued-at time, shown as localized date). If the token format is invalid or Base64URL decoding fails, a clear error message is shown.',
       processing:
-        'Splits the JWT into three segments by the "." character in the browser, then performs Base64URL decoding on the first two segments (replacing - with + and _ with / before decoding via atob), and parses the decoded JSON strings into readable objects via JSON.parse. Note: the tool only decodes the Header and Payload for debugging inspection; it does not verify the Signature in the browser, and is not equivalent to server-side token verification.',
+        'The tool reads the JWT as Header, Payload, and Signature, then restores the first two segments into readable JSON. Note: it only displays Header and Payload for inspection. It does not verify the Signature and cannot replace server-side token verification.',
       modes: ['Header parsing', 'Payload parsing', 'Standard claims extraction', 'Expiration time localization', 'Token format validation', 'Local decoding'],
       example: {
         title: 'JWT decode input-to-output example',
@@ -386,7 +386,7 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         '匹配数量统计、每个匹配项的起始位置（index）、完整匹配内容、以及各捕获分组的独立值列表。同时在上方预览区高亮显示目标文本中的所有匹配片段（黄色背景标记），支持全局模式下的多匹配遍历和非全局模式的首个匹配定位。若正则语法有误，输出具体错误信息。',
       processing:
-        '使用 JavaScript 原生 RegExp 构造函数编译用户输入的模式和修饰符。全局模式（g）下通过 exec 循环遍历所有匹配，非全局模式通过 String.match 获取首个匹配。捕获分组通过 Match 数组索引 1..n 提取。匹配上限 1000 次防止死循环。所有匹配计算在浏览器端同步执行。',
+        '工具会根据输入的模式和修饰符执行匹配，并展示匹配文本、索引位置和捕获分组。全局模式会列出多条匹配结果；非全局模式只展示首个匹配。为避免异常表达式造成页面卡顿，结果数量会有限制。所有匹配都在本地完成。',
       modes: ['g 全局搜索', 'i 忽略大小写', 'm 多行模式', 's 单行模式', 'u Unicode 模式', '捕获分组展示'],
       example: {
         title: '正则匹配输入到输出示例',
@@ -406,7 +406,7 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         'Match count, the starting position (index) of each match, the full match content, and a list of individual capture group values. The preview area above highlights all matched fragments in the target text (yellow background). Global mode supports traversal of multiple matches; non-global mode locates the first match. If the regex syntax is invalid, a specific error message is shown.',
       processing:
-        'Compiles the user-provided pattern and flags using the native JavaScript RegExp constructor. In global mode (g), iterates through all matches via exec in a loop. In non-global mode, obtains the first match via String.match. Capture groups are extracted via Match array indices 1..n. A limit of 1,000 matches prevents infinite loops. All match computation runs synchronously in the browser.',
+        'The tool runs the entered pattern and flags against the test text, then shows matched text, index positions, and capture groups. Global mode lists multiple matches; non-global mode shows the first match only. Result count is limited to prevent problematic expressions from freezing the page. Matching runs locally.',
       modes: ['g global search', 'i case-insensitive', 'm multiline mode', 's single-line mode', 'u Unicode mode', 'Capture group display'],
       example: {
         title: 'Regex match input-to-output example',
@@ -429,7 +429,7 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         '格式化的 TypeScript interface 声明，按嵌套层级自动拆分为多个独立接口并通过类型引用关联。工具会推断 string / number / boolean / null / any 等基础类型，对数组自动生成元素类型，对嵌套对象生成子接口并以 Root 作为顶层入口。',
       processing:
-        '先通过 JSON.parse 校验 JSON 合法性，再递归遍历 JSON 值树：对每个键值对推断值的运行时类型（typeof），对对象递归生成嵌套 interface，对数组检查元素类型并生成对应数组类型注解。嵌套结构自动展开为独立 interface 并通过交叉引用关联，最终通过 json-to-ts 库输出标准 TypeScript 类型声明。',
+        '工具会先校验 JSON 是否有效，再根据字段值推断 TypeScript 类型。对象会生成嵌套 interface，数组会推断元素类型，混合类型会尽量保留联合关系。示例数据越完整，生成结果越接近真实接口结构。',
       modes: ['对象类型推断', '数组类型推断', '嵌套接口自动拆分', '可选字段检测', '一键复制 TypeScript'],
       example: {
         title: 'JSON 输入到 TypeScript 接口输出示例',
@@ -449,7 +449,7 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         'Formatted TypeScript interface declarations, automatically split into multiple independent interfaces by nesting level, linked through type references. The tool infers primitive types such as string, number, boolean, null, and any, auto-generates element types for arrays, and creates child interfaces for nested objects, using Root as the top-level entry point.',
       processing:
-        'First validates JSON via JSON.parse, then recursively traverses the JSON value tree: for each key-value pair it infers the runtime type of the value (typeof), recursively generates nested interfaces for objects, and inspects array element types to generate corresponding type annotations. Nested structures are automatically expanded into independent interfaces linked via cross-references, with the final output produced by the json-to-ts library as standard TypeScript type declarations.',
+        'The tool first validates that the JSON is valid, then infers TypeScript types from field values. Objects generate nested interfaces, arrays infer element types, and mixed values preserve union relationships where possible. The more complete the sample, the closer the generated result is to the real API structure.',
       modes: ['Object type inference', 'Array type inference', 'Auto-split nested interfaces', 'Optional field detection', 'One-click copy TypeScript'],
       example: {
         title: 'JSON to TypeScript interface example',
@@ -472,7 +472,7 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         '加密模式下输出 Base64 编码的密文字符串，可直接复制用于传输或存储测试；解密模式下输出还原后的明文字符串。当密钥不匹配、IV 错误或填充方式不一致导致解密失败时，工具会返回明确错误提示帮助排查问题。',
       processing:
-        '基于 CryptoJS 库在浏览器端执行加密和解密。加密时按所选算法、模式和填充配置对明文进行加密并输出 Base64 密文；解密时对 Base64 密文和密钥执行反向运算还原明文。密钥通过 CryptoJS.enc.Utf8.parse 转换，IV 可选。所有操作在本地浏览器完成，密钥和明文数据不会上传。',
+        '工具会按所选算法、模式和填充方式执行加密或解密。加密时输出 Base64 密文；解密时需要使用相同密钥、模式、填充方式和 IV 才能还原明文。所有操作在本地完成，密钥和明文数据不会上传。',
       modes: ['AES 加密/解密', 'DES 加密/解密', 'Triple DES 加密/解密', 'RC4 加密/解密', 'CBC/CFB/CTR/OFB/ECB 模式', '6 种填充方式', '随机密钥生成'],
       example: {
         title: 'AES-CBC 加密输入到输出示例',
@@ -492,7 +492,7 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         'In encrypt mode, the output is a Base64-encoded ciphertext string that can be copied directly for transmission or storage testing. In decrypt mode, the output is the restored plaintext string. When decryption fails due to a mismatched key, incorrect IV, or inconsistent padding scheme, the tool returns a clear error message to help troubleshoot the issue.',
       processing:
-        'Encryption and decryption run in the browser using the CryptoJS library. Encryption applies the selected algorithm, mode, and padding configuration to the plaintext and outputs Base64 ciphertext. Decryption performs the reverse operation on the Base64 ciphertext and key to restore the plaintext. The key is converted via CryptoJS.enc.Utf8.parse, and the IV is optional. All operations stay in the local browser; keys and plaintext data are never uploaded.',
+        'The tool encrypts or decrypts using the selected algorithm, mode, and padding. Encryption outputs Base64 ciphertext. Decryption requires the same key, mode, padding, and IV to restore the plaintext. All operations stay local, and keys and plaintext are not uploaded.',
       modes: ['AES encrypt/decrypt', 'DES encrypt/decrypt', 'Triple DES encrypt/decrypt', 'RC4 encrypt/decrypt', 'CBC/CFB/CTR/OFB/ECB modes', '6 padding schemes', 'Random key generation'],
       example: {
         title: 'AES-CBC encryption input-to-output example',
@@ -509,13 +509,13 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
   'uuid-generator': {
     zh: {
       summary:
-        'UUID 在线生成器用于在浏览器中批量创建符合 RFC 4122 标准的 Version 4 随机 UUID（也称 GUID）。适合为数据库表生成临时主键（如 INSERT 前预分配 ID）、为自动化测试脚本批量构造唯一标识、在接口 Mock 和压力测试中填充请求参数、为分布式任务队列生成幂等键（idempotency key）、为日志系统创建 Trace ID / Span ID 追踪链路，以及为前端 Demo、配置文件样例和 API 文档提供合法格式的 UUID 示例数据。工具基于浏览器原生 crypto.randomUUID() 接口生成 122 位随机数的 UUID v4，并支持批量生成、连字符格式切换和大小写转换，结果可直接粘贴至 SQL INSERT 语句、JSON 配置对象、JavaScript 代码常量或测试脚本中使用。',
+        'UUID 在线生成器用于批量创建符合 RFC 4122 标准的 Version 4 随机 UUID（也称 GUID）。适合为数据库表生成临时主键、为自动化测试脚本批量构造唯一标识、在接口 Mock 和压力测试中填充请求参数、为分布式任务队列生成幂等键、为日志系统创建 Trace ID / Span ID，以及为 Demo、配置样例和 API 文档提供合法格式的 UUID 示例数据。支持批量生成、连字符格式切换和大小写转换。',
       input:
         '生成数量（1 到 1000）、连字符格式选项（保留或移除）以及大小写选项（小写或大写）。默认配置为生成 1 个标准小写 UUID，保留 RFC 4122 规定的 8-4-4-4-12 连字符分组格式（如 550e8400-e29b-41d4-a716-446655440000）。移除连字符时输出连续 32 位十六进制字符串，适合系统对标识符格式有连续字符要求的场景；切换为大写时所有十六进制字母 a-f 统一转换为 A-F，适合 Oracle 数据库等默认以大写存储 GUID 的系统。',
       output:
         '按指定数量生成的 UUID 列表，每行一个，可直接逐行或全选复制。保留连字符时输出标准 8-4-4-4-12 格式（如 550e8400-e29b-41d4-a716-446655440000）；移除连字符时输出连续 32 位十六进制字符串（如 550e8400e29b41d4a716446655440000）；大写模式下字母统一为大写（如 550E8400-E29B-41D4-A716-446655440000）。批量生成时每行一个 UUID，方便直接粘贴到 Excel 列、SQL VALUES 子句或 JSON 数组中使用。同时支持将全部生成结果导出为 TXT 文件下载。',
       processing:
-        '优先调用浏览器原生 crypto.randomUUID() 接口生成符合 RFC 4122 Version 4 标准的 UUID，该方法使用 cryptographically strong 的随机数生成器确保每个 UUID 的 122 位随机位具有足够熵值。当运行环境不支持 crypto.randomUUID()（如部分旧版浏览器）时，自动降级为基于 Math.random() 的随机模板填充方案，按 8-4-4-4-12 格式在对应位置填入随机十六进制字符，并将第 13 位固定为 4（标识 Version 4）、第 17 位固定为 8/9/a/b 之一（标识 Variant 1）。生成后根据用户选项对结果集执行去连字符（String.replace）和大小写转换（String.toUpperCase）。全部生成、格式转换、复制和 TXT 下载流程均在浏览器本地完成，生成内容不会离开用户设备。',
+        '工具会生成 UUID v4，并按用户选项保留或移除连字符、转换大小写、批量复制或下载 TXT。标准格式使用 8-4-4-4-12 分组，并固定 Version 4 与 Variant 1 标记。生成内容保留在本地，不会上传。',
       modes: ['Version 4 UUID', '批量 1-1000 个', '保留 / 移除连字符', '小写 / 大写输出', '一键复制全部', 'TXT 文件下载'],
       example: {
         title: 'UUID 批量生成输入到输出示例',
@@ -528,13 +528,13 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
     },
     en: {
       summary:
-        'The UUID Generator creates RFC 4122-compliant Version 4 random UUIDs (also known as GUIDs) in batches, directly in the browser. Suitable for generating temporary primary keys for database tables (e.g. pre-assigning IDs before INSERT), batch-creating unique identifiers for automated test scripts, populating request parameters in API mock and stress testing, generating idempotency keys for distributed task queues, creating Trace ID / Span ID tracking chains for logging systems, and providing valid-format UUID example data for frontend demos, configuration file samples, and API documentation. The tool generates 122-bit random UUID v4 values via the browser\'s native crypto.randomUUID() API, and supports batch generation, hyphen format toggling, and case conversion. Results can be pasted directly into SQL INSERT statements, JSON configuration objects, JavaScript code constants, or test scripts.',
+        'The UUID Generator creates RFC 4122-compliant Version 4 random UUIDs, also known as GUIDs, in batches. It is useful for temporary database keys, automated test identifiers, API mock and stress-test parameters, idempotency keys, Trace ID / Span ID values, demos, configuration samples, and API documentation examples. Batch generation, hyphen toggling, and case conversion are supported.',
       input:
         'Generation count (1 to 1,000), hyphen format option (keep or remove), and case option (lowercase or uppercase). The default configuration generates 1 standard lowercase UUID retaining the RFC 4122 8-4-4-4-12 hyphenated format (e.g. 550e8400-e29b-41d4-a716-446655440000). Removing hyphens produces a continuous 32-character hexadecimal string, suitable for systems requiring identifier formats without separators. Switching to uppercase converts all hex letters a-f to A-F, suitable for systems like Oracle databases that store GUIDs in uppercase by default.',
       output:
         'A list of UUIDs generated in the specified quantity, one per line, ready for line-by-line or select-all copying. With hyphens retained, the output uses the standard 8-4-4-4-12 format (e.g. 550e8400-e29b-41d4-a716-446655440000). With hyphens removed, a continuous 32-character hex string (e.g. 550e8400e29b41d4a716446655440000). In uppercase mode, all letters are uppercase (e.g. 550E8400-E29B-41D4-A716-446655440000). Batch output places one UUID per line, convenient for pasting into Excel columns, SQL VALUES clauses, or JSON arrays. All generated results can also be exported as a TXT file download.',
       processing:
-        'First attempts to call the browser\'s native crypto.randomUUID() to generate Version 4 UUIDs, which uses a cryptographically strong random number generator ensuring sufficient entropy for the 122 random bits in each UUID. When the runtime does not support crypto.randomUUID() (e.g. older browsers), it automatically falls back to a Math.random()-based template fill approach: random hex characters are placed in each position of the 8-4-4-4-12 format, with position 13 fixed to 4 (Version 4 identifier) and position 17 fixed to one of 8/9/a/b (Variant 1 identifier). After generation, the result set is processed according to user options: hyphen removal via String.replace and case conversion via String.toUpperCase. All generation, formatting, copying, and TXT download run entirely in the local browser; generated content never leaves the device.',
+        'The tool generates UUID v4 values, then applies the selected options for hyphen retention, case conversion, batch copy, or TXT download. Standard format uses 8-4-4-4-12 grouping with Version 4 and Variant 1 markers. Generated content stays local and is not uploaded.',
       modes: ['Version 4 UUID', 'Batch 1-1000', 'Keep / remove hyphens', 'Lowercase / uppercase output', 'One-click copy all', 'TXT file download'],
       example: {
         title: 'UUID batch generation example',
@@ -550,13 +550,13 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
   'password-generator': {
     zh: {
       summary:
-        '强密码生成器用于在浏览器中快速创建高熵、随机且难以猜测的账户密码或密钥字符串。适合为网站后台管理账号、云服务平台（AWS / 阿里云 / Google Cloud）控制台、数据库连接账号、FTP / SSH 远程访问、API 密钥管理面板以及密码管理器（如 Bitwarden / 1Password）生成符合安全策略的强密码。工具支持自由组合大写字母、小写字母、数字和特殊符号四类字符集，允许排除易混淆字符（如 1/l/I、0/O/o），并提供基于长度和字符集覆盖度的实时强度评估，所有生成在浏览器本地通过 crypto.getRandomValues 完成，密码不会离开用户设备。',
+        '强密码生成器用于快速创建高熵、随机且难以猜测的账户密码或密钥字符串。适合为网站后台账号、云服务控制台、数据库连接账号、FTP / SSH 远程访问、API 密钥管理面板以及密码管理器生成符合安全策略的强密码。工具支持自由组合大写字母、小写字母、数字和特殊符号四类字符集，可排除易混淆字符，并提供基于长度和字符集覆盖度的实时强度评估。密码不会离开用户设备。',
       input:
         '密码长度（4 到 64 位）和字符集配置选项。字符集包含四个独立开关：大写字母（A-Z）、小写字母（a-z）、数字（0-9）和特殊符号（!@#$%^&*() 等）。附加选项"排除相似字符"启用后会自动从候选字符集中移除 1/l/I/0/O/o 等易混淆字形。至少需要启用一种字符类型，否则工具会提示无法生成。修改任意参数后密码将自动刷新，也可手动点击刷新按钮重新生成。',
       output:
         '一条可一键复制的随机密码字符串，长度和组成符合用户配置。工具同时展示基于长度和字符集覆盖度的复合强度评级（弱 / 中 / 强 / 非常强）：短密码或仅包含单一字符类型评为弱；中等长度且包含两类字符评为中；长度足够且涵盖三类字符评为强；长密码涵盖全部四类字符集评为非常强。强度提示为前端辅助判断，不等同于安全审计结论。用户每次手动刷新或调整参数均会重新生成全新密码。',
       processing:
-        '基于浏览器原生 crypto.getRandomValues() 接口生成密码，该接口使用操作系统级别的 CSPRNG（密码学安全伪随机数生成器），相比 Math.random() 具有不可预测性。流程：根据启用的字符集拼接候选字符池，通过 crypto.getRandomValues(new Uint32Array(length)) 获取 n 个安全随机 32 位整数，将每个随机数对候选池长度取模后从候选池中选取对应字符，最终拼接为密码字符串。强度评分综合密码长度和已启用的字符类型数量加权计算。当启用"排除相似字符"时从候选池中预过滤易混淆字符（1/l/I/0/O/o）。全部生成和评估流程在浏览器本地同步完成。',
+        '工具会根据启用的字符集生成随机密码，并按密码长度与字符类型覆盖度评估强度。启用"排除相似字符"后，会避免使用 1/l/I、0/O/o 等容易误读的字符。生成和评估都在本地完成，密码不会上传。',
       modes: ['长度 4-64 位可调', '大写 A-Z', '小写 a-z', '数字 0-9', '特殊符号', '排除相似字符', '实时强度评估', '一键复制', '手动刷新'],
       example: {
         title: '密码生成规则输入到输出示例',
@@ -568,13 +568,13 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
     },
     en: {
       summary:
-        'The Strong Password Generator quickly creates high-entropy, random, and hard-to-guess account passwords or key strings directly in the browser. Suitable for generating security-policy-compliant strong passwords for website admin panels, cloud service consoles (AWS / Google Cloud / Azure), database connection accounts, FTP / SSH remote access, API key management dashboards, and password managers (such as Bitwarden / 1Password). The tool supports freely combining four character sets — uppercase letters, lowercase letters, digits, and special symbols — with an option to exclude visually ambiguous characters (such as 1/l/I, 0/O/o). It provides real-time strength assessment based on length and character set coverage. All generation is performed locally via crypto.getRandomValues; passwords never leave the device.',
+        'The Strong Password Generator quickly creates high-entropy, random, hard-to-guess passwords or key strings. It is suitable for website admin panels, cloud consoles, database accounts, FTP / SSH access, API key dashboards, and password managers. Four character sets are supported: uppercase letters, lowercase letters, digits, and special symbols, with an option to exclude visually ambiguous characters. Strength is assessed from length and character-set coverage. Passwords never leave the device.',
       input:
         'Password length (4 to 64 characters) and character set configuration options. Four independent toggles control the character sets: uppercase letters (A-Z), lowercase letters (a-z), digits (0-9), and special symbols (!@#$%^&*() etc.). The additional "Exclude similar characters" option, when enabled, automatically removes ambiguous glyphs such as 1/l/I/0/O/o from the candidate pool. At least one character type must be enabled, otherwise the tool will show an error. Toggling any parameter automatically refreshes the password; you can also manually click the refresh button to regenerate.',
       output:
         'A one-click-copyable random password string, with length and composition matching the user configuration. The tool also displays a composite strength rating based on length and character set coverage (Weak / Medium / Strong / Very Strong): short passwords or those with a single character type receive a Weak rating; moderate length with two types rates Medium; sufficient length with three types rates Strong; long passwords covering all four character sets rate Very Strong. The strength hint is a frontend heuristic, not a security audit conclusion. Each manual refresh or parameter adjustment generates an entirely new password.',
       processing:
-        'Generates passwords using the browser\'s native crypto.getRandomValues() API, which uses an OS-level CSPRNG (Cryptographically Secure Pseudo-Random Number Generator) with unpredictability superior to Math.random(). The process: builds a candidate character pool from enabled character sets, obtains n secure random 32-bit integers via crypto.getRandomValues(new Uint32Array(length)), maps each random integer to a character from the candidate pool via modulo operation, and concatenates them into the password string. Strength scoring combines password length and enabled character type count with weighted calculation. When "Exclude similar characters" is enabled, ambiguous glyphs (1/l/I/0/O/o) are pre-filtered from the candidate pool. The entire generation and assessment pipeline runs synchronously in the local browser.',
+        'The tool generates random passwords from the enabled character sets and scores strength from length plus character-type coverage. When "Exclude similar characters" is enabled, ambiguous glyphs such as 1/l/I and 0/O/o are avoided. Generation and assessment run locally, and passwords are not uploaded.',
       modes: ['Length 4-64 adjustable', 'Uppercase A-Z', 'Lowercase a-z', 'Digits 0-9', 'Special symbols', 'Exclude similar chars', 'Real-time strength rating', 'One-click copy', 'Manual refresh'],
       example: {
         title: 'Password generation rules example',
@@ -595,7 +595,7 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         '目标进制下的等价值，统一以大写字母展示，便于复制到代码、配置、调试控制台或文档中。输入非法时，输出区域会保持为空并展示错误提示，避免把无效字符转换成误导性结果。快捷按钮可快速切换十进制转二进制、十进制转十六进制、十六进制转十进制、二进制转十进制等常见组合。',
       processing:
-        '使用 BigInt 在浏览器端执行整数解析和格式化，先按源进制逐位累加得到十进制大整数，再按目标进制反复取余生成输出字符。该方式不依赖 Number 的安全整数范围，适合较长 ID、位掩码和协议字段。全部校验、转换和复制都在本地完成。',
+        '工具会按源进制读取整数，再输出为目标进制。它支持较长 ID、位掩码和协议字段，避免普通数字精度限制影响结果。全部校验、转换和复制都在本地完成。',
       modes: ['2-36 进制', 'BIN / OCT / DEC / HEX', '大整数支持', '源/目标进制互换', '快捷转换'],
       example: {
         title: '进制转换输入到输出示例',
@@ -613,7 +613,7 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         'The equivalent value in the target base, displayed with uppercase letters for easy copying into code, configuration, debugging consoles, or documentation. If the input contains invalid characters, the output stays empty and an error message is shown so invalid data is not converted into a misleading result. Quick buttons switch common pairs such as decimal to binary, decimal to hexadecimal, hexadecimal to decimal, and binary to decimal.',
       processing:
-        'Uses BigInt in the browser to parse and format integers. The source string is accumulated digit by digit into a decimal BigInt, then the target representation is generated by repeated division and remainder mapping. This avoids Number safe-integer limits and works well for long IDs, bit masks, and protocol fields. Validation, conversion, and copying all run locally.',
+        'The tool reads the integer in the source base and outputs it in the target base. It supports long IDs, bit masks, and protocol fields without ordinary number precision limits. Validation, conversion, and copying all run locally.',
       modes: ['Base 2-36', 'BIN / OCT / DEC / HEX', 'Large integer support', 'Swap source/target bases', 'Quick conversions'],
       example: {
         title: 'Base conversion input-to-output example',
@@ -673,7 +673,7 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         '同一颜色的 HEX、RGB、RGBA、HSL、HSV、CMYK 等格式文本，每项都可以独立复制。预览区域会直接使用当前颜色作为背景，便于快速确认输入颜色是否符合预期。结果适合粘贴到 CSS、Tailwind 配置、设计交付文档或主题变量中。',
       processing:
-        '基于 tinycolor2 在浏览器内解析颜色字符串并转换到不同色彩模型。CMYK 会根据 RGB 值计算青、品红、黄、黑四色比例；其它格式由库统一生成，保证不同输入格式能得到一致的标准化输出。输入内容不会离开本地浏览器。',
+        '工具会解析输入颜色，并输出 HEX、RGB、HSL、HSV、CMYK 等格式。CMYK 会按 RGB 值换算出青、品红、黄、黑比例；其它格式会保持同一颜色的等价表达。输入内容不会上传。',
       modes: ['HEX 转换', 'RGB / RGBA', 'HSL / HSV', 'CMYK', '颜色预览', '逐项复制'],
       example: {
         title: '颜色格式转换示例',
@@ -691,7 +691,7 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         'Copyable HEX, RGB, RGBA, HSL, HSV, CMYK, and related text values for the same color. The preview panel uses the current color as its background so you can quickly verify that the input matches the intended color. Results can be pasted into CSS, Tailwind configuration, design handoff notes, or theme variables.',
       processing:
-        'Uses tinycolor2 in the browser to parse color strings and convert between color models. CMYK is calculated from the RGB value as cyan, magenta, yellow, and black percentages, while other formats are generated by the library for consistent normalized output across input types. The color data stays local.',
+        'The tool parses the input color and outputs equivalent HEX, RGB, HSL, HSV, and CMYK values. CMYK is calculated from the RGB value as cyan, magenta, yellow, and black percentages, while other formats keep the same color in their own notation. Color data stays local.',
       modes: ['HEX conversion', 'RGB / RGBA', 'HSL / HSV', 'CMYK', 'Color preview', 'Copy per format'],
       example: {
         title: 'Color format conversion example',
@@ -712,7 +712,7 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         '围绕基础色生成的多档浅色、基础色和多档深色，每个色块显示对应 HEX 值并支持点击复制。色阶可用于 hover、active、border、background、text 等 UI 状态，也适合作为 Tailwind 或 CSS 变量的初始色板。',
       processing:
-        '基于 tinycolor2 在浏览器中对基础色执行 lighten 和 darken 运算，按固定步长生成 tint 与 shade 数组。色块文字颜色会根据当前颜色亮度自动选择黑色或白色，确保色值在大多数背景上可读。全部生成和复制都在本地完成。',
+        '工具会围绕基础色生成多档浅色和深色，并根据色块亮度自动选择深色或浅色文字，保证色值可读。全部生成和复制都在本地完成。',
       modes: ['基础色输入', '浅色色阶', '深色色阶', 'HEX 复制', '亮度自适应文字'],
       example: {
         title: '调色板生成示例',
@@ -730,7 +730,7 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         'Multiple light tints, the base color, and multiple dark shades, with each swatch showing a copyable HEX value. The palette can be used for hover, active, border, background, and text states, or as a starting point for Tailwind or CSS variable color scales.',
       processing:
-        'Uses tinycolor2 in the browser to apply lighten and darken operations to the base color, producing tint and shade arrays at fixed steps. Swatch text automatically switches between dark and light text based on color brightness so values remain readable. Generation and copying stay local.',
+        'The tool generates lighter and darker steps around the base color. Swatch text switches between dark and light based on color brightness so values remain readable. Generation and copying stay local.',
       modes: ['Base color input', 'Tint scale', 'Shade scale', 'HEX copy', 'Brightness-aware text'],
       example: {
         title: 'Palette generation example',
@@ -745,13 +745,13 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
   'color-picker': {
     zh: {
       summary:
-        '屏幕取色器用于调用浏览器原生 EyeDropper 能力，从当前屏幕选择任意像素颜色并返回可复制色值。适合从网页、截图、设计稿预览、图片素材或系统界面中快速提取颜色，减少手动截图再导入设计软件的步骤。取色成功后，工具会展示大面积预览、HEX 和 RGB 表达。',
+        '屏幕取色器用于从当前屏幕选择任意像素颜色并返回可复制色值。适合从网页、截图、设计稿预览、图片素材或系统界面中快速提取颜色，减少手动截图再导入设计软件的步骤。取色成功后，工具会展示大面积预览、HEX 和 RGB 表达。',
       input:
-        '用户点击取色按钮后，在浏览器授权的取色模式中选择屏幕上的一个像素。工具依赖浏览器 EyeDropper API，因此需要运行在支持该 API 的浏览器中；不支持时会展示浏览器能力提示。',
+        '用户点击取色按钮后，在浏览器授权的取色模式中选择屏幕上的一个像素。该能力需要浏览器支持；不支持时会展示能力提示。',
       output:
         '选中像素的 HEX 色值和 RGB 色值，以及对应的颜色预览。HEX 可一键复制，用于 CSS、设计变量、品牌色记录或调试页面中颜色是否一致。',
       processing:
-        '调用 window.EyeDropper.open() 打开系统取色交互，浏览器返回 sRGBHex 后更新组件状态，再通过 tinycolor2 生成 RGB 文本。取色动作由浏览器安全模型控制，页面只接收最终颜色值，不会读取用户屏幕内容或上传图片。',
+        '取色动作由浏览器安全模型控制，页面只接收最终颜色值，并展示可复制的 HEX 与 RGB。工具不会读取整张屏幕内容，也不会上传图片。',
       modes: ['屏幕像素取色', 'HEX 输出', 'RGB 输出', '颜色预览', '一键复制'],
       example: {
         title: '屏幕取色输出示例',
@@ -763,13 +763,13 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
     },
     en: {
       summary:
-        'The Screen Color Picker uses the browser native EyeDropper capability to select any pixel color from the current screen and return copyable color values. It is useful for extracting colors from webpages, screenshots, design previews, image assets, or system UI without manually taking a screenshot and importing it into a design tool. After picking a color, the tool shows a large preview plus HEX and RGB values.',
+        'The Screen Color Picker selects a pixel color from the current screen and returns copyable color values. It is useful for extracting colors from webpages, screenshots, design previews, image assets, or system UI without manually taking a screenshot and importing it into a design tool. After picking a color, the tool shows a large preview plus HEX and RGB values.',
       input:
-        'Click the pick button and select one pixel in the browser-authorized eyedropper mode. The tool depends on the browser EyeDropper API, so it requires a browser that supports this API. Unsupported browsers show a capability message.',
+        'Click the pick button and select one pixel in the browser-authorized color-picking mode. This capability requires browser support; unsupported browsers show a capability message.',
       output:
         'The selected pixel color as HEX and RGB text, plus a matching color preview. The HEX value can be copied with one click for CSS, design variables, brand color notes, or debugging whether page colors match.',
       processing:
-        'Calls window.EyeDropper.open() to launch the system color-picking interaction. After the browser returns sRGBHex, the component updates its state and uses tinycolor2 to generate the RGB text. The action is controlled by the browser security model: the page receives only the final color value and does not read screen content or upload images.',
+        'The action is controlled by the browser security model. The page receives only the final color value and displays copyable HEX and RGB values. It does not read the full screen content or upload images.',
       modes: ['Screen pixel pick', 'HEX output', 'RGB output', 'Color preview', 'One-click copy'],
       example: {
         title: 'Screen color pick example',
@@ -790,7 +790,7 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         '文本模式输出按字节分隔的十六进制字符串；HEX 模式输出解码后的 UTF-8 文本。结果可以分别复制，适用于 API 调试、协议文档、测试 fixture、编码学习和故障排查记录。',
       processing:
-        '编码方向通过 TextEncoder 将字符串转为 UTF-8 字节，再把每个字节格式化为两位十六进制；解码方向先移除空白并校验合法性，再把字节数组交给 TextDecoder 还原文本。全部处理在浏览器本地完成，输入内容不会上传。',
+        '编码模式会把文本转换为按字节分隔的十六进制字符串；解码模式会先检查 HEX 是否有效，再还原为 UTF-8 文本。全部处理在本地完成，输入内容不会上传。',
       modes: ['文本转 HEX', 'HEX 转文本', 'UTF-8 支持', '合法性校验', '双向同步', '一键复制'],
       example: {
         title: '文本与 HEX 转换示例',
@@ -808,7 +808,7 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         'In text mode, the output is a space-separated hexadecimal byte string. In HEX mode, the output is decoded UTF-8 text. Both results can be copied for API debugging, protocol documentation, test fixtures, encoding education, or troubleshooting notes.',
       processing:
-        'The encode direction uses TextEncoder to convert the string into UTF-8 bytes, then formats each byte as a two-character hexadecimal value. The decode direction removes whitespace, validates the hex string, converts it into bytes, and restores text with TextDecoder. All processing runs locally in the browser.',
+        'Encode mode turns text into a byte-separated hexadecimal string. Decode mode checks that the HEX input is valid, then restores it to UTF-8 text. All processing runs locally.',
       modes: ['Text to HEX', 'HEX to text', 'UTF-8 support', 'Validity checking', 'Two-way sync', 'One-click copy'],
       example: {
         title: 'Text and HEX conversion example',

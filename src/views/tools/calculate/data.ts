@@ -15,7 +15,7 @@ export const CALCULATE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         '目标单位下的等价值，保留合理有效数字并可根据需要切换精度。线性单位通过基准单位进行间接换算，保证不同单位之间的结果一致性；温度换算使用摄氏、华氏、开尔文之间的专用公式（包含偏移量），避免将温度误当作普通倍数换算而导致结果偏差。所有换算结果均可一键复制，方便直接粘贴至工程文档、物流表单、学习笔记或规格说明书中。',
       processing:
-        '线性单位（长度、重量、体积、面积、速度、功率、能量、数据存储）采用"源单位换算系数 → 基准单位 → 目标单位换算系数"的三段式计算管线，通过预定义的换算系数表查表实现快速转换，避免逐级累积误差。温度单位采用独立转换函数处理偏移量和比例因子：摄氏转华氏为 °F = °C × 9/5 + 32，华氏转摄氏为 °C = (°F - 32) × 5/9，开尔文与摄氏之间为线性偏移（K = °C + 273.15，°C = K - 273.15），华氏转开尔文通过摄氏为中间桥梁。数据存储分类额外提供二进制标准（1 KB = 1024 Byte、1 MB = 1024 KB 等，符合 IEC 标准，即 KiB/MiB/GiB 的实际含义）和十进制标准（1 KB = 1000 Byte、1 MB = 1000 KB 等，符合 SI 国际单位制，常见于硬盘制造商容量标注）两种换算选项，用户可根据场景选择正确的基准。组件状态变化时在浏览器内同步重新计算，不依赖服务端接口，也不会上传输入数据，确保离线可用和数据安全。',
+        '线性单位（长度、重量、体积、面积、速度、功率、能量、数据存储）会先换算到统一基准，再换算到目标单位，避免逐级换算带来的误差。温度单位使用专用公式处理偏移量和比例因子：摄氏转华氏为 °F = °C × 9/5 + 32，华氏转摄氏为 °C = (°F - 32) × 5/9，开尔文与摄氏之间为 K = °C + 273.15。数据存储提供二进制标准（1 KB = 1024 Byte）和十进制标准（1 KB = 1000 Byte）两种口径，便于按软件、系统或硬盘标注场景选择。输入数据不会上传。',
       modes: ['长度换算', '重量换算', '体积换算', '面积换算', '速度换算', '功率换算', '能量/热量换算', '数据存储换算（二/十进制）', '温度换算', '源/目标单位互换', '实时结果', '一键复制输出'],
       example: {
         title: '单位换算输入到输出示例',
@@ -33,7 +33,7 @@ export const CALCULATE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         'The equivalent value in the target unit, displayed with reasonable significant digits and adjustable precision. Linear units are converted indirectly through a base unit to ensure consistency across different unit pairs. Temperature conversions use dedicated formulas between Celsius, Fahrenheit, and Kelvin that include offset terms, preventing the incorrect treatment of temperature as a simple multiplier conversion. All results can be copied with one click for direct pasting into engineering documents, logistics forms, study notes, or specification sheets.',
       processing:
-        'Linear units (length, weight, volume, area, speed, power, energy, data storage) use a three-stage calculation pipeline: source unit factor → base unit → target unit factor, with pre-defined conversion-coefficient lookup tables for fast conversion while avoiding cumulative rounding errors. Temperature units use independent conversion functions that correctly handle both offset and scale: Celsius to Fahrenheit is °F = °C × 9/5 + 32, Fahrenheit to Celsius is °C = (°F − 32) × 5/9, Kelvin and Celsius share a linear offset (K = °C + 273.15, °C = K − 273.15), and Fahrenheit to Kelvin uses Celsius as an intermediate bridge. The Data Storage category additionally provides both binary standard (1 KB = 1024 Byte, 1 MB = 1024 KB, etc., following the IEC standard and reflecting the actual meaning of KiB/MiB/GiB) and decimal standard (1 KB = 1000 Byte, 1 MB = 1000 KB, etc., following SI International System of Units, commonly used by hard-drive manufacturers for capacity labeling), allowing the user to select the appropriate base for the scenario. State changes trigger synchronous browser-side recalculation without server requests or data uploads, ensuring offline availability and data security.',
+        'Linear units (length, weight, volume, area, speed, power, energy, and data storage) are converted through a common base unit before being converted to the target unit, which avoids cumulative step-by-step errors. Temperature uses dedicated formulas for offset and scale: Celsius to Fahrenheit is °F = °C × 9/5 + 32, Fahrenheit to Celsius is °C = (°F − 32) × 5/9, and Kelvin uses K = °C + 273.15. Data storage supports both binary (1 KB = 1024 Byte) and decimal (1 KB = 1000 Byte) standards so you can match software, system, or drive-labeling contexts. Input data is not uploaded.',
       modes: ['Length conversion', 'Weight conversion', 'Volume conversion', 'Area conversion', 'Speed conversion', 'Power conversion', 'Energy/Heat conversion', 'Data storage (binary/decimal)', 'Temperature conversion', 'Swap source/target units', 'Live result', 'One-click copy output'],
       example: {
         title: 'Unit conversion input-to-output example',
@@ -210,7 +210,7 @@ export const CALCULATE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         '每个目标时区对应三列信息：本地日期时间（精确到分钟）、时区 IANA 名称（如 Asia/Shanghai），以及相对 UTC 的标准偏移量（如 UTC+8）。右侧列表中的所有时区结果会在基准时间、基准时区或目标时区列表发生变化时立即同步更新，帮助用户快速判断会议是否落在对方工作时间段内、发布窗口是否可能跨越日期变更线、节假日是否会影响排期，以及不同地区之间的实际时差（含夏令时影响）。偏移量会根据所选日期是否处于夏令时区间自动校正，冬季和夏季可能展示不同的 UTC 偏移值。',
       processing:
-        '基于 dayjs 及其 timezone 和 utc 插件在浏览器内完成全量换逄。首先将用户输入的基准日期时间与基准时区结合，解析为包含时区信息的 dayjs 对象；随后遍历目标时区列表，调用 dayjs.tz() 方法按 IANA 时区数据库规则将基准时间转换到每个目标时区的本地时间，同时提取该目标时区在该日期的 UTC 偏移量（格式化为 ±HH:mm）。夏令时规则、UTC 历史偏移变更和跨日日期处理由 dayjs 的 timezone 插件依据内嵌的 IANA 时区数据统一计算，页面仅负责组织输入状态、触发换算和渲染结果列表。整个换逄流程在浏览器本地同步执行，无需发送任何网络请求，用户输入的基准时间和选择的城市列表不会离开设备。',
+        '工具会把基准日期时间和基准时区作为同一时刻，再换算到每个目标城市的本地时间，并显示对应 UTC 偏移。夏令时、历史偏移和跨日结果按 IANA 时区规则处理。换算在本地完成，不需要网络请求；用户输入的基准时间和选择的城市列表不会离开设备。',
       modes: ['基准时区设置', '当前时间一键填入', '多目标时区对照', 'UTC 偏移量显示（含夏令时校正）', '跨日提示', '添加/删除目标时区', '本地离线换算'],
       example: {
         title: '跨时区换算示例',
@@ -243,13 +243,13 @@ export const CALCULATE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
   'archive-converter': {
     zh: {
       summary:
-        '压缩包转换工具用于在浏览器中创建 ZIP 压缩包或解析已有的 ZIP 归档文件并导出内部内容。适合临时整理多份资料为单一交付文件、将前端静态资源打包传输、批量下载用户上传的多个附件、在接收 ZIP 文件后快速展开其中的文件列表并按需单个下载，或把展开后的文件重新打包为新的 ZIP。所有文件经浏览器 File API 读取后在内存中处理，通过 JSZip 生成或解析 ZIP 数据并以 Blob 形式触发下载，文件内容自始至终保留在本地设备中，不会上传至任何服务器或第三方服务。',
+        '压缩包转换工具用于创建 ZIP 压缩包，或展开已有 ZIP 并导出其中内容。适合临时整理多份资料为单一交付文件、打包静态资源、批量下载多个附件、查看 ZIP 内部文件列表、按需单个下载，或把展开后的文件重新打包为新的 ZIP。文件内容保留在本地设备中，不会上传至服务器或第三方服务。',
       input:
         '用户通过拖拽或文件选择器添加一个或多个文件。普通文件会直接加入待打包队列；上传 .zip 文件时，工具会读取压缩包并把内部非目录文件展开为队列条目，文件名会保留 ZIP 内的相对路径。队列展示每个条目的文件名、大小、单个下载按钮和移除按钮，用户可继续追加文件、移除误选文件，或清空整个队列。当前页面聚焦 ZIP 创建与 ZIP 展开，不处理 RAR、7z、TAR 等其他压缩格式。',
       output:
         '输出有两种形式：点击单个条目的下载按钮时，浏览器会保存该文件本身；点击打包按钮时，工具会把当前队列中的全部条目写入一个新的 ZIP 文件并触发下载，文件名形如 archive_时间戳.zip。文件列表显示每个条目的名称和自动格式化后的大小（B / KB / MB / GB），并允许删除单个条目或一键清空队列。',
       processing:
-        '基于 JSZip 库在浏览器端完成打包与解包。上传处理流程：通过文件选择器或拖拽事件获得 File 对象；若文件名以 .zip 结尾，则调用 loadAsync(file) 读取压缩包并遍历 contents.files，将非目录条目通过 async("blob") 提取为队列文件；若为普通文件，则直接加入队列。打包流程：创建 JSZip 实例，将队列中的每个条目通过 file(name, content) 写入，随后 generateAsync({ type: "blob" }) 生成 ZIP 二进制并交给 file-saver 下载。单个下载流程会直接保存该条目的 Blob/File 内容。整个处理链只依赖浏览器 File API、Blob API、JSZip 与 file-saver，不会上传文件内容。',
+        '工具会把普通文件加入待打包队列；上传 ZIP 时，会展开其中的非目录文件并保留相对路径。点击打包后，当前队列会生成新的 ZIP 文件；点击单个条目则只下载该文件。当前页面聚焦 ZIP 创建和 ZIP 展开，不处理 RAR、7z、TAR 等其他压缩格式。',
       modes: ['多文件 ZIP 打包', 'ZIP 自动展开到队列', '单个文件下载', '拖拽添加文件', '队列管理与清空', '本地离线处理'],
       example: {
         title: '压缩包处理示例',
@@ -261,13 +261,13 @@ export const CALCULATE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
     },
     en: {
       summary:
-        'The Archive Converter creates ZIP archives or parses existing ZIP files and exports their contents, all directly in the browser. Suitable for temporarily organizing multiple assets into a single deliverable, packaging frontend static resources for transfer, batch-downloading multiple user-uploaded attachments, expanding a received ZIP into a manageable file queue, downloading individual extracted files, or repackaging the queue into a new ZIP. All files are read through the browser File API and processed in memory; JSZip generates or parses ZIP data and triggers downloads as Blobs. File contents remain on the local device at all times and are never uploaded to any server or third-party service.',
+        'The Archive Converter creates ZIP archives or expands existing ZIP files so their contents can be exported. It is useful for organizing multiple assets into one deliverable, packaging static resources, batch-downloading attachments, viewing a ZIP file list, downloading individual extracted files, or repackaging the queue into a new ZIP. File contents remain on the local device and are never uploaded to a server or third-party service.',
       input:
         'Users add one or more files via drag-and-drop or the file picker. Regular files are added directly to the queue. When a .zip file is uploaded, the tool reads the archive and expands its non-directory entries into queue rows, preserving relative paths from inside the ZIP. Each row shows the file name, size, single-file download action, and remove action. Users can append more files, remove mistaken entries, or clear the queue. The current page focuses on ZIP creation and ZIP expansion; it does not process RAR, 7z, TAR, or other archive formats.',
       output:
         'The output has two paths. Clicking an individual row downloads that file directly. Clicking the bundle button writes every current queue entry into a new ZIP archive and triggers a browser download named like archive_timestamp.zip. The file list shows each entry name and auto-formatted size (B / KB / MB / GB), with controls to remove individual entries or clear the whole queue.',
       processing:
-        'Uses JSZip for browser-side archive work. Upload pipeline: File objects are obtained from the file picker or drag events; if a file name ends with .zip, loadAsync(file) reads the archive and contents.files is iterated, with non-directory entries extracted via async("blob") and added to the queue; regular files are added directly. Packaging pipeline: a new JSZip instance writes each queue entry via file(name, content), then generateAsync({ type: "blob" }) creates the ZIP binary and file-saver triggers the download. Single-file download saves the row\'s Blob/File content directly. The entire chain uses the browser File API, Blob API, JSZip, and file-saver; no file data ever leaves the browser.',
+        'The tool adds regular files to the packaging queue. When a ZIP is uploaded, non-directory files are expanded into the queue while preserving relative paths. Creating an archive packages the current queue into a new ZIP; single-file download saves only that row. The page focuses on ZIP creation and ZIP expansion, not RAR, 7z, TAR, or other archive formats.',
       modes: ['Multi-file ZIP creation', 'ZIP expansion into queue', 'Single-file download', 'Drag-and-drop add files', 'Queue management and clear', 'Local offline processing'],
       example: {
         title: 'Archive processing example',

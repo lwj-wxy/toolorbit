@@ -63,24 +63,24 @@ function developerFallbackOverview(toolId: string, title: string, isZh: boolean)
   const zh: Record<string, { summary: string; input: string; output: string; processing: string; modes: string[] }> = {
     'text-diff': {
       summary:
-        '文本对比（Diff）工具用于逐词或逐行比较两段文本、代码或配置文件的差异，快速识别新增、删除和修改的内容。适合代码审查时对比两个提交版本、排查配置文件变更、校对文案修改前后的措辞差异，以及检查接口响应体在不同环境下的字段变化。所有比较在浏览器本地完成。',
+        '文本对比（Diff）工具用于逐词或逐行比较两段文本、代码或配置文件的差异，快速识别新增、删除和修改的内容。适合代码审查时对比两个提交版本、排查配置文件变更、校对文案修改前后的措辞差异，以及检查接口响应体在不同环境下的字段变化。所有比较在本地完成。',
       input:
         '两段需要比较的文本。左侧输入原始版本（Old），右侧输入修改后的新版本（New）。可以是 JavaScript/TypeScript 函数体、JSON 配置对象、CSS 样式规则、Markdown 文档段落或任意纯文本内容。',
       output:
         '差异对比结果以颜色标记展示：绿色背景标识新增内容，红色背景加删除线标识移除内容，无背景色部分表示未变更内容。逐词模式精确到单词级变化，适合文案校对；逐行模式按整行标记差异，适合代码和配置文件比较。',
       processing:
-        '基于 diff 库在浏览器内执行文本差异算法。逐词模式按空白分隔的单词粒度比较，精确捕获单词增删和修改；逐行模式按换行符分隔后逐行比较，适合快速浏览结构性变更。输入内容完全保留在本地。',
+        '工具会按所选模式比较两段文本。逐词模式适合校对措辞变化；逐行模式适合检查代码、配置和结构化文本的整体差异。输入内容保留在本地，不会上传。',
       modes: ['逐词对比', '逐行对比', '新增高亮（绿）', '删除高亮（红）', '本地离线处理'],
     },
     'xml-json': {
       summary:
-        'XML / JSON 转换工具用于在 XML 文档结构与 JSON 数据结构之间双向转换。适合处理 SOAP/XML-RPC 接口响应、RSS 订阅源、Sitemap 网站地图、SVG 矢量图形标记以及 Android 布局文件等 XML 内容。粘贴 HTML 源码时自动识别并使用浏览器 DOMParser 进行容错解析，输出标准 DOM 树 JSON 表示。',
+        'XML / JSON 转换工具用于在 XML 文档结构与 JSON 数据结构之间双向转换。适合处理 SOAP/XML-RPC 接口响应、RSS 订阅源、Sitemap 网站地图、SVG 矢量图形标记以及 Android 布局文件等 XML 内容。粘贴 HTML 源码时，工具会按文档结构输出可读的 JSON 表示。',
       input:
         '在 XML → JSON 模式下，输入标准 XML 文档、HTML 页面源码或 XML 片段。在 JSON → XML 模式下，输入合法的 JSON 对象字符串，工具将其序列化为等价 XML 标记。',
       output:
         'XML → JSON 方向输出紧凑型 JSON 对象，属性映射为 _attributes 键，文本节点映射为 _text 键；JSON → XML 方向输出带缩进的可读 XML 文本。HTML 源码会输出包含 documentType 和 root 节点的完整 DOM JSON 树。',
       processing:
-        'XML → JSON 方向：HTML 使用浏览器原生 DOMParser 容错解析并递归遍历 DOM 树构建 JSON；标准 XML 通过 xml-js 库严格解析。JSON → XML 方向：先校验 JSON 合法性，再通过 xml-js 序列化为 XML 标记。全程在浏览器端执行。',
+        'XML 转 JSON 时，工具会保留元素、属性和文本节点的层级关系；JSON 转 XML 时，会先检查 JSON 是否有效，再生成对应 XML 标记。转换在本地完成，输入内容不会上传。',
       modes: ['XML 转 JSON', 'JSON 转 XML', 'HTML DOM 解析', '方向一键切换', '复制转换结果'],
     },
     'color-converter': {
@@ -105,7 +105,7 @@ function developerFallbackOverview(toolId: string, title: string, isZh: boolean)
       output:
         '加密模式下输出 Base64 编码的密文字符串；解密模式下输出还原后的明文字符串。当密钥不匹配或参数不一致导致解密失败时，返回明确错误提示帮助排查。',
       processing:
-        '基于 CryptoJS 库在浏览器端执行加密和解密。支持 AES/DES/Triple DES/RC4 四种算法，CBC/CFB/CTR/OFB/ECB 五种工作模式，以及六种填充方式。所有操作在本地浏览器完成，密钥和明文数据不会上传。',
+        '工具按所选算法、模式和填充方式执行加密或解密。加密时输出密文；解密时使用相同密钥和参数还原明文。所有操作在本地完成，密钥和明文数据不会上传。',
       modes: ['AES 加密/解密', 'DES 加密/解密', 'Triple DES 加密/解密', 'RC4 加密/解密', 'CBC/CFB/CTR/OFB/ECB 模式', '6 种填充方式'],
     },
   };
