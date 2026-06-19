@@ -51,7 +51,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   return (
     <HtmlRoot>
-      <head />
+      <head>
+        <script
+          async
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${googleAdsenseClient}`}
+          crossOrigin="anonymous"
+          data-toolorbit-adsense={googleAdsenseClient}
+        />
+      </head>
       <body suppressHydrationWarning>
         <JsonLd id="structured-data-organization" data={organizationJsonLd()} />
         <JsonLd id="structured-data-website" data={websiteJsonLd()} />
