@@ -31,6 +31,15 @@ const RAW_TOOLS_META = [
     isPopular: true,
   },
   {
+    id: 'worldcup-match-predictor',
+    name: 'World Cup Match Predictor',
+    description: 'Estimate win, draw, loss, and likely scorelines from team strength, tournament motivation, and odds checks.',
+    category: 'AI 工具',
+    path: '/tools/ai/worldcup-match-predictor',
+    color: 'cyan',
+    isPopular: true,
+  },
+  {
     id: 'ai-prompt-generator',
     name: 'AI Image Prompt Generator',
     description: 'Expand a visual idea into copy-ready English prompts with style, scene, lighting, and composition details.',

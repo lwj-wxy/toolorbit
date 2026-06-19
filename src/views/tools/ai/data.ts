@@ -687,6 +687,47 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
     },
   },
 
+  'worldcup-match-predictor': {
+    zh: {
+      summary:
+        '世界杯比赛结果预测工具用于根据两支球队生成赛前胜平负倾向、可能比分和冷门风险。用户只需要分别输入球队 A 和球队 B。工具会在后台使用球队实力、常见比赛走势和杯赛比分分布做概率推演。',
+      input:
+        '只需输入球队 A 和球队 B。可以写中文队名，也可以写英文队名。工具不会要求用户填写额外比赛资料。',
+      output:
+        '结果会给出比赛对象、结果倾向、胜平负概率区间、2-3 个可能比分、简短理由和风险提示。可能比分会用图表展示，便于比较每个比分的相对概率。',
+      processing:
+        '用户不需要整理资料。工具会用通用足球分析框架估算比赛走势，并把结论压缩成可读结果：谁更占优、平局概率是否高、比分更可能偏小还是偏开放。它不会声称读取了实时伤停、赔率或官方首发，发布前请结合最新赛前消息复核。',
+      modes: ['球队 A / 球队 B 输入', '胜平负概率区间', '最可能结果', '比分概率图表', '冷门风险提示'],
+      example: {
+        title: '世界杯小组赛预测示例',
+        input: '球队 A: 美国\n球队 B: 澳大利亚',
+        output:
+          '[RESULT]\n最可能结果: 美国小胜。概率区间: 美国胜 48-55%，平 25-30%，澳大利亚胜 18-23%。\n\n[SCORES]\n2-1 | 32 | 美国小胜\n1-1 | 27 | 平局次选\n1-0 | 22 | 低比分小胜\n\n[REASON]\n美国整体实力略占优，进攻选择更多；澳大利亚有能力把比赛拖进低比分。',
+        inputLanguage: 'text',
+        outputLanguage: 'markdown',
+      },
+    },
+    en: {
+      summary:
+        'The World Cup Match Predictor estimates result lean, win-draw-loss ranges, likely scorelines, and upset risk from two team names. The user only needs to enter Team A and Team B.',
+      input:
+        'Enter Team A and Team B. Chinese and English team names both work. The tool does not ask users for extra match data.',
+      output:
+        'The result includes the match, result lean, win-draw-loss probability ranges, 2-3 likely scores, a short reason, and risk notes. Likely scores are displayed as a chart so the probabilities are easier to compare.',
+      processing:
+        'Users do not need to prepare a scouting report. The tool uses a general football prediction framework to estimate who has the edge, whether a draw is plausible, and whether the scoreline should lean tight or open. It does not claim live lineup data, so review late news before using the result.',
+      modes: ['Team A / Team B input', 'Win-draw-loss probability ranges', 'Most likely result', 'Score probability chart', 'Upset risk notes'],
+      example: {
+        title: 'World Cup group match prediction example',
+        input: 'Team A: United States\nTeam B: Australia',
+        output:
+          '[RESULT]\nMost likely result: narrow United States win. Probability range: United States win 48-55%, draw 25-30%, Australia win 18-23%.\n\n[SCORES]\n2-1 | 32 | narrow United States win\n1-1 | 27 | draw as second option\n1-0 | 22 | tight low-score win\n\n[REASON]\nThe United States has a small quality edge and more attacking options. Australia can still keep the match tight.',
+        inputLanguage: 'text',
+        outputLanguage: 'markdown',
+      },
+    },
+  },
+
   'market-insights': {
     zh: {
       summary:

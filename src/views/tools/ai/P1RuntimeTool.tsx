@@ -9,6 +9,7 @@ import {
   textPolisherConfig,
   translatorConfig,
   videoScriptConfig,
+  worldCupMatchPredictorConfig,
   xiaohongshuConfig,
 } from './p1RuntimeConfigs';
 
@@ -22,6 +23,7 @@ const configByPath: Record<string, AiRuntimeToolConfig> = {
   '/tools/ai/translator': translatorConfig,
   '/tools/ai/competitor-tracker': competitorTrackerConfig,
   '/tools/ai/market-insights': marketInsightsConfig,
+  '/tools/ai/worldcup-match-predictor': worldCupMatchPredictorConfig,
 };
 
 const P1RuntimeTool = () => {

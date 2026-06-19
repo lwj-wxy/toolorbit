@@ -23,6 +23,7 @@ type AiToolCategory = 'copy' | 'document' | 'code' | 'image' | 'vision';
 const AI_TOOL_CATEGORIES: Record<string, AiToolCategory> = {
   'listing-craft': 'copy',
   'market-research': 'document',
+  'worldcup-match-predictor': 'document',
   'ai-polisher': 'copy',
   'ai-translator': 'copy',
   'ai-prompt-generator': 'copy',

@@ -557,3 +557,48 @@ export const marketInsightsConfig: AiRuntimeToolConfig = {
     language: values.language,
   }),
 };
+
+export const worldCupMatchPredictorConfig: AiRuntimeToolConfig = {
+  toolId: 'worldcup-match-predictor',
+  endpoint: '/api/worldcup-match-predictor',
+  icon: 'zap',
+  title: { en: 'World Cup Match Predictor', zh: '世界杯比赛结果预测工具' },
+  subtitle: {
+    en: 'Enter two teams to estimate the result lean, likely scores, and upset risk.',
+    zh: '输入两支球队，预测胜平负倾向、可能比分和冷门风险。',
+  },
+  formTitle: { en: 'Teams', zh: '球队' },
+  generateLabel: { en: 'Predict match', zh: '预测比赛' },
+  waitingLabel: { en: 'Your match prediction will appear here.', zh: '比赛预测结果会显示在这里。' },
+  loadingLabel: { en: 'Predicting match...', zh: '正在预测比赛...' },
+  fields: [
+    {
+      key: 'teamA',
+      type: 'input',
+      label: { en: 'Team A', zh: '球队 A' },
+      placeholder: { en: 'United States', zh: '美国' },
+      required: true,
+    },
+    {
+      key: 'teamB',
+      type: 'input',
+      label: { en: 'Team B', zh: '球队 B' },
+      placeholder: { en: 'Australia', zh: '澳大利亚' },
+      required: true,
+    },
+  ],
+  result: {
+    type: 'sections',
+    sections: [
+      { key: 'match', marker: 'MATCH', label: { en: 'Match', zh: '比赛' }, markdown: true },
+      { key: 'result', marker: 'RESULT', label: { en: 'Result lean', zh: '结果倾向' }, markdown: true },
+      { key: 'scores', marker: 'SCORES', label: { en: 'Likely scores', zh: '可能比分' }, markdown: true },
+      { key: 'reason', marker: 'REASON', label: { en: 'Why', zh: '简短理由' }, markdown: true },
+      { key: 'risk', marker: 'RISK_NOTES', label: { en: 'Risk notes', zh: '风险提示' }, markdown: true },
+    ],
+  },
+  buildPayload: (values) => ({
+    teamA: values.teamA,
+    teamB: values.teamB,
+  }),
+};

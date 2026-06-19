@@ -52,6 +52,7 @@ import {
   Globe2,
   Brain,
   PackageSearch,
+  Trophy,
 } from 'lucide-react';
 import { TOOLS_META, type Category, type ToolMeta } from './tools-meta';
 
@@ -62,6 +63,7 @@ void [Gamepad2, Bomb];
 
 const iconMap: Record<string, ComponentType<any>> = {
   'ai-youtube-generator': Clapperboard,
+  'worldcup-match-predictor': Trophy,
   'ai-prompt-generator': ImageIcon,
   'ai-video-script': Clapperboard,
   'ai-resume-optimizer': FileText,

@@ -692,6 +692,51 @@ const buildMarketInsightsConfig = (body: any, model: string): AiRuntimeBuildResu
   });
 };
 
+const buildWorldCupMatchPredictorConfig = (body: any, model: string): AiRuntimeBuildResult => {
+  const teamA = limitText(normalizeWhitespace(body.teamA), 110);
+  const teamB = limitText(normalizeWhitespace(body.teamB), 110);
+  const fallbackMatch = limitText(normalizeWhitespace(body.match), 220);
+  const match = teamA && teamB ? `${teamA} vs ${teamB}` : fallbackMatch;
+  if (!match) return invalidInput('Both teams are required.');
+
+  const outputLanguage = body.language
+    ? languageName(body.language)
+    : /[\u4e00-\u9fff]/.test(`${teamA}${teamB}${fallbackMatch}`)
+      ? 'Simplified Chinese'
+      : 'English';
+
+  return sectionConfig({
+    model,
+    outputLanguage,
+    markers: ['MATCH', 'RESULT', 'SCORES', 'REASON', 'RISK_NOTES'],
+    systemLines: [
+      'You are a football match prediction analyst.',
+      'The user only provides two teams. Do not ask for standings, odds, injuries, kickoff time, lineups, or tournament context.',
+      'Make a concise pre-match estimate from general team strength, international tournament patterns, likely tactical shape, and common football scorelines.',
+      'If the matchup could refer to a different competition or date, state the assumption briefly in [RISK_NOTES], not as a request for more input.',
+      'Return win, draw, and loss probability ranges. Give the most likely result, a second option, and 2 or 3 likely scorelines.',
+      'Keep [REASON] short and readable for ordinary users. Avoid internal terms such as baseline, market validation, qualification math, xG model, or motivation adjustment unless the user supplied them.',
+      'Do not claim live verification, current odds, injuries, rankings, standings, start time, or final score.',
+      'Do not present the prediction as betting advice, a guarantee, or a certain result.',
+    ],
+    brief: {
+      toolId: 'worldcup-match-predictor',
+      task: 'Predict a football match result and likely scorelines from two team names',
+      teamA: teamA || 'Parsed from match text',
+      teamB: teamB || 'Parsed from match text',
+      match,
+      outputLanguage,
+      requiredReasoningShape: [
+        'Match: restate the teams and assumption.',
+        'Result: name the most likely result and probability ranges for team A win, draw, and team B win.',
+        'Scores: return 3 to 5 lines. Each line must use this exact format: score | probabilityNumber | short note. Example: 2-1 | 32 | narrow favorite win. Use only the number, no percent sign, in the middle field.',
+        'Reason: give 2 or 3 plain-language bullets.',
+        'Risk: state that red cards, penalties, set pieces, late lineup news, and stale data can change the result.',
+      ],
+    },
+  });
+};
+
 const buildResumeOptimizerConfig = (body: any, model: string): AiRuntimeBuildResult => {
   const resumeText = limitText(normalizeLongText(body.resumeText), 5000);
   if (!resumeText) return invalidInput('Resume text is required.');
@@ -768,6 +813,8 @@ export const buildAiRuntimeStreamConfig = (path: string, body: any, model: strin
       return buildCompetitorConfig(body, model);
     case 'market-research':
       return buildMarketInsightsConfig(body, model);
+    case 'worldcup-match-predictor':
+      return buildWorldCupMatchPredictorConfig(body, model);
     case 'ai-resume-optimizer':
       return buildResumeOptimizerConfig(body, model);
     default:

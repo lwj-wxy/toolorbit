@@ -24,6 +24,7 @@ const lazyTool = (loader: ToolLoader) =>
 
 export const toolComponentMap: Record<string, ToolComponent> = {
   '/tools/ai/youtube-generator': lazyTool(() => import('../views/tools/ai/YoutubeGenerator')),
+  '/tools/ai/worldcup-match-predictor': lazyTool(() => import('../views/tools/ai/P1RuntimeTool')),
   '/tools/ai/prompt-generator': lazyTool(() => import('../views/tools/ai/P1RuntimeTool')),
   '/tools/ai/video-script': lazyTool(() => import('../views/tools/ai/P1RuntimeTool')),
   '/tools/ai/resume-optimizer': lazyTool(() => import('../views/tools/ai/ResumeOptimizer')),

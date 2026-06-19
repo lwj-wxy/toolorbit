@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState, type ComponentType } from 'react';
 import { useTranslation } from 'react-i18next';
+import * as echarts from 'echarts';
 import { Check, Clapperboard, Copy, Loader2, Sparkles, Zap } from 'lucide-react';
 import Markdown from 'react-markdown';
 
@@ -73,6 +74,140 @@ const parseSections = (content: string, sections: AiRuntimeSection[]) => {
   });
 
   return parsedSections;
+};
+
+type ScorelineChartItem = {
+  score: string;
+  probability: number;
+  note: string;
+};
+
+const fallbackScoreProbabilities = [34, 28, 22, 12, 8];
+
+const parseScorelineChartData = (content: string): ScorelineChartItem[] => {
+  const seenScores = new Set<string>();
+
+  return content
+    .split('\n')
+    .map((line) => line.replace(/^[-*]\s*/, '').trim())
+    .filter(Boolean)
+    .map((line, lineIndex) => {
+      const scoreMatch = line.match(/(\d+\s*[-:]\s*\d+)/);
+      if (!scoreMatch) return null;
+
+      const score = scoreMatch[1].replace(/\s+/g, '').replace(':', '-');
+      if (seenScores.has(score)) return null;
+      seenScores.add(score);
+
+      const afterScore = line.slice((scoreMatch.index || 0) + scoreMatch[0].length);
+      const pipeParts = line.split('|').map((part) => part.trim());
+      const probabilitySource = pipeParts.length >= 2 ? pipeParts[1] : afterScore;
+      const probabilityMatch = probabilitySource.match(/(\d+(?:\.\d+)?)/);
+      const parsedProbability = probabilityMatch ? Number.parseFloat(probabilityMatch[1]) : fallbackScoreProbabilities[lineIndex] || 8;
+      const probability = Number.isFinite(parsedProbability) ? Math.max(1, Math.min(100, parsedProbability)) : fallbackScoreProbabilities[lineIndex] || 8;
+      const note = pipeParts.length >= 3 ? pipeParts.slice(2).join(' | ') : afterScore.replace(/[\s|,，:：-]*\d+(?:\.\d+)?\s*%?/, '').trim();
+
+      return { score, probability, note };
+    })
+    .filter((item): item is ScorelineChartItem => Boolean(item))
+    .slice(0, 5);
+};
+
+const ScorelineChart = ({ content, isZh }: { content: string; isZh: boolean }) => {
+  const chartRef = useRef<HTMLDivElement>(null);
+  const chartData = useMemo(() => parseScorelineChartData(content), [content]);
+
+  useEffect(() => {
+    if (!chartRef.current || chartData.length === 0) return;
+
+    const chart = echarts.init(chartRef.current);
+    const resizeChart = () => chart.resize();
+    const textColor = document.documentElement.classList.contains('dark') ? '#cbd5e1' : '#334155';
+    const gridColor = document.documentElement.classList.contains('dark') ? '#334155' : '#e2e8f0';
+
+    chart.setOption({
+      color: ['#4f46e5'],
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: { type: 'shadow' },
+        formatter: (params: any) => {
+          const item = params?.[0];
+          const dataIndex = item?.dataIndex || 0;
+          const note = chartData[dataIndex]?.note;
+          return [
+            `<strong>${item?.name || ''}</strong>`,
+            `${isZh ? '预测概率' : 'Estimated chance'}: ${item?.value || 0}%`,
+            note ? `${isZh ? '说明' : 'Note'}: ${note}` : '',
+          ].filter(Boolean).join('<br/>');
+        },
+      },
+      grid: { left: 16, right: 18, top: 24, bottom: 22, containLabel: true },
+      xAxis: {
+        type: 'category',
+        data: chartData.map((item) => item.score),
+        axisTick: { show: false },
+        axisLine: { lineStyle: { color: gridColor } },
+        axisLabel: { color: textColor, fontWeight: 600 },
+      },
+      yAxis: {
+        type: 'value',
+        max: (value: { max: number }) => Math.max(40, Math.ceil(value.max / 10) * 10),
+        axisLabel: { color: textColor, formatter: '{value}%' },
+        splitLine: { lineStyle: { color: gridColor, type: 'dashed' } },
+      },
+      series: [
+        {
+          type: 'bar',
+          data: chartData.map((item) => item.probability),
+          barMaxWidth: 44,
+          itemStyle: {
+            borderRadius: [7, 7, 0, 0],
+            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+              { offset: 0, color: '#6366f1' },
+              { offset: 1, color: '#06b6d4' },
+            ]),
+          },
+          label: {
+            show: true,
+            position: 'top',
+            color: textColor,
+            fontWeight: 700,
+            formatter: '{c}%',
+          },
+        },
+      ],
+    });
+
+    window.addEventListener('resize', resizeChart);
+
+    return () => {
+      window.removeEventListener('resize', resizeChart);
+      chart.dispose();
+    };
+  }, [chartData, isZh]);
+
+  if (chartData.length === 0) {
+    return (
+      <div className="prose prose-slate prose-sm max-w-none dark:prose-invert">
+        <Markdown>{content}</Markdown>
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-3">
+      <div ref={chartRef} className="h-[260px] w-full" aria-label={isZh ? '可能比分概率图' : 'Likely score probability chart'} />
+      <div className="grid gap-2 sm:grid-cols-2">
+        {chartData.map((item) => (
+          <div key={item.score} className="rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300">
+            <span className="font-semibold text-slate-900 dark:text-slate-100">{item.score}</span>
+            <span className="ml-2 text-[var(--app-accent-ink)]">{item.probability}%</span>
+            {item.note ? <span className="ml-2">{item.note}</span> : null}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 };
 
 const parseSsePayload = async (response: Response) => {
@@ -265,11 +400,14 @@ const AiRuntimeTool = ({ config }: { config: AiRuntimeToolConfig }) => {
         {config.result.sections.map((section) => {
           const content = sections[section.key];
           if (!content) return null;
+          const shouldRenderScoreChart = config.toolId === 'worldcup-match-predictor' && section.key === 'scores';
 
           return (
             <div key={section.key} className="group relative rounded-lg border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-950">
               <span className="mb-2 block text-xs font-bold uppercase text-slate-400">{text(section.label, isZh)}</span>
-              {section.markdown ? (
+              {shouldRenderScoreChart ? (
+                <ScorelineChart content={content} isZh={isZh} />
+              ) : section.markdown ? (
                 <div className="prose prose-slate prose-sm max-w-none dark:prose-invert">
                   <Markdown>{content}</Markdown>
                 </div>
