@@ -694,10 +694,23 @@ const buildMarketInsightsConfig = (body: any, model: string): AiRuntimeBuildResu
 
 const sanitizeWorldCupPredictionOutput = (content: string) =>
   content
-    .replace(/国际友谊赛|友谊赛|热身赛|资格赛|联赛/g, '2026 世界杯')
+    .replace(/[\u2010-\u2015\u2212\uff0d]/g, '-')
+    .replace(/国际友谊赛|友谊赛|热身赛|资格赛/g, '2026 世界杯')
+    .replace(/(?:俱乐部)?联赛(?:比赛|对阵|赛事|语境|场景)/g, '2026 世界杯比赛')
     .replace(/两组均需抢分|两队均需抢分|双方均需抢分/g, '具体积分形势未验证，本次按 2026 小组赛通用出线压力做有界推演')
     .replace(/小组积分、出线规则及教练临场决策(?:（[^）]*）)?未被纳入本次推断。?/g, '具体小组积分、轮换消息和临场阵容未验证；本次已按 2026 赛制和通用出线动机做有界推演。')
     .replace(/出线规则(?:及[^，。]*)?未被纳入本次推断。?/g, '具体积分形势未验证；2026 出线规则已作为推演框架纳入。')
+    .replace(/・?仅凭队名预测，确切小组、实时积分、剩余赛程、阵容、伤停、红黄牌、定位球、临场调度等均未核实，结果可能显著偏移。\s*/g, '・主要变数：红牌、点球、定位球和临场阵容会显著改变赛果。\n')
+    .replace(/・?美国虽为东道主之一，但本场是否在美进行、有无真实环境适应优势未确认，该因素可能影响发挥。\s*/g, '')
+    .replace(/・?2026 赛制本身已纳入考虑，但无具体台面信息，动力判断为通用情况，实际赛前需重新评估。?/g, '・2026 赛制已纳入推演；具体分组、赛程和首发更新后，概率需要重新校准。')
+    .replace(/按中性场地、东道主优势假设/g, '具体比赛城市未验证；美国作为联合东道主之一，可能存在环境适应优势')
+    .replace(/中性场地/g, '具体比赛城市未验证')
+    .replace(/主场氛围|主场优势/g, '环境适应优势')
+    .replace(/主场攻势/g, '进攻压迫')
+    .replace(/主场作战/g, '比赛环境适应')
+    .replace(/客场作战/g, '异地比赛适应')
+    .replace(/东道主往往首轮抢攻/g, '东道主通常有争胜压力和环境适应优势，但具体轮次未验证')
+    .replace(/首轮/g, '具体轮次未验证的比赛')
     .replace(/\binternational friendly\b/gi, '2026 FIFA World Cup match')
     .replace(/\bfriendly\b/gi, '2026 FIFA World Cup match')
     .replace(/\bexhibition\b/gi, '2026 FIFA World Cup match')
@@ -713,6 +726,7 @@ const WORLD_CUP_MATCH_PREDICTOR_METHOD = [
   'If the likely stage is unclear, treat the matchup as a hypothetical 2026 World Cup group-stage match and say the exact group/table was not verified. Do not switch the competition.',
   'When only team names are supplied, do not assert a concrete table situation. Do not say both teams must take points, draw is enough, win secures qualification, a team already qualified, a team will rotate, or a next opponent creates fallback unless the user supplied that context.',
   'For motivation with missing table data, write that the 2026 format creates general group-stage point pressure, but the exact group, points, remaining schedule, and rotation risk were not verified.',
+  'Do not assume home venue, away venue, neutral venue, opening match, first round, or group round number unless the user supplied it. For the USA, mention only possible co-host environment familiarity, not a confirmed home-field setup.',
   'Knockout branch: if the user explicitly says knockout, round of 32, quarterfinal, semifinal, or final, use 90-minute win-draw-loss, then mention extra time or penalties as a separate uncertainty. Skip group-table motivation in that case.',
   'Odds check: if odds are supplied, convert them to implied probabilities, normalize the overround when possible, and use them as a cross-check. Do not let odds become the starting point.',
   'Scoreline method: start from common international-tournament scorelines, especially 1-0, 1-1, 2-1, 0-0, and 2-0. Shift toward 0-0/1-0/1-1 for low-block or draw-friendly setups; shift toward 2-1/2-2/3-1 when both teams must win.',
@@ -725,6 +739,9 @@ const buildWorldCupMatchPredictorConfig = (body: any, model: string): AiRuntimeB
   const fallbackMatch = limitText(normalizeWhitespace(body.match), 220);
   const match = teamA && teamB ? `${teamA} vs ${teamB}` : fallbackMatch;
   if (!match) return invalidInput('Both teams are required.');
+  const worldCupMatchContext = body.worldCupMatchContext && typeof body.worldCupMatchContext === 'object'
+    ? body.worldCupMatchContext
+    : null;
 
   const outputLanguage = body.language
     ? languageName(body.language)
@@ -741,15 +758,23 @@ const buildWorldCupMatchPredictorConfig = (body: any, model: string): AiRuntimeB
       'You are a 2026 FIFA World Cup match prediction analyst.',
       'This tool is only for 2026 FIFA World Cup predictions. Always frame the matchup as a 2026 FIFA World Cup match.',
       'Never reclassify the matchup as an international friendly, exhibition, club match, qualifier, league match, or generic neutral-site game.',
-      'Do not use the words "friendly", "exhibition", "友谊赛", "热身赛", "资格赛", or "联赛" to describe the match context.',
+      'Do not describe the match context as a friendly, exhibition, qualifier, club match, or league match.',
       'Base the prediction on the internal skill method named worldcup-match-predictor.md.',
       ...WORLD_CUP_MATCH_PREDICTOR_METHOD,
       'The user only provides two teams. Do not ask for standings, odds, injuries, kickoff time, lineups, or tournament context.',
-      'The backend has no live search in this request. Do not claim that you checked live standings, injuries, odds, rankings, or fixtures unless the user supplied them.',
+      worldCupMatchContext
+        ? 'The backend supplied live World Cup match context from a public scoreboard. Use that context first for group, schedule, venue, team records, current group table, and remaining schedule.'
+        : 'The backend has no live search result for this request. Do not claim that you checked live standings, injuries, odds, rankings, or fixtures unless the user supplied them.',
+      worldCupMatchContext
+        ? 'Do not write that the group, table, schedule, venue, or records were not checked when they are present in worldCupMatchContext. You may say injuries, lineups, and odds were not supplied if missing.'
+        : 'If live context is missing, say the exact group table and schedule were not verified, but keep the result useful.',
       'Make a concise 2026 World Cup pre-match estimate from the method above, using qualitative assumptions only where live data is missing.',
       'If the two teams are not known to be in the same scheduled fixture, treat it as a hypothetical 2026 World Cup matchup rather than changing the competition.',
       'Never write that 2026 qualification rules were not included. They are included as the framework; only the exact table, schedule, lineups, and odds may be unverified.',
       'Avoid unsupported Chinese claims such as "两队均需抢分", "必须拿分", "赢即出线", "已提前出线", "下一场对手", "有退路", or "轮换" unless the user supplied that match context.',
+      'Avoid unsupported venue or round claims such as "主场", "客场", "中性场地", "首轮", or "揭幕战" unless the user supplied that context.',
+      'In [SCORES], use only ASCII hyphen scores such as "2-1". Do not use en dash, nonbreaking hyphen, full-width hyphen, colon, or other dash characters in scores.',
+      'Avoid club-career claims such as "五大联赛效力" unless the user supplied them. Use general national-team strength instead.',
       'In [MATCH], start by naming the context as "2026 FIFA World Cup" or "2026 世界杯".',
       'Return win, draw, and loss probability ranges. Give the most likely result, a second option, and 2 or 3 likely scorelines.',
       'In [REASON], show the method in short user-facing labels: basic strength, tournament motivation, market check if supplied, and match shape.',
@@ -766,6 +791,7 @@ const buildWorldCupMatchPredictorConfig = (body: any, model: string): AiRuntimeB
       match,
       outputLanguage,
       methodBasis: 'worldcup-match-predictor.md',
+      worldCupMatchContext,
       methodSteps: [
         'Build a no-odds baseline from national-team strength, form shape, attack/defense style, host/travel context, and known matchup tendencies.',
         'Apply bounded 2026 World Cup motivation adjustments from group qualification math, rotation risk, next-match fallback, and goal-difference pressure.',
@@ -773,16 +799,21 @@ const buildWorldCupMatchPredictorConfig = (body: any, model: string): AiRuntimeB
         'Choose scorelines from international-tournament priors, then adjust by match shape.',
       ],
       dataBoundary: [
-        'Only team names were supplied.',
-        'Do not invent group letter, current points, remaining schedule, live odds, injury news, kickoff time, or lineup decisions.',
-        'Use the 2026 qualification format as a general framework, but state that the exact table and match context were not verified.',
+        worldCupMatchContext
+          ? 'A public scoreboard context was supplied by the backend. Use its match, group, venue, records, group standings, and remaining schedule as factual context.'
+          : 'Only team names were supplied and no live match context was found.',
+        'Do not invent live odds, injury news, kickoff time, or lineup decisions if they are not in worldCupMatchContext.',
+        'Do not invent venue, home/away status, neutral-site status, opening match, or round number beyond what worldCupMatchContext supplies.',
+        worldCupMatchContext
+          ? 'Use current group standings and remaining schedule from worldCupMatchContext for the motivation step.'
+          : 'Use the 2026 qualification format as a general framework, but state that the exact table and match context were not verified.',
       ],
       requiredReasoningShape: [
-        'Match: restate the teams under the 2026 FIFA World Cup context. Do not mention friendlies or other competitions.',
+        'Match: restate the teams under the 2026 FIFA World Cup context. If worldCupMatchContext exists, include the actual group, kickoff/status, and venue when available. Do not mention friendlies or other competitions.',
         'Result: name the most likely result and probability ranges for team A win, draw, and team B win.',
         'Scores: return 3 to 5 lines. Each line must use this exact format: score | probabilityNumber | short note. Example: 2-1 | 32 | narrow favorite win. Use only the number, no percent sign, in the middle field.',
-        'Reason: give concise bullets for basic strength, 2026 format motivation, market check if supplied, and match shape. If exact table data is missing, say it was not verified instead of inventing it.',
-        'Risk: state that exact group table, remaining schedule, lineup news, red cards, penalties, set pieces, and stale data can change the result. Do not say 2026 qualification rules were not included.',
+        'Reason: give concise bullets for basic strength, group-table motivation, market check if supplied, and match shape. If worldCupMatchContext exists, use current records, group table, and remaining schedule in the motivation bullet.',
+        'Risk: write only 2 short bullets. Mention match-changing events such as red cards, penalties, set pieces, and lineup changes. If worldCupMatchContext exists, do not say group table or schedule were unverified.',
       ],
     },
   });
@@ -794,6 +825,10 @@ const buildWorldCupMatchPredictorConfig = (body: any, model: string): AiRuntimeB
     ok: true,
     config: {
       ...runtimeConfig.config,
+      options: {
+        ...runtimeConfig.config.options,
+        temperature: 0.2,
+      },
       validateOutput: (content) => sanitizeWorldCupPredictionOutput(ensureMarkedSections(content, markers)),
     },
   };

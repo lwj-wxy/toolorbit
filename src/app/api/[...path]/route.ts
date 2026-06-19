@@ -17,6 +17,9 @@ const TRACE_MOE_API_URL = 'https://api.trace.moe/search';
 const TRACE_MOE_TIMEOUT_MS = 20_000;
 const TRACE_MOE_MAX_FILE_SIZE = 8 * 1024 * 1024;
 const TRACE_MOE_SUPPORTED_EXTENSIONS = new Set(['jpg', 'jpeg', 'png', 'webp']);
+const WORLD_CUP_SCOREBOARD_URL = 'https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard';
+const WORLD_CUP_GROUP_STAGE_DATES = '20260611-20260627';
+const WORLD_CUP_LOOKUP_TIMEOUT_MS = 4500;
 
 type AiToolCategory = 'copy' | 'document' | 'code' | 'image' | 'vision';
 
@@ -239,6 +242,325 @@ function rateLimit(ip: string, windowMs = 1000, message = 'Too many requests') {
 function markUsage(ip: string) {
   usageMap.set(ip, Date.now());
 }
+
+const normalizeTeamLookup = (value: unknown) =>
+  String(value || '')
+    .normalize('NFKD')
+    .toLowerCase()
+    .replace(/[^\p{Letter}\p{Number}]+/gu, '');
+
+const WORLD_CUP_TEAM_ALIASES = new Map(
+  [
+    ['美国', 'United States'],
+    ['美國', 'United States'],
+    ['usa', 'United States'],
+    ['usmnt', 'United States'],
+    ['澳大利亚', 'Australia'],
+    ['澳大利亞', 'Australia'],
+    ['澳洲', 'Australia'],
+    ['阿根廷', 'Argentina'],
+    ['巴西', 'Brazil'],
+    ['英格兰', 'England'],
+    ['英格蘭', 'England'],
+    ['法国', 'France'],
+    ['法國', 'France'],
+    ['德国', 'Germany'],
+    ['德國', 'Germany'],
+    ['西班牙', 'Spain'],
+    ['葡萄牙', 'Portugal'],
+    ['荷兰', 'Netherlands'],
+    ['荷蘭', 'Netherlands'],
+    ['墨西哥', 'Mexico'],
+    ['加拿大', 'Canada'],
+    ['日本', 'Japan'],
+    ['韩国', 'South Korea'],
+    ['韓國', 'South Korea'],
+    ['伊朗', 'Iran'],
+    ['沙特', 'Saudi Arabia'],
+    ['沙特阿拉伯', 'Saudi Arabia'],
+    ['摩洛哥', 'Morocco'],
+    ['突尼斯', 'Tunisia'],
+    ['埃及', 'Egypt'],
+    ['塞内加尔', 'Senegal'],
+    ['塞內加爾', 'Senegal'],
+    ['南非', 'South Africa'],
+    ['科特迪瓦', 'Ivory Coast'],
+    ['尼日利亚', 'Nigeria'],
+    ['尼日利亞', 'Nigeria'],
+    ['加纳', 'Ghana'],
+    ['加納', 'Ghana'],
+    ['喀麦隆', 'Cameroon'],
+    ['喀麥隆', 'Cameroon'],
+    ['阿尔及利亚', 'Algeria'],
+    ['阿爾及利亞', 'Algeria'],
+    ['乌拉圭', 'Uruguay'],
+    ['烏拉圭', 'Uruguay'],
+    ['哥伦比亚', 'Colombia'],
+    ['哥倫比亞', 'Colombia'],
+    ['厄瓜多尔', 'Ecuador'],
+    ['厄瓜多爾', 'Ecuador'],
+    ['巴拉圭', 'Paraguay'],
+    ['比利时', 'Belgium'],
+    ['比利時', 'Belgium'],
+    ['克罗地亚', 'Croatia'],
+    ['克羅地亞', 'Croatia'],
+    ['瑞士', 'Switzerland'],
+    ['丹麦', 'Denmark'],
+    ['丹麥', 'Denmark'],
+    ['奥地利', 'Austria'],
+    ['奧地利', 'Austria'],
+    ['波兰', 'Poland'],
+    ['波蘭', 'Poland'],
+    ['苏格兰', 'Scotland'],
+    ['蘇格蘭', 'Scotland'],
+    ['威尔士', 'Wales'],
+    ['威爾士', 'Wales'],
+    ['土耳其', 'Turkey'],
+    ['希腊', 'Greece'],
+    ['希臘', 'Greece'],
+    ['塞尔维亚', 'Serbia'],
+    ['塞爾維亞', 'Serbia'],
+    ['海地', 'Haiti'],
+    ['伊拉克', 'Iraq'],
+    ['刚果民主共和国', 'DR Congo'],
+    ['剛果民主共和國', 'DR Congo'],
+  ].map(([alias, canonical]) => [normalizeTeamLookup(alias), normalizeTeamLookup(canonical)]),
+);
+
+const teamLookupKey = (value: unknown) => WORLD_CUP_TEAM_ALIASES.get(normalizeTeamLookup(value)) || normalizeTeamLookup(value);
+
+const espnTeamKeys = (team: any) =>
+  [
+    team?.displayName,
+    team?.shortDisplayName,
+    team?.name,
+    team?.location,
+    team?.abbreviation,
+  ].map(teamLookupKey).filter(Boolean);
+
+const competitorMatchesTeam = (competitor: any, inputTeam: string) => {
+  const inputKey = teamLookupKey(inputTeam);
+  return espnTeamKeys(competitor?.team).includes(inputKey);
+};
+
+const groupFromEvent = (event: any) => {
+  const competition = event?.competitions?.[0];
+  const groupText = competition?.altGameNote || event?.season?.slug || '';
+  return groupText.match(/Group\s+([A-L])/i)?.[1]?.toUpperCase() || '';
+};
+
+const displayEventName = (event: any) => event?.name || event?.shortName || 'World Cup match';
+
+const fetchWorldCupScoreboard = async (url: string) => {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), WORLD_CUP_LOOKUP_TIMEOUT_MS);
+
+  try {
+    const response = await fetch(url, {
+      headers: { Accept: 'application/json' },
+      signal: controller.signal,
+    });
+    if (!response.ok) throw new Error(`ESPN scoreboard ${response.status}`);
+    return await response.json();
+  } finally {
+    clearTimeout(timeout);
+  }
+};
+
+const updateWorldCupStanding = (
+  standings: Map<string, any>,
+  competitor: any,
+  goalsFor: number,
+  goalsAgainst: number,
+  result: 'W' | 'D' | 'L',
+) => {
+  const team = competitor?.team || {};
+  const key = teamLookupKey(team.displayName || team.name || team.abbreviation);
+  if (!key) return;
+
+  const row = standings.get(key) || {
+    team: team.displayName || team.name || team.abbreviation,
+    played: 0,
+    wins: 0,
+    draws: 0,
+    losses: 0,
+    goalsFor: 0,
+    goalsAgainst: 0,
+    goalDifference: 0,
+    points: 0,
+  };
+
+  row.played += 1;
+  row.goalsFor += goalsFor;
+  row.goalsAgainst += goalsAgainst;
+  row.goalDifference = row.goalsFor - row.goalsAgainst;
+  if (result === 'W') {
+    row.wins += 1;
+    row.points += 3;
+  } else if (result === 'D') {
+    row.draws += 1;
+    row.points += 1;
+  } else {
+    row.losses += 1;
+  }
+
+  standings.set(key, row);
+};
+
+const buildWorldCupGroupStandings = (events: any[], group: string, beforeDate: string) => {
+  const standings = new Map<string, any>();
+  const beforeTime = Date.parse(beforeDate);
+
+  events.forEach((event) => {
+    if (groupFromEvent(event) !== group) return;
+
+    const competition = event?.competitions?.[0];
+    const competitors = competition?.competitors || [];
+    competitors.forEach((competitor: any) => {
+      const team = competitor?.team || {};
+      const key = teamLookupKey(team.displayName || team.name || team.abbreviation);
+      if (key && !standings.has(key)) {
+        standings.set(key, {
+          team: team.displayName || team.name || team.abbreviation,
+          played: 0,
+          wins: 0,
+          draws: 0,
+          losses: 0,
+          goalsFor: 0,
+          goalsAgainst: 0,
+          goalDifference: 0,
+          points: 0,
+        });
+      }
+    });
+
+    const eventTime = Date.parse(event?.date || competition?.date || '');
+    const isCompleted = competition?.status?.type?.completed;
+    if (!isCompleted || !Number.isFinite(eventTime) || eventTime >= beforeTime || competitors.length !== 2) return;
+
+    const scoreA = Number.parseInt(competitors[0]?.score || '0', 10);
+    const scoreB = Number.parseInt(competitors[1]?.score || '0', 10);
+    if (!Number.isFinite(scoreA) || !Number.isFinite(scoreB)) return;
+
+    const resultA = scoreA === scoreB ? 'D' : scoreA > scoreB ? 'W' : 'L';
+    const resultB = scoreA === scoreB ? 'D' : scoreB > scoreA ? 'W' : 'L';
+    updateWorldCupStanding(standings, competitors[0], scoreA, scoreB, resultA);
+    updateWorldCupStanding(standings, competitors[1], scoreB, scoreA, resultB);
+  });
+
+  return Array.from(standings.values()).sort((a, b) =>
+    b.points - a.points ||
+    b.goalDifference - a.goalDifference ||
+    b.goalsFor - a.goalsFor ||
+    a.team.localeCompare(b.team),
+  );
+};
+
+const buildRemainingWorldCupSchedule = (events: any[], group: string, targetDate: string, teamKeys: string[]) => {
+  const targetTime = Date.parse(targetDate);
+  return events
+    .filter((event) => {
+      if (groupFromEvent(event) !== group) return false;
+      const eventTime = Date.parse(event?.date || event?.competitions?.[0]?.date || '');
+      if (!Number.isFinite(eventTime) || eventTime <= targetTime) return false;
+      const competitors = event?.competitions?.[0]?.competitors || [];
+      return competitors.some((competitor: any) => espnTeamKeys(competitor?.team).some((key) => teamKeys.includes(key)));
+    })
+    .slice(0, 4)
+    .map((event) => ({
+      match: displayEventName(event),
+      group: groupFromEvent(event),
+      kickoff: event?.date || event?.competitions?.[0]?.date || '',
+      status: event?.competitions?.[0]?.status?.type?.description || '',
+    }));
+};
+
+const fetchWorldCupMatchContext = async (body: any) => {
+  const teamA = String(body.teamA || '').trim();
+  const teamB = String(body.teamB || '').trim();
+  if (!teamA || !teamB) return null;
+
+  const urls = [
+    `${WORLD_CUP_SCOREBOARD_URL}?dates=${WORLD_CUP_GROUP_STAGE_DATES}&limit=300`,
+    `${WORLD_CUP_SCOREBOARD_URL}?limit=300`,
+  ];
+
+  let sourceUrl = urls[0];
+  let scoreboard: any = null;
+  for (const url of urls) {
+    try {
+      scoreboard = await fetchWorldCupScoreboard(url);
+      sourceUrl = url;
+      if (Array.isArray(scoreboard?.events)) break;
+    } catch {
+      scoreboard = null;
+    }
+  }
+
+  const events = Array.isArray(scoreboard?.events) ? scoreboard.events : [];
+  if (events.length === 0) return null;
+
+  const matchingEvents = events.filter((event: any) => {
+    const competitors = event?.competitions?.[0]?.competitors || [];
+    return competitors.some((competitor: any) => competitorMatchesTeam(competitor, teamA)) &&
+      competitors.some((competitor: any) => competitorMatchesTeam(competitor, teamB));
+  });
+
+  if (matchingEvents.length === 0) return null;
+
+  const now = Date.now();
+  const targetEvent = matchingEvents.sort((eventA: any, eventB: any) => {
+    const aTime = Date.parse(eventA?.date || eventA?.competitions?.[0]?.date || '');
+    const bTime = Date.parse(eventB?.date || eventB?.competitions?.[0]?.date || '');
+    return Math.abs((Number.isFinite(aTime) ? aTime : now) - now) - Math.abs((Number.isFinite(bTime) ? bTime : now) - now);
+  })[0];
+
+  const competition = targetEvent?.competitions?.[0] || {};
+  const competitors = competition?.competitors || [];
+  const group = groupFromEvent(targetEvent);
+  const targetDate = targetEvent?.date || competition?.date || '';
+  const targetTeamKeys = competitors.flatMap((competitor: any) => espnTeamKeys(competitor?.team));
+
+  return {
+    source: 'ESPN public FIFA World Cup scoreboard',
+    sourceUrl,
+    fetchedAt: new Date().toISOString(),
+    isFound: true,
+    match: displayEventName(targetEvent),
+    shortName: targetEvent?.shortName || '',
+    stage: targetEvent?.season?.slug || scoreboard?.leagues?.[0]?.season?.type?.name || '',
+    group,
+    kickoff: targetDate,
+    status: competition?.status?.type?.description || '',
+    statusDetail: competition?.status?.type?.detail || competition?.status?.type?.shortDetail || '',
+    venue: competition?.venue
+      ? {
+          name: competition.venue.fullName || '',
+          city: competition.venue.address?.city || '',
+          country: competition.venue.address?.country || '',
+        }
+      : null,
+    teams: competitors.map((competitor: any) => ({
+      name: competitor?.team?.displayName || competitor?.team?.name || '',
+      abbreviation: competitor?.team?.abbreviation || '',
+      homeAway: competitor?.homeAway || '',
+      record: competitor?.records?.[0]?.summary || '',
+      form: competitor?.form || '',
+      score: competitor?.score || '',
+    })),
+    groupStandings: group ? buildWorldCupGroupStandings(events, group, targetDate) : [],
+    remainingSchedule: group ? buildRemainingWorldCupSchedule(events, group, targetDate, targetTeamKeys) : [],
+  };
+};
+
+const withWorldCupMatchContext = async (body: any) => {
+  const liveContext = await fetchWorldCupMatchContext(body);
+  if (!liveContext) return body;
+  return {
+    ...body,
+    worldCupMatchContext: liveContext,
+  };
+};
 
 function streamChat(model: string, messages: ChatMessage[], options: Record<string, unknown> = {}) {
   const encoder = new TextEncoder();
@@ -985,8 +1307,10 @@ export async function POST(request: Request) {
     const body = await request.json().catch(() => ({}));
     if (path === 'shorten') return await shorten(body);
 
-    const jsonRateLimit = rateLimit(rateLimitKey);
-    if (jsonRateLimit && (category === 'image' || category === 'vision')) return jsonRateLimit;
+    if (category === 'image' || category === 'vision') {
+      const jsonRateLimit = rateLimit(rateLimitKey);
+      if (jsonRateLimit) return jsonRateLimit;
+    }
 
     if (category === 'image') {
       markUsage(rateLimitKey);
@@ -1001,7 +1325,8 @@ export async function POST(request: Request) {
       if (path === 'ai-product-asset-checker') return await productAssetChecker(body);
     }
 
-    const runtimeConfig = buildAiRuntimeStreamConfig(path, body, DEEPSEEK_TEXT_MODEL);
+    const runtimeBody = path === 'worldcup-match-predictor' ? await withWorldCupMatchContext(body) : body;
+    const runtimeConfig = buildAiRuntimeStreamConfig(path, runtimeBody, DEEPSEEK_TEXT_MODEL);
     if (runtimeConfig.handled) {
       if (!runtimeConfig.ok) {
         return Response.json(
