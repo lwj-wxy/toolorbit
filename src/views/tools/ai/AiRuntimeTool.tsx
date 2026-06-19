@@ -76,6 +76,11 @@ const parseSections = (content: string, sections: AiRuntimeSection[]) => {
   return parsedSections;
 };
 
+const normalizeMarkdownListText = (content: string) =>
+  content
+    .replace(/(^|\n)\s*[•・]\s+/g, '$1- ')
+    .replace(/\s+[•・]\s+/g, '\n- ');
+
 type ScorelineChartItem = {
   score: string;
   probability: number;
@@ -189,7 +194,7 @@ const ScorelineChart = ({ content, isZh }: { content: string; isZh: boolean }) =
   if (chartData.length === 0) {
     return (
       <div className="prose prose-slate prose-sm max-w-none dark:prose-invert">
-        <Markdown>{content}</Markdown>
+        <Markdown>{normalizeMarkdownListText(content)}</Markdown>
       </div>
     );
   }
@@ -409,7 +414,7 @@ const AiRuntimeTool = ({ config }: { config: AiRuntimeToolConfig }) => {
                 <ScorelineChart content={content} isZh={isZh} />
               ) : section.markdown ? (
                 <div className="prose prose-slate prose-sm max-w-none dark:prose-invert">
-                  <Markdown>{content}</Markdown>
+                  <Markdown>{normalizeMarkdownListText(content)}</Markdown>
                 </div>
               ) : (
                 <p className={`whitespace-pre-wrap text-sm leading-6 text-slate-700 dark:text-slate-200 ${section.monospace ? 'font-mono' : ''}`}>
