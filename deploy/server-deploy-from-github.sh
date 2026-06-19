@@ -80,7 +80,12 @@ fi
 
 node "$SOURCE_DIR/scripts/validate-deploy-release.cjs" "$RELEASE_DIR"
 
-cp "$SOURCE_DIR/deploy/ecosystem.config.cjs" "$APP_DIR/ecosystem.config.cjs"
+ECOSYSTEM_CONFIG="$APP_DIR/ecosystem.config.cjs"
+if [ ! -f "$ECOSYSTEM_CONFIG" ]; then
+  cp "$SOURCE_DIR/deploy/ecosystem.config.cjs" "$ECOSYSTEM_CONFIG"
+else
+  echo "Keeping existing PM2 config: $ECOSYSTEM_CONFIG"
+fi
 
 ln -sfn "$RELEASE_DIR" "$APP_DIR/current.new"
 mv -Tf "$APP_DIR/current.new" "$APP_DIR/current"
