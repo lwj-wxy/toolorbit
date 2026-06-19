@@ -690,38 +690,38 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
   'worldcup-match-predictor': {
     zh: {
       summary:
-        '世界杯比赛结果预测工具用于根据两支球队生成赛前胜平负倾向、可能比分和冷门风险。用户只需要分别输入球队 A 和球队 B。工具会在后台使用球队实力、常见比赛走势和杯赛比分分布做概率推演。',
+        '想在开赛前对一场世界杯比赛心里有个数？输入对阵的两支球队，工具会给出谁更被看好、胜平负的大致概率、几个可能的比分，以及爆冷的风险。它结合球队实力、常见比赛走势和大赛的比分分布来判断，你不需要自己准备任何数据。',
       input:
-        '只需输入球队 A 和球队 B。可以写中文队名，也可以写英文队名。工具不会要求用户填写额外比赛资料。',
+        '只要填对阵的两支球队，中文或英文队名都行。不用填别的，比赛资料工具会自己处理。',
       output:
-        '结果会给出比赛对象、结果倾向、胜平负概率区间、2-3 个可能比分、简短理由和风险提示。可能比分会用图表展示，便于比较每个比分的相对概率。',
+        '你会看到这场比赛更被看好的一方、胜平负各自的概率区间、2-3 个最可能的比分，以及一段简短理由和风险提示。可能的比分会用图表呈现，方便你直观比较哪个比分更有可能。',
       processing:
-        '用户不需要整理资料。工具会用通用足球分析框架估算比赛走势，并把结论压缩成可读结果：谁更占优、平局概率是否高、比分更可能偏小还是偏开放。它不会声称读取了实时伤停、赔率或官方首发，发布前请结合最新赛前消息复核。',
+        '看一场球之前，最想知道的无非是谁更稳、会不会闷平、比分大概是紧凑还是开放。填入两支球队，工具会就这几点给你一个清楚的判断，而不是甩给你一堆数字。要说明的是，它靠的是通用的足球分析，并没有接入实时伤停、赔率或首发名单，所以下注或下结论前，记得再看一眼最新的赛前消息。',
       modes: ['球队 A / 球队 B 输入', '胜平负概率区间', '最可能结果', '比分概率图表', '冷门风险提示'],
       example: {
         title: '世界杯小组赛预测示例',
         input: '球队 A: 美国\n球队 B: 澳大利亚',
         output:
-          '[RESULT]\n最可能结果: 美国小胜。概率区间: 美国胜 48-55%，平 25-30%，澳大利亚胜 18-23%。\n\n[SCORES]\n2-1 | 32 | 美国小胜\n1-1 | 27 | 平局次选\n1-0 | 22 | 低比分小胜\n\n[REASON]\n美国整体实力略占优，进攻选择更多；澳大利亚有能力把比赛拖进低比分。',
+          '最可能结果：美国小胜。\n胜平负概率：美国胜 48-55%，平局 25-30%，澳大利亚胜 18-23%。\n\n可能比分：\n· 2-1（约 32%）——美国小胜\n· 1-1（约 27%）——平局，次可能\n· 1-0（约 22%）——低比分小胜\n\n理由：美国整体实力略占优，进攻选择更多；澳大利亚有能力把比赛拖进低比分。',
         inputLanguage: 'text',
         outputLanguage: 'markdown',
       },
     },
     en: {
       summary:
-        'The World Cup Match Predictor estimates result lean, win-draw-loss ranges, likely scorelines, and upset risk from two team names. The user only needs to enter Team A and Team B.',
+        'Want a quick read on a World Cup match before kickoff? Enter the two teams and the tool tells you who is favored, the rough win-draw-loss odds, a few likely scorelines, and the upset risk. It weighs team strength, typical match flow, and tournament scoreline patterns — you do not need to prepare any data yourself.',
       input:
-        'Enter Team A and Team B. Chinese and English team names both work. The tool does not ask users for extra match data.',
+        'Just enter the two teams playing — Chinese or English names both work. Nothing else to fill in; the tool handles the match data for you.',
       output:
-        'The result includes the match, result lean, win-draw-loss probability ranges, 2-3 likely scores, a short reason, and risk notes. Likely scores are displayed as a chart so the probabilities are easier to compare.',
+        'You will see which side is favored, the win-draw-loss probability ranges, the 2-3 most likely scorelines, a short reason, and a risk note. The likely scores are shown as a chart so you can compare at a glance which one is more probable.',
       processing:
-        'Users do not need to prepare a scouting report. The tool uses a general football prediction framework to estimate who has the edge, whether a draw is plausible, and whether the scoreline should lean tight or open. It does not claim live lineup data, so review late news before using the result.',
+        'Before a match, what you really want to know is who is steadier, whether it could end level, and whether the score will run tight or open. Enter the two teams and the tool gives you a clear read on exactly that, instead of a wall of numbers. One thing to keep in mind: it runs on general football analysis, not live injuries, odds, or confirmed lineups — so check the latest team news before betting or drawing conclusions.',
       modes: ['Team A / Team B input', 'Win-draw-loss probability ranges', 'Most likely result', 'Score probability chart', 'Upset risk notes'],
       example: {
         title: 'World Cup group match prediction example',
         input: 'Team A: United States\nTeam B: Australia',
         output:
-          '[RESULT]\nMost likely result: narrow United States win. Probability range: United States win 48-55%, draw 25-30%, Australia win 18-23%.\n\n[SCORES]\n2-1 | 32 | narrow United States win\n1-1 | 27 | draw as second option\n1-0 | 22 | tight low-score win\n\n[REASON]\nThe United States has a small quality edge and more attacking options. Australia can still keep the match tight.',
+          'Most likely result: a narrow United States win.\nWin-draw-loss odds: United States 48-55%, draw 25-30%, Australia 18-23%.\n\nLikely scores:\n· 2-1 (about 32%) — narrow United States win\n· 1-1 (about 27%) — draw, second most likely\n· 1-0 (about 22%) — tight low-score win\n\nReason: the United States has a small quality edge and more attacking options, while Australia can keep the match tight.',
         inputLanguage: 'text',
         outputLanguage: 'markdown',
       },

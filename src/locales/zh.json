@@ -3022,7 +3022,7 @@
       "guide4": "使用前再看临场阵容和伤停消息，因为一名关键球员缺阵就可能改变走势。",
       "highlightsTitle": "这个预测工具会检查什么？",
       "highlight1Title": "只填球队",
-      "highlight1Desc": "用户只输入球队 A 和球队 B，工具在后台完成预测结构整理。",
+      "highlight1Desc": "你只填对阵的两支球队，剩下的判断工具替你完成。",
       "highlight2Title": "直接看结果",
       "highlight2Desc": "输出胜平负倾向、平局概率、可能比分和冷门提示，不要求填写额外字段。",
       "highlight3Title": "比分区间",
