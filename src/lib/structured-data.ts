@@ -492,7 +492,10 @@ export function toolJsonLd(path: string, locale: Locale = 'en') {
         '@type': 'WebPage',
         '@id': url,
       },
-      applicationCategory: toolApplicationCategory(tool.category),
+      applicationCategory:
+        tool.id === 'worldcup-match-predictor'
+          ? 'SportsApplication'
+          : toolApplicationCategory(tool.category),
       operatingSystem: 'Web browser',
       browserRequirements: 'Requires a modern browser with JavaScript enabled.',
       isAccessibleForFree: true,

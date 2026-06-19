@@ -10,13 +10,14 @@
 
 ## 工具目录
 
-当前站点收录 **74 款工具**，分布在 10 个分类中。
+当前站点收录 **75 款工具**，分布在 10 个分类中。
 
-### AI 工具（15 个）
+### AI 工具（16 个）
 
 | 工具 | 说明 | 链接 |
 |------|------|------|
 | YouTube Title & Description Generator | 根据视频主题、目标观众和内容角度生成 YouTube 标题、简介和标签。 | [打开](https://toolorbit.site/tools/ai/youtube-generator) |
+| 世界杯比赛结果预测工具 | 输入球队 A 和球队 B，生成胜平负倾向、可能比分和冷门风险。 | [打开](https://toolorbit.site/tools/ai/worldcup-match-predictor) |
 | AI 绘画提示词生成 | 为 Midjourney 和 Stable Diffusion 生成包含主体、风格、镜头和细节的作图 Prompt。 | [打开](https://toolorbit.site/tools/ai/prompt-generator) |
 | 短视频脚本生成 | 根据主题生成短视频脚本草稿，包含分镜、画面描述、字幕和旁白。 | [打开](https://toolorbit.site/tools/ai/video-script) |
 | AI Excel 公式助手 | 用自然语言描述表格需求，生成 Excel 或 Google Sheets 公式并说明用法。 | [打开](https://toolorbit.site/tools/ai/excel-formula) |

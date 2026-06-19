@@ -690,13 +690,13 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
   'worldcup-match-predictor': {
     zh: {
       summary:
-        '想在开赛前对一场世界杯比赛心里有个数？输入对阵的两支球队，工具会给出谁更被看好、胜平负的大致概率、几个可能的比分，以及爆冷的风险。它结合球队实力、常见比赛走势和大赛的比分分布来判断，你不需要自己准备任何数据。',
+        '2026 世界杯由美国、墨西哥、加拿大合办，从小组赛到淘汰赛对阵密集。想在开赛前对一场比赛心里有个数？输入对阵的两支球队，工具会给出谁更被看好、胜平负的大致概率、几个可能的比分，以及爆冷的风险。它结合球队实力、常见比赛走势和大赛的比分分布来判断，你不需要自己准备任何数据，结果仅供赛前预判和球迷讨论，不构成投注建议。',
       input:
         '只要填对阵的两支球队，中文或英文队名都行。不用填别的，比赛资料工具会自己处理。',
       output:
         '你会看到这场比赛更被看好的一方、胜平负各自的概率区间、2-3 个最可能的比分，以及一段简短理由和风险提示。可能的比分会用图表呈现，方便你直观比较哪个比分更有可能。',
       processing:
-        '看一场球之前，最想知道的无非是谁更稳、会不会闷平、比分大概是紧凑还是开放。填入两支球队，工具会就这几点给你一个清楚的判断，而不是甩给你一堆数字。要说明的是，它靠的是通用的足球分析，并没有接入实时伤停、赔率或首发名单，所以下注或下结论前，记得再看一眼最新的赛前消息。',
+        '看一场球之前，最想知道的无非是谁更稳、会不会闷平、比分大概是紧凑还是开放。填入两支球队，工具会就这几点给你一个清楚的判断，而不是甩给你一堆数字。要说明的是，它靠的是通用的足球分析，并没有接入实时伤停或首发名单，所以在下任何结论前，记得再看一眼最新的赛前消息。',
       modes: ['球队 A / 球队 B 输入', '胜平负概率区间', '最可能结果', '比分概率图表', '冷门风险提示'],
       example: {
         title: '世界杯小组赛预测示例',
@@ -709,13 +709,13 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
     },
     en: {
       summary:
-        'Want a quick read on a World Cup match before kickoff? Enter the two teams and the tool tells you who is favored, the rough win-draw-loss odds, a few likely scorelines, and the upset risk. It weighs team strength, typical match flow, and tournament scoreline patterns — you do not need to prepare any data yourself.',
+        'The 2026 World Cup, co-hosted by the USA, Mexico, and Canada, packs the group stage and knockouts with back-to-back fixtures. Want a quick read on a match before kickoff? Enter the two teams and the tool tells you who is favored, the rough win-draw-loss split, a few likely scorelines, and the upset risk. It weighs team strength, typical match flow, and tournament scoreline patterns — no data prep needed on your side. Results are for pre-match analysis and fan discussion, not betting advice.',
       input:
         'Just enter the two teams playing — Chinese or English names both work. Nothing else to fill in; the tool handles the match data for you.',
       output:
         'You will see which side is favored, the win-draw-loss probability ranges, the 2-3 most likely scorelines, a short reason, and a risk note. The likely scores are shown as a chart so you can compare at a glance which one is more probable.',
       processing:
-        'Before a match, what you really want to know is who is steadier, whether it could end level, and whether the score will run tight or open. Enter the two teams and the tool gives you a clear read on exactly that, instead of a wall of numbers. One thing to keep in mind: it runs on general football analysis, not live injuries, odds, or confirmed lineups — so check the latest team news before betting or drawing conclusions.',
+        'Before a match, what you really want to know is who is steadier, whether it could end level, and whether the score will run tight or open. Enter the two teams and the tool gives you a clear read on exactly that, instead of a wall of numbers. One thing to keep in mind: it runs on general football analysis, not live injuries or confirmed lineups — so check the latest team news before drawing any conclusions.',
       modes: ['Team A / Team B input', 'Win-draw-loss probability ranges', 'Most likely result', 'Score probability chart', 'Upset risk notes'],
       example: {
         title: 'World Cup group match prediction example',

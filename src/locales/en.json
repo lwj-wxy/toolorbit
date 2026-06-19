@@ -3252,12 +3252,12 @@
       "disclaimer": "Market insight output is not a substitute for live marketplace analytics, inventory planning, financial modeling, or professional market research."
     },
     "worldcup-match-predictor": {
-      "name": "World Cup Match Predictor",
-      "description": "Enter two teams to estimate the result lean, likely scores, and upset risk.",
-      "title": "World Cup Match Predictor",
-      "subtitle": "Enter two teams to estimate the result lean, likely scores, and upset risk.",
-      "seoTitle": "World Cup Match Predictor for Results and Scorelines",
-      "seoDesc": "Enter two teams and get a World Cup match prediction with win-draw-loss ranges, likely scores, short reasoning, and upset risk notes.",
+      "name": "2026 World Cup Match Predictor",
+      "description": "Enter two teams to see the win-draw-loss lean, likely scores, and upset risk for 2026 World Cup matches.",
+      "title": "2026 World Cup Match Predictor: Pre-Match Lean & Scoreline",
+      "subtitle": "Enter two teams to get a pre-match win-draw-loss lean, likely scores, and upset risk for 2026 World Cup matches.",
+      "seoTitle": "2026 World Cup Match Predictor — Win-Draw-Loss Lean & Likely Scores",
+      "seoDesc": "Enter two teams to see a pre-match win-draw-loss lean, likely scorelines, and upset risk for 2026 World Cup matches. For pre-match analysis, not betting advice.",
       "guideTitle": "How to Use the Match Prediction",
       "guide1": "Enter Team A and Team B, such as United States and Australia.",
       "guide2": "Read the result lean first, then compare the likely scores with the way you expect the match to play.",

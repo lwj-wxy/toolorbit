@@ -10,13 +10,14 @@ No sign-up required. Most tools process text, images, PDFs, encodings, crypto op
 
 ## Tool Catalog
 
-ToolOrbit currently includes **74 tools** across 10 categories.
+ToolOrbit currently includes **75 tools** across 10 categories.
 
-### AI Tools (15)
+### AI Tools (16)
 
 | Tool | Description | Link |
 |------|-------------|------|
 | YouTube Title & Description Generator | Generate YouTube titles, descriptions, and tags from a topic, audience, and video angle. | [Open](https://toolorbit.site/tools/ai/youtube-generator) |
+| World Cup Match Predictor | Enter two teams to estimate the result lean, likely scores, and upset risk. | [Open](https://toolorbit.site/tools/ai/worldcup-match-predictor) |
 | AI Prompt Generator | Generate Midjourney and Stable Diffusion prompts with subject, style, camera, and detail guidance. | [Open](https://toolorbit.site/tools/ai/prompt-generator) |
 | Video Script Generator | Generate short-video script drafts with scene notes, visuals, subtitles, and narration. | [Open](https://toolorbit.site/tools/ai/video-script) |
 | AI Excel Formula Generator | Describe a spreadsheet task in plain language and get an Excel or Google Sheets formula with usage notes. | [Open](https://toolorbit.site/tools/ai/excel-formula) |

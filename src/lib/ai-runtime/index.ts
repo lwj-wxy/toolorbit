@@ -692,6 +692,15 @@ const buildMarketInsightsConfig = (body: any, model: string): AiRuntimeBuildResu
   });
 };
 
+const sanitizeWorldCupPredictionOutput = (content: string) =>
+  content
+    .replace(/国际友谊赛|友谊赛|热身赛|资格赛|联赛/g, '2026 世界杯')
+    .replace(/\binternational friendly\b/gi, '2026 FIFA World Cup match')
+    .replace(/\bfriendly\b/gi, '2026 FIFA World Cup match')
+    .replace(/\bexhibition\b/gi, '2026 FIFA World Cup match')
+    .replace(/\bqualifier\b/gi, '2026 FIFA World Cup')
+    .replace(/\bleague match\b/gi, '2026 FIFA World Cup match');
+
 const buildWorldCupMatchPredictorConfig = (body: any, model: string): AiRuntimeBuildResult => {
   const teamA = limitText(normalizeWhitespace(body.teamA), 110);
   const teamB = limitText(normalizeWhitespace(body.teamB), 110);
@@ -704,16 +713,21 @@ const buildWorldCupMatchPredictorConfig = (body: any, model: string): AiRuntimeB
     : /[\u4e00-\u9fff]/.test(`${teamA}${teamB}${fallbackMatch}`)
       ? 'Simplified Chinese'
       : 'English';
+  const markers = ['MATCH', 'RESULT', 'SCORES', 'REASON', 'RISK_NOTES'];
 
-  return sectionConfig({
+  const runtimeConfig = sectionConfig({
     model,
     outputLanguage,
-    markers: ['MATCH', 'RESULT', 'SCORES', 'REASON', 'RISK_NOTES'],
+    markers,
     systemLines: [
-      'You are a football match prediction analyst.',
+      'You are a 2026 FIFA World Cup match prediction analyst.',
+      'This tool is only for 2026 FIFA World Cup predictions. Always frame the matchup as a 2026 FIFA World Cup match.',
+      'Never reclassify the matchup as an international friendly, exhibition, club match, qualifier, league match, or generic neutral-site game.',
+      'Do not use the words "friendly", "exhibition", "友谊赛", "热身赛", "资格赛", or "联赛" to describe the match context.',
       'The user only provides two teams. Do not ask for standings, odds, injuries, kickoff time, lineups, or tournament context.',
-      'Make a concise pre-match estimate from general team strength, international tournament patterns, likely tactical shape, and common football scorelines.',
-      'If the matchup could refer to a different competition or date, state the assumption briefly in [RISK_NOTES], not as a request for more input.',
+      'Make a concise 2026 World Cup pre-match estimate from general national-team strength, World Cup tournament patterns, likely tactical shape, and common World Cup scorelines.',
+      'If the two teams are not known to be in the same scheduled fixture, treat it as a hypothetical 2026 World Cup matchup rather than changing the competition.',
+      'In [MATCH], start by naming the context as "2026 FIFA World Cup" or "2026 世界杯".',
       'Return win, draw, and loss probability ranges. Give the most likely result, a second option, and 2 or 3 likely scorelines.',
       'Keep [REASON] short and readable for ordinary users. Avoid internal terms such as baseline, market validation, qualification math, xG model, or motivation adjustment unless the user supplied them.',
       'Do not claim live verification, current odds, injuries, rankings, standings, start time, or final score.',
@@ -721,13 +735,14 @@ const buildWorldCupMatchPredictorConfig = (body: any, model: string): AiRuntimeB
     ],
     brief: {
       toolId: 'worldcup-match-predictor',
-      task: 'Predict a football match result and likely scorelines from two team names',
+      task: 'Predict a 2026 FIFA World Cup match result and likely scorelines from two team names',
+      competition: '2026 FIFA World Cup',
       teamA: teamA || 'Parsed from match text',
       teamB: teamB || 'Parsed from match text',
       match,
       outputLanguage,
       requiredReasoningShape: [
-        'Match: restate the teams and assumption.',
+        'Match: restate the teams under the 2026 FIFA World Cup context. Do not mention friendlies or other competitions.',
         'Result: name the most likely result and probability ranges for team A win, draw, and team B win.',
         'Scores: return 3 to 5 lines. Each line must use this exact format: score | probabilityNumber | short note. Example: 2-1 | 32 | narrow favorite win. Use only the number, no percent sign, in the middle field.',
         'Reason: give 2 or 3 plain-language bullets.',
@@ -735,6 +750,17 @@ const buildWorldCupMatchPredictorConfig = (body: any, model: string): AiRuntimeB
       ],
     },
   });
+
+  if (!runtimeConfig.handled || !runtimeConfig.ok) return runtimeConfig;
+
+  return {
+    handled: true,
+    ok: true,
+    config: {
+      ...runtimeConfig.config,
+      validateOutput: (content) => sanitizeWorldCupPredictionOutput(ensureMarkedSections(content, markers)),
+    },
+  };
 };
 
 const buildResumeOptimizerConfig = (body: any, model: string): AiRuntimeBuildResult => {
