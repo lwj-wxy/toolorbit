@@ -126,6 +126,16 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: '/tools/fee-calculator',
+        destination: '/tools/ecommerce/etsy-fee-calculator',
+        permanent: true,
+      },
+      {
+        source: '/zh-CN/tools/fee-calculator',
+        destination: '/zh-CN/tools/ecommerce/etsy-fee-calculator',
+        permanent: true,
+      },
+      {
         source: '/tools/shared/placeholder',
         destination: '/tools',
         permanent: true,
@@ -135,24 +145,55 @@ const nextConfig: NextConfig = {
         destination: '/zh-CN/tools',
         permanent: true,
       },
+      // 旧 Etsy 工具路径 → 主站对应真实 Etsy 计算器（保住改版前积累的权重，
+      // 不要笼统重定向到首页，否则 Google 视为不相关重定向、丢弃权重）。
+      ...[
+        ['fee-calculator', 'etsy-fee-calculator'],
+        ['profit', 'etsy-fee-calculator'],
+        ['monthly-profit', 'etsy-fee-calculator'],
+        ['break-even', 'etsy-fee-calculator'],
+        ['conversion-rate', 'etsy-fee-calculator'],
+        ['discount', 'etsy-pricing-calculator'],
+        ['free-shipping', 'etsy-pricing-calculator'],
+        ['bundle-profit', 'etsy-pricing-calculator'],
+      ].flatMap(([from, to]) => [
+        {
+          source: `/tools/etsy/${from}`,
+          destination: `/tools/ecommerce/${to}`,
+          permanent: true,
+        },
+        {
+          source: `/tools/etsy/${from}/:detail*`,
+          destination: `/tools/ecommerce/${to}`,
+          permanent: true,
+        },
+        {
+          source: `/zh-CN/tools/etsy/${from}`,
+          destination: `/zh-CN/tools/ecommerce/${to}`,
+          permanent: true,
+        },
+      ]),
+      // 兜底：其余未列出的旧 etsy 子路径 → etsy 费用计算器（仍是 etsy 主题，不丢相关性）
       {
         source: '/tools/etsy/:path*',
-        destination: '/',
+        destination: '/tools/ecommerce/etsy-fee-calculator',
         permanent: true,
       },
       {
         source: '/zh-CN/tools/etsy/:path*',
-        destination: '/zh-CN',
+        destination: '/zh-CN/tools/ecommerce/etsy-fee-calculator',
         permanent: true,
       },
+      // 旧 /solutions/* 落地页多为 Etsy 主题（etsy-ads-roi 等仍有排名），
+      // 归到 Etsy 费用计算器，保住 etsy 相关性，不要丢到首页。
       {
         source: '/solutions/:path*',
-        destination: '/',
+        destination: '/tools/ecommerce/etsy-fee-calculator',
         permanent: true,
       },
       {
         source: '/zh-CN/solutions/:path*',
-        destination: '/zh-CN',
+        destination: '/zh-CN/tools/ecommerce/etsy-fee-calculator',
         permanent: true,
       },
       {
