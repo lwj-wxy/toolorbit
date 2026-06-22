@@ -25,6 +25,7 @@
     "nav_privacy": "Privacy Policy",
     "nav_terms": "Terms of Service",
     "nav_about": "About Us",
+    "nav_contact": "Contact",
     "footer_desc": "ToolOrbit offers 69+ free online tools across ten categories — AI-powered creation, developer debugging, PDF manipulation, image editing, e-commerce fee calculation, text formatting, barcode generation, unit conversion, and everyday utility tools. Every tool runs locally in your browser by default: your files, text, and data never touch a remote server. No sign-up required. Built for privacy-conscious, security-first workflows.",
     "footer_trust": "Most ToolOrbit utilities run directly in your browser so files, text, and developer data stay on your device unless an AI-powered feature explicitly needs a model request.",
     "related_tools": "Related Tools",

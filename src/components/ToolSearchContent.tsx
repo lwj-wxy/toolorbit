@@ -76,7 +76,7 @@ function developerFallbackOverview(toolId: string, title: string, isZh: boolean)
       summary:
         'XML / JSON 转换工具用于在 XML 文档结构与 JSON 数据结构之间双向转换。适合处理 SOAP/XML-RPC 接口响应、RSS 订阅源、Sitemap 网站地图、SVG 矢量图形标记以及 Android 布局文件等 XML 内容。粘贴 HTML 源码时，工具会按文档结构输出可读的 JSON 表示。',
       input:
-        '在 XML → JSON 模式下，输入标准 XML 文档、HTML 页面源码或 XML 片段。在 JSON → XML 模式下，输入合法的 JSON 对象字符串，工具将其序列化为等价 XML 标记。',
+        '在 XML → JSON 模式下，输入标准 XML 文档、HTML 页面源码或 XML 片段。在 JSON → XML 模式下，输入合法的 JSON 对象字符串，工具会把它转换成等价的 XML。',
       output:
         'XML → JSON 方向输出紧凑型 JSON 对象，属性映射为 _attributes 键，文本节点映射为 _text 键；JSON → XML 方向输出带缩进的可读 XML 文本。HTML 源码会输出包含 documentType 和 root 节点的完整 DOM JSON 树。',
       processing:

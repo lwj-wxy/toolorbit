@@ -520,17 +520,34 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
       <section className="bg-transparent px-4 py-10 text-center sm:px-6 sm:py-12">
         <div className="mx-auto max-w-4xl">
           <p className="mb-3 text-[12px] font-semibold uppercase tracking-wide text-[var(--app-accent-ink)] dark:text-[var(--app-accent-ink)]">
-            {isZh ? '比赛预测工具' : 'Match prediction tool'}
+            {isZh ? '免费在线工具集合' : 'Free online tools'}
           </p>
           <h1 className="mx-auto max-w-3xl text-3xl font-semibold leading-tight tracking-tight text-slate-950 dark:text-white sm:text-4xl">
-            {isZh ? '输入两支球队，预测胜平负和比分' : 'Enter two teams to predict result and score'}
+            {isZh
+              ? 'ToolOrbit：开发、电商、文档和 AI 的免费在线工具'
+              : 'ToolOrbit: Free online tools for developers, ecommerce, documents, and AI'}
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-[15px] leading-7 text-slate-600 dark:text-slate-400">
             {isZh
-              ? '只填球队名称，工具会给出胜平负倾向、可能比分和冷门风险。'
-              : 'Add the team names. The tool returns result lean, likely scores, and upset risk.'}
+              ? '一站集合 JSON 格式化、文本对比、Base64、图片压缩、PDF 合并、二维码、电商费率计算，以及 AI 文案、翻译、Listing 生成等几十个工具。大多数工具在浏览器本地处理，打开即用，无需注册。'
+              : 'JSON formatting, text diff, Base64, image compression, PDF merge, QR codes, ecommerce fee calculators, plus AI copywriting, translation, and listing generators — dozens of tools in one place. Most run locally in your browser, ready to use with no sign-up.'}
           </p>
+        </div>
+      </section>
 
+      <section className="space-y-3">
+        <div className="flex items-center justify-between">
+          <h2 className="text-lg font-semibold tracking-tight text-slate-950 dark:text-white">
+            {isZh ? '应景试用 · 世界杯比赛预测' : 'In season · World Cup match predictor'}
+          </h2>
+          <Link
+            to="/tools/ai/worldcup-match-predictor"
+            className="text-[13px] font-semibold text-[var(--app-accent-ink)] hover:underline"
+          >
+            {isZh ? '打开完整工具 →' : 'Open full tool →'}
+          </Link>
+        </div>
+        <div className="mx-auto w-full max-w-4xl text-center">
           <WorldCupHeroTrial isZh={isZh} />
         </div>
       </section>

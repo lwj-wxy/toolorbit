@@ -52,7 +52,7 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       summary:
         'XML / JSON 转换工具用于在 XML 文档结构与 JSON 数据结构之间双向转换。适合处理 SOAP/XML-RPC 接口响应、RSS 订阅源、Sitemap 网站地图、SVG 矢量图形标记以及 Android 布局文件等 XML 内容；同时支持将 JSON 配置或接口返回体转回 XML。粘贴 HTML 页面源码时，工具会按文档结构输出可读的 JSON 表示。',
       input:
-        '在 XML → JSON 模式下，输入标准 XML 文档、HTML 页面源码或 XML 片段（如 <root><item id="1">Hello</item></root>）。在 JSON → XML 模式下，输入合法的 JSON 对象字符串，工具会将其序列化为等价的 XML 标记。',
+        '在 XML → JSON 模式下，输入标准 XML 文档、HTML 页面源码或 XML 片段（如 <root><item id="1">Hello</item></root>）。在 JSON → XML 模式下，输入合法的 JSON 对象字符串，工具会把它转换成等价的 XML。',
       output:
         '在 XML → JSON 模式下，输出紧凑型 JSON 对象，XML 属性映射为 _attributes 键，文本节点映射为 _text 键，子元素嵌套为同名属性。粘贴 HTML 源码时输出包含 documentType 和 root 节点的完整 DOM JSON 树。在 JSON → XML 模式下，输出带 2 空格缩进的可读 XML 文本。',
       processing:
@@ -201,7 +201,7 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         'An interactive table showing for each character: Dec (decimal), Hex (hexadecimal with 0x prefix), Oct (octal, 3-digit zero-padded), Bin (binary, 8-digit zero-padded), HTML entity number (&#dec; format), a click-to-copy character display (control characters show standard abbreviation names, printable characters shown in large text), plus description and type classification (Control / Number / Letter / Symbol). Each row\'s character can be independently clicked to copy.',
       processing:
-        'Generates the complete ASCII character table by iterating 0–127 in the browser. Control characters (0–31 and 127) are mapped to standard abbreviation names such as NUL, SOH, LF, CR, and DEL. Printable characters are rendered via String.fromCharCode. Decimal, hexadecimal, octal, and binary representations are generated using toString radix conversion, and HTML entities are assembled using the &#dec; template. Search filtering performs multi-field matching on the in-memory generated dataset.',
+        'Shows the full ASCII table from 0 to 127 in one view. Control characters (0–31 and 127) are labeled with their standard names such as NUL, SOH, LF, CR, and DEL, and each character also shows its decimal, hex, octal, binary, and HTML entity forms. Everything runs in your browser.',
       modes: ['Full 128-character reference', 'Dec / Hex / Oct / Bin bases', 'HTML entity numbers', 'Control character abbreviations', 'Search filtering', 'Per-row click-to-copy'],
       example: {
         title: 'ASCII table key character examples (excerpt)',
@@ -224,7 +224,7 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         '编码模式下输出符合 RFC 3986 标准的百分号编码字符串，所有非 ASCII 字符和 URL 保留字符均被转义为 %XX 格式（如空格→%20、中文→%E4%B8%AD 等 UTF-8 字节序列）；解码模式下将百分号编码还原为原始可读文本。若输入包含非法百分号序列导致解码失败，工具会输出明确错误提示。',
       processing:
-        '编码方向通过浏览器原生 encodeURIComponent 处理，该函数会将除 A-Z a-z 0-9 - _ . ! ~ * \' ( ) 外的所有字符转义为 UTF-8 字节对应的百分号序列。解码方向通过 decodeURIComponent 将 %XX 序列还原为对应字节并合成原始 UTF-8 字符。双向处理均在本地浏览器同步完成。',
+        '编码时，工具会把中文、空格和 & = ? # 这类特殊字符转成 %XX 形式的百分号编码，让它们能安全地放进网址里；解码时再把 %XX 还原成原本的文字。两个方向都在你浏览器里实时完成，不上传。',
       modes: ['URL 编码（文本→%XX）', 'URL 解码（%XX→文本）', '中文 / 特殊字符转义', '保留字符处理', '方向一键切换', '复制编解码结果'],
       example: {
         title: 'URL 编码输入到输出示例',
@@ -242,7 +242,7 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         'In encode mode, the output is an RFC 3986-compliant percent-encoded string where all non-ASCII characters and URL reserved characters are escaped to %XX format (e.g. space→%20, Chinese characters→UTF-8 byte sequences like %E4%B8%AD). In decode mode, percent-encoding is restored to the original readable text. If the input contains an invalid percent sequence causing decode failure, the tool displays a clear error message.',
       processing:
-        'Encode direction uses the browser\'s native encodeURIComponent, which escapes all characters except A-Z a-z 0-9 - _ . ! ~ * \' ( ) into percent sequences corresponding to their UTF-8 bytes. Decode direction uses decodeURIComponent to restore %XX sequences back to their original bytes and assemble the original UTF-8 characters. Both directions run synchronously in the local browser.',
+        'When encoding, the tool turns Chinese, spaces, and special characters like & = ? # into %XX percent-encoding so they sit safely inside a URL; when decoding, it turns the %XX back into the original text. Both directions run in your browser in real time, with nothing uploaded.',
       modes: ['URL encode (text→%XX)', 'URL decode (%XX→text)', 'Chinese / special char escaping', 'Reserved char handling', 'One-click direction switch', 'Copy result'],
       example: {
         title: 'URL encode input-to-output example',

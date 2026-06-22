@@ -182,7 +182,7 @@ export default function About() {
               </div>
             </div>
           </section>
-          <section className="mt-10 border-y border-blue-100 bg-blue-50/40 py-5 text-sm leading-6 text-slate-700 dark:border-blue-950 dark:bg-blue-950/20 dark:text-slate-300">
+          <section id="contact" className="mt-10 scroll-mt-24 border-y border-blue-100 bg-blue-50/40 py-5 text-sm leading-6 text-slate-700 dark:border-blue-950 dark:bg-blue-950/20 dark:text-slate-300">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <h2 className="font-semibold text-slate-950 dark:text-white">
