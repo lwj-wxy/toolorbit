@@ -88,7 +88,6 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: [
       'lucide-react',
-      'recharts',
       'motion',
       'react-i18next',
       'react-markdown',

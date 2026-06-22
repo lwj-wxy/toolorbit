@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState, type ComponentType } from 'react';
 import { useTranslation } from 'react-i18next';
-import * as echarts from 'echarts';
+import type { EChartsType } from 'echarts/core';
 import { Check, Clapperboard, Copy, Loader2, Sparkles, Zap } from 'lucide-react';
 import Markdown from 'react-markdown';
 
@@ -89,6 +89,24 @@ type ScorelineChartItem = {
 
 const fallbackScoreProbabilities = [34, 28, 22, 12, 8];
 
+let scorelineChartLoader: Promise<{ init: typeof import('echarts/core')['init'] }> | null = null;
+
+const loadScorelineChart = () => {
+  if (!scorelineChartLoader) {
+    scorelineChartLoader = Promise.all([
+      import('echarts/core'),
+      import('echarts/charts'),
+      import('echarts/components'),
+      import('echarts/renderers'),
+    ]).then(([core, charts, components, renderers]) => {
+      core.use([charts.BarChart, components.GridComponent, components.TooltipComponent, renderers.CanvasRenderer]);
+      return { init: core.init };
+    });
+  }
+
+  return scorelineChartLoader;
+};
+
 const parseScorelineChartData = (content: string): ScorelineChartItem[] => {
   const seenScores = new Set<string>();
 
@@ -125,69 +143,87 @@ const ScorelineChart = ({ content, isZh }: { content: string; isZh: boolean }) =
   useEffect(() => {
     if (!chartRef.current || chartData.length === 0) return;
 
-    const chart = echarts.init(chartRef.current);
-    const resizeChart = () => chart.resize();
-    const textColor = document.documentElement.classList.contains('dark') ? '#cbd5e1' : '#334155';
-    const gridColor = document.documentElement.classList.contains('dark') ? '#334155' : '#e2e8f0';
+    let chart: EChartsType | null = null;
+    let isDisposed = false;
+    const chartElement = chartRef.current;
+    const resizeChart = () => chart?.resize();
+    const renderChart = async () => {
+      const { init } = await loadScorelineChart();
+      if (isDisposed) return;
 
-    chart.setOption({
-      color: ['#4f46e5'],
-      tooltip: {
-        trigger: 'axis',
-        axisPointer: { type: 'shadow' },
-        formatter: (params: any) => {
-          const item = params?.[0];
-          const dataIndex = item?.dataIndex || 0;
-          const note = chartData[dataIndex]?.note;
-          return [
-            `<strong>${item?.name || ''}</strong>`,
-            `${isZh ? '预测概率' : 'Estimated chance'}: ${item?.value || 0}%`,
-            note ? `${isZh ? '说明' : 'Note'}: ${note}` : '',
-          ].filter(Boolean).join('<br/>');
-        },
-      },
-      grid: { left: 16, right: 18, top: 24, bottom: 22, containLabel: true },
-      xAxis: {
-        type: 'category',
-        data: chartData.map((item) => item.score),
-        axisTick: { show: false },
-        axisLine: { lineStyle: { color: gridColor } },
-        axisLabel: { color: textColor, fontWeight: 600 },
-      },
-      yAxis: {
-        type: 'value',
-        max: (value: { max: number }) => Math.max(40, Math.ceil(value.max / 10) * 10),
-        axisLabel: { color: textColor, formatter: '{value}%' },
-        splitLine: { lineStyle: { color: gridColor, type: 'dashed' } },
-      },
-      series: [
-        {
-          type: 'bar',
-          data: chartData.map((item) => item.probability),
-          barMaxWidth: 44,
-          itemStyle: {
-            borderRadius: [7, 7, 0, 0],
-            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-              { offset: 0, color: '#6366f1' },
-              { offset: 1, color: '#06b6d4' },
-            ]),
-          },
-          label: {
-            show: true,
-            position: 'top',
-            color: textColor,
-            fontWeight: 700,
-            formatter: '{c}%',
+      chart = init(chartElement);
+      const textColor = document.documentElement.classList.contains('dark') ? '#cbd5e1' : '#334155';
+      const gridColor = document.documentElement.classList.contains('dark') ? '#334155' : '#e2e8f0';
+
+      chart.setOption({
+        color: ['#4f46e5'],
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: { type: 'shadow' },
+          formatter: (params: any) => {
+            const item = params?.[0];
+            const dataIndex = item?.dataIndex || 0;
+            const note = chartData[dataIndex]?.note;
+            return [
+              `<strong>${item?.name || ''}</strong>`,
+              `${isZh ? '预测概率' : 'Estimated chance'}: ${item?.value || 0}%`,
+              note ? `${isZh ? '说明' : 'Note'}: ${note}` : '',
+            ].filter(Boolean).join('<br/>');
           },
         },
-      ],
-    });
+        grid: { left: 16, right: 18, top: 24, bottom: 22, containLabel: true },
+        xAxis: {
+          type: 'category',
+          data: chartData.map((item) => item.score),
+          axisTick: { show: false },
+          axisLine: { lineStyle: { color: gridColor } },
+          axisLabel: { color: textColor, fontWeight: 600 },
+        },
+        yAxis: {
+          type: 'value',
+          max: (value: { max: number }) => Math.max(40, Math.ceil(value.max / 10) * 10),
+          axisLabel: { color: textColor, formatter: '{value}%' },
+          splitLine: { lineStyle: { color: gridColor, type: 'dashed' } },
+        },
+        series: [
+          {
+            type: 'bar',
+            data: chartData.map((item) => item.probability),
+            barMaxWidth: 44,
+            itemStyle: {
+              borderRadius: [7, 7, 0, 0],
+              color: {
+                type: 'linear',
+                x: 0,
+                y: 0,
+                x2: 0,
+                y2: 1,
+                colorStops: [
+                  { offset: 0, color: '#6366f1' },
+                  { offset: 1, color: '#06b6d4' },
+                ],
+              },
+            },
+            label: {
+              show: true,
+              position: 'top',
+              color: textColor,
+              fontWeight: 700,
+              formatter: '{c}%',
+            },
+          },
+        ],
+      });
 
-    window.addEventListener('resize', resizeChart);
+      window.addEventListener('resize', resizeChart);
+    };
+
+    renderChart().catch(() => undefined);
 
     return () => {
+      isDisposed = true;
       window.removeEventListener('resize', resizeChart);
-      chart.dispose();
+      chart?.dispose();
     };
   }, [chartData, isZh]);
 
