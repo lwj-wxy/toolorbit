@@ -25,8 +25,8 @@ export default function RelatedTools({ currentPath }: RelatedToolsProps) {
 
   if (isAiTool) {
     return (
-      <div className="mt-14 border-t border-slate-200/80 pt-9 dark:border-slate-800/80">
-        <h3 className="mb-5 text-lg font-semibold text-slate-950 dark:text-white">
+      <div className="mt-14 border-t border-[var(--app-border)] pt-9">
+        <h3 className="mb-5 text-lg font-semibold text-[var(--app-text)]">
           {t('common.related_tools') || 'Related Tools'}
         </h3>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -34,17 +34,17 @@ export default function RelatedTools({ currentPath }: RelatedToolsProps) {
             <Link
               key={tool.id}
               to={tool.path}
-              className="flex min-h-[132px] flex-col rounded-lg border border-slate-200 bg-white p-4 shadow-sm transition-colors hover:border-blue-300 hover:bg-blue-50/20 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-blue-700 dark:hover:bg-blue-950/20"
+              className="flex min-h-[132px] flex-col rounded-2xl border border-[var(--app-border)] bg-[var(--app-surface)] p-4 shadow-[var(--app-shadow-sm)] transition-[transform,box-shadow,border-color] duration-200 hover:-translate-y-0.5 hover:border-[var(--app-accent)] hover:shadow-[var(--app-shadow-md)]"
             >
               <div className="mb-2 flex items-center gap-3">
-                <div className="rounded-md bg-blue-50 p-2 text-blue-600 dark:bg-blue-950/40 dark:text-blue-300">
+                <div className="rounded-xl bg-[var(--app-accent-soft)] p-2 text-[var(--app-accent-ink)]">
                   <tool.icon size={20} />
                 </div>
-                <h4 className="line-clamp-1 font-semibold text-slate-950 dark:text-white">
+                <h4 className="line-clamp-1 font-semibold text-[var(--app-text)]">
                   {t(`tools.${tool.id}.name`, { defaultValue: tool.name })}
                 </h4>
               </div>
-              <p className="mt-auto line-clamp-2 text-sm leading-6 text-slate-500 dark:text-slate-400">
+              <p className="mt-auto line-clamp-2 text-sm leading-6 text-[var(--app-muted)]">
                 {t(`tools.${tool.id}.description`, { defaultValue: tool.description })}
               </p>
             </Link>
@@ -56,7 +56,7 @@ export default function RelatedTools({ currentPath }: RelatedToolsProps) {
 
   return (
     <section className="mt-10">
-      <h3 className="mb-5 inline-flex items-center gap-3 text-xl font-semibold tracking-tight text-slate-950 dark:text-white">
+      <h3 className="mb-5 inline-flex items-center gap-3 text-xl font-semibold tracking-tight text-[var(--app-text)]">
         <Star className="h-6 w-6 fill-amber-300 text-amber-400" aria-hidden="true" />
         {isZh ? '推荐工具' : (t('common.related_tools') || 'Recommended tools')}
       </h3>
@@ -65,17 +65,17 @@ export default function RelatedTools({ currentPath }: RelatedToolsProps) {
           <Link
             key={tool.id}
             to={tool.path}
-            className="group flex min-h-[128px] flex-col rounded-xl border border-slate-200/90 bg-white p-4 shadow-sm transition-colors hover:border-blue-300 hover:bg-blue-50/20 dark:border-slate-800 dark:bg-[#282c34] dark:hover:border-blue-700 dark:hover:bg-blue-950/20"
+            className="group flex min-h-[128px] flex-col rounded-2xl border border-[var(--app-border)] bg-[var(--app-surface)] p-4 shadow-[var(--app-shadow-sm)] transition-[transform,box-shadow,border-color] duration-200 hover:-translate-y-0.5 hover:border-[var(--app-accent)] hover:shadow-[var(--app-shadow-md)]"
           >
             <div className="mb-2 flex items-center gap-3">
-              <div className="rounded-md bg-blue-50 p-2 text-blue-600 transition-colors group-hover:bg-blue-100 dark:bg-blue-950/40 dark:text-blue-300">
+              <div className="rounded-xl bg-[var(--app-accent-soft)] p-2 text-[var(--app-accent-ink)] transition-transform duration-200 group-hover:scale-105">
                 <tool.icon size={20} />
               </div>
-              <h4 className="line-clamp-1 font-semibold text-slate-950 dark:text-white">
+              <h4 className="line-clamp-1 font-semibold text-[var(--app-text)]">
                 {t(`tools.${tool.id}.name`, { defaultValue: tool.name })}
               </h4>
             </div>
-            <p className="mt-auto line-clamp-2 text-sm leading-6 text-slate-500 dark:text-slate-400">
+            <p className="mt-auto line-clamp-2 text-sm leading-6 text-[var(--app-muted)]">
               {t(`tools.${tool.id}.description`, { defaultValue: tool.description })}
             </p>
           </Link>

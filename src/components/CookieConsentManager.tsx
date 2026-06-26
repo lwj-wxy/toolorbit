@@ -135,103 +135,105 @@ export default function CookieConsentManager({ adsenseClient }: CookieConsentMan
 
   return (
     <section
-      className="pointer-events-none fixed inset-x-0 bottom-4 z-[120] flex justify-center px-4 sm:bottom-6"
+      className="fixed inset-x-0 bottom-0 z-[120] border-t border-[var(--app-border)] bg-[color-mix(in_srgb,var(--app-surface)_92%,transparent)] shadow-[0_-8px_32px_-14px_rgba(15,23,41,0.22)] backdrop-blur-md"
       aria-label={tr('cookieConsent.title', 'Cookie preferences')}
     >
-      <div className="pointer-events-auto w-full max-w-2xl rounded-lg border border-slate-200 bg-white/95 p-4 text-center shadow-[0_16px_48px_rgba(15,23,42,0.16)] backdrop-blur dark:border-slate-800 dark:bg-slate-950/95 sm:p-5">
-        <div>
-          <h2 className="text-sm font-semibold text-slate-950 dark:text-white">
-            {tr('cookieConsent.title', 'Cookie preferences')}
-          </h2>
-          <p className="mt-1 text-sm leading-6 text-slate-600 dark:text-slate-300">
-            {tr(
-              'cookieConsent.description',
-              'ToolOrbit uses essential browser storage for preferences. With your consent, we also use analytics and advertising cookies to improve the site and support free tools.',
-            )}{' '}
-            <Link to="/privacy" className="font-semibold text-blue-600 hover:text-blue-700 dark:text-blue-300 dark:hover:text-blue-200">
-              {tr('cookieConsent.privacyLink', 'Privacy Policy')}
-            </Link>
-          </p>
+      <div className="mx-auto max-w-7xl px-4 py-4 text-left sm:px-6 lg:px-8">
+        <h2 className="text-sm font-semibold text-[var(--app-text)]">
+          {tr('cookieConsent.title', 'Cookie preferences')}
+        </h2>
+        <p className="mt-1 max-w-5xl text-[13px] leading-6 text-[var(--app-muted)]">
+          {tr(
+            'cookieConsent.description',
+            'ToolOrbit uses essential browser storage for preferences. With your consent, we also use analytics and advertising cookies to improve the site and support free tools.',
+          )}{' '}
+          <Link to="/privacy" className="font-semibold text-[var(--app-accent-ink)] transition-colors hover:text-[var(--app-accent-strong)]">
+            {tr('cookieConsent.privacyLink', 'Privacy Policy')}
+          </Link>
+        </p>
 
+        <div
+          className={cn(
+            'mt-3 flex flex-col gap-3 sm:flex-row sm:items-center',
+            isCustomizing ? 'sm:justify-between' : 'sm:justify-end',
+          )}
+        >
           {isCustomizing ? (
-            <div className="mt-4 flex flex-col items-center justify-center gap-2 sm:flex-row sm:gap-5">
-              <label className="inline-flex items-center gap-2 text-sm font-medium text-slate-700 dark:text-slate-200">
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+              <label className="inline-flex items-center gap-2 text-sm font-medium text-[var(--app-text)]">
                 <input
                   type="checkbox"
                   checked
                   disabled
-                  className="h-4 w-4 rounded border-slate-300 text-blue-600"
+                  className="h-4 w-4 rounded border-[var(--app-border)] accent-[var(--app-accent)]"
                 />
                 {tr('cookieConsent.necessary', 'Necessary')}
               </label>
-              <label className="inline-flex items-center gap-2 text-sm font-medium text-slate-700 dark:text-slate-200">
+              <label className="inline-flex items-center gap-2 text-sm font-medium text-[var(--app-text)]">
                 <input
                   type="checkbox"
                   checked={analyticsAllowed}
                   onChange={(event) => setAnalyticsAllowed(event.target.checked)}
-                  className="h-4 w-4 rounded border-slate-300 text-blue-600"
+                  className="h-4 w-4 rounded border-[var(--app-border)] accent-[var(--app-accent)]"
                 />
                 {tr('cookieConsent.analytics', 'Analytics')}
               </label>
-              <label className="inline-flex items-center gap-2 text-sm font-medium text-slate-700 dark:text-slate-200">
+              <label className="inline-flex items-center gap-2 text-sm font-medium text-[var(--app-text)]">
                 <input
                   type="checkbox"
                   checked={adsAllowed}
                   onChange={(event) => setAdsAllowed(event.target.checked)}
-                  className="h-4 w-4 rounded border-slate-300 text-blue-600"
+                  className="h-4 w-4 rounded border-[var(--app-border)] accent-[var(--app-accent)]"
                 />
                 {tr('cookieConsent.ads', 'Advertising')}
               </label>
             </div>
           ) : null}
-        </div>
 
-        <div className="mt-4 flex flex-wrap justify-center gap-2">
-          {isCustomizing ? (
-            <button
-              type="button"
-              onClick={() => saveConsent({ analytics: analyticsAllowed, ads: adsAllowed })}
-              className="rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-slate-950"
-            >
-              {tr('cookieConsent.save', 'Save choices')}
-            </button>
-          ) : (
-            <>
+          <div className="flex flex-shrink-0 flex-wrap items-center gap-2">
+            {isCustomizing ? (
               <button
                 type="button"
-                onClick={() => setIsCustomizing(true)}
-                className="rounded-md px-4 py-2 text-sm font-semibold text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:text-slate-300 dark:hover:bg-slate-900 dark:hover:text-white dark:focus:ring-offset-slate-950"
+                onClick={() => saveConsent({ analytics: analyticsAllowed, ads: adsAllowed })}
+                className="rounded-lg bg-[var(--app-accent)] px-4 py-2 text-sm font-semibold text-white shadow-[var(--app-shadow-sm)] transition-colors hover:bg-[var(--app-accent-strong)]"
               >
-                {tr('cookieConsent.manage', 'Manage')}
+                {tr('cookieConsent.save', 'Save choices')}
               </button>
+            ) : (
+              <>
+                <button
+                  type="button"
+                  onClick={() => setIsCustomizing(true)}
+                  className="rounded-lg px-4 py-2 text-sm font-semibold text-[var(--app-muted)] transition-colors hover:bg-[var(--app-accent-soft)] hover:text-[var(--app-text)]"
+                >
+                  {tr('cookieConsent.manage', 'Manage')}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => saveConsent({ analytics: false, ads: false })}
+                  className="rounded-lg px-4 py-2 text-sm font-semibold text-[var(--app-muted)] transition-colors hover:bg-[var(--app-accent-soft)] hover:text-[var(--app-text)]"
+                >
+                  {tr('cookieConsent.reject', 'Reject optional')}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => saveConsent({ analytics: true, ads: true })}
+                  className="rounded-lg bg-[var(--app-accent)] px-4 py-2 text-sm font-semibold text-white shadow-[var(--app-shadow-sm)] transition-colors hover:bg-[var(--app-accent-strong)]"
+                >
+                  {tr('cookieConsent.accept', 'Accept all')}
+                </button>
+              </>
+            )}
+            {isCustomizing ? (
               <button
                 type="button"
                 onClick={() => saveConsent({ analytics: false, ads: false })}
-                className="rounded-md px-4 py-2 text-sm font-semibold text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:text-slate-300 dark:hover:bg-slate-900 dark:hover:text-white dark:focus:ring-offset-slate-950"
+                className="rounded-lg px-4 py-2 text-sm font-semibold text-[var(--app-muted)] transition-colors hover:bg-[var(--app-accent-soft)] hover:text-[var(--app-text)]"
               >
                 {tr('cookieConsent.reject', 'Reject optional')}
               </button>
-              <button
-                type="button"
-                onClick={() => saveConsent({ analytics: true, ads: true })}
-                className="rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-slate-950"
-              >
-                {tr('cookieConsent.accept', 'Accept all')}
-              </button>
-            </>
-          )}
-          {isCustomizing ? (
-            <button
-              type="button"
-              onClick={() => saveConsent({ analytics: false, ads: false })}
-              className={cn(
-                'rounded-md px-4 py-2 text-sm font-semibold text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2',
-                'dark:text-slate-300 dark:hover:bg-slate-900 dark:hover:text-white dark:focus:ring-offset-slate-950',
-              )}
-            >
-              {tr('cookieConsent.reject', 'Reject optional')}
-            </button>
-          ) : null}
+            ) : null}
+          </div>
         </div>
       </div>
     </section>

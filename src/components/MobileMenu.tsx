@@ -24,7 +24,7 @@ export default function MobileMenu({ onClose, pathname, searchParams, navigation
   return (
     <div className="fixed inset-0 z-[100] md:hidden">
       <div className="fixed inset-0 bg-slate-950/35 backdrop-blur-sm" onClick={onClose} />
-      <div className="fixed inset-y-0 right-0 flex w-[300px] flex-col overflow-y-auto border-l border-[var(--app-border)] bg-[var(--app-surface)] transition-colors duration-300 dark:bg-[var(--app-bg)]">
+      <div className="fixed inset-y-0 right-0 flex w-[300px] flex-col overflow-y-auto border-l border-[var(--app-border)] bg-[var(--app-surface)] shadow-[var(--app-shadow-lg)] transition-colors duration-300 dark:bg-[var(--app-bg)]">
         <div className="sticky top-0 z-10 flex items-center justify-between border-b border-[var(--app-border)] bg-[var(--app-surface)] p-5 dark:border-[var(--app-border)] dark:bg-[var(--app-bg)]">
           <span className="text-[16px] font-semibold text-[var(--app-text)] dark:text-[var(--app-text)]">{t('common.mobileMenu')}</span>
           <div className="flex items-center gap-2">

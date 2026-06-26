@@ -4,7 +4,15 @@
       "PowerShell(npx next build 2>&1)",
       "Bash(python -c ' *)",
       "Bash(python -)",
-      "Bash(python _verify_online.py)"
+      "Bash(python _verify_online.py)",
+      "Bash(grep -vE \"\\\\.\\(md\\)$\")",
+      "mcp__visualize__read_me",
+      "mcp__visualize__show_widget",
+      "Bash(npm run *)",
+      "Bash(ls -la .claude/)",
+      "Bash(cat .claude/launch.json)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" http://localhost:8081/)"
     ]
   }
 }

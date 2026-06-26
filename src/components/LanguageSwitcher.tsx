@@ -52,11 +52,11 @@ export default function LanguageSwitcher() {
       >
         <Languages className="w-4 h-4 text-[var(--app-muted)] group-hover:text-[var(--app-accent)] shrink-0" />
         <span className="text-[13px] font-bold">{currentLanguage.name}</span>
-        <ChevronDown className={cn("w-3.5 h-3.5 text-slate-400 transition-transform duration-200 shrink-0", isOpen && "rotate-180")} />
+        <ChevronDown className={cn("w-3.5 h-3.5 text-[var(--app-muted)] transition-transform duration-200 shrink-0", isOpen && "rotate-180")} />
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 z-[100] mt-2 w-48 overflow-hidden rounded-lg border border-[var(--app-border)] bg-[color-mix(in_srgb,var(--app-surface)_96%,transparent)] backdrop-blur-md duration-200 animate-in fade-in zoom-in-95 dark:border-[var(--app-border)] dark:bg-[color-mix(in_srgb,var(--app-surface)_96%,transparent)]">
+        <div className="absolute right-0 z-[100] mt-2 w-48 overflow-hidden rounded-lg border border-[var(--app-border)] bg-[color-mix(in_srgb,var(--app-surface)_96%,transparent)] shadow-[var(--app-shadow-lg)] backdrop-blur-md duration-200 animate-in fade-in zoom-in-95 dark:border-[var(--app-border)] dark:bg-[color-mix(in_srgb,var(--app-surface)_96%,transparent)]">
           <div className="p-1.5">
             {languages.map((lang) => (
               <button

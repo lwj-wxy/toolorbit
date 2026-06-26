@@ -109,13 +109,13 @@ export default function LayoutHeaderClient() {
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-50 flex h-[58px] items-center justify-between border-b border-[var(--app-border)] bg-[color-mix(in_srgb,var(--app-surface)_88%,transparent)] px-4 backdrop-blur-md dark:border-[var(--app-border)] dark:bg-[color-mix(in_srgb,var(--app-bg-soft)_86%,transparent)] sm:px-6 lg:px-8">
+      <header className="fixed inset-x-0 top-0 z-50 flex h-[58px] items-center justify-between border-b border-[var(--app-border)] bg-[color-mix(in_srgb,var(--app-surface)_88%,transparent)] px-4 shadow-[0_6px_24px_-18px_rgba(15,23,41,0.4)] backdrop-blur-md dark:border-[var(--app-border)] dark:bg-[color-mix(in_srgb,var(--app-bg-soft)_86%,transparent)] sm:px-6 lg:px-8">
         <div className="flex min-w-0 items-center gap-4 lg:gap-6 xl:gap-8">
           <Link
             to="/"
             className="flex shrink-0 items-center gap-2 text-[16px] font-bold tracking-tight text-[var(--app-text)] transition-colors hover:text-[var(--app-accent-ink)] dark:text-[var(--app-text)] dark:hover:text-[var(--app-accent-ink)] lg:gap-[10px]"
           >
-            <div className="flex h-7 w-7 items-center justify-center rounded-md bg-[var(--app-accent)] text-[11px] font-bold text-white lg:h-8 lg:w-8">
+            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[linear-gradient(135deg,var(--app-accent),var(--app-accent-warm))] text-[11px] font-bold text-white shadow-[0_4px_12px_-2px_color-mix(in_srgb,var(--app-accent)_55%,transparent)] lg:h-8 lg:w-8">
               TO
             </div>
             <span className="hidden sm:inline">{t('common.logoName')}</span>

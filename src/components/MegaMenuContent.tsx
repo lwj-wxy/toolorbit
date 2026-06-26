@@ -141,7 +141,7 @@ export function ToolsMegaDropdown({ categories }: { categories: NavCategory[] })
   const { t } = useTranslation();
 
   return (
-    <div className="absolute left-0 top-[58px] z-50 invisible w-full -translate-y-1 border-b border-[var(--app-border)] bg-[color-mix(in_srgb,var(--app-surface)_94%,transparent)] opacity-0 backdrop-blur-md transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 dark:border-[var(--app-border)] dark:bg-[color-mix(in_srgb,var(--app-bg-soft)_94%,transparent)]">
+    <div className="absolute left-0 top-[58px] z-50 invisible w-full -translate-y-1 border-b border-[var(--app-border)] bg-[color-mix(in_srgb,var(--app-surface)_94%,transparent)] opacity-0 shadow-[var(--app-shadow-lg)] backdrop-blur-md transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 dark:border-[var(--app-border)] dark:bg-[color-mix(in_srgb,var(--app-bg-soft)_94%,transparent)]">
       <div className="mx-auto max-w-[1536px] px-4 py-7 sm:px-6 lg:px-8">
         <div className="grid grid-cols-4 lg:grid-cols-5 xl:grid-cols-8 gap-6">
           {categories.map(({ category, path, tools }) => {
@@ -187,7 +187,7 @@ export function AiMegaDropdown({ aiCategoryPath, aiTools }: { aiCategoryPath: st
   const { t } = useTranslation();
 
   return (
-    <div className="absolute left-0 top-[58px] z-50 invisible w-full -translate-y-1 border-b border-[var(--app-border)] bg-[color-mix(in_srgb,var(--app-surface)_94%,transparent)] opacity-0 backdrop-blur-md transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 dark:border-[var(--app-border)] dark:bg-[color-mix(in_srgb,var(--app-bg-soft)_94%,transparent)]">
+    <div className="absolute left-0 top-[58px] z-50 invisible w-full -translate-y-1 border-b border-[var(--app-border)] bg-[color-mix(in_srgb,var(--app-surface)_94%,transparent)] opacity-0 shadow-[var(--app-shadow-lg)] backdrop-blur-md transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 dark:border-[var(--app-border)] dark:bg-[color-mix(in_srgb,var(--app-bg-soft)_94%,transparent)]">
       <div className="mx-auto max-w-[1536px] px-4 py-7 sm:px-6 lg:px-8">
         <div className="mb-4 flex items-center justify-between gap-4">
           <h3 className="text-[13px] font-extrabold uppercase tracking-wider text-[var(--app-muted)] dark:text-[var(--app-muted)]">

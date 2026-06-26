@@ -82,8 +82,8 @@ function overviewKeyFor(toolId: string): string {
   return toolId === 'xml-to-json' ? 'xml-json' : toolId;
 }
 
-const sectionHeading = 'text-xl font-semibold tracking-tight text-slate-950 dark:text-white';
-const bodyText = 'mt-3 text-[15px] leading-7 text-slate-700 dark:text-slate-300';
+const sectionHeading = 'text-xl font-semibold tracking-tight text-[var(--app-text)]';
+const bodyText = 'mt-3 text-[15px] leading-7 text-[var(--app-text)]';
 
 /**
  * Server-rendered, always-expanded tool content. Pulls the long-form overview from each
@@ -115,20 +115,20 @@ export default function ToolContent({ path, locale = 'en' }: { path: string; loc
   return (
     <section
       aria-labelledby="tool-content-heading"
-      className="mt-8 rounded-2xl border border-slate-200/90 bg-white px-5 py-8 shadow-sm dark:border-slate-800 dark:bg-[#282c34] sm:px-7"
+      className="mt-8 rounded-2xl border border-[var(--app-border)] bg-[var(--app-surface)] px-5 py-8 shadow-[var(--app-shadow-md)] sm:px-7"
     >
-      <h2 id="tool-content-heading" className="text-2xl font-semibold tracking-tight text-slate-950 dark:text-white">
+      <h2 id="tool-content-heading" className="text-2xl font-semibold tracking-tight text-[var(--app-text)]">
         {heading}
       </h2>
-      {intro ? <p className="mt-4 text-[15px] leading-7 text-slate-700 dark:text-slate-300">{intro}</p> : null}
+      {intro ? <p className="mt-4 text-[15px] leading-7 text-[var(--app-text)]">{intro}</p> : null}
 
       {guides.length > 0 ? (
         <div className="mt-8">
           <h3 className={sectionHeading}>{copy.guideTitle || L.howToUse(tool.name)}</h3>
-          <ol className="mt-3 space-y-2 text-[15px] leading-7 text-slate-700 dark:text-slate-300">
+          <ol className="mt-3 space-y-2 text-[15px] leading-7 text-[var(--app-text)]">
             {guides.map((step, i) => (
               <li key={i} className="flex gap-3">
-                <span className="mt-1 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded bg-blue-600 text-xs font-semibold text-white">
+                <span className="mt-1 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded bg-[var(--app-accent)] text-xs font-semibold text-white">
                   {i + 1}
                 </span>
                 <span>{step.replace(/^\d+\.\s*/, '')}</span>
@@ -159,7 +159,7 @@ export default function ToolContent({ path, locale = 'en' }: { path: string; loc
                 {overview.modes.map((mode) => (
                   <li
                     key={mode}
-                    className="rounded-md border border-blue-100 bg-blue-50 px-2.5 py-1 text-sm font-semibold text-blue-700 dark:border-blue-900/60 dark:bg-blue-950/30 dark:text-blue-200"
+                    className="rounded-md border border-[color-mix(in_srgb,var(--app-accent)_28%,var(--app-border))] bg-[var(--app-accent-soft)] px-2.5 py-1 text-sm font-semibold text-[var(--app-accent-ink)]"
                   >
                     {mode}
                   </li>
@@ -172,13 +172,13 @@ export default function ToolContent({ path, locale = 'en' }: { path: string; loc
               <h3 className={sectionHeading}>{overview.example.title}</h3>
               <div className="mt-3 space-y-4">
                 <div>
-                  <p className="mb-2 text-sm font-semibold text-slate-600 dark:text-slate-400">{L.inputExample}</p>
+                  <p className="mb-2 text-sm font-semibold text-[var(--app-muted)]">{L.inputExample}</p>
                   <pre className="overflow-x-auto rounded-lg border border-slate-800 bg-slate-950 p-4 text-[13px] leading-7 text-slate-100">
                     <code>{overview.example.input}</code>
                   </pre>
                 </div>
                 <div>
-                  <p className="mb-2 text-sm font-semibold text-slate-600 dark:text-slate-400">{L.outputExample}</p>
+                  <p className="mb-2 text-sm font-semibold text-[var(--app-muted)]">{L.outputExample}</p>
                   <pre className="overflow-x-auto rounded-lg border border-slate-800 bg-slate-950 p-4 text-[13px] leading-7 text-slate-100">
                     <code>{overview.example.output}</code>
                   </pre>
@@ -194,9 +194,9 @@ export default function ToolContent({ path, locale = 'en' }: { path: string; loc
           <h3 className={sectionHeading}>{copy.highlightsTitle || L.whyUse(tool.name)}</h3>
           <ul className="mt-4 grid grid-cols-1 gap-5 md:grid-cols-3">
             {highlights.map((h, i) => (
-              <li key={i} className="border-l-2 border-slate-200 pl-4 dark:border-slate-800">
-                <strong className="block font-semibold text-slate-950 dark:text-white">{h.title}</strong>
-                <span className="mt-2 block text-sm leading-6 text-slate-600 dark:text-slate-400">{h.desc}</span>
+              <li key={i} className="border-l-2 border-[color-mix(in_srgb,var(--app-accent)_45%,var(--app-border))] pl-4">
+                <strong className="block font-semibold text-[var(--app-text)]">{h.title}</strong>
+                <span className="mt-2 block text-sm leading-6 text-[var(--app-muted)]">{h.desc}</span>
               </li>
             ))}
           </ul>
@@ -204,13 +204,13 @@ export default function ToolContent({ path, locale = 'en' }: { path: string; loc
       ) : null}
 
       {faqs.length > 0 ? (
-        <div className="mt-10 border-t border-slate-200 pt-8 dark:border-slate-800">
+        <div className="mt-10 border-t border-[var(--app-border)] pt-8">
           <h3 className={sectionHeading}>{L.faq}</h3>
           <div className="mt-5 space-y-5">
             {faqs.map((f, i) => (
-              <div key={i} className="border-b border-slate-200 pb-5 last:border-0 dark:border-slate-800">
-                <h4 className="mb-2 text-base font-semibold text-slate-950 dark:text-white">{f.q}</h4>
-                <p className="leading-7 text-slate-600 dark:text-slate-400">{f.a}</p>
+              <div key={i} className="border-b border-[var(--app-border)] pb-5 last:border-0">
+                <h4 className="mb-2 text-base font-semibold text-[var(--app-text)]">{f.q}</h4>
+                <p className="leading-7 text-[var(--app-muted)]">{f.a}</p>
               </div>
             ))}
           </div>
@@ -218,13 +218,13 @@ export default function ToolContent({ path, locale = 'en' }: { path: string; loc
       ) : null}
 
       {copy.disclaimer ? (
-        <p className="mt-8 border-t border-slate-200 pt-6 text-sm leading-6 text-slate-500 dark:border-slate-800 dark:text-slate-400">
+        <p className="mt-8 border-t border-[var(--app-border)] pt-6 text-sm leading-6 text-[var(--app-muted)]">
           {copy.disclaimer}
         </p>
       ) : null}
 
       {overview?.lastUpdated ? (
-        <p className={`mt-6 text-xs text-slate-400 dark:text-slate-500${copy.disclaimer ? '' : ' border-t border-slate-200 pt-6 dark:border-slate-800'}`}>
+        <p className={`mt-6 text-xs text-[var(--app-muted)]${copy.disclaimer ? '' : ' border-t border-[var(--app-border)] pt-6'}`}>
           {L.lastUpdated(overview.lastUpdated)} · {overview.maintainer || L.defaultMaintainer}
         </p>
       ) : null}

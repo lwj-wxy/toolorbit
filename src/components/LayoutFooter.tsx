@@ -45,23 +45,34 @@ export default function LayoutFooter() {
   };
 
   return (
-    <footer className="relative z-10 mx-auto mt-auto flex w-full max-w-7xl flex-col items-center justify-center border-t border-slate-200/80 bg-transparent px-4 pb-10 pt-7 text-[13px] text-slate-600 dark:border-slate-800/80 dark:text-slate-400 sm:px-6 lg:px-8">
-      <div className="mb-4 flex gap-6 font-medium">
-        <Link to="/about" className="uppercase tracking-wide transition-colors hover:text-blue-600 dark:hover:text-blue-400">{t('common.nav_about')}</Link>
-        <a href="/about#contact" onClick={handleContactClick} className="uppercase tracking-wide transition-colors hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer">{t('common.nav_contact', { defaultValue: 'Contact' })}</a>
-        <Link to="/privacy" className="uppercase tracking-wide transition-colors hover:text-blue-600 dark:hover:text-blue-400">{t('common.nav_privacy')}</Link>
-        <Link to="/terms" className="uppercase tracking-wide transition-colors hover:text-blue-600 dark:hover:text-blue-400">{t('common.nav_terms')}</Link>
-        <button
-          type="button"
-          onClick={openCookiePreferences}
-          className="uppercase tracking-wide transition-colors hover:text-blue-600 dark:hover:text-blue-400"
+    <footer className="relative z-10 mt-auto border-t border-[var(--app-border)] bg-[var(--app-bg-soft)]">
+      <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-center gap-5 px-4 pb-10 pt-9 text-[13px] text-[var(--app-muted)] sm:px-6 lg:px-8">
+        <Link
+          to="/"
+          className="group flex items-center gap-2 text-[15px] font-bold tracking-tight text-[var(--app-text)] transition-colors hover:text-[var(--app-accent-ink)]"
         >
-          {t('cookieConsent.footerLink', { defaultValue: 'Cookie settings' })}
-        </button>
-      </div>
-      <div className="flex flex-col items-center gap-2">
-        <p className="text-center text-sm leading-6 text-slate-600 dark:text-slate-400">{t('common.footer_desc')}</p>
-        <p className="text-slate-500 dark:text-slate-400">{t('common.footerText')}</p>
+          <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[linear-gradient(135deg,var(--app-accent),var(--app-accent-warm))] text-[11px] font-bold text-white shadow-[0_4px_12px_-2px_color-mix(in_srgb,var(--app-accent)_55%,transparent)]">
+            TO
+          </span>
+          {t('common.logoName')}
+        </Link>
+        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 font-medium">
+          <Link to="/about" className="uppercase tracking-wide transition-colors hover:text-[var(--app-accent-ink)]">{t('common.nav_about')}</Link>
+          <a href="/about#contact" onClick={handleContactClick} className="cursor-pointer uppercase tracking-wide transition-colors hover:text-[var(--app-accent-ink)]">{t('common.nav_contact', { defaultValue: 'Contact' })}</a>
+          <Link to="/privacy" className="uppercase tracking-wide transition-colors hover:text-[var(--app-accent-ink)]">{t('common.nav_privacy')}</Link>
+          <Link to="/terms" className="uppercase tracking-wide transition-colors hover:text-[var(--app-accent-ink)]">{t('common.nav_terms')}</Link>
+          <button
+            type="button"
+            onClick={openCookiePreferences}
+            className="uppercase tracking-wide transition-colors hover:text-[var(--app-accent-ink)]"
+          >
+            {t('cookieConsent.footerLink', { defaultValue: 'Cookie settings' })}
+          </button>
+        </div>
+        <div className="flex flex-col items-center gap-1.5">
+          <p className="max-w-2xl text-center text-sm leading-6 text-[var(--app-muted)]">{t('common.footer_desc')}</p>
+          <p className="text-[var(--app-muted)]">{t('common.footerText')}</p>
+        </div>
       </div>
     </footer>
   );

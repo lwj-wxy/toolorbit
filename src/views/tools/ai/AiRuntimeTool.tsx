@@ -240,8 +240,8 @@ const ScorelineChart = ({ content, isZh }: { content: string; isZh: boolean }) =
       <div ref={chartRef} className="h-[260px] w-full" aria-label={isZh ? '可能比分概率图' : 'Likely score probability chart'} />
       <div className="grid gap-2 sm:grid-cols-2">
         {chartData.map((item) => (
-          <div key={item.score} className="rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300">
-            <span className="font-semibold text-slate-900 dark:text-slate-100">{item.score}</span>
+          <div key={item.score} className="rounded-md border border-[var(--app-border)] bg-[var(--app-bg-soft)] px-3 py-2 text-xs text-[var(--app-muted)]">
+            <span className="font-semibold text-[var(--app-text)]">{item.score}</span>
             <span className="ml-2 text-[var(--app-accent-ink)]">{item.probability}%</span>
             {item.note ? <span className="ml-2">{item.note}</span> : null}
           </div>
@@ -366,16 +366,16 @@ const AiRuntimeTool = ({ config }: { config: AiRuntimeToolConfig }) => {
 
   const renderField = (field: AiRuntimeField) => {
     const commonClassName =
-      'w-full rounded-lg border border-slate-200 bg-white px-3 text-sm text-slate-900 shadow-sm outline-none placeholder:text-slate-400 focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100';
+      'w-full rounded-lg border border-[var(--app-border)] bg-[var(--app-surface)] px-3 text-sm text-[var(--app-text)] shadow-[var(--app-shadow-sm)] outline-none transition-colors placeholder:text-[var(--app-muted)] focus:border-[var(--app-accent)]';
     const fieldValue = values[field.key] || '';
 
     return (
       <div key={field.key} className={field.type === 'textarea' ? 'sm:col-span-2' : ''}>
         <div className="mb-1 flex items-center justify-between gap-3">
-          <label className="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
+          <label className="block text-sm font-semibold leading-6 text-[var(--app-text)]">
             {text(field.label, isZh)}
           </label>
-          {field.type === 'textarea' ? <span className="text-xs text-slate-400">{fieldValue.length}</span> : null}
+          {field.type === 'textarea' ? <span className="text-xs text-[var(--app-muted)]">{fieldValue.length}</span> : null}
         </div>
         {field.type === 'textarea' ? (
           <textarea
@@ -408,7 +408,7 @@ const AiRuntimeTool = ({ config }: { config: AiRuntimeToolConfig }) => {
           />
         )}
         {field.helpText ? (
-          <p className="mt-1 text-xs leading-5 text-slate-500 dark:text-slate-400">{text(field.helpText, isZh)}</p>
+          <p className="mt-1 text-xs leading-5 text-[var(--app-muted)]">{text(field.helpText, isZh)}</p>
         ) : null}
       </div>
     );
@@ -431,7 +431,7 @@ const AiRuntimeTool = ({ config }: { config: AiRuntimeToolConfig }) => {
           <div className="flex justify-end">
             <button
               onClick={() => copyToClipboard(allSectionText, 'all')}
-              className="inline-flex items-center gap-1.5 rounded-md border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-600 transition-colors hover:border-cyan-300 hover:text-cyan-700 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-300"
+              className="inline-flex items-center gap-1.5 rounded-md border border-[var(--app-border)] bg-[var(--app-surface)] px-3 py-1.5 text-xs font-semibold text-[var(--app-muted)] transition-colors hover:border-[var(--app-accent)] hover:text-[var(--app-accent-ink)]"
             >
               {copiedField === 'all' ? <Check size={14} className="text-emerald-500" /> : <Copy size={14} />}
               {copiedField === 'all' ? (isZh ? '已复制' : 'Copied') : (isZh ? '复制全部' : 'Copy all')}
@@ -444,8 +444,8 @@ const AiRuntimeTool = ({ config }: { config: AiRuntimeToolConfig }) => {
           const shouldRenderScoreChart = config.toolId === 'worldcup-match-predictor' && section.key === 'scores';
 
           return (
-            <div key={section.key} className="group relative rounded-lg border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-950">
-              <span className="mb-2 block text-xs font-bold uppercase text-slate-400">{text(section.label, isZh)}</span>
+            <div key={section.key} className="group relative rounded-xl border border-[var(--app-border)] bg-[var(--app-surface)] p-5 shadow-[var(--app-shadow-sm)]">
+              <span className="mb-2 block text-xs font-bold uppercase tracking-wide text-[var(--app-accent-ink)]">{text(section.label, isZh)}</span>
               {shouldRenderScoreChart ? (
                 <ScorelineChart content={content} isZh={isZh} />
               ) : section.markdown ? (
@@ -453,13 +453,13 @@ const AiRuntimeTool = ({ config }: { config: AiRuntimeToolConfig }) => {
                   <Markdown>{normalizeMarkdownListText(content)}</Markdown>
                 </div>
               ) : (
-                <p className={`whitespace-pre-wrap text-sm leading-6 text-slate-700 dark:text-slate-200 ${section.monospace ? 'font-mono' : ''}`}>
+                <p className={`whitespace-pre-wrap text-sm leading-6 text-[var(--app-text)] ${section.monospace ? 'font-mono' : ''}`}>
                   {content}
                 </p>
               )}
               <button
                 onClick={() => copyToClipboard(content, section.key)}
-                className="absolute right-3 top-3 rounded-md border border-slate-300 bg-white p-2 opacity-0 shadow-sm transition-all hover:text-cyan-600 group-hover:opacity-100 dark:border-slate-700 dark:bg-[#282c34]"
+                className="absolute right-3 top-3 rounded-md border border-[var(--app-border)] bg-[var(--app-surface)] p-2 text-[var(--app-muted)] opacity-0 shadow-[var(--app-shadow-sm)] transition-all hover:border-[var(--app-accent)] hover:text-[var(--app-accent-ink)] group-hover:opacity-100"
                 aria-label={`Copy ${section.key}`}
               >
                 {copiedField === section.key ? <Check size={14} className="text-emerald-500" /> : <Copy size={14} />}
@@ -490,7 +490,7 @@ const AiRuntimeTool = ({ config }: { config: AiRuntimeToolConfig }) => {
         <div className="flex justify-end">
           <button
             onClick={() => copyToClipboard(result, 'keyword-all')}
-            className="inline-flex items-center gap-1.5 rounded-md border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-600 transition-colors hover:border-cyan-300 hover:text-cyan-700 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-300"
+            className="inline-flex items-center gap-1.5 rounded-md border border-[var(--app-border)] bg-[var(--app-surface)] px-3 py-1.5 text-xs font-semibold text-[var(--app-muted)] transition-colors hover:border-[var(--app-accent)] hover:text-[var(--app-accent-ink)]"
           >
             {copiedField === 'keyword-all' ? <Check size={14} className="text-emerald-500" /> : <Copy size={14} />}
             {copiedField === 'keyword-all' ? (isZh ? '已复制' : 'Copied') : (isZh ? '复制全部' : 'Copy all')}
@@ -547,17 +547,18 @@ const AiRuntimeTool = ({ config }: { config: AiRuntimeToolConfig }) => {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col gap-4 border-b border-slate-200 pb-6 dark:border-slate-800 sm:flex-row sm:items-end sm:justify-between">
-        <div>
-          <h1 className="text-3xl font-semibold tracking-tight text-slate-950 dark:text-white">{pageTitle}</h1>
-          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-400">{pageDescription}</p>
+      <div className="border-b border-[var(--app-border)] pb-6">
+        <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-[var(--app-accent-soft)] text-[var(--app-accent-ink)] shadow-[var(--app-shadow-sm)]">
+          <Icon className="h-5 w-5" />
         </div>
+        <h1 className="text-2xl font-bold tracking-tight text-[var(--app-text)] sm:text-3xl">{pageTitle}</h1>
+        <p className="mt-3 max-w-3xl text-[15px] leading-7 text-[var(--app-muted)]">{pageDescription}</p>
       </div>
 
       <div className="space-y-6">
-        <div className="space-y-5 rounded-lg border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-[#282c34]">
-          <h2 className="flex items-center gap-2 text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
-            <Icon className="h-4 w-4 text-cyan-600 dark:text-cyan-300" />
+        <div className="space-y-5 rounded-2xl border border-[var(--app-border)] bg-[var(--app-surface)] p-5 shadow-[var(--app-shadow-md)] sm:p-6">
+          <h2 className="flex items-center gap-2 text-sm font-semibold leading-6 text-[var(--app-text)]">
+            <Icon className="h-4 w-4 text-[var(--app-accent-ink)]" />
             {text(config.formTitle, isZh)}
           </h2>
 
@@ -567,17 +568,17 @@ const AiRuntimeTool = ({ config }: { config: AiRuntimeToolConfig }) => {
           <button
             onClick={requestGeneration}
             disabled={loading || !canSubmit}
-            className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-cyan-600 text-sm font-semibold text-white shadow-sm transition-colors duration-200 hover:bg-cyan-700 disabled:cursor-not-allowed disabled:bg-slate-300 dark:disabled:bg-slate-800 sm:w-auto sm:px-8"
+            className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-[var(--app-accent)] text-sm font-semibold text-white shadow-[var(--app-shadow-md)] transition-colors duration-200 hover:bg-[var(--app-accent-strong)] disabled:cursor-not-allowed disabled:opacity-50 disabled:shadow-none sm:w-auto sm:px-8"
           >
             {loading ? <Loader2 className="animate-spin" size={18} /> : <Icon size={18} />}
             {loading ? text(config.loadingLabel, isZh) : text(config.generateLabel, isZh)}
           </button>
         </div>
 
-        <div ref={resultRef} className="rounded-lg border border-slate-200 bg-slate-50 p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+        <div ref={resultRef} className="rounded-2xl border border-[var(--app-border)] bg-[var(--app-bg-soft)] p-5 shadow-[var(--app-shadow-sm)] sm:p-6">
           <div className="mb-4 flex items-center justify-between gap-3">
-            <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-100">{isZh ? '结果' : 'Result'}</h2>
-            {!result && !loading ? <span className="text-xs text-slate-400">{isZh ? '等待生成' : 'Waiting'}</span> : null}
+            <h2 className="text-sm font-semibold text-[var(--app-text)]">{isZh ? '结果' : 'Result'}</h2>
+            {!result && !loading ? <span className="text-xs text-[var(--app-muted)]">{isZh ? '等待生成' : 'Waiting'}</span> : null}
           </div>
 
           {error ? (
@@ -588,15 +589,15 @@ const AiRuntimeTool = ({ config }: { config: AiRuntimeToolConfig }) => {
 
           <div>
             {loading && !result ? (
-              <div className="flex flex-col items-center justify-center py-12 text-center text-slate-500 dark:text-slate-400">
-                <Loader2 className="mb-3 animate-spin text-cyan-500" size={34} />
+              <div className="flex flex-col items-center justify-center py-12 text-center text-[var(--app-muted)]">
+                <Loader2 className="mb-3 animate-spin text-[var(--app-accent-ink)]" size={34} />
                 <p className="text-sm font-semibold">{text(config.loadingLabel, isZh)}</p>
               </div>
             ) : null}
 
             {!loading && !result ? (
-              <div className="flex items-center gap-3 rounded-lg border border-dashed border-slate-200 bg-white px-4 py-4 text-slate-500 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-400">
-                <Icon className="h-5 w-5 flex-none text-slate-300 dark:text-slate-600" />
+              <div className="flex items-center gap-3 rounded-xl border border-dashed border-[var(--app-border)] bg-[var(--app-surface)] px-4 py-4 text-[var(--app-muted)]">
+                <Icon className="h-5 w-5 flex-none text-[var(--app-accent-ink)] opacity-60" />
                 <p className="text-sm leading-6">{text(config.waitingLabel, isZh)}</p>
               </div>
             ) : null}

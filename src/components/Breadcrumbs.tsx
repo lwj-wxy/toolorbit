@@ -89,22 +89,22 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items }) => {
 
   return (
     <nav className="flex mb-6 overflow-hidden" aria-label="Breadcrumb">
-      <ol className="inline-flex items-center space-x-1 md:space-x-2 text-sm text-slate-500 dark:text-slate-400">
+      <ol className="inline-flex items-center space-x-1 md:space-x-2 text-sm text-[var(--app-muted)]">
         <li className="inline-flex items-center">
-          <Link to="/" className="inline-flex items-center hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+          <Link to="/" className="inline-flex items-center transition-colors hover:text-[var(--app-accent-ink)]">
             <Home className="w-4 h-4 mr-2" />
             <span className="hidden sm:inline">{t('common.nav_home')}</span>
           </Link>
         </li>
         {pathItems.map((item, index) => (
           <li key={item.path} className="flex items-center">
-            <ChevronRight className="w-4 h-4 text-slate-300 dark:text-slate-600 mx-1 shrink-0" />
+            <ChevronRight className="w-4 h-4 text-[var(--app-border)] mx-1 shrink-0" />
             {index === pathItems.length - 1 ? (
-              <span className="font-medium text-slate-900 dark:text-white truncate max-w-[200px]" aria-current="page">
+              <span className="font-semibold text-[var(--app-text)] truncate max-w-[200px]" aria-current="page">
                 {item.label}
               </span>
             ) : (
-              <Link to={item.path} className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors whitespace-nowrap">
+              <Link to={item.path} className="whitespace-nowrap transition-colors hover:text-[var(--app-accent-ink)]">
                 {item.label}
               </Link>
             )}

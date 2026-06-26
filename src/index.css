@@ -5,44 +5,50 @@
 
 :root {
   color-scheme: light;
-  --app-bg: #ffffff;
-  --app-bg-soft: #f7f7f9;
+  --app-bg: #f6f7fb;
+  --app-bg-soft: #eef0f8;
   --app-surface: #ffffff;
   --app-surface-strong: #ffffff;
-  --app-text: #111827;
-  --app-muted: #6b7280;
-  --app-border: #e5e7eb;
+  --app-text: #0f1729;
+  --app-muted: #5b6575;
+  --app-border: #e6e8f2;
   --app-accent: #6366f1;
   --app-accent-strong: #4f46e5;
-  --app-accent-ink: #4f46e5;
-  --app-accent-soft: #eef2ff;
+  --app-accent-ink: #4338ca;
+  --app-accent-soft: #eef1fe;
   --app-accent-warm: #7c3aed;
   --app-accent-warm-soft: #f3efff;
   --app-success: #16a34a;
   --app-danger: #b42318;
   --app-info: #6366f1;
   --app-warning: #b7791f;
+  --app-shadow-sm: 0 1px 2px rgba(15, 23, 41, 0.04), 0 1px 3px rgba(15, 23, 41, 0.06);
+  --app-shadow-md: 0 4px 14px -4px rgba(15, 23, 41, 0.1), 0 2px 6px -2px rgba(15, 23, 41, 0.06);
+  --app-shadow-lg: 0 18px 40px -16px rgba(79, 70, 229, 0.28), 0 8px 20px -10px rgba(15, 23, 41, 0.14);
 }
 
 :root.dark {
   color-scheme: dark;
-  --app-bg: #0f1220;
-  --app-bg-soft: #15182a;
-  --app-surface: #181b2e;
-  --app-surface-strong: #1f2338;
-  --app-text: #eef2ff;
-  --app-muted: #a7adbd;
-  --app-border: #2c3148;
+  --app-bg: #0b0d18;
+  --app-bg-soft: #11131f;
+  --app-surface: #161829;
+  --app-surface-strong: #1c1f33;
+  --app-text: #eef1fb;
+  --app-muted: #9aa1b4;
+  --app-border: #272b40;
   --app-accent: #818cf8;
   --app-accent-strong: #a5b4fc;
   --app-accent-ink: #c7d2fe;
-  --app-accent-soft: #252a4a;
+  --app-accent-soft: #20233c;
   --app-accent-warm: #c084fc;
   --app-accent-warm-soft: #302243;
   --app-success: #22c55e;
   --app-danger: #f87171;
   --app-info: #a5b4fc;
   --app-warning: #f4bf70;
+  --app-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --app-shadow-md: 0 6px 20px -6px rgba(0, 0, 0, 0.55), 0 2px 8px -4px rgba(0, 0, 0, 0.45);
+  --app-shadow-lg: 0 22px 48px -18px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(129, 140, 248, 0.08);
 }
 
 body {
@@ -224,11 +230,11 @@ summary {
 }
 
 #main-content :where([class*="shadow-xl"], [class*="shadow-2xl"]) {
-  box-shadow: none !important;
+  box-shadow: var(--app-shadow-lg) !important;
 }
 
 #main-content :where([class*="rounded-3xl"], [class*="rounded-[2rem]"]) {
-  border-radius: 0.75rem !important;
+  border-radius: 1.25rem !important;
 }
 
 #main-content :where([class*="border-2"]:not([class*="border-dashed"])) {
@@ -309,8 +315,12 @@ summary {
   background-color: color-mix(in srgb, var(--app-accent-soft) 78%, white) !important;
 }
 
-#main-content :where(.shadow-sm, .shadow-md) {
-  box-shadow: none !important;
+#main-content .shadow-sm {
+  box-shadow: var(--app-shadow-sm) !important;
+}
+
+#main-content .shadow-md {
+  box-shadow: var(--app-shadow-md) !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
