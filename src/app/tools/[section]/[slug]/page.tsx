@@ -7,6 +7,7 @@ import JsonLd from '../../../../components/JsonLd';
 import ToolSearchContent from '../../../../components/ToolSearchContent';
 import ToolContent from '../../../../components/ToolContent';
 import ToolPageClient from '../../../../components/ToolPageClient';
+import EtsyFeeServerHero from '../../../../components/EtsyFeeServerHero';
 import { FALLBACK_TOOL_GUIDE_PATHS } from '../../../../lib/tool-page-content';
 
 export function generateStaticParams() {
@@ -35,14 +36,19 @@ export default async function Page({ params }: { params: Promise<{ section: stri
     redirect('/tools');
   }
 
-  if (!TOOLS.some((tool) => tool.path === path)) {
+  const tool = TOOLS.find((toolItem) => toolItem.path === path);
+
+  if (!tool) {
     notFound();
   }
+
+  const isEtsyFeeCalculator = tool.path === '/tools/ecommerce/etsy-fee-calculator';
 
   return (
     <>
       <JsonLd id={`structured-data-tool-${slug}`} data={toolJsonLd(path)} />
-      <ToolPageClient path={path} />
+      {isEtsyFeeCalculator ? <EtsyFeeServerHero /> : null}
+      <ToolPageClient path={path} hideHeader={isEtsyFeeCalculator} />
       <ToolContent path={path} />
       {FALLBACK_TOOL_GUIDE_PATHS.has(path) ? <ToolSearchContent path={path} /> : null}
     </>

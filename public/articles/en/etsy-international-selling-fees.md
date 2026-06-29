@@ -2,6 +2,16 @@
 
 If you sell on Etsy from outside the United States, you're likely paying fees that US-based sellers never see. Two of the most impactful — and least understood — are the Regulatory Operating Fee and the Currency Conversion Fee. Together, they can silently erode your margins by 1–4% per order.
 
+Payment processing fees by country are a separate check. Etsy Payments charges a percentage plus a fixed amount based on the seller's payment account country, while currency conversion depends on whether your listing currency matches your payout currency. Use the [Etsy Fee Calculator](/tools/ecommerce/etsy-fee-calculator) for the US baseline, then use the [Etsy Regulatory & Currency Fee Calculator](/tools/ecommerce/etsy-regulatory-fee-calculator) to model the country and currency layer.
+
+## Payment Processing Fees by Country
+
+Etsy payment processing is not the same as the transaction fee. The transaction fee is Etsy's marketplace fee. Payment processing is the card and payment handling charge, and the rate can vary by seller country.
+
+For a US seller, the common Etsy Payments formula is 3% of the order total plus $0.25. Sellers in other countries should check the Etsy Payments rate shown for their payment account country, then add the regulatory and currency fees described below. The important point is the base: payment processing is calculated on the order total, not just the item price.
+
+If your old spreadsheet only used a single "Etsy fee percentage," update it. A realistic international estimate needs four checks: transaction fee, payment processing, regulatory operating fee, and currency conversion. That is the stack that decides whether an international order is still profitable after payout.
+
 ## What Is the Regulatory Operating Fee?
 
 Starting in 2024, Etsy introduced the Regulatory Operating Fee to offset costs associated with local regulations in certain countries — things like digital services taxes, marketplace facilitator rules, and consumer protection compliance. Rather than absorbing these costs, Etsy passes them through to sellers in the affected regions.

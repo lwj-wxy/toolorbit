@@ -2,7 +2,11 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DollarSign, Hash } from 'lucide-react';
 
-const EtsyFeeCalculator = () => {
+type EtsyFeeCalculatorProps = {
+  hideHeader?: boolean;
+};
+
+const EtsyFeeCalculator = ({ hideHeader = false }: EtsyFeeCalculatorProps) => {
   const { t } = useTranslation();
   const [salePrice, setSalePrice] = useState<number | ''>('');
   const [quantity, setQuantity] = useState<number | ''>(1);
@@ -43,16 +47,18 @@ const EtsyFeeCalculator = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col gap-4 border-b border-slate-200 pb-6 dark:border-slate-800 sm:flex-row sm:items-end sm:justify-between">
-        <div>
-          <h1 className="text-3xl font-semibold tracking-tight text-slate-950 dark:text-white">
-            {t('tools.etsy-fee-calculator.title')}
-          </h1>
-          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-400">
-            {t('tools.etsy-fee-calculator.subtitle')}
-          </p>
+      {!hideHeader ? (
+        <div className="flex flex-col gap-4 border-b border-slate-200 pb-6 dark:border-slate-800 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <h1 className="text-3xl font-semibold tracking-tight text-slate-950 dark:text-white">
+              {t('tools.etsy-fee-calculator.title')}
+            </h1>
+            <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-400">
+              {t('tools.etsy-fee-calculator.subtitle')}
+            </p>
+          </div>
         </div>
-      </div>
+      ) : null}
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(320px,0.85fr)]">
         <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-[#282c34] sm:p-6">

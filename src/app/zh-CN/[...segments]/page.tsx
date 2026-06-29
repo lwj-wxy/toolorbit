@@ -8,6 +8,7 @@ import ScopedI18nProvider from '../../../components/ScopedI18nProvider';
 import ToolPageClient from '../../../components/ToolPageClient';
 import ToolContent from '../../../components/ToolContent';
 import ToolSearchContent from '../../../components/ToolSearchContent';
+import EtsyFeeServerHero from '../../../components/EtsyFeeServerHero';
 import { BLOG_POSTS } from '../../../constants/blogData';
 import { AUTHORS, getAuthorByPath } from '../../../data/authors';
 import { FEATURED_TOOLS } from '../../../data/featured-tools';
@@ -378,14 +379,19 @@ export default async function Page({ params }: PageProps) {
       redirect('/zh-CN/tools');
     }
 
-    if (!TOOLS.some((tool) => tool.path === basePath)) {
+    const tool = TOOLS.find((toolItem) => toolItem.path === basePath);
+
+    if (!tool) {
       notFound();
     }
+
+    const isEtsyFeeCalculator = tool.path === '/tools/ecommerce/etsy-fee-calculator';
 
     return zhPage(
       <>
         <JsonLd id={`structured-data-tool-${segments[2]}`} data={toolJsonLd(basePath, LOCALE)} />
-        <ToolPageClient path={basePath} />
+        {isEtsyFeeCalculator ? <EtsyFeeServerHero locale="zh" /> : null}
+        <ToolPageClient path={basePath} hideHeader={isEtsyFeeCalculator} />
         <ToolContent path={basePath} locale="zh" />
         {FALLBACK_TOOL_GUIDE_PATHS.has(basePath) ? <ToolSearchContent path={basePath} /> : null}
       </>,

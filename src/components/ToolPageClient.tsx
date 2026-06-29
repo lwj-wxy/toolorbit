@@ -2,12 +2,17 @@
 
 import { toolComponentMap } from '../lib/tool-components';
 
-export default function ToolPageClient({ path }: { path: string }) {
+type ToolPageClientProps = {
+  path: string;
+  hideHeader?: boolean;
+};
+
+export default function ToolPageClient({ path, hideHeader = false }: ToolPageClientProps) {
   const Tool = toolComponentMap[path];
 
   if (!Tool) {
     return null;
   }
 
-  return <Tool />;
+  return <Tool hideHeader={hideHeader} />;
 }

@@ -4,6 +4,8 @@
 
 If you've ever looked at your Etsy payment account and wondered why it's smaller than your sales total, this page breaks down exactly what Etsy keeps from each sale — and what you actually take home.
 
+For a calculator-first workflow, run your own order through the [Etsy Fee Calculator](/tools/ecommerce/etsy-fee-calculator), then use the [Ecommerce Tools Hub](/ecommerce-tools) for pricing, Offsite Ads, international fees, and payment processor comparison.
+
 ## The exact percentage Etsy takes per sale
 
 Etsy charges three mandatory fees on every order. They all apply to the **total order amount** — item price plus any shipping, gift wrap, and personalization the buyer pays.

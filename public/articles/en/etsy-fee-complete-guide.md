@@ -2,6 +2,8 @@
 
 If you sell on Etsy, the payment account can show less profit than the order total suggests. Etsy fees include listing fees, transaction fees, payment processing, Offsite Ads, regulatory fees, and currency conversion in some cases.
 
+For the tool workflow, start with the [Etsy Fee Calculator](/tools/ecommerce/etsy-fee-calculator), then move through the [Ecommerce Tools Hub](/ecommerce-tools) if you need pricing, Offsite Ads, country fees, or payment processor comparison. If you are choosing between calculators, use [Best Etsy Fee Calculators Compared](/best-etsy-fee-calculators) to decide whether a browser tool, spreadsheet, official Etsy resource, or paid seller platform fits the job.
+
 ## The Three Core Etsy Fees
 
 Every Etsy order is subject to three mandatory fees. They apply to the **total order amount**, which includes the item price, shipping charged to the buyer, gift wrap, and personalization fees.

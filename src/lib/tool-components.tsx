@@ -3,7 +3,11 @@
 import dynamic from 'next/dynamic';
 import type { ComponentType } from 'react';
 
-type ToolComponent = ComponentType<Record<string, never>>;
+export type ToolComponentProps = {
+  hideHeader?: boolean;
+};
+
+type ToolComponent = ComponentType<ToolComponentProps>;
 type ToolLoader = () => Promise<{ default: ToolComponent }>;
 
 const ToolLoading = () => (
