@@ -10,9 +10,9 @@ No sign-up required. Most tools process text, images, PDFs, encodings, crypto op
 
 ## Tool Catalog
 
-ToolOrbit currently includes **75 tools** across 10 categories.
+ToolOrbit currently includes **80 tools** across 10 categories.
 
-### AI Tools (16)
+### AI Tools (21)
 
 | Tool | Description | Link |
 |------|-------------|------|
@@ -32,6 +32,11 @@ ToolOrbit currently includes **75 tools** across 10 categories.
 | Keyword Analyzer | Analyze ecommerce long-tail keywords, search intent, and product angle ideas. | [Open](https://toolorbit.site/tools/ai/keyword-analyzer) |
 | Competitor Tracker | Compare competitor listings and identify gaps in positioning, copy, and offers. | [Open](https://toolorbit.site/tools/ai/competitor-tracker) |
 | Market Insights | Generate market notes for a platform, category, trend, or product idea. | [Open](https://toolorbit.site/tools/ai/market-insights) |
+| AI Resume Optimizer | Improve resume wording, structure, and keyword fit from resume text and a target job description. | [Open](https://toolorbit.site/tools/ai/resume-optimizer) |
+| AI Weekly Report Generator | Turn a rough work log into a structured weekly, daily, or monthly report without inventing data. | [Open](https://toolorbit.site/tools/ai/weekly-report-generator) |
+| AI HS Code & Customs Description Assistant | Draft customs item names, invoice descriptions, HS candidate directions, and broker questions from product details. | [Open](https://toolorbit.site/tools/ai/hs-code-assistant) |
+| AI Product Asset Compliance Checker | Upload product, packaging, or label images to check image size, text overlays, product consistency, and cross-border marketplace asset risks. | [Open](https://toolorbit.site/tools/ai/product-asset-checker) |
+| AI Product Image Generator | Enter product details and generate marketplace, ad, and DTC product images by platform, use case, and aspect ratio. | [Open](https://toolorbit.site/tools/ai/product-image-generator) |
 
 ### Developer Tools (13)
 
@@ -141,7 +146,7 @@ ToolOrbit currently includes **75 tools** across 10 categories.
 
 ## Blog
 
-The blog currently includes **51 articles** covering AI toolchains, developer workflows, ecommerce fees, image and PDF processing, encoding, and security.
+The blog currently includes **50 articles** covering AI toolchains, developer workflows, ecommerce fees, image and PDF processing, encoding, and security.
 
 | Date | Category | Article |
 |------|----------|---------|
@@ -173,7 +178,6 @@ The blog currently includes **51 articles** covering AI toolchains, developer wo
 | 2026-05-13 | Productivity | [How QR Codes Actually Work: The Mathematics in Your Pocket](https://toolorbit.site/blog/how-qr-codes-work) |
 | 2026-05-12 | AI | [AI Excel Formula Generator: Speak Spreadsheet, Not Syntax](https://toolorbit.site/blog/ai-excel-formula-guide) |
 | 2026-05-11 | AI | [AI Video Script Generator: Scale Your Content Pipeline Without Burnout](https://toolorbit.site/blog/ai-video-script-guide) |
-| 2026-05-10 | AI | [AI Meeting Minutes: Never Miss a Critical Detail Again](https://toolorbit.site/blog/ai-meeting-minutes-guide) |
 | 2026-05-09 | AI | [AI Regex Generator: From Hours of Trial-and-Error to Milliseconds](https://toolorbit.site/blog/ai-regex-generator-guide) |
 | 2026-05-08 | AI | [AI Code Review: Your 24/7 Pair Programming Partner](https://toolorbit.site/blog/ai-code-reviewer-guide) |
 | 2026-05-07 | Development | [Navigating Web Image Formats: JPG, PNG, and WebP Explained](https://toolorbit.site/blog/image-converter-web-formats) |

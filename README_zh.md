@@ -10,9 +10,9 @@
 
 ## 工具目录
 
-当前站点收录 **75 款工具**，分布在 10 个分类中。
+当前站点收录 **80 款工具**，分布在 10 个分类中。
 
-### AI 工具（16 个）
+### AI 工具（21 个）
 
 | 工具 | 说明 | 链接 |
 |------|------|------|
@@ -32,6 +32,11 @@
 | Keyword Analyzer | 分析电商长尾关键词、搜索意图和商品切入角度。 | [打开](https://toolorbit.site/tools/ai/keyword-analyzer) |
 | Competitor Tracker | 对比竞品 Listing，识别定位、文案和优惠策略差异。 | [打开](https://toolorbit.site/tools/ai/competitor-tracker) |
 | Market Insights | 根据平台、类目、趋势或商品想法生成市场分析记录。 | [打开](https://toolorbit.site/tools/ai/market-insights) |
+| AI 简历优化工具 | 根据简历文本和岗位 JD 优化表达、结构和关键词。 | [打开](https://toolorbit.site/tools/ai/resume-optimizer) |
+| AI 周报生成器 | 把流水账一键整理成结构清晰的周报、日报或月报，不编造数据。 | [打开](https://toolorbit.site/tools/ai/weekly-report-generator) |
+| AI HS 编码与报关品名助手 | 根据商品名称、材质、用途和目标市场生成英文报关品名、商业发票描述、HS 候选方向和货代确认问题。 | [打开](https://toolorbit.site/tools/ai/hs-code-assistant) |
+| AI 商品素材合规质检器 | 上传商品主图、包装图或标签图，检查尺寸、文字覆盖、商品一致性和跨境平台素材风险。 | [打开](https://toolorbit.site/tools/ai/product-asset-checker) |
+| AI 出海商品图生成器 | 输入商品信息，按平台、用途和比例生成适合跨境上架、广告投放和独立站展示的商品图片。 | [打开](https://toolorbit.site/tools/ai/product-image-generator) |
 
 ### 开发者工具（13 个）
 
@@ -141,7 +146,7 @@
 
 ## 博客
 
-当前博客收录 **51 篇文章**，覆盖 AI 工具链、开发工作流、电商费用、图片与 PDF 处理、编码和安全等主题。
+当前博客收录 **50 篇文章**，覆盖 AI 工具链、开发工作流、电商费用、图片与 PDF 处理、编码和安全等主题。
 
 | 日期 | 分类 | 文章 |
 |------|------|------|
@@ -173,7 +178,6 @@
 | 2026-05-13 | 生产力 | [二维码到底是怎么扫出来的：你兜里揣着的信息论奇迹](https://toolorbit.site/zh-CN/blog/how-qr-codes-work) |
 | 2026-05-12 | AI | [AI Excel 公式助手：说人话，让 AI 去写天书公式](https://toolorbit.site/zh-CN/blog/ai-excel-formula-guide) |
 | 2026-05-11 | AI | [AI 视频脚本生成器：无惧职业倦怠，规模化你的内容管线](https://toolorbit.site/zh-CN/blog/ai-video-script-guide) |
-| 2026-05-10 | AI | [AI 会议纪要：再也不会错过任何关键细节](https://toolorbit.site/zh-CN/blog/ai-meeting-minutes-guide) |
 | 2026-05-09 | AI | [AI 正则生成器：从数小时的反复试错到毫秒级精准匹配](https://toolorbit.site/zh-CN/blog/ai-regex-generator-guide) |
 | 2026-05-08 | AI | [AI 代码审查：你的全天候结对编程伙伴](https://toolorbit.site/zh-CN/blog/ai-code-reviewer-guide) |
 | 2026-05-07 | 开发 | [导航网页图像格式：JPG，PNG 和 WebP 详解](https://toolorbit.site/zh-CN/blog/image-converter-web-formats) |

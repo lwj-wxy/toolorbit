@@ -18,7 +18,8 @@
       "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:8081/tools/ai/weekly-report-generator)",
       "Bash(curl -s --retry 40 --retry-delay 2 --retry-connrefused --max-time 90 -o /dev/null -w \"zh route: %{http_code}\\\\n\" http://localhost:8081/zh-CN/tools/ai/weekly-report-generator)",
       "Bash(curl -s -X POST http://localhost:8081/api/weekly-report-generator -H \"Content-Type: application/json\" -d '{\"workLog\":\"周一修了登录bug；周五上线优惠券\",\"period\":\"weekly\",\"role\":\"engineering\",\"style\":\"impact\",\"language\":\"Chinese\"}' -w \"\\\\n[HTTP %{http_code}]\\\\n\" --max-time 60)",
-      "Bash(curl -s -X POST http://localhost:8081/api/weekly-report-generator -H \"Content-Type: application/json\" -d '{\"workLog\":\"test 测试\",\"period\":\"weekly\",\"role\":\"general\",\"style\":\"concise\",\"language\":\"Chinese\"}' -w \"\\\\n[HTTP %{http_code}]\\\\n\" --max-time 60)"
+      "Bash(curl -s -X POST http://localhost:8081/api/weekly-report-generator -H \"Content-Type: application/json\" -d '{\"workLog\":\"test 测试\",\"period\":\"weekly\",\"role\":\"general\",\"style\":\"concise\",\"language\":\"Chinese\"}' -w \"\\\\n[HTTP %{http_code}]\\\\n\" --max-time 60)",
+      "Bash(node -e ' *)"
     ]
   }
 }
