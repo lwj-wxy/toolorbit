@@ -192,7 +192,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, initialMarkdown = '' }) => {
         </span>
       </nav>
 
-      <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_260px] lg:items-start">
+      <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_288px] lg:items-start">
         {/* Article content */}
         <div className="min-w-0">
           {/* Markdown body */}
@@ -252,24 +252,21 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, initialMarkdown = '' }) => {
         </div>
 
         {articleHeadings.length > 0 && (
-          <aside
-            className="hidden self-start overflow-hidden lg:sticky lg:top-[88px] lg:block"
-            aria-label="Article table of contents"
-          >
-            <nav className="scrollbar-hidden -mr-6 max-h-[calc(100vh-7rem)] overflow-y-auto border-l border-slate-200 pl-5 pr-7 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden dark:border-slate-800">
-              <p className="mb-3 text-base font-bold text-slate-950 dark:text-white">
+          <aside className="hidden self-start lg:sticky lg:top-[88px] lg:block" aria-label="Article table of contents">
+            <nav className="scrollbar-hidden max-h-[calc(100vh-7rem)] overflow-y-auto border-l border-slate-200 pl-3 pr-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden dark:border-slate-800">
+              <p className="mb-4 pl-3 text-base font-bold text-slate-950 dark:text-white">
                 {i18n.language && i18n.language.startsWith('zh') ? '目录' : 'Contents'}
               </p>
-              <div className="space-y-1">
+              <div className="space-y-0.5">
                 {articleHeadings.map((heading) => (
                   <a
                     key={heading.id}
                     href={`#${heading.id}`}
                     onClick={(event) => handleHeadingClick(event, heading)}
-                    className={`block rounded-md px-3 py-2 text-sm font-medium leading-6 transition-colors ${
+                    className={`block rounded-md border-l-2 px-3 py-2.5 text-sm font-medium leading-5 transition-colors ${
                       activeHeadingId === heading.id
-                        ? 'bg-cyan-50 text-cyan-700 dark:bg-cyan-950/20 dark:text-cyan-300'
-                        : 'text-slate-500 hover:bg-cyan-50 hover:text-cyan-700 dark:text-slate-400 dark:hover:bg-cyan-950/20 dark:hover:text-cyan-300'
+                        ? 'border-cyan-500 bg-cyan-50/90 text-cyan-700 dark:border-cyan-400 dark:bg-cyan-950/25 dark:text-cyan-300'
+                        : 'border-transparent text-slate-500 hover:border-cyan-200 hover:bg-slate-50 hover:text-cyan-700 dark:text-slate-400 dark:hover:border-cyan-800 dark:hover:bg-slate-900/70 dark:hover:text-cyan-300'
                     }`}
                   >
                     {heading.text}
