@@ -40,6 +40,15 @@ const RAW_TOOLS_META = [
     isPopular: true,
   },
   {
+    id: 'weekly-report-generator',
+    name: 'AI Weekly Report Generator',
+    description: 'Turn a rough work log into a structured weekly, daily, or monthly report without inventing data.',
+    category: 'AI 工具',
+    path: '/tools/ai/weekly-report-generator',
+    color: 'indigo',
+    isPopular: true,
+  },
+  {
     id: 'ai-prompt-generator',
     name: 'AI Image Prompt Generator',
     description: 'Expand a visual idea into copy-ready English prompts with style, scene, lighting, and composition details.',

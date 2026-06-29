@@ -47,6 +47,31 @@ const REGEX_FLAVOR_OPTIONS = new Set(['javascript', 'python', 'java', 'go', 'pcr
 const XIAOHONGSHU_STYLE_OPTIONS = new Set(['种草测评', '干货教程', '情感共鸣', '好物合集', '探店打卡']);
 const MARKET_PLATFORM_OPTIONS = new Set(['Etsy', 'Amazon', 'TikTok Shop', 'eBay']);
 const MARKET_TIMEFRAME_OPTIONS = new Set(['1', '3', '7']);
+const REPORT_PERIOD_OPTIONS = new Set(['weekly', 'daily', 'monthly']);
+const REPORT_ROLE_OPTIONS = new Set(['general', 'engineering', 'product', 'operations', 'sales', 'design', 'marketing']);
+const REPORT_STYLE_OPTIONS = new Set(['concise', 'detailed', 'impact']);
+
+const REPORT_PERIOD_LABELS: Record<string, { en: string; zh: string }> = {
+  weekly: { en: 'weekly report', zh: '周报' },
+  daily: { en: 'daily report', zh: '日报' },
+  monthly: { en: 'monthly report', zh: '月报' },
+};
+
+const REPORT_ROLE_LABELS: Record<string, string> = {
+  general: 'general office worker',
+  engineering: 'software engineer',
+  product: 'product manager',
+  operations: 'operations specialist',
+  sales: 'sales representative',
+  design: 'designer',
+  marketing: 'marketing specialist',
+};
+
+const REPORT_STYLE_GUIDANCE: Record<string, string> = {
+  concise: 'Concise style: short, action-first bullets with no filler.',
+  detailed: 'Detailed style: add brief context, process, and collaboration so a reader who was not involved can follow.',
+  impact: 'Impact style: lead with business value and outcomes, suitable for a manager. Emphasize impact, ownership, and results, but never inflate them with invented numbers.',
+};
 
 const normalizeWhitespace = (value: unknown) =>
   String(value ?? '')
@@ -884,6 +909,47 @@ const buildResumeOptimizerConfig = (body: any, model: string): AiRuntimeBuildRes
   };
 };
 
+const buildWeeklyReportConfig = (body: any, model: string): AiRuntimeBuildResult => {
+  const workLog = limitText(normalizeLongText(body.workLog), 4000);
+  if (!workLog) return invalidInput('Work log is required.');
+
+  const period = oneOf(body.period, REPORT_PERIOD_OPTIONS, 'weekly');
+  const role = oneOf(body.role, REPORT_ROLE_OPTIONS, 'general');
+  const style = oneOf(body.style, REPORT_STYLE_OPTIONS, 'concise');
+  const outputLanguage = languageName(body.language);
+  const periodLabel = outputLanguage === 'Simplified Chinese' ? REPORT_PERIOD_LABELS[period].zh : REPORT_PERIOD_LABELS[period].en;
+
+  return sectionConfig({
+    model,
+    outputLanguage,
+    markers: ['SUMMARY', 'ACHIEVEMENTS', 'DETAILS', 'ISSUES', 'NEXTWEEK'],
+    rateMs: 2 * 60 * 1000,
+    rateMessage: outputLanguage === 'Simplified Chinese' ? '请求过于频繁，请等待 2 分钟后再试。' : 'Too many requests, please wait 2 minutes.',
+    systemLines: [
+      `You are a workplace reporting assistant. Turn a rough work log into a structured, professional ${periodLabel}.`,
+      `Write from the perspective of a ${REPORT_ROLE_LABELS[role]} and use natural terminology for that role.`,
+      REPORT_STYLE_GUIDANCE[style],
+      'Organize messy or fragmented notes by project or theme. Use short bullet points that start with an action verb.',
+      'Only use facts from the work log. Never invent numbers, metrics, percentages, KPIs, dates, names, or outcomes the user did not provide. When no metric is available, describe the result qualitatively instead of fabricating data.',
+      'Put a one to two sentence executive overview in [SUMMARY].',
+      'Put quantified or high-impact results in [ACHIEVEMENTS]. If nothing stands out, summarize the most valuable work without exaggeration.',
+      'Put the organized task breakdown, grouped by project or theme, in [DETAILS].',
+      'Put blockers, risks, or things needing help in [ISSUES]. If the log shows none, give one short reasonable note instead of inventing problems.',
+      'Put the plan for the next period in [NEXTWEEK], inferred from unfinished items and natural follow-ups in the log.',
+      'Do not add a greeting, sign-off, or any meta commentary about being an AI.',
+    ],
+    brief: {
+      toolId: 'weekly-report-generator',
+      task: `Generate a structured ${periodLabel}`,
+      period,
+      role: REPORT_ROLE_LABELS[role],
+      style,
+      workLog,
+      outputLanguage,
+    },
+  });
+};
+
 export const buildAiRuntimeStreamConfig = (path: string, body: any, model: string): AiRuntimeBuildResult => {
   switch (path) {
     case 'listing-craft':
@@ -914,6 +980,8 @@ export const buildAiRuntimeStreamConfig = (path: string, body: any, model: strin
       return buildWorldCupMatchPredictorConfig(body, model);
     case 'ai-resume-optimizer':
       return buildResumeOptimizerConfig(body, model);
+    case 'weekly-report-generator':
+      return buildWeeklyReportConfig(body, model);
     default:
       return { handled: false };
   }

@@ -602,3 +602,93 @@ export const worldCupMatchPredictorConfig: AiRuntimeToolConfig = {
     teamB: values.teamB,
   }),
 };
+
+export const weeklyReportConfig: AiRuntimeToolConfig = {
+  toolId: 'weekly-report-generator',
+  endpoint: '/api/weekly-report-generator',
+  icon: 'sparkles',
+  title: { en: 'AI Weekly Report Generator', zh: 'AI 周报生成器' },
+  subtitle: {
+    en: 'Turn a rough work log into a structured weekly, daily, or monthly report.',
+    zh: '把流水账一键整理成结构清晰的周报、日报或月报。',
+  },
+  formTitle: { en: 'Work log', zh: '工作内容' },
+  generateLabel: { en: 'Generate report', zh: '生成周报' },
+  waitingLabel: { en: 'Your report will appear here.', zh: '生成后的周报会显示在这里。' },
+  loadingLabel: { en: 'Generating report...', zh: '正在生成周报...' },
+  fields: [
+    {
+      key: 'workLog',
+      type: 'textarea',
+      label: { en: 'What did you work on?', zh: '本周工作内容（流水账即可）' },
+      placeholder: {
+        en: 'Mon: fixed login bug; Tue-Wed: refactored payment module; Fri: shipped coupon feature; also reviewed a teammate code',
+        zh: '周一修了登录bug；周二三重构支付模块；周五上线优惠券；还帮新人看了代码',
+      },
+      required: true,
+    },
+    {
+      key: 'period',
+      type: 'select',
+      label: { en: 'Report type', zh: '汇报周期' },
+      defaultValue: 'weekly',
+      options: [
+        { value: 'weekly', label: { en: 'Weekly report', zh: '周报' } },
+        { value: 'daily', label: { en: 'Daily report', zh: '日报' } },
+        { value: 'monthly', label: { en: 'Monthly report', zh: '月报' } },
+      ],
+    },
+    {
+      key: 'role',
+      type: 'select',
+      label: { en: 'Your role', zh: '岗位角色' },
+      defaultValue: 'general',
+      options: [
+        { value: 'general', label: { en: 'General', zh: '通用职场' } },
+        { value: 'engineering', label: { en: 'Engineering', zh: '研发' } },
+        { value: 'product', label: { en: 'Product', zh: '产品' } },
+        { value: 'operations', label: { en: 'Operations', zh: '运营' } },
+        { value: 'sales', label: { en: 'Sales', zh: '销售' } },
+        { value: 'design', label: { en: 'Design', zh: '设计' } },
+        { value: 'marketing', label: { en: 'Marketing', zh: '市场' } },
+      ],
+    },
+    {
+      key: 'style',
+      type: 'select',
+      label: { en: 'Style', zh: '汇报风格' },
+      defaultValue: 'concise',
+      options: [
+        { value: 'concise', label: { en: 'Concise', zh: '简洁务实' } },
+        { value: 'detailed', label: { en: 'Detailed', zh: '详实全面' } },
+        { value: 'impact', label: { en: 'Highlight impact', zh: '突出成果' } },
+      ],
+    },
+    {
+      key: 'language',
+      type: 'language',
+      label: { en: 'Output language', zh: '输出语言' },
+      options: [
+        { value: 'Chinese', label: { en: 'Chinese', zh: '中文' } },
+        { value: 'English', label: { en: 'English', zh: '英文' } },
+      ],
+    },
+  ],
+  result: {
+    type: 'sections',
+    sections: [
+      { key: 'summary', marker: 'SUMMARY', label: { en: 'Overview', zh: '概述' }, markdown: true },
+      { key: 'achievements', marker: 'ACHIEVEMENTS', label: { en: 'Key results', zh: '核心成果' }, markdown: true },
+      { key: 'details', marker: 'DETAILS', label: { en: 'Work details', zh: '工作明细' }, markdown: true },
+      { key: 'issues', marker: 'ISSUES', label: { en: 'Issues & risks', zh: '问题与风险' }, markdown: true },
+      { key: 'next', marker: 'NEXTWEEK', label: { en: 'Next plan', zh: '下一步计划' }, markdown: true },
+    ],
+  },
+  buildPayload: (values) => ({
+    workLog: values.workLog,
+    period: values.period,
+    role: values.role,
+    style: values.style,
+    language: values.language,
+  }),
+};

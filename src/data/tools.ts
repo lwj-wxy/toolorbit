@@ -64,6 +64,7 @@ void [Gamepad2, Bomb];
 const iconMap: Record<string, ComponentType<any>> = {
   'ai-youtube-generator': Clapperboard,
   'worldcup-match-predictor': Trophy,
+  'weekly-report-generator': CalendarDays,
   'ai-prompt-generator': ImageIcon,
   'ai-video-script': Clapperboard,
   'ai-resume-optimizer': FileText,

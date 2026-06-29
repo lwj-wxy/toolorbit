@@ -6,6 +6,49 @@ type BilingualOverview = {
 };
 
 export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
+  'weekly-report-generator': {
+    zh: {
+      summary:
+        'AI 周报生成器用于把零散的工作流水账整理成结构清晰、可直接提交的周报、日报或月报。它不替你编造业绩数字，而是根据你填写的内容按项目和主题归类，提炼出概述、核心成果、工作明细、问题风险和下一步计划。适合需要定期汇报、又不想花时间组织语言的研发、产品、运营、销售和职场人，把碎片记录一键变成像样的汇报草稿，再按需要微调措辞后提交。',
+      input:
+        '核心输入是本周（或当日、当月）的工作内容，可以是潦草的流水账、要点或碎片记录，不需要提前组织好。再选择汇报周期（周报、日报、月报）、岗位角色（通用、研发、产品、运营、销售、设计、市场）和汇报风格（简洁务实、详实全面、突出成果）。岗位影响用词，风格决定语气——突出成果会以业务价值和结果为主，适合给领导看。输出语言可选中文或英文。',
+      output:
+        '结果按板块拆分，方便分段复制：概述（一两句话总结）、核心成果（量化或有影响力的产出）、工作明细（按项目或主题归类的要点）、问题与风险、下一步计划。每个板块都可单独复制到钉钉、飞书、邮件或文档里继续使用。',
+      processing:
+        '写周报最烦的往往不是工作本身，而是把一周做的事重新组织成条理清楚、还能体现价值的文字。把你做了什么按想到的顺序写下来，选好周期、岗位和风格，工具会按项目归类、用动词开头列要点，并提炼出值得让领导看到的成果。关键是：它只根据你写的内容整理，没有数据时用定性表述，绝不虚构百分比或 KPI，生成后你只需核对事实并微调措辞。',
+      modes: ['周报/日报/月报切换', '7 种岗位角色', '简洁/详实/突出成果三种风格', '流水账自动归类', '核心成果提炼', '不编造数据', '中英双语', '分段复制'],
+      example: {
+        title: '研发周报（突出成果风格）示例',
+        input: '周一修了登录bug；周二三重构支付模块；周四跟产品对需求；周五上线优惠券；还帮新人看了代码',
+        output:
+          '概述: 本周聚焦支付链路稳定性与营收功能交付，完成优惠券上线并推进支付重构，同时保障团队协作。\n\n核心成果:\n- 优惠券功能如期上线，打通发券链路，支撑后续促销\n- 修复登录鉴权缺陷，降低用户流失风险\n\n下一步计划:\n- 完成支付模块重构与自测\n- 跟进优惠券上线后的数据表现',
+        inputLanguage: 'text',
+        outputLanguage: 'text',
+      },
+      lastUpdated: '2026-06',
+    },
+    en: {
+      summary:
+        'The AI Weekly Report Generator turns a rough work log into a clear, ready-to-submit weekly, daily, or monthly report. It does not invent performance numbers. Instead it organizes what you wrote by project and theme, and draws out an overview, key results, work details, issues, and a next-step plan. It is built for engineers, product managers, operations, sales, and office workers who report regularly but do not want to spend time organizing the wording, turning fragmented notes into a presentable draft in one click.',
+      input:
+        'The core input is what you worked on this week (or day, or month), as a rough log, bullet points, or fragments that do not need to be organized in advance. Then pick the report type (weekly, daily, monthly), your role (general, engineering, product, operations, sales, design, marketing), and a style (concise, detailed, highlight impact). Role shapes the terminology; style sets the tone, where highlight impact leads with business value and outcomes for a manager-facing version. Output language can be Chinese or English.',
+      output:
+        'The result is split into copyable sections: Overview (a one to two sentence summary), Key results (quantified or high-impact work), Work details (bullets grouped by project or theme), Issues & risks, and Next plan. Each section can be copied on its own into Slack, email, or your docs.',
+      processing:
+        'The annoying part of a report is usually not the work, it is reorganizing a week of tasks into something clear that also shows value. Write down what you did in any order, pick the period, role, and style, and the tool groups items by project, writes action-first bullets, and surfaces results worth showing a manager. The key point: it only organizes what you wrote. When there is no metric it stays qualitative and never fabricates a percentage or KPI, so you only need to verify the facts and fine-tune the wording.',
+      modes: ['Weekly/daily/monthly switch', '7 role presets', 'Concise/detailed/impact styles', 'Auto-organizes rough logs', 'Surfaces key results', 'Never fabricates data', 'Bilingual (EN/ZH)', 'Per-section copy'],
+      example: {
+        title: 'Engineering weekly report (highlight-impact style)',
+        input: 'Mon: fixed login bug; Tue-Wed: refactored payment module; Thu: aligned requirements with PM; Fri: shipped coupon feature; also reviewed a new teammate code',
+        output:
+          'Overview: Focused on payment-path stability and revenue feature delivery, shipping the coupon feature and advancing the payment refactor while supporting the team.\n\nKey results:\n- Shipped the coupon feature on schedule, enabling the promo flow for upcoming campaigns\n- Fixed a login authentication defect, reducing user drop-off risk\n\nNext plan:\n- Finish the payment module refactor and self-testing\n- Track post-launch data for the coupon feature',
+        inputLanguage: 'text',
+        outputLanguage: 'text',
+      },
+      lastUpdated: '2026-06',
+    },
+  },
+
   'ai-hs-code-assistant': {
     zh: {
       summary:

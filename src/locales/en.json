@@ -360,6 +360,24 @@
       "highlight3Desc": "Transform hours of Googling into seconds of generating your specific solution.",
       "disclaimer": "Please double-check the generated formulas in your spreadsheet to ensure accuracy with your specific data structure."
     },
+    "weekly-report-generator": {
+      "name": "AI Weekly Report Generator",
+      "description": "Turn a rough work log into a structured weekly, daily, or monthly report - without inventing data.",
+      "seoTitle": "AI Weekly Report Generator - Notes to Weekly/Daily/Monthly Report",
+      "seoDesc": "Paste your rough work notes and get a structured weekly, daily, or monthly report. Pick your role and style, highlight impact, and never fabricate numbers.",
+      "title": "AI Weekly Report Generator",
+      "subtitle": "Turn a rough work log into a structured weekly, daily, or monthly report.",
+      "guideTitle": "How to turn a rough log into a solid report",
+      "guide1": "1. Jot down what you did this week in any order - fragments and rough notes are fine, the tool organizes them for you.",
+      "guide2": "2. Pick the report type (weekly, daily, monthly) and your role so the wording fits your work.",
+      "guide3": "3. Choose a style: pick Highlight impact for a manager-facing version that surfaces value and outcomes without inventing numbers.",
+      "guide4": "4. Copy each section into Slack, email, or your docs and fine-tune the wording as needed.",
+      "faq1Q": "Will it make up data for me?",
+      "faq1A": "No. It only organizes what you provide. When no metric is available it describes results qualitatively instead of fabricating percentages, KPIs, or numbers. Always verify any figures yourself.",
+      "faq2Q": "Can it generate weekly, daily, and monthly reports?",
+      "faq2A": "Yes. Switch the report type and the same work log is restructured into a weekly, daily, or monthly format.",
+      "disclaimer": "The output is a draft aid. Verify facts, numbers, and sensitive details before you submit it."
+    },
     "ai-regex": {
       "name": "AI Regex Generator",
       "description": "Create regex patterns from matching requirements, with examples and explanations.",
