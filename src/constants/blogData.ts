@@ -244,6 +244,11 @@ const posts: BlogPost[] = [
     category: 'Security',
   },
   {
+    slug: 'how-much-does-etsy-take-per-sale',
+    date: '2026-06-29',
+    category: 'Business',
+  },
+  {
     slug: 'etsy-fee-complete-guide',
     date: '2026-05-20',
     category: 'Business',

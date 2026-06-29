@@ -120,9 +120,12 @@ const nextConfig: NextConfig = {
           permanent: true,
         },
       ]),
+      // ja-JP / zh-Hant 已下线：剥离语言前缀、跳到对应英文页（保住主题相关性），
+      // 不要全跳首页——Google 视为 soft 404、丢弃旧页权重。
+      // 例：/ja-JP/tools/etsy/fee-calculator → /tools/etsy/fee-calculator → /tools/ecommerce/etsy-fee-calculator
       {
         source: '/:locale(ja-JP|zh-Hant)/:path*',
-        destination: '/',
+        destination: '/:path*',
         permanent: true,
       },
       {

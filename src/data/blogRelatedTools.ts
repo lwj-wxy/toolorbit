@@ -1,4 +1,9 @@
 export const BLOG_RELATED_TOOLS: Record<string, string[]> = {
+  "how-much-does-etsy-take-per-sale": [
+    "/tools/ecommerce/etsy-fee-calculator",
+    "/tools/ecommerce/etsy-pricing-calculator",
+    "/tools/ecommerce/etsy-offsite-ads-calculator",
+  ],
   "ai-coding-code-verification": [
     "/tools/dev/text-diff",
     "/tools/dev/json-formatter",
