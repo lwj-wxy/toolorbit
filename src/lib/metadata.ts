@@ -19,7 +19,7 @@ const DESCRIPTION_MAX_LENGTH = 160;
 
 const STATIC_PAGE_DESCRIPTIONS: Record<'about' | 'privacy' | 'terms' | 'featured-tools', string> = {
   about:
-    'Learn how ToolOrbit builds fast, privacy-conscious online tools with local-first processing, practical review, and clear content standards.',
+    'Learn how ToolOrbit builds fast, privacy-conscious online tools with local-first processing, clear limits, and direct feedback paths.',
   privacy:
     'Read ToolOrbit privacy practices, including local-first browser processing, analytics, advertising, and contact information handling.',
   terms:
@@ -30,7 +30,7 @@ const STATIC_PAGE_DESCRIPTIONS: Record<'about' | 'privacy' | 'terms' | 'featured
 
 const STATIC_PAGE_DESCRIPTIONS_ZH: Record<'about' | 'privacy' | 'terms' | 'featured-tools', string> = {
   about:
-    '了解 ToolOrbit 如何通过本地优先处理、实用复核和清晰内容标准，构建快速且注重隐私的在线工具。',
+    '了解 ToolOrbit 如何通过本地优先处理、清晰限制和直接反馈入口，构建快速且注重隐私的在线工具。',
   privacy:
     '阅读 ToolOrbit 隐私实践，了解本地优先的浏览器处理、分析、广告以及联系信息处理方式。',
   terms:
@@ -238,11 +238,11 @@ export function pageMetadata(title?: string, description?: string, path = '/', l
 export function homeMetadata(locale: Locale = 'en'): Metadata {
   return pageMetadata(
     locale === 'zh-CN'
-      ? 'ToolOrbit 免费在线工具'
-      : 'ToolOrbit - Free Online Tools for Developers and Creators',
+      ? 'ToolOrbit AI 工具、浏览器工具与电商计算器'
+      : 'ToolOrbit - AI Tools, Browser Utilities, and Ecommerce Calculators',
     locale === 'zh-CN'
-      ? 'ToolOrbit 提供免费的浏览器在线工具，覆盖开发者、PDF、图片、电商和 AI 工作流。快速打开即用，常见任务优先在本地处理。'
-      : 'Free browser-based tools for developers, creators, PDF, image, ecommerce, and AI workflows. Fast online utilities with privacy-friendly local processing.',
+      ? 'ToolOrbit 提供 AI 辅助工具、本地浏览器工具和电商计算器，用于内容、开发调试、PDF、图片处理和费用估算。'
+      : 'AI-assisted tools, local browser utilities, and ecommerce calculators for content work, developer checks, PDF, image preparation, and fee estimates.',
     '/',
     locale,
   );
@@ -282,10 +282,10 @@ export function allToolsMetadata(locale: Locale = 'en'): Metadata {
   const visibleToolCount = TOOLS.filter((tool) => !tool.isNoIndex && tool.category !== 'AI 工具').length;
 
   return pageMetadata(
-    locale === 'zh-CN' ? '其它免费在线工具' : 'Other Free Online Tools',
+    locale === 'zh-CN' ? 'ToolOrbit 其它浏览器工具' : 'Other ToolOrbit Browser Tools',
     locale === 'zh-CN'
-      ? `浏览 ToolOrbit 的 ${visibleToolCount} 个其它免费在线工具，覆盖开发者、PDF、图片、电商、文本、生成器和计算转换工作流。`
-      : `Browse ${visibleToolCount} other free ToolOrbit online tools for developer, PDF, image, ecommerce, text, generator, and conversion workflows.`,
+      ? `浏览 ToolOrbit 的 ${visibleToolCount} 个非 AI 工具，覆盖开发调试、PDF、图片、电商费用、文本处理和计算转换。`
+      : `Browse ${visibleToolCount} non-AI ToolOrbit tools for developer checks, PDF, image, ecommerce fees, text handling, and conversions.`,
     '/tools',
     locale,
   );
@@ -364,7 +364,7 @@ export function categoryMetadata(category: Category, locale: Locale = 'en'): Met
     locale,
   );
 
-  return metadata;
+  return toolCount === 0 ? withNoIndex(metadata) : metadata;
 }
 
 export function seoContentMetadata(path: string, locale: Locale = 'en'): Metadata {

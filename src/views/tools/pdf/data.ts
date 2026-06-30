@@ -15,7 +15,7 @@ export const PDF_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         '一个按指定顺序合并后的新 PDF 文件，页面顺序与文件列表中各文件的排列顺序完全一致。侧边栏实时统计当前已添加的文件总数和累计总页数，方便在合并前确认数据完整。生成完成后通过浏览器触发下载，文件名格式为 merged_时间戳.pdf，可直接保存用于后续分发、打印或归档。',
       processing:
-        '工具会按当前文件列表顺序读取每份 PDF 的页面，并把页面依次写入新的合并文档。上传时会检查文件类型，只接受 PDF；如果文件加密、损坏或结构异常，页面会给出明确提示。合并结果生成后直接下载，处理过程不需要上传文件。',
+        '工具会按当前文件列表顺序读取每份 PDF 的页面，并把页面依次写入新的合并文档。上传时会检查文件类型，只接受 PDF；如果文件加密、损坏或结构异常，页面会给出明确提示。合并结果生成后直接下载，处理过程不需要上传文件。正式提交前请打开合并后的文件检查页序和附件是否完整。',
       modes: ['多 PDF 上传', '拖拽 / 点击添加', '文件顺序上移 / 下移', '页数实时统计', '本地合并下载', '加密 PDF 支持（忽略密码）'],
       example: {
         title: 'PDF 合并示例',
@@ -24,6 +24,7 @@ export const PDF_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
         inputLanguage: 'text',
         outputLanguage: 'text',
       },
+      lastUpdated: '2026-06',
     },
     en: {
       summary:
@@ -33,7 +34,7 @@ export const PDF_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         'A new merged PDF file with page order matching the file list sequence exactly. A sidebar panel shows the current file count and cumulative total page count in real time, allowing you to verify completeness before merging. Once processing is complete, the browser triggers a download with a filename in the format merged_timestamp.pdf, ready for distribution, printing, or archiving.',
       processing:
-        'The tool reads the pages from each PDF in the current file-list order and writes them into a new merged document. Upload validation only accepts PDF files, and encrypted, damaged, or malformed files show clear errors. The merged file is downloaded after generation, with no file upload required.',
+        'The tool reads the pages from each PDF in the current file-list order and writes them into a new merged document. Upload validation only accepts PDF files, and encrypted, damaged, or malformed files show clear errors. The merged file is downloaded after generation, with no file upload required. Open the finished file before submitting it to confirm page order and attachment completeness.',
       modes: ['Multiple PDF upload', 'Drag-and-drop / click add', 'File reorder up/down', 'Real-time page count', 'Local merge download', 'Encrypted PDF support (ignore password)'],
       example: {
         title: 'PDF merge example',
@@ -42,6 +43,7 @@ export const PDF_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
         inputLanguage: 'text',
         outputLanguage: 'text',
       },
+      lastUpdated: '2026-06',
     },
   },
 

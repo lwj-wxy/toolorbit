@@ -14,6 +14,7 @@ const CATEGORY_PATHS = [
   '/category/pdf-tools',
   '/category/image-tools',
   '/category/conversion-tools',
+  '/category/utility-tools',
 ];
 const SEO_CONTENT_PATHS = [
   '/developer-tools',
@@ -113,6 +114,7 @@ function readTools() {
   const { TOOLS_META } = require(path.join(process.cwd(), 'src/data/tools-meta.ts'));
   return TOOLS_META.map((tool) => ({
     path: tool.path,
+    category: tool.category,
     isPopular: Boolean(tool.isPopular),
     isNoIndex: Boolean(tool.isNoIndex),
   })).filter((tool) => !tool.isNoIndex);
@@ -149,6 +151,8 @@ ${hreflangXml(localPath)}
 const generatedAt = today();
 const tools = readTools();
 const blogPosts = readBlogPosts();
+const { getCategoryPath } = require(path.join(process.cwd(), 'src/lib/category-paths.ts'));
+const visibleCategoryPaths = new Set(tools.map((tool) => getCategoryPath(tool.category)));
 
 // Sort blog posts by date (newest first) for pagination date calculation
 const sortedBlogPosts = [...blogPosts].sort((a, b) => (b.date || '').localeCompare(a.date || ''));
@@ -208,7 +212,7 @@ const baseUrls = [
     changefreq: 'weekly',
     priority: '0.6',
   })),
-  ...CATEGORY_PATHS.map((cp) => ({
+  ...CATEGORY_PATHS.filter((cp) => visibleCategoryPaths.has(cp)).map((cp) => ({
     localPath: cp,
     lastmod: categoryLastmod[cp] || generatedAt,
     changefreq: 'weekly',

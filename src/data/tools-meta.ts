@@ -38,6 +38,7 @@ const RAW_TOOLS_META = [
     path: '/tools/ai/worldcup-match-predictor',
     color: 'cyan',
     isPopular: true,
+    isNoIndex: true,
   },
   {
     id: 'weekly-report-generator',
@@ -207,6 +208,7 @@ const RAW_TOOLS_META = [
     category: '开发者工具',
     path: '/tools/dev/base64',
     color: 'amber',
+    isNoIndex: true,
   },
   {
     id: 'ascii-table',
@@ -239,6 +241,7 @@ const RAW_TOOLS_META = [
     category: '生成器',
     path: '/tools/dev/uuid-generator',
     color: 'orange',
+    isNoIndex: true,
   },
   {
     id: 'unicode-converter',
@@ -264,6 +267,7 @@ const RAW_TOOLS_META = [
     category: '文本排版',
     path: '/tools/text/text-cleaner',
     color: 'indigo',
+    isNoIndex: true,
   },
   {
     id: 'symbol-library',
@@ -272,6 +276,7 @@ const RAW_TOOLS_META = [
     category: '文本排版',
     path: '/tools/text/symbol-library',
     color: 'indigo',
+    isNoIndex: true,
   },
   {
     id: 'qr-generator',
@@ -280,6 +285,7 @@ const RAW_TOOLS_META = [
     category: '生成器',
     path: '/tools/generator/qr-generator',
     color: 'orange',
+    isNoIndex: true,
   },
   {
     id: 'qr-scanner',
@@ -288,6 +294,7 @@ const RAW_TOOLS_META = [
     category: '生成器',
     path: '/tools/generator/qr-scanner',
     color: 'orange',
+    isNoIndex: true,
   },
   {
     id: 'barcode-generator',
@@ -296,6 +303,7 @@ const RAW_TOOLS_META = [
     category: '生成器',
     path: '/tools/generator/barcode-generator',
     color: 'orange',
+    isNoIndex: true,
   },
   {
     id: 'etsy-fee-calculator',
@@ -452,6 +460,7 @@ const RAW_TOOLS_META = [
     category: '图片处理',
     path: '/tools/image/image-to-base64',
     color: 'fuchsia',
+    isNoIndex: true,
   },
   {
     id: 'image-cropper',
@@ -468,6 +477,7 @@ const RAW_TOOLS_META = [
     category: '图片处理',
     path: '/tools/image/anime-screenshot-source',
     color: 'fuchsia',
+    isNoIndex: true,
   },
   {
     id: 'timestamp-converter',
@@ -540,6 +550,7 @@ const RAW_TOOLS_META = [
     category: '计算转换',
     path: '/tools/calculate/archive-converter',
     color: 'amber',
+    isNoIndex: true,
   },
   {
     id: 'rmb-converter',
@@ -556,6 +567,7 @@ const RAW_TOOLS_META = [
     category: '计算转换',
     path: '/tools/calculate/ppi-calculator',
     color: 'amber',
+    isNoIndex: true,
   },
   {
     id: 'bmi-calculator',
@@ -564,6 +576,7 @@ const RAW_TOOLS_META = [
     category: '实用工具',
     path: '/tools/utility/bmi-calculator',
     color: 'teal',
+    isNoIndex: true,
   },
   {
     id: 'age-calculator',
@@ -572,6 +585,7 @@ const RAW_TOOLS_META = [
     category: '实用工具',
     path: '/tools/utility/age-calculator',
     color: 'teal',
+    isNoIndex: true,
   },
   {
     id: 'world-timezone-compare',
@@ -588,6 +602,7 @@ const RAW_TOOLS_META = [
     category: '实用工具',
     path: '/tools/utility/mbti-personality-test',
     color: 'teal',
+    isNoIndex: true,
   },
   {
     id: "color-converter",
@@ -603,7 +618,8 @@ const RAW_TOOLS_META = [
     description: "根据主色生成同色系 Tints 与 Shades，供界面配色参考。",
     category: "计算转换",
     path: "/tools/dev/color-palette",
-    color: "amber"
+    color: "amber",
+    isNoIndex: true
   },
   {
     id: "color-picker",
@@ -611,7 +627,8 @@ const RAW_TOOLS_META = [
     description: "调用浏览器原生 EyeDropper 接口全屏取色。",
     category: "计算转换",
     path: "/tools/dev/color-picker",
-    color: "amber"
+    color: "amber",
+    isNoIndex: true
   },
   {
     id: "image-to-ico",
@@ -627,7 +644,8 @@ const RAW_TOOLS_META = [
     description: "将长链接转换为短链接，便于分享和社交媒体发布。",
     category: "站长工具",
     path: "/tools/net/short-url",
-    color: "blue"
+    color: "blue",
+    isNoIndex: true
   },
   {
     id: "password-generator",

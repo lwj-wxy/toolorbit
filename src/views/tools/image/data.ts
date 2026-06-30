@@ -173,7 +173,7 @@ export const IMAGE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         '压缩后的图片预览和可下载文件。页面会同时展示原图大小与压缩后文件大小，并计算节省比例，用户可在确认质量后下载新图片。导出文件名会在原文件名后追加 -compressed，并根据目标格式使用对应扩展名（jpg、png 或 webp）。如果选择 PNG，文件体积不一定比原图更小；如果选择 JPG，透明区域可能变为不透明背景。',
       processing:
-        '工具会按选择的质量和目标格式重新生成图片，并展示压缩前后的大小变化。质量越低通常体积越小，但细节、文字边缘和渐变区域可能更容易出现压缩痕迹。处理与下载都在本地完成，图片不会上传。',
+        '工具会按选择的质量和目标格式重新生成图片，并展示压缩前后的大小变化。质量越低通常体积越小，但细节、文字边缘和渐变区域可能更容易出现压缩痕迹。JPG 不保留透明通道，PNG 不一定比原图更小。处理与下载都在本地完成，图片不会上传。',
       modes: ['图片上传', '质量滑杆', 'JPG / PNG / WebP 导出', '原图与压缩图对比', '节省比例统计', '本地下载'],
       example: {
         title: '图片压缩示例',
@@ -182,6 +182,7 @@ export const IMAGE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
         inputLanguage: 'text',
         outputLanguage: 'text',
       },
+      lastUpdated: '2026-06',
     },
     en: {
       summary:
@@ -191,7 +192,7 @@ export const IMAGE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         'A compressed image preview and a downloadable file. The page displays both the original size and compressed size, then calculates the saved percentage. After checking the visual result, you can download the new image. The exported filename appends -compressed to the original base name and uses the selected extension: jpg, png, or webp. PNG output may not always be smaller; JPG output may turn transparent regions into an opaque background.',
       processing:
-        'The tool regenerates the image using the selected quality and target format, then shows the before-and-after file size. Lower quality usually means a smaller file, but details, text edges, and gradients may show more compression artifacts. Processing and download stay local, and the image is not uploaded.',
+        'The tool regenerates the image using the selected quality and target format, then shows the before-and-after file size. Lower quality usually means a smaller file, but details, text edges, and gradients may show more compression artifacts. JPG does not preserve transparency, and PNG output may not be smaller than the source. Processing and download stay local, and the image is not uploaded.',
       modes: ['Image upload', 'Quality slider', 'JPG / PNG / WebP export', 'Original vs compressed comparison', 'Savings percentage', 'Local download'],
       example: {
         title: 'Image compression example',
@@ -200,6 +201,7 @@ export const IMAGE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
         inputLanguage: 'text',
         outputLanguage: 'text',
       },
+      lastUpdated: '2026-06',
     },
   },
 

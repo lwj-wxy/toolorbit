@@ -38,7 +38,7 @@ export default function About() {
       title: t('about.trust.maintenance.title', { defaultValue: 'Maintained content' }),
       description: t('about.trust.maintenance.description', {
         defaultValue:
-          'We keep core tools, metadata, structured data, and documentation aligned so users and crawlers can understand what each page is for.',
+          'We keep core tools, metadata, structured data, and documentation aligned so users can tell what each page is for before using it.',
       }),
     },
   ];
@@ -68,7 +68,7 @@ export default function About() {
   const updateItems = [
     t('about.updates.item1', {
       defaultValue:
-        'May 18, 2026: Expanded About, Privacy, pillar pages, tool guides, FAQs, and structured data for AdSense remediation.',
+        'June 30, 2026: Updated core tool paths, tool copy, and trust pages with clearer examples, limits, and feedback routes.',
     }),
     t('about.updates.item2', {
       defaultValue:

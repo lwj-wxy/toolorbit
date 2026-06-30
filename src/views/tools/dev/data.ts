@@ -15,7 +15,7 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         '按选定缩进（2 空格或 4 空格）重新格式化的 JSON 文本，键名与值按层级对齐，数组元素独立成行。当输入存在语法错误时，工具不会静默改写内容，而是输出包含行号与错误类型的解析提示（如 "Unexpected token } at position 42"），方便逐一定位修复。',
       processing:
-        '工具会先严格校验 JSON 语法，并在发现错误时显示可读提示；校验通过后，再按用户选择的缩进空格数重新排版或压缩。整个校验与格式化过程在本地完成，输入内容不会离开用户设备。',
+        '工具会先校验 JSON 语法，并在发现错误时显示可读提示；校验通过后，再按用户选择的缩进空格数重新排版或压缩。整个校验与格式化过程在本地完成，输入内容不会离开用户设备。它不会判断字段含义，也不会修复业务数据，只负责让结构可读、可复制、可排错。',
       modes: ['2 空格缩进', '4 空格缩进', '实时校验', '语法错误定位', '一键复制输出'],
       example: {
         title: 'JSON 格式化输入到输出示例',
@@ -25,6 +25,7 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
         inputLanguage: 'json',
         outputLanguage: 'json',
       },
+      lastUpdated: '2026-06',
     },
     en: {
       summary:
@@ -34,7 +35,7 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         'Reformatted JSON text using the selected indentation (2-space or 4-space), with keys and values aligned by nesting level and array elements on separate lines. When the input contains a syntax error, the tool does not silently rewrite the content; instead it displays a parse error with the line number and error type (e.g. "Unexpected token } at position 42"), so you can locate and fix each issue.',
       processing:
-        'The tool strictly validates JSON syntax and shows readable errors when the input is invalid. Once validated, it reformats or compresses the JSON using the selected indentation setting. Validation and formatting run locally, and input content never leaves the device.',
+        'The tool validates JSON syntax and shows readable errors when the input is invalid. Once validated, it reformats or compresses the JSON using the selected indentation setting. Validation and formatting run locally, and input content never leaves the device. It does not interpret field meaning or fix business data; it makes the structure readable, copyable, and easier to debug.',
       modes: ['2-space indent', '4-space indent', 'Real-time validation', 'Syntax error location', 'One-click copy output'],
       example: {
         title: 'JSON Formatter input-to-output example',
@@ -44,6 +45,7 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
         inputLanguage: 'json',
         outputLanguage: 'json',
       },
+      lastUpdated: '2026-06',
     },
   },
 
@@ -99,7 +101,7 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         '差异对比结果以颜色标记展示：绿色背景标识新增内容，红色背景加删除线标识移除内容，无背景色部分表示未变更内容。逐词模式会精确到单词级变化，适合文案校对；逐行模式按整行标记差异，适合代码和配置文件比较。',
       processing:
-        '工具会按所选模式比较两段文本。逐词模式适合校对措辞变化；逐行模式适合检查代码、配置和结构化文本的整体差异。输入内容保留在本地，不会上传。',
+        '工具会按所选模式比较两段文本。逐词模式适合校对措辞变化；逐行模式适合检查代码、配置和结构化文本的整体差异。输入内容保留在本地，不会上传。它只标出文本差异，不判断哪一版正确。',
       modes: ['逐词对比', '逐行对比', '新增高亮（绿）', '删除高亮（红）', '本地离线处理'],
       example: {
         title: '代码文本对比示例',
@@ -110,6 +112,7 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
         inputLanguage: 'javascript',
         outputLanguage: 'text',
       },
+      lastUpdated: '2026-06',
     },
     en: {
       summary:
@@ -119,7 +122,7 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         'Diff results are displayed with color-coded highlighting: green background marks additions, red background with strikethrough marks removals, and uncolored sections represent unchanged content. Word-level mode captures changes at word granularity, suitable for copy editing. Line-level mode marks differences by entire lines, suitable for comparing code and configuration files.',
       processing:
-        'The tool compares two text blocks using the selected mode. Word-level mode is best for wording changes, while line-level mode is better for code, configuration, and structured text. Input content stays local and is not uploaded.',
+        'The tool compares two text blocks using the selected mode. Word-level mode is best for wording changes, while line-level mode is better for code, configuration, and structured text. Input content stays local and is not uploaded. It only marks differences; it does not decide which version is correct.',
       modes: ['Word-level diff', 'Line-level diff', 'Addition highlight (green)', 'Deletion highlight (red)', 'Local offline processing'],
       example: {
         title: 'Code text diff example',
@@ -130,6 +133,7 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
         inputLanguage: 'javascript',
         outputLanguage: 'text',
       },
+      lastUpdated: '2026-06',
     },
   },
 
@@ -343,7 +347,7 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         'Header 段解析为 JSON 对象（通常包含 alg 签名算法和 typ 令牌类型），Payload 段解析为 JSON 对象（包含自定义业务字段和标准声明）。同时展示 iss（签发者）、sub（主题）、exp（过期时间本地化显示）、iat（签发时间本地化显示）等关键声明的结构化视图。若 token 格式不合法或 Base64URL 解码失败，输出明确错误提示。',
       processing:
-        '工具会按 JWT 的三段结构读取 Header、Payload 和 Signature，并把前两段还原为可读 JSON。注意：本工具只用于查看 Header 和 Payload 内容，不验证 Signature，也不能替代服务端验签。',
+        '工具会按 JWT 的三段结构读取 Header、Payload 和 Signature，并把前两段还原为可读 JSON。输入内容保留在本地。注意：本工具只用于查看 Header 和 Payload 内容，不验证 Signature，也不能替代服务端验签；不要把生产密钥、会话令牌或可登录账号的真实 token 发给他人。',
       modes: ['Header 解析', 'Payload 解析', '标准声明提取', '过期时间本地化', 'Token 格式校验', '本地解码'],
       example: {
         title: 'JWT 输入到解码输出示例',
@@ -354,6 +358,7 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
         inputLanguage: 'text',
         outputLanguage: 'json',
       },
+      lastUpdated: '2026-06',
     },
     en: {
       summary:
@@ -363,7 +368,7 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         'The Header segment is parsed into a JSON object (typically containing the alg signing algorithm and typ token type). The Payload segment is parsed into a JSON object (containing custom business fields and standard claims). A structured view of key claims is also displayed, including iss (issuer), sub (subject), exp (expiration time, shown as localized date), and iat (issued-at time, shown as localized date). If the token format is invalid or Base64URL decoding fails, a clear error message is shown.',
       processing:
-        'The tool reads the JWT as Header, Payload, and Signature, then restores the first two segments into readable JSON. Note: it only displays Header and Payload for inspection. It does not verify the Signature and cannot replace server-side token verification.',
+        'The tool reads the JWT as Header, Payload, and Signature, then restores the first two segments into readable JSON. Input stays local. Note: it only displays Header and Payload for inspection. It does not verify the Signature and cannot replace server-side token verification. Do not share production secrets, session tokens, or live account tokens with other people.',
       modes: ['Header parsing', 'Payload parsing', 'Standard claims extraction', 'Expiration time localization', 'Token format validation', 'Local decoding'],
       example: {
         title: 'JWT decode input-to-output example',
@@ -374,6 +379,7 @@ export const DEV_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
         inputLanguage: 'text',
         outputLanguage: 'json',
       },
+      lastUpdated: '2026-06',
     },
   },
 

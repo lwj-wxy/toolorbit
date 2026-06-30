@@ -25,18 +25,19 @@ function toolDescription(tool: (typeof TOOLS)[number]) {
 
 function toolsByCategory() {
   return CATEGORY_ORDER.map((category) => {
-    const tools = TOOLS.filter((tool) => tool.category === category);
+    const tools = TOOLS.filter((tool) => tool.category === category && !tool.isNoIndex);
+    if (tools.length === 0) return '';
     const lines = tools
       .map((tool) => `- [${toolName(tool)}](${SITE_URL}${tool.path}): ${toolDescription(tool)}`)
       .join('\n');
 
     return `## ${categoryName(category)}\n\n${lines}`;
-  }).join('\n\n');
+  }).filter(Boolean).join('\n\n');
 }
 
 export const LLMS_TXT = `# ToolOrbit
 
-ToolOrbit is a browser-first collection of free online tools for developers, creators, ecommerce operators, PDF workflows, image processing, text utilities, and practical AI-assisted work.
+ToolOrbit is a browser-first collection of AI-assisted tools, browser utilities, and ecommerce calculators for content, file, developer, image, and marketplace tasks.
 
 ## Site
 
@@ -51,35 +52,53 @@ ToolOrbit is a browser-first collection of free online tools for developers, cre
 
 ## Core Tool Areas
 
-- Developer tools: JSON formatter, XML to JSON converter, text diff, Base64 encoder/decoder, URL encoder, hash generator, UUID generator, JWT debugger, regex tester, JSON to TypeScript converter, symmetric crypto tools, ASCII table, Unicode converter, timestamp converter, color converters.
-- AI tools: YouTube title and description generator, AI prompt generator, AI resume generator, video script generator, Excel formula assistant, AI regex generator, logo generator, image generator, SVG generator, Xiaohongshu copywriter, text polisher, translator, 2026 World Cup match predictor (enter two teams to get a pre-match win-draw-loss lean, likely scorelines, and upset risk; pre-match analysis only, not betting advice).
+- Developer tools: JSON formatter, XML to JSON converter, text diff, URL encoder, hash generator, JWT debugger, regex tester, JSON to TypeScript converter, symmetric crypto tools, ASCII table, Unicode converter, timestamp converter, and color converters.
+- AI tools: content drafting, image prompt and image generation, translation, text polishing, spreadsheet formulas, regex generation, ecommerce listing research, HS code assistance, product asset checks, and cross-border product image generation. These tools may call model APIs and require human review.
 - PDF tools: PDF merge, PDF split, PDF to image, image to PDF.
-- Image tools: image compressor, image converter, SVG to PNG, image to Base64, image cropper, image to ICO.
-- Ecommerce tools: Etsy fee calculator, Stripe fee calculator, PayPal fee calculator, Stripe vs PayPal fee comparison, listing generator, keyword analyzer, competitor tracker, market insights.
-- Utility tools: QR generator, QR scanner, barcode generator, unit converter, time converter, archive converter, RMB uppercase converter, PPI calculator, BMI calculator, age calculator, password generator, short URL converter.
+- Image tools: image compressor, image converter, SVG to PNG, image cropper, and image to ICO.
+- Ecommerce tools: Etsy fee calculator, Etsy pricing calculator, Etsy Offsite Ads calculator, Etsy regulatory fee calculator, Stripe fee calculator, PayPal fee calculator, Stripe vs PayPal fee comparison, VAT calculators, and GST calculator.
+- Utility tools: unit converter, time converter, RMB uppercase converter, password generator, text analyzer, and timezone comparison.
 
-## Indexable Entry Points
+## Main Entry Points
 
 - https://toolorbit.site/tools/dev/json-formatter
 - https://toolorbit.site/tools/dev/xml-to-json
 - https://toolorbit.site/tools/dev/text-diff
-- https://toolorbit.site/tools/dev/base64
 - https://toolorbit.site/tools/dev/regex-tester
 - https://toolorbit.site/tools/dev/jwt-debugger
+- https://toolorbit.site/tools/dev/hash-generator
+- https://toolorbit.site/tools/ai/youtube-generator
+- https://toolorbit.site/tools/ai/weekly-report-generator
+- https://toolorbit.site/tools/ai/prompt-generator
+- https://toolorbit.site/tools/ai/video-script
+- https://toolorbit.site/tools/ai/resume-optimizer
+- https://toolorbit.site/tools/ai/excel-formula
+- https://toolorbit.site/tools/ai/regex
+- https://toolorbit.site/tools/ai/logo-generator
+- https://toolorbit.site/tools/ai/image-generator
+- https://toolorbit.site/tools/ai/svg-generator
+- https://toolorbit.site/tools/ai/xiaohongshu
+- https://toolorbit.site/tools/ai/text-polisher
+- https://toolorbit.site/tools/ai/translator
+- https://toolorbit.site/tools/ai/listing-generator
+- https://toolorbit.site/tools/ai/keyword-analyzer
+- https://toolorbit.site/tools/ai/competitor-tracker
+- https://toolorbit.site/tools/ai/market-insights
 - https://toolorbit.site/tools/pdf/pdf-merge
 - https://toolorbit.site/tools/pdf/pdf-split
 - https://toolorbit.site/tools/pdf/pdf-to-image
 - https://toolorbit.site/tools/image/image-compressor
 - https://toolorbit.site/tools/image/image-converter
 - https://toolorbit.site/tools/image/svg-to-png
-- https://toolorbit.site/tools/ai/text-polisher
-- https://toolorbit.site/tools/ai/translator
-- https://toolorbit.site/tools/ai/excel-formula
-- https://toolorbit.site/tools/ai/resume-optimizer
-- https://toolorbit.site/tools/ai/worldcup-match-predictor
+- https://toolorbit.site/tools/ecommerce/etsy-fee-calculator
+- https://toolorbit.site/tools/ecommerce/etsy-pricing-calculator
+- https://toolorbit.site/tools/ecommerce/etsy-offsite-ads-calculator
 - https://toolorbit.site/tools/ecommerce/stripe-fee-calculator
 - https://toolorbit.site/tools/ecommerce/paypal-fee-calculator
 - https://toolorbit.site/tools/ecommerce/stripe-vs-paypal-fee-calculator
+- https://toolorbit.site/tools/ai/hs-code-assistant
+- https://toolorbit.site/tools/ai/product-asset-checker
+- https://toolorbit.site/tools/ai/product-image-generator
 
 ## Content Notes
 
@@ -90,7 +109,7 @@ ToolOrbit guides are maintained by the ToolOrbit Editorial Team and are written 
 
 export const LLMS_FULL_TXT = `# ToolOrbit Full Tool Inventory
 
-ToolOrbit is a browser-first collection of free online tools. This expanded file lists every major indexable tool page, grouped by category, for LLM discovery, answer citation, and site understanding.
+ToolOrbit is a browser-first collection of free online tools. This expanded file lists major public tool pages, grouped by category, for tool discovery and site understanding.
 
 ## Site Metadata
 

@@ -15,7 +15,7 @@ export const ECOMMERCE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         '输出按收入、成本、平台费用和利润分组展示。收入部分显示商品销售额、折扣、买家支付运费和最终计费收入；成本部分汇总商品成本、运费成本与额外成本；费用部分逐项列出 Etsy 刊登费、交易费、支付处理费和可选 Offsite Ads 费用；底部展示净利润、利润率、费用率、ROI 和盈亏平衡价。正利润和负利润使用不同颜色提示，便于卖家快速识别是否需要调价。',
       processing:
-        '所有计算在浏览器端同步执行。核心逻辑：商品销售额 = 商品单价 × 数量；折后商品收入 = max(商品销售额 - 折扣, 0)；订单总收入 = 折后商品收入 + 买家支付运费；直接成本 = 商品单位成本 × 数量 + 实际运费成本 + 额外成本；Etsy 基础费用 = $0.20 刊登费 + 订单总收入 × 6.5% 交易费 + 订单总收入 × 3% + $0.25 支付处理费；Offsite Ads 费用 = 订单总收入 × 所选广告费率；净利润 = 订单总收入 - 直接成本 - 基础费用 - Offsite Ads 费用；利润率 = 净利润 / 订单总收入 × 100%。结果用于定价和运营估算，实际账单仍以 Etsy 后台为准。',
+        '所有计算在浏览器端同步执行。核心逻辑：商品销售额 = 商品单价 × 数量；折后商品收入 = max(商品销售额 - 折扣, 0)；订单总收入 = 折后商品收入 + 买家支付运费；直接成本 = 商品单位成本 × 数量 + 实际运费成本 + 额外成本；Etsy 基础费用 = $0.20 刊登费 + 订单总收入 × 6.5% 交易费 + 订单总收入 × 3% + $0.25 支付处理费；Offsite Ads 费用 = 订单总收入 × 所选广告费率；净利润 = 订单总收入 - 直接成本 - 基础费用 - Offsite Ads 费用；利润率 = 净利润 / 订单总收入 × 100%。费率按 Etsy 公开卖家费用说明复核，最近复核时间为 2026-06；实际账单仍以 Etsy 后台为准。',
       modes: ['商品单价与数量', '买家支付运费', '订单折扣', '商品 / 运费 / 额外成本', 'Etsy 基础费用拆分', 'Offsite Ads 0% / 12% / 15%', '净利润 / 利润率 / ROI', '盈亏平衡价', '本地实时计算'],
       example: {
         title: 'Etsy 利润计算示例',
@@ -24,6 +24,7 @@ export const ECOMMERCE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
         inputLanguage: 'text',
         outputLanguage: 'text',
       },
+      lastUpdated: '2026-06',
     },
     en: {
       summary:
@@ -33,7 +34,7 @@ export const ECOMMERCE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         'The output is grouped into revenue, costs, platform fees, and profit. Revenue shows item sales, discount, buyer-paid shipping, and final chargeable revenue. Costs summarize item cost, shipping cost, and extra cost. Fees itemize the Etsy listing fee, transaction fee, payment processing fee, and optional Offsite Ads fee. The summary highlights net profit, profit margin, fee rate, ROI, and break-even price, with color cues for profitable versus loss-making scenarios.',
       processing:
-        'All calculations run synchronously in the browser. Core logic: gross item revenue = item price × quantity; discounted item revenue = max(gross item revenue - discount, 0); total order revenue = discounted item revenue + buyer-paid shipping; direct costs = per-item cost × quantity + actual shipping cost + extra cost; core Etsy fees = $0.20 listing fee + total order revenue × 6.5% transaction fee + total order revenue × 3% + $0.25 payment processing fee; Offsite Ads fee = total order revenue × selected ad rate; net profit = total order revenue - direct costs - core Etsy fees - Offsite Ads fee; profit margin = net profit / total order revenue × 100%. Results are pricing and operations estimates; Etsy account statements remain the source of truth.',
+        'All calculations run synchronously in the browser. Core logic: gross item revenue = item price × quantity; discounted item revenue = max(gross item revenue - discount, 0); total order revenue = discounted item revenue + buyer-paid shipping; direct costs = per-item cost × quantity + actual shipping cost + extra cost; core Etsy fees = $0.20 listing fee + total order revenue × 6.5% transaction fee + total order revenue × 3% + $0.25 payment processing fee; Offsite Ads fee = total order revenue × selected ad rate; net profit = total order revenue - direct costs - core Etsy fees - Offsite Ads fee; profit margin = net profit / total order revenue × 100%. Rate assumptions were checked against Etsy public seller fee information in 2026-06; Etsy account statements remain the source of truth.',
       modes: ['Item price and quantity', 'Buyer-paid shipping', 'Order discount', 'Item / shipping / extra costs', 'Core Etsy fee breakdown', 'Offsite Ads 0% / 12% / 15%', 'Net profit / margin / ROI', 'Break-even price', 'Real-time local calculation'],
       example: {
         title: 'Etsy fee calculation example',
@@ -42,6 +43,7 @@ export const ECOMMERCE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
         inputLanguage: 'text',
         outputLanguage: 'text',
       },
+      lastUpdated: '2026-06',
     },
   },
 
@@ -54,7 +56,7 @@ export const ECOMMERCE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         '分组展示完整的费用构成：站外广告费（按所选费率计算并自动应用 $100 单笔上限）、广告费在订单总额中的实际占比、基础 Etsy 费用明细、总费用汇总，以及扣除所有费用和成本后的预估利润与利润率。当订单金额较高触发 $100 上限时，实际广告费率将低于所选费率，工具会同时展示名义费率和有效费率，帮助卖家判断大额订单的真实广告成本。利润为正值时以绿色高亮、负值时以红色警示。',
       processing:
-        '所有计算在浏览器本地同步完成，无需服务器请求，输入数据不会离开用户设备。计算公式：站外广告费 = min(订单总额 × 所选费率, $100)；基础费用 = $0.20 + 订单总额 × 6.5% + 订单总额 × 3% + $0.25；总费用 = 站外广告费 + 基础费用；预估利润 = 订单总额 − 总费用 − 成本；有效广告费率 = (站外广告费 / 订单总额) × 100%。费率基于 Etsy 官方 Offsite Ads 政策，$100 上限为单笔归因订单的广告费封顶值。计算结果用于运营预估和定价参考，不替代 Etsy 后台账单和财务报表。',
+        '所有计算在浏览器本地同步完成，无需服务器请求，输入数据不会离开用户设备。计算公式：站外广告费 = min(订单总额 × 所选费率, $100)；基础费用 = $0.20 + 订单总额 × 6.5% + 订单总额 × 3% + $0.25；总费用 = 站外广告费 + 基础费用；预估利润 = 订单总额 − 总费用 − 成本；有效广告费率 = (站外广告费 / 订单总额) × 100%。费率基于 Etsy 官方 Offsite Ads 政策，$100 上限为单笔归因订单的广告费封顶值；最近复核时间为 2026-06。计算结果用于运营预估和定价参考，不替代 Etsy 后台账单和财务报表。',
       modes: ['12% / 15% 站外广告费率', '$100 单笔广告费上限', '可选叠加 Etsy 基础费用', '有效费率 vs 名义费率', '利润正负颜色标识', '实时本地计算'],
       example: {
         title: 'Etsy 站外广告费示例',
@@ -63,6 +65,7 @@ export const ECOMMERCE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
         inputLanguage: 'text',
         outputLanguage: 'text',
       },
+      lastUpdated: '2026-06',
     },
     en: {
       summary:
@@ -72,7 +75,7 @@ export const ECOMMERCE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         'A grouped breakdown of the full fee structure: the Offsite Ads fee (computed from the selected rate and automatically capped at $100 per order), the effective ad rate as a percentage of the order total, an itemized list of core Etsy fees, a total fees summary, and the estimated profit and profit margin after deducting all fees and costs. When a high-value order triggers the $100 cap, the effective ad rate drops below the nominal rate, and the tool surfaces both so sellers understand the true ad cost. Positive profit is highlighted in green, negative in red.',
       processing:
-        'All calculations run synchronously in the browser with no server requests; input data never leaves the device. Formula: Offsite Ads fee = min(order total × selected rate, $100); core fees = $0.20 + order total × 6.5% + order total × 3% + $0.25; total fees = Offsite Ads fee + core fees; estimated profit = order total − total fees − cost; effective ad rate = (Offsite Ads fee / order total) × 100%. Rates follow Etsy official Offsite Ads policy; the $100 cap is the per-attributed-order maximum. Results are for estimation and pricing guidance and do not replace Etsy account statements.',
+        'All calculations run synchronously in the browser with no server requests; input data never leaves the device. Formula: Offsite Ads fee = min(order total × selected rate, $100); core fees = $0.20 + order total × 6.5% + order total × 3% + $0.25; total fees = Offsite Ads fee + core fees; estimated profit = order total − total fees − cost; effective ad rate = (Offsite Ads fee / order total) × 100%. Rates follow Etsy official Offsite Ads policy, and the $100 cap is the per-attributed-order maximum; assumptions were reviewed in 2026-06. Results are for estimation and pricing guidance and do not replace Etsy account statements.',
       modes: ['12% / 15% Offsite Ads rates', '$100 per-order ad fee cap', 'Optional core Etsy fee stacking', 'Effective vs nominal rate', 'Color-coded profit sign', 'Real-time local calculation'],
       example: {
         title: 'Etsy Offsite Ads example',
@@ -81,19 +84,20 @@ export const ECOMMERCE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
         inputLanguage: 'text',
         outputLanguage: 'text',
       },
+      lastUpdated: '2026-06',
     },
   },
 
   'etsy-pricing-calculator': {
     zh: {
       summary:
-        'Etsy 目标售价计算器用于在浏览器中从目标利润反推商品售价，解决”已知成本和期望利润，应该卖多少钱才不亏”的核心定价问题。适合新品上架时科学确定初始售价、制定包邮策略时评估”免运费”对售价的影响、参与平台促销时测算不亏损的最低折扣价、为可能触发的站外广告费预留缓冲空间，以及在有监管运营费或跨币种收款的市场中综合定价。工具将 Etsy 平台的全部费用体系——基础费用（上架费、交易费、支付处理费）、可选 Offsite Ads 广告费、监管运营费及货币转换费——统一纳入反推公式，一站式输出建议商品售价、所需订单总收入、各项费用明细、费用占比和最终净利润，帮助卖家告别凭感觉定价，实现数据驱动的精细化运营。',
+        'Etsy 目标售价计算器用于在浏览器中从目标利润反推商品售价，解决“已知成本和期望利润，应该卖多少钱才不亏”的定价问题。适合新品上架前确定初始售价、评估包邮对售价的影响、测算促销价是否还能保留利润、为可能触发的站外广告费预留缓冲，以及在有监管运营费或跨币种收款的市场中复核价格。工具将 Etsy 基础费用、可选 Offsite Ads、监管运营费和货币转换费纳入同一个反推公式，输出建议商品售价、所需订单总收入、费用明细、费用占比和最终净利润。',
       input:
         '六个输入项灵活组合：商品成本（包含采购价、原材料、包装和人工等直接成本）、实际运费成本（物流标签、包装材料等履约支出）、向买家收取的运费（支持包邮时设为 0，也可单独收取以补贴成本）、目标利润（期望在扣除所有费用和成本后实际到手的最低金额）、可选的站外广告费率（12% 或 15%，用于预留广告归因订单的费用缓冲），以及可选手动输入的监管运营费率和 2.5% 货币转换费开关。所有金额以美元估算，支持小数精度。',
       output:
         '综合输出达到目标利润所需的完整定价方案：建议商品售价（已扣除买家另付运费，可直接用于 Etsy 刊登价格字段）、所需订单总收入（商品售价 + 买家运费）、预计平台总费用（逐项列出基础 Etsy 费用与可选附加费用）、费用占订单收入的比例，以及反推验证后的最终到手利润。卖家可以通过调整“向买家收取的运费”输入值来分别模拟包邮、部分收取运费或买家全额承担运费等定价方案。',
       processing:
-        '所有计算在浏览器本地同步完成。反推公式将固定费用与百分比费用同时纳入：所需订单收入 = (商品成本 + 实际运费成本 + 目标利润 + 固定费用) / (1 − 百分比费用率之和)。其中固定费用 = $0.20 上架费 + $0.25 美国支付处理固定费；百分比费用之和 = 6.5% 交易费 + 3% 支付处理百分比费 + 可选站外广告费率 + 可选监管运营费率 + 可选 2.5% 货币转换费率。建议商品售价 = 所需订单收入 − 买家支付运费。该工具用于定价预估和利润规划，实际 Etsy 账单以平台后台为准，各国费率可能有所不同。',
+        '所有计算在浏览器本地同步完成。反推公式将固定费用与百分比费用同时纳入：所需订单收入 = (商品成本 + 实际运费成本 + 目标利润 + 固定费用) / (1 − 百分比费用率之和)。其中固定费用 = $0.20 上架费 + $0.25 美国支付处理固定费；百分比费用之和 = 6.5% 交易费 + 3% 支付处理百分比费 + 可选站外广告费率 + 可选监管运营费率 + 可选 2.5% 货币转换费率。建议商品售价 = 所需订单收入 − 买家支付运费。费率假设最近复核时间为 2026-06；实际 Etsy 账单和各国本地费率仍以平台后台为准。',
       modes: ['目标利润反推售价', '买家运费输入建模', '可选站外广告费预留', '监管运营费率手动输入', '货币转换费开关', '费用占比分析', '本地实时计算'],
       example: {
         title: 'Etsy 目标售价示例',
@@ -102,16 +106,17 @@ export const ECOMMERCE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
         inputLanguage: 'text',
         outputLanguage: 'text',
       },
+      lastUpdated: '2026-06',
     },
     en: {
       summary:
-        'The Etsy Pricing Calculator reverse-engineers the item price required to hit a target profit goal, all computed in the browser. It solves the fundamental pricing problem: “given my costs and desired profit, what price should I charge to avoid losing money?” Use cases include scientifically setting the initial price for a new listing, evaluating how a free-shipping strategy impacts the required item price, calculating the lowest acceptable sale price during a promotion, building in a buffer for potential Offsite Ads fees, and pricing comprehensively in markets where regulatory operating fees or cross-currency conversion apply. The tool combines Etsy\'s entire fee landscape — core fees (listing fee, transaction fee, payment processing fee), optional Offsite Ads, regulatory operating fees, and currency conversion — into a single reverse formula, outputting the recommended item price, required order revenue, line-item fee breakdown, fee ratio, and final net profit. It replaces gut-feel pricing with data-driven decisions.',
+        'The Etsy Pricing Calculator reverse-engineers the item price required to hit a target profit goal, all computed in the browser. It answers a common seller question: given my costs and desired profit, what price should I charge to avoid losing money? Use it before publishing a new listing, testing free shipping, checking the lowest acceptable sale price, reserving margin for possible Offsite Ads, or pricing in markets with regulatory fees or currency conversion. The tool combines Etsy core fees, optional Offsite Ads, regulatory operating fees, and currency conversion into one reverse formula, then returns the recommended item price, required order revenue, fee breakdown, fee ratio, and final net profit.',
       input:
         'Six flexible inputs: item cost (direct costs including procurement, materials, packaging, and labor), actual shipping cost (logistics outlay such as labels and packing materials), shipping charged to the buyer (set to zero for a free-shipping model, or a separate line item to offset costs), target profit (the minimum net amount you want to take home after all fees and costs), an optional Offsite Ads rate (12% or 15%, to reserve a buffer for ad-attributed orders), plus an optional manually entered regulatory operating fee rate and a 2.5% currency conversion fee toggle. All amounts are estimated in USD with decimal precision.',
       output:
         'A comprehensive pricing plan that hits the target profit: recommended item price (net of buyer-paid shipping, ready to paste into the Etsy listing price field), required total order revenue (item price + buyer shipping), estimated total platform fees (itemized core Etsy fees and optional add-on fees), the fee-to-revenue ratio, and the reverse-checked final take-home profit. Sellers can model free shipping, partial shipping recovery, or buyer-paid shipping by changing the shipping charged input.',
       processing:
-        'All calculations run synchronously in the browser. The reverse formula incorporates both fixed and percentage fees: required order revenue = (item cost + actual shipping cost + target profit + fixed fees) / (1 − sum of percentage fee rates). Fixed fees = $0.20 listing fee + $0.25 US payment processing fixed fee. Sum of percentage fees = 6.5% transaction fee + 3% payment processing percentage fee + optional Offsite Ads rate + optional regulatory operating fee rate + optional 2.5% currency conversion rate. Recommended item price = required order revenue − shipping charged to buyer. This is a pricing estimator for planning purposes; Etsy account statements are the source of truth, and regional fee rates may vary.',
+        'All calculations run synchronously in the browser. The reverse formula incorporates both fixed and percentage fees: required order revenue = (item cost + actual shipping cost + target profit + fixed fees) / (1 − sum of percentage fee rates). Fixed fees = $0.20 listing fee + $0.25 US payment processing fixed fee. Sum of percentage fees = 6.5% transaction fee + 3% payment processing percentage fee + optional Offsite Ads rate + optional regulatory operating fee rate + optional 2.5% currency conversion rate. Recommended item price = required order revenue − shipping charged to buyer. Rate assumptions were reviewed in 2026-06; Etsy account statements and local regional rates remain the source of truth.',
       modes: ['Target profit reverse pricing', 'Buyer shipping input modeling', 'Optional Offsite Ads buffer', 'Manual regulatory fee input', 'Currency conversion toggle', 'Fee ratio analysis', 'Real-time local calculation'],
       example: {
         title: 'Etsy target price example',
@@ -120,6 +125,7 @@ export const ECOMMERCE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
         inputLanguage: 'text',
         outputLanguage: 'text',
       },
+      lastUpdated: '2026-06',
     },
   },
 
@@ -171,7 +177,7 @@ export const ECOMMERCE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         '两组结果卡片同时展示：第一组（正向）显示当客户支付输入金额时，Stripe 手续费（2.9% + $0.30）的具体数值和预计到账金额，手续费标为红色、到账标为绿色；第二组（反推，青色主题）显示若希望净收该金额，需在基础金额上额外增加的手续费和建议开票总额。两组结果的费率和金额均基于同一费率标准，便于对比正反两个方向的费用影响。',
       processing:
-        '所有计算在浏览器端同步完成。正向计算：平台手续费 = 金额 × 2.9% + $0.30；实际到账 = 金额 − 手续费。反推开票计算：开票金额 = (目标净额 + $0.30) / (1 − 2.9%)，其中 $0.30 为固定手续费、2.9% 为百分比费率；反推手续费 = 开票金额 − 目标净额。反推公式的原理是将手续费本身也纳入手续费计算基数，确保扣费后恰好等于目标净额。注意：以上为美国 Stripe 在线支付标准费率，国际卡支付和不同地区的 Stripe 账户可能使用不同费率。',
+        '所有计算在浏览器端同步完成。正向计算：平台手续费 = 金额 × 2.9% + $0.30；实际到账 = 金额 − 手续费。反推开票计算：开票金额 = (目标净额 + $0.30) / (1 − 2.9%)，其中 $0.30 为固定手续费、2.9% 为百分比费率；反推手续费 = 开票金额 − 目标净额。费率按美国 Stripe 在线卡支付公开标准复核，最近复核时间为 2026-06；国际卡、不同国家账户、订阅产品、税费和合同价可能改变实际扣费。',
       modes: ['正向到账计算', '反推开票金额', '正向 / 反推双结果', '手续费拆分', '实时计算', '本地处理'],
       example: {
         title: 'Stripe 手续费计算示例',
@@ -181,6 +187,7 @@ export const ECOMMERCE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
         inputLanguage: 'text',
         outputLanguage: 'text',
       },
+      lastUpdated: '2026-06',
     },
     en: {
       summary:
@@ -190,7 +197,7 @@ export const ECOMMERCE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         'Two result cards displayed side by side: the first (forward) shows the Stripe fee (2.9% + $0.30) and estimated payout when the customer pays the entered amount, with the fee in red and payout in green; the second (reverse, cyan-themed) shows the additional fee needed on top of the base amount and the recommended total invoice amount if you want to receive that amount net. Both cards use the same fee rate, enabling side-by-side comparison of fee impact in both directions.',
       processing:
-        'All calculations run synchronously in the browser. Forward calculation: Platform Fee = Amount × 2.9% + $0.30; Payout = Amount − Fee. Reverse invoice calculation: Invoice Amount = (Target Net + $0.30) / (1 − 2.9%), where $0.30 is the fixed fee and 2.9% is the percentage fee; Reverse Fee = Invoice Amount − Target Net. The reverse formula accounts for the fee itself within the fee calculation base, ensuring the exact target net amount is received after deduction. Note: the above reflects standard US Stripe online payment rates; international card payments and Stripe accounts in different regions may use different rates.',
+        'All calculations run synchronously in the browser. Forward calculation: platform fee = amount × 2.9% + $0.30; payout = amount − fee. Reverse invoice calculation: invoice amount = (target net + $0.30) / (1 − 2.9%), where $0.30 is the fixed fee and 2.9% is the percentage fee; reverse fee = invoice amount − target net. Rate assumptions were checked against standard US Stripe online card pricing in 2026-06; international cards, non-US accounts, subscriptions, taxes, and negotiated pricing can change the actual fee.',
       modes: ['Forward payout calculation', 'Reverse invoice amount', 'Dual forward/reverse results', 'Fee breakdown', 'Real-time calculation', 'Local processing'],
       example: {
         title: 'Stripe fee calculation example',
@@ -200,6 +207,7 @@ export const ECOMMERCE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
         inputLanguage: 'text',
         outputLanguage: 'text',
       },
+      lastUpdated: '2026-06',
     },
   },
 
@@ -212,7 +220,7 @@ export const ECOMMERCE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         '输出包含当前适用费率、预计 PayPal 手续费、有效费率、净到账金额，以及为了净收目标金额需要向客户开票的总金额。正向结果用于判断客户支付某个金额后实际能收到多少；反推结果用于报价时把手续费计入客户付款金额。',
       processing:
-        '所有计算在浏览器本地同步完成。正向公式：手续费 = 交易金额 × 百分比费率 + 固定费；净到账 = 交易金额 − 手续费。国际交易开关会在基础百分比费率上叠加 1.5%。反推公式：开票金额 = (目标净收 + 固定费) / (1 − 百分比费率)。结果用于估算，PayPal 账户地区、产品、风控、货币转换和合同价可能改变实际费率。',
+        '所有计算在浏览器本地同步完成。正向公式：手续费 = 交易金额 × 百分比费率 + 固定费；净到账 = 交易金额 − 手续费。国际交易开关会在基础百分比费率上叠加 1.5%。反推公式：开票金额 = (目标净收 + 固定费) / (1 − 百分比费率)。美国商家费率预设最近复核时间为 2026-06；PayPal 账户地区、产品、风控、货币转换和合同价可能改变实际费率。',
       modes: ['PayPal Checkout', '信用卡收款', 'Goods & Services', 'Pay Later', '多币种固定费', '国际交易附加费', '反推开票金额'],
       example: {
         title: 'PayPal 手续费计算示例',
@@ -221,6 +229,7 @@ export const ECOMMERCE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
         inputLanguage: 'text',
         outputLanguage: 'text',
       },
+      lastUpdated: '2026-06',
     },
     en: {
       summary:
@@ -230,7 +239,7 @@ export const ECOMMERCE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         'The tool returns the applied rate, estimated PayPal fee, effective fee rate, net payout, and the invoice amount needed to receive a target net amount. The forward result shows what you keep when the customer pays a given amount; the reverse result helps you quote a gross amount that covers the processing fee.',
       processing:
-        'All calculations run synchronously in the browser. Forward formula: fee = transaction amount × percentage rate + fixed fee; net payout = transaction amount − fee. The international toggle adds 1.5 percentage points to the base percentage rate. Reverse formula: invoice amount = (target net + fixed fee) / (1 − percentage rate). Results are estimates; account country, product setup, risk rules, currency conversion, and custom pricing can change the actual PayPal fee.',
+        'All calculations run synchronously in the browser. Forward formula: fee = transaction amount × percentage rate + fixed fee; net payout = transaction amount − fee. The international toggle adds 1.5 percentage points to the base percentage rate. Reverse formula: invoice amount = (target net + fixed fee) / (1 − percentage rate). US merchant presets were reviewed in 2026-06; account country, product setup, risk rules, currency conversion, and custom pricing can change the actual PayPal fee.',
       modes: ['PayPal Checkout', 'Credit and debit cards', 'Goods & Services', 'Pay Later', 'Multi-currency fixed fees', 'International surcharge', 'Reverse invoice amount'],
       example: {
         title: 'PayPal fee calculation example',
@@ -239,6 +248,7 @@ export const ECOMMERCE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
         inputLanguage: 'text',
         outputLanguage: 'text',
       },
+      lastUpdated: '2026-06',
     },
   },
 

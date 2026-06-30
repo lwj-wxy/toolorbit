@@ -1,6 +1,5 @@
 'use client';
 
-import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useEffect, useRef, useState } from 'react';
 import { BookOpen, Bot, ChevronDown, Menu, Moon, Search, Star, Sun, Wrench } from 'lucide-react';
@@ -11,16 +10,8 @@ import { Link, useCurrentLocation } from '../lib/navigation';
 import { getNavigationMenuData, type NavigationMenuData } from '../lib/navigation-menu';
 import { cn } from '../lib/utils';
 import LanguageSwitcher from './LanguageSwitcher';
-
-const ToolsMegaDropdown = dynamic(
-  () => import('./MegaMenuContent').then((mod) => ({ default: mod.ToolsMegaDropdown })),
-  { ssr: false },
-);
-const AiMegaDropdown = dynamic(
-  () => import('./MegaMenuContent').then((mod) => ({ default: mod.AiMegaDropdown })),
-  { ssr: false },
-);
-const MobileMenu = dynamic(() => import('./MobileMenu'), { ssr: false });
+import { AiMegaDropdown, ToolsMegaDropdown } from './MegaMenuContent';
+import MobileMenu from './MobileMenu';
 
 const navItemBaseClass =
   'relative mt-[3px] flex cursor-pointer items-center gap-1.5 self-center whitespace-nowrap px-2 pb-3 pt-2 text-[13px] font-semibold leading-none transition-colors duration-200 after:absolute after:bottom-0 after:left-2 after:right-2 after:h-0.5 after:rounded-full after:bg-transparent after:content-[""] lg:px-3 lg:after:left-3 lg:after:right-3';
@@ -80,7 +71,6 @@ export default function LayoutHeaderClient() {
   const aiCategoryPath = navigationMenu?.aiCategoryPath || '/category/ai-tools';
   const normalizedAiCategoryPath = normalizePathname(aiCategoryPath);
   const isAiSection =
-    normalizedPathname === '/' ||
     normalizedPathname === normalizedAiCategoryPath ||
     normalizedPathname === '/ai-tools' ||
     normalizedPathname.startsWith('/tools/ai/');
@@ -124,7 +114,7 @@ export default function LayoutHeaderClient() {
           <nav className="hidden h-full items-stretch gap-1 md:flex lg:gap-2">
             <div className="group flex h-full items-center">
               <Link
-                to="/"
+                to={aiCategoryPath}
                 className={cn(
                   navItemBaseClass,
                   isAiSection ? navItemActiveClass : navItemInactiveClass,

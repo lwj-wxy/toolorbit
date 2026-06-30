@@ -106,7 +106,7 @@ const AuthorPage = ({ authorId, locale = 'en' }: AuthorPageProps) => {
                 ToolOrbit 指南优先解释具体的浏览器工作流，而不是泛泛而谈。文章会说明工具适合什么场景、有哪些限制，以及读者如何验证输出。
               </p>
               <p>
-                内容围绕实用工具类别维护，包括开发者工具、AI 效率、PDF 与图片工作流、电商运营、注重隐私的处理方式，以及日常网页发布任务。
+                内容围绕实用工具类别维护，包括 AI 工具、开发者工具、PDF 与图片工作流、电商费用复核、注重隐私的处理方式，以及日常网页发布任务。
               </p>
             </>
           ) : (
@@ -115,7 +115,7 @@ const AuthorPage = ({ authorId, locale = 'en' }: AuthorPageProps) => {
                 ToolOrbit guides prioritize concrete browser workflows over broad claims. Articles explain when a tool is useful, where it has limits, and how readers can verify the output.
               </p>
               <p>
-                Content is maintained around practical utility categories: developer tools, AI productivity, PDF and image workflows, ecommerce operations, privacy-conscious processing, and everyday web publishing tasks.
+                Content is maintained around practical utility categories: AI tools, developer tools, PDF and image workflows, ecommerce fee review, privacy-conscious processing, and everyday web publishing tasks.
               </p>
             </>
           )}

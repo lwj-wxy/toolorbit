@@ -53,27 +53,30 @@ export default function AllToolsPage({ locale = 'en' }: AllToolsPageProps) {
     (tool) => !tool.isNoIndex && tool.category !== OTHER_TOOLS_EXCLUDED_CATEGORY,
   );
   const totalTools = visibleTools.length;
+  const visibleCategories = CATEGORY_ORDER.filter((category) =>
+    visibleTools.some((tool) => tool.category === category),
+  );
 
   return (
     <main className="mx-auto w-full max-w-7xl py-4">
       <section className="mb-9 border-b border-[var(--app-border)] pb-8 dark:border-[var(--app-border)]">
         <div className="mb-4 inline-flex items-center gap-2 rounded-md border border-[color-mix(in_srgb,var(--app-accent)_26%,var(--app-border))] bg-[var(--app-accent-soft)] px-2.5 py-1 text-[12px] font-semibold text-[var(--app-accent-ink)] dark:border-[color-mix(in_srgb,var(--app-accent)_36%,var(--app-border))] dark:bg-[var(--app-accent-soft)] dark:text-[var(--app-accent-ink)]">
           <Boxes className="h-4 w-4" aria-hidden="true" />
-          {isZh ? `${totalTools} 个浏览器工具` : `${totalTools} browser tools`}
+          {isZh ? '其它工具目录' : 'Other tool directory'}
         </div>
         <h1 className="max-w-3xl text-3xl font-semibold tracking-tight text-[var(--app-text)] dark:text-[var(--app-text)] sm:text-4xl">
-          {isZh ? '其它免费在线工具' : 'Other Free Online Tools'}
+          {isZh ? '其它浏览器工具' : 'Other Browser Tools'}
         </h1>
         <p className="mt-4 max-w-3xl text-[15px] leading-7 text-[var(--app-muted)] dark:text-[var(--app-muted)]">
           {isZh
-            ? '这里收纳开发者、PDF、图片、电商、文本、生成器、计算转换和日常实用工具。AI 工具从首页进入。'
-            : 'Browse ToolOrbit developer, PDF, image, ecommerce, text, generator, conversion, and everyday utility tools. AI tools live on the home entry.'}
+            ? `这里列出 ${totalTools} 个非 AI 工具，覆盖开发调试、PDF、图片、电商费用、文本处理和计算转换。AI 工具请从 AI Tools 入口进入。`
+            : `Browse ${totalTools} non-AI tools for developer checks, PDF, image, ecommerce fees, text handling, and conversions. Use the AI Tools entry for AI workflows.`}
         </p>
       </section>
 
       <nav aria-label={isZh ? '工具分类锚点' : 'Tool category anchors'} className="mb-10">
         <ul className="flex flex-wrap gap-2">
-          {CATEGORY_ORDER.map((category) => (
+          {visibleCategories.map((category) => (
             <li key={category}>
               <a
                 href={`#${CATEGORY_SLUGS[category]}`}
@@ -87,7 +90,7 @@ export default function AllToolsPage({ locale = 'en' }: AllToolsPageProps) {
       </nav>
 
       <div className="space-y-12">
-        {CATEGORY_ORDER.map((category) => {
+        {visibleCategories.map((category) => {
           const tools = visibleTools.filter((tool) => tool.category === category);
           const categoryPath = localizedPath(getCategoryPath(category), locale);
 

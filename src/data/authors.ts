@@ -35,17 +35,17 @@ export const LUO_WJ_AUTHOR: Author = {
 export const TOOL_ORBIT_EDITORIAL_TEAM: Author = {
   id: 'toolorbit-editorial-team',
   name: 'ToolOrbit Editorial Team',
-  role: 'Browser tools, developer workflows, and AI productivity',
+  role: 'Browser tools, ecommerce calculations, and workflow reviews',
   bio:
-    'The ToolOrbit Editorial Team writes guides for browser utilities, local-first workflows, developer productivity, PDF and image tasks, and AI-assisted content work. Editors test the steps and link each guide to tools readers can open on ToolOrbit.',
+    'The ToolOrbit Editorial Team maintains AI tool guides, browser utility notes, ecommerce fee explanations, and PDF and image workflows. Editors test steps with sample inputs, document limits, and keep feedback routed through the public ToolOrbit contact.',
   url: '/authors/toolorbit-editorial-team',
   avatarInitials: 'TO',
   localized: {
     'zh-CN': {
       name: 'ToolOrbit 编辑团队',
-      role: '浏览器工具、开发者工作流和 AI 效率指南',
+      role: '浏览器工具、电商计算和工作流复核',
       bio:
-        'ToolOrbit 编辑团队编写浏览器在线工具、本地优先工作流、开发者效率、PDF 与图片处理和 AI 辅助内容指南。编辑会测试步骤，并把文章链接到 ToolOrbit 上可直接打开的工具。',
+        'ToolOrbit 编辑团队维护 AI 工具指南、浏览器工具说明、电商费用说明，以及 PDF 与图片工作流。编辑会用样本输入测试步骤，记录限制，并通过 ToolOrbit 公开联系方式接收反馈。',
     },
   },
 };

@@ -1,16 +1,16 @@
 [中文版本 ->](README_zh.md)
 
-# ToolOrbit - Free Online Toolbox
+# ToolOrbit - Local Browser Tools and Fee Calculators
 
-**[toolorbit.site](https://toolorbit.site)** provides browser-based utilities for developers, creators, ecommerce sellers, and everyday productivity work.
+**[toolorbit.site](https://toolorbit.site)** focuses on AI-assisted tools, browser utilities, and ecommerce calculators for tasks users can review before publishing or submitting.
 
-No sign-up required. Most tools process text, images, PDFs, encodings, crypto operations, and calculations directly in your browser. AI tools send the input you provide to model services to generate results.
+No sign-up required. AI tools help draft content, generate images, analyze listings, and prepare ecommerce workflows. Local browser tools handle text, images, PDFs, encodings, crypto operations, and calculations on the device when the task does not require a model.
 
 ---
 
 ## Tool Catalog
 
-ToolOrbit currently includes **80 tools** across 10 categories.
+This repository keeps the full tool inventory. During AdSense remediation, the review focus is page usefulness: clear inputs, reviewable outputs, examples, limits, privacy notes, and maintenance signals. Off-topic entertainment pages and thin single-purpose utilities may be marked `noindex`; AI tools stay indexable when the workflow is specific enough for users to evaluate.
 
 ### AI Tools (21)
 

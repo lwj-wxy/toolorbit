@@ -180,6 +180,10 @@ function pageFaqs(page: SeoContentPage, locale?: string) {
 
 export default function SeoContentPageView({ page, locale }: { page: SeoContentPage; locale?: string }) {
   const visibleBlogs = page.blogSlugs.filter((slug) => BLOG_POSTS.some((post) => post.slug === slug));
+  const visibleToolPaths = page.toolPaths.filter((path) => {
+    const tool = toolByPath(path);
+    return tool && !tool.isNoIndex;
+  });
 
   const title = pageString('title', page, locale);
   const description = pageString('description', page, locale);
@@ -279,7 +283,7 @@ export default function SeoContentPageView({ page, locale }: { page: SeoContentP
             </div>
           </div>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {page.toolPaths.map((path) => (
+            {visibleToolPaths.map((path) => (
               <NextLink
                 key={path}
                 href={path}

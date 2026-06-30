@@ -205,7 +205,7 @@ export function websiteJsonLd() {
 }
 
 export function homePageJsonLd(locale: Locale = 'en') {
-  const popularTools = TOOLS.filter((tool) => tool.isPopular).slice(0, 12);
+  const popularTools = TOOLS.filter((tool) => tool.isPopular && !tool.isNoIndex).slice(0, 12);
   const url = absoluteUrl('/', locale);
 
   return [
@@ -275,7 +275,7 @@ export function blogListJsonLd(locale: Locale = 'en', page = 1) {
 }
 
 export function categoryPageJsonLd(category: Category, locale: Locale = 'en') {
-  const tools = TOOLS.filter((tool) => tool.category === category);
+  const tools = TOOLS.filter((tool) => tool.category === category && !tool.isNoIndex);
   const name = categoryName(category, locale);
   const url = absoluteUrl(getCategoryPath(category), locale);
 
@@ -316,7 +316,7 @@ export function allToolsPageJsonLd(locale: Locale = 'en') {
   const url = absoluteUrl('/tools', locale);
   const visibleTools = TOOLS.filter((tool) => !tool.isNoIndex && tool.category !== 'AI 工具');
   const visibleToolCount = visibleTools.length;
-  const pageName = locale === 'zh-CN' ? '其它免费在线工具' : 'Other Free Online Tools';
+  const pageName = locale === 'zh-CN' ? '其它浏览器工具' : 'Other Browser Tools';
 
   return [
     breadcrumb([
@@ -358,7 +358,7 @@ export function seoContentPageJsonLd(path: string, locale: Locale = 'en') {
   const url = absoluteUrl(page.path, locale);
   const tools = page.toolPaths
     .map((toolPath) => toolByPath(toolPath))
-    .filter(Boolean) as typeof TOOLS;
+    .filter((tool): tool is (typeof TOOLS)[number] => tool !== undefined && !tool.isNoIndex);
 
   return [
     breadcrumb([
@@ -420,7 +420,7 @@ export function authorPageJsonLd(authorId?: string, locale: Locale = 'en') {
       '@type': 'ProfilePage',
       name: author.name,
       url,
-      dateModified: '2026-05-18T00:00:00+00:00',
+      dateModified: '2026-06-30T00:00:00+00:00',
       mainEntity: authorEntity(author, locale),
       publisher: organizationEntity(),
     },
