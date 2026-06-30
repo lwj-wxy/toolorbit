@@ -238,11 +238,11 @@ export function pageMetadata(title?: string, description?: string, path = '/', l
 export function homeMetadata(locale: Locale = 'en'): Metadata {
   return pageMetadata(
     locale === 'zh-CN'
-      ? 'ToolOrbit 免费 AI 工具、PDF 工具和费用计算器'
-      : 'ToolOrbit - Free AI Tools, PDF Tools, and Fee Calculators',
+      ? 'ToolOrbit 上架文案、文件处理和费用核算工具'
+      : 'ToolOrbit - Listing, File, and Fee Review Tools',
     locale === 'zh-CN'
-      ? '用 ToolOrbit 生成商品文案、格式化 JSON、处理图片和 PDF，并估算 Etsy、Stripe、PayPal、VAT 和 GST 费用。'
-      : 'Use ToolOrbit to generate listing copy, format JSON, process images and PDFs, and estimate Etsy, Stripe, PayPal, VAT, and GST fees.',
+      ? '用 ToolOrbit 起草可复核的商品文案，处理常见文件，并在定价前估算 Etsy、Stripe、PayPal、VAT 和 GST 等平台费用。'
+      : 'Use ToolOrbit to draft reviewable listing copy, handle common files, and estimate Etsy, Stripe, PayPal, VAT, and GST fees before pricing.',
     '/',
     locale,
   );
@@ -271,8 +271,8 @@ export function blogListMetadata(locale: Locale = 'en', page = 1): Metadata {
   return pageMetadata(
     `${readPath(source, 'blog.title') || 'Blog'}${pageSuffix}`,
     locale === 'zh-CN'
-      ? '阅读 ToolOrbit 实用指南，覆盖开发工具、安全工作流、图片优化、PDF 效率、电商运营和 AI 辅助工作。'
-      : 'Practical guides for developer tools, secure workflows, image optimization, PDF productivity, ecommerce operations, and AI-assisted work.',
+      ? '阅读 ToolOrbit 指南，查看 AI 草稿、浏览器工具、文件处理、电商费用和开发检查的实际用法与限制。'
+      : 'Read ToolOrbit guides for practical examples, limits, and checks around AI drafts, browser tools, files, ecommerce fees, and developer workflows.',
     path,
     locale,
   );

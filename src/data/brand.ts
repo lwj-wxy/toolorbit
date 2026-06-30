@@ -1,7 +1,7 @@
 export const BRAND_CONTACT_EMAIL = "luowj1998@outlook.com";
 
 export const BRAND_DESCRIPTION =
-  "AI-assisted tools, browser utilities, and ecommerce calculators for content, developer, file, image, and marketplace tasks.";
+  "Listing draft, file handling, developer check, and fee review tools for tasks that need clear inputs, visible results, and human review.";
 
 export const BRAND_PRIVACY_SUMMARY =
   "Most ToolOrbit utilities run in the browser, so files, text, and developer data stay on the user device unless an AI feature needs a model request.";

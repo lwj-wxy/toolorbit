@@ -329,8 +329,8 @@ const ListingTrialPanel = ({ isZh }: { isZh: boolean }) => {
           </h2>
           <p className="mt-2 text-[14px] leading-6 text-[#52617f]">
             {isZh
-              ? '这里调用同一个 Listing 工具接口。需要更多字段和完整编辑区时，再打开完整工具。'
-              : 'This uses the same Listing API. Open the full tool when you need more fields and a larger editor.'}
+              ? '先用一个商品样本试写标题、描述和标签。需要语气、语言和更长文案时，再打开完整工具。'
+              : 'Try a short listing draft here. Open the full tool when you need tone, language, tags, and longer copy blocks.'}
           </p>
 
           <div className="mt-5 space-y-4">
@@ -644,27 +644,27 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
         <div className="relative mx-auto flex max-w-5xl flex-col items-center text-center">
           <div className="inline-flex items-center gap-2 text-[12px] font-semibold text-[#335cff]">
             <span className="h-2 w-2 rounded-full bg-[#335cff] shadow-[0_0_0_6px_rgba(51,92,255,0.1)]" aria-hidden="true" />
-            {isZh ? 'AI 工具 · 浏览器处理 · 电商费用' : 'AI tools · Browser utilities · Fee calculators'}
+            {isZh ? '文案草稿 · 文件处理 · 费用复核' : 'Listing drafts · File checks · Fee review'}
           </div>
 
           <h1 className="mt-7 max-w-5xl text-[38px] font-black leading-[1.06] text-[#111936] sm:text-[64px] sm:leading-[1.04] lg:text-[76px]">
             {isZh ? (
               <>
-                <span className="block">免费 AI 工具、PDF 工具</span>
-                <span className="mt-1 block text-[#335cff]">和费用计算器</span>
+                <span className="block">上架文案、文件处理</span>
+                <span className="mt-1 block text-[#335cff]">和费用核算工具</span>
               </>
             ) : (
               <>
-                Free AI Tools, PDF Tools
-                <span className="mt-1 block text-[#335cff]">and Fee Calculators</span>
+                Tools for Listings, Files
+                <span className="mt-1 block text-[#335cff]">and Fee Checks</span>
               </>
             )}
           </h1>
 
           <p className="mt-7 max-w-3xl text-[16px] leading-8 text-[#4b587c]">
             {isZh
-              ? '用 ToolOrbit 生成商品文案、格式化 JSON、处理图片和 PDF，并估算 Etsy、Stripe、PayPal、VAT 和 GST 费用。'
-              : 'Use ToolOrbit to generate listing copy, format JSON, process images and PDFs, and estimate Etsy, Stripe, PayPal, VAT, and GST fees.'}
+              ? '用 ToolOrbit 起草可复核的商品文案，处理常见文件，并在定价前估算平台费用。'
+              : 'Use ToolOrbit to draft reviewable listing copy, handle common files, and estimate platform fees before pricing.'}
           </p>
 
           <form
@@ -699,12 +699,12 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
 
       <section className="space-y-8">
         <LandingSectionHeader
-          eyebrow={isZh ? '免费在线工具' : 'Free online tools'}
-          title={isZh ? '写文案、处理文件、计算费用' : 'Write copy, process files, and calculate fees'}
+          eyebrow={isZh ? '按任务选择工具' : 'Choose by task'}
+          title={isZh ? '从草稿、检查到提交前复核' : 'Draft, check, and review before publishing'}
           description={
             isZh
-              ? '打开就能用，不用注册。AI 工具帮你起草内容，本地工具处理文件和代码。'
-              : 'Use the tools without sign-up. Draft content with AI, then handle files and code in the browser.'
+              ? 'AI 工具适合起草，浏览器工具适合检查和转换。每个结果都应该在发布、上传或报价前再确认。'
+              : 'Use AI tools for drafts and browser tools for checks or conversions. Review each result before publishing, uploading, or quoting.'
           }
         />
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
@@ -733,8 +733,8 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
           title={isZh ? '你要做什么？' : 'What do you need to do?'}
           description={
             isZh
-              ? '从常见任务开始，直接打开需要的工具。'
-              : 'Start with a common task and open the tool you need.'
+              ? '从具体任务进入工具，避免在完整目录里来回寻找。'
+              : 'Start from a specific task instead of scanning the full catalog.'
           }
         />
         <div className="grid gap-4 lg:grid-cols-2">
@@ -772,8 +772,8 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
           title={isZh ? '常见问题' : 'Common questions'}
           description={
             isZh
-              ? '关于免费使用、隐私、AI 结果和费用计算，你可以先看这里。'
-              : 'Read about free access, privacy, AI output, and fee estimates.'
+              ? '先确认哪些输入会留在浏览器、哪些结果需要人工复核、哪些费用只能作为估算。'
+              : 'Check what stays in the browser, which results need review, and where fee numbers remain estimates.'
           }
         />
         <div className="mx-auto grid max-w-5xl gap-3">
