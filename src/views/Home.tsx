@@ -650,21 +650,21 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
           <h1 className="mt-7 max-w-5xl text-[38px] font-black leading-[1.06] text-[#111936] sm:text-[64px] sm:leading-[1.04] lg:text-[76px]">
             {isZh ? (
               <>
-                <span className="block">ToolOrbit 在线工具</span>
-                <span className="mt-1 block text-[#335cff]">AI 生成、文件处理和费用估算</span>
+                <span className="block">免费 AI 工具、PDF 工具</span>
+                <span className="mt-1 block text-[#335cff]">和费用计算器</span>
               </>
             ) : (
               <>
-                ToolOrbit online tools
-                <span className="mt-1 block text-[#335cff]">for AI drafts, files, and fee estimates</span>
+                Free AI Tools, PDF Tools
+                <span className="mt-1 block text-[#335cff]">and Fee Calculators</span>
               </>
             )}
           </h1>
 
           <p className="mt-7 max-w-3xl text-[16px] leading-8 text-[#4b587c]">
             {isZh
-              ? '生成 Listing、脚本和翻译，处理 JSON、图片、PDF，再估算 Etsy、Stripe、PayPal、VAT 和 GST 成本。'
-              : 'Generate listings, scripts, and translations. Work with JSON, images, and PDFs. Estimate Etsy, Stripe, PayPal, VAT, and GST costs.'}
+              ? '用 ToolOrbit 生成商品文案、格式化 JSON、处理图片和 PDF，并估算 Etsy、Stripe、PayPal、VAT 和 GST 费用。'
+              : 'Use ToolOrbit to generate listing copy, format JSON, process images and PDFs, and estimate Etsy, Stripe, PayPal, VAT, and GST fees.'}
           </p>
 
           <form

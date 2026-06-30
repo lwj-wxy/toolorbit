@@ -238,11 +238,11 @@ export function pageMetadata(title?: string, description?: string, path = '/', l
 export function homeMetadata(locale: Locale = 'en'): Metadata {
   return pageMetadata(
     locale === 'zh-CN'
-      ? 'ToolOrbit AI 工具、浏览器工具与电商计算器'
-      : 'ToolOrbit - AI Tools, Browser Utilities, and Ecommerce Calculators',
+      ? 'ToolOrbit 免费 AI 工具、PDF 工具和费用计算器'
+      : 'ToolOrbit - Free AI Tools, PDF Tools, and Fee Calculators',
     locale === 'zh-CN'
-      ? 'ToolOrbit 提供 AI 辅助工具、本地浏览器工具和电商计算器，用于内容、开发调试、PDF、图片处理和费用估算。'
-      : 'AI-assisted tools, local browser utilities, and ecommerce calculators for content work, developer checks, PDF, image preparation, and fee estimates.',
+      ? '用 ToolOrbit 生成商品文案、格式化 JSON、处理图片和 PDF，并估算 Etsy、Stripe、PayPal、VAT 和 GST 费用。'
+      : 'Use ToolOrbit to generate listing copy, format JSON, process images and PDFs, and estimate Etsy, Stripe, PayPal, VAT, and GST fees.',
     '/',
     locale,
   );
