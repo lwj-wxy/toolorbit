@@ -288,9 +288,7 @@ const PUBLISHED_BLOG_SLUGS = new Set([
   'etsy-shipping-free-shipping-strategy',
   'etsy-digital-download-pricing-guide',
   'ecommerce-payment-processing-fees-guide',
-  'why-use-json-formatter',
   'secure-developer-tools-privacy',
-  'base64-encoding-deep-dive',
   'modern-pdf-workflow-efficiency',
   'ai-coding-code-verification',
 ]);
