@@ -2,6 +2,8 @@
 
 If you sell on Etsy from outside the United States, you're likely paying fees that US-based sellers never see. Two of the most impactful — and least understood — are the Regulatory Operating Fee and the Currency Conversion Fee. Together, they can silently erode your margins by 1–4% per order.
 
+Rates can change with Etsy policy updates. This article uses the maintained rate table in the project; check the [official Etsy fees policy](https://www.etsy.com/legal/fees/) and your payment account statement before relying on a number.
+
 Payment processing fees by country are a separate check. Etsy Payments charges a percentage plus a fixed amount based on the seller's payment account country, while currency conversion depends on whether your listing currency matches your payout currency. Use the [Etsy Fee Calculator](/tools/ecommerce/etsy-fee-calculator) for the US baseline, then use the [Etsy Regulatory & Currency Fee Calculator](/tools/ecommerce/etsy-regulatory-fee-calculator) to model the country and currency layer.
 
 ## Payment Processing Fees by Country
@@ -22,20 +24,20 @@ The fee is calculated as a percentage of the **total order amount**, applied to 
 
 | Seller Location | Rate |
 |-----------------|------|
-| United Kingdom | 0.35% |
-| France | 0.45% |
-| Italy | 0.35% |
-| Spain | 0.35% |
-| Turkey | 1.1% |
-| India | 1.0% |
-| Vietnam | 1.0% |
+| United Kingdom | 0.32% |
+| France | 0.47% |
+| Italy | 0.32% |
+| Spain | 0.72% |
+| Turkey | 2.27% |
+| India | 0.29% |
+| Vietnam | 1.24% |
 | Canada | 0.5% |
 
 Note: Etsy may add, remove, or adjust country rates over time. Always check your Etsy fee page for the most current rates. Use the [Etsy Regulatory & Currency Fee Calculator](/tools/ecommerce/etsy-regulatory-fee-calculator) to estimate based on your specific country.
 
 ### What This Means for Your Orders
 
-At 0.35% (the UK rate), the regulatory fee on a $100 order is $0.35 — negligible in isolation. But at 1.1% (Turkey), the same $100 order costs $1.10. And at 1.0% (India), a $500 order costs $5.00 *just in regulatory fees* — before any other Etsy charges.
+At 0.32% (the UK rate), the regulatory fee on a $100 order is $0.32. At 2.27% (Turkey), the same $100 order costs $2.27. At 0.29% (India), a $500 order costs $1.45 in regulatory fees before any other Etsy charges.
 
 For high-volume sellers in higher-rate countries, these fees add up. A Turkish seller doing $30,000 in annual revenue pays roughly $330 per year in regulatory fees alone.
 
@@ -67,7 +69,7 @@ On a $200 order:
 | Fee | Calculation | Amount |
 |-----|-------------|--------|
 | Core Etsy fees | Various | ~$19.30 |
-| Regulatory (UK 0.35%) | $200 × 0.35% | $0.70 |
+| Regulatory (UK 0.32%) | $200 × 0.32% | $0.64 |
 | Currency conversion (2.5%) | $200 × 2.5% | $5.00 |
 | **Total fees** | | **$25.00** |
 
@@ -142,13 +144,13 @@ Etsy's fee statements aren't always easy to parse. Use the [Etsy Regulatory & Cu
 
 ### United Kingdom
 
-UK sellers face a 0.35% regulatory fee — the lowest rate — plus a 2.5% currency conversion fee if listing in non-GBP currencies. Since many UK sellers target the US market, the combined add-on fee can reach 2.85%.
+UK sellers face a 0.32% regulatory fee plus a 2.5% currency conversion fee if listing in non-GBP currencies. Since many UK sellers target the US market, the combined add-on fee can reach 2.82%.
 
 UK-specific note: Etsy collects and remits UK VAT on orders shipped to UK buyers. Sellers do not need to handle VAT for these transactions, but income tax on Etsy profits is the seller's responsibility.
 
 ### Turkey
 
-Turkish sellers pay the highest regulatory rate at 1.1%, and most list in USD or EUR rather than TRY (because Etsy's buyer base is international). The combination of 1.1% regulatory + 2.5% currency conversion = 3.6% in add-on fees before any core Etsy charges.
+Turkish sellers pay the highest regulatory rate at 2.27%, and most list in USD or EUR rather than TRY (because Etsy's buyer base is international). The combination of 2.27% regulatory + 2.5% currency conversion = 4.77% in add-on fees before any core Etsy charges.
 
 Turkish sellers should strongly consider listing in EUR if their bank account supports EUR, as EUR is more common among Turkish business bank accounts than USD. A multi-currency account is even better.
 
@@ -160,13 +162,13 @@ Canadian sellers have a good alternative: many Canadian banks offer USD-denomina
 
 ### India
 
-Indian sellers face a 1.0% regulatory fee. Combined with 2.5% currency conversion, total add-on fees reach 3.5%. On a ₹10,000 order (roughly $120), that's about ₹350 ($4.20) before core Etsy fees.
+Indian sellers face a 0.29% regulatory fee. Combined with 2.5% currency conversion, total add-on fees reach 2.79%. On a ₹10,000 order (roughly $120), the two add-on fees total about ₹279 (roughly $3.35) before core Etsy fees.
 
 Indian sellers should investigate whether their bank supports foreign currency accounts. The Reserve Bank of India allows residents to hold foreign currency accounts under certain conditions. If available, a USD-denominated account eliminates the 2.5% conversion fee.
 
 ### France
 
-French sellers pay 0.45% regulatory. Combined with 2.5% currency conversion when listing in non-EUR currencies, add-on fees reach 2.95%. Since most French sellers can list in EUR (their bank currency) and reach a large European buyer base, the currency conversion fee is avoidable for many.
+French sellers pay 0.47% regulatory. Combined with 2.5% currency conversion when listing in non-EUR currencies, add-on fees reach 2.97%. Since most French sellers can list in EUR (their bank currency), the currency conversion fee can often be avoided by matching the currencies.
 
 ## International Shipping Fee Interactions
 
@@ -213,7 +215,7 @@ At $3,000/month, the savings from going independent substantially exceed the cos
 
 ## Key Takeaways
 
-1. **Check your country's rate** — regulatory fees range from 0.35% to 1.1% depending on where you're registered as a seller
+1. **Check your country's rate** — the current calculator table covers rates from 0.29% to 2.27% depending on seller location
 2. **Currency conversion is the silent margin killer** — 2.5% per order adds up fast, and it's often avoidable
 3. **Match listing currency to bank currency** — the single easiest way to eliminate the conversion fee
 4. **Use a multi-currency account** — cut currency conversion costs by 80% (from 2.5% to ~0.5%)

@@ -15,4 +15,6 @@ export type TechnicalOverview = {
   lastUpdated?: string;
   /** E-E-A-T 信号：维护者，缺省回退到 'ToolOrbit Editorial Team' / 'ToolOrbit 编辑团队'。 */
   maintainer?: string;
+  /** External sources used to verify rates, policies, or technical claims. */
+  sources?: Array<{ label: string; url: string }>;
 };

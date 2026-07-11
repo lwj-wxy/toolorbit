@@ -1,7 +1,7 @@
 import React from 'react';
 import NextLink from 'next/link';
 import { ArrowRight, CalendarCheck, CheckCircle2, ExternalLink, Layers, Wrench } from 'lucide-react';
-import { BLOG_POSTS } from '../constants/blogData';
+import { PUBLISHED_BLOG_POSTS } from '../constants/blogData';
 import en from '../locales/en.json';
 import zh from '../locales/zh.json';
 import { blogBySlug, toolByPath, type SeoContentPage } from '../data/seoContent';
@@ -179,7 +179,7 @@ function pageFaqs(page: SeoContentPage, locale?: string) {
 }
 
 export default function SeoContentPageView({ page, locale }: { page: SeoContentPage; locale?: string }) {
-  const visibleBlogs = page.blogSlugs.filter((slug) => BLOG_POSTS.some((post) => post.slug === slug));
+  const visibleBlogs = page.blogSlugs.filter((slug) => PUBLISHED_BLOG_POSTS.some((post) => post.slug === slug));
   const visibleToolPaths = page.toolPaths.filter((path) => {
     const tool = toolByPath(path);
     return tool && !tool.isNoIndex;

@@ -4,7 +4,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from '../lib/navigation';
 import { Calendar, ChevronLeft, ChevronRight, FolderOpen, UserCheck } from 'lucide-react';
-import { BLOG_POSTS, BlogPost } from '../constants/blogData';
+import { PUBLISHED_BLOG_POSTS, BlogPost } from '../constants/blogData';
 import { getBlogPagePosts, getTotalBlogPages, POSTS_PER_PAGE } from '../lib/blog-pagination';
 import { getAuthorById } from '../data/authors';
 
@@ -33,11 +33,11 @@ const BlogList: React.FC<BlogListProps> = ({ initialPage = 1 }) => {
   }, [initialPage]);
 
   const sortedPosts = useMemo(() => {
-    return [...BLOG_POSTS].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    return [...PUBLISHED_BLOG_POSTS].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   }, []);
 
   const visibleCategories = useMemo(() => {
-    const categoriesWithPosts = new Set(BLOG_POSTS.map((post) => post.category));
+    const categoriesWithPosts = new Set(PUBLISHED_BLOG_POSTS.map((post) => post.category));
     return [
       'All',
       ...CATEGORY_ORDER.filter((category) => categoriesWithPosts.has(category)),
@@ -45,7 +45,7 @@ const BlogList: React.FC<BlogListProps> = ({ initialPage = 1 }) => {
   }, []);
 
   const categoryCounts = useMemo(() => {
-    return BLOG_POSTS.reduce<Record<string, number>>((counts, post) => {
+    return PUBLISHED_BLOG_POSTS.reduce<Record<string, number>>((counts, post) => {
       counts[post.category] = (counts[post.category] || 0) + 1;
       return counts;
     }, {});
@@ -168,7 +168,7 @@ const BlogList: React.FC<BlogListProps> = ({ initialPage = 1 }) => {
 
   const renderCategoryButton = (category: string) => {
     const isActive = activeCategory === category;
-    const count = category === 'All' ? BLOG_POSTS.length : categoryCounts[category] || 0;
+    const count = category === 'All' ? PUBLISHED_BLOG_POSTS.length : categoryCounts[category] || 0;
 
     return (
       <button

@@ -1,12 +1,12 @@
-import { BLOG_POSTS } from '../constants/blogData';
+import { PUBLISHED_BLOG_POSTS } from '../constants/blogData';
 
 export const POSTS_PER_PAGE = 10;
 
 export function sortedBlogPosts() {
-  return [...BLOG_POSTS].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  return [...PUBLISHED_BLOG_POSTS].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
-export function getTotalBlogPages(postCount = BLOG_POSTS.length) {
+export function getTotalBlogPages(postCount = PUBLISHED_BLOG_POSTS.length) {
   return Math.max(1, Math.ceil(postCount / POSTS_PER_PAGE));
 }
 

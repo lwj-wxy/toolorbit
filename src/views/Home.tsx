@@ -74,24 +74,24 @@ const LANDING_FEATURES: Array<{
 }> = [
   {
     icon: Sparkles,
-    titleZh: 'AI 写作工具',
-    titleEn: 'AI writing tools',
-    descriptionZh: '生成商品文案、标题、脚本和翻译，适合上架、社媒和日常内容整理。',
-    descriptionEn: 'Create product copy, titles, scripts, and translations for listings, social posts, and everyday writing.',
-  },
-  {
-    icon: ShieldCheck,
-    titleZh: '文件和图片工具',
-    titleEn: 'File and image tools',
-    descriptionZh: '压缩图片、合并 PDF、转换格式，常见文件处理可以直接在浏览器完成。',
-    descriptionEn: 'Compress images, merge PDFs, and convert formats directly in the browser.',
+    titleZh: 'Etsy 上架工作流',
+    titleEn: 'Etsy listing workflow',
+    descriptionZh: '从商品信息整理到标题、描述和标签草稿，先生成内容，再按商品事实逐项复核。',
+    descriptionEn: 'Turn product details into editable titles, descriptions, and tags, then review each claim before publishing.',
   },
   {
     icon: Calculator,
-    titleZh: '电商费用计算',
-    titleEn: 'Ecommerce fee calculators',
-    descriptionZh: '计算 Etsy、Stripe、PayPal、VAT 和 GST，提前看清成本和到手金额。',
-    descriptionEn: 'Estimate Etsy, Stripe, PayPal, VAT, and GST costs before you price an order.',
+    titleZh: 'Etsy 费用和定价',
+    titleEn: 'Etsy fees and pricing',
+    descriptionZh: '拆分刊登费、交易费、支付处理费和站外广告费，按成本与目标利润反推售价。',
+    descriptionEn: 'Break down listing, transaction, payment, and Offsite Ads costs, then price from real costs and target profit.',
+  },
+  {
+    icon: ShieldCheck,
+    titleZh: '文件和图片处理',
+    titleEn: 'File and image handling',
+    descriptionZh: '压缩商品图、合并 PDF、转换格式，完成上传前的文件检查。',
+    descriptionEn: 'Compress product images, merge PDFs, and convert formats before you upload or share files.',
   },
   {
     icon: Code2,
@@ -644,27 +644,27 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
         <div className="relative mx-auto flex max-w-5xl flex-col items-center text-center">
           <div className="inline-flex items-center gap-2 text-[12px] font-semibold text-[#335cff]">
             <span className="h-2 w-2 rounded-full bg-[#335cff] shadow-[0_0_0_6px_rgba(51,92,255,0.1)]" aria-hidden="true" />
-            {isZh ? '文案草稿 · 文件处理 · 费用复核' : 'Listing drafts · File checks · Fee review'}
+            {isZh ? 'Etsy 上架 · 定价核算 · 文件处理' : 'Etsy listings · Pricing checks · File handling'}
           </div>
 
           <h1 className="mt-7 max-w-5xl text-[38px] font-black leading-[1.06] text-[#111936] sm:text-[64px] sm:leading-[1.04] lg:text-[76px]">
             {isZh ? (
               <>
-                <span className="block">上架文案、文件处理</span>
+                <span className="block">Etsy 上架、定价</span>
                 <span className="mt-1 block text-[#335cff]">和费用核算工具</span>
               </>
             ) : (
               <>
-                Tools for Listings, Files
-                <span className="mt-1 block text-[#335cff]">and Fee Checks</span>
+                Etsy Listing, Pricing
+                <span className="mt-1 block text-[#335cff]">and Fee Tools</span>
               </>
             )}
           </h1>
 
           <p className="mt-7 max-w-3xl text-[16px] leading-8 text-[#4b587c]">
             {isZh
-              ? '用 ToolOrbit 起草可复核的商品文案，处理常见文件，并在定价前估算平台费用。'
-              : 'Use ToolOrbit to draft reviewable listing copy, handle common files, and estimate platform fees before pricing.'}
+              ? '为 Etsy 商品整理上架文案、核对订单成本，并在发布前估算费用和目标利润。'
+              : 'Prepare Etsy listing copy, check order costs, and estimate fees and target profit before you publish.'}
           </p>
 
           <form

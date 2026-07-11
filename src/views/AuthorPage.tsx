@@ -1,6 +1,6 @@
 import NextLink from 'next/link';
 import { BookOpen, CheckCircle2, ShieldCheck, UserCheck } from 'lucide-react';
-import { BLOG_POSTS } from '../constants/blogData';
+import { PUBLISHED_BLOG_POSTS } from '../constants/blogData';
 import { getAuthorById } from '../data/authors';
 import en from '../locales/en.json';
 import zh from '../locales/zh.json';
@@ -29,8 +29,8 @@ type AuthorPageProps = {
 const AuthorPage = ({ authorId, locale = 'en' }: AuthorPageProps) => {
   const isZh = locale === 'zh-CN';
   const author = getAuthorById(authorId, locale);
-  const authoredPosts = BLOG_POSTS.filter((post) => getAuthorById(post.authorId).id === author.id);
-  const candidatePosts = authoredPosts.length ? authoredPosts : BLOG_POSTS;
+  const authoredPosts = PUBLISHED_BLOG_POSTS.filter((post) => getAuthorById(post.authorId).id === author.id);
+  const candidatePosts = authoredPosts.length ? authoredPosts : PUBLISHED_BLOG_POSTS;
   const preferredSlugs = [
       'why-use-json-formatter',
       'base64-encoding-deep-dive',

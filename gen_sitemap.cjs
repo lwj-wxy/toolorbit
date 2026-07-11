@@ -121,8 +121,8 @@ function readTools() {
 }
 
 function readBlogPosts() {
-  const { BLOG_POSTS } = require(path.join(process.cwd(), 'src/constants/blogData.ts'));
-  return BLOG_POSTS.map((post) => ({
+  const { PUBLISHED_BLOG_POSTS } = require(path.join(process.cwd(), 'src/constants/blogData.ts'));
+  return PUBLISHED_BLOG_POSTS.map((post) => ({
     path: `/blog/${post.slug}`,
     date: post.date || today(),
     category: post.category || '',

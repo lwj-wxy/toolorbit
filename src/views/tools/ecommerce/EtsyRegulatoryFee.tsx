@@ -1,18 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DollarSign } from 'lucide-react';
-
-const regulatoryCountries = [
-  { key: 'none', rate: 0 },
-  { key: 'uk', rate: 0.0032 },
-  { key: 'france', rate: 0.0047 },
-  { key: 'italy', rate: 0.0032 },
-  { key: 'india', rate: 0.0029 },
-  { key: 'spain', rate: 0.0072 },
-  { key: 'turkiye', rate: 0.0227 },
-  { key: 'vietnam', rate: 0.0124 },
-  { key: 'canada', rate: 0.005 },
-];
+import { ETSY_CURRENCY_CONVERSION_RATE, ETSY_REGULATORY_RATES } from './etsy-fees';
 
 const EtsyRegulatoryFeeCalculator = () => {
   const { t } = useTranslation();
@@ -21,9 +10,9 @@ const EtsyRegulatoryFeeCalculator = () => {
   const [includeCurrencyConversion, setIncludeCurrencyConversion] = useState(false);
 
   const orderTotalValue = Number(orderTotal) || 0;
-  const selectedCountry = regulatoryCountries.find((country) => country.key === countryKey) || regulatoryCountries[0];
+  const selectedCountry = ETSY_REGULATORY_RATES.find((country) => country.key === countryKey) || ETSY_REGULATORY_RATES[0];
   const regulatoryFee = orderTotalValue * selectedCountry.rate;
-  const currencyConversionFee = includeCurrencyConversion ? orderTotalValue * 0.025 : 0;
+  const currencyConversionFee = includeCurrencyConversion ? orderTotalValue * ETSY_CURRENCY_CONVERSION_RATE : 0;
   const extraFees = regulatoryFee + currencyConversionFee;
   const extraRate = orderTotalValue > 0 ? (extraFees / orderTotalValue) * 100 : 0;
   const amountAfterExtras = orderTotalValue - extraFees;
@@ -71,7 +60,7 @@ const EtsyRegulatoryFeeCalculator = () => {
                 onChange={(event) => setCountryKey(event.target.value)}
                 className="block w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition-colors focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
               >
-                {regulatoryCountries.map((country) => (
+                {ETSY_REGULATORY_RATES.map((country) => (
                   <option key={country.key} value={country.key}>
                     {t(`tools.etsy-regulatory-fee-calculator.country.${country.key}`)}
                   </option>

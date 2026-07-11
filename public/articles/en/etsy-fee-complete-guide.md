@@ -2,6 +2,8 @@
 
 If you sell on Etsy, the payment account can show less profit than the order total suggests. Etsy fees include listing fees, transaction fees, payment processing, Offsite Ads, regulatory fees, and currency conversion in some cases.
 
+Rates can change with Etsy policy updates. This guide explains the calculation method; check the [official Etsy fees policy](https://www.etsy.com/legal/fees/) and your payment account statement for the current charge.
+
 For the tool workflow, start with the [Etsy Fee Calculator](/tools/ecommerce/etsy-fee-calculator), then move through the [Ecommerce Tools Hub](/ecommerce-tools) if you need pricing, Offsite Ads, country fees, or payment processor comparison. If you are choosing between calculators, use [Best Etsy Fee Calculators Compared](/best-etsy-fee-calculators) to decide whether a browser tool, spreadsheet, official Etsy resource, or paid seller platform fits the job.
 
 ## The Three Core Etsy Fees
@@ -60,13 +62,13 @@ Etsy charges an additional percentage-based fee to sellers in certain countries 
 
 | Country | Rate |
 |---------|------|
-| United Kingdom | 0.35% |
-| France | 0.45% |
-| Italy | 0.35% |
-| Spain | 0.35% |
-| Turkey | 1.1% |
-| India | 1.0% |
-| Vietnam | 1.0% |
+| United Kingdom | 0.32% |
+| France | 0.47% |
+| Italy | 0.32% |
+| Spain | 0.72% |
+| Turkey | 2.27% |
+| India | 0.29% |
+| Vietnam | 1.24% |
 | Canada | 0.5% |
 
 Use the [Etsy Regulatory & Currency Fee Calculator](/tools/ecommerce/etsy-regulatory-fee-calculator) to check your country's rate.
@@ -88,13 +90,13 @@ Core fees:
 - Payment processing (varies by UK rate): ~$1.95
 
 Add-on fees:
-- Regulatory fee (UK 0.35%): $0.24
+- Regulatory fee (UK 0.32%): $0.22
 - Currency conversion (2.5%): $1.70
 - Offsite Ads (12%, if attributed): $8.16
 
-Total without Offsite Ads: $6.81 (10.0% effective)
-Total with Offsite Ads: $14.97 (22.0% effective)
-Net after $22 cost: $31.03 (with ads) to $39.19 (without ads)
+Total without Offsite Ads: $8.49 (12.49% effective)
+Total with Offsite Ads: $16.65 (24.49% effective)
+Net after $22 cost: $31.35 (with ads) to $39.51 (without ads)
 ```
 
 This is why sellers need to model multiple fee scenarios. The difference between an organic sale and an ad-attributed sale on this order is $8.16 — a 21% reduction in net profit.
@@ -163,7 +165,7 @@ For sellers considering or already running an independent store alongside Etsy:
 | Payment processing | 3% + $0.25 | 2.9% + $0.30 |
 | Platform subscription | $0 | $39/mo (Shopify Basic) |
 | Offsite Ads | 12-15% (varies) | $0 (self-managed ads) |
-| Regulatory fee | 0.35-1.1% | $0 |
+| Regulatory fee | 0.29-2.27% | $0 |
 | Currency conversion | 2.5% | 1% (Stripe) |
 | Effective rate on $50 order | ~10% ($5.00) | ~3.5% ($1.75) + $39/mo |
 

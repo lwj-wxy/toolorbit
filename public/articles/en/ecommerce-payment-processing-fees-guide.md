@@ -28,7 +28,7 @@ To understand what you pay on Etsy, include the full list:
 | Transaction fee | 6.5% of order total | Item price + shipping + gift wrap |
 | Etsy Payments processing fee | 3% + $0.25 (US) | Order total including tax |
 | Offsite Ads fee | 12% or 15% of order total | Orders attributed to Etsy ads (applicable after $10K threshold or if opted in) |
-| Regulatory operating fee | Varies by country (e.g., 0.40% in France) | Order total for buyers in regulated markets |
+| Regulatory operating fee | Varies by country | Order total for buyers in regulated markets |
 | Currency conversion | 2.5% of order total | Orders where listing currency differs from payment currency |
 
 On a $50 item with $5 shipping, the Etsy transaction fee alone is `$55 × 6.5% = $3.58`. Add the payment processing fee: `$55 × 3% + $0.25 = $1.90`. Total Etsy-specific fees: roughly $5.48 (plus the $0.20 listing fee). That is about 11% of the order total — before any product cost, shipping cost, or ad fees.

@@ -1423,7 +1423,7 @@ export const SEO_CONTENT_PAGES: SeoContentPage[] = [
         heading: 'The real cost of selling on Etsy in 2026',
         body: [
           'Etsy charges are layered, not flat. A $40 item with $5 shipping can easily incur $0.20 (listing fee) + $2.93 (6.5% transaction on $45) + $1.60 (3% + $0.25 payment processing on $45) = $4.73 in core fees alone. That is 10.5% of the order total before you account for materials, labor, packaging, or marketing.',
-          'If the order comes through Offsite Ads at the 15% rate, add another $6.75. If you are a UK seller, add 0.35% regulatory fee and potentially 2.5% currency conversion. The total can reach 25% or more. Etsy discloses these fees, but sellers can still underestimate them while making and shipping products.',
+          'If the order comes through Offsite Ads at the 15% rate, add another $6.75. If you are a UK seller, add the current country-specific regulatory rate and potentially 2.5% currency conversion. The total can reach 25% or more. Check the linked Etsy policy before treating any rate as current.',
           'The calculators on this page make these numbers explicit. Enter your costs and expected sale price to see the fee breakdown in seconds. Etsy provides access to millions of buyers, and the fees pay for that access. Knowing the numbers helps you decide whether each order is worth it.',
           'A common mistake is treating Etsy fees as a single percentage. In practice, the fee stack is a combination of fixed amounts (listing fee, payment processing fixed component) and variable rates (transaction fee, payment processing percentage, optional Offsite Ads, regulatory fees, currency conversion). Fixed fees hurt more on low-value orders. Percentage fees hurt more on high-value orders. The only way to understand your specific situation is to run your own numbers.',
         ],
@@ -1504,7 +1504,7 @@ export const SEO_CONTENT_PAGES: SeoContentPage[] = [
       {
         question: 'How much does Etsy take from a sale?',
         answer:
-          'Etsy core fees total approximately 10% of the order amount: $0.20 listing fee + 6.5% transaction fee + 3% + $0.25 payment processing fee. Additional optional fees include Offsite Ads (12% or 15% on attributed orders), Regulatory Operating Fees (0.35%–1.1% depending on seller location), and Currency Conversion (2.5% when listing and payout currencies differ). The Etsy Fee Calculator on this page shows the exact breakdown for any order scenario.',
+          'Etsy core fees total approximately 10% of the order amount: $0.20 listing fee + 6.5% transaction fee + 3% + $0.25 payment processing fee. Additional optional fees include Offsite Ads (12% or 15% on attributed orders), country-specific Regulatory Operating Fees, and Currency Conversion (2.5% when listing and payout currencies differ). The Etsy Fee Calculator on this page shows the breakdown for the selected order scenario, while the linked Etsy policy remains the source for current rates.',
       },
       {
         question: 'Can I opt out of Etsy Offsite Ads?',

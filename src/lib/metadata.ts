@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { BLOG_POSTS } from '../constants/blogData';
+import { BLOG_POSTS, isPublishedBlogPost } from '../constants/blogData';
 import { BRAND_DESCRIPTION } from '../data/brand';
 import { getAuthorById } from '../data/authors';
 import { getSeoContentPage } from '../data/seoContent';
@@ -238,11 +238,11 @@ export function pageMetadata(title?: string, description?: string, path = '/', l
 export function homeMetadata(locale: Locale = 'en'): Metadata {
   return pageMetadata(
     locale === 'zh-CN'
-      ? 'ToolOrbit 上架文案、文件处理和费用核算工具'
-      : 'ToolOrbit - Listing, File, and Fee Review Tools',
+      ? 'ToolOrbit Etsy 上架、定价和费用工具'
+      : 'ToolOrbit - Etsy Listing, Pricing, and Fee Tools',
     locale === 'zh-CN'
-      ? '用 ToolOrbit 起草可复核的商品文案，处理常见文件，并在定价前估算 Etsy、Stripe、PayPal、VAT 和 GST 等平台费用。'
-      : 'Use ToolOrbit to draft reviewable listing copy, handle common files, and estimate Etsy, Stripe, PayPal, VAT, and GST fees before pricing.',
+      ? '用 ToolOrbit 整理 Etsy 商品文案、核对订单成本，并在定价前估算刊登费、交易费、支付处理费和站外广告费。'
+      : 'Use ToolOrbit to prepare Etsy listing copy, check order costs, and estimate listing, transaction, payment, and Offsite Ads fees before pricing.',
     '/',
     locale,
   );
@@ -305,7 +305,7 @@ export function blogPostMetadata(slug: string, locale: Locale = 'en'): Metadata 
     description.length > DESCRIPTION_MAX_LENGTH ? conciseBlogDescription(title, locale) : description;
   const metadata = pageMetadata(title, metadataDescription, `/blog/${slug}`, locale);
 
-  return {
+  const articleMetadata: Metadata = {
     ...metadata,
     openGraph: {
       ...metadata.openGraph,
@@ -313,6 +313,8 @@ export function blogPostMetadata(slug: string, locale: Locale = 'en'): Metadata 
       publishedTime: post?.date,
     },
   };
+
+  return isPublishedBlogPost(slug) ? articleMetadata : withNoIndex(articleMetadata);
 }
 
 export function toolMetadata(path: string, locale: Locale = 'en'): Metadata {

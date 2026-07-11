@@ -274,3 +274,27 @@ export const BLOG_POSTS: BlogPost[] = posts.map((post) => ({
   authorId: defaultAuthorId,
   ...post,
 }));
+
+// Keep the public editorial surface intentionally small until each article has
+// current sources, an independent example, and a maintained workflow.
+const PUBLISHED_BLOG_SLUGS = new Set([
+  'etsy-fee-complete-guide',
+  'etsy-pricing-strategy-guide',
+  'etsy-offsite-ads-explained',
+  'etsy-international-selling-fees',
+  'how-much-does-etsy-take-per-sale',
+  'etsy-seo-title-tags-guide',
+  'etsy-product-photography-conversion-guide',
+  'etsy-shipping-free-shipping-strategy',
+  'etsy-digital-download-pricing-guide',
+  'ecommerce-payment-processing-fees-guide',
+  'why-use-json-formatter',
+  'secure-developer-tools-privacy',
+  'base64-encoding-deep-dive',
+  'modern-pdf-workflow-efficiency',
+  'ai-coding-code-verification',
+]);
+
+export const PUBLISHED_BLOG_POSTS = BLOG_POSTS.filter((post) => PUBLISHED_BLOG_SLUGS.has(post.slug));
+
+export const isPublishedBlogPost = (slug: string) => PUBLISHED_BLOG_SLUGS.has(slug);

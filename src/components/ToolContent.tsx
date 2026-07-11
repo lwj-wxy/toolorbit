@@ -46,6 +46,7 @@ const LABELS: Record<Locale, {
   inputExample: string;
   outputExample: string;
   lastUpdated: (date: string) => string;
+  sources: string;
   defaultMaintainer: string;
 }> = {
   en: {
@@ -60,6 +61,7 @@ const LABELS: Record<Locale, {
     inputExample: 'Input example',
     outputExample: 'Output example',
     lastUpdated: (date) => `Last updated ${date}`,
+    sources: 'Sources and verification',
     defaultMaintainer: 'ToolOrbit Editorial Team',
   },
   zh: {
@@ -74,6 +76,7 @@ const LABELS: Record<Locale, {
     inputExample: '输入示例',
     outputExample: '输出示例',
     lastUpdated: (date) => `最近更新 ${date}`,
+    sources: '来源与核验',
     defaultMaintainer: 'ToolOrbit 编辑团队',
   },
 };
@@ -221,6 +224,26 @@ export default function ToolContent({ path, locale = 'en' }: { path: string; loc
         <p className="mt-8 border-t border-[var(--app-border)] pt-6 text-sm leading-6 text-[var(--app-muted)]">
           {copy.disclaimer}
         </p>
+      ) : null}
+
+      {overview?.sources?.length ? (
+        <div className="mt-8 border-t border-[var(--app-border)] pt-6">
+          <h3 className="text-base font-semibold text-[var(--app-text)]">{L.sources}</h3>
+          <ul className="mt-3 space-y-2 text-sm leading-6 text-[var(--app-muted)]">
+            {overview.sources.map((source) => (
+              <li key={source.url}>
+                <a
+                  href={source.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="font-semibold text-[var(--app-accent-ink)] underline decoration-[color-mix(in_srgb,var(--app-accent)_35%,transparent)] underline-offset-2"
+                >
+                  {source.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
       ) : null}
 
       {overview?.lastUpdated ? (

@@ -6,7 +6,7 @@ import dynamic from 'next/dynamic';
 import { Link } from '../lib/navigation';
 import { useTranslation } from 'react-i18next';
 import { ArrowLeft, ChevronRight } from 'lucide-react';
-import { BLOG_POSTS } from '../constants/blogData';
+import { BLOG_POSTS, PUBLISHED_BLOG_POSTS } from '../constants/blogData';
 import { createHeadingId, extractMarkdownH2Headings } from '../lib/markdown-headings';
 import type { MarkdownHeading } from '../lib/markdown-headings';
 
@@ -154,7 +154,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, initialMarkdown = '' }) => {
     );
   }
 
-  const relatedPosts = BLOG_POSTS.filter((p) => p.slug !== post.slug)
+  const relatedPosts = PUBLISHED_BLOG_POSTS.filter((p) => p.slug !== post.slug)
     .sort((a, b) => {
       if (a.category === post.category && b.category !== post.category) return -1;
       if (a.category !== post.category && b.category === post.category) return 1;

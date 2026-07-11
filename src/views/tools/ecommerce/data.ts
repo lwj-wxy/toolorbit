@@ -15,16 +15,20 @@ export const ECOMMERCE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         '输出按收入、成本、平台费用和利润分组展示。收入部分显示商品销售额、折扣、买家支付运费和最终计费收入；成本部分汇总商品成本、运费成本与额外成本；费用部分逐项列出 Etsy 刊登费、交易费、支付处理费和可选 Offsite Ads 费用；底部展示净利润、利润率、费用率、ROI 和盈亏平衡价。正利润和负利润使用不同颜色提示，便于卖家快速识别是否需要调价。',
       processing:
-        '所有计算在浏览器端同步执行。核心逻辑：商品销售额 = 商品单价 × 数量；折后商品收入 = max(商品销售额 - 折扣, 0)；订单总收入 = 折后商品收入 + 买家支付运费；直接成本 = 商品单位成本 × 数量 + 实际运费成本 + 额外成本；Etsy 基础费用 = $0.20 刊登费 + 订单总收入 × 6.5% 交易费 + 订单总收入 × 3% + $0.25 支付处理费；Offsite Ads 费用 = 订单总收入 × 所选广告费率；净利润 = 订单总收入 - 直接成本 - 基础费用 - Offsite Ads 费用；利润率 = 净利润 / 订单总收入 × 100%。费率按 Etsy 公开卖家费用说明复核，最近复核时间为 2026-06；实际账单仍以 Etsy 后台为准。',
+        '所有计算在浏览器端同步执行。核心逻辑：商品销售额 = 商品单价 × 数量；折后商品收入 = max(商品销售额 - 折扣, 0)；订单总收入 = 折后商品收入 + 买家支付运费；直接成本 = 商品单位成本 × 数量 + 实际运费成本 + 额外成本；Etsy 基础费用 = $0.20 × 数量刊登费 + 订单总收入 × 6.5% 交易费 + 订单总收入 × 3% + $0.25 支付处理费；Offsite Ads 费用 = 订单总收入 × 所选广告费率；净利润 = 订单总收入 - 直接成本 - 基础费用 - Offsite Ads 费用；利润率 = 净利润 / 订单总收入 × 100%。费率按 Etsy 公开卖家费用说明复核，最近复核时间为 2026-06；实际账单仍以 Etsy 后台为准。',
       modes: ['商品单价与数量', '买家支付运费', '订单折扣', '商品 / 运费 / 额外成本', 'Etsy 基础费用拆分', 'Offsite Ads 0% / 12% / 15%', '净利润 / 利润率 / ROI', '盈亏平衡价', '本地实时计算'],
       example: {
         title: 'Etsy 利润计算示例',
         input: '商品单价: 35.00\n数量: 2\n买家支付运费: 5.00\n折扣: 10.00\n商品单位成本: 12.00\n实际运费成本: 6.00\n额外成本: 2.00\nOffsite Ads: 12%',
-        output: '订单总收入: $65.00\n直接成本: $32.00\nEtsy 基础费用: $6.63\nOffsite Ads: $7.80\n净利润: $18.58\n利润率: 28.58%',
+        output: '订单总收入: $65.00\n直接成本: $32.00\nEtsy 基础费用: $6.83\nOffsite Ads: $7.80\n净利润: $18.38\n利润率: 28.27%',
         inputLanguage: 'text',
         outputLanguage: 'text',
       },
       lastUpdated: '2026-06',
+      sources: [
+        { label: 'Etsy Fees and Payments Policy', url: 'https://www.etsy.com/legal/fees/' },
+        { label: 'Etsy Offsite Ads Policy', url: 'https://www.etsy.com/legal/advertising/' },
+      ],
     },
     en: {
       summary:
@@ -34,16 +38,20 @@ export const ECOMMERCE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       output:
         'The output is grouped into revenue, costs, platform fees, and profit. Revenue shows item sales, discount, buyer-paid shipping, and final chargeable revenue. Costs summarize item cost, shipping cost, and extra cost. Fees itemize the Etsy listing fee, transaction fee, payment processing fee, and optional Offsite Ads fee. The summary highlights net profit, profit margin, fee rate, ROI, and break-even price, with color cues for profitable versus loss-making scenarios.',
       processing:
-        'All calculations run synchronously in the browser. Core logic: gross item revenue = item price × quantity; discounted item revenue = max(gross item revenue - discount, 0); total order revenue = discounted item revenue + buyer-paid shipping; direct costs = per-item cost × quantity + actual shipping cost + extra cost; core Etsy fees = $0.20 listing fee + total order revenue × 6.5% transaction fee + total order revenue × 3% + $0.25 payment processing fee; Offsite Ads fee = total order revenue × selected ad rate; net profit = total order revenue - direct costs - core Etsy fees - Offsite Ads fee; profit margin = net profit / total order revenue × 100%. Rate assumptions were checked against Etsy public seller fee information in 2026-06; Etsy account statements remain the source of truth.',
+        'All calculations run synchronously in the browser. Core logic: gross item revenue = item price × quantity; discounted item revenue = max(gross item revenue - discount, 0); total order revenue = discounted item revenue + buyer-paid shipping; direct costs = per-item cost × quantity + actual shipping cost + extra cost; core Etsy fees = $0.20 × quantity listing fee + total order revenue × 6.5% transaction fee + total order revenue × 3% + $0.25 payment processing fee; Offsite Ads fee = total order revenue × selected ad rate; net profit = total order revenue - direct costs - core Etsy fees - Offsite Ads fee; profit margin = net profit / total order revenue × 100%. Rate assumptions were checked against Etsy public seller fee information in 2026-06; Etsy account statements remain the source of truth.',
       modes: ['Item price and quantity', 'Buyer-paid shipping', 'Order discount', 'Item / shipping / extra costs', 'Core Etsy fee breakdown', 'Offsite Ads 0% / 12% / 15%', 'Net profit / margin / ROI', 'Break-even price', 'Real-time local calculation'],
       example: {
         title: 'Etsy fee calculation example',
         input: 'Item price: 35.00\nQuantity: 2\nBuyer-paid shipping: 5.00\nDiscount: 10.00\nPer-item cost: 12.00\nActual shipping cost: 6.00\nExtra cost: 2.00\nOffsite Ads: 12%',
-        output: 'Total order revenue: $65.00\nDirect costs: $32.00\nCore Etsy fees: $6.63\nOffsite Ads: $7.80\nNet profit: $18.58\nProfit margin: 28.58%',
+        output: 'Total order revenue: $65.00\nDirect costs: $32.00\nCore Etsy fees: $6.83\nOffsite Ads: $7.80\nNet profit: $18.38\nProfit margin: 28.27%',
         inputLanguage: 'text',
         outputLanguage: 'text',
       },
       lastUpdated: '2026-06',
+      sources: [
+        { label: 'Etsy Fees and Payments Policy', url: 'https://www.etsy.com/legal/fees/' },
+        { label: 'Etsy Offsite Ads Policy', url: 'https://www.etsy.com/legal/advertising/' },
+      ],
     },
   },
 
@@ -66,6 +74,10 @@ export const ECOMMERCE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
         outputLanguage: 'text',
       },
       lastUpdated: '2026-06',
+      sources: [
+        { label: 'Etsy Fees and Payments Policy', url: 'https://www.etsy.com/legal/fees/' },
+        { label: 'Etsy Offsite Ads Policy', url: 'https://www.etsy.com/legal/advertising/' },
+      ],
     },
     en: {
       summary:
@@ -85,6 +97,10 @@ export const ECOMMERCE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
         outputLanguage: 'text',
       },
       lastUpdated: '2026-06',
+      sources: [
+        { label: 'Etsy Fees and Payments Policy', url: 'https://www.etsy.com/legal/fees/' },
+        { label: 'Etsy Offsite Ads Policy', url: 'https://www.etsy.com/legal/advertising/' },
+      ],
     },
   },
 
@@ -107,6 +123,10 @@ export const ECOMMERCE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
         outputLanguage: 'text',
       },
       lastUpdated: '2026-06',
+      sources: [
+        { label: 'Etsy Fees and Payments Policy', url: 'https://www.etsy.com/legal/fees/' },
+        { label: 'Etsy Offsite Ads Policy', url: 'https://www.etsy.com/legal/advertising/' },
+      ],
     },
     en: {
       summary:
@@ -126,6 +146,10 @@ export const ECOMMERCE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
         outputLanguage: 'text',
       },
       lastUpdated: '2026-06',
+      sources: [
+        { label: 'Etsy Fees and Payments Policy', url: 'https://www.etsy.com/legal/fees/' },
+        { label: 'Etsy Offsite Ads Policy', url: 'https://www.etsy.com/legal/advertising/' },
+      ],
     },
   },
 
@@ -150,7 +174,7 @@ export const ECOMMERCE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
     },
     en: {
       summary:
-        'The Etsy Regulatory and Currency Fee Calculator estimates two easily overlooked but impactful Etsy add-on fees directly in the browser: the Regulatory Operating Fee and the Currency Conversion Fee. The Regulatory Operating Fee is an additional charge that Etsy applies to sellers in certain countries, with built-in rates for the UK, France, Italy, Spain, Türkiye, India, Vietnam, and Canada, including examples such as 0.32% for the UK, 0.47% for France, 2.27% for Türkiye, and 0.50% for Canada. The Currency Conversion Fee is automatically deducted at 2.5% of the order total when the listing currency differs from the seller\'s payout bank account currency. Use cases include projecting add-on fees before listing a new product, comparing the fee impact of different currency settlement options, independently verifying the regulatory and conversion line items on an Etsy statement during reconciliation, and holistically evaluating how these hidden fees affect overall profit margins. The tool focuses on the "extra fee layer" beyond standard Etsy transaction and payment processing charges, giving sellers a clear accounting of where every deduction originates.',
+        'The Etsy Regulatory and Currency Fee Calculator estimates two Etsy add-on fees directly in the browser: the Regulatory Operating Fee and the Currency Conversion Fee. It includes a maintained country-rate table for the UK, France, Italy, Spain, Türkiye, India, Vietnam, and Canada, then shows the selected rate and amount instead of hiding the assumption inside one total. The Currency Conversion Fee is estimated at 2.5% of the order total when the listing currency differs from the payout account currency. Review the linked Etsy policy and compare the result with the Etsy payment account before using the number for pricing or reconciliation.',
       input:
         'Two core inputs: total order amount (following Etsy\'s chargeable total calculation, including the sum of item price, shipping, gift wrap, and personalization fees where applicable) and seller location (selected from a built-in country/region rate list, with rates sourced from official Etsy Regulatory Operating Fee announcements). A currency conversion fee toggle enables the 2.5% rate for scenarios where the listing currency (e.g. USD) differs from the payout account currency (e.g. CAD, EUR, GBP). All amounts use USD as the unified calculation unit and support decimal input.',
       output:
@@ -188,6 +212,9 @@ export const ECOMMERCE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
         outputLanguage: 'text',
       },
       lastUpdated: '2026-06',
+      sources: [
+        { label: 'Etsy Fees and Payments Policy', url: 'https://www.etsy.com/legal/fees/' },
+      ],
     },
     en: {
       summary:
@@ -208,6 +235,9 @@ export const ECOMMERCE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
         outputLanguage: 'text',
       },
       lastUpdated: '2026-06',
+      sources: [
+        { label: 'Etsy Fees and Payments Policy', url: 'https://www.etsy.com/legal/fees/' },
+      ],
     },
   },
 

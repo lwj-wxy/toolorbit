@@ -1581,13 +1581,6 @@
       "faq3A": "The base formula uses Etsy's commonly published fee structure: a $0.20 listing fee, 6.5% transaction fee, and a US Etsy Payments example of 3% + $0.25. Countries and payment accounts can vary.",
       "seoTitle": "Etsy Fee Calculator - Profit, Shipping & Offsite Ads",
       "seoDesc": "Estimate Etsy listing, transaction, payment, shipping, discount, and Offsite Ads costs to see real net profit before pricing a listing.",
-      "highlightsTitle": "Master the hidden costs of every order:",
-      "highlight1Title": "1. Instant Fee Calculation:",
-      "highlight1Desc": "Enter price, quantity, shipping, discounts, and costs. The system automatically calculates based on standard Etsy rules ($0.20 listing fee, 6.5% transaction, etc).",
-      "highlight2Title": "2. Price Strategy Correction:",
-      "highlight2Desc": "Not sure whether free shipping, discounts, or Offsite Ads orders are profitable? Use this simulator to compare strategies and find the best net gain.",
-      "highlight3Title": "3. Privacy Protected:",
-      "highlight3Desc": "We understand data sensitivity. All calculations stay in your browser. No data is sent to or stored on our servers.",
       "disclaimer": "Note: Calculations are based on common US seller rates. Regulatory operating fees, currency conversion, taxes, and country-specific payment processing may apply separately."
     },
     "etsy-offsite-ads-calculator": {
