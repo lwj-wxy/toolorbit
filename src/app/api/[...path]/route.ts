@@ -58,6 +58,10 @@ function getAiToolCategory(path: string) {
 
 const usageMap: Map<string, number> = (globalThis as any).__toolorbitUsageMap || new Map<string, number>();
 (globalThis as any).__toolorbitUsageMap = usageMap;
+const dailyAiUsageMap: Map<string, { day: string; count: number }> =
+  (globalThis as any).__toolorbitDailyAiUsageMap || new Map<string, { day: string; count: number }>();
+(globalThis as any).__toolorbitDailyAiUsageMap = dailyAiUsageMap;
+const DAILY_AI_USAGE_LIMIT = 5;
 
 export async function GET(request: Request) {
   const path = new URL(request.url).pathname.replace(/^\/api\/?/, '');
@@ -233,6 +237,35 @@ function rateLimit(ip: string, windowMs = 1000, message: AiRuntimeRateMessage = 
 
 function markUsage(ip: string) {
   usageMap.set(ip, Date.now());
+}
+
+function dailyAiUsageLimit(ip: string, path: string, language?: string) {
+  if (process.env.NODE_ENV !== 'production') return null;
+
+  const now = new Date();
+  const day = now.toISOString().slice(0, 10);
+  const usageKey = `${path}:${ip}`;
+  const currentUsage = dailyAiUsageMap.get(usageKey);
+  const usage = currentUsage?.day === day ? currentUsage : { day, count: 0 };
+
+  if (usage.count >= DAILY_AI_USAGE_LIMIT) {
+    const nextDay = new Date(`${day}T00:00:00.000Z`);
+    nextDay.setUTCDate(nextDay.getUTCDate() + 1);
+    const retryAfterSeconds = Math.max(1, Math.ceil((nextDay.getTime() - now.getTime()) / 1000));
+    const normalizedLanguage = language?.toLowerCase?.() || '';
+    const isChinese = normalizedLanguage.startsWith('zh') || normalizedLanguage === '中文';
+    const message = isChinese
+      ? '当前 IP 今日使用量已达到上限，请明天再试。'
+      : "This IP has reached today's usage limit for this tool. Please try again tomorrow.";
+
+    return Response.json(
+      { success: false, error: message, retryAfter: retryAfterSeconds, dailyLimit: DAILY_AI_USAGE_LIMIT },
+      { status: 429, headers: { 'Retry-After': String(retryAfterSeconds) } },
+    );
+  }
+
+  dailyAiUsageMap.set(usageKey, { day, count: usage.count + 1 });
+  return null;
 }
 
 const normalizeTeamLookup = (value: unknown) =>
@@ -1294,6 +1327,8 @@ export async function POST(request: Request) {
     }
 
     if (category === 'image') {
+      const dailyLimit = dailyAiUsageLimit(ip, path, body.language || body.outputLanguage);
+      if (dailyLimit) return dailyLimit;
       markUsage(rateLimitKey);
       if (path === 'ai-svg-generator') return await svgGenerator(body);
       if (path === 'ai-image-generator') return await imageGenerator(body);
@@ -1301,6 +1336,8 @@ export async function POST(request: Request) {
     }
 
     if (category === 'vision') {
+      const dailyLimit = dailyAiUsageLimit(ip, path, body.language || body.outputLanguage || body.interfaceLanguage);
+      if (dailyLimit) return dailyLimit;
       markUsage(rateLimitKey);
       if (path === 'ai-vision-describe') return await visionDescribe(body);
       if (path === 'ai-product-asset-checker') return await productAssetChecker(body);
@@ -1318,6 +1355,8 @@ export async function POST(request: Request) {
 
       const limited = rateLimit(rateLimitKey, runtimeConfig.config.rateMs, runtimeConfig.config.rateMessage || 'Too many requests');
       if (limited) return limited;
+      const dailyLimit = dailyAiUsageLimit(ip, path, body.language || body.outputLanguage);
+      if (dailyLimit) return dailyLimit;
       markUsage(rateLimitKey);
       return streamBufferedChat(
         runtimeConfig.config.model,
@@ -1335,6 +1374,9 @@ export async function POST(request: Request) {
       if (limited) return limited;
       markUsage(rateLimitKey);
     }
+
+    const dailyLimit = dailyAiUsageLimit(ip, path, body.language || body.outputLanguage);
+    if (dailyLimit) return dailyLimit;
 
     return streamChat(config.model, config.messages, config.options);
   } catch (error: any) {
