@@ -3,12 +3,21 @@ export type AiRuntimeMessage = {
   content: string;
 };
 
+export type AiRuntimeRateMessage = string | ((retryAfterSeconds: number) => string);
+
+const accountRateMessage = (outputLanguage: string): ((retryAfterSeconds: number) => string) => (retryAfterSeconds) => {
+  const minutes = Math.max(1, Math.ceil(retryAfterSeconds / 60));
+  return outputLanguage === 'Simplified Chinese'
+    ? `当前账号已触发请求限流，请等待 ${minutes} 分钟后重试。`
+    : `Your account is currently rate-limited. Please wait ${minutes} minute${minutes === 1 ? '' : 's'} before trying again.`;
+};
+
 export type AiRuntimeStreamConfig = {
   model: string;
   messages: AiRuntimeMessage[];
   options?: Record<string, unknown>;
   rateMs?: number;
-  rateMessage?: string;
+  rateMessage?: AiRuntimeRateMessage;
   validateOutput?: (content: string) => string;
 };
 
@@ -171,7 +180,7 @@ const sectionConfig = ({
   brief: Record<string, unknown>;
   markers: string[];
   rateMs?: number;
-  rateMessage?: string;
+  rateMessage?: AiRuntimeRateMessage;
 }): AiRuntimeBuildResult => ({
   handled: true,
   ok: true,
@@ -330,8 +339,8 @@ const buildListingConfig = (body: any, model: string): AiRuntimeBuildResult => {
     ok: true,
     config: {
       model,
-      rateMs: 24 * 60 * 60 * 1000,
-      rateMessage: outputLanguage === 'Simplified Chinese' ? '请求过于频繁，请稍后再试。' : 'Too many requests. Please try again later.',
+      rateMs: 10 * 60 * 1000,
+      rateMessage: accountRateMessage(outputLanguage),
       validateOutput: (content) => ensureMarkedSections(content, ['TITLE', 'DESCRIPTION', 'TAGS', 'SOCIAL']),
       messages: [
         {
@@ -535,7 +544,7 @@ const buildTextPolisherConfig = (body: any, model: string): AiRuntimeBuildResult
     outputLanguage,
     markers: ['POLISHED_TEXT', 'CHECK_NOTES'],
     rateMs: 2 * 60 * 1000,
-    rateMessage: outputLanguage === 'Simplified Chinese' ? '请求过于频繁，请等待 2 分钟后再试。' : 'Too many requests, please wait 2 minutes.',
+    rateMessage: accountRateMessage(outputLanguage),
     systemLines: [
       'You are a careful text editor.',
       'Rewrite the source text for clarity, smoother flow, and the selected tone.',
@@ -564,7 +573,7 @@ const buildTranslatorConfig = (body: any, model: string): AiRuntimeBuildResult =
     outputLanguage: targetLanguage,
     markers: ['TRANSLATION', 'REVIEW_NOTES'],
     rateMs: 2 * 60 * 1000,
-    rateMessage: targetLanguage === 'Simplified Chinese' ? '请求过于频繁，请等待 2 分钟后再试。' : 'Too many requests, please wait 2 minutes.',
+    rateMessage: accountRateMessage(targetLanguage),
     systemLines: [
       'You are a professional translator.',
       'Translate with context and tone instead of word-by-word substitution.',
@@ -924,7 +933,7 @@ const buildWeeklyReportConfig = (body: any, model: string): AiRuntimeBuildResult
     outputLanguage,
     markers: ['SUMMARY', 'ACHIEVEMENTS', 'DETAILS', 'ISSUES', 'NEXTWEEK'],
     rateMs: 2 * 60 * 1000,
-    rateMessage: outputLanguage === 'Simplified Chinese' ? '请求过于频繁，请等待 2 分钟后再试。' : 'Too many requests, please wait 2 minutes.',
+    rateMessage: accountRateMessage(outputLanguage),
     systemLines: [
       `You are a workplace reporting assistant. Turn a rough work log into a structured, professional ${periodLabel}.`,
       `Write from the perspective of a ${REPORT_ROLE_LABELS[role]} and use natural terminology for that role.`,

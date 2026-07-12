@@ -1,7 +1,7 @@
 import axios from 'axios';
 import OpenAI from 'openai';
 import { getNavigationMenuData } from '../../../lib/navigation-menu';
-import { buildAiRuntimeStreamConfig } from '../../../lib/ai-runtime';
+import { buildAiRuntimeStreamConfig, type AiRuntimeRateMessage } from '../../../lib/ai-runtime';
 
 export const runtime = 'nodejs';
 export const maxDuration = 60;
@@ -43,6 +43,14 @@ const AI_TOOL_CATEGORIES: Record<string, AiToolCategory> = {
 };
 
 const TEXT_AI_CATEGORIES = new Set<AiToolCategory>(['copy', 'document', 'code']);
+
+const accountRateMessage = (language?: string): ((retryAfterSeconds: number) => string) => (retryAfterSeconds) => {
+  const minutes = Math.max(1, Math.ceil(retryAfterSeconds / 60));
+  const isChinese = language?.toLowerCase?.().startsWith('zh') || language === '中文';
+  return isChinese
+    ? `当前账号已触发请求限流，请等待 ${minutes} 分钟后重试。`
+    : `Your account is currently rate-limited. Please wait ${minutes} minute${minutes === 1 ? '' : 's'} before trying again.`;
+};
 
 function getAiToolCategory(path: string) {
   return AI_TOOL_CATEGORIES[path] || null;
@@ -205,15 +213,16 @@ function clientIp(request: Request) {
   return forwardedFor || realIp || cfIp || trueClientIp || 'anonymous';
 }
 
-function rateLimit(ip: string, windowMs = 1000, message = 'Too many requests') {
+function rateLimit(ip: string, windowMs = 1000, message: AiRuntimeRateMessage = 'Too many requests') {
   if (process.env.NODE_ENV !== 'production') return null;
 
   const now = Date.now();
   const lastUse = usageMap.get(ip);
   if (lastUse && now - lastUse < windowMs) {
     const retryAfterSeconds = Math.max(1, Math.ceil((windowMs - (now - lastUse)) / 1000));
+    const resolvedMessage = typeof message === 'function' ? message(retryAfterSeconds) : message;
     return Response.json(
-      { success: false, error: message, retryAfter: retryAfterSeconds },
+      { success: false, error: resolvedMessage, retryAfter: retryAfterSeconds },
       { status: 429, headers: { 'Retry-After': String(retryAfterSeconds) } },
     );
   }
@@ -626,7 +635,7 @@ async function shorten(body: any) {
   return Response.json({ error: '所有线路均无法响应，请检查长链接或稍后再试' }, { status: 500 });
 }
 
-function streamConfig(path: string, body: any): { model: string; messages: ChatMessage[]; options?: Record<string, unknown>; rateMs?: number; rateMessage?: string } | null {
+function streamConfig(path: string, body: any): { model: string; messages: ChatMessage[]; options?: Record<string, unknown>; rateMs?: number; rateMessage?: AiRuntimeRateMessage } | null {
   const category = getAiToolCategory(path);
   if (category && !TEXT_AI_CATEGORIES.has(category)) return null;
 
@@ -664,7 +673,7 @@ function streamConfig(path: string, body: any): { model: string; messages: ChatM
       return {
         model: MINIMAX_TEXT_MODEL,
         rateMs: 2 * 60 * 1000,
-        rateMessage: body.language?.startsWith('zh') ? '请求过于频繁，请等待 2 分钟后再试。' : 'Too many requests, please wait 2 minutes.',
+        rateMessage: accountRateMessage(body.language),
         messages: [
           { role: 'system', content: `You are an expert copywriter and text editor. Polish the text in a ${body.tone} tone. Only output the polished text. Output language should match the original text, leaning toward ${targetLanguage(body.language)} if ambiguous.` },
           { role: 'user', content: `Tone: ${body.tone}\n\nText to polish:\n${body.text}` },
@@ -674,7 +683,7 @@ function streamConfig(path: string, body: any): { model: string; messages: ChatM
       return {
         model: MINIMAX_TEXT_MODEL,
         rateMs: 2 * 60 * 1000,
-        rateMessage: 'Rate limit exceeded. Please wait 2 minutes.',
+        rateMessage: accountRateMessage(body.language),
         messages: [
           { role: 'system', content: `You are a professional translator. Translate into ${body.targetLang}, adapt tone to ${body.tone}, keep formatting, and only provide translated text.` },
           { role: 'user', content: `Please translate the following text to ${body.targetLang} with a ${body.tone} tone:\n\n${body.text}` },

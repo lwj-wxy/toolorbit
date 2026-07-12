@@ -7,6 +7,8 @@ BRANCH="main"
 RELEASE_ID="$(date +%Y%m%d%H%M%S)"
 SOURCE_DIR="$APP_DIR/sources/$RELEASE_ID"
 RELEASE_DIR="$APP_DIR/releases/$RELEASE_ID"
+SHARED_DIR="$APP_DIR/shared"
+SHARED_ENV_FILE="$SHARED_DIR/.env.production"
 DEPLOY_RETAIN_RELEASES="${DEPLOY_RETAIN_RELEASES:-3}"
 DEPLOY_RETAIN_SOURCES="${DEPLOY_RETAIN_SOURCES:-3}"
 
@@ -51,7 +53,15 @@ cleanup_old_dirs() {
   done
 }
 
-mkdir -p "$APP_DIR/sources" "$APP_DIR/releases"
+mkdir -p "$APP_DIR/sources" "$APP_DIR/releases" "$SHARED_DIR"
+
+# Keep production secrets outside release directories so a release switch cannot delete them.
+CURRENT_ENV_FILE="$APP_DIR/current/.env.production"
+if [ ! -e "$SHARED_ENV_FILE" ] && [ -f "$CURRENT_ENV_FILE" ]; then
+  cp -p "$CURRENT_ENV_FILE" "$SHARED_ENV_FILE"
+  chmod 600 "$SHARED_ENV_FILE"
+  echo "Migrated production environment to $SHARED_ENV_FILE"
+fi
 
 git clone --depth=1 --branch "$BRANCH" "$REPO_URL" "$SOURCE_DIR"
 
@@ -63,6 +73,12 @@ fi
 mkdir -p "$RELEASE_DIR"
 tar -xzf "$SOURCE_DIR/deploy-release.tar.gz" -C "$RELEASE_DIR"
 mkdir -p "$RELEASE_DIR/public"
+
+if [ -f "$SHARED_ENV_FILE" ]; then
+  ln -s "$SHARED_ENV_FILE" "$RELEASE_DIR/.env.production"
+else
+  echo "Warning: $SHARED_ENV_FILE does not exist. Create it before starting production AI requests." >&2
+fi
 
 for PUBLIC_ASSET_DIR in images featured-tools; do
   if [ ! -d "$SOURCE_DIR/public/$PUBLIC_ASSET_DIR" ]; then
