@@ -188,8 +188,8 @@ export default function ProductImageGenerator() {
         </div>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)] lg:items-start">
-        <section className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-[#282c34] lg:sticky lg:top-24">
+      <div className="space-y-8">
+        <section className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-[#282c34]">
           <div className="mb-5 flex items-center gap-2">
             <ImagePlus className="h-5 w-5 text-cyan-600 dark:text-cyan-300" />
             <h2 className="text-lg font-semibold text-slate-950 dark:text-white">{isZh ? '商品简报' : 'Product brief'}</h2>
