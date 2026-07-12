@@ -268,6 +268,21 @@ function dailyAiUsageLimit(ip: string, path: string, language?: string) {
   return null;
 }
 
+function rollbackDailyAiUsage(ip: string, path: string) {
+  if (process.env.NODE_ENV !== 'production') return;
+
+  const usageKey = `${path}:${ip}`;
+  const day = new Date().toISOString().slice(0, 10);
+  const usage = dailyAiUsageMap.get(usageKey);
+  if (!usage || usage.day !== day) return;
+
+  if (usage.count <= 1) {
+    dailyAiUsageMap.delete(usageKey);
+  } else {
+    dailyAiUsageMap.set(usageKey, { day, count: usage.count - 1 });
+  }
+}
+
 const normalizeTeamLookup = (value: unknown) =>
   String(value || '')
     .normalize('NFKD')
@@ -587,7 +602,7 @@ const withWorldCupMatchContext = async (body: any) => {
   };
 };
 
-function streamChat(model: string, messages: ChatMessage[], options: Record<string, unknown> = {}) {
+function streamChat(model: string, messages: ChatMessage[], options: Record<string, unknown> = {}, onFailure?: () => void) {
   const encoder = new TextEncoder();
 
   return new Response(
@@ -885,6 +900,7 @@ function streamBufferedChat(
   messages: ChatMessage[],
   options: Record<string, unknown> = {},
   validateOutput?: (content: string) => string,
+  onFailure?: () => void,
 ) {
   const encoder = new TextEncoder();
   const upstreamRequest = {
@@ -914,6 +930,7 @@ function streamBufferedChat(
           }
           controller.enqueue(encoder.encode('data: [DONE]\n\n'));
         } catch (error: any) {
+          onFailure?.();
           controller.enqueue(encoder.encode(`data: ${JSON.stringify({ error: error.message || 'Error' })}\n\n`));
         } finally {
           controller.close();
@@ -1310,6 +1327,13 @@ export async function POST(request: Request) {
   const userAgent = request.headers.get('user-agent') || 'unknown';
   const rateLimitKey = `${path}:${ip}:${userAgent}`;
   const category = getAiToolCategory(path);
+  let usageReserved = false;
+  const rollbackReservedUsage = () => {
+    if (!usageReserved) return;
+    usageMap.delete(rateLimitKey);
+    rollbackDailyAiUsage(ip, path);
+    usageReserved = false;
+  };
 
   try {
     if (path === 'anime-screenshot-source') {
@@ -1330,6 +1354,7 @@ export async function POST(request: Request) {
       const dailyLimit = dailyAiUsageLimit(ip, path, body.language || body.outputLanguage);
       if (dailyLimit) return dailyLimit;
       markUsage(rateLimitKey);
+      usageReserved = true;
       if (path === 'ai-svg-generator') return await svgGenerator(body);
       if (path === 'ai-image-generator') return await imageGenerator(body);
       if (path === 'ai-product-image-generator') return await productImageGenerator(body);
@@ -1339,6 +1364,7 @@ export async function POST(request: Request) {
       const dailyLimit = dailyAiUsageLimit(ip, path, body.language || body.outputLanguage || body.interfaceLanguage);
       if (dailyLimit) return dailyLimit;
       markUsage(rateLimitKey);
+      usageReserved = true;
       if (path === 'ai-vision-describe') return await visionDescribe(body);
       if (path === 'ai-product-asset-checker') return await productAssetChecker(body);
     }
@@ -1358,11 +1384,13 @@ export async function POST(request: Request) {
       const dailyLimit = dailyAiUsageLimit(ip, path, body.language || body.outputLanguage);
       if (dailyLimit) return dailyLimit;
       markUsage(rateLimitKey);
+      usageReserved = true;
       return streamBufferedChat(
         runtimeConfig.config.model,
         runtimeConfig.config.messages,
         runtimeConfig.config.options,
         runtimeConfig.config.validateOutput,
+        rollbackReservedUsage,
       );
     }
 
@@ -1377,9 +1405,11 @@ export async function POST(request: Request) {
 
     const dailyLimit = dailyAiUsageLimit(ip, path, body.language || body.outputLanguage);
     if (dailyLimit) return dailyLimit;
+    usageReserved = true;
 
-    return streamChat(config.model, config.messages, config.options);
+    return streamChat(config.model, config.messages, config.options, rollbackReservedUsage);
   } catch (error: any) {
+    rollbackReservedUsage();
     return Response.json({ error: error.response?.data?.error?.message || error.message || 'Error' }, { status: 500 });
   }
 }
