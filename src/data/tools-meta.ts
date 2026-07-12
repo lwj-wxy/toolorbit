@@ -21,11 +21,8 @@ export const PUBLIC_TOOL_IDS = new Set([
   'etsy-regulatory-fee-calculator',
   'listing-generator',
   'keyword-analyzer',
-  'competitor-tracker',
-  'market-insights',
   'ai-hs-code-assistant',
   'ai-product-asset-checker',
-  'ai-product-image-generator',
 ]);
 
 // Short tool descriptions are intentionally kept concise and unique. We no longer append a
