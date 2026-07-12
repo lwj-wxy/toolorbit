@@ -17,17 +17,7 @@ const CATEGORY_PATHS = [
   '/category/utility-tools',
 ];
 const SEO_CONTENT_PATHS = [
-  '/developer-tools',
-  '/ai-tools',
-  '/image-tools',
-  '/pdf-tools',
-  '/text-tools',
-  '/pdf-image-tools',
-  '/webmaster-toolkit',
   '/ecommerce-tools',
-  '/best-json-formatters',
-  '/best-free-pdf-tools',
-  '/best-ai-tools-for-content-creators',
   '/best-etsy-fee-calculators',
   '/authors/toolorbit-editorial-team',
 ];
@@ -80,11 +70,6 @@ function today() {
 
 function localizedPath(localPath, locale) {
   const normalized = localPath === '/' ? '/' : `/${String(localPath).replace(/^\/+/, '')}`;
-
-  if (locale === 'zh-CN') {
-    return normalized === '/' ? '/zh-CN' : `/zh-CN${normalized}`;
-  }
-
   return normalized;
 }
 
@@ -98,7 +83,6 @@ function hreflangXml(localPath) {
   const alternates = [
     ['en', englishUrl],
     ['en-US', englishUrl],
-    ['zh-CN', absoluteLocalizedUrl(localPath, 'zh-CN')],
     ['x-default', englishUrl],
   ];
 
@@ -237,10 +221,7 @@ const uniqueBaseUrls = Array.from(
   new Map(baseUrls.map((entry) => [entry.localPath, entry])).values(),
 );
 
-const urls = uniqueBaseUrls.flatMap((entry) => [
-  { ...entry, locale: 'en' },
-  { ...entry, locale: 'zh-CN' },
-]);
+const urls = uniqueBaseUrls.map((entry) => ({ ...entry, locale: 'en' }));
 
 const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
@@ -251,4 +232,4 @@ ${urls.map(urlEntry).join('\n')}
 `;
 
 fs.writeFileSync('public/sitemap.xml', xml);
-console.log(`Sitemap generated successfully with ${urls.length} localized URLs.`);
+console.log(`Sitemap generated successfully with ${urls.length} English URLs.`);

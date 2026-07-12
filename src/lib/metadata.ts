@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { BLOG_POSTS, isPublishedBlogPost } from '../constants/blogData';
 import { BRAND_DESCRIPTION } from '../data/brand';
 import { getAuthorById } from '../data/authors';
-import { getSeoContentPage } from '../data/seoContent';
+import { getSeoContentPage, isPublicSeoContentPage } from '../data/seoContent';
 import { TOOLS, type Category } from '../data/tools';
 import en from '../locales/en.json';
 import zh from '../locales/zh.json';
@@ -171,7 +171,6 @@ function alternateLanguages(path: string) {
   return {
     [HREFLANG_CODES.en]: englishUrl,
     'en-US': englishUrl,
-    [HREFLANG_CODES['zh-CN']]: absoluteLocalizedUrl(path, 'zh-CN'),
     'x-default': englishUrl,
   };
 }
@@ -222,8 +221,7 @@ export function pageMetadata(title?: string, description?: string, path = '/', l
       url,
       siteName: SITE_NAME,
       type: 'website',
-      locale: locale === 'zh-CN' ? 'zh_CN' : 'en_US',
-      alternateLocale: locale === 'zh-CN' ? ['en_US'] : ['zh_CN'],
+      locale: 'en_US',
       images: socialImage,
     },
     twitter: {
@@ -256,7 +254,7 @@ export function staticPageMetadata(page: StaticPageKey, locale: Locale = 'en'): 
   const description = locale === 'zh-CN' ? STATIC_PAGE_DESCRIPTIONS_ZH[page] : STATIC_PAGE_DESCRIPTIONS[page];
   const metadata = pageMetadata(title, description, `/${page}`, locale);
 
-  if (page === 'privacy' || page === 'terms') {
+  if (page === 'privacy' || page === 'terms' || page === 'featured-tools') {
     return withNoIndex(metadata);
   }
 
@@ -279,13 +277,13 @@ export function blogListMetadata(locale: Locale = 'en', page = 1): Metadata {
 }
 
 export function allToolsMetadata(locale: Locale = 'en'): Metadata {
-  const visibleToolCount = TOOLS.filter((tool) => !tool.isNoIndex && tool.category !== 'AI 工具').length;
+  const visibleToolCount = TOOLS.filter((tool) => !tool.isNoIndex).length;
 
   return pageMetadata(
-    locale === 'zh-CN' ? 'ToolOrbit 其它浏览器工具' : 'Other ToolOrbit Browser Tools',
+    locale === 'zh-CN' ? 'ToolOrbit 卖家工作流工具' : 'ToolOrbit Seller Workflow Tools',
     locale === 'zh-CN'
-      ? `浏览 ToolOrbit 的 ${visibleToolCount} 个非 AI 工具，覆盖开发调试、PDF、图片、电商费用、文本处理和计算转换。`
-      : `Browse ${visibleToolCount} non-AI ToolOrbit tools for developer checks, PDF, image, ecommerce fees, text handling, and conversions.`,
+      ? `使用 ToolOrbit 的 ${visibleToolCount} 个卖家工作流工具，处理 Etsy 费用、定价、广告、合规、上架文案、关键词和商品图片。`
+      : `Use ${visibleToolCount} ToolOrbit seller workflow tools for Etsy fees, pricing, ads, compliance, listing copy, keywords, and product images.`,
     '/tools',
     locale,
   );
@@ -366,7 +364,7 @@ export function categoryMetadata(category: Category, locale: Locale = 'en'): Met
     locale,
   );
 
-  return toolCount === 0 ? withNoIndex(metadata) : metadata;
+  return toolCount === 0 || !['AI 工具', '电商工具'].includes(category) ? withNoIndex(metadata) : metadata;
 }
 
 export function seoContentMetadata(path: string, locale: Locale = 'en'): Metadata {
@@ -380,7 +378,9 @@ export function seoContentMetadata(path: string, locale: Locale = 'en'): Metadat
   const title = readPath(source, `seoContent.${path}.title`) || page.title;
   const description = readPath(source, `seoContent.${path}.description`) || page.description;
 
-  return pageMetadata(title, description, path, locale);
+  const metadata = pageMetadata(title, description, path, locale);
+
+  return isPublicSeoContentPage(path) ? metadata : withNoIndex(metadata);
 }
 
 export function authorMetadata(authorId?: string, locale: Locale = 'en'): Metadata {

@@ -314,9 +314,9 @@ export function categoryPageJsonLd(category: Category, locale: Locale = 'en') {
 
 export function allToolsPageJsonLd(locale: Locale = 'en') {
   const url = absoluteUrl('/tools', locale);
-  const visibleTools = TOOLS.filter((tool) => !tool.isNoIndex && tool.category !== 'AI 工具');
+  const visibleTools = TOOLS.filter((tool) => !tool.isNoIndex);
   const visibleToolCount = visibleTools.length;
-  const pageName = locale === 'zh-CN' ? '其它浏览器工具' : 'Other Browser Tools';
+  const pageName = locale === 'zh-CN' ? '卖家工作流工具' : 'Seller Workflow Tools';
 
   return [
     breadcrumb([

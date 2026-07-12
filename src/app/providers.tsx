@@ -2,7 +2,6 @@
 
 import '../i18n';
 import { useEffect } from 'react';
-import { usePathname } from 'next/navigation';
 import { Toaster } from 'react-hot-toast';
 import CookieConsentManager from '../components/CookieConsentManager';
 import GoogleAnalyticsScript from '../components/GoogleAnalyticsScript';
@@ -11,7 +10,6 @@ import ScrollToTop from '../components/ScrollToTop';
 import { ThemeProvider } from '../context/ThemeContext';
 import { usePageTracking } from '../hooks/usePageTracking';
 import i18n from '../i18n';
-import { detectLocaleFromPathname, localeToI18nLanguage } from '../lib/i18n-routing';
 import type { ToolTrackingItem } from '../lib/navigation-menu';
 
 function AnalyticsTracker() {
@@ -20,23 +18,16 @@ function AnalyticsTracker() {
 }
 
 function LanguageBootstrapper() {
-  const pathname = usePathname() || '/';
-
   useEffect(() => {
-    const pathLanguage = localeToI18nLanguage(detectLocaleFromPathname(pathname));
-    const hasLocalePrefix = pathname.toLowerCase().startsWith('/zh-cn');
-    const nextLanguage = hasLocalePrefix
-      ? pathLanguage
-      : 'en';
-    const normalizedLanguage = nextLanguage.toLowerCase().startsWith('zh') ? 'zh' : 'en';
-    document.documentElement.lang = normalizedLanguage === 'zh' ? 'zh-CN' : 'en';
+    const normalizedLanguage = 'en';
+    document.documentElement.lang = 'en';
 
     if (i18n.language !== normalizedLanguage) {
       i18n.changeLanguage(normalizedLanguage);
     }
 
     document.cookie = `toolorbit_language=${normalizedLanguage}; Path=/; Max-Age=31536000; SameSite=Lax`;
-  }, [pathname]);
+  }, []);
 
   return null;
 }

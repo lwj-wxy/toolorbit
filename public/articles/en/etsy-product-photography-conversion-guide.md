@@ -1,91 +1,52 @@
-# Etsy Product Photos That Convert: A Practical Shot List for Sellers
+# Etsy Product Photography: Build a Listing Image Set That Answers Questions
 
-On Etsy, product photos do two jobs at once. The first photo earns the click from search results. The remaining photos reduce uncertainty so the buyer feels ready to purchase. If either job fails, even strong SEO and good pricing can underperform.
+Etsy buyers cannot pick up a product through the screen. Product photos need to show what the item is, how large it is, how it is used, and what the buyer will receive.
 
-Etsy recommends using multiple image types because buyers need to understand the product clearly: what it looks like, how large it is, how it is used, what details matter, and what will arrive in the package.
+Use the [Etsy Seller Handbook](https://www.etsy.com/seller-handbook) for current image requirements. Before uploading, the [Image Converter](/tools/image/image-converter) and [Image Compressor](/tools/image/image-compressor) can help prepare files without changing the product itself.
 
-## The First Photo Is a Search Result Asset
+## Give each image one job
 
-Your first image is usually the thumbnail buyers see in search. It should be simple, bright, and immediately understandable. Avoid text overlays, collages, busy props, or crops that hide the product. Etsy may display listing images across different surfaces, so choose a first photo that works in both square and rectangular crops.
+A useful image set reduces uncertainty in a sequence:
 
-A good first photo should:
+1. **Hero image:** show the product clearly at a glance.
+2. **Detail image:** show texture, finish, stitching, or print quality.
+3. **Scale image:** show dimensions beside a familiar object or in use.
+4. **Variation image:** show colors, sizes, or included options.
+5. **Packaging image:** show what arrives and how it is protected.
+6. **Instruction image:** explain personalization, file access, or assembly when needed.
 
-- Show the product clearly.
-- Use natural or soft light.
-- Keep the background simple.
-- Avoid confusing props.
-- Make the product occupy enough of the frame.
-- Stay accurate to the real color and texture.
+Do not use every slot for a slightly different crop of the same photo. Buyers need information, not repetition.
 
-If a buyer cannot identify the item in one second, the thumbnail is probably too busy.
+## Make the first image easy to read
 
-## Build a 7-Shot Listing System
+Use enough contrast between the product and background. Keep the product large enough to recognize in a small search thumbnail. Remove props that imply the buyer receives something that is not included.
 
-You do not need a studio budget, but you do need a repeatable shot list. Use this structure for most physical products:
+For handmade products, small imperfections can be part of the product. Show them honestly and describe them in the listing so the buyer knows what to expect.
 
-| Photo | Purpose | Example |
-|---|---|---|
-| 1. Clean hero shot | Earn the search click | Mug on a neutral surface |
-| 2. Detail close-up | Prove quality | Glaze texture, stitching, engraving |
-| 3. Scale shot | Prevent size confusion | Item in hand or beside a common object |
-| 4. Lifestyle shot | Help buyers imagine use | Candle on a bedside table |
-| 5. Variation shot | Explain options | All colors or sizes together |
-| 6. Packaging shot | Support giftability | Box, card, wrapping, insert |
-| 7. Instruction or care shot | Reduce support questions | Size chart, care note, personalization guide |
+## Show scale and important details
 
-Etsy allows many photos per listing, so use the space to answer objections visually. Every image should remove one reason the buyer might hesitate.
+Dimensions in text are easy to misread. Add a scale reference and photograph the product in its intended context when appropriate. For jewelry, stationery, art prints, and home goods, a clear size image can prevent returns caused by an incorrect assumption.
 
-## Match Photos to the Category
+Photograph details that affect purchase decisions: paper thickness, clasp type, wood grain, screen-printed texture, file format, or the number of pieces in a set.
 
-Different products need different proof.
+## Prepare files for the web
 
-For jewelry, show the piece on a model, on a plain background, next to a ruler or coin, and in packaging. For wall art, show the print close-up, in a styled room, with size options, and with a frame disclaimer if the frame is not included. For handmade clothing, include front, back, detail, fabric texture, model sizing, and care instructions.
+Export a clear image at Etsy's current recommended dimensions and file limits. Compress large files enough for fast loading while preserving edges and texture. Keep a high-quality original separately so you can create a new crop later.
 
-Digital downloads need photos too. Use mockups, preview pages, included-file diagrams, and screenshots of the PDF or template. A digital planner listing should show layout examples, page counts, file formats, and whether the buyer can print or use it in an app.
+Use descriptive file names and useful alt text where your publishing workflow supports them. Do not add text to the image that makes the product harder to inspect.
 
-## Use Photos to Support Pricing
+## Test photography against conversion
 
-Product photography affects perceived value. If your price is higher than competitors, photos need to justify it. Show material quality, handmade process, packaging, customization options, and the emotional use case.
+If visits are steady but orders are weak, review the hero image and scale image before changing every keyword. Change one image, record the date, and compare conversion over a meaningful period. Seasonal products need a seasonal comparison.
 
-For example, a $48 handmade candle cannot rely on one white-background image. It needs to show the vessel, wax finish, scent notes, gift packaging, scale, and the mood it creates in a room. Then use the [Etsy Pricing Calculator](/tools/ecommerce/etsy-pricing-calculator) to confirm that the higher price still covers materials, shipping, fees, and target profit.
+## Photography checklist
 
-## Avoid Common Photo Mistakes
+- Product is the main subject in the first image.
+- Colors and materials are represented honestly.
+- Size and quantity are obvious.
+- Variations are shown clearly.
+- Props are identified when they are not included.
+- Files load quickly without visible compression damage.
+- Images support the title, description, and price.
 
-The most frequent conversion problems are not artistic. They are practical:
-
-- The first photo is too dark.
-- The product is too small in the frame.
-- Props make it unclear what is included.
-- Colors are edited beyond reality.
-- Size is impossible to judge.
-- Variations are not visually explained.
-- Text overlays are hard to read on mobile.
-- The listing lacks packaging or delivery expectation photos.
-
-Fixing these often improves performance more than rewriting a title again.
-
-## A Simple Photo Audit
-
-Before publishing or refreshing a listing, ask these questions:
-
-1. Can a buyer identify the product from the first image in one second?
-2. Is the first image clean enough for mobile search results?
-3. Do the photos show size, material, color, and use?
-4. Is every variation shown clearly?
-5. Does the listing answer what is included and what is not included?
-6. Would the buyer know whether the product is gift-ready?
-7. Are the images consistent with the price?
-
-If the answer is no, add or reshoot the missing image before spending time on ads.
-
-## Connect Photography to Listing Copy
-
-Photos and descriptions should work together. If the description says "hand-poured soy wax," include a close-up or process photo. If the title says "personalized," show where personalization appears. If the listing is a digital download, show the buyer exactly what files they receive.
-
-Use the [AI Listing Generator](/tools/ai/listing-generator) to turn photo details into stronger description copy, then keep the language accurate and specific.
-
----
-
-*Helpful tools: compress final image assets with the [Image Compressor](/tools/image/image-compressor), draft image-informed listing copy with the [AI Listing Generator](/tools/ai/listing-generator), and verify profitable pricing with the [Etsy Pricing Calculator](/tools/ecommerce/etsy-pricing-calculator).*
-
-**Further reading from Etsy:** [The Anatomy of a Well-Crafted Etsy Listing](https://www.etsy.com/seller-handbook/article/1347574487014), [7 Essential Types of Product Photos](https://www.etsy.com/seller-handbook/article/22504064051), and [Product Photography Checklist](https://www.etsy.com/seller-handbook/article/152858121769).
+Strong Etsy photography is useful sales information. It reduces uncertainty before the buyer has to ask a question.

@@ -23,7 +23,7 @@ export default function Layout({ children }: LayoutProps) {
 
       <LayoutHeaderClient />
 
-      <div className="relative z-10 mx-auto flex w-full max-w-7xl min-w-0 flex-1 flex-col px-4 pb-7 pt-[calc(58px+1.75rem)] sm:px-6 md:pb-9 md:pt-[calc(58px+2.25rem)] lg:px-8">
+      <div className="relative z-10 mx-auto flex w-full max-w-[1440px] min-w-0 flex-1 flex-col px-4 pb-7 pt-[calc(68px+1.75rem)] sm:px-6 md:pb-9 md:pt-[calc(68px+2.5rem)] lg:px-10">
         <main id="main-content" className="w-full min-w-0">
           <LayoutPathEnhancements slot="before-content" />
           <div>{children}</div>

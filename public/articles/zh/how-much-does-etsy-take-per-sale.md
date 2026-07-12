@@ -79,3 +79,5 @@ Etsy 对每笔订单收取三项强制费用，均以**订单总额**为基数 �
 ---
 
 *用 [Etsy 费用计算器](/tools/ecommerce/etsy-fee-calculator) 立刻看到你的确切费用拆解，用 [Etsy 定价计算器](/tools/ecommerce/etsy-pricing-calculator) 从第一天就定出有利润的价格，或阅读完整的 [Etsy 费用指南](/blog/etsy-fee-complete-guide) 了解每一笔费用。*
+
+**核验计算假设：**[Etsy 费用与支付政策](https://www.etsy.com/legal/fees/) 和 [Etsy Offsite Ads 政策](https://www.etsy.com/legal/advertising/)。最终对账请以 Etsy 收款账户账单为准。

@@ -6,6 +6,17 @@ import en from '../locales/en.json';
 import zh from '../locales/zh.json';
 import { blogBySlug, toolByPath, type SeoContentPage } from '../data/seoContent';
 
+const PAGE_SOURCES: Record<string, Array<{ label: string; url: string }>> = {
+  '/ecommerce-tools': [
+    { label: 'Etsy Fees and Payments Policy', url: 'https://www.etsy.com/legal/fees/' },
+    { label: 'Etsy Offsite Ads Policy', url: 'https://www.etsy.com/legal/advertising/' },
+  ],
+  '/best-etsy-fee-calculators': [
+    { label: 'Etsy Fees and Payments Policy', url: 'https://www.etsy.com/legal/fees/' },
+    { label: 'Etsy Help Center', url: 'https://help.etsy.com/hc/en-us' },
+  ],
+};
+
 const LINK_PATTERN = /\[([^\]]+)\]\((\/[^)]+)\)/g;
 
 const UI_TEXT = {
@@ -195,6 +206,7 @@ export default function SeoContentPageView({ page, locale }: { page: SeoContentP
   const sections = pageSections(page, locale);
   const faqs = pageFaqs(page, locale);
   const labels = ui(locale);
+  const pageSources = PAGE_SOURCES[page.path] || [];
 
   return (
     <main className="mx-auto w-full max-w-6xl py-4">
@@ -347,6 +359,22 @@ export default function SeoContentPageView({ page, locale }: { page: SeoContentP
           <NextLink href="/authors/toolorbit-editorial-team" className="mt-3 inline-flex items-center gap-2 font-semibold text-blue-700 dark:text-blue-300">
             {labels.editorialProfile} <ExternalLink className="h-4 w-4" aria-hidden="true" />
           </NextLink>
+          {pageSources.length ? (
+            <div className="mt-5 border-t border-slate-200 pt-4 dark:border-slate-800">
+              <p className="font-semibold text-slate-950 dark:text-white">
+                {isChineseLocale(locale) ? '来源与核验' : 'Sources and verification'}
+              </p>
+              <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-2">
+                {pageSources.map((source) => (
+                  <li key={source.url}>
+                    <a href={source.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-blue-700 hover:text-blue-800 dark:text-blue-300 dark:hover:text-blue-200">
+                      {source.label} <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
         </footer>
       </article>
     </main>

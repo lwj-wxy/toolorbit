@@ -141,23 +141,34 @@ export function ToolsMegaDropdown({ categories }: { categories: NavCategory[] })
   const { t } = useTranslation();
 
   return (
-    <div className="absolute left-0 top-[58px] z-50 invisible w-full -translate-y-1 border-b border-[var(--app-border)] bg-[color-mix(in_srgb,var(--app-surface)_94%,transparent)] opacity-0 shadow-[var(--app-shadow-lg)] backdrop-blur-md transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 dark:border-[var(--app-border)] dark:bg-[color-mix(in_srgb,var(--app-bg-soft)_94%,transparent)]">
-      <div className="mx-auto max-w-[1536px] px-4 py-7 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-4 lg:grid-cols-5 xl:grid-cols-8 gap-6">
+    <div className="invisible absolute left-0 top-[68px] z-50 w-[min(720px,calc(100vw-2rem))] -translate-y-2 border border-[var(--app-border)] border-t-2 border-t-[var(--app-accent)] bg-[color-mix(in_srgb,var(--app-surface)_97%,transparent)] opacity-0 shadow-[var(--app-shadow-lg)] backdrop-blur-md transition-[opacity,transform,visibility] duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 dark:border-[var(--app-border)] dark:bg-[color-mix(in_srgb,var(--app-bg-soft)_97%,transparent)]">
+      <div className="p-5 sm:p-6">
+        <div className="mb-5 flex items-end justify-between gap-4 border-b border-[var(--app-border)] pb-4">
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--app-accent-ink)]">Etsy seller workspace</p>
+            <h3 className="mt-1 text-[17px] font-black tracking-[-0.02em] text-[var(--app-text)]">
+              {t('common.navTools', { defaultValue: 'Seller tools' })}
+            </h3>
+          </div>
+          <Link to="/tools" className="text-[12px] font-semibold text-[var(--app-accent-ink)] hover:text-[var(--app-accent-strong)]">
+            {t('common.viewMore')} <span aria-hidden="true">&rarr;</span>
+          </Link>
+        </div>
+        <div className="grid gap-x-6 gap-y-5 sm:grid-cols-2">
           {categories.map(({ category, path, tools }) => {
             return (
               <div key={category} className="flex flex-col gap-3">
-                <h3 className="mb-2 px-2 text-[12px] font-bold uppercase tracking-wide text-[var(--app-muted)] dark:text-[var(--app-muted)]">
+                <h4 className="text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--app-muted)] dark:text-[var(--app-muted)]">
                   {t(`common.categories.${category}`)}
-                </h3>
+                </h4>
                 <div className="flex flex-col gap-1">
                   {tools.slice(0, 6).map(tool => (
                     <Link
                       key={tool.id}
                       to={tool.path}
-                      className="group/item flex items-center gap-2 rounded-md p-2 transition-colors hover:bg-[var(--app-accent-soft)] dark:hover:bg-[var(--app-accent-soft)]"
+                      className="group/item flex items-center gap-3 border-b border-transparent px-1 py-2 transition-colors hover:border-[var(--app-border)] hover:bg-[var(--app-accent-soft)] dark:hover:bg-[var(--app-accent-soft)]"
                     >
-                      <div className="w-6 h-6 rounded flex items-center justify-center text-[var(--app-muted)] group-hover/item:text-[var(--app-accent-ink)] dark:group-hover/item:text-[var(--app-accent-ink)] transition-colors">
+                      <div className="flex h-6 w-6 items-center justify-center text-[var(--app-muted)] transition-colors group-hover/item:text-[var(--app-accent-ink)] dark:group-hover/item:text-[var(--app-accent-ink)]">
                         <ToolNavIcon id={tool.id} size={16} />
                       </div>
                       <span className="truncate text-[13px] font-medium text-[var(--app-text)] transition-colors group-hover/item:text-[var(--app-accent-ink)] dark:text-[var(--app-text)] dark:group-hover/item:text-[var(--app-accent-ink)]">
@@ -170,7 +181,7 @@ export function ToolsMegaDropdown({ categories }: { categories: NavCategory[] })
                       to={path}
                       className="mt-1 px-2 text-[12px] font-semibold text-[var(--app-accent-ink)] hover:text-[var(--app-accent-strong)] dark:text-[var(--app-accent-ink)]"
                     >
-                      {t('common.viewMore')}
+                      {t('common.viewMore')} <span aria-hidden="true">&rarr;</span>
                     </Link>
                   )}
                 </div>

@@ -1,11 +1,10 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { Search, X, Sparkles, Star } from 'lucide-react';
+import { LayoutDashboard, Search, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Link } from '../lib/navigation';
 import { cn } from '../lib/utils';
-import LanguageSwitcher from './LanguageSwitcher';
 import { detectLocaleFromPathname, localizedPath } from '../lib/i18n-routing';
 import type { NavigationMenuData } from '../lib/navigation-menu';
 import { ToolNavIcon } from './MegaMenuContent';
@@ -28,7 +27,6 @@ export default function MobileMenu({ onClose, pathname, searchParams, navigation
         <div className="sticky top-0 z-10 flex items-center justify-between border-b border-[var(--app-border)] bg-[var(--app-surface)] p-5 dark:border-[var(--app-border)] dark:bg-[var(--app-bg)]">
           <span className="text-[16px] font-semibold text-[var(--app-text)] dark:text-[var(--app-text)]">{t('common.mobileMenu')}</span>
           <div className="flex items-center gap-2">
-            <LanguageSwitcher />
             <button
               type="button"
               aria-label="Close navigation"
@@ -66,24 +64,17 @@ export default function MobileMenu({ onClose, pathname, searchParams, navigation
             />
           </form>
 
-          <div className="flex flex-col gap-3">
-            <h4 className="flex items-center gap-1.5 border-b border-[var(--app-border)] pb-2 text-[14px] font-semibold text-[var(--app-accent-ink)] dark:border-[var(--app-border)] dark:text-[var(--app-accent-ink)]">
-              <Sparkles size={16} />
-              {t('common.categories.AI 工具') || 'AI Tools'}
-            </h4>
-            <div className="flex flex-col gap-2">
-              {(navigationMenu?.aiTools || []).map(tool => (
-                <Link
-                  key={tool.id}
-                  to={tool.path}
-                  onClick={onClose}
-                  className="flex items-center gap-3 rounded-md px-2 py-2 text-[var(--app-muted)] transition-colors hover:bg-[var(--app-accent-soft)] hover:text-[var(--app-accent-ink)] dark:text-[var(--app-muted)] dark:hover:bg-[var(--app-accent-soft)] dark:hover:text-[var(--app-accent-ink)]"
-                >
-                  <ToolNavIcon id={tool.id} size={16} />
-                  <span className="text-[14px] font-medium">{t(`tools.${tool.id}.name`, { defaultValue: tool.name })}</span>
-                </Link>
-              ))}
-            </div>
+          <Link
+            to="/"
+            onClick={onClose}
+            className="flex items-center gap-3 border-b border-[var(--app-border)] pb-4 text-[14px] font-semibold text-[var(--app-text)]"
+          >
+            <LayoutDashboard size={16} />
+            {t('common.navHome', { defaultValue: 'Workspace' })}
+          </Link>
+
+          <div className="text-[11px] font-bold uppercase tracking-[0.16em] text-[var(--app-accent-ink)]">
+            {t('common.navTools', { defaultValue: 'Seller tools' })}
           </div>
 
           {(navigationMenu?.categories || []).map(({ category, tools }) => {
@@ -117,17 +108,6 @@ export default function MobileMenu({ onClose, pathname, searchParams, navigation
               )}
             >
               <span className="text-[16px]">{t('blog.nav')}</span>
-            </Link>
-            <Link
-              to="/featured-tools"
-              onClick={onClose}
-              className={cn(
-                "flex items-center gap-3 rounded-md px-4 py-3 font-semibold transition-colors",
-                pathname.startsWith('/featured-tools') ? "bg-[var(--app-accent-warm-soft)] text-[var(--app-accent-warm)] dark:bg-[var(--app-accent-warm-soft)] dark:text-[var(--app-accent-warm)]" : "text-[var(--app-muted)] hover:bg-[var(--app-accent-soft)] dark:text-[var(--app-muted)] dark:hover:bg-[var(--app-accent-soft)]"
-              )}
-            >
-              <Star className="h-5 w-5" />
-              <span className="text-[16px]">{t('featured-tools.nav')}</span>
             </Link>
           </div>
         </div>

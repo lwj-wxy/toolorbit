@@ -2,15 +2,13 @@
 
 import { useRouter } from 'next/navigation';
 import { FormEvent, useEffect, useRef, useState } from 'react';
-import { BookOpen, Bot, ChevronDown, Menu, Moon, Search, Star, Sun, Wrench } from 'lucide-react';
+import { BookOpen, LayoutDashboard, Menu, Moon, Search, Sun, Wrench } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../context/ThemeContext';
 import { detectLocaleFromPathname, localizedPath, normalizePathname } from '../lib/i18n-routing';
 import { Link, useCurrentLocation } from '../lib/navigation';
 import { getNavigationMenuData, type NavigationMenuData } from '../lib/navigation-menu';
 import { cn } from '../lib/utils';
-import LanguageSwitcher from './LanguageSwitcher';
-import { AiMegaDropdown, ToolsMegaDropdown } from './MegaMenuContent';
 import MobileMenu from './MobileMenu';
 
 const navItemBaseClass =
@@ -68,18 +66,11 @@ export default function LayoutHeaderClient() {
   }, []);
 
   const normalizedPathname = normalizePathname(location.pathname);
-  const aiCategoryPath = navigationMenu?.aiCategoryPath || '/category/ai-tools';
-  const normalizedAiCategoryPath = normalizePathname(aiCategoryPath);
-  const isAiSection =
-    normalizedPathname === normalizedAiCategoryPath ||
-    normalizedPathname === '/ai-tools' ||
-    normalizedPathname.startsWith('/tools/ai/');
   const isToolSection =
     normalizedPathname === '/tools' ||
-    (normalizedPathname.startsWith('/category/') && normalizedPathname !== normalizedAiCategoryPath) ||
-    (normalizedPathname.startsWith('/tools/') && !normalizedPathname.startsWith('/tools/ai/'));
+    normalizedPathname.startsWith('/category/') ||
+    normalizedPathname.startsWith('/tools/');
   const isBlogSection = normalizedPathname.startsWith('/blog');
-  const isFeaturedToolsSection = normalizedPathname.startsWith('/featured-tools');
 
   const handleSearchSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -99,40 +90,23 @@ export default function LayoutHeaderClient() {
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-50 flex h-[58px] items-center justify-between border-b border-[var(--app-border)] bg-[color-mix(in_srgb,var(--app-surface)_88%,transparent)] px-4 shadow-[0_6px_24px_-18px_rgba(15,23,41,0.4)] backdrop-blur-md dark:border-[var(--app-border)] dark:bg-[color-mix(in_srgb,var(--app-bg-soft)_86%,transparent)] sm:px-6 lg:px-8">
+      <header className="fixed inset-x-0 top-0 z-50 flex h-[68px] items-center justify-between border-b border-[var(--app-border)] bg-[color-mix(in_srgb,var(--app-bg)_90%,transparent)] px-4 backdrop-blur-md sm:px-6 lg:px-10">
         <div className="flex min-w-0 items-center gap-4 lg:gap-6 xl:gap-8">
-          <Link
-            to="/"
-            className="flex shrink-0 items-center gap-2 text-[16px] font-bold tracking-tight text-[var(--app-text)] transition-colors hover:text-[var(--app-accent-ink)] dark:text-[var(--app-text)] dark:hover:text-[var(--app-accent-ink)] lg:gap-[10px]"
-          >
-            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[linear-gradient(135deg,var(--app-accent),var(--app-accent-warm))] text-[11px] font-bold text-white shadow-[0_4px_12px_-2px_color-mix(in_srgb,var(--app-accent)_55%,transparent)] lg:h-8 lg:w-8">
+          <Link to="/" className="group flex shrink-0 items-center gap-3 text-[var(--app-text)]">
+            <div className="flex h-9 w-9 items-center justify-center rounded-[13px] bg-[var(--app-text)] text-[12px] font-black tracking-tight text-[var(--app-bg)] transition-transform group-hover:-rotate-6">
               TO
             </div>
-            <span className="hidden sm:inline">{t('common.logoName')}</span>
+            <span className="hidden text-[17px] font-black tracking-[-0.02em] sm:inline">ToolOrbit</span>
+            <span className="hidden border-l border-[var(--app-border)] pl-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--app-muted)] lg:inline">Seller workspace</span>
           </Link>
 
           <nav className="hidden h-full items-stretch gap-1 md:flex lg:gap-2">
-            <div className="group flex h-full items-center">
-              <Link
-                to={aiCategoryPath}
-                className={cn(
-                  navItemBaseClass,
-                  isAiSection ? navItemActiveClass : navItemInactiveClass,
-                )}
-              >
-                <Bot className="h-4 w-4" aria-hidden="true" />
-                {t('common.categories.AI 工具') || 'AI Tools'}
-                <ChevronDown
-                  className={cn(
-                    'h-3.5 w-3.5 transition-transform duration-200 group-hover:rotate-180 lg:h-4 lg:w-4',
-                    isAiSection ? 'text-[var(--app-accent)] dark:text-[var(--app-accent)]' : 'text-[var(--app-muted)]',
-                  )}
-                />
-              </Link>
-              <AiMegaDropdown aiCategoryPath={aiCategoryPath} aiTools={navigationMenu?.aiTools || []} />
-            </div>
+            <Link to="/" className={cn(navItemBaseClass, normalizedPathname === '/' ? navItemActiveClass : navItemInactiveClass)}>
+              <LayoutDashboard className="h-4 w-4" aria-hidden="true" />
+              {t('common.navHome', { defaultValue: 'Workspace' })}
+            </Link>
 
-            <div className="group flex h-full items-center">
+            <div className="flex h-full items-center">
               <Link
                 to="/tools"
                 className={cn(
@@ -141,15 +115,8 @@ export default function LayoutHeaderClient() {
                 )}
               >
                 <Wrench className="h-4 w-4" aria-hidden="true" />
-                {t('common.navTools')}
-                <ChevronDown
-                  className={cn(
-                    'h-3.5 w-3.5 transition-transform duration-200 group-hover:rotate-180 lg:h-4 lg:w-4',
-                    isToolSection ? 'text-[var(--app-accent)] dark:text-[var(--app-accent)]' : 'text-[var(--app-muted)]',
-                  )}
-                />
+                {t('common.navTools', { defaultValue: 'Seller tools' })}
               </Link>
-              <ToolsMegaDropdown categories={navigationMenu?.categories || []} />
             </div>
 
             <Link
@@ -160,19 +127,9 @@ export default function LayoutHeaderClient() {
               )}
             >
               <BookOpen className="h-4 w-4" aria-hidden="true" />
-              {t('blog.nav')}
+              {t('blog.nav', { defaultValue: 'Guides' })}
             </Link>
 
-            <Link
-              to="/featured-tools"
-              className={cn(
-                navItemBaseClass,
-                isFeaturedToolsSection ? navItemActiveClass : navItemInactiveClass,
-              )}
-            >
-              <Star className="h-4 w-4" aria-hidden="true" />
-              {t('featured-tools.nav')}
-            </Link>
           </nav>
         </div>
 
@@ -212,10 +169,6 @@ export default function LayoutHeaderClient() {
                 </div>
               )}
             </form>
-          </div>
-
-          <div className="hidden md:block">
-            <LanguageSwitcher />
           </div>
 
           <button

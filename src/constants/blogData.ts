@@ -9,12 +9,6 @@ const defaultAuthorId = 'luo-wj';
 
 const posts: BlogPost[] = [
   {
-    slug: 'ai-coding-code-verification',
-    date: '2026-06-11',
-    category: 'AI',
-    authorId: 'toolorbit-editorial-team',
-  },
-  {
     slug: 'claude-code-configuration-guide',
     date: '2026-06-11',
     category: 'AI',
@@ -85,11 +79,6 @@ const posts: BlogPost[] = [
   },
   {
     slug: 'reverse-payment-fee-calculator-guide',
-    date: '2026-05-27',
-    category: 'Business',
-  },
-  {
-    slug: 'ecommerce-payment-processing-fees-guide',
     date: '2026-05-27',
     category: 'Business',
   },
@@ -199,11 +188,6 @@ const posts: BlogPost[] = [
     date: '2026-04-30',
   },
   {
-    slug: 'modern-pdf-workflow-efficiency',
-    category: 'Development',
-    date: '2026-04-29',
-  },
-  {
     slug: 'secure-developer-tools-privacy',
     category: 'Security',
     date: '2026-04-27',
@@ -287,10 +271,6 @@ const PUBLISHED_BLOG_SLUGS = new Set([
   'etsy-product-photography-conversion-guide',
   'etsy-shipping-free-shipping-strategy',
   'etsy-digital-download-pricing-guide',
-  'ecommerce-payment-processing-fees-guide',
-  'secure-developer-tools-privacy',
-  'modern-pdf-workflow-efficiency',
-  'ai-coding-code-verification',
 ]);
 
 export const PUBLISHED_BLOG_POSTS = BLOG_POSTS.filter((post) => PUBLISHED_BLOG_SLUGS.has(post.slug));

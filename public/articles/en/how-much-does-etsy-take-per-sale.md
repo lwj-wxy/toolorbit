@@ -1,83 +1,64 @@
-# How Much Does Etsy Take Per Sale? (2026 Breakdown)
+# How Much Does Etsy Take Per Sale? A Simple Way to Estimate Your Payout
 
-**Short answer: Etsy takes roughly 9.5%–11% of a typical US sale through three mandatory fees — a $0.20 listing fee, a 6.5% transaction fee, and a 3% + $0.25 payment processing fee. On a $50 sale, that's about $5.20, leaving you with $44.80 before your own product and labor costs.** Optional fees like Offsite Ads can push Etsy's cut past 20% on individual orders.
+There is no single Etsy percentage that applies to every seller and every order. The amount deducted depends on the seller country, order total, payment processing, listing or renewal charges, currency conversion, and possible Offsite Ads attribution.
 
-If you've ever looked at your Etsy payment account and wondered why it's smaller than your sales total, this page breaks down exactly what Etsy keeps from each sale — and what you actually take home.
+For the current rules, check Etsy's [official fees policy](https://www.etsy.com/legal/fees/). For a specific order, use the [Etsy Fee Calculator](/tools/ecommerce/etsy-fee-calculator).
 
-For a calculator-first workflow, run your own order through the [Etsy Fee Calculator](/tools/ecommerce/etsy-fee-calculator), then use the [Ecommerce Tools Hub](/ecommerce-tools) for pricing, Offsite Ads, international fees, and payment processor comparison.
+## Start with a complete order total
 
-## The exact percentage Etsy takes per sale
+Suppose a buyer pays for an item, shipping, and personalization. Do not estimate the payout from the item price alone. Write down every part of the order total, then identify which charges each fee uses as its base.
 
-Etsy charges three mandatory fees on every order. They all apply to the **total order amount** — item price plus any shipping, gift wrap, and personalization the buyer pays.
+The exact fee base and rate can change by policy and seller location. Your Etsy payment statement is the final record for the order.
 
-| Fee | Rate (US sellers) | On a $50 sale |
-|---|---|---:|
-| Listing fee | $0.20 flat per item | $0.20 |
-| Transaction fee | 6.5% of order total | $3.25 |
-| Payment processing | 3% + $0.25 | $1.75 |
-| **Total Etsy cut** | | **$5.20 (10.4%)** |
+## The basic calculation
 
-So on a standard $50 sale, **Etsy takes about $5.20, and you keep $44.80** before your own costs.
+For a US example, a seller may model a listing fee, a transaction percentage, and an Etsy Payments percentage plus fixed processing fee. Sellers in other countries need to enter the payment processing rate for their own account.
 
-When people ask "what percentage does Etsy take," the single biggest piece is the **6.5% transaction fee** — but the listing fee and payment processing push the real, all-in rate higher, especially on small orders.
+```text
+Estimated payout = order total
+- listing or renewal fee
+- transaction fee
+- payment processing fee
+- country-specific fees
+- currency conversion, if applicable
+- Offsite Ads fee, if attributed
+```
 
-## What Etsy takes (and what you keep) at every price point
+This is an estimate, not a universal Etsy formula. Use it to plan prices and compare it with the statement after the sale.
 
-Because two of the fees are fixed ($0.20 listing + $0.25 payment), Etsy's effective percentage is higher on cheap items and lower on expensive ones:
+## Why low-priced products feel more expensive
 
-| Sale amount | Etsy's cut | You keep | Etsy's effective % |
-|---:|---:|---:|---:|
-| $10 | $1.40 | $8.60 | 14.0% |
-| $25 | $2.83 | $22.17 | 11.3% |
-| $50 | $5.20 | $44.80 | 10.4% |
-| $100 | $9.95 | $90.05 | 10.0% |
-| $250 | $24.20 | $225.80 | 9.7% |
+Fixed fees take a larger share of a small order. A $10 order and a $100 order may have similar percentage fees, but the fixed listing and payment components make the effective rate higher on the $10 order.
 
-*US seller, item price only, no buyer-paid shipping. "You keep" is gross — before your product cost, labor, and shipping.*
+That is why low-priced products should be modeled with their actual average order value. Bundles can improve the effective rate when they increase order value without increasing labor and shipping at the same pace.
 
-This is why **how much Etsy takes per sale depends heavily on your price point.** Under $25, Etsy's cut routinely exceeds 11%. For sub-$10 items, it can top 14% — which is why low-priced products need careful margin math. Want your exact figure? Run your numbers through the [Etsy Fee Calculator](/tools/ecommerce/etsy-fee-calculator).
+## Include the fees that are conditional
 
-## Does Etsy take a cut even if I don't sell?
+Offsite Ads can add a fee to an attributed order. Currency conversion can reduce a payout when listing and bank currencies do not match. Country-specific operating or regulatory fees may apply to some seller accounts.
 
-Partly, yes. The **$0.20 listing fee is charged when you list or renew an item — whether or not it sells.** List 100 items and you've paid $20 before a single order. The 6.5% transaction fee and payment processing only apply when you actually make a sale.
+Run an organic and an attributed scenario for products with narrow margins. If the product is only profitable without the conditional fee, consider changing the price, bundle, or product mix.
 
-So Etsy's "cut" really has two parts: a small upfront cost just to be on the platform (listing fees), and the per-sale fees that only trigger when money changes hands.
+## Example using an order model
 
-## The fees that push Etsy's cut higher than 10%
+Assume a seller receives a $60 item price and $8 shipping charge. The model should include the $68 order amount where applicable, then subtract the seller-country transaction and processing fees, listing cost, shipping label, packaging, materials, and labor.
 
-The ~10% figure is the *baseline*. Several optional or situational fees can take a bigger bite:
+The important output is not the platform deduction alone. It is the contribution profit left after the costs required to fulfill the order.
 
-- **Offsite Ads — 12% or 15%.** If a buyer reaches your shop through an Etsy-purchased ad and orders within 30 days, Etsy charges 12% (shops over $10K/year) or 15% (under $10K) of the **entire** order. This alone can roughly double Etsy's cut on an attributed sale. Once you pass $10K in 12 months, you can't opt out.
-- **Regulatory Operating Fee — 0.35%–1.1%.** Charged to sellers in certain countries, including the UK, France, Turkey, and India.
-- **Currency conversion — 2.5%.** Applies when your listing currency and bank currency differ.
+## How to verify the estimate
 
-On a worst-case attributed international order, Etsy's combined cut can reach **20–22%**. For the full layer-by-layer breakdown of every Etsy fee, see our [complete Etsy fee guide](/blog/etsy-fee-complete-guide).
+1. Enter the order values and seller country in the calculator.
+2. Save the result with the order number.
+3. Compare the estimate with the Etsy payment statement.
+4. Investigate differences caused by refunds, taxes, ads, conversion, or shipping labels.
+5. Update the price model when the difference repeats across several orders.
 
-## How much does Etsy take from a $100 sale?
+## What to remember
 
-A common question with a clean answer. On a $100 US sale with no shipping charged:
+- Etsy does not take one universal percentage from every sale.
+- Shipping and extras can affect the fee base.
+- Seller-country payment processing rates matter.
+- Fixed fees make small orders more expensive as a percentage.
+- Offsite Ads and currency conversion need separate scenarios.
+- The final payout statement is more reliable than a remembered rate.
 
-- Listing fee: $0.20
-- Transaction fee (6.5%): $6.50
-- Payment processing (3% + $0.25): $3.25
-- **Etsy takes $9.95 — you keep $90.05** (before your costs).
-
-If that order came through Offsite Ads at 12%, add $12.00, and Etsy's total cut jumps to **$21.95 (about 22%)**.
-
-## How to keep more of each sale
-
-You can't avoid Etsy's core fees, but you can protect your margins:
-
-1. **Price with fees built in.** Start from your target profit and work backward so the ~10% cut (plus any ads) is already covered. The [Etsy Pricing Calculator](/tools/ecommerce/etsy-pricing-calculator) does this reverse math for you.
-2. **Mind your low-priced items.** Anything under $15 loses a disproportionate share to fixed fees — consider bundling to raise the average order value.
-3. **Match listing and bank currency** to dodge the 2.5% conversion fee.
-4. **Watch your Offsite Ads attribution.** Below $10K/year, decide whether the 15% is worth it; above $10K, bake the 12% into your prices since you can't opt out.
-5. **Audit monthly.** Divide total fees by total revenue to track your real blended rate over time.
-
-## Bottom line
-
-For a typical US seller, **Etsy takes about 10% of each sale** through its three core fees — a bit more on cheap items, a bit less on expensive ones, and substantially more (up to ~20%+) when Offsite Ads or international fees apply. Knowing your real per-sale cut is the first step to pricing for actual profit.
-
----
-
-*See your exact numbers instantly with the [Etsy Fee Calculator](/tools/ecommerce/etsy-fee-calculator), set profitable prices with the [Etsy Pricing Calculator](/tools/ecommerce/etsy-pricing-calculator), or read the full [Etsy fee guide](/blog/etsy-fee-complete-guide) for every fee explained.*
+Use the calculator for planning, the official policy for current rules, and your statement for bookkeeping.

@@ -18,23 +18,19 @@ export function normalizePathname(pathname = '/') {
 }
 
 export function detectLocaleFromPathname(pathname = '/'): Locale {
-  return /^\/zh-CN(?=\/|$)/i.test(pathname) ? CHINESE_LOCALE : DEFAULT_LOCALE;
+  return DEFAULT_LOCALE;
 }
 
 export function localeToI18nLanguage(locale: Locale): I18nLanguage {
-  return locale === CHINESE_LOCALE ? 'zh' : 'en';
+  return 'en';
 }
 
 export function i18nLanguageToLocale(language: string): Locale {
-  return language.toLowerCase().startsWith('zh') ? CHINESE_LOCALE : DEFAULT_LOCALE;
+  return DEFAULT_LOCALE;
 }
 
 export function localizedPath(pathname = '/', locale: Locale = DEFAULT_LOCALE) {
   const normalized = normalizePathname(pathname);
-
-  if (locale === CHINESE_LOCALE) {
-    return normalized === '/' ? '/zh-CN' : `/zh-CN${normalized}`;
-  }
 
   return normalized;
 }

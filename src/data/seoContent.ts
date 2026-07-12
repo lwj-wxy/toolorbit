@@ -1374,23 +1374,23 @@ export const SEO_CONTENT_PAGES: SeoContentPage[] = [
     path: '/ecommerce-tools',
     title: 'Free Etsy Fee Calculators & Ecommerce Tools',
     description:
-      'A practical hub for free, local-first Etsy fee calculators and ecommerce tools: calculate Etsy fees, Offsite Ads costs, target pricing, regulatory fees, and Stripe processing charges.',
+      'A practical hub for free, local-first Etsy seller tools: calculate fees, model Offsite Ads, set a target price, review regulatory charges, and prepare a listing.',
     eyebrow: 'Ecommerce Tools Hub',
     audience:
       'Built for Etsy sellers, handmade business owners, vintage resellers, craft entrepreneurs, print-on-demand operators, and small ecommerce teams who need fast, private fee calculations.',
-    updated: '2026-05-22',
+    updated: '2026-07-12',
     type: 'pillar',
     targetKeyword: 'free Etsy fee calculator ecommerce tools',
     summary: [
       'Etsy sellers need fee math before they set prices. Listing fees, transaction fees, payment processing, Offsite Ads, regulatory operating fees, and currency conversion can remove 15-25% of an order before materials, labor, and packaging costs.',
-      'ToolOrbit ecommerce tools focus on the Etsy seller workflow: estimate the order fee, test Offsite Ads, set a target price, review country and currency charges, then compare Stripe and PayPal if you also sell through your own store.',
+      'ToolOrbit ecommerce tools focus on the Etsy seller workflow: estimate the order fee, test Offsite Ads, set a target price, review country and currency charges, then prepare the listing and product assets.',
       'Every calculator runs in the browser. You can check sale price, shipping, discounts, product cost, and ad impact without uploading shop data or starting a SaaS trial.',
     ],
     table: [
       {
         label: 'Etsy fee calculator',
         bestFor: 'Understanding exactly what Etsy deducts from each order',
-        tools: 'Etsy Fee Calculator, Stripe Fee Calculator, PayPal Fee Calculator',
+        tools: 'Etsy Fee Calculator, Offsite Ads Calculator, Pricing Calculator',
         note: 'Start here. Know your real per-order cost before setting any price.',
       },
       {
@@ -1435,7 +1435,7 @@ export const SEO_CONTENT_PAGES: SeoContentPage[] = [
           'Step two: use the [Etsy Offsite Ads Calculator](/tools/ecommerce/etsy-offsite-ads-calculator) to model the worst case. If you are above the $10K threshold, you are permanently opted into Offsite Ads at 12%. That fee applies to the total order amount including shipping. Run the numbers and decide whether to build that cost into your base price or treat it as an occasional margin reduction.',
           'Step three: use the [Etsy Pricing Calculator](/tools/ecommerce/etsy-pricing-calculator) to set prices from target profit instead of guessing from competitor listings. Enter your cost, shipping, target profit, and any optional fees. The calculator gives the listing price you need and lets you compare free-shipping and buyer-paid-shipping scenarios.',
           'Step four: if you sell internationally, use the [Etsy Regulatory & Currency Fee Calculator](/tools/ecommerce/etsy-regulatory-fee-calculator). Check your country rate and decide whether the 2.5% currency conversion fee applies to your payout setup. If it does, compare that cost against the benefit of listing in a buyer-friendly currency.',
-          'Step five: use the Stripe Fee Calculator, PayPal Fee Calculator, and Stripe vs PayPal Fee Calculator to compare payment processors. If you also sell on your own website, enter the same transaction amount in these calculators. The difference between Etsy all-in fees (~10–20%) and standalone payment processing explains why many successful sellers eventually build independent storefronts. Etsy earns its fees through buyer traffic; Stripe and PayPal mainly process payments. Understanding this trade-off is central to ecommerce strategy.',
+          'Step five: use the Listing Generator and Keyword Analyzer to turn the pricing decision into a publishable listing. Then use the Competitor Tracker or Market Insights tool to review positioning before you publish. A profitable price and a clear listing belong in the same workflow: one protects margin, and the other helps buyers find the product.',
         ],
       },
       {
@@ -1460,16 +1460,16 @@ export const SEO_CONTENT_PAGES: SeoContentPage[] = [
         body: [
           'Pricing is half the battle. The other half is getting found. ToolOrbit AI tools for ecommerce include a Listing Generator that creates marketplace-optimized titles, descriptions, and tags; a Keyword Analyzer that surfaces long-tail search terms buyers actually use; a Competitor Tracker that identifies gaps in competing listings; and Market Insights that provide category-level trend data.',
           'Use the pricing calculators to set profitable prices, then use the AI tools to create listings that rank for the right search terms. A product needs both math and discoverability: a hidden profitable item will not sell, and a popular item priced below cost loses money.',
-          'After generating listing copy, use the text analysis and polish tools to check length, remove repetition, and tighten language. If you sell in multiple Etsy marketplaces, use the AI translator to create localized versions and then review them for marketplace-specific search behavior. Keywords that work on Etsy.com may not be the terms buyers search for on Etsy UK or Etsy France.',
+          'After generating listing copy, review the product image with the AI Product Asset Checker and check customs details with the HS Code Assistant when you sell internationally. If you sell in multiple Etsy marketplaces, review translated copy and marketplace-specific search behavior before publishing. Keywords that work on Etsy.com may not be the terms buyers search for on Etsy UK or Etsy France.',
         ],
       },
       {
         heading: 'How to Use This Ecommerce Workflow',
         body: [
-          'This hub keeps the Etsy calculator cluster close together. Sellers can move from [Etsy Fee Calculator](/tools/ecommerce/etsy-fee-calculator) to pricing, Offsite Ads, regulatory fees, shipping strategy, and payment processor comparison without leaving the ecommerce topic.',
+          'This hub keeps the Etsy seller workflow close together. Sellers can move from [Etsy Fee Calculator](/tools/ecommerce/etsy-fee-calculator) to pricing, Offsite Ads, regulatory fees, listing copy, keywords, and product asset checks without leaving the workflow.',
           'If you want the plain fee answer, read [How Much Does Etsy Take Per Sale?](/blog/how-much-does-etsy-take-per-sale). It explains the core fee stack, then sends readers back to the calculator for their own order numbers.',
           'If you are comparing calculator options, see [Best Etsy Fee Calculators Compared](/best-etsy-fee-calculators). That page explains when a browser calculator, Etsy official resources, a spreadsheet, or a paid seller platform is the better fit.',
-          'The workflow is meant to move from estimate to decision: calculate marketplace fees, compare payment processor costs, adjust the listed price, then check the assumptions against the marketplace account before using the number for accounting or tax work.',
+          'The workflow moves from estimate to decision: calculate marketplace fees, set a profitable price, prepare the listing, then check the assumptions against the marketplace account before using the number for accounting or tax work.',
         ],
       },
     ],
@@ -1478,16 +1478,10 @@ export const SEO_CONTENT_PAGES: SeoContentPage[] = [
       '/tools/ecommerce/etsy-offsite-ads-calculator',
       '/tools/ecommerce/etsy-pricing-calculator',
       '/tools/ecommerce/etsy-regulatory-fee-calculator',
-      '/tools/ecommerce/stripe-fee-calculator',
-      '/tools/ecommerce/paypal-fee-calculator',
-      '/tools/ecommerce/stripe-vs-paypal-fee-calculator',
       '/tools/ai/listing-generator',
       '/tools/ai/keyword-analyzer',
       '/tools/ai/competitor-tracker',
       '/tools/ai/market-insights',
-      '/tools/ai/text-polisher',
-      '/tools/ai/translator',
-      '/tools/text/text-analyzer',
     ],
     blogSlugs: [
       'etsy-fee-complete-guide',
@@ -1497,8 +1491,6 @@ export const SEO_CONTENT_PAGES: SeoContentPage[] = [
       'etsy-international-selling-fees',
       'etsy-shipping-free-shipping-strategy',
       'etsy-digital-download-pricing-guide',
-      'ecommerce-payment-processing-fees-guide',
-      'secure-developer-tools-privacy',
     ],
     faqs: [
       {
@@ -1529,7 +1521,7 @@ export const SEO_CONTENT_PAGES: SeoContentPage[] = [
       {
         question: 'Should I sell on Etsy or my own website?',
         answer:
-          'It depends on your volume and margins. Etsy provides access to millions of active buyers but charges ~10–20% in total fees. Selling on your own site via Stripe or PayPal can reduce platform fees but requires you to drive your own traffic. Use the Etsy Fee Calculator, Stripe Fee Calculator, PayPal Fee Calculator, and Stripe vs PayPal Fee Calculator side by side to compare per-order economics. Many successful sellers start on Etsy for discovery and gradually build an independent storefront for repeat customers.',
+          'It depends on your volume, margins, and ability to bring your own traffic. Etsy can provide marketplace discovery but charges several layers of fees. Your own store gives you more control over the customer relationship but shifts traffic and marketing work to you. Use the Etsy calculators here to understand the marketplace side before comparing channels in a spreadsheet.',
       },
     ],
   },
@@ -1541,7 +1533,7 @@ export const SEO_CONTENT_PAGES: SeoContentPage[] = [
     eyebrow: 'Comparison Guide',
     audience:
       'Built for Etsy sellers, handmade business owners, craft entrepreneurs, and ecommerce operators comparing fee calculation methods for pricing and profitability analysis.',
-    updated: '2026-05-22',
+    updated: '2026-07-12',
     type: 'comparison',
     targetKeyword: 'best Etsy fee calculators',
     summary: [
@@ -1552,7 +1544,7 @@ export const SEO_CONTENT_PAGES: SeoContentPage[] = [
       {
         label: 'ToolOrbit Etsy Calculators',
         bestFor: 'Fast, private, per-order fee checks and pricing decisions',
-        tools: 'Etsy Fee Calculator, Offsite Ads Calculator, Pricing Calculator, Regulatory Fee Calculator, Stripe Fee Calculator, PayPal Fee Calculator',
+        tools: 'Etsy Fee Calculator, Offsite Ads Calculator, Pricing Calculator, Regulatory Fee Calculator',
         note: 'Best for quick operational use. Local-first, no account, free.',
       },
       {
@@ -1589,7 +1581,7 @@ export const SEO_CONTENT_PAGES: SeoContentPage[] = [
         body: [
           'ToolOrbit works best when you need a fast, private answer to a specific question: what will I actually earn on this order? Open the [Etsy Fee Calculator](/tools/ecommerce/etsy-fee-calculator), enter the sale price, shipping, discount, item cost, and shipping cost, then review the full breakdown in seconds. You do not need to log in, start a trial, or wonder where your data is going.',
           'The calculator suite covers the full Etsy fee landscape. If you are unsure whether to build Offsite Ads into your pricing, use the [Offsite Ads Calculator](/tools/ecommerce/etsy-offsite-ads-calculator) to model both scenarios. If you are setting prices for a new product line, use the [Pricing Calculator](/tools/ecommerce/etsy-pricing-calculator) to work backward from target profit. If you sell from outside the US, use the [Regulatory Fee Calculator](/tools/ecommerce/etsy-regulatory-fee-calculator) to check your country rate.',
-          'ToolOrbit is also the best choice when fee calculation is part of a larger workflow. After checking fees, you might use the AI Listing Generator to create a product description, the Keyword Analyzer to find search terms, or the text tools to polish your copy. The calculators are not isolated; they sit beside related utilities that support the full listing process.',
+          'Fee calculation is one step in a larger Etsy workflow. After checking fees, use the AI Listing Generator to draft the listing, the Keyword Analyzer to group search terms, and the Product Asset Checker to review the images before publishing. Each tool answers a different seller question, so the workflow stays understandable instead of hiding every task behind one generic score.',
           'For occasional sellers who check fees a few times a month, ToolOrbit is likely all you need. The tools are free, always available, and require zero commitment. There is no subscription to manage, no account to remember, and no feature that suddenly moves behind a paywall.',
         ],
       },
@@ -1626,7 +1618,7 @@ export const SEO_CONTENT_PAGES: SeoContentPage[] = [
           'For monthly profit reviews: use a spreadsheet. Track actual revenue, actual fees from your Etsy statement, and actual costs. Compare the real numbers against your estimates to refine your pricing model over time.',
           'For policy and rate verification: use Etsy official resources. When rates change or you are unsure about a specific fee, the official documentation is the source of truth.',
           'For competitive intelligence and shop growth: consider a third-party platform if your sales volume justifies the cost. The additional features can pay for themselves through better listing optimization and keyword targeting.',
-          'For comparing Etsy to your own website: run the same transaction amount through the Etsy Fee Calculator, Stripe Fee Calculator, PayPal Fee Calculator, and Stripe vs PayPal Fee Calculator. The comparison shows exactly how much Etsy traffic is costing you per order and how standalone payment processors differ.',
+          'For a new Etsy listing: run the order through the Fee Calculator, set a target margin with the Pricing Calculator, model Offsite Ads, then review the listing copy and product images before publishing.',
         ],
       },
     ],
@@ -1635,9 +1627,6 @@ export const SEO_CONTENT_PAGES: SeoContentPage[] = [
       '/tools/ecommerce/etsy-offsite-ads-calculator',
       '/tools/ecommerce/etsy-pricing-calculator',
       '/tools/ecommerce/etsy-regulatory-fee-calculator',
-      '/tools/ecommerce/stripe-fee-calculator',
-      '/tools/ecommerce/paypal-fee-calculator',
-      '/tools/ecommerce/stripe-vs-paypal-fee-calculator',
       '/tools/ai/listing-generator',
       '/tools/ai/keyword-analyzer',
     ],
@@ -1686,6 +1675,15 @@ export const SEO_CONTENT_PAGES: SeoContentPage[] = [
 ];
 
 export const SEO_CONTENT_PATHS = SEO_CONTENT_PAGES.map((page) => page.path);
+
+// Keep only hubs that explain the focused seller workflow. The remaining pages stay
+// routable for old links but are excluded from the public search surface.
+export const PUBLIC_SEO_CONTENT_PATHS = new Set([
+  '/ecommerce-tools',
+  '/best-etsy-fee-calculators',
+]);
+
+export const isPublicSeoContentPage = (path: string) => PUBLIC_SEO_CONTENT_PATHS.has(path);
 
 export function getSeoContentPage(path: string) {
   return SEO_CONTENT_PAGES.find((page) => page.path === path);

@@ -1,7 +1,6 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import en from './locales/en.json';
-import zh from './locales/zh.json';
 
 if (!i18n.isInitialized) {
   i18n
@@ -9,10 +8,9 @@ if (!i18n.isInitialized) {
     .init({
     fallbackLng: 'en',
     lng: 'en',
-    supportedLngs: ['en', 'zh'],
+    supportedLngs: ['en'],
     resources: {
       en: { translation: en },
-      zh: { translation: zh },
     },
     interpolation: {
       escapeValue: false

@@ -5,50 +5,50 @@
 
 :root {
   color-scheme: light;
-  --app-bg: #f6f7fb;
-  --app-bg-soft: #eef0f8;
-  --app-surface: #ffffff;
+  --app-bg: #f5f0e8;
+  --app-bg-soft: #eee6da;
+  --app-surface: #fffdf8;
   --app-surface-strong: #ffffff;
-  --app-text: #0f1729;
-  --app-muted: #5b6575;
-  --app-border: #e6e8f2;
-  --app-accent: #6366f1;
-  --app-accent-strong: #4f46e5;
-  --app-accent-ink: #4338ca;
-  --app-accent-soft: #eef1fe;
-  --app-accent-warm: #7c3aed;
-  --app-accent-warm-soft: #f3efff;
-  --app-success: #16a34a;
+  --app-text: #2b211e;
+  --app-muted: #756963;
+  --app-border: #ded3c7;
+  --app-accent: #d66346;
+  --app-accent-strong: #b84b32;
+  --app-accent-ink: #a9432e;
+  --app-accent-soft: #f8e7df;
+  --app-accent-warm: #2e756d;
+  --app-accent-warm-soft: #e0efeb;
+  --app-success: #2e756d;
   --app-danger: #b42318;
-  --app-info: #6366f1;
-  --app-warning: #b7791f;
-  --app-shadow-sm: 0 1px 2px rgba(15, 23, 41, 0.04), 0 1px 3px rgba(15, 23, 41, 0.06);
-  --app-shadow-md: 0 4px 14px -4px rgba(15, 23, 41, 0.1), 0 2px 6px -2px rgba(15, 23, 41, 0.06);
-  --app-shadow-lg: 0 18px 40px -16px rgba(79, 70, 229, 0.28), 0 8px 20px -10px rgba(15, 23, 41, 0.14);
+  --app-info: #2e756d;
+  --app-warning: #a66b27;
+  --app-shadow-sm: 0 1px 2px rgba(59, 38, 28, 0.04), 0 5px 14px -10px rgba(59, 38, 28, 0.24);
+  --app-shadow-md: 0 8px 22px -14px rgba(59, 38, 28, 0.28), 0 2px 5px -3px rgba(59, 38, 28, 0.12);
+  --app-shadow-lg: 0 24px 58px -24px rgba(59, 38, 28, 0.24), 0 8px 18px -12px rgba(59, 38, 28, 0.14);
 }
 
 :root.dark {
   color-scheme: dark;
-  --app-bg: #0b0d18;
-  --app-bg-soft: #11131f;
-  --app-surface: #161829;
-  --app-surface-strong: #1c1f33;
-  --app-text: #eef1fb;
-  --app-muted: #9aa1b4;
-  --app-border: #272b40;
-  --app-accent: #818cf8;
-  --app-accent-strong: #a5b4fc;
-  --app-accent-ink: #c7d2fe;
-  --app-accent-soft: #20233c;
-  --app-accent-warm: #c084fc;
-  --app-accent-warm-soft: #302243;
-  --app-success: #22c55e;
+  --app-bg: #211b19;
+  --app-bg-soft: #2b2420;
+  --app-surface: #302824;
+  --app-surface-strong: #3a302b;
+  --app-text: #fff8ef;
+  --app-muted: #c6b7ab;
+  --app-border: #4b3d35;
+  --app-accent: #ee8767;
+  --app-accent-strong: #ffad8f;
+  --app-accent-ink: #ffb095;
+  --app-accent-soft: #49302a;
+  --app-accent-warm: #6eb8ae;
+  --app-accent-warm-soft: #253d3a;
+  --app-success: #6eb8ae;
   --app-danger: #f87171;
-  --app-info: #a5b4fc;
+  --app-info: #6eb8ae;
   --app-warning: #f4bf70;
   --app-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
   --app-shadow-md: 0 6px 20px -6px rgba(0, 0, 0, 0.55), 0 2px 8px -4px rgba(0, 0, 0, 0.45);
-  --app-shadow-lg: 0 22px 48px -18px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(129, 140, 248, 0.08);
+  --app-shadow-lg: 0 22px 48px -18px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(238, 135, 103, 0.1);
 }
 
 body {
@@ -67,6 +67,30 @@ body {
     sans-serif;
   font-size: 14px;
   letter-spacing: 0;
+}
+
+.seller-hero-grid {
+  background-color: #f4e9dc;
+  background-image: linear-gradient(rgba(117, 88, 65, 0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(117, 88, 65, 0.08) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.seller-hero-visual {
+  background: #2b211e;
+  box-shadow: 18px 22px 0 rgba(185, 101, 69, 0.18), 0 28px 60px -30px rgba(59, 38, 28, 0.55);
+}
+
+.seller-workbench-line {
+  background: linear-gradient(90deg, #63b1a4 0 22%, #ee8767 22% 47%, #d6a35d 47% 68%, #63b1a4 68% 100%);
+}
+
+.seller-rule {
+  border-color: rgba(117, 88, 65, 0.18);
+}
+
+:root.dark .seller-hero-grid {
+  background-color: #302522;
+  background-image: linear-gradient(rgba(255, 223, 201, 0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 223, 201, 0.06) 1px, transparent 1px);
 }
 
 :root.dark body {

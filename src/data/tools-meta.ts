@@ -11,13 +11,33 @@ export interface ToolMeta {
   isNoIndex?: boolean;
 }
 
+// The public index is a focused seller workflow. Other tools remain available by direct URL
+// for existing users, but should not expand the site's search footprint until they have a
+// maintained audience, examples, and a clear relationship to the core product.
+export const PUBLIC_TOOL_IDS = new Set([
+  'etsy-fee-calculator',
+  'etsy-offsite-ads-calculator',
+  'etsy-pricing-calculator',
+  'etsy-regulatory-fee-calculator',
+  'listing-generator',
+  'keyword-analyzer',
+  'competitor-tracker',
+  'market-insights',
+  'ai-hs-code-assistant',
+  'ai-product-asset-checker',
+  'ai-product-image-generator',
+]);
+
 // Short tool descriptions are intentionally kept concise and unique. We no longer append a
 // shared marketing suffix here — across dozens of cards it read as templated, low-value
 // boilerplate. The long-form, per-tool copy lives in each tool's overview/FAQ data and is
 // surfaced server-side by ToolContent. This identity map preserves the contextual typing of
 // the raw literal entries against ToolMeta.
 function normalizeToolMeta(tool: ToolMeta): ToolMeta {
-  return tool;
+  return {
+    ...tool,
+    isNoIndex: tool.isNoIndex ?? !PUBLIC_TOOL_IDS.has(tool.id),
+  };
 }
 
 const RAW_TOOLS_META = [

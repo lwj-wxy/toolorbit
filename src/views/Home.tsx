@@ -8,15 +8,14 @@ import {
   ArrowRight,
   Calculator,
   Clock,
-  Code2,
-  FileText,
-  Image as ImageIcon,
   Languages,
   type LucideIcon,
   Search,
   ShieldCheck,
   ShoppingCart,
   Sparkles,
+  TrendingUp,
+  ReceiptText,
 } from 'lucide-react';
 import { CATEGORY_GUIDES } from '../data/categoryGuides';
 import { Category, ToolItem, TOOLS } from '../data/tools';
@@ -57,12 +56,8 @@ const getCategoryAccent = (category: Category): string => CATEGORY_ACCENT[catego
 const accentStyle = (accent: string): CSSProperties => ({ '--c': accent }) as CSSProperties;
 
 const HERO_CATEGORIES: Array<{ category: Category; icon: LucideIcon }> = [
-  { category: '开发者工具', icon: Code2 },
+  { category: 'AI 工具', icon: Sparkles },
   { category: '电商工具', icon: ShoppingCart },
-  { category: 'PDF工具', icon: FileText },
-  { category: '图片处理', icon: ImageIcon },
-  { category: '计算转换', icon: Calculator },
-  { category: '文本排版', icon: Languages },
 ];
 
 const LANDING_FEATURES: Array<{
@@ -88,17 +83,17 @@ const LANDING_FEATURES: Array<{
   },
   {
     icon: ShieldCheck,
-    titleZh: '文件和图片处理',
-    titleEn: 'File and image handling',
-    descriptionZh: '压缩商品图、合并 PDF、转换格式，完成上传前的文件检查。',
-    descriptionEn: 'Compress product images, merge PDFs, and convert formats before you upload or share files.',
+    titleZh: '商品图和合规检查',
+    titleEn: 'Product assets and compliance',
+    descriptionZh: '检查商品图片、包装和标签，整理跨境商品的合规风险与报关信息。',
+    descriptionEn: 'Review product images, packaging, labels, and customs details before publishing internationally.',
   },
   {
-    icon: Code2,
-    titleZh: '开发小工具',
-    titleEn: 'Developer utilities',
-    descriptionZh: '格式化 JSON、调试 JWT、测试正则、对比文本，排查问题更快。',
-    descriptionEn: 'Format JSON, inspect JWTs, test regex, and compare text while debugging.',
+    icon: ShoppingCart,
+    titleZh: '市场和竞品判断',
+    titleEn: 'Market and competitor checks',
+    descriptionZh: '整理搜索词、比较竞品定位，并在发布前检查商品的市场切入点。',
+    descriptionEn: 'Group search terms, compare competitor positioning, and review the market angle before publishing.',
   },
 ];
 
@@ -112,10 +107,10 @@ const LANDING_SOLUTIONS: Array<{
 }> = [
   {
     icon: ShoppingCart,
-    titleZh: '上架商品',
-    titleEn: 'Cross-border sellers',
-    descriptionZh: '写 Listing，检查商品图，计算手续费和税费。适合 Etsy、Shopify 等跨境卖家。',
-    descriptionEn: 'Write listings, review product images, and estimate fees for Etsy, Shopify, and other marketplaces.',
+    titleZh: 'Etsy 卖家',
+    titleEn: 'Etsy sellers',
+    descriptionZh: '写 Listing，检查商品图，计算手续费和税费，完成发布前的关键检查。',
+    descriptionEn: 'Write listings, review product images, and estimate fees before publishing an Etsy product.',
     tools: [
       { label: 'AI Listing 生成器', href: '/tools/ai/listing-generator' },
       { label: 'Etsy 手续费计算', href: '/tools/ecommerce/etsy-fee-calculator' },
@@ -123,35 +118,13 @@ const LANDING_SOLUTIONS: Array<{
   },
   {
     icon: Languages,
-    titleZh: '写内容',
-    titleEn: 'Content teams',
-    descriptionZh: '写标题、脚本、社媒文案，翻译和润色已有文本。',
-    descriptionEn: 'Draft titles, scripts, and social copy, then translate or polish existing text.',
+    titleZh: '定价和上架决策',
+    titleEn: 'Pricing and listing decisions',
+    descriptionZh: '先算清平台费用和目标利润，再决定商品售价与上架文案。',
+    descriptionEn: 'Calculate platform costs and target profit before deciding the price and listing copy.',
     tools: [
-      { label: 'AI 文本润色', href: '/tools/ai/text-polisher' },
-      { label: 'AI 翻译', href: '/tools/ai/translator' },
-    ],
-  },
-  {
-    icon: Code2,
-    titleZh: '查代码和接口',
-    titleEn: 'Developers',
-    descriptionZh: '格式化 JSON、查看 JWT、测试正则、对比两段文本。',
-    descriptionEn: 'Format JSON, inspect JWTs, test regex, and compare two pieces of text.',
-    tools: [
-      { label: 'JSON 格式化', href: '/tools/dev/json-formatter' },
-      { label: 'JWT 调试器', href: '/tools/dev/jwt-debugger' },
-    ],
-  },
-  {
-    icon: ImageIcon,
-    titleZh: '文件处理',
-    titleEn: 'Files and assets',
-    descriptionZh: '压缩图片、转换格式、合并 PDF，适合整理素材和上传前检查。',
-    descriptionEn: 'Compress images, convert formats, and merge PDFs before sharing or uploading files.',
-    tools: [
-      { label: '图片压缩', href: '/tools/image/image-compressor' },
-      { label: 'PDF 合并', href: '/tools/pdf/pdf-merge' },
+      { label: 'Etsy 费用计算器', href: '/tools/ecommerce/etsy-fee-calculator' },
+      { label: 'Etsy 定价计算器', href: '/tools/ecommerce/etsy-pricing-calculator' },
     ],
   },
 ];
@@ -160,14 +133,14 @@ const LANDING_FAQS = [
   {
     questionZh: 'ToolOrbit 是否免费？',
     questionEn: 'Is ToolOrbit free?',
-    answerZh: '是。ToolOrbit 目前所有工具都免费使用，不需要订阅或付费解锁。AI 工具会调用模型接口，生成速度和可用性取决于当前接口配置。',
-    answerEn: 'Yes. ToolOrbit tools are currently free to use, with no subscription or paid unlocks. AI tools call model APIs, so generation speed and availability depend on the current API configuration.',
+    answerZh: '是。当前卖家工作流工具免费使用，不需要订阅或付费解锁。AI 工具会调用模型接口，生成速度和可用性取决于当前接口配置。',
+    answerEn: 'Yes. The seller workflow tools are currently free to use, with no subscription or paid unlocks. AI tools call model APIs, so generation speed and availability depend on the current API configuration.',
   },
   {
     questionZh: '哪些工具会在浏览器本地处理？',
     questionEn: 'Which tools run in the browser?',
-    answerZh: 'JSON、文本、图片压缩、格式转换和部分 PDF 工具优先在浏览器里处理。涉及 AI 生成的工具需要把输入发送到模型接口。',
-    answerEn: 'JSON, text, image compression, format conversion, and selected PDF tools run in the browser first. AI generation tools send input to a model API.',
+    answerZh: 'Etsy 费用、定价、广告和监管费计算会在浏览器中处理，输入的金额不会发送到服务器。涉及 AI 生成、图片检查或 HS 编码的工具需要把输入发送到模型接口。',
+    answerEn: 'Etsy fee, pricing, ads, and regulatory calculations run in the browser, so the amounts you enter are not sent to a server. AI generation, image checks, and HS code assistance send input to a model API.',
   },
   {
     questionZh: 'AI 生成结果能直接发布吗？',
@@ -220,14 +193,14 @@ const LandingSectionHeader = ({
   description: string;
 }) => (
   <div className="mx-auto max-w-3xl text-center">
-    <div className="inline-flex items-center gap-2 rounded-full border border-[#dbe3f5] bg-white px-3 py-1 text-[12px] font-semibold text-[#335cff] shadow-[0_12px_40px_-34px_rgba(15,23,42,0.45)]">
-      <span className="h-1.5 w-1.5 rounded-full bg-[#335cff]" aria-hidden="true" />
+    <div className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.16em] text-[var(--app-accent-ink)]">
+      <span className="h-1.5 w-1.5 rounded-full bg-[var(--app-accent)]" aria-hidden="true" />
       {eyebrow}
     </div>
-    <h2 className="mt-4 text-2xl font-black tracking-normal text-[#111936] sm:text-3xl">
+    <h2 className="mt-4 text-2xl font-black tracking-[-0.03em] text-[var(--app-text)] sm:text-3xl">
       {title}
     </h2>
-    <p className="mt-3 text-[15px] leading-7 text-[#52617f]">{description}</p>
+    <p className="mt-3 text-[15px] leading-7 text-[var(--app-muted)]">{description}</p>
   </div>
 );
 
@@ -319,15 +292,15 @@ const ListingTrialPanel = ({ isZh }: { isZh: boolean }) => {
   return (
     <section className="mt-10 w-full max-w-6xl text-left">
       <div className="grid gap-5 lg:grid-cols-[0.9fr_1.1fr]">
-        <form onSubmit={handleSubmit} className="rounded-[24px] border border-[#d4def6] bg-[#f8fbff] p-5 shadow-[0_28px_90px_-68px_rgba(51,92,255,0.7)] sm:p-6">
-          <div className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-1 text-[12px] font-semibold text-[#335cff] ring-1 ring-[#dbe3f5]">
+        <form onSubmit={handleSubmit} className="border-t-2 border-[var(--app-accent)] bg-[var(--app-surface)] p-5 shadow-[var(--app-shadow-md)] sm:p-7">
+          <div className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.16em] text-[var(--app-accent-ink)]">
             <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
             {isZh ? 'AI Listing 生成器' : 'AI Listing Generator'}
           </div>
-          <h2 className="mt-4 text-xl font-black text-[#111936]">
+          <h2 className="mt-4 text-xl font-black tracking-[-0.02em] text-[var(--app-text)]">
             {isZh ? '生成商品标题、描述和标签' : 'Generate a title, description, and tags'}
           </h2>
-          <p className="mt-2 text-[14px] leading-6 text-[#52617f]">
+          <p className="mt-2 text-[14px] leading-6 text-[var(--app-muted)]">
             {isZh
               ? '先用一个商品样本试写标题、描述和标签。需要语气、语言和更长文案时，再打开完整工具。'
               : 'Try a short listing draft here. Open the full tool when you need tone, language, tags, and longer copy blocks.'}
@@ -335,25 +308,25 @@ const ListingTrialPanel = ({ isZh }: { isZh: boolean }) => {
 
           <div className="mt-5 space-y-4">
             <label className="block">
-              <span className="text-[13px] font-semibold text-[#263454]">
+              <span className="text-[13px] font-semibold text-[var(--app-text)]">
                 {isZh ? '商品名称' : 'Product name'}
               </span>
               <input
                 value={productName}
                 onChange={(event) => setProductName(event.target.value)}
-                className="mt-2 h-12 w-full rounded-2xl border border-[#dbe3f5] bg-white px-4 text-[14px] text-[#111936] outline-none transition-colors placeholder:text-[#8390aa] focus:border-[#335cff] focus:ring-2 focus:ring-[#cbd8ff]"
+                className="mt-2 h-12 w-full border border-[var(--app-border)] bg-[var(--app-bg)] px-4 text-[14px] text-[var(--app-text)] outline-none transition-colors placeholder:text-[var(--app-muted)] focus:border-[var(--app-accent)]"
                 placeholder={isZh ? '例如：可定制猫咪项链' : 'Example: custom cat necklace'}
               />
             </label>
 
             <label className="block">
-              <span className="text-[13px] font-semibold text-[#263454]">
+              <span className="text-[13px] font-semibold text-[var(--app-text)]">
                 {isZh ? '销售平台' : 'Marketplace'}
               </span>
               <select
                 value={platform}
                 onChange={(event) => setPlatform(event.target.value)}
-                className="mt-2 h-12 w-full cursor-pointer rounded-2xl border border-[#dbe3f5] bg-white px-4 text-[14px] text-[#111936] outline-none transition-colors focus:border-[#335cff] focus:ring-2 focus:ring-[#cbd8ff]"
+                className="mt-2 h-12 w-full cursor-pointer border border-[var(--app-border)] bg-[var(--app-bg)] px-4 text-[14px] text-[var(--app-text)] outline-none transition-colors focus:border-[var(--app-accent)]"
               >
                 {['Etsy', 'Amazon', 'Shopify', 'eBay'].map((option) => (
                   <option key={option} value={option}>{option}</option>
@@ -362,14 +335,14 @@ const ListingTrialPanel = ({ isZh }: { isZh: boolean }) => {
             </label>
 
             <label className="block">
-              <span className="text-[13px] font-semibold text-[#263454]">
+              <span className="text-[13px] font-semibold text-[var(--app-text)]">
                 {isZh ? '特色与卖点' : 'Features and selling points'}
               </span>
               <textarea
                 value={features}
                 onChange={(event) => setFeatures(event.target.value)}
                 rows={3}
-                className="mt-2 w-full resize-none rounded-2xl border border-[#dbe3f5] bg-white px-4 py-3 text-[14px] leading-6 text-[#111936] outline-none transition-colors placeholder:text-[#8390aa] focus:border-[#335cff] focus:ring-2 focus:ring-[#cbd8ff]"
+                className="mt-2 w-full resize-none border border-[var(--app-border)] bg-[var(--app-bg)] px-4 py-3 text-[14px] leading-6 text-[var(--app-text)] outline-none transition-colors placeholder:text-[var(--app-muted)] focus:border-[var(--app-accent)]"
                 placeholder={isZh ? '例如：手工皮革，可定制首字母，礼品包装' : 'Example: handmade leather, custom initials, gift packaging'}
               />
             </label>
@@ -379,14 +352,14 @@ const ListingTrialPanel = ({ isZh }: { isZh: boolean }) => {
             <button
               type="submit"
               disabled={isGenerating}
-              className="inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-full bg-[#335cff] px-5 text-[14px] font-bold text-white shadow-[0_18px_38px_-24px_rgba(51,92,255,0.9)] transition-colors hover:bg-[#254be8] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9db2ff] disabled:cursor-wait disabled:bg-[#7d96ff]"
+              className="inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 bg-[var(--app-text)] px-5 text-[14px] font-bold text-[var(--app-bg)] transition-colors hover:bg-[var(--app-accent-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-accent)] disabled:cursor-wait disabled:opacity-60"
             >
               <Sparkles className="h-4 w-4" aria-hidden="true" />
               {isGenerating ? (isZh ? '正在生成...' : 'Generating...') : isZh ? '生成 Listing 文案' : 'Generate listing copy'}
             </button>
             <Link
               to="/tools/ai/listing-generator"
-              className="inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-full border border-[#dbe3f5] bg-white px-5 text-[14px] font-bold text-[#24304f] transition-colors hover:border-[#335cff] hover:text-[#335cff]"
+              className="inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 border border-[var(--app-border)] bg-transparent px-5 text-[14px] font-bold text-[var(--app-text)] transition-colors hover:border-[var(--app-accent)] hover:text-[var(--app-accent-ink)]"
             >
               {isZh ? '打开完整工具' : 'Open full tool'}
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -394,7 +367,7 @@ const ListingTrialPanel = ({ isZh }: { isZh: boolean }) => {
           </div>
         </form>
 
-        <div className="rounded-[24px] border border-[#dbe3f5] bg-[#0f1b36] p-5 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] sm:p-6">
+        <div className="bg-[#2b211e] p-5 text-[#fff8ef] shadow-[var(--app-shadow-md)] sm:p-7">
           <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/12 pb-4">
             <div>
               <p className="text-[12px] font-semibold uppercase tracking-wide text-[#8db4ff]">
@@ -631,67 +604,109 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
 
   return (
     <div className="-mt-7 flex flex-col gap-12 pb-12 md:-mt-9">
-      <section className="relative left-1/2 min-h-[620px] w-screen -translate-x-1/2 overflow-hidden border-b border-[color-mix(in_srgb,var(--app-accent)_14%,var(--app-border))] bg-[linear-gradient(180deg,#edf4ff_0%,#f7faff_42%,#ffffff_72%,#eef3ff_100%)] px-4 pb-20 pt-8 sm:px-6 sm:pt-10 lg:px-8 lg:pt-8">
+      <section className="seller-hero-grid relative left-1/2 min-h-[610px] w-screen -translate-x-1/2 overflow-hidden border-b border-[color-mix(in_srgb,var(--app-accent)_18%,var(--app-border))] px-4 pb-16 pt-10 sm:px-8 sm:pt-14 lg:px-14 lg:pt-16">
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              'radial-gradient(42rem 22rem at 50% 0%, rgba(59,130,246,0.16), transparent 70%), radial-gradient(30rem 18rem at 72% 18%, rgba(99,102,241,0.12), transparent 72%)',
+              'radial-gradient(42rem 22rem at 15% 0%, rgba(214,99,70,0.16), transparent 70%), radial-gradient(30rem 18rem at 86% 32%, rgba(46,117,109,0.14), transparent 72%)',
           }}
         />
 
-        <div className="relative mx-auto flex max-w-5xl flex-col items-center text-center">
-          <div className="inline-flex items-center gap-2 text-[12px] font-semibold text-[#335cff]">
-            <span className="h-2 w-2 rounded-full bg-[#335cff] shadow-[0_0_0_6px_rgba(51,92,255,0.1)]" aria-hidden="true" />
-            {isZh ? 'Etsy 上架 · 定价核算 · 文件处理' : 'Etsy listings · Pricing checks · File handling'}
-          </div>
+        <div className="relative mx-auto max-w-[1240px]">
+          <div className="grid items-center gap-12 lg:grid-cols-[1.02fr_.98fr] lg:gap-16">
+            <div className="text-center lg:text-left">
+              <div className="inline-flex items-center gap-2 text-[12px] font-bold uppercase tracking-[0.16em] text-[var(--app-accent-ink)]">
+                <span className="h-2 w-2 rounded-full bg-[var(--app-accent)] shadow-[0_0_0_6px_rgba(214,99,70,0.12)]" aria-hidden="true" />
+                {isZh ? 'Etsy 卖家工作台' : 'Etsy seller workspace'}
+              </div>
 
-          <h1 className="mt-7 max-w-5xl text-[38px] font-black leading-[1.06] text-[#111936] sm:text-[64px] sm:leading-[1.04] lg:text-[76px]">
-            {isZh ? (
-              <>
-                <span className="block">Etsy 上架、定价</span>
-                <span className="mt-1 block text-[#335cff]">和费用核算工具</span>
-              </>
-            ) : (
-              <>
-                Etsy Listing, Pricing
-                <span className="mt-1 block text-[#335cff]">and Fee Tools</span>
-              </>
-            )}
-          </h1>
+              <h1 className="mt-6 max-w-[680px] text-[42px] font-black leading-[0.98] tracking-[-0.04em] text-[var(--app-text)] sm:text-[66px] lg:text-[78px]">
+                {isZh ? (
+                  <>
+                    把每次上架，
+                    <span className="block text-[var(--app-accent-ink)]">算清楚再发布</span>
+                  </>
+                ) : (
+                  <>
+                    Make every listing
+                    <span className="block text-[var(--app-accent-ink)]">ready to publish.</span>
+                  </>
+                )}
+              </h1>
 
-          <p className="mt-7 max-w-3xl text-[16px] leading-8 text-[#4b587c]">
-            {isZh
-              ? '为 Etsy 商品整理上架文案、核对订单成本，并在发布前估算费用和目标利润。'
-              : 'Prepare Etsy listing copy, check order costs, and estimate fees and target profit before you publish.'}
-          </p>
+              <p className="mx-auto mt-7 max-w-[570px] text-[16px] leading-8 text-[var(--app-muted)] lg:mx-0">
+                {isZh
+                  ? '从商品文案、关键词到费用和目标利润，ToolOrbit 帮你在发布前完成一轮卖家检查。'
+                  : 'Use ToolOrbit to draft listing copy, check keywords, and work out fees and target profit before publishing.'}
+              </p>
 
-          <form
-            onSubmit={handleHeroSearch}
-            className="hero-search-form mt-10 flex w-full max-w-3xl flex-col gap-2 rounded-[28px] border border-[#dde5fb] bg-white p-2 shadow-[0_24px_80px_-45px_rgba(51,92,255,0.45)] transition-colors focus-within:border-[#335cff] sm:flex-row sm:items-center"
-          >
-            <div className="flex min-h-14 min-w-0 flex-1 items-center gap-3 px-4">
-              <Search className="h-5 w-5 shrink-0 text-[#64708f]" aria-hidden="true" />
-              <input
-                name="search"
-                type="search"
-                aria-label={t('common.searchPlaceholder')}
-                placeholder={t('common.searchPlaceholder')}
-                className="min-w-0 flex-1 border-0 bg-transparent text-[15px] text-[#111936] outline-none placeholder:text-[#7b86a3]"
-              />
-              <kbd className="hidden shrink-0 rounded-md border border-[#dbe3f5] bg-[#f7f9ff] px-2 py-1 font-sans text-[11px] font-medium text-[#64708f] sm:inline-block">
-                Ctrl K
-              </kbd>
+              <form
+                onSubmit={handleHeroSearch}
+                className="hero-search-form mt-9 flex w-full max-w-[620px] flex-col gap-2 border-b-2 border-[var(--app-text)] bg-[var(--app-surface)] p-2 shadow-[0_18px_35px_-28px_rgba(59,38,28,0.6)] transition-colors focus-within:border-[var(--app-accent)] sm:flex-row sm:items-center"
+              >
+                <div className="flex min-h-14 min-w-0 flex-1 items-center gap-3 px-4">
+                  <Search className="h-5 w-5 shrink-0 text-[var(--app-muted)]" aria-hidden="true" />
+                  <input
+                    name="search"
+                    type="search"
+                    aria-label={t('common.searchPlaceholder')}
+                    placeholder={isZh ? '搜索费用、定价、Listing...' : 'Search fees, pricing, listings...'}
+                    className="min-w-0 flex-1 border-0 bg-transparent text-[15px] text-[var(--app-text)] outline-none placeholder:text-[var(--app-muted)]"
+                  />
+                  <kbd className="hidden shrink-0 border border-[var(--app-border)] bg-[var(--app-bg)] px-2 py-1 font-sans text-[11px] font-medium text-[var(--app-muted)] sm:inline-block">
+                    Ctrl K
+                  </kbd>
+                </div>
+                <button
+                  type="submit"
+                  className="inline-flex min-h-14 cursor-pointer items-center justify-center gap-2 bg-[var(--app-text)] px-7 text-[15px] font-bold text-[var(--app-bg)] transition-colors hover:bg-[var(--app-accent-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-accent)]"
+                >
+                  {isZh ? '找工具' : 'Find a tool'}
+                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </button>
+              </form>
             </div>
-            <button
-              type="submit"
-              className="inline-flex min-h-14 cursor-pointer items-center justify-center gap-2 rounded-[22px] bg-[#335cff] px-7 text-[15px] font-bold text-white shadow-[0_18px_38px_-22px_rgba(51,92,255,0.9)] transition-colors hover:bg-[#254be8] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9db2ff]"
-            >
-              <Search className="h-4 w-4" aria-hidden="true" />
-              {isZh ? '搜索工具' : 'Search tools'}
-            </button>
-          </form>
+
+            <div className="seller-hero-visual relative mx-auto w-full max-w-[530px] overflow-hidden p-5 text-[#fff8ef] sm:p-7">
+              <div className="flex items-center justify-between border-b border-white/15 pb-4">
+                <div>
+                  <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#e79a7e]">Seller check / 01</p>
+                  <h2 className="mt-2 text-[21px] font-black tracking-[-0.02em]">{isZh ? '本周商品决策' : 'This week’s listing check'}</h2>
+                </div>
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#f2c2a9] text-[#2b211e]">
+                  <ReceiptText className="h-5 w-5" aria-hidden="true" />
+                </div>
+              </div>
+              <div className="mt-6 grid grid-cols-2 gap-3">
+                <div className="border border-white/12 bg-white/8 p-4">
+                  <p className="text-[11px] text-[#cbb8ac]">{isZh ? '预计净收入' : 'Estimated payout'}</p>
+                  <p className="mt-2 text-3xl font-black tracking-[-0.04em]">$38.42</p>
+                  <p className="mt-1 text-[11px] font-semibold text-[#74c3b5]">+18.6% margin</p>
+                </div>
+                <div className="border border-white/12 bg-white/8 p-4">
+                  <p className="text-[11px] text-[#cbb8ac]">{isZh ? '已核对项目' : 'Checks completed'}</p>
+                  <p className="mt-2 text-3xl font-black tracking-[-0.04em]">07/09</p>
+                  <p className="mt-1 text-[11px] font-semibold text-[#f2c2a9]">2 need review</p>
+                </div>
+              </div>
+              <div className="mt-6 border-t border-white/15 pt-5">
+                <div className="flex items-center justify-between text-[12px] font-semibold">
+                  <span className="text-[#cbb8ac]">{isZh ? '费用拆分' : 'Fee breakdown'}</span>
+                  <span className="text-[#f2c2a9]">$11.58</span>
+                </div>
+                <div className="seller-workbench-line mt-3 h-3 w-full" />
+                <div className="mt-3 flex justify-between text-[11px] text-[#cbb8ac]">
+                  <span>{isZh ? '交易费' : 'Transaction'}</span><span>{isZh ? '支付处理' : 'Payment'} </span><span>{isZh ? '广告与其他' : 'Ads + other'}</span>
+                </div>
+              </div>
+              <div className="mt-7 flex items-center gap-3 border-t border-white/15 pt-5">
+                <TrendingUp className="h-4 w-4 text-[#74c3b5]" aria-hidden="true" />
+                <p className="text-[12px] leading-5 text-[#d8c8be]">{isZh ? '先看成本，再决定标题、价格和发布节奏。' : 'Know the cost before you choose the price and publish.'}</p>
+              </div>
+            </div>
+          </div>
 
           <ListingTrialPanel isZh={isZh} />
         </div>
@@ -715,13 +730,13 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.36, ease: 'easeOut', delay: Math.min(featureIndex * 0.04, 0.12) }}
-              className="rounded-2xl border border-[#dbe3f5] bg-white p-5 shadow-[0_22px_70px_-54px_rgba(15,23,42,0.55)]"
+              className="border-t border-[var(--app-border)] bg-[var(--app-surface)] p-5 shadow-[var(--app-shadow-sm)] sm:p-6"
             >
-              <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#eef4ff] text-[#335cff]">
+              <span className="flex h-11 w-11 items-center justify-center bg-[var(--app-accent-soft)] text-[var(--app-accent-ink)]">
                 <FeatureIcon className="h-5 w-5" aria-hidden="true" />
               </span>
-              <h3 className="mt-4 text-[16px] font-black text-[#111936]">{isZh ? titleZh : titleEn}</h3>
-              <p className="mt-2 text-[13px] leading-6 text-[#52617f]">{isZh ? descriptionZh : descriptionEn}</p>
+              <h3 className="mt-4 text-[16px] font-black text-[var(--app-text)]">{isZh ? titleZh : titleEn}</h3>
+              <p className="mt-2 text-[13px] leading-6 text-[var(--app-muted)]">{isZh ? descriptionZh : descriptionEn}</p>
             </motion.article>
           ))}
         </div>
@@ -734,19 +749,19 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
           description={
             isZh
               ? '从具体任务进入工具，避免在完整目录里来回寻找。'
-              : 'Start from a specific task instead of scanning the full catalog.'
+              : 'Start from a seller task instead of scanning a general tool catalog.'
           }
         />
         <div className="grid gap-4 lg:grid-cols-2">
           {LANDING_SOLUTIONS.map(({ icon: SolutionIcon, titleZh, titleEn, descriptionZh, descriptionEn, tools }) => (
-            <article key={titleEn} className="rounded-2xl border border-[#dbe3f5] bg-white p-5 shadow-[0_20px_80px_-60px_rgba(15,23,42,0.5)]">
+            <article key={titleEn} className="border-y border-[var(--app-border)] bg-[var(--app-surface)] p-5 sm:p-7">
               <div className="flex gap-4">
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#eef4ff] text-[#335cff]">
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center bg-[var(--app-accent-warm-soft)] text-[var(--app-accent-warm)]">
                   <SolutionIcon className="h-5 w-5" aria-hidden="true" />
                 </span>
                 <div className="min-w-0">
-                  <h3 className="text-[17px] font-black text-[#111936]">{isZh ? titleZh : titleEn}</h3>
-                  <p className="mt-2 text-[14px] leading-6 text-[#52617f]">{isZh ? descriptionZh : descriptionEn}</p>
+                  <h3 className="text-[17px] font-black text-[var(--app-text)]">{isZh ? titleZh : titleEn}</h3>
+                  <p className="mt-2 text-[14px] leading-6 text-[var(--app-muted)]">{isZh ? descriptionZh : descriptionEn}</p>
                 </div>
               </div>
               <div className="mt-5 flex flex-wrap gap-2">
@@ -754,7 +769,7 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
                   <Link
                     key={tool.href}
                     to={tool.href}
-                    className="inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-[#dbe3f5] bg-[#f8fbff] px-3 py-1.5 text-[13px] font-semibold text-[#24304f] transition-colors hover:border-[#335cff] hover:text-[#335cff]"
+                    className="inline-flex cursor-pointer items-center gap-1.5 border-b border-[var(--app-border)] px-0 py-1.5 text-[13px] font-semibold text-[var(--app-text)] transition-colors hover:border-[var(--app-accent)] hover:text-[var(--app-accent-ink)]"
                   >
                     {tool.label}
                     <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
@@ -780,15 +795,15 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
           {LANDING_FAQS.map(({ questionZh, questionEn, answerZh, answerEn }) => (
             <details
               key={questionEn}
-              className="group rounded-2xl border border-[#dbe3f5] bg-white px-5 py-4 shadow-[0_18px_70px_-60px_rgba(15,23,42,0.55)]"
+              className="group border-b border-[var(--app-border)] bg-[var(--app-surface)] px-5 py-4"
             >
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-[15px] font-black text-[#111936]">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-[15px] font-black text-[var(--app-text)]">
                 <span>{isZh ? questionZh : questionEn}</span>
-                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#eef4ff] text-[#335cff] transition-transform group-open:rotate-90">
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center bg-[var(--app-accent-soft)] text-[var(--app-accent-ink)] transition-transform group-open:rotate-90">
                   <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </span>
               </summary>
-              <p className="mt-3 max-w-3xl text-[14px] leading-6 text-[#52617f]">
+              <p className="mt-3 max-w-3xl text-[14px] leading-6 text-[var(--app-muted)]">
                 {isZh ? answerZh : answerEn}
               </p>
             </details>
@@ -797,10 +812,10 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
       </section>
 
       <section className="text-center">
-        <h2 className="text-xl font-black tracking-normal text-[#111936]">
+        <h2 className="text-xl font-black tracking-[-0.03em] text-[var(--app-text)]">
           {isZh ? '按分类找工具' : 'Browse tool categories'}
         </h2>
-        <p className="mx-auto mt-2 max-w-2xl text-[13px] leading-6 text-[#52617f]">
+        <p className="mx-auto mt-2 max-w-2xl text-[13px] leading-6 text-[var(--app-muted)]">
           {isZh
             ? '也可以直接进入分类页，查看同类工具。'
             : 'Open a category page to see related tools.'}
@@ -813,7 +828,7 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
                 key={category}
                 to={getCategoryPath(category)}
                 style={accentStyle(accent)}
-                className="inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-[#dbe3f5] bg-white/70 px-3.5 py-2 text-[13px] font-semibold text-[#344260] transition-colors hover:border-[color-mix(in_srgb,var(--c)_42%,#dbe3f5)] hover:bg-white hover:text-[#111936]"
+                className="inline-flex cursor-pointer items-center gap-1.5 border border-[var(--app-border)] bg-[var(--app-surface)] px-3.5 py-2 text-[13px] font-semibold text-[var(--app-text)] transition-colors hover:border-[color-mix(in_srgb,var(--c)_42%,var(--app-border))] hover:text-[var(--app-accent-ink)]"
               >
                 <ChipIcon className="h-3.5 w-3.5" style={{ color: 'var(--c)' }} aria-hidden="true" />
                 {t(`common.categories.${category}`)}

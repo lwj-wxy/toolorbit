@@ -119,6 +119,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return {
       title: zhTitle,
       description: tool.descriptionZh.join(' '),
+      robots: {
+        index: false,
+        follow: true,
+      },
       openGraph: {
         title: zhTitle,
         description: tool.descriptionZh.join(' '),
@@ -200,6 +204,11 @@ async function readInitialMarkdown(slug: string) {
 }
 
 export default async function Page({ params }: PageProps) {
+  const { segments = [] } = await params;
+  redirect(segments.length ? `/${segments.join('/')}` : '/');
+}
+
+async function renderChinesePage({ params }: PageProps) {
   const { segments = [] } = await params;
   const basePath = basePathFromSegments(segments);
 

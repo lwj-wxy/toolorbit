@@ -86,6 +86,6 @@ Etsy listing 可以上传多张图片，建议用这些位置逐一解决买家�
 
 ---
 
-*推荐工具：用 [图片压缩工具](/tools/image/image-compressor) 压缩最终图片，用 [AI Listing 生成器](/tools/ai/listing-generator) 生成基于图片信息的描述，再用 [Etsy 目标售价计算器](/tools/ecommerce/etsy-pricing-calculator) 验证价格是否有利润。*
+*推荐工具：用 [AI 商品素材合规质检器](/tools/ai/product-asset-checker) 检查最终图片，用 [AI Listing 生成器](/tools/ai/listing-generator) 生成基于图片信息的描述，再用 [Etsy 目标售价计算器](/tools/ecommerce/etsy-pricing-calculator) 验证价格是否有利润。*
 
 **Etsy 官方延伸阅读：**[The Anatomy of a Well-Crafted Etsy Listing](https://www.etsy.com/seller-handbook/article/1347574487014)、[7 Essential Types of Product Photos](https://www.etsy.com/seller-handbook/article/22504064051)、[Product Photography Checklist](https://www.etsy.com/seller-handbook/article/152858121769)。

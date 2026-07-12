@@ -28,8 +28,7 @@ export default function LayoutFooter() {
       window.history.replaceState(null, '', `${window.location.pathname}#contact`);
     } else {
       // 在其他页：先跳转，等联系区块渲染出来再滚
-      const localizedAbout = pathname.startsWith('/zh-CN') ? '/zh-CN/about' : '/about';
-      router.push(`${localizedAbout}#contact`);
+      router.push('/about#contact');
       let tries = 0;
       const timer = window.setInterval(() => {
         tries += 1;
