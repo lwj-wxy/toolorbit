@@ -168,54 +168,54 @@ export default function ProductImageGenerator() {
           <div>
             <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700 dark:border-emerald-900 dark:bg-emerald-950/30 dark:text-emerald-300">
               <Sparkles className="h-3.5 w-3.5" />
-              {isZh ? 'Cross-border product image' : 'Cross-border product image'}
+              {isZh ? '跨境电商素材工作台' : 'Ecommerce creative workspace'}
             </div>
             <h1 className="text-3xl font-bold tracking-tight text-slate-950 dark:text-white md:text-4xl">
-              {t('tools.ai-product-image-generator.title', isZh ? 'AI 出海商品图生成器' : 'AI Product Image Generator for Global Listings')}
+              {t('tools.ai-product-image-generator.title', isZh ? '用商品关键词生成产品图' : 'Create Product Images From a Keyword')}
             </h1>
             <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-400">
               {t(
                 'tools.ai-product-image-generator.subtitle',
                 isZh
-                  ? '输入商品信息，选择平台、用途和比例，生成适合跨境上架、广告投放和独立站展示的商品图片。'
-                  : 'Enter product details, choose platform, use case, and ratio, then generate listing-ready product images.',
+                  ? '从一个商品关键词开始，选择销售渠道和图片用途，生成适合上架、广告和商品页的视觉草稿。'
+                  : 'Start with a product keyword, choose the selling channel and image use, then create a focused set of ecommerce image drafts.',
               )}
             </p>
           </div>
-          <div className="rounded-lg border border-violet-200 bg-violet-50 px-4 py-3 text-sm leading-6 text-violet-900 dark:border-violet-900 dark:bg-violet-950/30 dark:text-violet-200">
-            {isZh ? '请写清材质、颜色、结构和使用场景。发布前仍需核对商品细节。' : 'Describe material, color, structure, and use case. Check product details before publishing.'}
+          <div className="rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm leading-6 text-emerald-900 dark:border-emerald-900 dark:bg-emerald-950/30 dark:text-emerald-200">
+            {isZh ? '关键词即可开始。补充材质、颜色和使用场景，能让结果更接近真实商品。' : 'A keyword is enough to start. Add material, color, and use-case details when the product needs a closer visual match.'}
           </div>
         </div>
       </div>
 
-      <div className="space-y-8">
-        <section className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-[#282c34]">
+      <div className="grid gap-6 lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)] lg:items-start">
+        <section className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-[#282c34] lg:sticky lg:top-24">
           <div className="mb-5 flex items-center gap-2">
-            <ImagePlus className="h-5 w-5 text-violet-600 dark:text-violet-300" />
-            <h2 className="text-lg font-semibold text-slate-950 dark:text-white">{isZh ? '产品与场景' : 'Product and scene'}</h2>
+            <ImagePlus className="h-5 w-5 text-cyan-600 dark:text-cyan-300" />
+            <h2 className="text-lg font-semibold text-slate-950 dark:text-white">{isZh ? '商品简报' : 'Product brief'}</h2>
           </div>
 
           <div className="space-y-5">
             <div>
-              <label className="mb-2 block text-sm font-semibold text-slate-950 dark:text-white">{isZh ? '商品名称' : 'Product name'}</label>
+                <label className="mb-2 block text-sm font-semibold text-slate-950 dark:text-white">{isZh ? '商品关键词或名称' : 'Product keyword or name'}</label>
               <input
                 value={productName}
                 onChange={(event) => setProductName(event.target.value)}
-                className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-950 outline-none transition-colors focus:border-violet-500 focus:ring-2 focus:ring-violet-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white dark:focus:ring-violet-950"
-                placeholder={isZh ? '例如：手工陶瓷杯' : 'e.g. Handmade ceramic cup'}
+                className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-950 outline-none transition-colors focus:border-cyan-500 focus:ring-2 focus:ring-cyan-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white dark:focus:ring-cyan-950"
+                placeholder={isZh ? '例如：手工陶瓷杯、北欧陶瓷咖啡杯' : 'e.g. handmade ceramic coffee cup'}
               />
             </div>
 
             <div>
               <div className="mb-2 flex items-center justify-between gap-3">
-                <label className="block text-sm font-semibold text-slate-950 dark:text-white">{isZh ? '商品说明' : 'Product description'}</label>
+                <label className="block text-sm font-semibold text-slate-950 dark:text-white">{isZh ? '商品信息（可选）' : 'Product details (optional)'}</label>
                 <span className="text-xs text-slate-400">{productDescription.length}</span>
               </div>
               <textarea
                 value={productDescription}
                 onChange={(event) => setProductDescription(event.target.value)}
                 rows={3}
-                className="w-full resize-none rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-950 outline-none transition-colors focus:border-violet-500 focus:ring-2 focus:ring-violet-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white dark:focus:ring-violet-950"
+                className="w-full resize-none rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-950 outline-none transition-colors focus:border-cyan-500 focus:ring-2 focus:ring-cyan-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white dark:focus:ring-cyan-950"
                 placeholder={isZh ? '材质、颜色、用途、适用人群、包装情况' : 'Material, color, use case, audience, packaging'}
               />
             </div>
@@ -223,13 +223,13 @@ export default function ProductImageGenerator() {
             <div className="grid gap-4 sm:grid-cols-2">
               <div>
                 <label className="mb-2 block text-sm font-semibold text-slate-950 dark:text-white">{isZh ? '目标平台' : 'Target platform'}</label>
-                <select value={targetPlatform} onChange={(event) => setTargetPlatform(event.target.value)} className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-950 outline-none focus:border-violet-500 dark:border-slate-700 dark:bg-slate-950 dark:text-white">
+                <select value={targetPlatform} onChange={(event) => setTargetPlatform(event.target.value)} className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-950 outline-none focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-950 dark:text-white">
                   {platforms.map((option) => <option key={option.value} value={option.value}>{option[isZh ? 'zh' : 'en']}</option>)}
                 </select>
               </div>
               <div>
                 <label className="mb-2 block text-sm font-semibold text-slate-950 dark:text-white">{isZh ? '目标市场' : 'Target market'}</label>
-                <select value={targetMarket} onChange={(event) => setTargetMarket(event.target.value)} className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-950 outline-none focus:border-violet-500 dark:border-slate-700 dark:bg-slate-950 dark:text-white">
+                <select value={targetMarket} onChange={(event) => setTargetMarket(event.target.value)} className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-950 outline-none focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-950 dark:text-white">
                   <option value="United States">{isZh ? '美国' : 'United States'}</option>
                   <option value="European Union">{isZh ? '欧盟' : 'European Union'}</option>
                   <option value="United Kingdom">{isZh ? '英国' : 'United Kingdom'}</option>
@@ -248,8 +248,8 @@ export default function ProductImageGenerator() {
                     onClick={() => setImageUse(option.value)}
                     className={`cursor-pointer rounded-lg border px-3 py-2 text-left text-sm font-medium transition-colors duration-200 ${
                       imageUse === option.value
-                        ? 'border-violet-500 bg-violet-50 text-violet-800 dark:border-violet-400 dark:bg-violet-950/30 dark:text-violet-200'
-                        : 'border-slate-200 bg-white text-slate-700 hover:border-violet-300 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-300'
+                        ? 'border-cyan-500 bg-cyan-50 text-cyan-800 dark:border-cyan-400 dark:bg-cyan-950/30 dark:text-cyan-200'
+                        : 'border-slate-200 bg-white text-slate-700 hover:border-cyan-300 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-300'
                     }`}
                   >
                     {option[isZh ? 'zh' : 'en']}
@@ -266,7 +266,7 @@ export default function ProductImageGenerator() {
                     key={option.value}
                     onClick={() => setRatio(option.value)}
                     className={`cursor-pointer rounded-lg border px-3 py-2 text-sm font-semibold transition-colors duration-200 ${
-                      ratio === option.value ? 'border-violet-500 bg-violet-50 text-violet-800 dark:bg-violet-950/30 dark:text-violet-200' : 'border-slate-200 bg-white text-slate-700 hover:border-violet-300 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-300'
+                      ratio === option.value ? 'border-cyan-500 bg-cyan-50 text-cyan-800 dark:bg-cyan-950/30 dark:text-cyan-200' : 'border-slate-200 bg-white text-slate-700 hover:border-cyan-300 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-300'
                     }`}
                   >
                     {option.label}
@@ -277,7 +277,7 @@ export default function ProductImageGenerator() {
 
             <details className="rounded-lg border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-950/40">
               <summary className="cursor-pointer text-sm font-semibold text-slate-900 dark:text-slate-100">
-                {isZh ? '更多选项（可选）' : 'More options (optional)'}
+                {isZh ? '生成设置（可选）' : 'Generation settings (optional)'}
               </summary>
 
               <div className="mt-4 space-y-4">
@@ -286,7 +286,7 @@ export default function ProductImageGenerator() {
                   <input
                     value={sellingPoint}
                     onChange={(event) => setSellingPoint(event.target.value)}
-                    className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-950 outline-none transition-colors focus:border-violet-500 focus:ring-2 focus:ring-violet-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white dark:focus:ring-violet-950"
+                    className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-950 outline-none transition-colors focus:border-cyan-500 focus:ring-2 focus:ring-cyan-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white dark:focus:ring-cyan-950"
                     placeholder={isZh ? '例如：手工釉面、适合咖啡热饮' : 'e.g. Handmade glaze, suitable for hot coffee'}
                   />
                 </div>
@@ -294,13 +294,13 @@ export default function ProductImageGenerator() {
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div>
                     <label className="mb-2 block text-sm font-semibold text-slate-950 dark:text-white">{isZh ? '视觉风格' : 'Visual style'}</label>
-                    <select value={style} onChange={(event) => setStyle(event.target.value)} className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-950 outline-none focus:border-violet-500 dark:border-slate-700 dark:bg-slate-950 dark:text-white">
+                    <select value={style} onChange={(event) => setStyle(event.target.value)} className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-950 outline-none focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-950 dark:text-white">
                       {styles.map((option) => <option key={option.value} value={option.value}>{option[isZh ? 'zh' : 'en']}</option>)}
                     </select>
                   </div>
                   <div>
                     <label className="mb-2 block text-sm font-semibold text-slate-950 dark:text-white">{isZh ? '背景' : 'Background'}</label>
-                    <select value={background} onChange={(event) => setBackground(event.target.value)} className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-950 outline-none focus:border-violet-500 dark:border-slate-700 dark:bg-slate-950 dark:text-white">
+                    <select value={background} onChange={(event) => setBackground(event.target.value)} className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-950 outline-none focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-950 dark:text-white">
                       {backgrounds.map((option) => <option key={option.value} value={option.value}>{option[isZh ? 'zh' : 'en']}</option>)}
                     </select>
                   </div>
@@ -312,13 +312,13 @@ export default function ProductImageGenerator() {
                     <input
                       value={scene}
                       onChange={(event) => setScene(event.target.value)}
-                      className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-950 outline-none transition-colors focus:border-violet-500 focus:ring-2 focus:ring-violet-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white dark:focus:ring-violet-950"
+                      className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-950 outline-none transition-colors focus:border-cyan-500 focus:ring-2 focus:ring-cyan-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white dark:focus:ring-cyan-950"
                       placeholder={isZh ? '例如：木质桌面、清晨自然光、咖啡旁边' : 'e.g. wooden desk, morning light, next to coffee'}
                     />
                   </div>
                   <div>
                     <label className="mb-2 block text-sm font-semibold text-slate-950 dark:text-white">{isZh ? '生成张数' : 'Variants'}</label>
-                    <select value={variantCount} onChange={(event) => setVariantCount(Number(event.target.value))} className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-950 outline-none focus:border-violet-500 dark:border-slate-700 dark:bg-slate-950 dark:text-white">
+                    <select value={variantCount} onChange={(event) => setVariantCount(Number(event.target.value))} className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-950 outline-none focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-950 dark:text-white">
                       <option value={1}>1</option>
                       <option value={2}>2</option>
                       <option value={3}>3</option>
@@ -333,7 +333,7 @@ export default function ProductImageGenerator() {
             <button
               onClick={generateImages}
               disabled={!canGenerate}
-              className="inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-violet-600 px-5 py-3 text-sm font-semibold text-white transition-colors duration-200 hover:bg-violet-700 disabled:cursor-not-allowed disabled:bg-slate-300 dark:disabled:bg-slate-700 sm:w-auto sm:px-8"
+              className="inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-cyan-600 px-5 py-3 text-sm font-semibold text-white transition-colors duration-200 hover:bg-cyan-700 disabled:cursor-not-allowed disabled:bg-slate-300 dark:disabled:bg-slate-700 sm:w-auto sm:px-8"
             >
               {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />}
               {loading ? (isZh ? '正在生成商品图...' : 'Generating product images...') : (isZh ? '生成商品图' : 'Generate product images')}
@@ -344,9 +344,9 @@ export default function ProductImageGenerator() {
         <section ref={resultRef} className="rounded-lg border border-slate-200 bg-slate-50 p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
           {loading ? (
             <div className="flex flex-col items-center justify-center gap-3 py-12 text-center text-slate-500 dark:text-slate-400">
-              <Loader2 className="h-10 w-10 animate-spin text-violet-600" />
-              <p className="text-sm font-medium">{isZh ? '正在根据商品信息生成出海商品图...' : 'Generating listing images from your product details...'}</p>
-              <p className="max-w-md text-xs leading-5">{isZh ? '生成多张图会需要更长时间。请保留当前页面。' : 'Multiple variants may take longer. Keep this page open.'}</p>
+              <Loader2 className="h-10 w-10 animate-spin text-cyan-600" />
+              <p className="text-sm font-medium">{isZh ? '正在根据商品关键词生成商品图...' : 'Generating product images from your keyword...'}</p>
+              <p className="max-w-md text-xs leading-5">{isZh ? '多张变体会需要更长时间。请保留当前页面。' : 'Multiple variants take longer. Keep this page open.'}</p>
             </div>
           ) : null}
 
@@ -354,7 +354,7 @@ export default function ProductImageGenerator() {
             <div className="flex items-center gap-3 rounded-lg border border-dashed border-slate-200 bg-white px-4 py-4 text-slate-500 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-400">
               <ImageIcon className="h-5 w-5 flex-none text-slate-300 dark:text-slate-700" />
               <p className="max-w-md text-sm leading-6">
-                {isZh ? '填写商品信息后，这里会显示生成结果、下载按钮和生成提示词。' : 'Enter product details to see generated images, download actions, and prompts.'}
+                {isZh ? '输入商品关键词并选择用途后，这里会显示生成结果、下载按钮和提示词。' : 'Enter a product keyword and choose an image use to see results, downloads, and prompts.'}
               </p>
             </div>
           ) : null}
@@ -391,7 +391,7 @@ export default function ProductImageGenerator() {
                         <div className="flex items-center gap-2">
                           <button
                             onClick={() => copyPrompt(image)}
-                            className="inline-flex cursor-pointer items-center gap-1.5 rounded-md border border-slate-200 px-2.5 py-1.5 text-xs font-semibold text-slate-600 transition-colors duration-200 hover:border-violet-300 hover:text-violet-700 dark:border-slate-700 dark:text-slate-300"
+                            className="inline-flex cursor-pointer items-center gap-1.5 rounded-md border border-slate-200 px-2.5 py-1.5 text-xs font-semibold text-slate-600 transition-colors duration-200 hover:border-cyan-300 hover:text-cyan-700 dark:border-slate-700 dark:text-slate-300"
                           >
                             {copiedPrompt === (image.variant || 0) ? <Check className="h-3.5 w-3.5 text-emerald-500" /> : <Copy className="h-3.5 w-3.5" />}
                             {isZh ? '提示词' : 'Prompt'}

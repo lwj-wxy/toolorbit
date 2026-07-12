@@ -23,6 +23,7 @@ export const PUBLIC_TOOL_IDS = new Set([
   'keyword-analyzer',
   'ai-hs-code-assistant',
   'ai-product-asset-checker',
+  'ai-product-image-generator',
 ]);
 
 // Short tool descriptions are intentionally kept concise and unique. We no longer append a
@@ -114,7 +115,7 @@ const RAW_TOOLS_META = [
   {
     id: 'ai-product-image-generator',
     name: 'AI 出海商品图生成器',
-    description: '上传真实产品图，按平台、用途和比例生成适合跨境上架、广告投放和独立站展示的商品图片。',
+    description: 'Turn a product keyword or brief into images for marketplace listings, ads, and product pages.',
     category: 'AI 工具',
     path: '/tools/ai/product-image-generator',
     color: 'violet',
