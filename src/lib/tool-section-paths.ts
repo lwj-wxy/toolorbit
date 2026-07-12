@@ -1,7 +1,10 @@
 import type { Category } from '../data/tools-meta';
 import { CATEGORY_SLUGS } from './category-paths';
 
-export const TOOL_SECTION_CATEGORIES: Record<string, Category> = { ecommerce: '电商工具' };
+export const TOOL_SECTION_CATEGORIES: Record<string, Category> = {
+  ai: 'AI 工具',
+  ecommerce: '电商工具',
+};
 
 export function getToolSectionCategory(section: string) {
   return TOOL_SECTION_CATEGORIES[section];

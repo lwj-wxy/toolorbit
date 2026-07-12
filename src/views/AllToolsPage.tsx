@@ -5,7 +5,9 @@ import { TOOLS, type Category } from '../data/tools';
 import en from '../locales/en.json';
 import { readPath, SITE_NAME } from '../lib/metadata';
 
-type AllToolsPageProps = Record<string, never>;
+type AllToolsPageProps = {
+  category?: Category;
+};
 
 const twoLineDescriptionStyle: CSSProperties = {
   display: '-webkit-box',
@@ -15,7 +17,10 @@ const twoLineDescriptionStyle: CSSProperties = {
   minHeight: '2.5rem',
   maxHeight: '2.5rem',
 };
-const CATEGORY_SLUGS: Partial<Record<Category, string>> = { '电商工具': 'ecommerce' };
+const CATEGORY_SLUGS: Partial<Record<Category, string>> = {
+  'AI 工具': 'ai',
+  '电商工具': 'ecommerce',
+};
 const CATEGORY_ORDER = Object.keys(CATEGORY_SLUGS) as Category[];
 
 function cleanToolTitle(value: string) {
@@ -36,8 +41,8 @@ function categoryName(category: Category) {
   return readPath(en, `common.categories.${category}`) || category;
 }
 
-export default function AllToolsPage(_: AllToolsPageProps) {
-  const visibleTools = TOOLS.filter((tool) => !tool.isNoIndex);
+export default function AllToolsPage({ category }: AllToolsPageProps) {
+  const visibleTools = TOOLS.filter((tool) => !tool.isNoIndex && (!category || tool.category === category));
   const totalTools = visibleTools.length;
   const visibleCategories = CATEGORY_ORDER.filter((category) =>
     visibleTools.some((tool) => tool.category === category),
@@ -76,7 +81,7 @@ export default function AllToolsPage(_: AllToolsPageProps) {
       <div className="space-y-12">
         {visibleCategories.map((category) => {
           const tools = visibleTools.filter((tool) => tool.category === category);
-          const categoryPath = '/tools/ecommerce';
+          const categoryPath = `/tools/${CATEGORY_SLUGS[category]}`;
 
           return (
             <section key={category} id={CATEGORY_SLUGS[category]} className="scroll-mt-24">
