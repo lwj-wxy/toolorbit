@@ -1,5 +1,6 @@
 import { notFound, redirect } from 'next/navigation';
-import { getToolSectionCategoryPath, toolSectionStaticParams } from '../../../lib/tool-section-paths';
+import AllToolsPage from '../../../views/AllToolsPage';
+import { toolSectionStaticParams } from '../../../lib/tool-section-paths';
 
 export function generateStaticParams() {
   return toolSectionStaticParams();
@@ -14,11 +15,9 @@ export default async function Page({ params }: { params: Promise<{ section: stri
     redirect('/tools');
   }
 
-  const categoryPath = getToolSectionCategoryPath(section);
-
-  if (!categoryPath) {
+  if (section !== 'ecommerce') {
     notFound();
   }
 
-  redirect(categoryPath);
+  return <AllToolsPage />;
 }

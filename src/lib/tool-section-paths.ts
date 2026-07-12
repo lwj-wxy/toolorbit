@@ -1,15 +1,10 @@
 import type { Category } from '../data/tools-meta';
-import { CATEGORY_SLUGS, getCategoryPath } from './category-paths';
+import { CATEGORY_SLUGS } from './category-paths';
 
 export const TOOL_SECTION_CATEGORIES: Record<string, Category> = { ecommerce: '电商工具' };
 
 export function getToolSectionCategory(section: string) {
   return TOOL_SECTION_CATEGORIES[section];
-}
-
-export function getToolSectionCategoryPath(section: string) {
-  const category = getToolSectionCategory(section);
-  return category ? getCategoryPath(category) : undefined;
 }
 
 export function toolSectionStaticParams() {
