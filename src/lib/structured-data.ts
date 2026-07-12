@@ -555,7 +555,7 @@ export function blogPostJsonLd(slug: string, locale: Locale = 'en') {
       url,
       mainEntityOfPage: url,
       datePublished: post.date,
-      dateModified: post.date,
+      dateModified: post.updatedAt || post.date,
       author: authorEntity(author, locale),
       publisher: organizationEntity(),
       reviewedBy: organizationEntity(),

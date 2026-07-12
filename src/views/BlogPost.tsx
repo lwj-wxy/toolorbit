@@ -7,6 +7,7 @@ import { Link } from '../lib/navigation';
 import { useTranslation } from 'react-i18next';
 import { ArrowLeft, ChevronRight } from 'lucide-react';
 import { BLOG_POSTS, PUBLISHED_BLOG_POSTS } from '../constants/blogData';
+import { getAuthorById } from '../data/authors';
 import { createHeadingId, extractMarkdownH2Headings } from '../lib/markdown-headings';
 import type { MarkdownHeading } from '../lib/markdown-headings';
 
@@ -158,6 +159,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, initialMarkdown = '' }) => {
     .slice(0, 3);
 
   const title = t(`blog.posts.${post.slug}.title`);
+  const author = getAuthorById(post.authorId);
   const articleHeadings = markdown ? extractMarkdownH2Headings(markdown) : [];
   const handleHeadingClick = (event: MouseEvent<HTMLAnchorElement>, heading: MarkdownHeading) => {
     event.preventDefault();
@@ -190,6 +192,28 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, initialMarkdown = '' }) => {
       <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_288px] lg:items-start">
         {/* Article content */}
         <div className="min-w-0">
+          <div className="mb-8 border-b border-[var(--app-border)] pb-6">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-[var(--app-muted)]">
+              <span>
+                Published <time dateTime={post.date}>{post.date}</time>
+              </span>
+              <span aria-hidden="true">·</span>
+              <span>
+                Last reviewed <time dateTime={post.updatedAt || post.date}>{post.updatedAt || post.date}</time>
+              </span>
+            </div>
+            {author ? (
+              <p className="mt-3 text-sm text-[var(--app-muted)]">
+                By{' '}
+                <Link to={author.url} className="font-semibold text-[var(--app-accent-ink)] hover:underline">
+                  {author.name}
+                </Link>
+              </p>
+            ) : null}
+            <p className="mt-3 max-w-3xl text-sm leading-6 text-[var(--app-muted)]">
+              This guide is reviewed against the linked Etsy policies and written for seller workflow planning. Check Etsy policy pages and your shop statement for the current rule or charge before making a business decision.
+            </p>
+          </div>
           {/* Markdown body */}
           {markdown ? (
             <div

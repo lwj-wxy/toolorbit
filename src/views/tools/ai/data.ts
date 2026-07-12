@@ -87,6 +87,11 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
         inputLanguage: 'text',
         outputLanguage: 'json',
       },
+      lastUpdated: '2026-07',
+      sources: [
+        { label: 'United States Harmonized Tariff Schedule', url: 'https://hts.usitc.gov/' },
+        { label: 'EU TARIC consultation', url: 'https://taxation-customs.ec.europa.eu/customs-4/calculation-customs-duties/customs-tariff/combined-nomenclature_en' },
+      ],
     },
   },
 
@@ -128,6 +133,11 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
         inputLanguage: 'image+text',
         outputLanguage: 'json',
       },
+      lastUpdated: '2026-07',
+      sources: [
+        { label: 'Google Merchant Center image requirements', url: 'https://support.google.com/merchants/answer/6324350' },
+        { label: 'Etsy Seller Handbook', url: 'https://www.etsy.com/seller-handbook' },
+      ],
     },
   },
 
@@ -649,6 +659,11 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
         inputLanguage: 'text',
         outputLanguage: 'markdown',
       },
+      lastUpdated: '2026-07',
+      sources: [
+        { label: 'Etsy Seller Handbook', url: 'https://www.etsy.com/seller-handbook' },
+        { label: 'Etsy Creativity Standards', url: 'https://www.etsy.com/legal/handmade/' },
+      ],
     },
   },
 
@@ -688,6 +703,11 @@ export const AI_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
         inputLanguage: 'text',
         outputLanguage: 'json',
       },
+      lastUpdated: '2026-07',
+      sources: [
+        { label: 'Etsy Seller Handbook', url: 'https://www.etsy.com/seller-handbook' },
+        { label: 'Etsy Fees and Payments Policy', url: 'https://www.etsy.com/legal/fees/' },
+      ],
     },
   },
 

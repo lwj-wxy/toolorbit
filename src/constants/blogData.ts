@@ -1,6 +1,7 @@
 export interface BlogPost {
   slug: string;
   date: string;
+  updatedAt?: string;
   category: string;
   authorId?: string;
 }
@@ -268,6 +269,7 @@ const ACTIVE_BLOG_SLUGS = new Set([
 
 export const BLOG_POSTS: BlogPost[] = posts.filter((post) => ACTIVE_BLOG_SLUGS.has(post.slug)).map((post) => ({
   authorId: defaultAuthorId,
+  updatedAt: '2026-07-12',
   ...post,
 }));
 
