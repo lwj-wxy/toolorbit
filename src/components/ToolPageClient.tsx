@@ -14,5 +14,9 @@ export default function ToolPageClient({ path, hideHeader = false }: ToolPageCli
     return null;
   }
 
-  return <Tool hideHeader={hideHeader} />;
+  return (
+    <div translate="no" className="contents">
+      <Tool hideHeader={hideHeader} />
+    </div>
+  );
 }
