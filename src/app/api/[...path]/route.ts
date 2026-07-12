@@ -6,12 +6,11 @@ import { buildAiRuntimeStreamConfig } from '../../../lib/ai-runtime';
 export const runtime = 'nodejs';
 export const maxDuration = 60;
 
-const DEEPSEEK_TEXT_MODEL = 'deepseek-v4-pro';
-const DEEPSEEK_BASE_URL = 'https://api.deepseek.com';
-const ZHIPU_IMAGE_MODEL = process.env.ZHIPU_IMAGE_MODEL || 'glm-image';
-const ZHIPU_IMAGE_FALLBACK_MODEL = process.env.ZHIPU_IMAGE_FALLBACK_MODEL || 'cogview-3-flash';
-const ZHIPU_IMAGE_BASE_URL = 'https://open.bigmodel.cn/api/paas/v4/images/generations';
-const ZHIPU_VISION_MODEL = process.env.ZHIPU_VISION_MODEL || 'glm-4v-flash';
+const MINIMAX_TEXT_MODEL = process.env.MINIMAX_TEXT_MODEL || 'MiniMax-Text-01';
+const MINIMAX_VISION_MODEL = process.env.MINIMAX_VISION_MODEL || 'MiniMax-VL-01';
+const MINIMAX_IMAGE_MODEL = process.env.MINIMAX_IMAGE_MODEL || 'image-01';
+const MINIMAX_OPENAI_BASE_URL = 'https://api.minimaxi.com/v1';
+const MINIMAX_IMAGE_URL = 'https://api.minimaxi.com/v1/image_generation';
 const IMAGE_GENERATION_TIMEOUT_MS = 45_000;
 const TRACE_MOE_API_URL = 'https://api.trace.moe/search';
 const TRACE_MOE_TIMEOUT_MS = 20_000;
@@ -79,24 +78,16 @@ function escapeSvgText(value: string) {
     .replace(/"/g, '&quot;');
 }
 
-function getDeepseekClient() {
-  const apiKey = process.env.DEEPSEEK_API_KEY?.trim();
+function getMinimaxClient() {
+  const apiKey = process.env.MINIMAX_API_KEY?.trim();
   if (!apiKey || apiKey === 'missing-key') {
-    throw new Error('DEEPSEEK_API_KEY is not configured on the server.');
+    throw new Error('MINIMAX_API_KEY is not configured on the server.');
   }
 
   return new OpenAI({
     apiKey,
-    baseURL: DEEPSEEK_BASE_URL,
+    baseURL: MINIMAX_OPENAI_BASE_URL,
   });
-}
-
-function getZhipuApiKey() {
-  const apiKey = process.env.ZHIPU_API_KEY?.trim();
-  if (!apiKey) {
-    throw new Error('ZHIPU_API_KEY is not configured on the server.');
-  }
-  return apiKey;
 }
 
 function buildImagePrompt(body: any, mode: 'image' | 'svg' = 'image') {
@@ -164,52 +155,44 @@ function imageUrlToSvg(imageUrl: string, prompt: string) {
 </svg>`;
 }
 
-async function requestZhipuImage(prompt: string, size: string, imageBase64?: string, options?: { disableWatermark?: boolean }) {
-  const zhipuApiKey = getZhipuApiKey();
+function imageAspectRatio(size: string) {
+  if (size === '1440x960') return '3:2';
+  if (size === '960x1440') return '2:3';
+  return '1:1';
+}
 
-  const createPayload = (model: string) => {
-    const payload: any = { model, prompt, size };
+async function requestMinimaxImage(prompt: string, size: string, _imageBase64?: string, _options?: { disableWatermark?: boolean }) {
+  const apiKey = process.env.MINIMAX_API_KEY?.trim();
+  if (!apiKey || apiKey === 'missing-key') {
+    throw new Error('MINIMAX_API_KEY is not configured on the server.');
+  }
 
-    if (imageBase64) {
-      payload.image_base64 = imageBase64.replace(/^data:image\/(png|jpeg|webp|jpg);base64,/, '');
-    }
-
-    if (options?.disableWatermark) {
-      payload.watermark = false;
-    }
-
-    return payload;
-  };
-
-  const requestImage = (model: string) =>
-    axios.post(ZHIPU_IMAGE_BASE_URL, createPayload(model), {
+  const response = await axios.post(
+    MINIMAX_IMAGE_URL,
+    {
+      model: MINIMAX_IMAGE_MODEL,
+      prompt,
+      aspect_ratio: imageAspectRatio(size),
+      response_format: 'url',
+      n: 1,
+      prompt_optimizer: true,
+    },
+    {
       headers: {
-        Authorization: `Bearer ${zhipuApiKey}`,
+        Authorization: `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
       },
       timeout: IMAGE_GENERATION_TIMEOUT_MS,
-    });
+    },
+  );
 
-  let usedModel = ZHIPU_IMAGE_MODEL;
-  let zhipuResponse;
-
-  try {
-    zhipuResponse = await requestImage(ZHIPU_IMAGE_MODEL);
-  } catch (primaryError) {
-    if (ZHIPU_IMAGE_FALLBACK_MODEL === ZHIPU_IMAGE_MODEL) {
-      throw primaryError;
-    }
-    usedModel = ZHIPU_IMAGE_FALLBACK_MODEL;
-    zhipuResponse = await requestImage(ZHIPU_IMAGE_FALLBACK_MODEL);
-  }
-
-  const imageUrl = zhipuResponse.data?.data?.[0]?.url;
-  if (!imageUrl) throw new Error(`Failed to generate image from ${usedModel}.`);
+  const imageUrl = response.data?.data?.[0]?.url || response.data?.data?.[0]?.image_url;
+  if (!imageUrl) throw new Error(`Failed to generate image from ${MINIMAX_IMAGE_MODEL}.`);
 
   return {
     imageUrl,
-    model: usedModel,
-    fallbackUsed: usedModel !== ZHIPU_IMAGE_MODEL,
+    model: MINIMAX_IMAGE_MODEL,
+    fallbackUsed: false,
   };
 }
 
@@ -569,8 +552,8 @@ function streamChat(model: string, messages: ChatMessage[], options: Record<stri
     new ReadableStream({
       async start(controller) {
         try {
-          const deepseek = getDeepseekClient();
-          const stream = await deepseek.chat.completions.create({
+          const minimax = getMinimaxClient();
+          const stream = await minimax.chat.completions.create({
             model,
             messages,
             stream: true,
@@ -651,7 +634,7 @@ function streamConfig(path: string, body: any): { model: string; messages: ChatM
     case 'competitor': {
       const lang = body.language?.toLowerCase?.() === '中文' || body.language?.toLowerCase?.().startsWith('zh') ? 'Simplified Chinese' : body.language || 'English';
       return {
-        model: DEEPSEEK_TEXT_MODEL,
+        model: MINIMAX_TEXT_MODEL,
         messages: [
           {
             role: 'system',
@@ -663,7 +646,7 @@ function streamConfig(path: string, body: any): { model: string; messages: ChatM
     }
     case 'xiaohongshu':
       return {
-        model: DEEPSEEK_TEXT_MODEL,
+        model: MINIMAX_TEXT_MODEL,
         messages: [
           { role: 'system', content: `你是一个深谙小红书爆款逻辑的顶级内容文案写手。生成包含爆款标题、正文结构和话题标签的小红书文案。输出语言：${body.language === '中文' ? 'Simplified Chinese' : body.language || 'Simplified Chinese'}。风格定向：${body.style || '种草测评'}。只输出文案。` },
           { role: 'user', content: `主题: ${body.topic}\n关键词: ${body.keywords}` },
@@ -671,7 +654,7 @@ function streamConfig(path: string, body: any): { model: string; messages: ChatM
       };
     case 'market-research':
       return {
-        model: DEEPSEEK_TEXT_MODEL,
+        model: MINIMAX_TEXT_MODEL,
         messages: [
           { role: 'system', content: `You are a Market Researcher. Output ONLY JSON with lastUpdate, platform, categories, products, and insights. Current date: ${new Date().toISOString().split('T')[0]}. Use unsplash thumbnails. Output in ${body.language === '中文' ? 'Simplified Chinese' : body.language || 'English'}.` },
           { role: 'user', content: `Platform: ${body.platform}\nTimeframe: ${body.timeframe} days` },
@@ -679,7 +662,7 @@ function streamConfig(path: string, body: any): { model: string; messages: ChatM
       };
     case 'ai-polisher':
       return {
-        model: DEEPSEEK_TEXT_MODEL,
+        model: MINIMAX_TEXT_MODEL,
         rateMs: 2 * 60 * 1000,
         rateMessage: body.language?.startsWith('zh') ? '请求过于频繁，请等待 2 分钟后再试。' : 'Too many requests, please wait 2 minutes.',
         messages: [
@@ -689,7 +672,7 @@ function streamConfig(path: string, body: any): { model: string; messages: ChatM
       };
     case 'ai-translator':
       return {
-        model: DEEPSEEK_TEXT_MODEL,
+        model: MINIMAX_TEXT_MODEL,
         rateMs: 2 * 60 * 1000,
         rateMessage: 'Rate limit exceeded. Please wait 2 minutes.',
         messages: [
@@ -699,7 +682,7 @@ function streamConfig(path: string, body: any): { model: string; messages: ChatM
       };
     case 'ai-prompt-generator':
       return {
-        model: DEEPSEEK_TEXT_MODEL,
+        model: MINIMAX_TEXT_MODEL,
         messages: [
           { role: 'system', content: `You are an expert AI image prompt engineer. Create exactly 4 detailed prompts separated by "==========". Include English prompt and ${targetLanguage(body.language)} translation. Do not add extra text.` },
           { role: 'user', content: `Topic: ${body.topic}\nStyle: ${body.style}` },
@@ -707,7 +690,7 @@ function streamConfig(path: string, body: any): { model: string; messages: ChatM
       };
     case 'ai-video-script':
       return {
-        model: DEEPSEEK_TEXT_MODEL,
+        model: MINIMAX_TEXT_MODEL,
         messages: [
           { role: 'system', content: `You are a viral short-video director and scriptwriter. Create a script for ${body.platform}, around ${body.duration}, in a ${body.tone} tone. Include hook, scenes, CTA, and BGM suggestions where appropriate. Output in ${targetLanguage(body.language)}.` },
           { role: 'user', content: `Topic/Core Message:\n${body.topic}` },
@@ -723,7 +706,7 @@ function streamConfig(path: string, body: any): { model: string; messages: ChatM
       const templateInstruction = templateInstructions[String(body.templateStyle || 'classic')] || templateInstructions.classic;
 
       return {
-        model: DEEPSEEK_TEXT_MODEL,
+        model: MINIMAX_TEXT_MODEL,
         messages: [
           {
             role: 'system',
@@ -762,7 +745,7 @@ function streamConfig(path: string, body: any): { model: string; messages: ChatM
       const officialLookupUrl = body.officialLookup?.url || 'https://www.wcoomd.org/en/topics/nomenclature/overview/what-is-the-harmonized-system.aspx';
 
       return {
-        model: DEEPSEEK_TEXT_MODEL,
+        model: MINIMAX_TEXT_MODEL,
         messages: [
           {
             role: 'system',
@@ -812,7 +795,7 @@ function streamConfig(path: string, body: any): { model: string; messages: ChatM
     }
     case 'ai-excel-formula':
       return {
-        model: DEEPSEEK_TEXT_MODEL,
+        model: MINIMAX_TEXT_MODEL,
         messages: [
           { role: 'system', content: `You are an expert spreadsheet analyst. Generate ${body.formulaType === 'google-sheets' ? 'Google Sheets' : 'Microsoft Excel'} formulas, explain briefly, and output in ${targetLanguage(body.language)}.` },
           { role: 'user', content: `Requirement:\n${body.requirement}` },
@@ -820,7 +803,7 @@ function streamConfig(path: string, body: any): { model: string; messages: ChatM
       };
     case 'ai-regex':
       return {
-        model: DEEPSEEK_TEXT_MODEL,
+        model: MINIMAX_TEXT_MODEL,
         messages: [
           { role: 'system', content: `You are a Senior Regex Architect. Regex flavor: ${(body.flavor || 'javascript').toUpperCase()}. Provide regex, breakdown, 3 matching and 3 non-matching cases. Output in ${targetLanguage(body.language)}.` },
           { role: 'user', content: `Requirement to match:\n${body.requirement}` },
@@ -834,7 +817,7 @@ function streamConfig(path: string, body: any): { model: string; messages: ChatM
 async function svgGenerator(body: any) {
   const startedAt = Date.now();
   const prompt = buildImagePrompt(body, 'svg');
-  const imageResult = await requestZhipuImage(prompt, '1280x1280', body.imageBase64);
+  const imageResult = await requestMinimaxImage(prompt, '1280x1280', body.imageBase64);
   const response = imageUrlToSvg(imageResult.imageUrl, body.prompt || 'Generated SVG graphic');
 
   return Response.json(
@@ -845,7 +828,7 @@ async function svgGenerator(body: any) {
       model: imageResult.model,
       fallbackUsed: imageResult.fallbackUsed,
       category: getAiToolCategory('ai-svg-generator'),
-      provider: 'zhipu-image',
+      provider: 'minimax-image',
     },
     {
       headers: {
@@ -879,8 +862,8 @@ function streamBufferedChat(
             );
           }
 
-          const deepseek = getDeepseekClient();
-          const completion = await deepseek.chat.completions.create(upstreamRequest);
+          const minimax = getMinimaxClient();
+          const completion = await minimax.chat.completions.create(upstreamRequest);
 
           const rawContent = completion.choices[0]?.message?.content || '';
           const content = validateOutput ? validateOutput(rawContent) : rawContent;
@@ -906,30 +889,26 @@ function streamBufferedChat(
 }
 
 async function visionDescribe(body: any) {
-  const zhipuApiKey = getZhipuApiKey();
+  const minimax = getMinimaxClient();
 
   const prompt = body.language?.startsWith('zh')
     ? '请分析这张图片中的核心主体和构图。提取视觉概念并转化为英文生图提示词。只输出英文 Prompt，不要解释。'
     : 'Analyze the core subject and composition of this picture, then output an English image-generation prompt only.';
 
-  const response = await axios.post(
-    'https://open.bigmodel.cn/api/paas/v4/chat/completions',
-    {
-      model: ZHIPU_VISION_MODEL,
-      messages: [
-        {
-          role: 'user',
-          content: [
-            { type: 'text', text: prompt },
-            { type: 'image_url', image_url: { url: body.imageBase64 } },
-          ],
-        },
-      ],
-    },
-    { headers: { Authorization: `Bearer ${zhipuApiKey}` } },
-  );
+  const response = await minimax.chat.completions.create({
+    model: MINIMAX_VISION_MODEL,
+    messages: [
+      {
+        role: 'user',
+        content: [
+          { type: 'text', text: prompt },
+          { type: 'image_url', image_url: { url: body.imageBase64 } },
+        ],
+      },
+    ],
+  });
 
-  return Response.json({ description: (response.data.choices[0]?.message?.content || '').trim() });
+  return Response.json({ description: (response.choices[0]?.message?.content || '').trim() });
 }
 
 function parseJsonObject(text: string) {
@@ -963,31 +942,28 @@ function hasEnglishNarrative(value: unknown): boolean {
   return false;
 }
 
-async function localizeProductAssetResult(result: any, zhipuApiKey: string) {
-  const response = await axios.post(
-    'https://open.bigmodel.cn/api/paas/v4/chat/completions',
-    {
-      model: ZHIPU_VISION_MODEL,
-      messages: [
-        {
-          role: 'system',
-          content:
-            'Translate JSON string values into Simplified Chinese. Keep JSON keys unchanged. Keep enum values Low, Medium, High, pass, warning, and fail unchanged. Keep platform names, brand names, file names, and product model names unchanged. Return JSON only.',
-        },
-        {
-          role: 'user',
-          content: JSON.stringify(result),
-        },
-      ],
-    },
-    { headers: { Authorization: `Bearer ${zhipuApiKey}` } },
-  );
+async function localizeProductAssetResult(result: any) {
+  const minimax = getMinimaxClient();
+  const response = await minimax.chat.completions.create({
+    model: MINIMAX_VISION_MODEL,
+    messages: [
+      {
+        role: 'system',
+        content:
+          'Translate JSON string values into Simplified Chinese. Keep JSON keys unchanged. Keep enum values Low, Medium, High, pass, warning, and fail unchanged. Keep platform names, brand names, file names, and product model names unchanged. Return JSON only.',
+      },
+      {
+        role: 'user',
+        content: JSON.stringify(result),
+      },
+    ],
+  });
 
-  return parseJsonObject((response.data.choices[0]?.message?.content || '').trim());
+  return parseJsonObject((response.choices[0]?.message?.content || '').trim());
 }
 
 async function productAssetChecker(body: any) {
-  const zhipuApiKey = getZhipuApiKey();
+  const minimax = getMinimaxClient();
   const images = Array.isArray(body.images) ? body.images.slice(0, 8) : [];
   if (images.length === 0) {
     return Response.json({ error: 'At least one product image is required.' }, { status: 400 });
@@ -1035,33 +1011,29 @@ async function productAssetChecker(body: any) {
     }
   });
 
-  const response = await axios.post(
-    'https://open.bigmodel.cn/api/paas/v4/chat/completions',
-    {
-      model: ZHIPU_VISION_MODEL,
-      messages: [
-        {
-          role: 'system',
-          content: outputLanguage === 'Simplified Chinese'
-            ? 'You return valid JSON only. All user-facing JSON string values must be Simplified Chinese unless they are platform names, file names, brand names, model names, or fixed enum values.'
-            : 'You return valid JSON only. All user-facing JSON string values must be English.',
-        },
-        {
-          role: 'user',
-          content,
-        },
-      ],
-    },
-    { headers: { Authorization: `Bearer ${zhipuApiKey}` } },
-  );
+  const response = await minimax.chat.completions.create({
+    model: MINIMAX_VISION_MODEL,
+    messages: [
+      {
+        role: 'system',
+        content: outputLanguage === 'Simplified Chinese'
+          ? 'You return valid JSON only. All user-facing JSON string values must be Simplified Chinese unless they are platform names, file names, brand names, model names, or fixed enum values.'
+          : 'You return valid JSON only. All user-facing JSON string values must be English.',
+      },
+      {
+        role: 'user',
+        content,
+      },
+    ],
+  });
 
-  const rawText = (response.data.choices[0]?.message?.content || '').trim();
+  const rawText = (response.choices[0]?.message?.content || '').trim();
   const parsedResult = parseJsonObject(rawText);
   let finalResult = parsedResult;
 
   if (outputLanguage === 'Simplified Chinese' && hasEnglishNarrative(parsedResult)) {
     try {
-      finalResult = await localizeProductAssetResult(parsedResult, zhipuApiKey);
+      finalResult = await localizeProductAssetResult(parsedResult);
     } catch {
       finalResult = parsedResult;
     }
@@ -1069,8 +1041,8 @@ async function productAssetChecker(body: any) {
 
   return Response.json({
     ...finalResult,
-    model: ZHIPU_VISION_MODEL,
-    provider: 'zhipu-vision',
+    model: MINIMAX_VISION_MODEL,
+    provider: 'minimax-vision',
   });
 }
 
@@ -1082,7 +1054,7 @@ async function imageGenerator(body: any) {
   if (body.ratio === '9:16') size = '960x1440';
 
   const finalPrompt = buildImagePrompt(body, 'image');
-  const imageResult = await requestZhipuImage(finalPrompt, size, body.imageBase64);
+  const imageResult = await requestMinimaxImage(finalPrompt, size, body.imageBase64);
 
   return Response.json(
     {
@@ -1092,7 +1064,7 @@ async function imageGenerator(body: any) {
       model: imageResult.model,
       fallbackUsed: imageResult.fallbackUsed,
       category: getAiToolCategory('ai-image-generator'),
-      provider: 'zhipu-image',
+      provider: 'minimax-image',
     },
     {
       headers: {
@@ -1110,7 +1082,7 @@ async function productImageGenerator(body: any) {
   const size = productImageSize(String(body.ratio || '1:1'));
   const imageRequests = Array.from({ length: variantCount }, async (_, index) => {
     const prompt = buildProductImagePrompt(body, index);
-    const imageResult = await requestZhipuImage(prompt, size, undefined, { disableWatermark: true });
+    const imageResult = await requestMinimaxImage(prompt, size, undefined, { disableWatermark: true });
 
     return {
       imageUrl: imageResult.imageUrl,
@@ -1130,7 +1102,7 @@ async function productImageGenerator(body: any) {
       elapsedMs: Date.now() - startedAt,
       size,
       category: getAiToolCategory('ai-product-image-generator'),
-      provider: 'zhipu-image',
+      provider: 'minimax-image',
     },
     {
       headers: {
@@ -1326,7 +1298,7 @@ export async function POST(request: Request) {
     }
 
     const runtimeBody = path === 'worldcup-match-predictor' ? await withWorldCupMatchContext(body) : body;
-    const runtimeConfig = buildAiRuntimeStreamConfig(path, runtimeBody, DEEPSEEK_TEXT_MODEL);
+  const runtimeConfig = buildAiRuntimeStreamConfig(path, runtimeBody, MINIMAX_TEXT_MODEL);
     if (runtimeConfig.handled) {
       if (!runtimeConfig.ok) {
         return Response.json(
