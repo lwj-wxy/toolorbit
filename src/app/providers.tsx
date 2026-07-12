@@ -9,11 +9,37 @@ import RecentToolsTracker from '../components/RecentToolsTracker';
 import ScrollToTop from '../components/ScrollToTop';
 import { ThemeProvider } from '../context/ThemeContext';
 import { usePageTracking } from '../hooks/usePageTracking';
+import { analytics } from '../services/analytics';
 import i18n from '../i18n';
 import type { ToolTrackingItem } from '../lib/navigation-menu';
 
 function AnalyticsTracker() {
   usePageTracking();
+
+  useEffect(() => {
+    const handleToolLinkClick = (event: MouseEvent) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+
+      const link = target.closest('a[href]');
+      const href = link?.getAttribute('href') || '';
+      if (!href.startsWith('/tools/')) return;
+
+      const toolPath = href.split(/[?#]/, 1)[0];
+      analytics.trackEvent({
+        category: 'Navigation',
+        action: 'tool_click',
+        label: toolPath,
+        metadata: {
+          linkText: link?.textContent?.trim().slice(0, 100) || undefined,
+        },
+      });
+    };
+
+    document.addEventListener('click', handleToolLinkClick, true);
+    return () => document.removeEventListener('click', handleToolLinkClick, true);
+  }, []);
+
   return null;
 }
 

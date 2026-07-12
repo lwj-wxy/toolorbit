@@ -27,6 +27,17 @@ type AnalyticsEvent = {
   metadata?: Record<string, any>;
 };
 
+const normalizeEventName = (action: string) => {
+  const normalizedAction = action
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '_')
+    .replace(/^_+|_+$/g, '')
+    .slice(0, 40);
+
+  return normalizedAction || 'toolorbit_event';
+};
+
 class AnalyticsService {
   private isEnabled: boolean = false;
   private debug: boolean = process.env.NODE_ENV !== 'production';
@@ -83,7 +94,7 @@ class AnalyticsService {
       });
     }
 
-    this.sendGtag('event', action, {
+    this.sendGtag('event', normalizeEventName(action), {
       event_category: category,
       event_label: label,
       value: value,
