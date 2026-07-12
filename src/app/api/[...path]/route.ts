@@ -6,8 +6,14 @@ import { buildAiRuntimeStreamConfig, type AiRuntimeRateMessage } from '../../../
 export const runtime = 'nodejs';
 export const maxDuration = 60;
 
-const MINIMAX_TEXT_MODEL = process.env.MINIMAX_TEXT_MODEL || 'MiniMax-Text-01';
-const MINIMAX_VISION_MODEL = process.env.MINIMAX_VISION_MODEL || 'MiniMax-VL-01';
+const configuredMinimaxTextModel = process.env.MINIMAX_TEXT_MODEL?.trim();
+const configuredMinimaxVisionModel = process.env.MINIMAX_VISION_MODEL?.trim();
+const MINIMAX_TEXT_MODEL = configuredMinimaxTextModel && configuredMinimaxTextModel !== 'MiniMax-Text-01'
+  ? configuredMinimaxTextModel
+  : 'MiniMax-M3';
+const MINIMAX_VISION_MODEL = configuredMinimaxVisionModel && configuredMinimaxVisionModel !== 'MiniMax-VL-01'
+  ? configuredMinimaxVisionModel
+  : 'MiniMax-M3';
 const MINIMAX_IMAGE_MODEL = process.env.MINIMAX_IMAGE_MODEL || 'image-01';
 const MINIMAX_OPENAI_BASE_URL = 'https://api.minimaxi.com/v1';
 const MINIMAX_IMAGE_URL = 'https://api.minimaxi.com/v1/image_generation';
@@ -185,7 +191,7 @@ async function requestMinimaxImage(prompt: string, size: string, _imageBase64?: 
       model: MINIMAX_IMAGE_MODEL,
       prompt,
       aspect_ratio: imageAspectRatio(size),
-      response_format: 'url',
+      response_format: 'base64',
       n: 1,
       prompt_optimizer: true,
     },
@@ -198,7 +204,10 @@ async function requestMinimaxImage(prompt: string, size: string, _imageBase64?: 
     },
   );
 
-  const imageUrl = response.data?.data?.[0]?.url || response.data?.data?.[0]?.image_url;
+  const imageBase64 = response.data?.data?.image_base64?.[0];
+  const imageUrl = imageBase64
+    ? `data:image/jpeg;base64,${imageBase64}`
+    : response.data?.data?.[0]?.url || response.data?.data?.[0]?.image_url;
   if (!imageUrl) throw new Error(`Failed to generate image from ${MINIMAX_IMAGE_MODEL}.`);
 
   return {
