@@ -3,7 +3,6 @@ import NextLink from 'next/link';
 import { ArrowRight, CalendarCheck, CheckCircle2, ExternalLink, Layers, Wrench } from 'lucide-react';
 import { PUBLISHED_BLOG_POSTS } from '../constants/blogData';
 import en from '../locales/en.json';
-import zh from '../locales/zh.json';
 import { blogBySlug, toolByPath, type SeoContentPage } from '../data/seoContent';
 
 const PAGE_SOURCES: Record<string, Array<{ label: string; url: string }>> = {
@@ -112,7 +111,6 @@ function isChineseLocale(locale?: string) {
 }
 
 function localeData(locale?: string): Record<string, unknown> {
-  if (isChineseLocale(locale)) return zh as Record<string, unknown>;
   return en as Record<string, unknown>;
 }
 

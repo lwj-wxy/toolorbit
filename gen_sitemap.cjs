@@ -4,43 +4,10 @@ const ts = require('typescript');
 
 const SITE_URL = 'https://toolorbit.site';
 const POSTS_PER_PAGE = 12;
-const CATEGORY_PATHS = [
-  '/category/ai-tools',
-  '/category/developer-tools',
-  '/category/webmaster-tools',
-  '/category/text-tools',
-  '/category/generators',
-  '/category/ecommerce-tools',
-  '/category/pdf-tools',
-  '/category/image-tools',
-  '/category/conversion-tools',
-  '/category/utility-tools',
-];
 const SEO_CONTENT_PATHS = [
-  '/ecommerce-tools',
   '/best-etsy-fee-calculators',
   '/authors/toolorbit-editorial-team',
 ];
-
-// Map blog categories to category paths for lastmod inheritance
-const BLOG_CATEGORY_TO_CATEGORY_PATH = {
-  AI: '/category/ai-tools',
-  Development: '/category/developer-tools',
-  Security: '/category/developer-tools',
-  Design: '/category/image-tools',
-  Business: '/category/ecommerce-tools',
-  Productivity: '/category/text-tools',
-};
-
-// Map blog categories to SEO content paths
-const BLOG_CATEGORY_TO_SEO_PATH = {
-  AI: '/ai-tools',
-  Development: '/developer-tools',
-  Security: '/webmaster-toolkit',
-  Design: '/image-tools',
-  Business: '/ecommerce-tools',
-  Productivity: '/text-tools',
-};
 
 require.extensions['.ts'] = function loadTypeScript(module, filename) {
   const source = fs.readFileSync(filename, 'utf8');
@@ -135,37 +102,12 @@ ${hreflangXml(localPath)}
 const generatedAt = today();
 const tools = readTools();
 const blogPosts = readBlogPosts();
-const { getCategoryPath } = require(path.join(process.cwd(), 'src/lib/category-paths.ts'));
-const visibleCategoryPaths = new Set(tools.map((tool) => getCategoryPath(tool.category)));
 
 // Sort blog posts by date (newest first) for pagination date calculation
 const sortedBlogPosts = [...blogPosts].sort((a, b) => (b.date || '').localeCompare(a.date || ''));
 
 // Build category → latest post date map
-const categoryLastmod = {};
-const seoPathLastmod = {};
-for (const post of sortedBlogPosts) {
-  const catPath = BLOG_CATEGORY_TO_CATEGORY_PATH[post.category];
-  const seoPath = BLOG_CATEGORY_TO_SEO_PATH[post.category];
-  if (catPath && !categoryLastmod[catPath]) {
-    categoryLastmod[catPath] = post.date;
-  }
-  if (seoPath && !seoPathLastmod[seoPath]) {
-    seoPathLastmod[seoPath] = post.date;
-  }
-}
-
-// Build tool → date map: use the date of the most recent blog post that relates to each tool's category
 function getToolLastmod(toolPath) {
-  // Determine a reasonable lastmod for tools based on the general category
-  if (toolPath.includes('/ai/')) return categoryLastmod['/category/ai-tools'] || generatedAt;
-  if (toolPath.includes('/dev/')) return categoryLastmod['/category/developer-tools'] || generatedAt;
-  if (toolPath.includes('/ecommerce/')) return categoryLastmod['/category/ecommerce-tools'] || generatedAt;
-  if (toolPath.includes('/image/')) return categoryLastmod['/category/image-tools'] || generatedAt;
-  if (toolPath.includes('/pdf/')) return categoryLastmod['/category/pdf-tools'] || generatedAt;
-  if (toolPath.includes('/text/')) return categoryLastmod['/category/text-tools'] || generatedAt;
-  if (toolPath.includes('/generator/')) return categoryLastmod['/category/generators'] || generatedAt;
-  if (toolPath.includes('/calculate/')) return categoryLastmod['/category/conversion-tools'] || generatedAt;
   return generatedAt;
 }
 
@@ -186,7 +128,7 @@ const baseUrls = [
   { localPath: '/about', lastmod: '2026-04-01', changefreq: 'monthly', priority: '0.7' },
   ...SEO_CONTENT_PATHS.map((sp) => ({
     localPath: sp,
-    lastmod: seoPathLastmod[sp] || generatedAt,
+    lastmod: sortedBlogPosts[0]?.date || generatedAt,
     changefreq: sp.startsWith('/best-') ? 'monthly' : 'weekly',
     priority: sp.startsWith('/authors/') ? '0.7' : sp.startsWith('/best-') ? '0.82' : '0.88',
   })),
@@ -195,12 +137,6 @@ const baseUrls = [
     lastmod: getBlogPageLastmod(index + 2),
     changefreq: 'weekly',
     priority: '0.6',
-  })),
-  ...CATEGORY_PATHS.filter((cp) => visibleCategoryPaths.has(cp)).map((cp) => ({
-    localPath: cp,
-    lastmod: categoryLastmod[cp] || generatedAt,
-    changefreq: 'weekly',
-    priority: '0.85',
   })),
   ...tools.map((tool) => ({
     localPath: tool.path,

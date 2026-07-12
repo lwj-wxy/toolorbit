@@ -10,10 +10,9 @@ import { NET_TOOL_OVERVIEWS } from '../views/tools/net/data';
 import { AI_TOOL_OVERVIEWS } from '../views/tools/ai/data';
 import { UTILITY_TOOL_OVERVIEWS } from '../views/tools/utility/data';
 import en from '../locales/en.json';
-import zh from '../locales/zh.json';
 
-type Locale = 'en' | 'zh';
-type BilingualOverview = { zh: TechnicalOverview; en: TechnicalOverview };
+type BilingualOverview = { en: TechnicalOverview };
+type Locale = 'en';
 
 const ALL_OVERVIEWS: Record<string, BilingualOverview> = {
   ...DEV_TOOL_OVERVIEWS,
@@ -27,12 +26,9 @@ const ALL_OVERVIEWS: Record<string, BilingualOverview> = {
   ...UTILITY_TOOL_OVERVIEWS,
 };
 
-// en.json/zh.json mix flat string copy with a few nested objects; we only read string
+// en.json mixes flat string copy with a few nested objects; we only read string
 // fields (seoTitle/guide*/highlight*/faq*/disclaimer), so widen via unknown.
-const COPY: Record<Locale, Record<string, Record<string, string>>> = {
-  en: (en as unknown as { tools?: Record<string, Record<string, string>> }).tools ?? {},
-  zh: (zh as unknown as { tools?: Record<string, Record<string, string>> }).tools ?? {},
-};
+const COPY = (en as unknown as { tools?: Record<string, Record<string, string>> }).tools ?? {};
 
 const LABELS: Record<Locale, {
   about: (n: string) => string;
@@ -64,21 +60,6 @@ const LABELS: Record<Locale, {
     sources: 'Sources and verification',
     defaultMaintainer: 'ToolOrbit Editorial Team',
   },
-  zh: {
-    about: (n) => `关于${n}`,
-    howToUse: (n) => `如何使用${n}`,
-    input: '输入内容',
-    output: '输出结果',
-    howItWorks: '处理方式',
-    modes: '支持能力',
-    whyUse: (n) => `为什么使用${n}`,
-    faq: '常见问题',
-    inputExample: '输入示例',
-    outputExample: '输出示例',
-    lastUpdated: (date) => `最近更新 ${date}`,
-    sources: '来源与核验',
-    defaultMaintainer: 'ToolOrbit 编辑团队',
-  },
 };
 
 function overviewKeyFor(toolId: string): string {
@@ -98,8 +79,8 @@ export default function ToolContent({ path, locale = 'en' }: { path: string; loc
   const tool = TOOLS.find((item) => item.path === path);
   if (!tool) return null;
 
-  const overview = ALL_OVERVIEWS[overviewKeyFor(tool.id)]?.[locale];
-  const copy = COPY[locale][tool.id] ?? {};
+  const overview = ALL_OVERVIEWS[overviewKeyFor(tool.id)]?.en;
+  const copy = COPY[tool.id] ?? {};
   const L = LABELS[locale];
 
   const heading = copy.seoTitle || copy.title || L.about(tool.name);

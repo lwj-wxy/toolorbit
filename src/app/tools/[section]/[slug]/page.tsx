@@ -11,7 +11,7 @@ import EtsyFeeServerHero from '../../../../components/EtsyFeeServerHero';
 import { FALLBACK_TOOL_GUIDE_PATHS } from '../../../../lib/tool-page-content';
 
 export function generateStaticParams() {
-  return TOOLS.map((tool) => {
+  return TOOLS.filter((tool) => !tool.isNoIndex).map((tool) => {
     const [, , section, slug] = tool.path.split('/');
     return { section, slug };
   });

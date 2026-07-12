@@ -15,7 +15,6 @@ import { TOOLS } from '../data/tools';
 import type { Category } from '../data/tools';
 import { BLOG_RELATED_TOOLS } from '../data/blogRelatedTools';
 import en from '../locales/en.json';
-import zh from '../locales/zh.json';
 import { getCategoryPath } from './category-paths';
 import { getBlogPagePosts, sortedBlogPosts } from './blog-pagination';
 import { localizedPath, type Locale } from './i18n-routing';
@@ -60,7 +59,7 @@ function text(value: unknown, fallback = '') {
 }
 
 function localeSource(locale: Locale) {
-  return locale === 'zh-CN' ? zh : en;
+  return en;
 }
 
 function toolCopy(toolId: string, locale: Locale = 'en') {
@@ -94,8 +93,7 @@ function blogDescription(slug: string, locale: Locale = 'en') {
 }
 
 function blogWordCount(slug: string, locale: Locale = 'en') {
-  const languageDir = locale === 'zh-CN' ? 'zh' : 'en';
-  const articlePath = path.join(process.cwd(), 'public', 'articles', languageDir, `${slug}.md`);
+  const articlePath = path.join(process.cwd(), 'public', 'articles', 'en', `${slug}.md`);
 
   try {
     const markdown = fs.readFileSync(articlePath, 'utf8');
@@ -149,7 +147,7 @@ function itemList(items: Array<{ name: string; url: string; description?: string
 }
 
 function editorialTeamEntity(locale: Locale = 'en') {
-  const team = getAuthorById(TOOL_ORBIT_EDITORIAL_TEAM.id, locale);
+  const team = getAuthorById(TOOL_ORBIT_EDITORIAL_TEAM.id);
 
   return {
     '@type': 'Organization',
@@ -213,11 +211,8 @@ export function homePageJsonLd(locale: Locale = 'en') {
     {
       '@context': 'https://schema.org',
       '@type': 'WebPage',
-      name: locale === 'zh-CN' ? '面向开发者与创作者的免费在线工具' : 'Free Online Tools for Developers and Creators',
-      description:
-        locale === 'zh-CN'
-          ? 'ToolOrbit 提供面向开发者、创作者、电商运营、PDF 工作流、图片处理和 AI 生产力的免费浏览器在线工具。'
-          : 'Free browser-based tools for developers, creators, ecommerce operators, PDF workflows, image processing, and AI-assisted productivity.',
+      name: 'Free Browser Tools for Etsy Sellers',
+      description: 'Free browser-based tools for Etsy listing copy, product checks, pricing, and seller workflows.',
       url,
       isPartOf: {
         '@type': 'WebSite',
@@ -244,7 +239,7 @@ export function blogListJsonLd(locale: Locale = 'en', page = 1) {
   const path = normalizedPage > 1 ? `/blog/page/${normalizedPage}` : '/blog';
   const posts = getBlogPagePosts(sortedBlogPosts(), normalizedPage);
   const url = absoluteUrl(path, locale);
-  const blogName = locale === 'zh-CN' ? '博客' : 'Blog';
+  const blogName = 'Blog';
 
   return [
     breadcrumb([
@@ -287,11 +282,8 @@ export function categoryPageJsonLd(category: Category, locale: Locale = 'en') {
     {
       '@context': 'https://schema.org',
       '@type': 'CollectionPage',
-      name: locale === 'zh-CN' ? `${name}在线工具` : `${name} Online Tools`,
-      description:
-        locale === 'zh-CN'
-          ? `浏览 ToolOrbit 的 ${tools.length} 个${name}，用于快速浏览器工作流、实用示例和无需安装的效率任务。`
-          : `Browse ${tools.length} ${name} tools in ToolOrbit for fast browser-based workflows, examples, and no-install productivity helpers.`,
+      name: `${name} Online Tools`,
+      description: `Browse ${tools.length} ${name} tools in ToolOrbit for fast browser-based workflows, examples, and no-install productivity helpers.`,
       url,
       isPartOf: {
         '@type': 'WebSite',
@@ -316,7 +308,7 @@ export function allToolsPageJsonLd(locale: Locale = 'en') {
   const url = absoluteUrl('/tools', locale);
   const visibleTools = TOOLS.filter((tool) => !tool.isNoIndex);
   const visibleToolCount = visibleTools.length;
-  const pageName = locale === 'zh-CN' ? '卖家工作流工具' : 'Seller Workflow Tools';
+  const pageName = 'Seller Workflow Tools';
 
   return [
     breadcrumb([
@@ -327,10 +319,7 @@ export function allToolsPageJsonLd(locale: Locale = 'en') {
       '@context': 'https://schema.org',
       '@type': 'CollectionPage',
       name: pageName,
-      description:
-        locale === 'zh-CN'
-          ? `浏览 ToolOrbit 的 ${visibleToolCount} 个其它免费浏览器工具，覆盖开发者、PDF、图片、电商、文本、生成器和计算转换工作流。`
-          : `Browse ${visibleToolCount} other free ToolOrbit browser tools across developer, PDF, image, ecommerce, text, generator, and conversion workflows.`,
+      description: `Browse ${visibleToolCount} ToolOrbit seller tools for Etsy fees, pricing, ads, listing copy, and product checks.`,
       url,
       isPartOf: {
         '@type': 'WebSite',
@@ -407,7 +396,7 @@ export function seoContentPageJsonLd(path: string, locale: Locale = 'en') {
 }
 
 export function authorPageJsonLd(authorId?: string, locale: Locale = 'en') {
-  const author = getAuthorById(authorId, locale);
+  const author = getAuthorById(authorId);
   const url = absoluteUrl(author.url, locale);
 
   return [
@@ -427,7 +416,7 @@ export function authorPageJsonLd(authorId?: string, locale: Locale = 'en') {
   ];
 }
 
-export function staticPageJsonLd(page: 'about' | 'privacy' | 'terms' | 'featured-tools', locale: Locale = 'en') {
+export function staticPageJsonLd(page: 'about' | 'privacy' | 'terms', locale: Locale = 'en') {
   const source = localeSource(locale);
   const title = readPath(source, `${page}.title`) || page;
   const url = absoluteUrl(`/${page}`, locale);
@@ -515,7 +504,7 @@ export function toolJsonLd(path: string, locale: Locale = 'en') {
       provider: organizationEntity(),
       publisher: organizationEntity(),
       reviewedBy: organizationEntity(),
-      inLanguage: locale === 'zh-CN' ? 'zh-CN' : 'en',
+      inLanguage: 'en',
     },
   ];
 
@@ -553,7 +542,7 @@ export function blogPostJsonLd(slug: string, locale: Locale = 'en') {
   return [
     breadcrumb([
       { name: SITE_NAME, url: SITE_URL },
-      { name: locale === 'zh-CN' ? '博客' : 'Blog', url: absoluteUrl('/blog', locale) },
+      { name: 'Blog', url: absoluteUrl('/blog', locale) },
       { name: title, url },
     ]),
     {
@@ -570,7 +559,7 @@ export function blogPostJsonLd(slug: string, locale: Locale = 'en') {
       author: authorEntity(author, locale),
       publisher: organizationEntity(),
       reviewedBy: organizationEntity(),
-      inLanguage: locale === 'zh-CN' ? 'zh-CN' : 'en',
+      inLanguage: 'en',
       publishingPrinciples: absoluteUrl('/about', locale),
       about: relatedTools.map((tool) => ({
         '@type': 'WebApplication',

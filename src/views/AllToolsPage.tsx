@@ -3,14 +3,9 @@ import type { CSSProperties } from 'react';
 import { ArrowRight, Boxes } from 'lucide-react';
 import { TOOLS, type Category } from '../data/tools';
 import en from '../locales/en.json';
-import zh from '../locales/zh.json';
-import { CATEGORY_SLUGS, getCategoryPath } from '../lib/category-paths';
-import { localizedPath, type Locale } from '../lib/i18n-routing';
 import { readPath, SITE_NAME } from '../lib/metadata';
 
-type AllToolsPageProps = {
-  locale?: Locale;
-};
+type AllToolsPageProps = Record<string, never>;
 
 const twoLineDescriptionStyle: CSSProperties = {
   display: '-webkit-box',
@@ -20,32 +15,28 @@ const twoLineDescriptionStyle: CSSProperties = {
   minHeight: '2.5rem',
   maxHeight: '2.5rem',
 };
+const CATEGORY_SLUGS: Partial<Record<Category, string>> = { '电商工具': 'ecommerce' };
 const CATEGORY_ORDER = Object.keys(CATEGORY_SLUGS) as Category[];
-
-function localeSource(locale: Locale) {
-  return locale === 'zh-CN' ? zh : en;
-}
 
 function cleanToolTitle(value: string) {
   return value.replace(` | ${SITE_NAME}`, '').trim();
 }
 
-function toolName(tool: (typeof TOOLS)[number], locale: Locale) {
-  const source = localeSource(locale);
+function toolName(tool: (typeof TOOLS)[number]) {
+  const source = en;
   return cleanToolTitle(readPath(source, `tools.${tool.id}.name`) || readPath(source, `tools.${tool.id}.seoTitle`) || tool.name);
 }
 
-function toolDescription(tool: (typeof TOOLS)[number], locale: Locale) {
-  const source = localeSource(locale);
+function toolDescription(tool: (typeof TOOLS)[number]) {
+  const source = en;
   return readPath(source, `tools.${tool.id}.description`) || readPath(source, `tools.${tool.id}.seoDesc`) || tool.description;
 }
 
-function categoryName(category: Category, locale: Locale) {
-  return readPath(localeSource(locale), `common.categories.${category}`) || category;
+function categoryName(category: Category) {
+  return readPath(en, `common.categories.${category}`) || category;
 }
 
-export default function AllToolsPage({ locale = 'en' }: AllToolsPageProps) {
-  const isZh = locale === 'zh-CN';
+export default function AllToolsPage(_: AllToolsPageProps) {
   const visibleTools = TOOLS.filter((tool) => !tool.isNoIndex);
   const totalTools = visibleTools.length;
   const visibleCategories = CATEGORY_ORDER.filter((category) =>
@@ -57,19 +48,17 @@ export default function AllToolsPage({ locale = 'en' }: AllToolsPageProps) {
       <section className="mb-10 border-b-2 border-[var(--app-text)] pb-9">
         <div className="mb-5 inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.16em] text-[var(--app-accent-ink)]">
           <Boxes className="h-4 w-4" aria-hidden="true" />
-          {isZh ? '卖家工具目录' : 'Seller tool directory'}
+          Seller tool directory
         </div>
         <h1 className="max-w-3xl text-4xl font-black tracking-[-0.04em] text-[var(--app-text)] sm:text-6xl">
-          {isZh ? '发布前，把关键数字和内容核对一遍' : 'Check the work before you publish'}
+          Check the work before you publish
         </h1>
         <p className="mt-5 max-w-2xl text-[15px] leading-7 text-[var(--app-muted)] dark:text-[var(--app-muted)]">
-          {isZh
-            ? `${totalTools} 个工具，覆盖 Etsy 上架文案、费用拆分、定价、广告、关键词、商品图和跨境信息。每个工具只解决一个明确的卖家任务。`
-            : `${totalTools} focused tools for Etsy listing copy, fee breakdowns, pricing, ads, keywords, product assets, and cross-border details. Each tool has one clear job.`}
+          {totalTools} focused tools for Etsy listing copy, fee breakdowns, pricing, ads, keywords, product assets, and cross-border details. Each tool has one clear job.
         </p>
       </section>
 
-      <nav aria-label={isZh ? '工具分类锚点' : 'Tool category anchors'} className="mb-10">
+      <nav aria-label="Tool category anchors" className="mb-10">
         <ul className="flex flex-wrap gap-2">
           {visibleCategories.map((category) => (
             <li key={category}>
@@ -77,7 +66,7 @@ export default function AllToolsPage({ locale = 'en' }: AllToolsPageProps) {
                 href={`#${CATEGORY_SLUGS[category]}`}
                 className="inline-flex min-h-10 items-center border-b border-[var(--app-border)] px-1 text-[13px] font-semibold text-[var(--app-muted)] transition-colors hover:border-[var(--app-accent)] hover:text-[var(--app-accent-ink)]"
               >
-                {categoryName(category, locale)}
+                {categoryName(category)}
               </a>
             </li>
           ))}
@@ -87,24 +76,24 @@ export default function AllToolsPage({ locale = 'en' }: AllToolsPageProps) {
       <div className="space-y-12">
         {visibleCategories.map((category) => {
           const tools = visibleTools.filter((tool) => tool.category === category);
-          const categoryPath = localizedPath(getCategoryPath(category), locale);
+          const categoryPath = '/tools/ecommerce';
 
           return (
             <section key={category} id={CATEGORY_SLUGS[category]} className="scroll-mt-24">
               <div className="mb-4 flex flex-col gap-3 border-b border-[var(--app-border)] pb-4 dark:border-[var(--app-border)] sm:flex-row sm:items-end sm:justify-between">
                 <div>
                   <h2 className="text-2xl font-black tracking-[-0.03em] text-[var(--app-text)] dark:text-[var(--app-text)]">
-                    {categoryName(category, locale)}
+                    {categoryName(category)}
                   </h2>
                   <p className="mt-2 text-[12px] font-semibold uppercase tracking-[0.12em] text-[var(--app-muted)]">
-                    {isZh ? `${tools.length} 个工具` : `${tools.length} tools`}
+                    {tools.length} tools
                   </p>
                 </div>
                 <NextLink
                   href={categoryPath}
                   className="inline-flex min-h-10 items-center gap-2 text-[13px] font-semibold text-[var(--app-accent-ink)] transition hover:text-[var(--app-accent-strong)] dark:text-[var(--app-accent-ink)] dark:hover:text-[var(--app-accent-strong)]"
                 >
-                  {isZh ? '查看分类页' : 'View category'}
+                  View category
                   <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </NextLink>
               </div>
@@ -116,7 +105,7 @@ export default function AllToolsPage({ locale = 'en' }: AllToolsPageProps) {
                   return (
                     <li key={tool.id}>
                       <NextLink
-                        href={localizedPath(tool.path, locale)}
+                        href={tool.path}
                         className="group flex min-h-[122px] overflow-hidden border-b border-[var(--app-border)] bg-transparent py-5 transition-colors hover:bg-[color-mix(in_srgb,var(--app-accent-soft)_34%,transparent)] dark:border-[var(--app-border)]"
                       >
                         <span className="flex min-w-0 items-start gap-3">
@@ -125,13 +114,13 @@ export default function AllToolsPage({ locale = 'en' }: AllToolsPageProps) {
                           </span>
                           <span className="min-w-0">
                             <span className="line-clamp-1 text-[15px] font-semibold text-[var(--app-text)] transition-colors group-hover:text-[var(--app-accent-ink)] dark:text-[var(--app-text)]">
-                              {toolName(tool, locale)}
+                              {toolName(tool)}
                             </span>
                             <span
                               className="mt-2 block text-[13px] leading-5 text-[var(--app-muted)] dark:text-[var(--app-muted)]"
                               style={twoLineDescriptionStyle}
                             >
-                              {toolDescription(tool, locale)}
+                              {toolDescription(tool)}
                             </span>
                           </span>
                         </span>

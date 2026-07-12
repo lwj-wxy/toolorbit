@@ -3,11 +3,10 @@ import { BookOpen, CheckCircle2, ShieldCheck, UserCheck } from 'lucide-react';
 import { PUBLISHED_BLOG_POSTS } from '../constants/blogData';
 import { getAuthorById } from '../data/authors';
 import en from '../locales/en.json';
-import zh from '../locales/zh.json';
 import { localizedPath, type Locale } from '../lib/i18n-routing';
 import { readPath } from '../lib/metadata';
 
-const localeSource = (locale: Locale) => (locale === 'zh-CN' ? zh : en);
+const localeSource = (_locale: Locale) => en;
 
 const blogTitle = (slug: string, locale: Locale) => {
   return readPath(localeSource(locale), `blog.posts.${slug}.title`) || slug.replace(/-/g, ' ');
@@ -27,17 +26,17 @@ type AuthorPageProps = {
 };
 
 const AuthorPage = ({ authorId, locale = 'en' }: AuthorPageProps) => {
-  const isZh = locale === 'zh-CN';
-  const author = getAuthorById(authorId, locale);
+  const isZh = false;
+  const author = getAuthorById(authorId);
   const authoredPosts = PUBLISHED_BLOG_POSTS.filter((post) => getAuthorById(post.authorId).id === author.id);
   const candidatePosts = authoredPosts.length ? authoredPosts : PUBLISHED_BLOG_POSTS;
   const preferredSlugs = [
-      'why-use-json-formatter',
-      'base64-encoding-deep-dive',
-      'image-compression-techniques',
-      'modern-pdf-workflow-efficiency',
-      'ai-code-reviewer-guide',
-      'secure-developer-tools-privacy',
+      'etsy-fee-complete-guide',
+      'etsy-pricing-strategy-guide',
+      'etsy-offsite-ads-explained',
+      'etsy-international-selling-fees',
+      'etsy-seo-title-tags-guide',
+      'etsy-product-photography-conversion-guide',
   ];
   const featuredPosts = candidatePosts
     .sort((a, b) => {
@@ -50,17 +49,11 @@ const AuthorPage = ({ authorId, locale = 'en' }: AuthorPageProps) => {
       return new Date(b.date).getTime() - new Date(a.date).getTime();
     })
     .slice(0, 8);
-  const highlights = isZh
-    ? [
-        '本地优先的浏览器工作流建议',
-        '结合可直接使用工具的实用示例',
-        '围绕清晰度、边界和用户安全复核',
-      ]
-    : [
-        'Local-first browser workflow guidance',
-        'Practical examples linked to usable tools',
-        'Reviewed for clarity, limits, and user safety',
-      ];
+  const highlights = [
+    'Local-first browser workflow guidance',
+    'Practical examples linked to usable tools',
+    'Reviewed for clarity, limits, and user safety',
+  ];
 
   return (
     <main className="mx-auto w-full max-w-5xl px-4 py-12 sm:px-6 lg:px-8">

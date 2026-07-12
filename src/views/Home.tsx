@@ -17,9 +17,7 @@ import {
   TrendingUp,
   ReceiptText,
 } from 'lucide-react';
-import { CATEGORY_GUIDES } from '../data/categoryGuides';
 import { Category, ToolItem, TOOLS } from '../data/tools';
-import { getCategoryPath } from '../lib/category-paths';
 import { detectLocaleFromPathname, localizedPath } from '../lib/i18n-routing';
 import { Link, useClientSearchParamsWithInitialSearch } from '../lib/navigation';
 import { cn } from '../lib/utils';
@@ -55,10 +53,7 @@ const getCategoryAccent = (category: Category): string => CATEGORY_ACCENT[catego
 
 const accentStyle = (accent: string): CSSProperties => ({ '--c': accent }) as CSSProperties;
 
-const HERO_CATEGORIES: Array<{ category: Category; icon: LucideIcon }> = [
-  { category: 'AI 工具', icon: Sparkles },
-  { category: '电商工具', icon: ShoppingCart },
-];
+const HERO_CATEGORIES: Array<{ category: Category; icon: LucideIcon }> = [{ category: '电商工具', icon: ShoppingCart }];
 
 const LANDING_FEATURES: Array<{
   icon: LucideIcon;
@@ -514,7 +509,6 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
   const searchQuery = searchParams.get('search')?.toLowerCase() || '';
   const isZh = i18n.language?.startsWith('zh');
   const visibleTools = useMemo(() => TOOLS.filter((tool) => !tool.isNoIndex), []);
-  const categoryGuide = categoryFilter ? CATEGORY_GUIDES[categoryFilter]?.[isZh ? 'zh' : 'en'] : null;
   const handleHeroSearch = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
@@ -562,25 +556,6 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
             {categoryFilter ? t(`common.categories.${categoryFilter}`) : t('search.results', { query: searchQuery })}
           </h1>
 
-          {categoryGuide ? (
-            <div className="mt-5 max-w-5xl text-sm leading-6 text-[var(--app-muted)]">
-              <p>{categoryGuide.intro}</p>
-              {categoryGuide.relatedPages && categoryGuide.relatedPages.length > 0 ? (
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {categoryGuide.relatedPages.map((page) => (
-                    <Link
-                      key={page.href}
-                      to={page.href}
-                      className="inline-flex items-center gap-1.5 rounded-lg border border-[color-mix(in_srgb,var(--app-accent)_32%,var(--app-border))] bg-[var(--app-accent-soft)] px-3 py-1.5 text-[13px] font-medium text-[var(--app-accent-ink)] transition-colors hover:border-[var(--app-accent)] hover:bg-[color-mix(in_srgb,var(--app-accent-soft)_72%,white)]"
-                    >
-                      {page.label}
-                      <ArrowRight size={14} />
-                    </Link>
-                  ))}
-                </div>
-              ) : null}
-            </div>
-          ) : null}
         </header>
 
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -816,9 +791,7 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
           {isZh ? '按分类找工具' : 'Browse tool categories'}
         </h2>
         <p className="mx-auto mt-2 max-w-2xl text-[13px] leading-6 text-[var(--app-muted)]">
-          {isZh
-            ? '也可以直接进入分类页，查看同类工具。'
-            : 'Open a category page to see related tools.'}
+          Open the Etsy tools directory to see the seller workflow tools.
         </p>
         <div className="mt-5 flex flex-wrap justify-center gap-2">
           {HERO_CATEGORIES.map(({ category, icon: ChipIcon }) => {
@@ -826,7 +799,7 @@ export default function Home({ initialSearch = '', initialCategory }: HomeProps)
             return (
               <Link
                 key={category}
-                to={getCategoryPath(category)}
+                to="/tools/ecommerce"
                 style={accentStyle(accent)}
                 className="inline-flex cursor-pointer items-center gap-1.5 border border-[var(--app-border)] bg-[var(--app-surface)] px-3.5 py-2 text-[13px] font-semibold text-[var(--app-text)] transition-colors hover:border-[color-mix(in_srgb,var(--c)_42%,var(--app-border))] hover:text-[var(--app-accent-ink)]"
               >

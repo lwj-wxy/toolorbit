@@ -5,7 +5,7 @@ export interface BlogPost {
   authorId?: string;
 }
 
-const defaultAuthorId = 'luo-wj';
+const defaultAuthorId = 'toolorbit-editorial-team';
 
 const posts: BlogPost[] = [
   {
@@ -254,14 +254,7 @@ const posts: BlogPost[] = [
   },
 ];
 
-export const BLOG_POSTS: BlogPost[] = posts.map((post) => ({
-  authorId: defaultAuthorId,
-  ...post,
-}));
-
-// Keep the public editorial surface intentionally small until each article has
-// current sources, an independent example, and a maintained workflow.
-const PUBLISHED_BLOG_SLUGS = new Set([
+const ACTIVE_BLOG_SLUGS = new Set([
   'etsy-fee-complete-guide',
   'etsy-pricing-strategy-guide',
   'etsy-offsite-ads-explained',
@@ -272,6 +265,15 @@ const PUBLISHED_BLOG_SLUGS = new Set([
   'etsy-shipping-free-shipping-strategy',
   'etsy-digital-download-pricing-guide',
 ]);
+
+export const BLOG_POSTS: BlogPost[] = posts.filter((post) => ACTIVE_BLOG_SLUGS.has(post.slug)).map((post) => ({
+  authorId: defaultAuthorId,
+  ...post,
+}));
+
+// Keep the public editorial surface intentionally small until each article has
+// current sources, an independent example, and a maintained workflow.
+const PUBLISHED_BLOG_SLUGS = ACTIVE_BLOG_SLUGS;
 
 export const PUBLISHED_BLOG_POSTS = BLOG_POSTS.filter((post) => PUBLISHED_BLOG_SLUGS.has(post.slug));
 

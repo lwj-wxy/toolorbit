@@ -5,9 +5,8 @@ import { getAuthorById } from '../data/authors';
 import { getSeoContentPage, isPublicSeoContentPage } from '../data/seoContent';
 import { TOOLS, type Category } from '../data/tools';
 import en from '../locales/en.json';
-import zh from '../locales/zh.json';
 import { getCategoryPath } from './category-paths';
-import { HREFLANG_CODES, localizedPath, type Locale } from './i18n-routing';
+import { localizedPath, type Locale } from './i18n-routing';
 import { readPath } from './locale-utils';
 
 export const SITE_URL = 'https://toolorbit.site';
@@ -17,26 +16,13 @@ const TITLE_TEXT_LIMIT = 48;
 const DESCRIPTION_MIN_LENGTH = 120;
 const DESCRIPTION_MAX_LENGTH = 160;
 
-const STATIC_PAGE_DESCRIPTIONS: Record<'about' | 'privacy' | 'terms' | 'featured-tools', string> = {
+const STATIC_PAGE_DESCRIPTIONS: Record<'about' | 'privacy' | 'terms', string> = {
   about:
     'Learn how ToolOrbit builds fast, privacy-conscious online tools with local-first processing, clear limits, and direct feedback paths.',
   privacy:
     'Read ToolOrbit privacy practices, including local-first browser processing, analytics, advertising, and contact information handling.',
   terms:
     'Review the ToolOrbit terms of service for using free online tools, generated outputs, external links, and platform limitations.',
-  'featured-tools':
-    'A curated collection of quality websites, online tools, and open-source GitHub projects organized by use case — developer tools, design resources, AI, ecommerce, SEO, and more.',
-};
-
-const STATIC_PAGE_DESCRIPTIONS_ZH: Record<'about' | 'privacy' | 'terms' | 'featured-tools', string> = {
-  about:
-    '了解 ToolOrbit 如何通过本地优先处理、清晰限制和直接反馈入口，构建快速且注重隐私的在线工具。',
-  privacy:
-    '阅读 ToolOrbit 隐私实践，了解本地优先的浏览器处理、分析、广告以及联系信息处理方式。',
-  terms:
-    '查看 ToolOrbit 服务条款，了解免费在线工具、生成结果、外部链接以及平台限制的使用规则。',
-  'featured-tools':
-    '精选优质网站、在线工具和 GitHub 开源项目，按开发工具、设计资源、AI、电商、SEO 等用途分类整理，助你发现好用利器。',
 };
 
 const BLOG_SEO_TITLE_OVERRIDES: Record<string, string> = {
@@ -128,9 +114,6 @@ function fitTitle(value: string) {
 
 function expandShortDescription(description: string, locale: Locale = 'en') {
   if (description.length >= DESCRIPTION_MIN_LENGTH) return description;
-  if (locale === 'zh-CN') {
-    return `${description} 查看实用示例和相关 ToolOrbit 浏览器工具，帮助更快完成日常任务。`;
-  }
   return `${description} Explore focused examples and related ToolOrbit browser tools for faster everyday workflows.`;
 }
 
@@ -151,13 +134,11 @@ function fitToolDescription(description: string) {
 }
 
 function conciseBlogDescription(title: string, locale: Locale = 'en') {
-  return locale === 'zh-CN'
-    ? `阅读 ${title}，获取实用工作流建议、案例和可直接使用的 ToolOrbit 浏览器工具。`
-    : `Read ${title} for practical workflow guidance, examples, and related ToolOrbit tools you can apply in browser-based tasks.`;
+  return `Read ${title} for practical workflow guidance, examples, and related ToolOrbit tools you can apply in browser-based tasks.`;
 }
 
 function localeSource(locale: Locale) {
-  return locale === 'zh-CN' ? zh : en;
+  return en;
 }
 
 function absoluteLocalizedUrl(path: string, locale: Locale) {
@@ -169,7 +150,7 @@ function alternateLanguages(path: string) {
   const englishUrl = absoluteLocalizedUrl(path, 'en');
 
   return {
-    [HREFLANG_CODES.en]: englishUrl,
+    en: englishUrl,
     'en-US': englishUrl,
     'x-default': englishUrl,
   };
@@ -235,26 +216,22 @@ export function pageMetadata(title?: string, description?: string, path = '/', l
 
 export function homeMetadata(locale: Locale = 'en'): Metadata {
   return pageMetadata(
-    locale === 'zh-CN'
-      ? 'ToolOrbit Etsy 上架、定价和费用工具'
-      : 'ToolOrbit - Etsy Listing, Pricing, and Fee Tools',
-    locale === 'zh-CN'
-      ? '用 ToolOrbit 整理 Etsy 商品文案、核对订单成本，并在定价前估算刊登费、交易费、支付处理费和站外广告费。'
-      : 'Use ToolOrbit to prepare Etsy listing copy, check order costs, and estimate listing, transaction, payment, and Offsite Ads fees before pricing.',
+    'ToolOrbit - Etsy Listing, Pricing, and Fee Tools',
+    'Use ToolOrbit to prepare Etsy listing copy, check order costs, and estimate listing, transaction, payment, and Offsite Ads fees before pricing.',
     '/',
     locale,
   );
 }
 
-type StaticPageKey = 'about' | 'privacy' | 'terms' | 'featured-tools';
+type StaticPageKey = 'about' | 'privacy' | 'terms';
 
 export function staticPageMetadata(page: StaticPageKey, locale: Locale = 'en'): Metadata {
   const source = localeSource(locale);
   const title = readPath(source, `${page}.title`);
-  const description = locale === 'zh-CN' ? STATIC_PAGE_DESCRIPTIONS_ZH[page] : STATIC_PAGE_DESCRIPTIONS[page];
+  const description = STATIC_PAGE_DESCRIPTIONS[page];
   const metadata = pageMetadata(title, description, `/${page}`, locale);
 
-  if (page === 'privacy' || page === 'terms' || page === 'featured-tools') {
+  if (page === 'privacy' || page === 'terms') {
     return withNoIndex(metadata);
   }
 
@@ -268,9 +245,7 @@ export function blogListMetadata(locale: Locale = 'en', page = 1): Metadata {
 
   return pageMetadata(
     `${readPath(source, 'blog.title') || 'Blog'}${pageSuffix}`,
-    locale === 'zh-CN'
-      ? '阅读 ToolOrbit 指南，查看 AI 草稿、浏览器工具、文件处理、电商费用和开发检查的实际用法与限制。'
-      : 'Read ToolOrbit guides for practical examples, limits, and checks around AI drafts, browser tools, files, ecommerce fees, and developer workflows.',
+    'Read ToolOrbit guides for practical Etsy seller workflows, fee models, listing checks, and product publishing decisions.',
     path,
     locale,
   );
@@ -280,10 +255,8 @@ export function allToolsMetadata(locale: Locale = 'en'): Metadata {
   const visibleToolCount = TOOLS.filter((tool) => !tool.isNoIndex).length;
 
   return pageMetadata(
-    locale === 'zh-CN' ? 'ToolOrbit 卖家工作流工具' : 'ToolOrbit Seller Workflow Tools',
-    locale === 'zh-CN'
-      ? `使用 ToolOrbit 的 ${visibleToolCount} 个卖家工作流工具，处理 Etsy 费用、定价、广告、合规、上架文案、关键词和商品图片。`
-      : `Use ${visibleToolCount} ToolOrbit seller workflow tools for Etsy fees, pricing, ads, compliance, listing copy, keywords, and product images.`,
+    'ToolOrbit Seller Workflow Tools',
+    `Use ${visibleToolCount} ToolOrbit seller workflow tools for Etsy fees, pricing, ads, compliance, listing copy, keywords, and product images.`,
     '/tools',
     locale,
   );
@@ -293,7 +266,7 @@ export function blogPostMetadata(slug: string, locale: Locale = 'en'): Metadata 
   const post = BLOG_POSTS.find((item) => item.slug === slug);
   const source = localeSource(locale);
   const localizedTitle = readPath(source, `blog.posts.${slug}.title`) || slug.replace(/-/g, ' ');
-  const title = locale === 'zh-CN' ? localizedTitle : BLOG_SEO_TITLE_OVERRIDES[slug] || localizedTitle;
+  const title = BLOG_SEO_TITLE_OVERRIDES[slug] || localizedTitle;
   const rawDescription = cleanDescription(readPath(source, `blog.posts.${slug}.summary`), 'ToolOrbit Blog article.');
   const description =
     rawDescription.length > DESCRIPTION_MAX_LENGTH
@@ -332,9 +305,7 @@ export function toolMetadata(path: string, locale: Locale = 'en'): Metadata {
   );
   const title =
     tool && cleanedTitle.length < 30
-      ? locale === 'zh-CN'
-        ? `${cleanedTitle}在线工具`
-        : `${cleanedTitle} Online Tool`
+      ? `${cleanedTitle} Online Tool`
       : fitTitle(cleanedTitle.length > TITLE_TEXT_LIMIT ? toolNameTitle : cleanedTitle);
 
   const fallbackDescription = tool
@@ -356,10 +327,8 @@ export function categoryMetadata(category: Category, locale: Locale = 'en'): Met
   const toolCount = TOOLS.filter((tool) => tool.category === category && !tool.isNoIndex).length;
 
   const metadata = pageMetadata(
-    locale === 'zh-CN' ? `${name}在线工具` : `${name} Online Tools`,
-    locale === 'zh-CN'
-      ? `浏览 ToolOrbit 的 ${toolCount} 个${name}，用于快速浏览器工作流、实用示例和无需安装的效率任务。`
-      : `Browse ${toolCount} ${name} tools in ToolOrbit for fast browser-based workflows. Find focused utilities, examples, and no-install productivity helpers.`,
+    `${name} Online Tools`,
+    `Browse ${toolCount} ${name} tools in ToolOrbit for fast browser-based workflows. Find focused utilities, examples, and no-install productivity helpers.`,
     getCategoryPath(category),
     locale,
   );
@@ -384,7 +353,7 @@ export function seoContentMetadata(path: string, locale: Locale = 'en'): Metadat
 }
 
 export function authorMetadata(authorId?: string, locale: Locale = 'en'): Metadata {
-  const author = getAuthorById(authorId, locale);
+  const author = getAuthorById(authorId);
 
   return pageMetadata(
     author.name,

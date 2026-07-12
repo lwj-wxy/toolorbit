@@ -63,7 +63,7 @@ const BlogList: React.FC<BlogListProps> = ({ initialPage = 1 }) => {
   };
 
   const renderPostCard = (post: BlogPost) => {
-    const author = getAuthorById(post.authorId, 'en');
+    const author = getAuthorById(post.authorId);
 
     return (
       <Link

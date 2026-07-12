@@ -1,17 +1,7 @@
 import en from '../locales/en.json';
-import zh from '../locales/zh.json';
 
-type EtsyFeeServerHeroProps = {
-  locale?: 'en' | 'zh';
-};
-
-const copyByLocale = {
-  en: en.tools['etsy-fee-calculator'],
-  zh: zh.tools['etsy-fee-calculator'],
-};
-
-export default function EtsyFeeServerHero({ locale = 'en' }: EtsyFeeServerHeroProps) {
-  const copy = copyByLocale[locale];
+export default function EtsyFeeServerHero() {
+  const copy = en.tools['etsy-fee-calculator'];
 
   return (
     <section className="mb-6 flex flex-col gap-3 border-b border-slate-200 pb-6 dark:border-slate-800">
