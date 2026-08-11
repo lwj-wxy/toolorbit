@@ -1,49 +1,81 @@
-# Etsy Shipping Strategy: Compare Free and Buyer-Paid Shipping
+# Etsy Free Shipping Guarantee: How to Bundle Shipping Without Losing Margin
 
-Shipping is part of the buyer's total price and part of the seller's operating cost. A good Etsy shipping strategy makes delivery expectations clear while protecting the margin on each order.
+Etsy offers priority placement in US search results for listings that offer **Free Shipping** on orders of $35 USD or more (the "Free Shipping Guarantee"). 
 
-Use Etsy's [shipping profiles](https://help.etsy.com/hc/en-us/articles/115015327528-How-to-Set-Up-Shipping-Information) and current seller guidance for the latest platform behavior.
+However, "free shipping" is a marketing mechanism, not a zero-cost operation. Shipping carriers charge for labels, box packaging costs money, and Etsy's 6.5% transaction fee applies whether shipping is charged separately or included in the item price.
 
-## Calculate the real shipping cost
+This guide details how to price free shipping into your catalog without sacrificing profit margin. To check your target prices with shipping included, use the [Etsy Pricing Calculator](/tools/ecommerce/etsy-pricing-calculator).
 
-Record the complete cost of a typical package:
+---
 
-- carrier label;
-- mailer, box, padding, and tape;
-- handling time;
-- insurance or signature service when needed;
-- expected replacement cost for damage or loss.
+## 1. How Etsy Fee Structures Treat Shipping
 
-Use actual package weight and dimensions. A small measurement error can turn a profitable order into a loss when the carrier recalculates the label.
+A common misconception among new sellers is that charging buyer-paid shipping saves platform fees. 
 
-## Free shipping is a pricing choice
+Under Etsy's fee rules, **transaction fees (6.5%) and payment processing fees (3.0% + $0.25)** apply to the **total order revenue** (Item Price + Buyer Shipping).
 
-With free shipping, the buyer sees one item price and no separate shipping charge. The seller still pays for delivery, so the expected shipping cost must be included in the price model.
+### Fee Comparison:
 
-Free shipping can make comparison easier, but it is not automatically more profitable. Test the full checkout total and contribution profit against buyer-paid shipping.
+* **Model A (Item $25.00 + Buyer Shipping $5.00)**:
+  * Order Revenue: $30.00
+  * Etsy Transaction Fee (6.5% of $30.00): **$1.95**
+* **Model B (Item $30.00 + Free Shipping)**:
+  * Order Revenue: $30.00
+  * Etsy Transaction Fee (6.5% of $30.00): **$1.95**
 
-## Buyer-paid shipping is also valid
+> **Platform Fee Result**: Etsy charges the exact same platform fee whether shipping is billed as a separate line item or bundled into the product price.
 
-Buyer-paid shipping keeps the item price closer to the product value and can be more accurate for heavy or destination-sensitive products. The charge should match the actual service and delivery promise.
+---
 
-If the shipping charge looks disproportionate to the item price, review packaging, product bundles, or shipping zones. A buyer may abandon checkout even when the total is mathematically fair.
+## 2. The Weight & Distance Shipping Risk Matrix
 
-## Use profiles and separate destinations
+Bundling a fixed shipping cost into your product price works seamlessly when shipping costs are predictable. However, for physical items with high weight variations or regional carrier zone pricing, fixed bundling carries risk.
 
-Create profiles for products with similar package size and weight. Use separate domestic and international settings when carrier cost or delivery time differs significantly. Exclude destinations you cannot serve reliably instead of accepting orders that create repeated delays.
+```text
++------------------------------------+-----------------------+------------------------------------------+
+| Product Type                       | Weight / Dimensions   | Recommended Free Shipping Strategy       |
++------------------------------------+-----------------------+------------------------------------------+
+| Digital Downloads                  | 0 lbs (Digital)       | Always Free Shipping (Default)           |
+| Lightweight Items (First Class)    | Under 1 lb            | Bundle average label cost into item price|
+| Heavy / Bulky Items                | Over 5 lbs            | Free Shipping over $35 or Zone Pricing   |
+| International Orders               | Cross-Border          | Charge shipping separately (Avoid Bundle)|
++------------------------------------+-----------------------+------------------------------------------+
+```
 
-For made-to-order products, include production time separately from transit time. A clear dispatch window is more useful than a vague promise of fast delivery.
+### The Zone-Averaging Formula for Domestic Shipping:
 
-## Include shipping in your fee model
+$$\text{Bundled Shipping Price} = \text{Item COGS} + \text{Target Net Profit} + \text{Weighted Average Label Cost} + \text{Packaging Cost}$$
 
-Some Etsy fees use the order amount, which may include buyer-paid shipping. Run both shipping strategies through the [Etsy Fee Calculator](/tools/ecommerce/etsy-fee-calculator) and include the actual label cost in your profit model.
+To compute your **Weighted Average Label Cost**, average your shipping label costs across Zone 2 (closest destination) and Zone 8 (furthest domestic destination), weighted 70% toward average zone costs.
 
-## Shipping review checklist
+---
 
-1. Weigh and measure the packed product.
-2. Compare carrier rates for the destinations you actually serve.
-3. Test free and buyer-paid shipping using the complete checkout total.
-4. Explain production time, transit time, and tracking.
-5. Review late delivery, damage, and replacement costs monthly.
+## 3. Step-by-Step Free Shipping Pricing Formula
 
-The best shipping strategy is the one buyers understand and the shop can deliver consistently.
+Suppose your item costs $8.00 to produce, and shipping labels range from $4.00 (Zone 2) to $7.00 (Zone 8).
+
+1. **Calculate Average Shipping Label Cost**: $(\$4.00 + \$7.00) / 2 = \$5.50$
+2. **Add Packaging (Box, Bubble Mailer, Tape)**: $\$0.75$
+3. **Total Delivery Expense**: $\$5.50 + \$0.75 = \$6.25$
+4. **Set Target Product Net Margin**: $\$15.00$
+5. **Compute Required Gross Revenue**:
+
+$$\text{Gross Target} = \frac{\text{Item COGS } (\$8.00) + \text{Delivery } (\$6.25) + \text{Margin } (\$15.00) + \text{Listing Fee } (\$0.20) + \text{Fixed Payment } (\$0.25)}{1 - (0.065 + 0.030)}$$
+
+$$\text{Gross Target} = \frac{\$29.70}{0.905} = \mathbf{\$32.82}$$
+
+By setting your **Free Shipping Listing Price at $32.99**, you absorb domestic shipping variations while securing your $15.00 profit margin.
+
+---
+
+## 4. Free Shipping Guarantee ($35 US Threshold) Best Practices
+
+If you sell items priced under $35.00, enabling Etsy's **$35 Free Shipping Guarantee** encourages shoppers to add multiple items to their cart to qualify for free shipping.
+
+### 3 Rules for Cart-Building:
+
+1. **Create Complementary Add-Ons**: Offer $8.00 to $12.00 accessories (e.g. leather conditioner for a leather bag, card holders, gift boxes) near checkout.
+2. **Offer Multi-Packs**: List single items at $18.00 + shipping, and 2-packs at $36.00 with Free Shipping.
+3. **Keep International Shipping Separate**: Apply free shipping badges only to domestic shipping profiles. Never bundle international shipping costs into a global item price.
+
+Run your item price scenarios through the [Etsy Pricing Calculator](/tools/ecommerce/etsy-pricing-calculator) to ensure your shipping bundles remain profitable.

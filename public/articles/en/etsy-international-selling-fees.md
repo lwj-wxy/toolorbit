@@ -1,72 +1,86 @@
-# Etsy International Selling Fees: A Checklist for Currency and Country Costs
+# Etsy International Selling & Customs Guide: HS Codes, VAT & Delivery Rules
 
-International Etsy sales can expand a shop's audience, but they also add decisions around seller-country fees, payment processing, currency conversion, tax collection, shipping, and returns.
+Selling internationally on Etsy expands your customer reach into lucrative markets in the US, Europe, the UK, Canada, and Australia. 
 
-Rates vary by seller location and can change. Check Etsy's [official fees policy](https://www.etsy.com/legal/fees/) and your payment account statement before using a number in a price model.
+However, cross-border orders introduce complex fee and compliance requirements: **currency conversion fees (2.5%)**, **international payment processing surcharges**, **EU/UK VAT collection (IOSS)**, and mandatory **HS Code customs descriptions**.
 
-## Separate the fee layers
+This guide breaks down international seller fee rules, customs invoice wording, and cross-border delivery setup. To draft compliant English customs descriptions and HS directions for export packages, use the [AI HS Code Assistant](/tools/ai/hs-code-assistant).
 
-Do not combine every charge into one generic percentage. Check these layers separately:
+---
 
-1. listing and renewal fees;
-2. transaction fee;
-3. seller-country payment processing fee;
-4. regulatory or operating fee, where applicable;
-5. currency conversion fee, where applicable;
-6. Offsite Ads fee for attributed orders;
-7. shipping label and fulfillment cost.
+## 1. International Fee Structure Breakdown
 
-The [Etsy Fee Calculator](/tools/ecommerce/etsy-fee-calculator) handles the core order model. The [Etsy Regulatory & Currency Fee Calculator](/tools/ecommerce/etsy-regulatory-fee-calculator) helps isolate country and currency assumptions.
-
-## Check listing currency and payout currency
-
-Write down the currency used for listings and the currency used for payouts. A mismatch can trigger conversion costs. Listing in a popular buyer currency may improve price clarity, but it is only worthwhile if the additional sales cover the conversion cost and any exchange-rate movement.
-
-Before changing currency, compare three months of data:
-
-- orders by buyer country;
-- conversion rate by currency display;
-- average order value;
-- conversion charges;
-- refunds and delivery problems.
-
-Do not assume that a larger international audience automatically produces more profit.
-
-## Model shipping as part of the order
-
-International shipping affects more than fulfillment. It can increase the amount on which percentage-based fees are calculated and can create customer service work when tracking or customs delays occur.
-
-Use shipping profiles with realistic package weight and dimensions. Set a clear delivery range and explain that customs or import charges may depend on the destination. Avoid promising a delivery date that depends on a carrier or customs office you cannot control.
-
-## Understand marketplace tax collection
-
-Etsy may collect and remit certain sales taxes, VAT, or GST as a marketplace facilitator. That does not remove every tax obligation. Sellers may still need records for income tax, local registration, product rules, or sales made outside Etsy.
-
-Use Etsy's current guidance for the buyer country and speak with a qualified tax professional for your own situation. Do not treat a marketplace-collected tax line as a complete business tax report.
-
-## Compare the real payout
-
-For an international order, calculate:
+When a buyer outside your home country purchases an item, three extra fee layers can apply:
 
 ```text
-Order total
-- Etsy fees for the seller country
-- conversion cost, if applicable
-- shipping and packaging
-- product cost and labor
-- expected refund or replacement allowance
-= contribution profit
++-------------------------------------------------------------------------------------------------------+
+| INTERNATIONAL ETSY FEE OVERHEAD                                                                      |
++------------------------------------+-----------------------+------------------------------------------+
+| Fee Type                           | Percentage Rate       | Trigger Condition                        |
++------------------------------------+-----------------------+------------------------------------------+
+| Currency Conversion Fee            | 2.5% of order revenue | Listing currency != Bank payout currency |
+| International Payment Processing   | 4.0% + fixed fee      | Buyer card issued outside seller region  |
+| Regional Regulatory Operating Fee  | 0.32% - 1.10%         | Seller location (UK, EU, TR, VN)         |
++------------------------------------+-----------------------+------------------------------------------+
 ```
 
-Run the same product through a domestic scenario. The comparison shows which destinations are worth serving and which need a higher shipping charge, price, or delivery restriction.
+### The Currency Conversion Trap (2.5% Penalty)
+If your bank payout account is in **GBP (£)**, but you choose to list your shop items in **USD ($)** thinking it attracts US buyers, Etsy automatically charges a **2.5% currency conversion fee** on every order total before converting the funds back into your GBP payout account.
 
-## International seller checklist
+> **Best Practice**: Always list your products in your bank account's **native currency**. Etsy automatically displays localized prices to international buyers using transparent exchange rates without charging you the 2.5% conversion penalty.
 
-- Confirm payment processing for the seller country.
-- Check whether currency conversion applies to payouts.
-- Use accurate shipping profiles and package measurements.
-- Explain delivery and customs expectations.
-- Keep tax and income records separate from Etsy fee records.
-- Review destination-level profit each month.
+---
 
-International selling works best when the shop chooses destinations deliberately instead of accepting every order at the same price model.
+## 2. Global Customs & HS Code Requirements
+
+Since 2023, customs authorities worldwide (including US CBP, EU Customs, and UK HMRC) require digital **Harmonized System (HS) Codes** on all cross-border commercial shipping labels.
+
+### What is an HS Code?
+An HS Code is a standardized 6-digit to 10-digit numerical commodity code used by customs officers to classify exported goods and calculate import duties/taxes.
+
+### Structure of an HS Code:
+* **Digits 1-2 (Chapter)**: Broad category (e.g. `Chapter 42` = Articles of leather)
+* **Digits 3-4 (Heading)**: Specific product group (e.g. `4202` = Trunks, suitcases, vanity cases, executive briefs, handbags)
+* **Digits 5-6 (Subheading)**: Specific material composition (e.g. `4202.21` = Handbags with outer surface of leather)
+
+```text
+  [ 42 ] . [ 02 ] . [ 21 ]
+    │        │        └────── Subheading: Outer surface of leather
+    │        └─────────────── Heading: Handbags / Purses / Briefs
+    └──────────────────────── Chapter: Articles of leather
+```
+
+---
+
+## 3. Writing Compliant Customs Invoice Descriptions
+
+Customs authorities will delay or reject parcels if shipping labels use vague, generic descriptions like *"Gift," "Crafts," "Sample,"* or *"Handmade item."*
+
+### Good vs. Bad Customs Descriptions:
+
+❌ **Non-Compliant (High Risk of Customs Hold)**:
+* Description: *"Gift item"*
+* Result: **Package held by customs**; seller fined for inaccurate declaration.
+
+❌ **Vague**:
+* Description: *"Leather bag"*
+* Result: Customs officer cannot verify material or tariff classification.
+
+✅ **Compliant & Detailed**:
+* Description: *"Handmade full-grain leather tote bag with zip closure, intended for personal daily carry, 1 unit, finished consumer product."*
+* Result: **Passes customs clearance without manual inspection.**
+
+---
+
+## 4. Import VAT & Tax Collection (EU IOSS & UK HMRC)
+
+Etsy automatically collects and remits import VAT at checkout for low-value international orders:
+
+* **Orders to the UK (under £135 GBP)**: Etsy automatically collects UK VAT at 20% during checkout.
+* **Orders to the EU (under €150 EUR)**: Etsy collects EU VAT via its **Import One-Stop Shop (IOSS)** number.
+* **Orders to Australia & New Zealand**: Etsy collects GST automatically.
+
+### Seller Responsibility:
+When shipping low-value orders to the EU or UK, you **must submit Etsy's official IOSS number electronically** through your shipping label carrier (e.g. Royal Mail, USPS, DHL Express). If you write the IOSS number on the outside of the box with a pen instead of transmitting it digitally, the buyer will be double-taxed upon delivery.
+
+Draft compliant English customs item names and candidate HS directions using the [AI HS Code Assistant](/tools/ai/hs-code-assistant).

@@ -1,64 +1,80 @@
-# Etsy Offsite Ads: How to Evaluate the Cost of an Attributed Order
+# Etsy Offsite Ads 2026: Profit Formulas, Rate Tiers & Blended Pricing Strategy
 
-Etsy Offsite Ads can bring shoppers from external search, social, and content sites to Etsy listings. The tradeoff is that an attributed order may carry an additional advertising fee. The useful question is not whether the fee feels high; it is whether the order remains profitable after every cost.
+Etsy Offsite Ads automatically advertise your shop listings across Google Search, Facebook, Instagram, Pinterest, and Bing. Unlike traditional pay-per-click (PPC) ads, you only pay a fee when a shopper clicks an offsite ad and purchases from your shop within 30 days.
 
-Check Etsy's [current Offsite Ads policy](https://www.etsy.com/legal/advertising/) for eligibility, rates, attribution, and caps. Use the [Etsy Offsite Ads Calculator](/tools/ecommerce/etsy-offsite-ads-calculator) to test your own order values.
+However, because the ad fee applies to the **gross order total** (including buyer-paid shipping), unmonitored Offsite Ads can eliminate profit margins on competitive products.
 
-## What attribution means
+Use the [Etsy Offsite Ads Calculator](/tools/ecommerce/etsy-offsite-ads-calculator) to test your exact profit impact under both 12% and 15% rate tiers.
 
-An order is attributed when Etsy records that the buyer interacted with an Offsite Ad and later purchased under Etsy's rules. The fee is generally calculated from the order value covered by the policy, not from the profit you expected to make.
+---
 
-The exact rate and attribution window can change. Read the current policy and compare it with the advertising line in your payment statement.
+## 1. The Two Fee Tiers: 12% vs. 15%
 
-## Build two price scenarios
-
-For each important product, calculate:
+Your Offsite Ads fee rate is determined by your shop's gross sales revenue over the trailing 365 days:
 
 ```text
-Scenario A: organic order
-Revenue - core Etsy fees - product costs - shipping - labor
-
-Scenario B: attributed order
-Scenario A - Offsite Ads fee
++-------------------------------------------------------------------------------------------------------+
+| ETSY OFFSITE ADS FEE TIERS                                                                           |
++------------------------------------+-----------------------+------------------------------------------+
+| Trailing 12-Month Sales Volume     | Fee Rate Per Sale     | Opt-Out Eligibility                      |
++------------------------------------+-----------------------+------------------------------------------+
+| Under $10,000 USD                  | 15% of order total    | Optional (Can turn off in Shop Settings) |
+| $10,000 USD or More                | 12% of order total    | Mandatory (Lifetime rule for shop)       |
++------------------------------------+-----------------------+------------------------------------------+
 ```
 
-If Scenario B is negative, the listing needs a higher price, lower cost, or a different product mix. Do not use the organic margin to judge an order that includes an advertising fee.
+### Key Policy Rules:
+* **The $10,000 Threshold**: Calculated on the 1st of every month based on sales over the preceding 365 days.
+* **The $100 Maximum Cap**: No single order can incur more than **$100.00 USD** in Offsite Ads fees, regardless of the item's purchase price.
+* **Lifetime Mandatory Mandate**: Once your shop passes $10,000 USD in 365-day revenue, Offsite Ads participation becomes mandatory for the rest of your shop's lifetime, even if your sales subsequently fall below $10,000.
 
-## Measure incremental profit
+---
 
-An attributed order is valuable only if it adds profitable demand. Review a month of data and record:
+## 2. Mathematical Impact on Net Margin
 
-- total attributed revenue;
-- advertising fees;
-- number of attributed orders;
-- contribution profit after production and fulfillment;
-- repeat purchase or customer service patterns.
+The Offsite Ads fee is added on top of your baseline **6.5% transaction fee**, **$0.20 listing fee**, and **3.0% + $0.25 payment processing fee**.
 
-Do not compare ad-attributed revenue with zero. Compare the contribution profit from those orders with the profit you could have earned from the same inventory through organic demand.
+### Mathematical Example ($50 Order Total):
 
-## Improve listings before blaming the ad
+$$\text{Gross Order Revenue} = \$50.00 \quad (\text{Item Price } \$42.00 + \text{Buyer Shipping } \$8.00)$$
 
-Offsite Ads cannot fix a weak listing. Review the first image, title, delivery promise, variation choices, and description. A high click rate with few orders usually points to a listing or price problem. A low click rate may point to the product image, search relevance, or audience fit.
+| Fee Line | Organic Sale (0% Ads) | Mandatory Ad Sale (12% Ads) | Optional Ad Sale (15% Ads) |
+| :--- | :--- | :--- | :--- |
+| **Listing Fee** | $0.20 | $0.20 | $0.20 |
+| **Transaction Fee (6.5%)** | $3.25 | $3.25 | $3.25 |
+| **Payment Processing (3% + $0.25)** | $1.75 | $1.75 | $1.75 |
+| **Offsite Ads Fee** | **$0.00** | **$6.00** | **$7.50** |
+| **Total Platform Fees** | **$5.20 (10.4%)** | **$11.20 (22.4%)** | **$12.70 (25.4%)** |
 
-Use a controlled change: update one meaningful element, then compare a comparable period. Avoid changing price, photos, title, and shipping at the same time because the result will be difficult to interpret.
+If your Product COGS + Shipping Label Cost is **$25.00**:
+* **Organic Net Profit**: $\$50.00 - \$25.00 - \$5.20 = \mathbf{\$19.80 \quad (39.6\% \text{ margin})}$
+* **12% Ad Sale Net Profit**: $\$50.00 - \$25.00 - \$11.20 = \mathbf{\$13.80 \quad (27.6\% \text{ margin})}$
+* **15% Ad Sale Net Profit**: $\$50.00 - \$25.00 - \$12.70 = \mathbf{\$12.30 \quad (24.6\% \text{ margin})}$
 
-## Protect low-margin products
+---
 
-Products with expensive materials, long production time, or low average order value have less room for an extra fee. Consider using a product-level margin table with:
+## 3. The Blended Pricing Strategy
 
-- minimum acceptable contribution profit;
-- maximum production time;
-- expected shipping cost;
-- organic and attributed fee scenarios.
+If you cannot opt out of Offsite Ads, raising all listing prices by 12% or 15% is unnecessary and can reduce overall conversion rates. Instead, calculate a **Blended Price Adjustment** based on your shop's historical ad attribution rate.
 
-If an item repeatedly produces a loss when attributed, improve the price or cost model before adding more inventory.
+### Blended Price Formula:
 
-## Monthly review checklist
+$$\text{Price Markup \%} = \text{Offsite Ad Attribution Rate (\% of sales)} \times \text{Ad Fee Rate (12\% or 15\%)}$$
 
-1. Download the Etsy payment statement.
-2. Identify attributed orders and advertising charges.
-3. Calculate profit after all variable costs.
-4. Compare attributed and organic conversion patterns.
-5. Update prices for products that cannot support the fee.
+### Example Scenario:
+* 10% of your total shop sales originate from Offsite Ads.
+* Your shop is in the 12% fee tier.
 
-Offsite Ads are one part of an Etsy sales channel. The right decision comes from order-level profit and current Etsy policy, not from revenue totals alone.
+$$\text{Price Markup \%} = 10\% \times 12\% = \mathbf{1.2\%}$$
+
+By increasing overall listing prices across your catalog by just **1.2% to 1.5%**, organic sales subsidize the ad-attributed orders, protecting your net shop profit without pricing your products out of search results.
+
+---
+
+## 4. Pre-Publishing Checklist for Offsite Ads
+
+1. **Calculate Margin Buffer**: Ensure every listing has at least a **25% net margin buffer** after standard fees to absorb unexpected 12%/15% ad charges.
+2. **Review High-Ticket Items**: For items over $833.33 USD, the $100 ad fee cap takes effect, progressively lowering your effective ad fee percentage as price increases.
+3. **Monitor 30-Day Windows**: Remember that if a user clicks an Offsite Ad for item A, but purchases item B from your shop 25 days later, that sale is still charged an Offsite Ad fee.
+
+Model your catalog's worst-case ad scenarios using the [Etsy Offsite Ads Calculator](/tools/ecommerce/etsy-offsite-ads-calculator).

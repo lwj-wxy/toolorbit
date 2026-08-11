@@ -1,52 +1,71 @@
-# Etsy Product Photography: Build a Listing Image Set That Answers Questions
+# Etsy Product Photo Requirements 2026: Image Sizes, Aspect Ratios & Conversion Shot List
 
-Etsy buyers cannot pick up a product through the screen. Product photos need to show what the item is, how large it is, how it is used, and what the buyer will receive.
+In online marketplaces, shoppers cannot physically touch your product. Your listing photos perform the heavy lifting of building trust, answering buyer questions, and driving search click-through rates.
 
-Use the [Etsy Seller Handbook](https://www.etsy.com/seller-handbook) for current image requirements. Before uploading, the [Image Converter](/tools/image/image-converter) and [Image Compressor](/tools/image/image-compressor) can help prepare files without changing the product itself.
+This guide outlines Etsy's 2026 technical image specifications, recommended aspect ratios, and the 10-photo conversion blueprint required for top-ranking listings. 
 
-## Give each image one job
+Before publishing new assets, inspect your main images and packaging shots using the [AI Product Asset Compliance Checker](/tools/ai/product-asset-checker).
 
-A useful image set reduces uncertainty in a sequence:
+---
 
-1. **Hero image:** show the product clearly at a glance.
-2. **Detail image:** show texture, finish, stitching, or print quality.
-3. **Scale image:** show dimensions beside a familiar object or in use.
-4. **Variation image:** show colors, sizes, or included options.
-5. **Packaging image:** show what arrives and how it is protected.
-6. **Instruction image:** explain personalization, file access, or assembly when needed.
+## 1. Technical Image Specifications (2026 Requirements)
 
-Do not use every slot for a slightly different crop of the same photo. Buyers need information, not repetition.
+To ensure crisp rendering on high-DPI mobile screens and retina displays, adhere to Etsy's asset dimensions:
 
-## Make the first image easy to read
+```text
++------------------------------------+----------------------------------------------------------+
+| SPECIFICATION                      | ETSY RECOMMENDATION                                      |
++------------------------------------+----------------------------------------------------------+
+| Minimum Image Width                | 2000 pixels (short side)                                 |
+| Ideal Aspect Ratio                 | 4:3 or 5:4 (4:3 renders best in search grid)             |
+| Resolution                         | 72 DPI to 300 DPI                                        |
+| File Formats                       | JPG, PNG, GIF                                            |
+| Maximum File Size                  | 10 MB per image                                          |
+| Color Profile                      | sRGB (CMYK profles will render distorted colors)          |
++------------------------------------+----------------------------------------------------------+
+```
 
-Use enough contrast between the product and background. Keep the product large enough to recognize in a small search thumbnail. Remove props that imply the buyer receives something that is not included.
+> **Pro Tip**: Uploading images smaller than 2000px wide will trigger Etsy's low-resolution warning, and shoppers will be unable to use the full zoom feature on your product details page.
 
-For handmade products, small imperfections can be part of the product. Show them honestly and describe them in the listing so the buyer knows what to expect.
+---
 
-## Show scale and important details
+## 2. The 10-Photo Listing Shot List
 
-Dimensions in text are easy to misread. Add a scale reference and photograph the product in its intended context when appropriate. For jewelry, stationery, art prints, and home goods, a clear size image can prevent returns caused by an incorrect assumption.
+Etsy allows up to **10 listing photos** plus 1 product video per listing. Leaving photo slots empty reduces your conversion rate. 
 
-Photograph details that affect purchase decisions: paper thickness, clasp type, wood grain, screen-printed texture, file format, or the number of pieces in a set.
+Use this 10-photo blueprint to answer every buyer question visually:
 
-## Prepare files for the web
+```text
+  [ Photo 1: Hero Main Image ]      ===> Clean, distraction-free product shot (Search Grid)
+  [ Photo 2: Lifestyle / In-Use ]   ===> Product in real environment showing context
+  [ Photo 3: Scale & Size Comparison ]=> Product next to recognizable objects (coin, hand, phone)
+  [ Photo 4: Texture & Detail Closeup]=> High-resolution macro shot of materials & craft
+  [ Photo 5: Packaging & Gift-Ready ] => Showing product box, wrapping, & unboxing experience
+  [ Photo 6: Color / Style Variants ]=> Array of available choices & color swatches
+  [ Photo 7: Back / Interior View ]  ===> Showing reverse side, lining, straps, or hardware
+  [ Photo 8: How It Works / Steps ]  ===> Infographic showing usage or customization steps
+  [ Photo 9: Size Chart & Dimensions]=> Diagram overlay showing exact measurements in inches/cm
+  [ Photo 10: Brand & Guarantee ]   ===> Shop policy, eco-friendly notes, or satisfaction seal
+```
 
-Export a clear image at Etsy's current recommended dimensions and file limits. Compress large files enough for fast loading while preserving edges and texture. Keep a high-quality original separately so you can create a new crop later.
+---
 
-Use descriptive file names and useful alt text where your publishing workflow supports them. Do not add text to the image that makes the product harder to inspect.
+## 3. High-Converting Main Image Rules (Search Grid Optimizations)
 
-## Test photography against conversion
+Your **Hero Photo (Photo #1)** is the single factor determining your search **Click-Through Rate (CTR)**.
 
-If visits are steady but orders are weak, review the hero image and scale image before changing every keyword. Change one image, record the date, and compare conversion over a meaningful period. Seasonal products need a seasonal comparison.
+### 4 Rules for Main Images:
+1. **Center the Subject with Breathing Room**: Keep the main item centered with at least 15% padding on all sides so thumbnail cropping on mobile does not clip edges.
+2. **Avoid Heavy Text Overlays**: Never place promotional text (e.g. "50% OFF", "BEST SELLER") on your main image. Text overlays trigger flags on offsite ad channels like Google Shopping.
+3. **Use High Contrast**: Set your product against a background that makes it pop (e.g., dark leather on light linen, white ceramics on warm wood).
+4. **Natural Lighting Over Harsh Flash**: Shoot in indirect natural light to avoid blown-out highlights and artificial color tinting.
 
-## Photography checklist
+---
 
-- Product is the main subject in the first image.
-- Colors and materials are represented honestly.
-- Size and quantity are obvious.
-- Variations are shown clearly.
-- Props are identified when they are not included.
-- Files load quickly without visible compression damage.
-- Images support the title, description, and price.
+## 4. Common Image Mistakes That Cause Listing Rejections
 
-Strong Etsy photography is useful sales information. It reduces uncertainty before the buyer has to ask a question.
+* **Mismatched Color Profiles**: Images saved in **CMYK** (for print) will shift colors wildly when viewed in web browsers. Convert all assets to **sRGB** before uploading.
+* **Inconsistent Product Specs**: Showing a gold zipper in Photo 1 and a silver zipper in Photo 4 causes buyer confusion and higher refund rates.
+* **Unclear Scale**: Selling a 1-inch miniature pendant without scale cues will result in negative reviews claiming "Item is smaller than expected."
+
+To audit your product photos for visual compliance, text overlays, and quality flags before listing, run your assets through the [AI Product Asset Compliance Checker](/tools/ai/product-asset-checker).

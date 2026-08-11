@@ -3,7 +3,7 @@ const path = require('path');
 const ts = require('typescript');
 
 const SITE_URL = 'https://toolorbit.site';
-const POSTS_PER_PAGE = 12;
+const POSTS_PER_PAGE = 10;
 const SEO_CONTENT_PATHS = [
   '/best-etsy-fee-calculators',
   '/authors/toolorbit-editorial-team',

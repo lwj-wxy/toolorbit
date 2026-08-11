@@ -43,8 +43,8 @@ const BlogList: React.FC<BlogListProps> = ({ initialPage = 1 }) => {
     const isCurrentPage = isPageNumber && safeCurrentPage === page;
     const className = `inline-flex h-11 w-11 items-center justify-center rounded-lg border text-sm font-semibold transition-colors ${
       isCurrentPage
-        ? 'border-cyan-600 bg-cyan-600 text-white shadow-sm'
-        : 'border-slate-200 bg-white text-slate-600 hover:border-cyan-200 hover:text-cyan-700 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400 dark:hover:border-cyan-800 dark:hover:text-cyan-400'
+        ? 'border-[var(--app-text)] bg-[var(--app-text)] text-[var(--app-bg)] shadow-sm'
+        : 'border-[var(--app-border)] bg-[var(--app-surface)] text-[var(--app-text)] hover:border-[var(--app-accent)] hover:text-[var(--app-accent-ink)]'
     } ${isDisabled ? 'pointer-events-none opacity-40' : ''}`;
 
     return (
