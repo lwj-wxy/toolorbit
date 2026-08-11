@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { DollarSign, Percent } from 'lucide-react';
+import { DollarSign, Percent, Copy, Check } from 'lucide-react';
 
 const EtsyPricingCalculator = () => {
   const { t } = useTranslation();
+  const [copied, setCopied] = useState(false);
   const [itemCost, setItemCost] = useState<number | ''>('');
   const [shippingCost, setShippingCost] = useState<number | ''>('');
   const [shippingCharge, setShippingCharge] = useState<number | ''>('');
@@ -145,9 +146,28 @@ const EtsyPricingCalculator = () => {
               </dd>
             </div>
           </dl>
+
+          <div className="mt-5 border-t border-slate-200 pt-4 dark:border-slate-700">
+            <button
+              type="button"
+              onClick={() => {
+                const summaryText = `Etsy Target Pricing Calculation:
+Required Item Price: $${requiredItemPrice.toFixed(2)}
+Required Total Revenue: $${requiredRevenue.toFixed(2)}
+Estimated Platform Fees: $${estimatedTotalFees.toFixed(2)} (${feeRatio.toFixed(1)}% fee rate)
+Estimated Net Profit: $${finalProfit.toFixed(2)}`;
+                navigator.clipboard.writeText(summaryText);
+                setCopied(true);
+                setTimeout(() => setCopied(false), 2000);
+              }}
+              className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-[var(--app-text)] py-3 text-sm font-bold text-[var(--app-bg)] shadow-sm transition hover:opacity-90"
+            >
+              {copied ? <Check className="h-4 w-4 text-emerald-400" /> : <Copy className="h-4 w-4" />}
+              {copied ? 'Copied Pricing Report!' : 'Copy Target Pricing Report'}
+            </button>
+          </div>
         </div>
       </div>
-
     </div>
   );
 };

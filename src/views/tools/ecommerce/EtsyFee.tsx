@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { DollarSign, Hash } from 'lucide-react';
+import { DollarSign, Hash, Copy, Check } from 'lucide-react';
 
 type EtsyFeeCalculatorProps = {
   hideHeader?: boolean;
@@ -8,6 +8,7 @@ type EtsyFeeCalculatorProps = {
 
 const EtsyFeeCalculator = ({ hideHeader = false }: EtsyFeeCalculatorProps) => {
   const { t } = useTranslation();
+  const [copied, setCopied] = useState(false);
   const [salePrice, setSalePrice] = useState<number | ''>('');
   const [quantity, setQuantity] = useState<number | ''>(1);
   const [shippingCharge, setShippingCharge] = useState<number | ''>('');
@@ -275,12 +276,33 @@ const EtsyFeeCalculator = ({ hideHeader = false }: EtsyFeeCalculatorProps) => {
             </div>
             <div className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-700 dark:bg-[#282c34]">
               <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">{t('tools.etsy-fee-calculator.breakEvenPrice')}</p>
-              <p className="mt-2 text-xl font-bold text-cyan-700 dark:text-cyan-300">${breakEvenItemPrice.toFixed(2)}</p>
+              <p className="mt-2 text-xl font-bold text-amber-600 dark:text-amber-400">${breakEvenItemPrice.toFixed(2)}</p>
             </div>
           </div>
+
+          <button
+            type="button"
+            onClick={() => {
+              const summaryText = `Etsy Fee & Profit Breakdown:
+Total Revenue: $${totalRevenue.toFixed(2)}
+Listing Fee: $${listingFee.toFixed(2)}
+Transaction Fee (6.5%): $${transactionFee.toFixed(2)}
+Payment Processing Fee: $${paymentProcFee.toFixed(2)}
+Offsite Ads Fee: $${offsiteAdsFee.toFixed(2)}
+Direct Costs: $${directCosts.toFixed(2)}
+Net Profit: $${profit.toFixed(2)} (${margin.toFixed(1)}% margin)
+Break-Even Item Price: $${breakEvenItemPrice.toFixed(2)}`;
+              navigator.clipboard.writeText(summaryText);
+              setCopied(true);
+              setTimeout(() => setCopied(false), 2000);
+            }}
+            className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-[var(--app-text)] py-3 text-sm font-bold text-[var(--app-bg)] shadow-sm transition hover:opacity-90"
+          >
+            {copied ? <Check className="h-4 w-4 text-emerald-400" /> : <Copy className="h-4 w-4" />}
+            {copied ? 'Copied Order Report!' : 'Copy Order Profit Report'}
+          </button>
         </div>
       </div>
-
     </div>
   );
 };

@@ -10,6 +10,8 @@ import {
   Banknote,
   ShieldCheck,
   PackageSearch,
+  Tag as TagIcon,
+  Truck,
 } from 'lucide-react';
 import { TOOLS_META, type Category, type ToolMeta } from './tools-meta';
 
@@ -20,6 +22,8 @@ const iconMap: Record<string, ComponentType<any>> = {
   'etsy-offsite-ads-calculator': Target,
   'etsy-pricing-calculator': Calculator,
   'etsy-regulatory-fee-calculator': Banknote,
+  'etsy-tag-generator': TagIcon,
+  'etsy-free-shipping-calculator': Truck,
   'stripe-fee-calculator': CreditCard,
   'paypal-fee-calculator': CreditCard,
   'stripe-vs-paypal-fee-calculator': BarChart3,

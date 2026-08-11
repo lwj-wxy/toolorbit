@@ -1556,6 +1556,18 @@
       "seoFooter": "Disclaimer & Extensions: Some shipping labels use long CODE_128 formats. We suggest increasing the 'Bar Width' for long codes to ensure scanners can reliably decode them.",
       "highlightsTitle": "Why use this barcode generator?"
     },
+    "etsy-tag-generator": {
+      "name": "Etsy 13 Tag & Keyword Optimizer",
+      "description": "Generate and validate 13 Etsy listing tags under 20 characters per tag.",
+      "title": "Etsy 13 Tag & Keyword Optimizer",
+      "subtitle": "Generate and validate 13 Etsy listing tags under 20 characters per tag for instant Etsy backend copy-pasting."
+    },
+    "etsy-free-shipping-calculator": {
+      "name": "Etsy Free Shipping Guarantee Pricing Calculator",
+      "description": "Calculate bundled free shipping listing prices for Etsy $35 Guarantee.",
+      "title": "Etsy $35 Free Shipping Guarantee Pricing Calculator",
+      "subtitle": "Calculate optimal bundled free-shipping listing prices without losing profit margin."
+    },
     "etsy-fee-calculator": {
       "name": "Etsy Fee Calculator",
       "description": "Calculate Etsy listing, transaction and payment fees.",

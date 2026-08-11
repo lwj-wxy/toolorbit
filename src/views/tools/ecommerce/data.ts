@@ -320,4 +320,68 @@ export const ECOMMERCE_TOOL_OVERVIEWS: Record<string, BilingualOverview> = {
       },
     },
   },
+  'etsy-tag-generator': {
+    zh: {
+      summary:
+        'Etsy 13 标签字符校验优化器用于将商品标题、核心词或描述自动切分为符合 Etsy 限制的 13 个关键词 Tag。它不仅实时校验每个 Tag 不超过 20 个字符，还会自动去除跨 Tag 的重复词汇，方便卖家一键复制格式化标签并粘贴到 Etsy 上架后台。',
+      input: '输入包含商品标题、核心关键词短语或卖点描述，支持添加手写自定义 Tag。',
+      output: '输出 13 个符合 20 字符限制的规范 Etsy 标签卡片、实时字符计数器，以及一键复制文本。',
+      processing: '浏览器端本地解析，提取相邻词组组合，过滤 >20 字符无效词，自动去重并填补常用标签。',
+      modes: ['标题自动切词', '20字符实时校验', '去重过滤', '自定义Tag追加', '一键复制格式化文本'],
+      example: {
+        title: 'Etsy 标签生成示例',
+        input: 'Personalized leather tote bag with laptop sleeve and custom initials',
+        output: 'leather tote bag, personalized tote, custom work bag, laptop compartment...',
+        inputLanguage: 'text',
+        outputLanguage: 'text',
+      },
+    },
+    en: {
+      summary:
+        'The Etsy Tag & Keyword Optimizer parses your product title or seed keywords into 13 validated listing tags. It enforces Etsy’s strict 20-character tag limit, removes redundant cross-tag duplicate words, and formats tags for instant copy-pasting into Etsy’s seller portal.',
+      input: 'Enter a product title, seed keyword phrase, or selling points.',
+      output: '13 validated Etsy tag pills with real-time character counters and a comma-separated copy button.',
+      processing: 'Local browser parsing: extracts adjacent phrase pairs, filters terms over 20 characters, removes duplicates, and outputs formatted tag strings.',
+      modes: ['Title parsing', '20-character limit validation', 'Duplicate removal', 'Manual tag add/remove', 'One-click copy'],
+      example: {
+        title: 'Etsy tag generator example',
+        input: 'Personalized leather tote bag with laptop sleeve and custom initials',
+        output: 'leather tote bag, personalized tote, custom work bag, laptop compartment...',
+        inputLanguage: 'text',
+        outputLanguage: 'text',
+      },
+    },
+  },
+  'etsy-free-shipping-calculator': {
+    zh: {
+      summary:
+        'Etsy 满 $35 包邮售价换算器用于帮助卖家计算在提供美国满 $35 包邮 (Free Shipping Guarantee) 的同时，如何将预计运费和包装成本按比例打包进 Listing 售价中，力保目标利润率不受侵蚀。',
+      input: '输入原商品售价、预估国内运费标签成本、包装费成本、商品生产成本和卖家所在的支付结算区域。',
+      output: '输出建议的包邮 Listing 挂牌售价、对比单独收取运费模式下的净利润和费用率。',
+      processing: '基于卖家地区（US/UK/CA/EU）算齐 Etsy 6.5% 交易费与 Payments 支付处理费，反向求解保持净到账不变的最佳包邮打包售价。',
+      modes: ['卖家结算区域选择', '原售价与运费输入', '建议包邮售价计算', '两种模式对比', '一键复制简报'],
+      example: {
+        title: '包邮换算示例',
+        input: '原售价: $25.00, 预估运费: $5.00, 生产成本: $8.00',
+        output: '建议包邮售价: $32.99, 预估净利润: $16.20',
+        inputLanguage: 'text',
+        outputLanguage: 'text',
+      },
+    },
+    en: {
+      summary:
+        'The Etsy Free Shipping Guarantee Pricing Calculator helps sellers determine the optimal bundled item listing price when offering free shipping on US orders over $35. It ensures shipping label and packaging expenses are properly absorbed into the retail price without reducing net shop profit.',
+      input: 'Enter original item price, estimated domestic shipping label cost, packaging cost, COGS, and payment account region.',
+      output: 'Recommended bundled listing price with free shipping badge, net profit breakdown, and profit comparison against separated shipping.',
+      processing: 'Computes Etsy 6.5% transaction fees and regional payment processing rates, reverse-solving the bundled listing price that maintains target net profit.',
+      modes: ['Seller region selection', 'Shipping cost input', 'Recommended bundled price', 'Model comparison', 'Copy summary report'],
+      example: {
+        title: 'Free shipping bundle example',
+        input: 'Original price: $25.00, Est. shipping: $5.00, COGS: $8.00',
+        output: 'Recommended bundled price: $32.99, Net profit: $16.20',
+        inputLanguage: 'text',
+        outputLanguage: 'text',
+      },
+    },
+  },
 };
