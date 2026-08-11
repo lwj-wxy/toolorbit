@@ -1,29 +1,15 @@
 import type { TechnicalOverview } from '../types/tool-overview';
 import { TOOLS } from '../data/tools';
-import { DEV_TOOL_OVERVIEWS } from '../views/tools/dev/data';
-import { IMAGE_TOOL_OVERVIEWS } from '../views/tools/image/data';
-import { TEXT_TOOL_OVERVIEWS } from '../views/tools/text/data';
 import { ECOMMERCE_TOOL_OVERVIEWS } from '../views/tools/ecommerce/data';
-import { PDF_TOOL_OVERVIEWS } from '../views/tools/pdf/data';
-import { CALCULATE_TOOL_OVERVIEWS } from '../views/tools/calculate/data';
-import { NET_TOOL_OVERVIEWS } from '../views/tools/net/data';
 import { AI_TOOL_OVERVIEWS } from '../views/tools/ai/data';
-import { UTILITY_TOOL_OVERVIEWS } from '../views/tools/utility/data';
 import en from '../locales/en.json';
 
 type BilingualOverview = { en: TechnicalOverview };
 type Locale = 'en';
 
 const ALL_OVERVIEWS: Record<string, BilingualOverview> = {
-  ...DEV_TOOL_OVERVIEWS,
-  ...IMAGE_TOOL_OVERVIEWS,
-  ...TEXT_TOOL_OVERVIEWS,
   ...ECOMMERCE_TOOL_OVERVIEWS,
-  ...PDF_TOOL_OVERVIEWS,
-  ...CALCULATE_TOOL_OVERVIEWS,
-  ...NET_TOOL_OVERVIEWS,
   ...AI_TOOL_OVERVIEWS,
-  ...UTILITY_TOOL_OVERVIEWS,
 };
 
 // en.json mixes flat string copy with a few nested objects; we only read string

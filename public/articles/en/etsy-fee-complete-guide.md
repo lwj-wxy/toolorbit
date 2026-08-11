@@ -1,82 +1,121 @@
-# Etsy Fees: A Practical Order-Level Guide for Sellers
+# Etsy Fees 2026: Complete Order-Level Breakdown & Margin Guide
 
-An Etsy sale is not the same as profit. The amount left in your payment account depends on the order total, the seller country, the listing currency, payment processing, and whether the order was attributed to Offsite Ads.
+An Etsy sale is not net income. Every transaction incurs multiple fee layers depending on your item price, buyer-paid shipping, payment processing region, listing currency, and advertising status.
 
-Etsy changes policies and rates. Use the [official Etsy fees policy](https://www.etsy.com/legal/fees/) as the source of truth, then use the [Etsy Fee Calculator](/tools/ecommerce/etsy-fee-calculator) to model a specific order.
+To model your exact profit on specific price points, use the [Etsy Fee Calculator](/tools/ecommerce/etsy-fee-calculator). This guide breaks down Etsy's 2026 fee structure step by step, with order-level formulas and margin optimization rules.
 
-## Start with the order total
+---
 
-Many percentage-based fees use more than the item price. Depending on the fee, the base can include shipping, gift wrap, and personalization. A useful first step is to write down:
+## 1. The Order Total Base
 
-- item price;
-- buyer-paid shipping;
-- personalization or gift wrap;
-- discounts and refunds;
-- seller country and payout currency.
+Before calculating percentage fees, understand what Etsy considers the **chargeable order total**.
 
-Do not calculate margin from the item price alone when the buyer is paying for shipping or extras.
+Percentage-based fees (such as transaction fees, payment processing, and Offsite Ads) do not apply to the item price alone. They apply to the gross order total:
 
-## The main fee layers
+$$\text{Gross Chargeable Revenue} = \text{Item Price} + \text{Buyer-Paid Shipping} + \text{Gift Wrap} - \text{Discounts}$$
 
-### Listing fee
+> **Important**: If an item is $20.00 and shipping charged to the buyer is $5.00, Etsy calculates percentage fees on **$25.00**, not $20.00.
 
-Etsy charges a listing fee when an item is listed or renewed. A listing can incur this fee before it sells, and a multi-quantity listing may renew as units are sold. Include expected renewals in the monthly cost of keeping a catalog active.
+---
 
-### Transaction fee
+## 2. Core Mandatory Platform Fees
 
-The transaction fee is a percentage of the order amount under Etsy's current fee rules. It is separate from payment processing. Because shipping and other order charges can be part of the fee base, a listing with low item price and expensive shipping may have a higher effective fee rate than expected.
+Every Etsy sale incurs three baseline charges:
 
-### Payment processing
+### A. Listing Fee ($0.20 USD)
+* **Amount**: $0.20 USD per listing.
+* **Frequency**: Charged when a listing is created, renewed every 4 months, or auto-renewed upon sale for multi-quantity items.
+* **Currency Note**: Converted to your local currency at Etsy's exchange rate on the date of listing.
 
-Etsy Payments processing has a percentage component and a fixed component that vary by seller country. Do not copy a US formula into a UK, Canadian, or other country model. Check the rate shown for your payment account and enter it into the calculator.
+### B. Transaction Fee (6.5%)
+* **Rate**: 6.5% of the gross order total.
+* **Base**: Includes item price, buyer-paid shipping, personalization, and gift wrapping.
 
-## Fees that need their own scenario
+### C. Etsy Payments Processing Fee
+If you use Etsy Payments (mandatory in supported countries), Etsy charges a payment processing fee based on your bank account location.
 
-### Offsite Ads
+| Seller Bank Country | Percentage Fee | Fixed Per-Order Fee |
+| :--- | :--- | :--- |
+| **United States** | 3.0% | + $0.25 USD |
+| **United Kingdom** | 4.0% | + £0.20 GBP |
+| **Canada (Domestic)** | 3.0% | + $0.25 CAD |
+| **Canada (International)** | 4.0% | + $0.25 CAD |
+| **Eurozone (e.g. France, Germany)** | 4.0% | + €0.30 EUR |
+| **Australia** | 3.0% | + A$0.25 AUD (+ 10% GST on fee) |
 
-An order attributed to Offsite Ads can add a percentage fee to the order. Eligibility, rate, attribution window, and any caps are controlled by Etsy's current policy. Model two versions of an item: an organic sale and an ad-attributed sale. This immediately shows whether the current price can support both outcomes.
+---
 
-### Currency conversion
+## 3. Conditional & Regional Fees
 
-If the listing currency and payout currency do not match, currency conversion can reduce the payout. Compare the conversion cost with the sales benefit of listing in a buyer-friendly currency. A larger audience is useful only when the additional orders still produce acceptable margin.
+Depending on seller location and sales volume, your shop may incur additional fee lines:
 
-### Regulatory or country-specific fees
+### A. Etsy Offsite Ads (12% or 15%)
+Etsy places ads for your products on Google, Facebook, Instagram, Pinterest, and Bing. You only pay a fee when a click leads to an order within 30 days.
 
-Some sellers see country-specific operating or regulatory fees. These are not universal. Select the seller country in your model and confirm the current line item on the Etsy statement.
+* **Standard Sellers (< $10,000 USD sales in past 365 days)**:
+  * **15% fee** on the attributed order total.
+  * Optional: You can opt out in shop settings.
+* **High-Volume Sellers (≥ $10,000 USD sales in past 365 days)**:
+  * **12% fee** on the attributed order total.
+  * Mandatory: You cannot opt out for the lifetime of your account.
+  * Fee Cap: Maximum $100 USD ad fee per order.
 
-## A simple profit model
+### B. Regulatory Operating Fees
+Sellers in select countries pay a Regulatory Operating Fee to cover local Digital Services Taxes (DST) imposed on marketplaces.
 
-For each order, use this sequence:
+* **United Kingdom**: 0.32% of order revenue
+* **France**: 0.47% of order revenue
+* **Italy**: 0.33% of order revenue
+* **Spain**: 0.43% of order revenue
+* **Turkey**: 1.1% of order revenue
+* **Vietnam**: 0.5% of order revenue
 
-```text
-Order revenue
-- Etsy fees
-- product and packaging cost
-- shipping label cost
-- labor
-- refunds or replacement allowance
-= contribution profit
-```
+### C. Currency Conversion Fee (2.5%)
+If you list items in a currency different from your payout bank account currency (for example, listing in USD from a UK bank account), Etsy charges a **2.5% currency conversion fee** on the total order amount before converting the funds.
 
-The [Etsy Fee Calculator](/tools/ecommerce/etsy-fee-calculator) estimates the platform side. Your spreadsheet or bookkeeping system should add costs that Etsy cannot know, such as labor and materials.
+---
 
-## How to audit a month of orders
+## 4. Complete Order Case Study
 
-1. Export the monthly payment statement from Etsy.
-2. Group charges by listing, transaction, payment processing, advertising, conversion, and shipping.
-3. Divide total platform fees by order revenue to find the blended fee rate.
-4. Compare three organic orders and three ad-attributed orders with your estimate.
-5. Update your price model if the actual blended rate is consistently higher.
+Consider a seller in the United States selling a handmade craft item:
 
-Do this monthly rather than trying to remember every fee rule while creating a listing.
+* **Item Price**: $35.00
+* **Buyer Shipping Charged**: $5.00
+* **Total Order Revenue**: $40.00
+* **Product Material Cost**: $8.00
+* **Actual Shipping Label Cost**: $4.50
+* **Packaging & Labor**: $2.50
 
-## Final checklist
+### Scenario A: Organic Sale (No Offsite Ads)
 
-- Confirm the seller-country payment processing rate.
-- Include shipping and extras in the relevant fee base.
-- Keep organic and Offsite Ads scenarios separate.
-- Check whether currency conversion applies.
-- Add materials, labor, packaging, and shipping before calling an order profitable.
-- Recheck the official policy when Etsy changes your statement layout or rates.
+1. **Listing Fee**: $0.20
+2. **Transaction Fee (6.5% of $40.00)**: $2.60
+3. **Payment Processing (3.0% of $40.00 + $0.25)**: $1.45
+4. **Total Etsy Fees**: $\$0.20 + \$2.60 + \$1.45 = \$4.25$
+5. **Direct Costs**: $\$8.00 + \$4.50 + \$2.50 = \$15.00$
+6. **Net Seller Profit**: $\$40.00 - \$15.00 - \$4.25 = \$20.75$
+7. **Profit Margin**: $\frac{\$20.75}{\$40.00} \times 100\% = \mathbf{51.88\%}$
 
-The calculator is useful for the arithmetic. The Etsy statement remains the final record for what was actually charged.
+### Scenario B: Attributed Sale (15% Offsite Ads)
+
+1. **Core Etsy Fees**: $4.25
+2. **Offsite Ads Fee (15% of $40.00)**: $6.00
+3. **Total Etsy Fees**: $\$4.25 + \$6.00 = \$10.25$
+4. **Net Seller Profit**: $\$40.00 - \$15.00 - \$10.25 = \$14.75$
+5. **Profit Margin**: $\frac{\$14.75}{\$40.00} \times 100\% = \mathbf{36.88\%}$
+
+---
+
+## 5. Order Profit Formula & Checklist
+
+To verify your listings, calculate net profit using this sequence:
+
+$$\text{Net Profit} = \text{Order Total} - (\text{Listing} + \text{Transaction} + \text{Processing} + \text{Ad Fees} + \text{Regulatory Fees}) - \text{COGS} - \text{Shipping Cost}$$
+
+### Seller Pre-Publish Checklist
+1. **Always list in your bank account's native currency** to avoid the 2.5% conversion penalty.
+2. **Model for Offsite Ads worst-case**: Ensure your product remains profitable even if an order incurs a 12% or 15% ad charge.
+3. **Track multi-quantity renewals**: Remember that every item sold from a multi-quantity listing immediately triggers a $0.20 auto-renewal fee.
+4. **Audit monthly payout CSVs**: Reconcile Etsy's monthly payment account statements against your price estimates to spot regional fee discrepancies.
+
+To test your pricing and margins across organic and ad-attributed sales, run your numbers through the [Etsy Fee Calculator](/tools/ecommerce/etsy-fee-calculator).
