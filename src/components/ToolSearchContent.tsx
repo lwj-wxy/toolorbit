@@ -129,7 +129,6 @@ export default function ToolSearchContent({ path }: ToolSearchContentProps) {
 
   const isZh = i18n.language?.startsWith('zh');
   const isAiTool = tool.category === 'AI 工具';
-  const isDeveloperTool = tool.category === '开发者工具';
   const toolName = pickToolText(t, tool.id, 'name', tool.name) || tool.name;
   const title = compactTitle(
     pickToolText(t, tool.id, 'seoTitle') ||
@@ -288,7 +287,7 @@ export default function ToolSearchContent({ path }: ToolSearchContentProps) {
       </button>
 
       {isOpen ? (
-        <div className="px-5 pb-6 pt-6 sm:px-7">{isDeveloperTool ? developerContent : content}</div>
+        <div className="px-5 pb-6 pt-6 sm:px-7">{content}</div>
       ) : (
         <div className="px-5 pb-6 pt-5 sm:px-7">
           <p className="max-w-5xl text-[15px] leading-7 text-slate-600 dark:text-slate-400">
