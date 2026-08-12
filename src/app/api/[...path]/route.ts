@@ -126,10 +126,10 @@ function buildImagePrompt(body: any, mode: 'image' | 'svg' = 'image') {
 }
 
 function productImageSize(ratio: string) {
-  if (ratio === '16:9') return '1440x960';
-  if (ratio === '9:16') return '960x1440';
-  if (ratio === '4:5') return '1024x1280';
-  return '1280x1280';
+  if (ratio === '16:9') return '2048x1152';
+  if (ratio === '9:16') return '1152x2048';
+  if (ratio === '4:5') return '1632x2040';
+  return '2048x2048';
 }
 
 function buildProductImagePrompt(body: any, variantIndex: number) {
@@ -179,21 +179,29 @@ function imageAspectRatio(size: string) {
   return '1:1';
 }
 
-async function requestMinimaxImage(prompt: string, size: string, _imageBase64?: string, _options?: { disableWatermark?: boolean }) {
+async function requestMinimaxImage(
+  prompt: string,
+  size: string,
+  _imageBase64?: string,
+  options?: { disableWatermark?: boolean; useExplicitDimensions?: boolean },
+) {
   const apiKey = process.env.MINIMAX_API_KEY?.trim();
   if (!apiKey || apiKey === 'missing-key') {
     throw new Error('MINIMAX_API_KEY is not configured on the server.');
   }
 
+  const [width, height] = size.split('x').map(Number);
+  const useExplicitDimensions = options?.useExplicitDimensions && MINIMAX_IMAGE_MODEL === 'image-01';
   const response = await axios.post(
     MINIMAX_IMAGE_URL,
     {
       model: MINIMAX_IMAGE_MODEL,
       prompt,
-      aspect_ratio: imageAspectRatio(size),
+      ...(useExplicitDimensions ? { width, height } : { aspect_ratio: imageAspectRatio(size) }),
       response_format: 'base64',
       n: 1,
       prompt_optimizer: true,
+      ...(options?.disableWatermark ? { aigc_watermark: false } : {}),
     },
     {
       headers: {
@@ -1150,7 +1158,10 @@ async function productImageGenerator(body: any) {
   const size = productImageSize(String(body.ratio || '1:1'));
   const imageRequests = Array.from({ length: variantCount }, async (_, index) => {
     const prompt = buildProductImagePrompt(body, index);
-    const imageResult = await requestMinimaxImage(prompt, size, undefined, { disableWatermark: true });
+    const imageResult = await requestMinimaxImage(prompt, size, undefined, {
+      disableWatermark: true,
+      useExplicitDimensions: true,
+    });
 
     return {
       imageUrl: imageResult.imageUrl,
