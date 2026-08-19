@@ -211,6 +211,7 @@ Estimated Net Profit: ${proc.currency}${netProfitModelB.toFixed(2)} (${marginMod
             <button
               type="button"
               onClick={handleCopySummary}
+              data-analytics-action="result_copied"
               className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-[var(--app-text)] py-3 text-sm font-bold text-[var(--app-bg)] transition hover:opacity-90"
             >
               {copied ? <Check className="h-4 w-4 text-emerald-400" /> : <Copy className="h-4 w-4" />}

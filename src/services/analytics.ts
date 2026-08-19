@@ -43,6 +43,7 @@ class AnalyticsService {
   private debug: boolean = process.env.NODE_ENV !== 'production';
   private sessionId: string = '';
   private gaId: string = getGaMeasurementId();
+  private pendingEvents: Array<() => void> = [];
 
   constructor() {
     this.sessionId = Math.random().toString(36).substring(2, 10);
@@ -68,52 +69,61 @@ class AnalyticsService {
     }
   }
 
-  // Track Page Views
-  trackPageView(path: string) {
-    if (!this.isEnabled) return;
-
-    if (this.debug) {
-      console.log(`📊 [Analytics] [Session: ${this.sessionId}] Page View: ${path}`);
+  private runWhenEnabled(event: () => void) {
+    if (this.isEnabled) {
+      event();
+      return;
     }
 
-    this.sendGtag('config', this.gaId, {
-      page_path: path,
-      session_id: this.sessionId
+    this.pendingEvents.push(event);
+  }
+
+  // Track Page Views
+  trackPageView(path: string) {
+    this.runWhenEnabled(() => {
+      if (this.debug) {
+        console.log(`📊 [Analytics] [Session: ${this.sessionId}] Page View: ${path}`);
+      }
+
+      this.sendGtag('config', this.gaId, {
+        page_path: path,
+        session_id: this.sessionId
+      });
     });
   }
 
   // Track Custom Events
   trackEvent({ category, action, label, value, metadata }: AnalyticsEvent) {
-    if (!this.isEnabled) return;
+    this.runWhenEnabled(() => {
+      if (this.debug) {
+        console.log(`📊 [Analytics] [Session: ${this.sessionId}] Event: [${category}] ${action}`, {
+          label,
+          value,
+          ...metadata,
+        });
+      }
 
-    if (this.debug) {
-      console.log(`📊 [Analytics] [Session: ${this.sessionId}] Event: [${category}] ${action}`, {
-        label,
-        value,
+      this.sendGtag('event', normalizeEventName(action), {
+        event_category: category,
+        event_label: label,
+        value: value,
+        session_id: this.sessionId,
         ...metadata,
       });
-    }
-
-    this.sendGtag('event', normalizeEventName(action), {
-      event_category: category,
-      event_label: label,
-      value: value,
-      session_id: this.sessionId,
-      ...metadata,
     });
   }
 
   // Set User Properties
   setUserProperties(properties: Record<string, any>) {
-    if (!this.isEnabled) return;
+    this.runWhenEnabled(() => {
+      if (this.debug) {
+        console.log('📊 [Analytics] Set User Properties:', properties);
+      }
 
-    if (this.debug) {
-      console.log('📊 [Analytics] Set User Properties:', properties);
-    }
-
-    this.sendGtag('set', 'user_properties', {
-      ...properties,
-      session_id: this.sessionId
+      this.sendGtag('set', 'user_properties', {
+        ...properties,
+        session_id: this.sessionId
+      });
     });
   }
 
@@ -122,7 +132,12 @@ class AnalyticsService {
   }
 
   enable() {
+    if (this.isEnabled) return;
+
     this.isEnabled = true;
+    const pendingEvents = this.pendingEvents;
+    this.pendingEvents = [];
+    pendingEvents.forEach((event) => event());
   }
 }
 

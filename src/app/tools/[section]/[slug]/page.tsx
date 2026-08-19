@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { notFound, redirect } from 'next/navigation';
+import { permanentRedirect, redirect } from 'next/navigation';
 import { TOOLS } from '../../../../data/tools';
 import { toolMetadata } from '../../../../lib/metadata';
 import { toolJsonLd } from '../../../../lib/structured-data';
@@ -17,7 +17,7 @@ export function generateStaticParams() {
   });
 }
 
-export const dynamicParams = false;
+export const dynamicParams = true;
 export const revalidate = 86400;
 
 export async function generateMetadata({ params }: { params: Promise<{ section: string; slug: string }> }): Promise<Metadata> {
@@ -39,7 +39,7 @@ export default async function Page({ params }: { params: Promise<{ section: stri
   const tool = TOOLS.find((toolItem) => toolItem.path === path);
 
   if (!tool) {
-    notFound();
+    permanentRedirect('/');
   }
 
   const isEtsyFeeCalculator = tool.path === '/tools/ecommerce/etsy-fee-calculator';

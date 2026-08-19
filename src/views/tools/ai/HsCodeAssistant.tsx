@@ -495,6 +495,7 @@ export default function HsCodeAssistant() {
 
           <button
             onClick={analyzeProduct}
+            data-analytics-action="analysis_requested"
             disabled={!canSubmit || loading}
             className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-amber-600 px-4 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-amber-700 disabled:cursor-not-allowed disabled:bg-slate-300 dark:disabled:bg-slate-800"
           >
@@ -544,6 +545,7 @@ export default function HsCodeAssistant() {
                     ) : null}
                     <button
                       onClick={() => copyToClipboard(allResultText, 'all')}
+                      data-analytics-action="result_copied"
                       className="inline-flex items-center gap-1.5 rounded-md border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-600 transition-colors hover:border-amber-300 hover:text-amber-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300"
                     >
                       {copiedField === 'all' ? <Check className="h-3.5 w-3.5 text-emerald-500" /> : <Copy className="h-3.5 w-3.5" />}
@@ -559,7 +561,7 @@ export default function HsCodeAssistant() {
                     <div key={field} className="rounded-lg border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-950">
                       <div className="mb-2 flex items-center justify-between gap-3">
                         <p className="text-xs font-semibold uppercase text-slate-500 dark:text-slate-400">{label}</p>
-                        <button onClick={() => copyToClipboard(String(value || ''), String(field))} className="text-slate-400 hover:text-amber-600">
+                        <button onClick={() => copyToClipboard(String(value || ''), String(field))} data-analytics-action="result_copied" className="text-slate-400 hover:text-amber-600">
                           {copiedField === field ? <Check className="h-4 w-4 text-emerald-500" /> : <Copy className="h-4 w-4" />}
                         </button>
                       </div>
@@ -571,7 +573,7 @@ export default function HsCodeAssistant() {
                   <div className="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-950">
                     <div className="mb-2 flex items-center justify-between gap-3">
                       <p className="text-xs font-semibold uppercase text-slate-500 dark:text-slate-400">{isZh ? '分类说明' : 'Classification brief'}</p>
-                      <button onClick={() => copyToClipboard(result.classificationBrief || '', 'classificationBrief')} className="text-slate-400 hover:text-amber-600">
+                      <button onClick={() => copyToClipboard(result.classificationBrief || '', 'classificationBrief')} data-analytics-action="result_copied" className="text-slate-400 hover:text-amber-600">
                         {copiedField === 'classificationBrief' ? <Check className="h-4 w-4 text-emerald-500" /> : <Copy className="h-4 w-4" />}
                       </button>
                     </div>
@@ -612,6 +614,7 @@ export default function HsCodeAssistant() {
                   <h2 className="text-base font-semibold text-slate-950 dark:text-white">{isZh ? '下一步确认' : 'Next checks'}</h2>
                   <button
                     onClick={() => copyToClipboard(reviewItemsText, 'reviewItems')}
+                    data-analytics-action="result_copied"
                     disabled={!reviewItemsText}
                     className="text-slate-400 hover:text-amber-600 disabled:cursor-not-allowed disabled:opacity-40"
                   >

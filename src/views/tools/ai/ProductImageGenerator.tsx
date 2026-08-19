@@ -332,6 +332,7 @@ export default function ProductImageGenerator() {
 
             <button
               onClick={generateImages}
+              data-analytics-action="generation_requested"
               disabled={!canGenerate}
               className="inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-cyan-600 px-5 py-3 text-sm font-semibold text-white transition-colors duration-200 hover:bg-cyan-700 disabled:cursor-not-allowed disabled:bg-slate-300 dark:disabled:bg-slate-700 sm:w-auto sm:px-8"
             >
@@ -391,6 +392,7 @@ export default function ProductImageGenerator() {
                         <div className="flex items-center gap-2">
                           <button
                             onClick={() => copyPrompt(image)}
+                            data-analytics-action="result_copied"
                             className="inline-flex cursor-pointer items-center gap-1.5 rounded-md border border-slate-200 px-2.5 py-1.5 text-xs font-semibold text-slate-600 transition-colors duration-200 hover:border-cyan-300 hover:text-cyan-700 dark:border-slate-700 dark:text-slate-300"
                           >
                             {copiedPrompt === (image.variant || 0) ? <Check className="h-3.5 w-3.5 text-emerald-500" /> : <Copy className="h-3.5 w-3.5" />}
@@ -398,6 +400,7 @@ export default function ProductImageGenerator() {
                           </button>
                           <button
                             onClick={() => downloadImage(image.imageUrl, index)}
+                            data-analytics-action="result_downloaded"
                             className="inline-flex cursor-pointer items-center gap-1.5 rounded-md bg-emerald-600 px-2.5 py-1.5 text-xs font-semibold text-white transition-colors duration-200 hover:bg-emerald-700"
                           >
                             <Download className="h-3.5 w-3.5" />

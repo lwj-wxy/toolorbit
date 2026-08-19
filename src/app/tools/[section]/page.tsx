@@ -1,4 +1,4 @@
-import { notFound, redirect } from 'next/navigation';
+import { permanentRedirect, redirect } from 'next/navigation';
 import AllToolsPage from '../../../views/AllToolsPage';
 import { getToolSectionCategory, toolSectionStaticParams } from '../../../lib/tool-section-paths';
 
@@ -6,7 +6,7 @@ export function generateStaticParams() {
   return toolSectionStaticParams();
 }
 
-export const dynamicParams = false;
+export const dynamicParams = true;
 
 export default async function Page({ params }: { params: Promise<{ section: string }> }) {
   const { section } = await params;
@@ -16,7 +16,7 @@ export default async function Page({ params }: { params: Promise<{ section: stri
   }
 
   if (section !== 'ai' && section !== 'ecommerce') {
-    notFound();
+    permanentRedirect('/');
   }
 
   return <AllToolsPage category={getToolSectionCategory(section)} />;

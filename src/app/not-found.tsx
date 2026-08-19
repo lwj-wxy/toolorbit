@@ -1,8 +1,10 @@
 import Link from 'next/link';
+import NotFoundTracker from '../components/NotFoundTracker';
 
 export default function NotFound() {
   return (
     <div className="mx-auto flex min-h-[60vh] max-w-2xl flex-col items-center justify-center px-6 py-16 text-center">
+      <NotFoundTracker />
       <p className="text-sm font-bold uppercase tracking-wider text-blue-600">404</p>
       <h1 className="mt-3 text-4xl font-black tracking-tight text-slate-950 dark:text-white">
         Page not found

@@ -420,6 +420,7 @@ export default function ProductAssetChecker() {
 
           <button
             onClick={analyzeAssets}
+            data-analytics-action="analysis_requested"
             disabled={!canAnalyze}
             className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-emerald-600 px-4 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-emerald-700 disabled:cursor-not-allowed disabled:bg-slate-300 dark:disabled:bg-slate-800"
           >
@@ -468,6 +469,7 @@ export default function ProductAssetChecker() {
                     </span>
                     <button
                       onClick={copyResult}
+                      data-analytics-action="result_copied"
                       className="inline-flex cursor-pointer items-center gap-1.5 rounded-md border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-600 transition-colors duration-200 hover:border-emerald-300 hover:text-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:focus:ring-offset-slate-900"
                     >
                       {copied ? <Check className="h-3.5 w-3.5 text-emerald-500" /> : <Copy className="h-3.5 w-3.5" />}

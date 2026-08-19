@@ -431,6 +431,7 @@ const AiRuntimeTool = ({ config }: { config: AiRuntimeToolConfig }) => {
           <div className="flex justify-end">
             <button
               onClick={() => copyToClipboard(allSectionText, 'all')}
+              data-analytics-action="result_copied"
               className="inline-flex items-center gap-1.5 rounded-md border border-[var(--app-border)] bg-[var(--app-surface)] px-3 py-1.5 text-xs font-semibold text-[var(--app-muted)] transition-colors hover:border-[var(--app-accent)] hover:text-[var(--app-accent-ink)]"
             >
               {copiedField === 'all' ? <Check size={14} className="text-emerald-500" /> : <Copy size={14} />}
@@ -459,6 +460,7 @@ const AiRuntimeTool = ({ config }: { config: AiRuntimeToolConfig }) => {
               )}
               <button
                 onClick={() => copyToClipboard(content, section.key)}
+                data-analytics-action="result_copied"
                 className="absolute right-3 top-3 rounded-md border border-[var(--app-border)] bg-[var(--app-surface)] p-2 text-[var(--app-muted)] opacity-0 shadow-[var(--app-shadow-sm)] transition-all hover:border-[var(--app-accent)] hover:text-[var(--app-accent-ink)] group-hover:opacity-100"
                 aria-label={`Copy ${section.key}`}
               >
@@ -490,6 +492,7 @@ const AiRuntimeTool = ({ config }: { config: AiRuntimeToolConfig }) => {
         <div className="flex justify-end">
           <button
             onClick={() => copyToClipboard(result, 'keyword-all')}
+            data-analytics-action="result_copied"
             className="inline-flex items-center gap-1.5 rounded-md border border-[var(--app-border)] bg-[var(--app-surface)] px-3 py-1.5 text-xs font-semibold text-[var(--app-muted)] transition-colors hover:border-[var(--app-accent)] hover:text-[var(--app-accent-ink)]"
           >
             {copiedField === 'keyword-all' ? <Check size={14} className="text-emerald-500" /> : <Copy size={14} />}
@@ -532,7 +535,7 @@ const AiRuntimeTool = ({ config }: { config: AiRuntimeToolConfig }) => {
                       <p className="text-sm font-bold text-slate-800 dark:text-slate-100">{keyword.term}</p>
                       <p className="text-xs text-slate-400">{keyword.volume} | Score: {keyword.score}</p>
                     </div>
-                    <button onClick={() => copyToClipboard(keyword.term, copyKey)} className="p-1.5 text-slate-400 hover:text-cyan-600" aria-label="Copy keyword">
+                    <button onClick={() => copyToClipboard(keyword.term, copyKey)} data-analytics-action="result_copied" className="p-1.5 text-slate-400 hover:text-cyan-600" aria-label="Copy keyword">
                       {copiedField === copyKey ? <Check size={14} className="text-emerald-500" /> : <Copy size={14} />}
                     </button>
                   </div>
@@ -567,6 +570,7 @@ const AiRuntimeTool = ({ config }: { config: AiRuntimeToolConfig }) => {
           </div>
           <button
             onClick={requestGeneration}
+            data-analytics-action="generation_requested"
             disabled={loading || !canSubmit}
             className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-[var(--app-accent)] text-sm font-semibold text-white shadow-[var(--app-shadow-md)] transition-colors duration-200 hover:bg-[var(--app-accent-strong)] disabled:cursor-not-allowed disabled:opacity-50 disabled:shadow-none sm:w-auto sm:px-8"
           >

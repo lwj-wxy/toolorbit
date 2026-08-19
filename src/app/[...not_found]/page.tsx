@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation';
+import { permanentRedirect } from 'next/navigation';
 import type { Metadata } from 'next';
 
 type PageProps = {
@@ -12,5 +12,5 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function CatchAllNotFound({ params }: PageProps) {
   await params;
-  notFound();
+  permanentRedirect('/');
 }

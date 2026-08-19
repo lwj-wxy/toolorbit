@@ -296,6 +296,7 @@ Break-Even Item Price: $${breakEvenItemPrice.toFixed(2)}`;
               setCopied(true);
               setTimeout(() => setCopied(false), 2000);
             }}
+            data-analytics-action="result_copied"
             className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-[var(--app-text)] py-3 text-sm font-bold text-[var(--app-bg)] shadow-sm transition hover:opacity-90"
           >
             {copied ? <Check className="h-4 w-4 text-emerald-400" /> : <Copy className="h-4 w-4" />}

@@ -142,6 +142,7 @@ const EtsyTagGenerator = ({ hideHeader = false }: EtsyTagGeneratorProps) => {
             <button
               type="button"
               onClick={handleGenerateTags}
+              data-analytics-action="generation_requested"
               className="inline-flex items-center gap-2 rounded-md bg-[var(--app-text)] px-5 py-2.5 text-sm font-bold text-[var(--app-bg)] transition hover:opacity-90"
             >
               <RefreshCw className="h-4 w-4" />
@@ -232,6 +233,7 @@ const EtsyTagGenerator = ({ hideHeader = false }: EtsyTagGeneratorProps) => {
             <button
               type="button"
               onClick={handleCopyAll}
+              data-analytics-action="result_copied"
               className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-[var(--app-text)] py-3 text-sm font-bold text-[var(--app-bg)] transition hover:opacity-90"
             >
               {copied ? <Check className="h-4 w-4 text-emerald-400" /> : <Copy className="h-4 w-4" />}

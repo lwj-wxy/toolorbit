@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import fs from 'fs/promises';
-import { notFound } from 'next/navigation';
+import { permanentRedirect } from 'next/navigation';
 import path from 'path';
 import { BLOG_POSTS } from '../../../constants/blogData';
 import { blogPostMetadata } from '../../../lib/metadata';
@@ -12,7 +12,7 @@ export function generateStaticParams() {
   return BLOG_POSTS.map((post) => ({ slug: post.slug }));
 }
 
-export const dynamicParams = false;
+export const dynamicParams = true;
 export const revalidate = 86400;
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
@@ -35,7 +35,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   const post = BLOG_POSTS.find((item) => item.slug === slug);
 
   if (!post) {
-    notFound();
+    permanentRedirect('/');
   }
 
   const initialMarkdown = await readInitialMarkdown(slug);

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { notFound, redirect } from 'next/navigation';
+import { permanentRedirect, redirect } from 'next/navigation';
 import JsonLd from '../../../../components/JsonLd';
 import { getTotalBlogPages, normalizeBlogPage } from '../../../../lib/blog-pagination';
 import { blogListMetadata } from '../../../../lib/metadata';
@@ -10,7 +10,7 @@ type PageProps = {
   params: Promise<{ page: string }>;
 };
 
-export const dynamicParams = false;
+export const dynamicParams = true;
 export const revalidate = 3600;
 
 export function generateStaticParams() {
@@ -37,7 +37,7 @@ export default async function Page({ params }: PageProps) {
   }
 
   if (!page || page > getTotalBlogPages()) {
-    notFound();
+    permanentRedirect('/');
   }
 
   return (
