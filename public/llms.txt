@@ -5,6 +5,7 @@ ToolOrbit is a browser-first collection of AI-assisted tools, browser utilities,
 ## Site
 
 - Canonical site: https://toolorbit.site/
+- Full reference: https://toolorbit.site/llms-full.txt
 - Sitemap: https://toolorbit.site/sitemap.xml
 - Robots: https://toolorbit.site/robots.txt
 - Blog: https://toolorbit.site/blog
